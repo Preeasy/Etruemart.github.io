@@ -1,0 +1,408 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  passwordHash String?
+  name         String?
+  phone        String?
+  role         Role     @default(USER)
+  referralCode String   @unique
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  addresses      Address[]
+  orders         Order[]
+  cartItems      CartItem[]
+  commissions    Commission[]
+  withdrawals    Withdrawal[]
+  affiliateLinks AffiliateLink[]
+  shops          Shop[]
+  reviews        Review[]
+  reviewHelpfuls ReviewHelpful[]
+
+  @@index([email])
+  @@index([referralCode])
+}
+
+enum Role {
+  USER
+  MERCHANT
+  ADMIN
+}
+
+model Shop {
+  id          String     @id @default(cuid())
+  name        String
+  slug        String     @unique
+  description String     @db.Text
+  logo        String?
+  coverImage  String?
+  ownerId     String
+  owner       User       @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+  status      ShopStatus @default(ACTIVE)
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+
+  products Product[]
+
+  @@index([slug])
+  @@index([ownerId])
+}
+
+enum ShopStatus {
+  ACTIVE
+  INACTIVE
+  SUSPENDED
+}
+
+model Address {
+  id           String   @id @default(cuid())
+  userId       String
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  country      String
+  state        String
+  city         String
+  addressLine1 String
+  addressLine2 String?
+  postalCode   String
+  phone        String
+  isDefault    Boolean  @default(false)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@index([userId])
+}
+
+model Product {
+  id          String        @id @default(cuid())
+  name        String
+  slug        String        @unique
+  sku         String        @unique
+  category    String
+  description String        @db.Text
+  material    String?
+  moq         Int           @default(1)
+  priceMin    Decimal       @db.Decimal(10, 2)
+  priceMax    Decimal       @db.Decimal(10, 2)
+  mainImage   String
+  status      ProductStatus @default(ACTIVE)
+  shopId      String
+  shop        Shop          @relation(fields: [shopId], references: [id], onDelete: Cascade)
+  salesCount  Int           @default(0)
+  rating      Decimal       @default(0) @db.Decimal(3, 2)
+  reviewCount Int           @default(0)
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+
+  variations ProductVariation[]
+  cartItems  CartItem[]
+  orderItems OrderItem[]
+  reviews    Review[]
+  aplus      AplusContent[]
+
+  @@index([category])
+  @@index([status])
+  @@index([slug])
+  @@index([shopId])
+}
+
+enum ProductStatus {
+  ACTIVE
+  DRAFT
+  ARCHIVED
+}
+
+model ProductVariation {
+  id        String  @id @default(cuid())
+  productId String
+  product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+  color     String
+  size      String
+  price     Decimal @db.Decimal(10, 2)
+  stock     Int     @default(0)
+  image     String?
+  skuSuffix String
+
+  cartItems  CartItem[]
+  orderItems OrderItem[]
+
+  @@unique([productId, color, size])
+  @@index([productId])
+}
+
+model AplusContent {
+  id        String    @id @default(cuid())
+  productId String
+  product   Product   @relation(fields: [productId], references: [id], onDelete: Cascade)
+  type      AplusType
+  heading   String
+  text      String    @db.Text
+  image     String?
+  sortOrder Int       @default(0)
+  createdAt DateTime  @default(now())
+
+  @@index([productId])
+}
+
+enum AplusType {
+  TEXT
+  IMAGE
+  TEXT_IMAGE
+  IMAGE_TEXT
+  GALLERY
+  SIZE_CHART
+  VIDEO
+}
+
+model Review {
+  id           String       @id @default(cuid())
+  userId       String
+  user         User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  productId    String
+  product      Product      @relation(fields: [productId], references: [id], onDelete: Cascade)
+  orderItemId  String
+  orderItem    OrderItem    @relation(fields: [orderItemId], references: [id], onDelete: Cascade)
+  rating       Int          @default(5)
+  title        String
+  content      String       @db.Text
+  images       String[]
+  helpfulCount Int          @default(0)
+  status       ReviewStatus @default(PUBLISHED)
+  createdAt    DateTime     @default(now())
+  updatedAt    DateTime     @updatedAt
+
+  helpfulUsers ReviewHelpful[]
+
+  @@unique([userId, orderItemId])
+  @@index([productId])
+  @@index([userId])
+}
+
+enum ReviewStatus {
+  PENDING
+  PUBLISHED
+  HIDDEN
+}
+
+model ReviewHelpful {
+  id        String   @id @default(cuid())
+  reviewId  String
+  review    Review   @relation(fields: [reviewId], references: [id], onDelete: Cascade)
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+
+  @@unique([reviewId, userId])
+  @@index([reviewId])
+}
+
+model CartItem {
+  id          String           @id @default(cuid())
+  userId      String
+  user        User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+  productId   String
+  product     Product          @relation(fields: [productId], references: [id], onDelete: Cascade)
+  variationId String
+  variation   ProductVariation @relation(fields: [variationId], references: [id], onDelete: Cascade)
+  quantity    Int
+  createdAt   DateTime         @default(now())
+  updatedAt   DateTime         @updatedAt
+
+  @@unique([userId, variationId])
+  @@index([userId])
+}
+
+model Order {
+  id              String      @id @default(cuid())
+  orderNumber     String      @unique
+  userId          String
+  user            User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  status          OrderStatus @default(PENDING)
+  subtotal        Decimal     @db.Decimal(10, 2)
+  shippingFee     Decimal     @db.Decimal(10, 2)
+  tax             Decimal     @db.Decimal(10, 2)
+  discount        Decimal     @default(0) @db.Decimal(10, 2)
+  total           Decimal     @db.Decimal(10, 2)
+  shippingAddress Json
+  shippingMethod  String
+  trackingNumber  String?
+  referrerId      String?
+  createdAt       DateTime    @default(now())
+  updatedAt       DateTime    @updatedAt
+
+  items    OrderItem[]
+  payment  Payment?
+  tracking TrackingRecord[]
+
+  @@index([userId])
+  @@index([status])
+  @@index([orderNumber])
+}
+
+enum OrderStatus {
+  PENDING
+  PAID
+  SHIPPED
+  DELIVERED
+  COMPLETED
+  CANCELLED
+}
+
+model OrderItem {
+  id          String           @id @default(cuid())
+  orderId     String
+  order       Order            @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  productId   String
+  product     Product          @relation(fields: [productId], references: [id])
+  variationId String
+  variation   ProductVariation @relation(fields: [variationId], references: [id])
+  quantity    Int
+  price       Decimal          @db.Decimal(10, 2)
+  total       Decimal          @db.Decimal(10, 2)
+  reviews     Review[]
+
+  @@index([orderId])
+}
+
+model Payment {
+  id            String        @id @default(cuid())
+  orderId       String        @unique
+  order         Order         @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  paymentMethod PaymentMethod
+  amount        Decimal       @db.Decimal(10, 2)
+  status        PaymentStatus @default(PENDING)
+  transactionId String?
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+
+  @@index([orderId])
+}
+
+enum PaymentMethod {
+  STRIPE
+  PAYPAL
+  ALIPAY
+  WECHAT
+}
+
+enum PaymentStatus {
+  PENDING
+  SUCCEEDED
+  FAILED
+  REFUNDED
+}
+
+model ShippingProvider {
+  id                  String  @id @default(cuid())
+  name                String
+  code                String  @unique
+  apiEndpoint         String?
+  apiKey              String?
+  trackingUrlTemplate String
+  isActive            Boolean @default(true)
+
+  trackingRecords TrackingRecord[]
+}
+
+model TrackingRecord {
+  id             String           @id @default(cuid())
+  orderId        String
+  order          Order            @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  providerId     String
+  provider       ShippingProvider @relation(fields: [providerId], references: [id])
+  trackingNumber String
+  status         String
+  location       String?
+  timestamp      DateTime
+  description    String           @db.Text
+
+  @@index([orderId])
+  @@index([trackingNumber])
+}
+
+model AffiliateLink {
+  id          String   @id @default(cuid())
+  referrerId  String
+  referrer    User     @relation(fields: [referrerId], references: [id], onDelete: Cascade)
+  productId   String?
+  shortCode   String   @unique
+  originalUrl String
+  clicks      Int      @default(0)
+  createdAt   DateTime @default(now())
+
+  referralClicks ReferralClick[]
+
+  @@index([referrerId])
+  @@index([shortCode])
+}
+
+model ReferralClick {
+  id         String        @id @default(cuid())
+  linkId     String
+  link       AffiliateLink @relation(fields: [linkId], references: [id], onDelete: Cascade)
+  visitorId  String
+  source     String?
+  clickedAt  DateTime      @default(now())
+  registered Boolean       @default(false)
+  purchased  Boolean       @default(false)
+
+  @@index([linkId])
+  @@index([visitorId])
+}
+
+model Commission {
+  id          String           @id @default(cuid())
+  referrerId  String
+  referrer    User             @relation(fields: [referrerId], references: [id], onDelete: Cascade)
+  orderId     String           @unique
+  amount      Decimal          @db.Decimal(10, 2)
+  status      CommissionStatus @default(PENDING)
+  availableAt DateTime?
+  createdAt   DateTime         @default(now())
+  updatedAt   DateTime         @updatedAt
+
+  @@index([referrerId])
+  @@index([status])
+}
+
+enum CommissionStatus {
+  PENDING
+  AVAILABLE
+  WITHDRAWN
+}
+
+model Withdrawal {
+  id          String           @id @default(cuid())
+  userId      String
+  user        User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+  amount      Decimal          @db.Decimal(10, 2)
+  method      WithdrawalMethod
+  accountInfo Json
+  status      WithdrawalStatus @default(PENDING)
+  createdAt   DateTime         @default(now())
+  processedAt DateTime?
+
+  @@index([userId])
+  @@index([status])
+}
+
+enum WithdrawalMethod {
+  PAYPAL
+  BANK
+  ALIPAY
+}
+
+enum WithdrawalStatus {
+  PENDING
+  APPROVED
+  COMPLETED
+  REJECTED
+}
