@@ -1,9 +1,18 @@
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 import { Star, ShoppingCart, Heart, Eye } from 'lucide-react';
-import type { Product } from '../data/products';
 
 interface ProductCardProps {
-  product: Product;
+  product: {
+    id: string;
+    name: string;
+    category: string;
+    price: number;
+    originalPrice?: number;
+    image: string;
+    rating: number;
+    reviewCount: number;
+    salesCount: number;
+  };
 }
 
 const ProductCard = ({ product }: ProductCardProps) => {
@@ -14,7 +23,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
   return (
     <div className="bg-white rounded-xl shadow-md overflow-hidden card-hover group">
       <div className="relative">
-        <Link to={`/products/${product.id}`}>
+        <Link href={`/products/${product.id}`}>
           <img
             src={product.image}
             alt={product.name}
@@ -38,7 +47,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
 
       <div className="p-5">
         <span className="text-xs text-primary-600 font-medium">{product.category}</span>
-        <Link to={`/products/${product.id}`} className="block mt-1">
+        <Link href={`/products/${product.id}`} className="block mt-1">
           <h3 className="font-semibold text-gray-900 line-clamp-2 hover:text-primary-600 transition-colors min-h-[3rem]">
             {product.name}
           </h3>
@@ -53,11 +62,11 @@ const ProductCard = ({ product }: ProductCardProps) => {
               />
             ))}
           </div>
-          <span className="text-sm text-gray-500">({product.reviewCount.toLocaleString()})</span>
+          <span className="text-sm text-gray-500">({product.reviewCount})</span>
         </div>
 
         <div className="mt-2 text-sm text-gray-500">
-          <span className="font-medium text-gray-900">{product.salesCount.toLocaleString()}</span> sold
+          <span className="font-medium text-gray-900">{product.salesCount}</span> sold
         </div>
 
         <div className="flex items-center justify-between mt-4">

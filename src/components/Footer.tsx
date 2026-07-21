@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 import { Package, Facebook, Twitter, Instagram, Youtube, Mail, Phone, MapPin } from 'lucide-react';
 
 const Footer = () => {
@@ -7,7 +7,7 @@ const Footer = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           <div>
-            <Link to="/" className="flex items-center gap-2 mb-4">
+            <Link href="/" className="flex items-center gap-2 mb-4">
               <Package className="w-8 h-8 text-accent-400" />
               <span className="text-xl font-bold">eTruemart</span>
             </Link>
@@ -33,10 +33,10 @@ const Footer = () => {
           <div>
             <h3 className="font-semibold text-lg mb-4">Quick Links</h3>
             <ul className="space-y-2 text-gray-300">
-              <li><Link to="/products" className="hover:text-accent-400 transition-colors">All Products</Link></li>
-              <li><Link to="/products" className="hover:text-accent-400 transition-colors">New Arrivals</Link></li>
-              <li><Link to="/products" className="hover:text-accent-400 transition-colors">Best Sellers</Link></li>
-              <li><Link to="/products" className="hover:text-accent-400 transition-colors">Deals & Offers</Link></li>
+              <li><Link href="/products" className="hover:text-accent-400 transition-colors">All Products</Link></li>
+              <li><Link href="/sell" className="hover:text-accent-400 transition-colors">Sell on eTruemart</Link></li>
+              <li><Link href="/products" className="hover:text-accent-400 transition-colors">New Arrivals</Link></li>
+              <li><Link href="/products" className="hover:text-accent-400 transition-colors">Best Sellers</Link></li>
             </ul>
           </div>
 
@@ -47,7 +47,6 @@ const Footer = () => {
               <li><a href="#" className="hover:text-accent-400 transition-colors">Shipping Info</a></li>
               <li><a href="#" className="hover:text-accent-400 transition-colors">Returns & Refunds</a></li>
               <li><a href="#" className="hover:text-accent-400 transition-colors">Track Order</a></li>
-              <li><a href="#" className="hover:text-accent-400 transition-colors">Affiliate Program</a></li>
             </ul>
           </div>
 
@@ -72,9 +71,7 @@ const Footer = () => {
 
         <div className="border-t border-primary-700 mt-10 pt-8">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-            <p className="text-gray-400 text-sm">
-              © 2026 eTruemart. All rights reserved.
-            </p>
+            <p className="text-gray-400 text-sm">© 2026 eTruemart. All rights reserved.</p>
             <div className="flex gap-6 text-sm text-gray-400">
               <a href="#" className="hover:text-accent-400 transition-colors">Privacy Policy</a>
               <a href="#" className="hover:text-accent-400 transition-colors">Terms of Service</a>
