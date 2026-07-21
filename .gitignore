@@ -9,3 +9,4 @@ prisma/*.db-journal
 .vscode
 .idea
 .DS_Store
+vercel
