@@ -1,18 +1,5 @@
-import { PrismaClient } from '@prisma/client';
-import { PrismaPg } from '@prisma/adapter-pg';
-import { Pool } from 'pg';
-
-const connectionString = process.env.DATABASE_URL;
-const pool = new Pool({ connectionString });
-const adapter = new PrismaPg(pool);
-const prisma = new PrismaClient({ adapter });
-
-function generateSlug(name: string): string {
-  return name
-    .toLowerCase()
-    .replace(/[^a-z0-9]+/g, '-')
-    .replace(/^-|-$/g, '') + '-' + Math.random().toString(36).substring(2, 9);
-}
+import { prisma } from '../src/lib/prisma';
+import { generateSlug } from '../src/lib/utils';
 
 async function seed() {
   console.log('Seeding database...');
@@ -271,6 +258,4 @@ async function seed() {
 seed().catch((e) => {
   console.error(e);
   process.exit(1);
-}).finally(async () => {
-  await prisma.$disconnect();
 });
