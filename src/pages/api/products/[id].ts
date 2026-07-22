@@ -33,23 +33,30 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
   if (req.method === 'PUT') {
     const product = await prisma.product.findUnique({ where: { id: id as string } });
-    if (!product || product.authorId !== session.user.id) {
+    if (!product || (product.authorId !== session.user.id && session.user.role !== 'ADMIN')) {
       return res.status(403).json({ error: 'Forbidden' });
     }
 
-    const { name, description, price, originalPrice, image, images, category, stock } = req.body;
+    const { name, description, price, originalPrice, image, images, category, stock, isPublished, shippingCost, shippingMethod, sku, material, moq } = req.body;
+    const data: any = {};
+    if (name !== undefined) data.name = name;
+    if (description !== undefined) data.description = description;
+    if (price !== undefined) data.price = parseFloat(price);
+    if (originalPrice !== undefined) data.originalPrice = originalPrice ? parseFloat(originalPrice) : null;
+    if (image !== undefined) data.image = image;
+    if (images !== undefined) data.images = images;
+    if (category !== undefined) data.category = category;
+    if (stock !== undefined) data.stock = parseInt(stock);
+    if (isPublished !== undefined) data.isPublished = isPublished;
+    if (shippingCost !== undefined) data.shippingCost = parseFloat(shippingCost);
+    if (shippingMethod !== undefined) data.shippingMethod = shippingMethod;
+    if (sku !== undefined) data.sku = sku;
+    if (material !== undefined) data.material = material;
+    if (moq !== undefined) data.moq = parseInt(moq);
+
     const updatedProduct = await prisma.product.update({
       where: { id: id as string },
-      data: {
-        name,
-        description,
-        price: parseFloat(price),
-        originalPrice: originalPrice ? parseFloat(originalPrice) : undefined,
-        image,
-        images: images || [],
-        category,
-        stock: parseInt(stock),
-      },
+      data,
     });
 
     return res.json(updatedProduct);
@@ -57,7 +64,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
   if (req.method === 'DELETE') {
     const product = await prisma.product.findUnique({ where: { id: id as string } });
-    if (!product || product.authorId !== session.user.id) {
+    if (!product || (product.authorId !== session.user.id && session.user.role !== 'ADMIN')) {
       return res.status(403).json({ error: 'Forbidden' });
     }
 

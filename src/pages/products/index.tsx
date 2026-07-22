@@ -24,13 +24,17 @@ const Products = () => {
   const [showSidebar, setShowSidebar] = useState(false);
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
 
+  const [categories, setCategories] = useState<string[]>(['All']);
+
   useEffect(() => {
     fetch('/api/products')
       .then(res => res.json())
-      .then(data => setProducts(data));
+      .then(data => {
+        setProducts(data);
+        const cats = ['All', ...Array.from(new Set<string>(data.map((p: Product) => p.category)))];
+        setCategories(cats);
+      });
   }, []);
-
-  const categories = ['All', 'Electronics', 'Apparel', 'Accessories', 'Home & Kitchen', 'Sports & Outdoors'];
 
   const filteredProducts = products.filter((product) => {
     const matchesSearch = product.name.toLowerCase().includes(searchQuery.toLowerCase()) ||

@@ -86,14 +86,15 @@ const Sell = () => {
                     required
                   >
                     <option value="">Select category</option>
-                    <option value="Electronics">Electronics</option>
+                    <option value="Kitchenware">Kitchenware</option>
+                    <option value="Toys">Toys</option>
                     <option value="Apparel">Apparel</option>
-                    <option value="Accessories">Accessories</option>
-                    <option value="Home & Kitchen">Home & Kitchen</option>
-                    <option value="Sports & Outdoors">Sports & Outdoors</option>
-                    <option value="Toys & Games">Toys & Games</option>
-                    <option value="Beauty">Beauty</option>
+                    <option value="Hand Bag">Hand Bag</option>
+                    <option value="Electronics">Electronics</option>
+                    <option value="Home">Home</option>
                     <option value="Garden">Garden</option>
+                    <option value="Material">Material</option>
+                    <option value="Storage">Storage</option>
                   </select>
                 </div>
               </div>
