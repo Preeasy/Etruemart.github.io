@@ -7,18 +7,22 @@
     scroll-behavior: smooth;
   }
   body {
-    @apply antialiased text-gray-900 bg-gray-50;
+    @apply antialiased text-dark-50 bg-dark-900;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
   }
 }
 
 @layer components {
   .btn-primary {
-    @apply inline-flex items-center justify-center px-6 py-3 bg-accent-500 text-white font-semibold rounded-lg hover:bg-accent-600 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl;
+    @apply inline-flex items-center justify-center px-6 py-3 bg-accent-500 text-dark-900 font-bold rounded-lg hover:bg-accent-400 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-accent-500/30;
   }
   .btn-secondary {
-    @apply inline-flex items-center justify-center px-6 py-3 border-2 border-primary-600 text-primary-600 font-semibold rounded-lg hover:bg-primary-600 hover:text-white transition-all duration-300;
+    @apply inline-flex items-center justify-center px-6 py-3 border-2 border-accent-500 text-accent-500 font-bold rounded-lg hover:bg-accent-500 hover:text-dark-900 transition-all duration-300;
   }
   .card-hover {
-    @apply transition-all duration-300 hover:shadow-xl hover:-translate-y-1;
+    @apply transition-all duration-300 hover:shadow-2xl hover:-translate-y-1;
+  }
+  .glass-card {
+    @apply bg-dark-800/80 backdrop-blur-sm border border-dark-500/30 rounded-xl;
   }
 }

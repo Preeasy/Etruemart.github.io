@@ -12,17 +12,17 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const siteDataPath = path.join(process.cwd(), 'site-data.json');
     const siteData = JSON.parse(fs.readFileSync(siteDataPath, 'utf-8'));
 
-    const adminEmail = 'admin@etruemart.com';
-    const admin = await prisma.user.upsert({
-      where: { email: adminEmail },
-      update: {},
-      create: {
-        email: adminEmail,
-        passwordHash: '$2b$10$N9qo8uLOickgx2ZMRZoMye.IjzqAKL9xL5jvMFVdNJHvGCgTq/VEq',
-        name: 'eTruemart Admin',
-        role: 'ADMIN',
-      },
-    });
+    const adminEmail = 'Yeatrusourcing';
+  const admin = await prisma.user.upsert({
+    where: { email: adminEmail },
+    update: {},
+    create: {
+      email: adminEmail,
+      passwordHash: '$2a$10$Rctbz.9F8blZNq8Yu8SzqunWgUt2Q495fRW6UTks7.VcfScHXIpnS',
+      name: 'Yeatrusourcing',
+      role: 'ADMIN',
+    },
+  });
 
     const categories = siteData.categories || [];
     for (const catName of categories) {

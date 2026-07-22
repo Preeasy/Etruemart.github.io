@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Search, Filter, Star, ChevronDown, Grid, List } from 'lucide-react';
+import { Search, Filter, ChevronDown } from 'lucide-react';
 import ProductCard from '@/components/ProductCard';
 import Layout from '@/components/Layout';
 
@@ -22,8 +22,6 @@ const Products = () => {
   const [selectedCategory, setSelectedCategory] = useState('All');
   const [sortBy, setSortBy] = useState('featured');
   const [showSidebar, setShowSidebar] = useState(false);
-  const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
-
   const [categories, setCategories] = useState<string[]>(['All']);
 
   useEffect(() => {
@@ -54,16 +52,16 @@ const Products = () => {
 
   return (
     <Layout>
-      <div className="bg-white border-b">
+      <div className="bg-dark-800 border-b border-dark-500/30">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-          <h1 className="text-3xl font-bold text-gray-900">All Products</h1>
-          <p className="text-gray-500 mt-1">Discover our wide selection of premium products</p>
+          <h1 className="text-3xl font-bold text-dark-50">All Products</h1>
+          <p className="text-dark-300 mt-1">Discover our wide selection of premium products</p>
         </div>
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="lg:hidden mb-4 flex gap-3">
-          <button onClick={() => setShowSidebar(!showSidebar)} className="flex items-center gap-2 px-4 py-2 bg-white border rounded-lg shadow-sm">
+          <button onClick={() => setShowSidebar(!showSidebar)} className="flex items-center gap-2 px-4 py-2 bg-dark-800 border border-dark-500/30 rounded-lg shadow-sm text-dark-50">
             <Filter className="w-5 h-5" />
             Filters
           </button>
@@ -71,9 +69,9 @@ const Products = () => {
 
         <div className="flex gap-8">
           <aside className={`${showSidebar ? 'fixed inset-0 bg-black/50 z-40 lg:relative lg:bg-transparent' : 'hidden'} lg:block lg:w-64 flex-shrink-0`}>
-            <div className={`${showSidebar ? 'absolute left-0 top-0 h-full w-72 bg-white p-6 overflow-y-auto' : ''} lg:relative lg:p-0`}>
+            <div className={`${showSidebar ? 'absolute left-0 top-0 h-full w-72 bg-dark-800 p-6 overflow-y-auto border-r border-dark-500/30' : ''} lg:relative lg:p-0`}>
               <div className="lg:sticky lg:top-24">
-                <h2 className="text-lg font-semibold text-gray-900 mb-6 hidden lg:block">Filters</h2>
+                <h2 className="text-lg font-semibold text-dark-50 mb-6 hidden lg:block">Filters</h2>
                 
                 <div className="mb-6">
                   <div className="relative">
@@ -82,20 +80,20 @@ const Products = () => {
                       placeholder="Search products..."
                       value={searchQuery}
                       onChange={(e) => setSearchQuery(e.target.value)}
-                      className="w-full px-4 py-2.5 pl-10 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                      className="w-full px-4 py-2.5 pl-10 bg-dark-700 border border-dark-500/30 rounded-lg text-dark-50 placeholder-dark-400 focus:outline-none focus:ring-2 focus:ring-accent-500/50"
                     />
-                    <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+                    <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-dark-400" />
                   </div>
                 </div>
 
                 <div className="mb-6">
-                  <h3 className="font-semibold text-gray-900 mb-3">Categories</h3>
+                  <h3 className="font-semibold text-dark-50 mb-3">Categories</h3>
                   <div className="space-y-2">
                     {categories.map((cat) => (
                       <button
                         key={cat}
                         onClick={() => setSelectedCategory(cat)}
-                        className={`w-full text-left px-3 py-2 rounded-lg transition-colors ${selectedCategory === cat ? 'bg-primary-100 text-primary-700 font-medium' : 'hover:bg-gray-100 text-gray-700'}`}
+                        className={`w-full text-left px-3 py-2 rounded-lg transition-colors ${selectedCategory === cat ? 'bg-primary-800/50 text-accent-500 font-medium border border-primary-700/30' : 'hover:bg-dark-700 text-dark-200'}`}
                       >
                         {cat}
                       </button>
@@ -104,7 +102,7 @@ const Products = () => {
                 </div>
 
                 {showSidebar && (
-                  <button onClick={() => setShowSidebar(false)} className="lg:hidden w-full mt-4 py-2 text-gray-500 hover:text-gray-700">
+                  <button onClick={() => setShowSidebar(false)} className="lg:hidden w-full mt-4 py-2 text-dark-400 hover:text-dark-200">
                     Close
                   </button>
                 )}
@@ -113,10 +111,10 @@ const Products = () => {
           </aside>
 
           <div className="flex-1">
-            <div className="bg-white rounded-xl shadow-sm p-4 mb-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div className="bg-dark-800 rounded-xl shadow-lg p-4 mb-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4 border border-dark-500/20">
               <div>
-                <p className="text-gray-600">
-                  <span className="font-semibold text-gray-900">{sortedProducts.length}</span> results
+                <p className="text-dark-300">
+                  <span className="font-semibold text-dark-50">{sortedProducts.length}</span> results
                 </p>
               </div>
               <div className="flex items-center gap-4">
@@ -124,14 +122,14 @@ const Products = () => {
                   <select
                     value={sortBy}
                     onChange={(e) => setSortBy(e.target.value)}
-                    className="appearance-none bg-gray-50 border border-gray-200 px-4 py-2 pr-10 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary-500"
+                    className="appearance-none bg-dark-700 border border-dark-500/30 px-4 py-2 pr-10 rounded-lg text-sm text-dark-50 focus:outline-none focus:ring-2 focus:ring-accent-500/50"
                   >
                     <option value="featured">Featured</option>
                     <option value="price-low">Price: Low to High</option>
                     <option value="price-high">Price: High to Low</option>
                     <option value="rating">Customer Rating</option>
                   </select>
-                  <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500 pointer-events-none" />
+                  <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-dark-400 pointer-events-none" />
                 </div>
               </div>
             </div>
@@ -143,10 +141,10 @@ const Products = () => {
                 ))}
               </div>
             ) : (
-              <div className="text-center py-16 bg-white rounded-xl">
-                <Search className="w-16 h-16 text-gray-300 mx-auto mb-4" />
-                <h3 className="text-xl font-semibold text-gray-900 mb-2">No products found</h3>
-                <p className="text-gray-500 mb-6">Try adjusting your filters or search terms.</p>
+              <div className="text-center py-16 bg-dark-800 rounded-xl border border-dark-500/20">
+                <Search className="w-16 h-16 text-dark-500 mx-auto mb-4" />
+                <h3 className="text-xl font-semibold text-dark-50 mb-2">No products found</h3>
+                <p className="text-dark-400 mb-6">Try adjusting your filters or search terms.</p>
                 <button onClick={() => { setSearchQuery(''); setSelectedCategory('All'); }} className="btn-primary">
                   Clear All Filters
                 </button>

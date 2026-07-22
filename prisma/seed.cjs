@@ -11,14 +11,14 @@ async function main() {
   console.log('Starting seed...');
 
   // 1. Create or find admin user
-  const adminEmail = 'admin@etruemart.com';
+  const adminEmail = 'Yeatrusourcing';
   const admin = await prisma.user.upsert({
     where: { email: adminEmail },
     update: {},
     create: {
       email: adminEmail,
-      passwordHash: '$2b$10$N9qo8uLOickgx2ZMRZoMye.IjzqAKL9xL5jvMFVdNJHvGCgTq/VEq',
-      name: 'eTruemart Admin',
+      passwordHash: '$2a$10$Rctbz.9F8blZNq8Yu8SzqunWgUt2Q495fRW6UTks7.VcfScHXIpnS',
+      name: 'Yeatrusourcing',
       role: 'ADMIN',
     },
   });

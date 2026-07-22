@@ -23,7 +23,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
     : 0;
 
   return (
-    <div className="bg-white rounded-xl shadow-md overflow-hidden card-hover group">
+    <div className="bg-dark-800 rounded-xl shadow-lg overflow-hidden card-hover group border border-dark-500/20">
       <div className="relative">
         <Link href={`/products/${product.id}`}>
           <img
@@ -33,24 +33,24 @@ const ProductCard = ({ product }: ProductCardProps) => {
           />
         </Link>
         {discount > 0 && (
-          <span className="absolute top-3 left-3 bg-accent-500 text-white text-sm font-bold px-3 py-1 rounded-full">
+          <span className="absolute top-3 left-3 bg-accent-500 text-dark-900 text-sm font-bold px-3 py-1 rounded-full">
             -{discount}%
           </span>
         )}
         <div className="absolute top-3 right-3 flex flex-col gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
-          <button className="bg-white rounded-full p-2 shadow-md hover:bg-accent-50 hover:text-accent-500 transition-colors">
+          <button className="bg-dark-800/80 rounded-full p-2 shadow-md hover:bg-accent-500 hover:text-dark-900 transition-colors text-dark-50">
             <Heart className="w-5 h-5" />
           </button>
-          <button className="bg-white rounded-full p-2 shadow-md hover:bg-accent-50 hover:text-accent-500 transition-colors">
+          <button className="bg-dark-800/80 rounded-full p-2 shadow-md hover:bg-accent-500 hover:text-dark-900 transition-colors text-dark-50">
             <Eye className="w-5 h-5" />
           </button>
         </div>
       </div>
 
       <div className="p-5">
-        <span className="text-xs text-primary-600 font-medium">{product.category}</span>
+        <span className="text-xs text-primary-400 font-medium">{product.category}</span>
         <Link href={`/products/${product.id}`} className="block mt-1">
-          <h3 className="font-semibold text-gray-900 line-clamp-2 hover:text-primary-600 transition-colors min-h-[3rem]">
+          <h3 className="font-semibold text-dark-50 line-clamp-2 hover:text-accent-500 transition-colors min-h-[3rem]">
             {product.name}
           </h3>
         </Link>
@@ -60,27 +60,27 @@ const ProductCard = ({ product }: ProductCardProps) => {
             {[...Array(5)].map((_, i) => (
               <Star
                 key={i}
-                className={`w-4 h-4 ${i < Math.floor(product.rating) ? 'text-yellow-400 fill-yellow-400' : 'text-gray-300'}`}
+                className={`w-4 h-4 ${i < Math.floor(product.rating) ? 'text-accent-500 fill-accent-500' : 'text-dark-500'}`}
               />
             ))}
           </div>
-          <span className="text-sm text-gray-500">({product.reviewCount})</span>
+          <span className="text-sm text-dark-400">({product.reviewCount})</span>
         </div>
 
-        <div className="mt-2 text-sm text-gray-500">
-          <span className="font-medium text-gray-900">{product.salesCount}</span> sold
+        <div className="mt-2 text-sm text-dark-400">
+          <span className="font-medium text-dark-200">{product.salesCount}</span> sold
         </div>
 
         <div className="flex items-center justify-between mt-4">
           <div className="flex items-baseline gap-2">
-            <span className="text-xl font-bold text-accent-600">${price.toFixed(2)}</span>
+            <span className="text-xl font-bold text-accent-500">${price.toFixed(2)}</span>
             {originalPrice && (
-              <span className="text-sm text-gray-400 line-through">${originalPrice.toFixed(2)}</span>
+              <span className="text-sm text-dark-500 line-through">${originalPrice.toFixed(2)}</span>
             )}
           </div>
         </div>
 
-        <button className="w-full mt-4 flex items-center justify-center gap-2 bg-primary-600 hover:bg-primary-700 text-white py-2.5 rounded-lg font-medium transition-colors">
+        <button className="w-full mt-4 flex items-center justify-center gap-2 bg-primary-600 hover:bg-primary-500 text-dark-50 py-2.5 rounded-lg font-bold transition-colors">
           <ShoppingCart className="w-5 h-5" />
           Add to Cart
         </button>

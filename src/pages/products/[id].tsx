@@ -60,7 +60,7 @@ const ProductDetail = () => {
     return (
       <Layout>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 text-center">
-          <p className="text-gray-500">Loading...</p>
+          <p className="text-dark-400">Loading...</p>
         </div>
       </Layout>
     );
@@ -106,14 +106,14 @@ const ProductDetail = () => {
 
   return (
     <Layout>
-      <div className="bg-white border-b">
+      <div className="bg-dark-800 border-b border-dark-500/30">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-          <nav className="flex items-center gap-2 text-sm text-gray-500">
-            <Link href="/" className="hover:text-primary-600">Home</Link>
+          <nav className="flex items-center gap-2 text-sm text-dark-400">
+            <Link href="/" className="hover:text-accent-500">Home</Link>
             <ChevronLeft className="w-4 h-4 rotate-180" />
-            <Link href="/products" className="hover:text-primary-600">Products</Link>
+            <Link href="/products" className="hover:text-accent-500">Products</Link>
             <ChevronLeft className="w-4 h-4 rotate-180" />
-            <span className="text-gray-900 font-medium">{product.name}</span>
+            <span className="text-dark-50 font-medium">{product.name}</span>
           </nav>
         </div>
       </div>
@@ -121,7 +121,7 @@ const ProductDetail = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="grid lg:grid-cols-2 gap-10">
           <div>
-            <div className="bg-white rounded-2xl p-4 shadow-sm mb-4">
+            <div className="bg-dark-800 rounded-2xl p-4 shadow-lg mb-4 border border-dark-500/20">
               <img
                 src={product.images[selectedImage] || product.image}
                 alt={product.name}
@@ -133,7 +133,7 @@ const ProductDetail = () => {
                 <button
                   key={index}
                   onClick={() => setSelectedImage(index)}
-                  className={`flex-shrink-0 w-20 h-20 rounded-lg overflow-hidden border-2 transition-all ${selectedImage === index ? 'border-primary-600 ring-2 ring-primary-200' : 'border-gray-200 hover:border-gray-300'}`}
+                  className={`flex-shrink-0 w-20 h-20 rounded-lg overflow-hidden border-2 transition-all ${selectedImage === index ? 'border-accent-500 ring-2 ring-accent-500/30' : 'border-dark-500/30 hover:border-dark-500/60'}`}
                 >
                   <img src={img} alt={`View ${index + 1}`} className="w-full h-full object-cover" />
                 </button>
@@ -142,29 +142,29 @@ const ProductDetail = () => {
           </div>
 
           <div>
-            <span className="inline-block bg-primary-100 text-primary-700 text-sm font-medium px-3 py-1 rounded-full mb-4">
+            <span className="inline-block bg-primary-800/50 text-accent-500 text-sm font-medium px-3 py-1 rounded-full mb-4 border border-primary-700/30">
               {product.category}
             </span>
-            <h1 className="text-2xl md:text-3xl font-bold text-gray-900 mb-3">{product.name}</h1>
+            <h1 className="text-2xl md:text-3xl font-bold text-dark-50 mb-3">{product.name}</h1>
 
             <div className="flex items-center gap-4 mb-4">
               <div className="flex items-center gap-1">
                 {[...Array(5)].map((_, i) => (
-                  <Star key={i} className={`w-5 h-5 ${i < Math.floor(product.rating) ? 'text-yellow-400 fill-yellow-400' : 'text-gray-300'}`} />
+                  <Star key={i} className={`w-5 h-5 ${i < Math.floor(product.rating) ? 'text-accent-500 fill-accent-500' : 'text-dark-500'}`} />
                 ))}
               </div>
-              <span className="text-gray-600">{product.rating} ({product.reviewCount} reviews)</span>
-              <span className="text-gray-400">|</span>
-              <span className="text-gray-600">{product.salesCount} sold</span>
+              <span className="text-dark-300">{product.rating} ({product.reviewCount} reviews)</span>
+              <span className="text-dark-500">|</span>
+              <span className="text-dark-300">{product.salesCount} sold</span>
             </div>
 
-            <div className="bg-gray-100 rounded-xl p-4 mb-6">
+            <div className="bg-dark-700/50 rounded-xl p-4 mb-6 border border-dark-500/20">
               <div className="flex items-baseline gap-3">
-                <span className="text-4xl font-bold text-accent-600">${currentVariant?.price || product.price}</span>
+                <span className="text-4xl font-bold text-accent-500">${currentVariant?.price || product.price}</span>
                 {product.originalPrice && (
                   <>
-                    <span className="text-xl text-gray-400 line-through">${product.originalPrice}</span>
-                    <span className="bg-accent-500 text-white text-sm font-bold px-2 py-1 rounded">
+                    <span className="text-xl text-dark-500 line-through">${product.originalPrice}</span>
+                    <span className="bg-accent-500 text-dark-900 text-sm font-bold px-2 py-1 rounded">
                       -{discount}%
                     </span>
                   </>
@@ -172,17 +172,17 @@ const ProductDetail = () => {
               </div>
             </div>
 
-            <p className="text-gray-600 mb-6">{product.description}</p>
+            <p className="text-dark-300 mb-6">{product.description}</p>
 
             {product.variants.length > 0 && (
               <div className="mb-6">
-                <h3 className="font-semibold text-gray-900 mb-3">Color</h3>
+                <h3 className="font-semibold text-dark-50 mb-3">Color</h3>
                 <div className="flex gap-3">
                   {product.variants.map((variant, index) => (
                     <button
                       key={variant.id}
                       onClick={() => setSelectedVariant(index)}
-                      className={`px-4 py-2 rounded-lg border-2 transition-all ${selectedVariant === index ? 'border-primary-600 bg-primary-50 text-primary-700 font-medium' : 'border-gray-200 hover:border-gray-300'}`}
+                      className={`px-4 py-2 rounded-lg border-2 transition-all ${selectedVariant === index ? 'border-accent-500 bg-primary-800/30 text-accent-500 font-medium' : 'border-dark-500/30 text-dark-300 hover:border-dark-500/60'}`}
                     >
                       {variant.color}
                     </button>
@@ -192,77 +192,77 @@ const ProductDetail = () => {
             )}
 
             <div className="mb-6">
-              <h3 className="font-semibold text-gray-900 mb-3">Quantity</h3>
+              <h3 className="font-semibold text-dark-50 mb-3">Quantity</h3>
               <div className="flex items-center gap-4">
-                <div className="flex items-center border rounded-lg">
-                  <button onClick={() => setQuantity(Math.max(1, quantity - 1))} className="p-3 hover:bg-gray-100 transition-colors">
+                <div className="flex items-center border border-dark-500/30 rounded-lg bg-dark-800">
+                  <button onClick={() => setQuantity(Math.max(1, quantity - 1))} className="p-3 hover:bg-dark-700 transition-colors text-dark-50">
                     <Minus className="w-5 h-5" />
                   </button>
-                  <span className="px-6 font-semibold text-lg">{quantity}</span>
-                  <button onClick={() => setQuantity(quantity + 1)} className="p-3 hover:bg-gray-100 transition-colors">
+                  <span className="px-6 font-semibold text-lg text-dark-50">{quantity}</span>
+                  <button onClick={() => setQuantity(quantity + 1)} className="p-3 hover:bg-dark-700 transition-colors text-dark-50">
                     <Plus className="w-5 h-5" />
                   </button>
                 </div>
-                <span className="text-gray-500 text-sm">
-                  <span className="text-green-600 font-medium">In Stock</span> ({currentVariant?.stock || product.stock} available)
+                <span className="text-dark-400 text-sm">
+                  <span className="text-green-500 font-medium">In Stock</span> ({currentVariant?.stock || product.stock} available)
                 </span>
               </div>
             </div>
 
             <div className="flex flex-col sm:flex-row gap-4 mb-8">
-              <button onClick={handleAddToCart} className="flex-1 flex items-center justify-center gap-2 bg-accent-500 hover:bg-accent-600 text-white py-4 rounded-xl font-semibold text-lg transition-colors">
+              <button onClick={handleAddToCart} className="flex-1 flex items-center justify-center gap-2 bg-accent-500 hover:bg-accent-400 text-dark-900 py-4 rounded-xl font-bold text-lg transition-colors">
                 <ShoppingCart className="w-6 h-6" />
                 Add to Cart
               </button>
-              <button className="flex-1 bg-primary-600 hover:bg-primary-700 text-white py-4 rounded-xl font-semibold text-lg transition-colors">
+              <button className="flex-1 bg-primary-600 hover:bg-primary-500 text-dark-50 py-4 rounded-xl font-bold text-lg transition-colors">
                 Buy Now
               </button>
-              <button className="sm:w-14 p-4 border-2 border-gray-200 rounded-xl hover:border-accent-400 hover:text-accent-500 transition-colors">
+              <button className="sm:w-14 p-4 border-2 border-dark-500/30 rounded-xl hover:border-accent-500 hover:text-accent-500 transition-colors text-dark-50">
                 <Heart className="w-6 h-6" />
               </button>
-              <button className="sm:w-14 p-4 border-2 border-gray-200 rounded-xl hover:border-primary-400 hover:text-primary-600 transition-colors">
+              <button className="sm:w-14 p-4 border-2 border-dark-500/30 rounded-xl hover:border-primary-400 hover:text-primary-400 transition-colors text-dark-50">
                 <Share2 className="w-6 h-6" />
               </button>
             </div>
 
             <div className="grid grid-cols-3 gap-4">
-              <div className="bg-white rounded-xl p-4 text-center shadow-sm">
-                <Truck className="w-8 h-8 text-primary-600 mx-auto mb-2" />
-                <p className="text-sm font-medium text-gray-900">Free Shipping</p>
-                <p className="text-xs text-gray-500">Orders over $50</p>
+              <div className="bg-dark-800 rounded-xl p-4 text-center shadow-lg border border-dark-500/20">
+                <Truck className="w-8 h-8 text-accent-500 mx-auto mb-2" />
+                <p className="text-sm font-medium text-dark-50">Free Shipping</p>
+                <p className="text-xs text-dark-400">Orders over $50</p>
               </div>
-              <div className="bg-white rounded-xl p-4 text-center shadow-sm">
-                <ShieldCheck className="w-8 h-8 text-primary-600 mx-auto mb-2" />
-                <p className="text-sm font-medium text-gray-900">Secure Payment</p>
-                <p className="text-xs text-gray-500">100% protected</p>
+              <div className="bg-dark-800 rounded-xl p-4 text-center shadow-lg border border-dark-500/20">
+                <ShieldCheck className="w-8 h-8 text-accent-500 mx-auto mb-2" />
+                <p className="text-sm font-medium text-dark-50">Secure Payment</p>
+                <p className="text-xs text-dark-400">100% protected</p>
               </div>
-              <div className="bg-white rounded-xl p-4 text-center shadow-sm">
-                <RotateCcw className="w-8 h-8 text-primary-600 mx-auto mb-2" />
-                <p className="text-sm font-medium text-gray-900">Easy Returns</p>
-                <p className="text-xs text-gray-500">30-day policy</p>
+              <div className="bg-dark-800 rounded-xl p-4 text-center shadow-lg border border-dark-500/20">
+                <RotateCcw className="w-8 h-8 text-accent-500 mx-auto mb-2" />
+                <p className="text-sm font-medium text-dark-50">Easy Returns</p>
+                <p className="text-xs text-dark-400">30-day policy</p>
               </div>
             </div>
           </div>
         </div>
 
         <div className="mt-16">
-          <div className="border-b border-gray-200 mb-8">
+          <div className="border-b border-dark-500/30 mb-8">
             <div className="flex gap-8">
-              <button onClick={() => setActiveTab('description')} className={`pb-4 font-medium border-b-2 transition-colors ${activeTab === 'description' ? 'border-primary-600 text-primary-600' : 'border-transparent text-gray-500 hover:text-gray-700'}`}>
+              <button onClick={() => setActiveTab('description')} className={`pb-4 font-medium border-b-2 transition-colors ${activeTab === 'description' ? 'border-accent-500 text-accent-500' : 'border-transparent text-dark-400 hover:text-dark-200'}`}>
                 Description
               </button>
-              <button onClick={() => setActiveTab('reviews')} className={`pb-4 font-medium border-b-2 transition-colors ${activeTab === 'reviews' ? 'border-primary-600 text-primary-600' : 'border-transparent text-gray-500 hover:text-gray-700'}`}>
+              <button onClick={() => setActiveTab('reviews')} className={`pb-4 font-medium border-b-2 transition-colors ${activeTab === 'reviews' ? 'border-accent-500 text-accent-500' : 'border-transparent text-dark-400 hover:text-dark-200'}`}>
                 Reviews ({product.reviewCount})
               </button>
             </div>
           </div>
 
           {activeTab === 'description' && (
-            <div className="bg-white rounded-2xl p-8 shadow-sm">
-              <h2 className="text-2xl font-bold text-gray-900 mb-4">Product Description</h2>
-              <p className="text-gray-600 mb-6 leading-relaxed">{product.description}</p>
-              <h3 className="text-lg font-semibold text-gray-900 mb-3">What's in the box:</h3>
-              <ul className="list-disc list-inside text-gray-600 space-y-2">
+            <div className="bg-dark-800 rounded-2xl p-8 shadow-lg border border-dark-500/20">
+              <h2 className="text-2xl font-bold text-dark-50 mb-4">Product Description</h2>
+              <p className="text-dark-300 mb-6 leading-relaxed">{product.description}</p>
+              <h3 className="text-lg font-semibold text-dark-50 mb-3">What&apos;s in the box:</h3>
+              <ul className="list-disc list-inside text-dark-300 space-y-2">
                 <li>1 x {product.name}</li>
                 <li>User Manual</li>
                 <li>Warranty Card</li>
@@ -271,41 +271,41 @@ const ProductDetail = () => {
           )}
 
           {activeTab === 'reviews' && (
-            <div className="bg-white rounded-2xl p-8 shadow-sm">
-              <div className="flex flex-col md:flex-row gap-8 mb-8 pb-8 border-b">
+            <div className="bg-dark-800 rounded-2xl p-8 shadow-lg border border-dark-500/20">
+              <div className="flex flex-col md:flex-row gap-8 mb-8 pb-8 border-b border-dark-500/30">
                 <div className="text-center md:text-left">
-                  <div className="text-5xl font-bold text-gray-900 mb-2">{product.rating}</div>
+                  <div className="text-5xl font-bold text-dark-50 mb-2">{product.rating}</div>
                   <div className="flex justify-center md:justify-start mb-2">
                     {[...Array(5)].map((_, i) => (
-                      <Star key={i} className={`w-6 h-6 ${i < Math.floor(product.rating) ? 'text-yellow-400 fill-yellow-400' : 'text-gray-300'}`} />
+                      <Star key={i} className={`w-6 h-6 ${i < Math.floor(product.rating) ? 'text-accent-500 fill-accent-500' : 'text-dark-500'}`} />
                     ))}
                   </div>
-                  <p className="text-gray-500">{product.reviewCount} reviews</p>
+                  <p className="text-dark-400">{product.reviewCount} reviews</p>
                 </div>
               </div>
 
               {product.reviews.length > 0 ? (
                 <div className="space-y-8">
                   {product.reviews.map((review) => (
-                    <div key={review.id} className="border-b pb-8 last:border-0 last:pb-0">
+                    <div key={review.id} className="border-b border-dark-500/20 pb-8 last:border-0 last:pb-0">
                       <div className="flex items-start gap-4">
-                        <div className="w-12 h-12 bg-primary-100 rounded-full flex items-center justify-center text-primary-600 font-bold">
+                        <div className="w-12 h-12 bg-primary-800/50 rounded-full flex items-center justify-center text-accent-500 font-bold border border-primary-700/30">
                           {review.user.name[0]}
                         </div>
                         <div className="flex-1">
                           <div className="flex items-center gap-3 mb-1">
-                            <h4 className="font-semibold text-gray-900">{review.user.name}</h4>
+                            <h4 className="font-semibold text-dark-50">{review.user.name}</h4>
                           </div>
                           <div className="flex items-center gap-3 mb-2">
                             <div className="flex">
                               {[...Array(5)].map((_, i) => (
-                                <Star key={i} className={`w-4 h-4 ${i < review.rating ? 'text-yellow-400 fill-yellow-400' : 'text-gray-300'}`} />
+                                <Star key={i} className={`w-4 h-4 ${i < review.rating ? 'text-accent-500 fill-accent-500' : 'text-dark-500'}`} />
                               ))}
                             </div>
-                            <span className="text-sm text-gray-500">{new Date(review.createdAt).toLocaleDateString()}</span>
+                            <span className="text-sm text-dark-400">{new Date(review.createdAt).toLocaleDateString()}</span>
                           </div>
-                          <h5 className="font-medium text-gray-900 mb-2">{review.title}</h5>
-                          <p className="text-gray-600">{review.content}</p>
+                          <h5 className="font-medium text-dark-50 mb-2">{review.title}</h5>
+                          <p className="text-dark-300">{review.content}</p>
                         </div>
                       </div>
                     </div>
@@ -313,18 +313,18 @@ const ProductDetail = () => {
                 </div>
               ) : (
                 <div className="text-center py-12">
-                  <MessageSquare className="w-16 h-16 text-gray-300 mx-auto mb-4" />
-                  <p className="text-gray-500 mb-4">No reviews yet. Be the first to review!</p>
+                  <MessageSquare className="w-16 h-16 text-dark-500 mx-auto mb-4" />
+                  <p className="text-dark-400 mb-4">No reviews yet. Be the first to review!</p>
                 </div>
               )}
 
               {!submitted ? (
-                <div className="mt-8 pt-8 border-t">
-                  <h3 className="text-lg font-semibold text-gray-900 mb-4">Write a Review</h3>
+                <div className="mt-8 pt-8 border-t border-dark-500/30">
+                  <h3 className="text-lg font-semibold text-dark-50 mb-4">Write a Review</h3>
                   {session ? (
                     <form onSubmit={handleSubmitReview} className="space-y-4">
                       <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-2">Rating</label>
+                        <label className="block text-sm font-medium text-dark-300 mb-2">Rating</label>
                         <div className="flex gap-2">
                           {[1, 2, 3, 4, 5].map((star) => (
                             <button
@@ -333,42 +333,42 @@ const ProductDetail = () => {
                               onClick={() => setReviewForm({ ...reviewForm, rating: star })}
                               className="p-2"
                             >
-                              <Star className={`w-8 h-8 ${star <= reviewForm.rating ? 'text-yellow-400 fill-yellow-400' : 'text-gray-300'}`} />
+                              <Star className={`w-8 h-8 ${star <= reviewForm.rating ? 'text-accent-500 fill-accent-500' : 'text-dark-500'}`} />
                             </button>
                           ))}
                         </div>
                       </div>
                       <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-2">Title</label>
+                        <label className="block text-sm font-medium text-dark-300 mb-2">Title</label>
                         <input
                           type="text"
                           value={reviewForm.title}
                           onChange={(e) => setReviewForm({ ...reviewForm, title: e.target.value })}
-                          className="w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500"
+                          className="w-full px-4 py-3 bg-dark-700 border border-dark-500/30 rounded-lg focus:outline-none focus:ring-2 focus:ring-accent-500/50 text-dark-50"
                           required
                         />
                       </div>
                       <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-2">Review</label>
+                        <label className="block text-sm font-medium text-dark-300 mb-2">Review</label>
                         <textarea
                           value={reviewForm.content}
                           onChange={(e) => setReviewForm({ ...reviewForm, content: e.target.value })}
                           rows={4}
-                          className="w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500"
+                          className="w-full px-4 py-3 bg-dark-700 border border-dark-500/30 rounded-lg focus:outline-none focus:ring-2 focus:ring-accent-500/50 text-dark-50"
                           required
                         />
                       </div>
                       <button type="submit" className="btn-primary">Submit Review</button>
                     </form>
                   ) : (
-                    <p className="text-gray-500 mb-4">Please <Link href="/login" className="text-primary-600 hover:underline">login</Link> to write a review.</p>
+                    <p className="text-dark-400 mb-4">Please <Link href="/login" className="text-accent-500 hover:underline">login</Link> to write a review.</p>
                   )}
                 </div>
               ) : (
-                <div className="mt-8 pt-8 border-t text-center">
+                <div className="mt-8 pt-8 border-t border-dark-500/30 text-center">
                   <Check className="w-16 h-16 text-green-500 mx-auto mb-4" />
-                  <h3 className="text-xl font-bold text-gray-900 mb-2">Review submitted!</h3>
-                  <p className="text-gray-500">Thank you for your review.</p>
+                  <h3 className="text-xl font-bold text-dark-50 mb-2">Review submitted!</h3>
+                  <p className="text-dark-400">Thank you for your review.</p>
                 </div>
               )}
             </div>

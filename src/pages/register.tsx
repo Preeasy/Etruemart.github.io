@@ -44,33 +44,33 @@ const Register = () => {
       <div className="min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
         <div className="max-w-md w-full">
           <div className="text-center mb-8">
-            <Link href="/" className="flex items-center justify-center gap-2 mb-4">
-              <Package className="w-10 h-10 text-accent-500" />
-              <span className="text-2xl font-bold text-primary-800">eTruemart</span>
+            <Link href="/" className="flex items-center justify-center gap-2 mb-4 group">
+              <Package className="w-10 h-10 text-accent-500 group-hover:text-accent-400 transition-colors" />
+              <span className="text-2xl font-bold text-accent-500 group-hover:text-accent-400 transition-colors">eTruemart</span>
             </Link>
-            <h2 className="text-3xl font-bold text-gray-900">Create your account</h2>
-            <p className="mt-2 text-gray-600">Join us and start shopping or selling today!</p>
+            <h2 className="text-3xl font-bold text-dark-50">Create your account</h2>
+            <p className="mt-2 text-dark-300">Join us and start shopping or selling today!</p>
           </div>
 
-          <form onSubmit={handleSubmit} className="bg-white rounded-2xl shadow-lg p-8 space-y-6">
+          <form onSubmit={handleSubmit} className="bg-dark-800 rounded-2xl shadow-lg p-8 space-y-6 border border-dark-500/20">
             {error && (
-              <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg text-sm">
+              <div className="bg-red-500/10 border border-red-500/30 text-red-400 px-4 py-3 rounded-lg text-sm">
                 {error}
               </div>
             )}
 
             <div>
-              <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">
+              <label htmlFor="name" className="block text-sm font-medium text-dark-200 mb-2">
                 Full name
               </label>
               <div className="relative">
-                <User className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+                <User className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-dark-400" />
                 <input
                   type="text"
                   id="name"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
-                  className="w-full px-4 py-3 pl-10 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                  className="w-full px-4 py-3 pl-10 bg-dark-700 border border-dark-500/30 rounded-lg focus:outline-none focus:ring-2 focus:ring-accent-500/50 text-dark-50"
                   placeholder="John Doe"
                   required
                 />
@@ -78,17 +78,17 @@ const Register = () => {
             </div>
 
             <div>
-              <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
+              <label htmlFor="email" className="block text-sm font-medium text-dark-200 mb-2">
                 Email address
               </label>
               <div className="relative">
-                <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+                <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-dark-400" />
                 <input
                   type="email"
                   id="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="w-full px-4 py-3 pl-10 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                  className="w-full px-4 py-3 pl-10 bg-dark-700 border border-dark-500/30 rounded-lg focus:outline-none focus:ring-2 focus:ring-accent-500/50 text-dark-50"
                   placeholder="you@example.com"
                   required
                 />
@@ -96,17 +96,17 @@ const Register = () => {
             </div>
 
             <div>
-              <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-2">
+              <label htmlFor="password" className="block text-sm font-medium text-dark-200 mb-2">
                 Password
               </label>
               <div className="relative">
-                <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+                <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-dark-400" />
                 <input
                   type={showPassword ? 'text' : 'password'}
                   id="password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="w-full px-4 py-3 pl-10 pr-10 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                  className="w-full px-4 py-3 pl-10 pr-10 bg-dark-700 border border-dark-500/30 rounded-lg focus:outline-none focus:ring-2 focus:ring-accent-500/50 text-dark-50"
                   placeholder="••••••••"
                   required
                   minLength={6}
@@ -114,33 +114,33 @@ const Register = () => {
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-dark-400 hover:text-dark-200"
                 >
                   {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
                 </button>
               </div>
-              <p className="mt-1 text-xs text-gray-500">At least 6 characters</p>
+              <p className="mt-1 text-xs text-dark-400">At least 6 characters</p>
             </div>
 
             <div>
-              <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-700 mb-2">
+              <label htmlFor="confirmPassword" className="block text-sm font-medium text-dark-200 mb-2">
                 Confirm password
               </label>
               <div className="relative">
-                <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+                <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-dark-400" />
                 <input
                   type={showConfirmPassword ? 'text' : 'password'}
                   id="confirmPassword"
                   value={confirmPassword}
                   onChange={(e) => setConfirmPassword(e.target.value)}
-                  className="w-full px-4 py-3 pl-10 pr-10 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                  className="w-full px-4 py-3 pl-10 pr-10 bg-dark-700 border border-dark-500/30 rounded-lg focus:outline-none focus:ring-2 focus:ring-accent-500/50 text-dark-50"
                   placeholder="••••••••"
                   required
                 />
                 <button
                   type="button"
                   onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-dark-400 hover:text-dark-200"
                 >
                   {showConfirmPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
                 </button>
@@ -151,29 +151,29 @@ const Register = () => {
               <input
                 type="checkbox"
                 id="terms"
-                className="w-4 h-4 text-primary-600 border-gray-300 rounded"
+                className="w-4 h-4 text-accent-500 bg-dark-700 border-dark-500/30 rounded"
                 required
               />
-              <label htmlFor="terms" className="ml-2 text-sm text-gray-600">
+              <label htmlFor="terms" className="ml-2 text-sm text-dark-300">
                 I agree to the{' '}
-                <a href="#" className="text-primary-600 hover:underline">Terms of Service</a>{' '}
+                <a href="#" className="text-accent-500 hover:text-accent-400">Terms of Service</a>{' '}
                 and{' '}
-                <a href="#" className="text-primary-600 hover:underline">Privacy Policy</a>
+                <a href="#" className="text-accent-500 hover:text-accent-400">Privacy Policy</a>
               </label>
             </div>
 
             <button
               type="submit"
-              className="w-full flex items-center justify-center px-4 py-3 bg-primary-600 hover:bg-primary-700 text-white font-semibold rounded-lg transition-colors"
+              className="w-full flex items-center justify-center px-4 py-3 bg-accent-500 hover:bg-accent-400 text-dark-900 font-bold rounded-lg transition-colors"
             >
               Create account
             </button>
           </form>
 
           <div className="mt-6 text-center">
-            <p className="text-gray-600">
+            <p className="text-dark-300">
               Already have an account?{' '}
-              <Link href="/login" className="text-primary-600 font-medium hover:text-primary-700">
+              <Link href="/login" className="text-accent-500 font-medium hover:text-accent-400">
                 Sign in here
               </Link>
             </p>
