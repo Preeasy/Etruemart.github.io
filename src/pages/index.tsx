@@ -3,7 +3,7 @@ import Link from 'next/link';
 import {
   Truck,
   ShieldCheck,
-  HeadphonesIcon,
+  Headphones,
   RotateCcw,
   ChevronRight,
   Star,
@@ -77,7 +77,7 @@ const Home = () => {
   const features = [
     { icon: Truck, title: 'Free Shipping', desc: 'On orders over $50 worldwide' },
     { icon: ShieldCheck, title: 'Secure Payment', desc: '100% secure checkout' },
-    { icon: HeadphonesIcon, title: '24/7 Support', desc: 'Dedicated customer service' },
+    { icon: Headphones, title: '24/7 Support', desc: 'Dedicated customer service' },
     { icon: RotateCcw, title: 'Easy Returns', desc: '30-day return policy' },
   ];
 
