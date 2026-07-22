@@ -97,7 +97,7 @@ const Products = () => {
                       <button
                         key={cat}
                         onClick={() => setSelectedCategory(cat)}
-                        className={`w-full text-left px-3 py-2 rounded-lg transition-colors ${selectedCategory === cat ? 'bg-accent-500/10 text-accent-500 font-medium border border-accent-500/30' : 'hover:bg-dark-700/50 text-dark-300'}`}
+                        className={`w-full text-left px-3 py-2 rounded-lg transition-colors ${selectedCategory === cat ? 'bg-accent-500 text-dark-900 font-medium' : 'hover:bg-dark-700/50 text-dark-100'}`}
                       >
                         {cat}
                       </button>
