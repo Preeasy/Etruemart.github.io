@@ -91,14 +91,14 @@ const Home = () => {
             <img src={slide.image} alt={slide.title} className="w-full h-full object-cover" />
             <div className="absolute inset-0 bg-gradient-to-r from-dark-900/90 to-dark-900/40" />
             <div className="absolute inset-0 flex items-center">
-              <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+              <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full pb-12">
                 <div className="max-w-xl">
-                  <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-dark-50 mb-4 leading-tight">
+                  <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-dark-50 mb-4 leading-tight drop-shadow-lg">
                     {slide.title}
                   </h1>
-                  <p className="text-lg md:text-xl text-dark-200 mb-8">{slide.subtitle}</p>
-                  <Link href={slide.link} className="btn-primary text-lg">
-                    {slide.cta} <ArrowRight className="w-5 h-5 ml-2" />
+                  <p className="text-lg md:text-xl text-dark-100 mb-8 drop-shadow-md">{slide.subtitle}</p>
+                  <Link href={slide.link} className="inline-flex items-center gap-2 bg-accent-500 hover:bg-accent-400 text-dark-900 px-8 py-4 rounded-xl font-bold text-lg transition-all shadow-lg hover:shadow-accent-500/40 hover:scale-105">
+                    {slide.cta} <ArrowRight className="w-5 h-5" />
                   </Link>
                 </div>
               </div>
