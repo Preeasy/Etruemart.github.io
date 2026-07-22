@@ -55,15 +55,15 @@ const Footer = () => {
             <ul className="space-y-3 text-gray-300">
               <li className="flex items-center gap-3">
                 <Mail className="w-5 h-5 text-accent-400" />
-                <span>support@etruemart.com</span>
+                <span>info@yeatru.com</span>
               </li>
               <li className="flex items-center gap-3">
                 <Phone className="w-5 h-5 text-accent-400" />
-                <span>+1 (555) 123-4567</span>
+                <span>+86 15988516408</span>
               </li>
               <li className="flex items-start gap-3">
                 <MapPin className="w-5 h-5 text-accent-400 flex-shrink-0 mt-0.5" />
-                <span>123 Global Trade Street<br />Commerce City, CC 12345</span>
+                <span>Yiwu City, Zhejiang, China</span>
               </li>
             </ul>
           </div>
