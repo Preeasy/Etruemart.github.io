@@ -41,10 +41,10 @@ const Products = () => {
 
   const sortedProducts = [...filteredProducts].sort((a, b) => {
     switch (sortBy) {
-      case 'price-low': return a.price - b.price;
-      case 'price-high': return b.price - a.price;
-      case 'rating': return b.rating - a.rating;
-      default: return b.salesCount - a.salesCount;
+      case 'price-low': return Number(a.price) - Number(b.price);
+      case 'price-high': return Number(b.price) - Number(a.price);
+      case 'rating': return Number(b.rating) - Number(a.rating);
+      default: return Number(b.salesCount) - Number(a.salesCount);
     }
   });
 
@@ -156,3 +156,5 @@ const Products = () => {
 };
 
 export default Products;
+
+export const getServerSideProps = () => ({ props: {} });

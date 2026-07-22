@@ -4,19 +4,32 @@ import { authOptions } from '@/lib/auth';
 import { prisma } from '@/lib/prisma';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+  if (req.method === 'GET') {
+    const { authorId, category } = req.query;
+
+    const where: any = { isPublished: true };
+    
+    if (authorId) {
+      where.authorId = authorId as string;
+    }
+    
+    if (category && category !== 'All') {
+      where.category = category as string;
+    }
+
+    const products = await prisma.product.findMany({
+      where,
+      include: { variants: true },
+      orderBy: { createdAt: 'desc' },
+    });
+
+    return res.json(products);
+  }
+
   const session = await getServerSession(req, res, authOptions);
   
   if (!session?.user) {
     return res.status(401).json({ error: 'Unauthorized' });
-  }
-
-  if (req.method === 'GET') {
-    const products = await prisma.product.findMany({
-      where: { authorId: session.user.id },
-      include: { variants: true },
-      orderBy: { createdAt: 'desc' },
-    });
-    return res.json(products);
   }
 
   if (req.method === 'POST') {

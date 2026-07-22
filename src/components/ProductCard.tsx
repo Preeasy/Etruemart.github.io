@@ -16,8 +16,10 @@ interface ProductCardProps {
 }
 
 const ProductCard = ({ product }: ProductCardProps) => {
-  const discount = product.originalPrice
-    ? Math.round(((product.originalPrice - product.price) / product.originalPrice) * 100)
+  const price = Number(product.price);
+  const originalPrice = product.originalPrice ? Number(product.originalPrice) : undefined;
+  const discount = originalPrice
+    ? Math.round(((originalPrice - price) / originalPrice) * 100)
     : 0;
 
   return (
@@ -71,9 +73,9 @@ const ProductCard = ({ product }: ProductCardProps) => {
 
         <div className="flex items-center justify-between mt-4">
           <div className="flex items-baseline gap-2">
-            <span className="text-xl font-bold text-accent-600">${product.price}</span>
-            {product.originalPrice && (
-              <span className="text-sm text-gray-400 line-through">${product.originalPrice}</span>
+            <span className="text-xl font-bold text-accent-600">${price.toFixed(2)}</span>
+            {originalPrice && (
+              <span className="text-sm text-gray-400 line-through">${originalPrice.toFixed(2)}</span>
             )}
           </div>
         </div>
