@@ -135,9 +135,12 @@ async function main() {
         continue;
       }
 
+      const productSlug = productData.slug || productData.name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/-+$/, '') + '-' + Date.now().toString(36);
+
       const product = await prisma.product.create({
         data: {
           name: productData.name,
+          slug: productSlug,
           description: productData.description || '',
           price: productData.priceMin || 0,
           originalPrice: productData.priceMax && productData.priceMax > productData.priceMin
