@@ -123,6 +123,7 @@ async function seedIfEmpty() {
     await prisma.product.create({
       data: {
         name: productData.name,
+        slug: productData.slug || productData.name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/-+$/, '') + '-' + Date.now().toString(36),
         description: productData.description || '',
         price: productData.priceMin || 0,
         originalPrice: productData.priceMax && productData.priceMax > productData.priceMin
@@ -223,6 +224,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const product = await prisma.product.create({
       data: {
         name,
+        slug: name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/-+$/, '') + '-' + Date.now().toString(36),
         description,
         price: parseFloat(price),
         originalPrice: originalPrice ? parseFloat(originalPrice) : undefined,

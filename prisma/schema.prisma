@@ -32,8 +32,10 @@ model User {
 model Product {
   id             String          @id @default(cuid())
   name           String
+  slug           String          @unique
   description    String
   price          Decimal         @db.Decimal(10, 2)
+  priceMax       Decimal?        @db.Decimal(10, 2)
   originalPrice  Decimal?        @db.Decimal(10, 2)
   image          String
   images         String[]

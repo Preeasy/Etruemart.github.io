@@ -113,6 +113,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       await prisma.product.create({
         data: {
           name: productData.name,
+          slug: productData.slug || productData.name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/-+$/, '') + '-' + Date.now().toString(36),
           description: productData.description || '',
           price: productData.priceMin || 0,
           originalPrice: productData.priceMax && productData.priceMax > productData.priceMin

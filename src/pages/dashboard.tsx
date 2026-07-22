@@ -1,8 +1,8 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
-import { Package, ShoppingCart, TrendingUp, DollarSign, Plus, Eye, EyeOff, Edit3, Trash2, Truck, Save, X } from 'lucide-react';
+import { Package, ShoppingCart, TrendingUp, DollarSign, Plus, Eye, EyeOff, Edit3, Trash2, Truck, Save, X, Upload, Download, FileJson, FileText, Loader2, CheckCircle, AlertCircle } from 'lucide-react';
 import Layout from '@/components/Layout';
 
 interface ProductItem {
@@ -31,6 +31,11 @@ const Dashboard = () => {
   const [orders, setOrders] = useState<any[]>([]);
   const [editingProduct, setEditingProduct] = useState<string | null>(null);
   const [editForm, setEditForm] = useState({ shippingCost: '', shippingMethod: '', stock: '', moq: '' });
+  const [showImportModal, setShowImportModal] = useState(false);
+  const [importFile, setImportFile] = useState<File | null>(null);
+  const [importProgress, setImportProgress] = useState(0);
+  const [importLoading, setImportLoading] = useState(false);
+  const [importResult, setImportResult] = useState<{ success: boolean; message: string; data?: any } | null>(null);
 
   if (!session) {
     router.push('/login');
@@ -151,9 +156,15 @@ const Dashboard = () => {
         <div className="bg-dark-800 rounded-2xl shadow-lg p-6 mb-8 border border-dark-500/20">
           <div className="flex items-center justify-between mb-6">
             <h2 className="text-xl font-bold text-dark-50">My Product Management</h2>
-            <Link href="/sell" className="text-primary-500 hover:text-primary-400 font-medium text-sm">
-              + Add New
-            </Link>
+            <div className="flex items-center gap-3">
+              <button onClick={() => setShowImportModal(true)} className="flex items-center gap-2 bg-dark-700 hover:bg-dark-600 text-dark-200 px-4 py-2 rounded-lg font-medium text-sm transition-colors border border-dark-500/30">
+                <Upload className="w-4 h-4" />
+                Batch Import
+              </button>
+              <Link href="/sell" className="text-primary-500 hover:text-primary-400 font-medium text-sm">
+                + Add New
+              </Link>
+            </div>
           </div>
 
           {products.length > 0 ? (
@@ -318,6 +329,191 @@ const Dashboard = () => {
           </div>
         </div>
       </div>
+
+      {showImportModal && (
+        <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-50 p-4">
+          <div className="bg-dark-800 rounded-2xl shadow-2xl w-full max-w-2xl border border-dark-500/30 overflow-hidden">
+            <div className="flex items-center justify-between p-6 border-b border-dark-500/30">
+              <h3 className="text-xl font-bold text-dark-50">Batch Import Products</h3>
+              <button onClick={() => { setShowImportModal(false); setImportFile(null); setImportResult(null); setImportProgress(0); }} className="p-2 hover:bg-dark-700 rounded-lg text-dark-400">
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+
+            <div className="p-6">
+              <div className="space-y-6">
+                <div className="bg-dark-700/50 rounded-xl p-6 border border-dark-500/20">
+                  <div className="flex items-center gap-3 mb-4">
+                    <FileJson className="w-6 h-6 text-primary-500" />
+                    <h4 className="font-semibold text-dark-50">Supported Format</h4>
+                  </div>
+                  <p className="text-sm text-dark-400 mb-4">Upload a JSON file with product data. The file should contain an array of products with the following structure:</p>
+                  <pre className="bg-dark-900 rounded-lg p-4 text-xs text-dark-400 overflow-x-auto">
+{`{
+  "products": [
+    {
+      "name": "Product Name",
+      "description": "Product description",
+      "slug": "product-slug",
+      "priceMin": 0.5,
+      "priceMax": 2.0,
+      "image": "https://...",
+      "images": ["img1", "img2", "..."],
+      "categorySlug": "necklaces",
+      "material": "Zinc Alloy",
+      "plating": "Gold Plated",
+      "color": "Gold",
+      "packSize": 12,
+      "pkgLength": 30,
+      "pkgWidth": 20,
+      "pkgHeight": 5,
+      "pkgWeight": 0.2,
+      "moq": 10,
+      "stockStatus": "IN_STOCK",
+      "keywords": ["wholesale", "yiwu"]
+    }
+  ]
+}`}
+                  </pre>
+                </div>
+
+                <div className="bg-dark-700/50 rounded-xl p-6 border border-dark-500/20">
+                  <div className="flex items-center gap-3 mb-4">
+                    <FileText className="w-6 h-6 text-primary-400" />
+                    <h4 className="font-semibold text-dark-50">Field Requirements</h4>
+                  </div>
+                  <div className="grid grid-cols-2 gap-3 text-sm">
+                    <div className="flex items-center gap-2">
+                      <span className="w-2 h-2 rounded-full bg-green-500"></span>
+                      <span className="text-dark-300">name, description, slug (required)</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <span className="w-2 h-2 rounded-full bg-green-500"></span>
+                      <span className="text-dark-300">priceMin, priceMax, image</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <span className="w-2 h-2 rounded-full bg-green-500"></span>
+                      <span className="text-dark-300">images (array, 6 images recommended)</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <span className="w-2 h-2 rounded-full bg-green-500"></span>
+                      <span className="text-dark-300">categorySlug (must match existing category)</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <span className="w-2 h-2 rounded-full bg-yellow-500"></span>
+                      <span className="text-dark-400">material, plating, process (optional)</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <span className="w-2 h-2 rounded-full bg-yellow-500"></span>
+                      <span className="text-dark-400">packSize, pkgLength/Width/Height/Weight</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="border border-dashed border-dark-500/30 rounded-xl p-8 text-center hover:border-primary-500/30 transition-colors cursor-pointer" onClick={() => document.getElementById('import-file')?.click()} onDragOver={(e) => { e.preventDefault(); }} onDrop={(e) => { e.preventDefault(); const file = e.dataTransfer.files[0]; if (file && file.type === 'application/json') setImportFile(file); }}>
+                  <input id="import-file" type="file" accept=".json" className="hidden" onChange={(e) => { const file = e.target.files?.[0]; if (file) setImportFile(file); }} />
+                  <Upload className="w-12 h-12 text-dark-500 mx-auto mb-4" />
+                  {importFile ? (
+                    <div className="text-dark-50 font-medium">{importFile.name}</div>
+                  ) : (
+                    <>
+                      <p className="text-dark-50 font-medium mb-2">Drag &amp; drop your JSON file here</p>
+                      <p className="text-dark-400 text-sm">or click to browse</p>
+                    </>
+                  )}
+                </div>
+
+                {importLoading && (
+                  <div className="space-y-3">
+                    <div className="flex items-center justify-between text-sm">
+                      <span className="text-dark-300">Importing products...</span>
+                      <span className="text-primary-500">{importProgress}%</span>
+                    </div>
+                    <div className="w-full bg-dark-700 rounded-full h-2 overflow-hidden">
+                      <div className="bg-primary-500 h-full transition-all duration-300" style={{ width: `${importProgress}%` }}></div>
+                    </div>
+                  </div>
+                )}
+
+                {importResult && (
+                  <div className={`rounded-xl p-4 ${importResult.success ? 'bg-green-500/10 border border-green-500/30' : 'bg-red-500/10 border border-red-500/30'}`}>
+                    <div className="flex items-center gap-3 mb-2">
+                      {importResult.success ? <CheckCircle className="w-5 h-5 text-green-500" /> : <AlertCircle className="w-5 h-5 text-red-500" />}
+                      <span className={`font-medium ${importResult.success ? 'text-green-500' : 'text-red-500'}`}>{importResult.message}</span>
+                    </div>
+                    {importResult.data && (
+                      <div className="text-sm space-y-1">
+                        <p className="text-dark-300">Total: {importResult.data.total}</p>
+                        <p className="text-green-500">Success: {importResult.data.success}</p>
+                        <p className="text-red-500">Failed: {importResult.data.failed}</p>
+                        {importResult.data.errors && importResult.data.errors.length > 0 && (
+                          <div className="mt-3 max-h-32 overflow-y-auto">
+                            {importResult.data.errors.slice(0, 5).map((err: string, i: number) => (
+                              <p key={i} className="text-xs text-dark-400">{err}</p>
+                            ))}
+                          </div>
+                        )}
+                      </div>
+                    )}
+                  </div>
+                )}
+
+                <div className="flex gap-4">
+                  <button onClick={() => {
+                    const link = document.createElement('a');
+                    link.href = '/api/products/sample';
+                    link.download = 'sample-products.json';
+                    link.click();
+                  }} className="flex-1 flex items-center justify-center gap-2 bg-dark-700 hover:bg-dark-600 text-dark-200 px-6 py-3 rounded-lg font-medium transition-colors border border-dark-500/30">
+                    <Download className="w-5 h-5" />
+                    Download Sample File
+                  </button>
+                  <button onClick={async () => {
+                    if (!importFile) return;
+                    setImportLoading(true);
+                    setImportProgress(0);
+                    setImportResult(null);
+
+                    try {
+                      const text = await importFile.text();
+                      const json = JSON.parse(text);
+                      const productsData = json.products || json;
+
+                      setImportProgress(20);
+
+                      const res = await fetch('/api/products/batch', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ data: productsData }),
+                      });
+
+                      setImportProgress(100);
+
+                      const result = await res.json();
+
+                      if (res.ok) {
+                        setImportResult({ success: true, message: 'Import completed successfully!', data: result });
+                        fetch(`/api/products?authorId=${session?.user?.id}`)
+                          .then(res => res.json())
+                          .then(data => setProducts(data));
+                      } else {
+                        setImportResult({ success: false, message: result.error || 'Import failed' });
+                      }
+                    } catch (error) {
+                      setImportResult({ success: false, message: 'Error parsing file or uploading' });
+                    } finally {
+                      setImportLoading(false);
+                    }
+                  }} disabled={!importFile || importLoading} className="flex-1 flex items-center justify-center gap-2 bg-primary-500 hover:bg-primary-400 disabled:opacity-50 disabled:cursor-not-allowed text-dark-900 px-6 py-3 rounded-lg font-medium transition-colors">
+                    {importLoading ? <Loader2 className="w-5 h-5 animate-spin" /> : <Upload className="w-5 h-5" />}
+                    {importLoading ? 'Importing...' : 'Start Import'}
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </Layout>
   );
 };
