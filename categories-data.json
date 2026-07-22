@@ -1,0 +1,456 @@
+{
+  "categories": [
+    {
+      "name": "Fashion Jewelry",
+      "slug": "fashion-jewelry",
+      "parentId": null,
+      "sortOrder": 1,
+      "seoTitle": "Fashion Jewelry Wholesale from Yiwu – Bulk Necklaces, Earrings & Rings",
+      "seoDesc": "Shop wholesale fashion jewelry direct from Yiwu. Bulk pricing on necklaces, earrings, rings, bracelets and jewelry sets for retailers and distributors across US, Europe, Middle East, Africa and South America."
+    },
+    {
+      "name": "Garment Accessories",
+      "slug": "garment-accessories",
+      "parentId": null,
+      "sortOrder": 2,
+      "seoTitle": "Garment Accessories Wholesale – Zippers, Buttons & Trims from Yiwu",
+      "seoDesc": "Source wholesale garment accessories from Yiwu at factory prices. Bulk zippers, buttons, lace, embroidery patches and sewing supplies for clothing manufacturers and importers worldwide."
+    },
+    {
+      "name": "Hair Accessories",
+      "slug": "hair-accessories",
+      "parentId": null,
+      "sortOrder": 3,
+      "seoTitle": "Hair Accessories Wholesale – Clips, Headbands & Ties in Bulk",
+      "seoDesc": "Buy wholesale hair accessories from Yiwu. Bulk hair clips, headbands, hair ties and hair pins at competitive prices for beauty supply stores and distributors globally."
+    },
+    {
+      "name": "Bags & Accessories",
+      "slug": "bags-accessories",
+      "parentId": null,
+      "sortOrder": 4,
+      "seoTitle": "Bag Accessories Wholesale – Charms, Keychains & Belt Buckles in Bulk",
+      "seoDesc": "Wholesale bag accessories and hardware from Yiwu. Bulk bag charms, keychains and belt buckles for accessory brands, gift shops and importers in US, Europe, Middle East and Africa."
+    },
+    {
+      "name": "Home Decor & Crafts",
+      "slug": "home-decor-crafts",
+      "parentId": null,
+      "sortOrder": 5,
+      "seoTitle": "Home Decor & Craft Supplies Wholesale from Yiwu",
+      "seoDesc": "Wholesale beads, rhinestones and craft supplies direct from Yiwu. Bulk pricing for craft retailers, DIY brands and home decor importers across global markets."
+    },
+    {
+      "name": "Seasonal & Festival",
+      "slug": "seasonal-festival",
+      "parentId": null,
+      "sortOrder": 6,
+      "seoTitle": "Seasonal & Festival Decorations Wholesale – Christmas, Halloween & Valentine",
+      "seoDesc": "Stock up on wholesale seasonal and festival products from Yiwu. Bulk Christmas, Halloween and Valentine decorations for party supply stores and seasonal retailers worldwide."
+    },
+
+    {
+      "name": "Necklaces",
+      "slug": "necklaces",
+      "parentId": "fashion-jewelry",
+      "sortOrder": 1,
+      "seoTitle": "Wholesale Fashion Necklaces – Choker, Pendant & Layered Styles",
+      "seoDesc": "Buy wholesale fashion necklaces from Yiwu. Choker, pendant, layered and statement necklaces in bulk for jewelry retailers and online sellers across US, Europe, Middle East and Africa."
+    },
+    {
+      "name": "Earrings",
+      "slug": "earrings",
+      "parentId": "fashion-jewelry",
+      "sortOrder": 2,
+      "seoTitle": "Wholesale Fashion Earrings – Studs, Drops, Hoops & Clip-ons",
+      "seoDesc": "Shop wholesale fashion earrings from Yiwu at factory prices. Bulk stud, drop, hoop and clip-on earrings for jewelry stores, market vendors and online retailers globally."
+    },
+    {
+      "name": "Rings",
+      "slug": "rings",
+      "parentId": "fashion-jewelry",
+      "sortOrder": 3,
+      "seoTitle": "Wholesale Fashion Rings – Bulk Rings from Yiwu Market",
+      "seoDesc": "Source wholesale fashion rings direct from Yiwu. Bulk cocktail rings, band rings and adjustable rings for jewelry retailers and distributors in US, Europe, Middle East and South America."
+    },
+    {
+      "name": "Bracelets & Bangles",
+      "slug": "bracelets-bangles",
+      "parentId": "fashion-jewelry",
+      "sortOrder": 4,
+      "seoTitle": "Wholesale Bracelets & Bangles – Chain, Beaded & Metal Styles in Bulk",
+      "seoDesc": "Buy wholesale bracelets and bangles from Yiwu. Chain, beaded, metal and stretch styles in bulk for jewelry wholesalers and fashion retailers worldwide."
+    },
+    {
+      "name": "Brooches & Pins",
+      "slug": "brooches-pins",
+      "parentId": "fashion-jewelry",
+      "sortOrder": 5,
+      "seoTitle": "Wholesale Brooches & Pins – Fashion Pin Badges in Bulk",
+      "seoDesc": "Shop wholesale brooches and pins from Yiwu. Bulk fashion brooches, decorative pins and badge pins for accessory retailers and gift shops across global markets."
+    },
+    {
+      "name": "Jewelry Sets",
+      "slug": "jewelry-sets",
+      "parentId": "fashion-jewelry",
+      "sortOrder": 6,
+      "seoTitle": "Wholesale Jewelry Sets – Matching Necklace & Earring Sets in Bulk",
+      "seoDesc": "Buy wholesale jewelry sets from Yiwu. Matching necklace and earring sets, 3-piece sets and gift sets in bulk for jewelry retailers and online sellers globally."
+    },
+
+    {
+      "name": "Zippers",
+      "slug": "zippers",
+      "parentId": "garment-accessories",
+      "sortOrder": 1,
+      "seoTitle": "Wholesale Zippers – Metal, Nylon & Waterproof Zippers in Bulk",
+      "seoDesc": "Source wholesale zippers from Yiwu at factory prices. Bulk metal, nylon, waterproof and decorative zippers for garment manufacturers and haberdashery distributors worldwide."
+    },
+    {
+      "name": "Buttons",
+      "slug": "buttons",
+      "parentId": "garment-accessories",
+      "sortOrder": 2,
+      "seoTitle": "Wholesale Buttons – Fashion & Utility Buttons in Bulk from Yiwu",
+      "seoDesc": "Buy wholesale buttons from Yiwu. Bulk plastic, metal, resin and shell buttons for garment factories, fashion brands and haberdashery shops across US, Europe, Middle East and Africa."
+    },
+    {
+      "name": "Garment Decoration",
+      "slug": "garment-decoration",
+      "parentId": "garment-accessories",
+      "sortOrder": 3,
+      "seoTitle": "Wholesale Garment Decoration – Rhinestones, Appliques & Studs in Bulk",
+      "seoDesc": "Shop wholesale garment decoration supplies from Yiwu. Bulk hot-fix rhinestones, appliques, rivets and decorative chains for fashion manufacturers and apparel embellishment businesses."
+    },
+    {
+      "name": "Embroidery Patches",
+      "slug": "embroidery-patches",
+      "parentId": "garment-accessories",
+      "sortOrder": 4,
+      "seoTitle": "Wholesale Embroidery Patches – Cartoon, Vintage & Letter Patches in Bulk",
+      "seoDesc": "Buy wholesale embroidery patches from Yiwu. Bulk cartoon, vintage, letter and repair patches for clothing brands, custom apparel shops and importers worldwide."
+    },
+    {
+      "name": "Lace & Trim",
+      "slug": "lace-trim",
+      "parentId": "garment-accessories",
+      "sortOrder": 5,
+      "seoTitle": "Wholesale Lace & Trim – Fabric Trim & Ribbon by the Roll",
+      "seoDesc": "Source wholesale lace and trim from Yiwu. Bulk lace trim, ribbons, braids and fabric tapes for garment factories, bridal suppliers and craft businesses globally."
+    },
+    {
+      "name": "Thread & Yarn",
+      "slug": "thread-yarn",
+      "parentId": "garment-accessories",
+      "sortOrder": 6,
+      "seoTitle": "Wholesale Thread & Yarn – Sewing Thread & Knitting Yarn in Bulk",
+      "seoDesc": "Buy wholesale thread and yarn from Yiwu at factory prices. Bulk sewing thread, embroidery floss and knitting yarn for garment manufacturers and craft supply distributors."
+    },
+
+    {
+      "name": "Hair Clips",
+      "slug": "hair-clips",
+      "parentId": "hair-accessories",
+      "sortOrder": 1,
+      "seoTitle": "Wholesale Hair Clips – Fashion Hair Clips in Bulk from Yiwu",
+      "seoDesc": "Shop wholesale hair clips from Yiwu. Bulk fashion hair clips, claw clips and snap clips for beauty supply stores and hair accessory retailers worldwide."
+    },
+    {
+      "name": "Headbands",
+      "slug": "headbands",
+      "parentId": "hair-accessories",
+      "sortOrder": 2,
+      "seoTitle": "Wholesale Headbands – Fashion & Sports Headbands in Bulk",
+      "seoDesc": "Buy wholesale headbands from Yiwu. Bulk fashion headbands, sports headbands and bridal headbands for beauty retailers and sports accessory distributors globally."
+    },
+    {
+      "name": "Hair Ties",
+      "slug": "hair-ties",
+      "parentId": "hair-accessories",
+      "sortOrder": 3,
+      "seoTitle": "Wholesale Hair Ties – Scrunchies & Elastic Bands in Bulk",
+      "seoDesc": "Source wholesale hair ties from Yiwu. Bulk scrunchies, elastic hair bands and spiral ties for beauty supply shops and hair accessory importers worldwide."
+    },
+    {
+      "name": "Hair Pins",
+      "slug": "hair-pins",
+      "parentId": "hair-accessories",
+      "sortOrder": 4,
+      "seoTitle": "Wholesale Hair Pins – Bobby Pins & Hair Grips in Bulk",
+      "seoDesc": "Buy wholesale hair pins from Yiwu. Bulk bobby pins, U-pins and decorative hair grips for beauty supply stores and salon distributors across global markets."
+    },
+
+    {
+      "name": "Bag Charms",
+      "slug": "bag-charms",
+      "parentId": "bags-accessories",
+      "sortOrder": 1,
+      "seoTitle": "Wholesale Bag Charms – Handbag Charms & Pendants in Bulk",
+      "seoDesc": "Shop wholesale bag charms from Yiwu. Bulk handbag charms, purse pendants and luggage tags for accessory brands and gift retailers across US, Europe, Middle East and Africa."
+    },
+    {
+      "name": "Keychains",
+      "slug": "keychains",
+      "parentId": "bags-accessories",
+      "sortOrder": 2,
+      "seoTitle": "Wholesale Keychains – Promotional & Fashion Keychains in Bulk",
+      "seoDesc": "Buy wholesale keychains from Yiwu at factory prices. Bulk promotional keychains, novelty key rings and car key covers for gift shops and promotional product distributors."
+    },
+    {
+      "name": "Belt Buckles",
+      "slug": "belt-buckles",
+      "parentId": "bags-accessories",
+      "sortOrder": 3,
+      "seoTitle": "Wholesale Belt Buckles – Fashion & Western Buckles in Bulk",
+      "seoDesc": "Source wholesale belt buckles from Yiwu. Bulk fashion buckles, western buckles and automatic buckles for belt manufacturers and accessory wholesalers globally."
+    },
+
+    {
+      "name": "Beads & Charms",
+      "slug": "beads-charms",
+      "parentId": "home-decor-crafts",
+      "sortOrder": 1,
+      "seoTitle": "Wholesale Beads & Charms – Jewelry Making Beads in Bulk from Yiwu",
+      "seoDesc": "Shop wholesale beads and charms from Yiwu. Bulk glass beads, metal charms, acrylic beads and spacer beads for jewelry makers and craft supply retailers worldwide."
+    },
+    {
+      "name": "Rhinestones",
+      "slug": "rhinestones",
+      "parentId": "home-decor-crafts",
+      "sortOrder": 2,
+      "seoTitle": "Wholesale Rhinestones – Loose Crystals & Flatback Stones in Bulk",
+      "seoDesc": "Buy wholesale rhinestones from Yiwu. Bulk loose rhinestones, flatback crystals and hot-fix stones for nail art, garment embellishment and craft businesses globally."
+    },
+    {
+      "name": "Craft Supplies",
+      "slug": "craft-supplies",
+      "parentId": "home-decor-crafts",
+      "sortOrder": 3,
+      "seoTitle": "Wholesale Craft Supplies – DIY Materials & Tools in Bulk",
+      "seoDesc": "Source wholesale craft supplies from Yiwu. Bulk DIY materials, jewelry findings, glue tools and craft accessories for hobby stores and craft retailers across global markets."
+    },
+
+    {
+      "name": "Christmas",
+      "slug": "christmas",
+      "parentId": "seasonal-festival",
+      "sortOrder": 1,
+      "seoTitle": "Wholesale Christmas Decorations – Ornaments & Lights in Bulk from Yiwu",
+      "seoDesc": "Buy wholesale Christmas decorations from Yiwu. Bulk ornaments, string lights, tree toppers and holiday decor for party supply stores and seasonal retailers worldwide."
+    },
+    {
+      "name": "Halloween",
+      "slug": "halloween",
+      "parentId": "seasonal-festival",
+      "sortOrder": 2,
+      "seoTitle": "Wholesale Halloween Decorations & Props in Bulk",
+      "seoDesc": "Shop wholesale Halloween products from Yiwu. Bulk decorations, costume accessories, party props and scary decor for seasonal retailers and party supply importers globally."
+    },
+    {
+      "name": "Valentine",
+      "slug": "valentine",
+      "parentId": "seasonal-festival",
+      "sortOrder": 3,
+      "seoTitle": "Wholesale Valentine's Day Products – Gifts & Decor in Bulk",
+      "seoDesc": "Source wholesale Valentine products from Yiwu. Bulk romantic gifts, heart decorations and Valentine gift packaging for gift shops and seasonal retailers across global markets."
+    },
+
+    {
+      "name": "Choker Necklaces",
+      "slug": "choker-necklaces",
+      "parentId": "necklaces",
+      "sortOrder": 1,
+      "seoTitle": "Wholesale Choker Necklaces – Velvet, Lace & Metal Chokers in Bulk",
+      "seoDesc": "Buy wholesale choker necklaces from Yiwu. Bulk velvet, lace, metal and rhinestone chokers for jewelry retailers and online sellers in US, Europe, Middle East and Africa."
+    },
+    {
+      "name": "Pendant Necklaces",
+      "slug": "pendant-necklaces",
+      "parentId": "necklaces",
+      "sortOrder": 2,
+      "seoTitle": "Wholesale Pendant Necklaces – Fashion Pendant Chains in Bulk",
+      "seoDesc": "Shop wholesale pendant necklaces from Yiwu. Bulk charm pendants, crystal pendants and themed pendant necklaces for jewelry stores and fashion retailers globally."
+    },
+    {
+      "name": "Layered Necklaces",
+      "slug": "layered-necklaces",
+      "parentId": "necklaces",
+      "sortOrder": 3,
+      "seoTitle": "Wholesale Layered Necklaces – Multi-Strand & Stackable Styles in Bulk",
+      "seoDesc": "Buy wholesale layered necklaces from Yiwu. Bulk multi-strand, tassel and stackable layered styles for fashion jewelry retailers and distributors worldwide."
+    },
+    {
+      "name": "Statement Necklaces",
+      "slug": "statement-necklaces",
+      "parentId": "necklaces",
+      "sortOrder": 4,
+      "seoTitle": "Wholesale Statement Necklaces – Bold & Oversized Necklaces in Bulk",
+      "seoDesc": "Source wholesale statement necklaces from Yiwu. Bulk bold, oversized and crystal-encrusted statement necklaces for bridal and fashion jewelry retailers across global markets."
+    },
+
+    {
+      "name": "Stud Earrings",
+      "slug": "stud-earrings",
+      "parentId": "earrings",
+      "sortOrder": 1,
+      "seoTitle": "Wholesale Stud Earrings – Crystal & Pearl Studs in Bulk",
+      "seoDesc": "Buy wholesale stud earrings from Yiwu. Bulk crystal, pearl, cubic zirconia and fashion stud earrings for jewelry retailers and market vendors worldwide."
+    },
+    {
+      "name": "Drop Earrings",
+      "slug": "drop-earrings",
+      "parentId": "earrings",
+      "sortOrder": 2,
+      "seoTitle": "Wholesale Drop Earrings – Dangle & Chandelier Earrings in Bulk",
+      "seoDesc": "Shop wholesale drop earrings from Yiwu. Bulk dangle, chandelier and fringe drop earrings for jewelry stores and online fashion sellers across US, Europe and Middle East."
+    },
+    {
+      "name": "Hoop Earrings",
+      "slug": "hoop-earrings",
+      "parentId": "earrings",
+      "sortOrder": 3,
+      "seoTitle": "Wholesale Hoop Earrings – Gold & Silver Hoops in Bulk",
+      "seoDesc": "Buy wholesale hoop earrings from Yiwu at factory prices. Bulk gold-tone, silver-tone and embellished hoop earrings for jewelry retailers and distributors globally."
+    },
+    {
+      "name": "Clip-on Earrings",
+      "slug": "clip-on-earrings",
+      "parentId": "earrings",
+      "sortOrder": 4,
+      "seoTitle": "Wholesale Clip-on Earrings – Non-Pierced Earrings in Bulk",
+      "seoDesc": "Source wholesale clip-on earrings from Yiwu. Bulk non-pierced, clip-on and magnetic earrings for mature and non-pierced market segments across global markets."
+    },
+
+    {
+      "name": "Chain Bracelets",
+      "slug": "chain-bracelets",
+      "parentId": "bracelets-bangles",
+      "sortOrder": 1,
+      "seoTitle": "Wholesale Chain Bracelets – Link & Cable Chain Bracelets in Bulk",
+      "seoDesc": "Buy wholesale chain bracelets from Yiwu. Bulk link chain, cable chain and charm chain bracelets for jewelry retailers and fashion accessory distributors worldwide."
+    },
+    {
+      "name": "Beaded Bracelets",
+      "slug": "beaded-bracelets",
+      "parentId": "bracelets-bangles",
+      "sortOrder": 2,
+      "seoTitle": "Wholesale Beaded Bracelets – Stone & Glass Bead Bracelets in Bulk",
+      "seoDesc": "Shop wholesale beaded bracelets from Yiwu. Bulk natural stone, glass bead and seed bead bracelets for boho jewelry retailers and spiritual accessory sellers globally."
+    },
+    {
+      "name": "Metal Bangles",
+      "slug": "metal-bangles",
+      "parentId": "bracelets-bangles",
+      "sortOrder": 3,
+      "seoTitle": "Wholesale Metal Bangles – Gold & Silver Tone Bangles in Bulk",
+      "seoDesc": "Buy wholesale metal bangles from Yiwu. Bulk gold-tone, silver-tone and rhinestone bangles for South Asian, Middle Eastern and African jewelry retailers and distributors."
+    },
+    {
+      "name": "Stretch Bracelets",
+      "slug": "stretch-bracelets",
+      "parentId": "bracelets-bangles",
+      "sortOrder": 4,
+      "seoTitle": "Wholesale Stretch Bracelets – Elastic Beaded Bracelets in Bulk",
+      "seoDesc": "Source wholesale stretch bracelets from Yiwu. Bulk elastic beaded, stone and glass stretch bracelets for gift shops and jewelry retailers across US, Europe and Africa."
+    },
+
+    {
+      "name": "Metal Zippers",
+      "slug": "metal-zippers",
+      "parentId": "zippers",
+      "sortOrder": 1,
+      "seoTitle": "Wholesale Metal Zippers – Brass & Aluminum Zippers in Bulk",
+      "seoDesc": "Buy wholesale metal zippers from Yiwu. Bulk brass, aluminum and copper-finish metal zippers for garment factories and haberdashery wholesalers worldwide."
+    },
+    {
+      "name": "Nylon Zippers",
+      "slug": "nylon-zippers",
+      "parentId": "zippers",
+      "sortOrder": 2,
+      "seoTitle": "Wholesale Nylon Zippers – Coil & Invisible Zippers in Bulk",
+      "seoDesc": "Shop wholesale nylon zippers from Yiwu at factory prices. Bulk coil zippers, invisible zippers and lightweight nylon zippers for dress and skirt manufacturers globally."
+    },
+    {
+      "name": "Waterproof Zippers",
+      "slug": "waterproof-zippers",
+      "parentId": "zippers",
+      "sortOrder": 3,
+      "seoTitle": "Wholesale Waterproof Zippers – Sealed & Water-Resistant Zippers in Bulk",
+      "seoDesc": "Buy wholesale waterproof zippers from Yiwu. Bulk sealed, water-resistant and marine-grade zippers for outdoor gear and bag manufacturers across global markets."
+    },
+    {
+      "name": "Decorative Zippers",
+      "slug": "decorative-zippers",
+      "parentId": "zippers",
+      "sortOrder": 4,
+      "seoTitle": "Wholesale Decorative Zippers – Fashion & Novelty Zippers in Bulk",
+      "seoDesc": "Source wholesale decorative zippers from Yiwu. Bulk colored, patterned and novelty fashion zippers for designer brands and garment embellishment businesses worldwide."
+    },
+
+    {
+      "name": "Hot Fix Rhinestones",
+      "slug": "hot-fix-rhinestones",
+      "parentId": "garment-decoration",
+      "sortOrder": 1,
+      "seoTitle": "Wholesale Hot Fix Rhinestones – Heat-Set Crystals in Bulk",
+      "seoDesc": "Buy wholesale hot-fix rhinestones from Yiwu. Bulk heat-set crystals, flatback rhinestones and SS-sized stones for garment embellishment and nail art businesses globally."
+    },
+    {
+      "name": "Appliques",
+      "slug": "appliques",
+      "parentId": "garment-decoration",
+      "sortOrder": 2,
+      "seoTitle": "Wholesale Appliques – Fabric & Sequin Appliques in Bulk",
+      "seoDesc": "Shop wholesale appliques from Yiwu. Bulk fabric, sequin, bead and embroidery appliques for fashion designers and garment decoration businesses across global markets."
+    },
+    {
+      "name": "Rivets & Studs",
+      "slug": "rivets-studs",
+      "parentId": "garment-decoration",
+      "sortOrder": 3,
+      "seoTitle": "Wholesale Rivets & Studs – Jeans Rivets & Decorative Studs in Bulk",
+      "seoDesc": "Buy wholesale rivets and studs from Yiwu. Bulk jeans rivets, prong studs and decorative metal studs for denim manufacturers and leather craft businesses worldwide."
+    },
+    {
+      "name": "Decorative Chains",
+      "slug": "decorative-chains",
+      "parentId": "garment-decoration",
+      "sortOrder": 4,
+      "seoTitle": "Wholesale Decorative Chains – Garment & Bag Chains in Bulk",
+      "seoDesc": "Source wholesale decorative chains from Yiwu. Bulk ball chain, link chain and drawstring chains for garment, bag and home decor manufacturers across global markets."
+    },
+
+    {
+      "name": "Cartoon Patches",
+      "slug": "cartoon-patches",
+      "parentId": "embroidery-patches",
+      "sortOrder": 1,
+      "seoTitle": "Wholesale Cartoon Patches – Cute & Character Embroidery Patches in Bulk",
+      "seoDesc": "Buy wholesale cartoon patches from Yiwu. Bulk cute animal, character and cartoon embroidered patches for kids' clothing brands and custom apparel shops globally."
+    },
+    {
+      "name": "Vintage Patches",
+      "slug": "vintage-patches",
+      "parentId": "embroidery-patches",
+      "sortOrder": 2,
+      "seoTitle": "Wholesale Vintage Patches – Retro & Classic Embroidery Patches in Bulk",
+      "seoDesc": "Shop wholesale vintage patches from Yiwu. Bulk retro, classic and antique-style embroidered patches for streetwear brands and denim customization businesses worldwide."
+    },
+    {
+      "name": "Letter Patches",
+      "slug": "letter-patches",
+      "parentId": "embroidery-patches",
+      "sortOrder": 3,
+      "seoTitle": "Wholesale Letter Patches – Alphabet & Number Patches in Bulk",
+      "seoDesc": "Buy wholesale letter patches from Yiwu. Bulk alphabet, number and monogram embroidered patches for varsity jacket makers and custom apparel businesses globally."
+    },
+    {
+      "name": "Repair Patches",
+      "slug": "repair-patches",
+      "parentId": "embroidery-patches",
+      "sortOrder": 4,
+      "seoTitle": "Wholesale Repair Patches – Denim & Fabric Repair Patches in Bulk",
+      "seoDesc": "Source wholesale repair patches from Yiwu. Bulk denim, fabric and iron-on repair patches for haberdashery shops and clothing repair service providers worldwide."
+    }
+  ]
+}

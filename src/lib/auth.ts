@@ -40,6 +40,7 @@ export const authOptions: AuthOptions = {
           email: user.email,
           name: user.name,
           role: user.role,
+          allowedCategoryId: user.allowedCategoryId,
         };
       },
     }),
@@ -52,6 +53,7 @@ export const authOptions: AuthOptions = {
           ...session.user,
           id: token.id as string,
           role: token.role as string,
+          allowedCategoryId: token.allowedCategoryId as string | null,
         },
       };
     },
@@ -59,6 +61,7 @@ export const authOptions: AuthOptions = {
       if (user) {
         token.id = user.id;
         token.role = (user as unknown as { role: string }).role;
+        token.allowedCategoryId = (user as unknown as { allowedCategoryId: string | null }).allowedCategoryId;
       }
       return token;
     },
@@ -75,6 +78,7 @@ declare module 'next-auth' {
       name: string;
       email: string;
       role: string;
+      allowedCategoryId: string | null;
     };
   }
 }

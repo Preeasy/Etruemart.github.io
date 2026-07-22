@@ -43,13 +43,58 @@ async function seedIfEmpty() {
     },
   });
 
-  const categories = siteData.categories || [];
-  for (const catName of categories) {
-    await prisma.category.upsert({
-      where: { name: catName },
-      update: {},
-      create: { name: catName },
-    });
+  // Seed categories from categories-data.json
+  const catDataPath = path.join(process.cwd(), 'categories-data.json');
+  if (fs.existsSync(catDataPath)) {
+    const catData = JSON.parse(fs.readFileSync(catDataPath, 'utf-8'));
+    const catItems = catData.categories || [];
+    // First pass: create categories without parentId
+    for (const cat of catItems) {
+      if (!cat.parentId) {
+        await prisma.category.upsert({
+          where: { slug: cat.slug },
+          update: {},
+          create: {
+            name: cat.name,
+            slug: cat.slug,
+            sortOrder: cat.sortOrder || 0,
+            seoTitle: cat.seoTitle || null,
+            seoDesc: cat.seoDesc || null,
+          },
+        });
+      }
+    }
+    // Second pass: create child categories with parentId
+    for (const cat of catItems) {
+      if (cat.parentId) {
+        const parent = await prisma.category.findUnique({ where: { slug: cat.parentId } });
+        if (parent) {
+          await prisma.category.upsert({
+            where: { slug: cat.slug },
+            update: {},
+            create: {
+              name: cat.name,
+              slug: cat.slug,
+              parentId: parent.id,
+              sortOrder: cat.sortOrder || 0,
+              seoTitle: cat.seoTitle || null,
+              seoDesc: cat.seoDesc || null,
+            },
+          });
+        }
+      }
+    }
+  } else {
+    // Fallback: use categories from site-data.json
+    const categories = siteData.categories || [];
+    for (const catName of categories) {
+      const slug = catName.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+      await prisma.category.upsert({
+        where: { slug },
+        update: {},
+        create: { name: catName, slug },
+      });
+    }
   }
 
   const products = siteData.products || [];
@@ -70,6 +115,11 @@ async function seedIfEmpty() {
     }
     const uniqueImages = [...new Set(images)];
 
+    // Find category by name from productData.category string
+    const catRecord = await prisma.category.findFirst({ where: { name: productData.category || 'Other' } });
+    const fallbackCat = await prisma.category.findFirst();
+    const categoryId = catRecord?.id || fallbackCat?.id || '';
+
     await prisma.product.create({
       data: {
         name: productData.name,
@@ -80,12 +130,19 @@ async function seedIfEmpty() {
           : (productData.priceMin * 1.3),
         image: productData.image,
         images: uniqueImages,
-        category: productData.category || 'Other',
+        categoryId,
         stock: 100,
         isPublished: true,
         sku: productData.sku || null,
         material: productData.material || null,
+        plating: productData.plating || null,
+        process: productData.process || null,
+        color: productData.color || null,
+        size: productData.size || null,
+        packSize: productData.packSize || 1,
         moq: productData.moq || 1,
+        keywords: productData.keywords || [],
+        stockStatus: productData.stockStatus || 'IN_STOCK',
         shippingCost: 0,
         aplus: productData.aplus || null,
         shippingMethod: 'Standard Shipping',
@@ -102,21 +159,39 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   if (req.method === 'GET') {
     await seedIfEmpty();
 
-    const { authorId, category } = req.query;
+    const { authorId, categoryId, material, plating, color, priceMin, priceMax } = req.query;
 
     const where: any = { isPublished: true };
-    
+
     if (authorId) {
       where.authorId = authorId as string;
     }
-    
-    if (category && category !== 'All') {
-      where.category = category as string;
+
+    if (categoryId && categoryId !== 'All') {
+      where.categoryId = categoryId as string;
+    }
+
+    if (material) {
+      where.material = material as string;
+    }
+
+    if (plating) {
+      where.plating = plating as string;
+    }
+
+    if (color) {
+      where.color = color as string;
+    }
+
+    if (priceMin || priceMax) {
+      where.price = {};
+      if (priceMin) where.price.gte = parseFloat(priceMin as string);
+      if (priceMax) where.price.lte = parseFloat(priceMax as string);
     }
 
     const products = await prisma.product.findMany({
       where,
-      include: { variants: true },
+      include: { variants: true, category: { select: { id: true, name: true, slug: true } } },
       orderBy: { createdAt: 'desc' },
     });
 
@@ -124,13 +199,26 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   }
 
   const session = await getServerSession(req, res, authOptions);
-  
+
   if (!session?.user) {
     return res.status(401).json({ error: 'Unauthorized' });
   }
 
   if (req.method === 'POST') {
-    const { name, description, price, originalPrice, image, images, category, stock, variants } = req.body;
+    const {
+      name, description, price, originalPrice, image, images,
+      categoryId, stock, variants,
+      material, plating, process, color, size, packSize,
+      pkgLength, pkgWidth, pkgHeight, pkgWeight, keywords,
+      stockStatus, moq,
+    } = req.body;
+
+    // Seller permission: non-ADMIN can only create products in their allowedCategoryId
+    if (session.user.role !== 'ADMIN' && session.user.allowedCategoryId) {
+      if (categoryId !== session.user.allowedCategoryId) {
+        return res.status(403).json({ error: 'You can only create products in your allowed category' });
+      }
+    }
 
     const product = await prisma.product.create({
       data: {
@@ -140,8 +228,21 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         originalPrice: originalPrice ? parseFloat(originalPrice) : undefined,
         image,
         images: images || [],
-        category,
+        categoryId,
         stock: parseInt(stock),
+        material: material || null,
+        plating: plating || null,
+        process: process || null,
+        color: color || null,
+        size: size || null,
+        packSize: packSize ? parseInt(packSize) : 1,
+        pkgLength: pkgLength ? parseFloat(pkgLength) : null,
+        pkgWidth: pkgWidth ? parseFloat(pkgWidth) : null,
+        pkgHeight: pkgHeight ? parseFloat(pkgHeight) : null,
+        pkgWeight: pkgWeight ? parseFloat(pkgWeight) : null,
+        keywords: keywords || [],
+        stockStatus: stockStatus || 'IN_STOCK',
+        moq: moq ? parseInt(moq) : 1,
         authorId: session.user.id,
         variants: variants ? { create: variants } : undefined,
       },

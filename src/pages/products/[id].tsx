@@ -25,7 +25,8 @@ interface Product {
   originalPrice?: number;
   image: string;
   images: string[];
-  category: string;
+  categoryId: string;
+  category?: { id: string; name: string; slug: string } | string;
   stock: number;
   rating: number;
   reviewCount: number;
@@ -69,7 +70,7 @@ const ProductDetail = () => {
     return (
       <Layout>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-accent-500 mx-auto mb-4"></div>
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-500 mx-auto mb-4"></div>
           <p className="text-dark-400">Loading...</p>
         </div>
       </Layout>
@@ -106,9 +107,9 @@ const ProductDetail = () => {
       <div className="bg-dark-800 border-b border-dark-700/50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
           <nav className="flex items-center gap-2 text-sm text-dark-400">
-            <Link href="/" className="hover:text-accent-500 transition-colors">Home</Link>
+            <Link href="/" className="hover:text-primary-500 transition-colors">Home</Link>
             <ChevronLeft className="w-4 h-4 rotate-180" />
-            <Link href="/products" className="hover:text-accent-500 transition-colors">Products</Link>
+            <Link href="/products" className="hover:text-primary-500 transition-colors">Products</Link>
             <ChevronLeft className="w-4 h-4 rotate-180" />
             <span className="text-dark-100 font-medium">{product.name}</span>
           </nav>
@@ -131,7 +132,7 @@ const ProductDetail = () => {
                   <button
                     key={index}
                     onClick={() => setSelectedImage(index)}
-                    className={`flex-shrink-0 w-20 h-20 rounded-lg overflow-hidden border-2 transition-all ${selectedImage === index ? 'border-accent-500 ring-2 ring-accent-500/30' : 'border-dark-700/50 hover:border-accent-500/50'}`}
+                    className={`flex-shrink-0 w-20 h-20 rounded-lg overflow-hidden border-2 transition-all ${selectedImage === index ? 'border-primary-500 ring-2 ring-primary-500/30' : 'border-dark-700/50 hover:border-primary-500/50'}`}
                   >
                     <img src={img} alt={`View ${index + 1}`} className="w-full h-full object-cover" />
                   </button>
@@ -142,8 +143,8 @@ const ProductDetail = () => {
 
           <div>
             <div className="flex items-center gap-3 mb-4">
-              <span className="inline-block bg-primary-800/50 text-primary-400 text-sm font-medium px-3 py-1 rounded-full border border-primary-700/30">
-                {product.category}
+              <span className="inline-block bg-primary-500/15 text-primary-400 text-sm font-medium px-3 py-1 rounded-full border border-primary-500/20">
+                {typeof product.category === 'object' && product.category !== null ? product.category.name : typeof product.category === 'string' ? product.category : ''}
               </span>
             </div>
             
@@ -152,7 +153,7 @@ const ProductDetail = () => {
             <div className="flex items-center gap-4 mb-6">
               <div className="flex items-center gap-1">
                 {[...Array(5)].map((_, i) => (
-                  <Star key={i} className={`w-5 h-5 ${i < Math.floor(product.rating) ? 'text-accent-500 fill-accent-500' : 'text-dark-600'}`} />
+                  <Star key={i} className={`w-5 h-5 ${i < Math.floor(product.rating) ? 'text-primary-500 fill-primary-500' : 'text-dark-600'}`} />
                 ))}
               </div>
               <span className="text-dark-400">{product.rating} ({product.reviewCount} reviews)</span>
@@ -162,11 +163,11 @@ const ProductDetail = () => {
 
             <div className="bg-dark-800 rounded-xl p-5 mb-6 border border-dark-700/50">
               <div className="flex items-baseline gap-3">
-                <span className="text-4xl font-bold text-accent-500">${(currentVariant?.price || product.price).toFixed(2)}</span>
+                <span className="text-4xl font-bold text-primary-500">${(currentVariant?.price || product.price).toFixed(2)}</span>
                 {product.originalPrice && (
                   <>
                     <span className="text-xl text-dark-500 line-through">${product.originalPrice}</span>
-                    <span className="bg-accent-500 text-dark-900 text-sm font-bold px-2 py-1 rounded">
+                    <span className="bg-primary-500 text-dark-900 text-sm font-bold px-2 py-1 rounded">
                       -{discount}%
                     </span>
                   </>
@@ -184,7 +185,7 @@ const ProductDetail = () => {
                     <button
                       key={variant.id}
                       onClick={() => setSelectedVariantColor(variant.color)}
-                      className={`px-4 py-2 rounded-lg border-2 transition-all ${selectedVariantColor === variant.color ? 'border-accent-500 bg-accent-500/10 text-accent-500 font-medium' : 'border-dark-700/50 text-dark-300 hover:border-accent-500/50'}`}
+                      className={`px-4 py-2 rounded-lg border-2 transition-all ${selectedVariantColor === variant.color ? 'border-primary-500 bg-primary-500/10 text-primary-500 font-medium' : 'border-dark-700/50 text-dark-300 hover:border-primary-500/50'}`}
                     >
                       {variant.color}
                     </button>
@@ -212,7 +213,7 @@ const ProductDetail = () => {
             </div>
 
             <div className="flex flex-col sm:flex-row gap-3 mb-8">
-              <button onClick={handleAddToCart} className="flex-1 flex items-center justify-center gap-2 bg-accent-500 hover:bg-accent-400 text-dark-900 py-3 rounded-xl font-bold transition-colors">
+              <button onClick={handleAddToCart} className="flex-1 flex items-center justify-center gap-2 bg-primary-500 hover:bg-primary-400 text-dark-900 py-3 rounded-xl font-bold transition-colors">
                 <ShoppingCart className="w-5 h-5" />
                 Add to Cart
               </button>
@@ -222,24 +223,24 @@ const ProductDetail = () => {
               <button onClick={() => setIsFavorite(!isFavorite)} className="sm:w-12 p-3 border border-dark-700/50 rounded-xl hover:border-red-500 hover:text-red-500 transition-colors text-dark-400">
                 <Heart className={`w-5 h-5 ${isFavorite ? 'fill-red-500 text-red-500' : ''}`} />
               </button>
-              <button className="sm:w-12 p-3 border border-dark-700/50 rounded-xl hover:border-accent-500 hover:text-accent-500 transition-colors text-dark-400">
+              <button className="sm:w-12 p-3 border border-dark-700/50 rounded-xl hover:border-primary-500 hover:text-primary-500 transition-colors text-dark-400">
                 <Share2 className="w-5 h-5" />
               </button>
             </div>
 
             <div className="grid grid-cols-3 gap-3">
               <div className="bg-dark-800 rounded-xl p-4 text-center border border-dark-700/50">
-                <Truck className="w-6 h-6 text-accent-500 mx-auto mb-2" />
+                <Truck className="w-6 h-6 text-primary-500 mx-auto mb-2" />
                 <p className="text-sm font-medium text-dark-200">Free Shipping</p>
                 <p className="text-xs text-dark-500">Orders over $50</p>
               </div>
               <div className="bg-dark-800 rounded-xl p-4 text-center border border-dark-700/50">
-                <ShieldCheck className="w-6 h-6 text-accent-500 mx-auto mb-2" />
+                <ShieldCheck className="w-6 h-6 text-primary-500 mx-auto mb-2" />
                 <p className="text-sm font-medium text-dark-200">Secure Payment</p>
                 <p className="text-xs text-dark-500">100% protected</p>
               </div>
               <div className="bg-dark-800 rounded-xl p-4 text-center border border-dark-700/50">
-                <RotateCcw className="w-6 h-6 text-accent-500 mx-auto mb-2" />
+                <RotateCcw className="w-6 h-6 text-primary-500 mx-auto mb-2" />
                 <p className="text-sm font-medium text-dark-200">Easy Returns</p>
                 <p className="text-xs text-dark-500">30-day policy</p>
               </div>
@@ -250,13 +251,13 @@ const ProductDetail = () => {
         <div className="mt-12">
           <div className="border-b border-dark-700/50 mb-6">
             <div className="flex gap-6">
-              <button onClick={() => setActiveTab('description')} className={`pb-3 font-medium border-b-2 transition-colors ${activeTab === 'description' ? 'border-accent-500 text-accent-500' : 'border-transparent text-dark-400 hover:text-dark-200'}`}>
+              <button onClick={() => setActiveTab('description')} className={`pb-3 font-medium border-b-2 transition-colors ${activeTab === 'description' ? 'border-primary-500 text-primary-500' : 'border-transparent text-dark-400 hover:text-dark-200'}`}>
                 Description
               </button>
-              <button onClick={() => setActiveTab('specs')} className={`pb-3 font-medium border-b-2 transition-colors ${activeTab === 'specs' ? 'border-accent-500 text-accent-500' : 'border-transparent text-dark-400 hover:text-dark-200'}`}>
+              <button onClick={() => setActiveTab('specs')} className={`pb-3 font-medium border-b-2 transition-colors ${activeTab === 'specs' ? 'border-primary-500 text-primary-500' : 'border-transparent text-dark-400 hover:text-dark-200'}`}>
                 Specifications
               </button>
-              <button onClick={() => setActiveTab('reviews')} className={`pb-3 font-medium border-b-2 transition-colors ${activeTab === 'reviews' ? 'border-accent-500 text-accent-500' : 'border-transparent text-dark-400 hover:text-dark-200'}`}>
+              <button onClick={() => setActiveTab('reviews')} className={`pb-3 font-medium border-b-2 transition-colors ${activeTab === 'reviews' ? 'border-primary-500 text-primary-500' : 'border-transparent text-dark-400 hover:text-dark-200'}`}>
                 Reviews ({product.reviewCount})
               </button>
             </div>
@@ -272,7 +273,7 @@ const ProductDetail = () => {
                   <ul className="space-y-2">
                     {product.aplus.features.map((feature, index) => (
                       <li key={index} className="flex items-start gap-2 text-dark-300">
-                        <span className="text-accent-500 mt-1">•</span>
+                        <span className="text-primary-500 mt-1">•</span>
                         {feature}
                       </li>
                     ))}
@@ -320,7 +321,7 @@ const ProductDetail = () => {
                   <div className="text-4xl font-bold text-dark-100 mb-2">{product.rating}</div>
                   <div className="flex gap-1">
                     {[...Array(5)].map((_, i) => (
-                      <Star key={i} className={`w-5 h-5 ${i < Math.floor(product.rating) ? 'text-accent-500 fill-accent-500' : 'text-dark-600'}`} />
+                      <Star key={i} className={`w-5 h-5 ${i < Math.floor(product.rating) ? 'text-primary-500 fill-primary-500' : 'text-dark-600'}`} />
                     ))}
                   </div>
                 </div>
@@ -341,7 +342,7 @@ const ProductDetail = () => {
                           <h4 className="font-semibold text-dark-100">{review.user.name}</h4>
                           <div className="flex gap-1">
                             {[...Array(5)].map((_, i) => (
-                              <Star key={i} className={`w-4 h-4 ${i < review.rating ? 'text-accent-500 fill-accent-500' : 'text-dark-600'}`} />
+                              <Star key={i} className={`w-4 h-4 ${i < review.rating ? 'text-primary-500 fill-primary-500' : 'text-dark-600'}`} />
                             ))}
                           </div>
                         </div>

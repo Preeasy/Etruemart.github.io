@@ -107,7 +107,7 @@ const Cart = () => {
                         </p>
                       )}
                       <div className="flex items-center justify-between mt-4">
-                        <span className="text-xl font-bold text-accent-600">
+                        <span className="text-xl font-bold text-primary-600">
                           ${(item.variant?.price || item.product.price).toFixed(2)}
                         </span>
                         <div className="flex items-center gap-4">
@@ -160,7 +160,7 @@ const Cart = () => {
                 </div>
                 <div className="border-t pt-4 flex justify-between">
                   <span className="font-semibold text-gray-900">Total</span>
-                  <span className="text-2xl font-bold text-accent-600">${grandTotal.toFixed(2)}</span>
+                  <span className="text-2xl font-bold text-primary-600">${grandTotal.toFixed(2)}</span>
                 </div>
               </div>
 
@@ -178,7 +178,7 @@ const Cart = () => {
 
               <button
                 onClick={handleCheckout}
-                className="w-full flex items-center justify-center gap-2 bg-accent-500 hover:bg-accent-600 text-white py-4 rounded-xl font-semibold text-lg transition-colors"
+                className="w-full flex items-center justify-center gap-2 bg-primary-500 hover:bg-primary-600 text-white py-4 rounded-xl font-semibold text-lg transition-colors"
               >
                 <CreditCard className="w-5 h-5" />
                 Proceed to Checkout

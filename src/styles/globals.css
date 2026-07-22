@@ -2,6 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap');
+
 @layer base {
   html {
     scroll-behavior: smooth;
@@ -10,19 +12,86 @@
     @apply antialiased text-dark-100 bg-dark-900;
     font-family: 'Inter', system-ui, -apple-system, sans-serif;
   }
+  h1, h2, h3, .font-display {
+    font-family: 'Playfair Display', Georgia, serif;
+  }
 }
 
 @layer components {
   .btn-primary {
-    @apply inline-flex items-center justify-center px-6 py-3 bg-accent-500 text-dark-900 font-bold rounded-lg hover:bg-accent-400 transition-all duration-300 transform hover:scale-105 shadow-lg;
+    @apply inline-flex items-center justify-center px-6 py-3 bg-primary-500 text-dark-900 font-bold rounded-lg hover:bg-primary-400 transition-all duration-300 shadow-lg;
   }
   .btn-secondary {
-    @apply inline-flex items-center justify-center px-6 py-3 border-2 border-accent-500 text-accent-500 font-bold rounded-lg hover:bg-accent-500 hover:text-dark-900 transition-all duration-300;
+    @apply inline-flex items-center justify-center px-6 py-3 border-2 border-primary-500 text-primary-500 font-bold rounded-lg hover:bg-primary-500 hover:text-dark-900 transition-all duration-300;
+  }
+  .btn-rose {
+    @apply inline-flex items-center justify-center px-6 py-3 bg-rose-500 text-white font-bold rounded-lg hover:bg-rose-400 transition-all duration-300;
   }
   .card-hover {
     @apply transition-all duration-300 hover:shadow-xl hover:-translate-y-1;
   }
   .glass-card {
     @apply bg-dark-800/80 backdrop-blur-sm border border-dark-700/50 rounded-xl;
+  }
+  .gold-border {
+    @apply border border-primary-500/30;
+  }
+  .gold-glow {
+    box-shadow: 0 0 20px rgba(201, 168, 76, 0.15);
+  }
+  .section-heading {
+    @apply font-display text-3xl md:text-4xl text-dark-50;
+  }
+  .section-subheading {
+    @apply text-dark-400 text-lg;
+  }
+
+  /* Middle Eastern geometric pattern overlay */
+  .geo-pattern {
+    background-image:
+      linear-gradient(30deg, rgba(201, 168, 76, 0.03) 12%, transparent 12.5%, transparent 87%, rgba(201, 168, 76, 0.03) 87.5%, rgba(201, 168, 76, 0.03)),
+      linear-gradient(150deg, rgba(201, 168, 76, 0.03) 12%, transparent 12.5%, transparent 87%, rgba(201, 168, 76, 0.03) 87.5%, rgba(201, 168, 76, 0.03)),
+      linear-gradient(30deg, rgba(201, 168, 76, 0.03) 12%, transparent 12.5%, transparent 87%, rgba(201, 168, 76, 0.03) 87.5%, rgba(201, 168, 76, 0.03)),
+      linear-gradient(150deg, rgba(201, 168, 76, 0.03) 12%, transparent 12.5%, transparent 87%, rgba(201, 168, 76, 0.03) 87.5%, rgba(201, 168, 76, 0.03)),
+      linear-gradient(60deg, rgba(201, 168, 76, 0.05) 25%, transparent 25.5%, transparent 75%, rgba(201, 168, 76, 0.05) 75%, rgba(201, 168, 76, 0.05)),
+      linear-gradient(60deg, rgba(201, 168, 76, 0.05) 25%, transparent 25.5%, transparent 75%, rgba(201, 168, 76, 0.05) 75%, rgba(201, 168, 76, 0.05));
+    background-size: 40px 70px;
+    background-position: 0 0, 0 0, 20px 35px, 20px 35px, 0 0, 20px 35px;
+  }
+
+  /* Arch shape for decorative elements */
+  .arch-frame {
+    border-radius: 50% 50% 0 0 / 30% 30% 0 0;
+  }
+
+  /* Gold line separator */
+  .gold-line {
+    @apply relative;
+  }
+  .gold-line::after {
+    content: '';
+    @apply block mx-auto mt-4;
+    width: 60px;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #C9A84C, transparent);
+  }
+
+  /* Subtle gold line on left */
+  .gold-line-left {
+    @apply relative pl-6;
+  }
+  .gold-line-left::before {
+    content: '';
+    @apply absolute left-0 top-0 bottom-0 w-0.5;
+    background: linear-gradient(180deg, #C9A84C, transparent);
+  }
+}
+
+@layer utilities {
+  .text-gradient-gold {
+    background: linear-gradient(135deg, #C9A84C, #e8bc71, #C9A84C);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
   }
 }

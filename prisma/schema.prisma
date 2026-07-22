@@ -8,56 +8,72 @@ datasource db {
 }
 
 model User {
-  id            String    @id @default(cuid())
-  email         String    @unique
-  passwordHash  String
-  name          String
-  role          String    @default("USER")
-  avatar        String?
-  phone         String?
-  address       String?
-  createdAt     DateTime  @default(now())
-  updatedAt     DateTime  @updatedAt
-  
-  products      Product[]
-  orders        Order[]
-  cartItems     CartItem[]
-  reviews       Review[]
-  
+  id                String     @id @default(cuid())
+  email             String     @unique
+  passwordHash      String
+  name              String
+  role              String     @default("USER")
+  avatar            String?
+  phone             String?
+  address           String?
+  allowedCategoryId String?
+  createdAt         DateTime   @default(now())
+  updatedAt         DateTime   @updatedAt
+
+  allowedCategory   Category?  @relation(fields: [allowedCategoryId], references: [id])
+  products          Product[]
+  orders            Order[]
+  cartItems         CartItem[]
+  reviews           Review[]
+
   @@map("users")
 }
 
 model Product {
-  id            String          @id @default(cuid())
-  name          String
-  description   String
-  price         Decimal         @db.Decimal(10, 2)
-  originalPrice Decimal?        @db.Decimal(10, 2)
-  image         String
-  images        String[]
-  category      String
-  stock         Int             @default(0)
-  rating        Decimal         @db.Decimal(3, 2) @default(0)
-  reviewCount   Int             @default(0)
-  salesCount    Int             @default(0)
-  isPublished   Boolean         @default(true)
-  shippingCost  Decimal         @db.Decimal(10, 2) @default(0)
+  id             String          @id @default(cuid())
+  name           String
+  description    String
+  price          Decimal         @db.Decimal(10, 2)
+  originalPrice  Decimal?        @db.Decimal(10, 2)
+  image          String
+  images         String[]
+  categoryId     String
+  stock          Int             @default(0)
+  rating         Decimal         @db.Decimal(3, 2) @default(0)
+  reviewCount    Int             @default(0)
+  salesCount     Int             @default(0)
+  isPublished    Boolean         @default(true)
+  shippingCost   Decimal         @db.Decimal(10, 2) @default(0)
   shippingMethod String?
-  sku           String?
-  material      String?
-  moq           Int             @default(1)
-  aplus         Json?
-  createdAt     DateTime        @default(now())
-  updatedAt     DateTime        @updatedAt
-  
-  authorId      String
-  author        User            @relation(fields: [authorId], references: [id], onDelete: Cascade)
-  
-  orderItems    OrderItem[]
-  reviews       Review[]
-  variants      ProductVariant[]
-  cartItems     CartItem[]
-  
+  sku            String?
+  material       String?
+  plating        String?
+  process        String?
+  color          String?
+  size           String?
+  packSize       Int             @default(1)
+  pkgLength      Float?
+  pkgWidth       Float?
+  pkgHeight      Float?
+  pkgWeight      Float?
+  keywords       String[]
+  origin         String?
+  supplierCity   String?
+  stockStatus    String          @default("IN_STOCK")
+  moq            Int             @default(1)
+  aplus          Json?
+  createdAt      DateTime        @default(now())
+  updatedAt      DateTime        @updatedAt
+
+  category       Category        @relation(fields: [categoryId], references: [id])
+  authorId       String
+  author         User            @relation(fields: [authorId], references: [id], onDelete: Cascade)
+
+  orderItems     OrderItem[]
+  reviews        Review[]
+  variants       ProductVariant[]
+  cartItems      CartItem[]
+
   @@map("products")
 }
 
@@ -143,10 +159,21 @@ model Review {
 }
 
 model Category {
-  id          String    @id @default(cuid())
-  name        String    @unique
+  id          String     @id @default(cuid())
+  name        String
+  slug        String     @unique
   description String?
-  icon        String?
-  
+  image       String?
+  parentId    String?
+  parent      Category?  @relation("CategoryTree", fields: [parentId], references: [id])
+  children    Category[] @relation("CategoryTree")
+  sortOrder   Int        @default(0)
+  seoTitle    String?
+  seoDesc     String?
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+  products    Product[]
+  users       User[]
+
   @@map("categories")
 }

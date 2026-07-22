@@ -3,16 +3,17 @@ import Link from 'next/link';
 import {
   Truck,
   ShieldCheck,
-  Headphones,
-  RotateCcw,
-  ChevronRight,
-  Star,
-  Zap,
-  ArrowRight,
-  Package,
-  Gift,
+  Globe,
   Award,
-  Clock,
+  ChevronRight,
+  ArrowRight,
+  Gem,
+  Scissors,
+  Crown,
+  ShoppingBag,
+  Home as HomeIcon,
+  Sparkles,
+  Package,
 } from 'lucide-react';
 import ProductCard from '@/components/ProductCard';
 import Layout from '@/components/Layout';
@@ -20,19 +21,90 @@ import Layout from '@/components/Layout';
 interface Product {
   id: string;
   name: string;
-  category: string;
   description: string;
+  categoryId: string;
+  category?: { id: string; name: string; slug: string } | string;
   price: number;
   originalPrice?: number;
   image: string;
-  rating: number;
-  reviewCount: number;
-  salesCount: number;
+  moq?: number;
+  material?: string | null;
+  plating?: string | null;
+  packSize?: number;
+  sku?: string | null;
+  stockStatus?: string;
 }
+
+const categoryItems = [
+  {
+    name: 'Fashion Jewelry',
+    icon: Gem,
+    slug: 'fashion-jewelry',
+    desc: 'Necklaces, earrings, bracelets, rings & more',
+    image: 'https://images.unsplash.com/photo-1515562141589-67f0d569b6c2?w=400&h=300&fit=crop',
+  },
+  {
+    name: 'Garment Accessories',
+    icon: Scissors,
+    slug: 'garment-accessories',
+    desc: 'Buttons, zippers, lace, ribbons & trim',
+    image: 'https://images.unsplash.com/photo-1558618666-fcd25c85f82e?w=400&h=300&fit=crop',
+  },
+  {
+    name: 'Hair Accessories',
+    icon: Crown,
+    slug: 'hair-accessories',
+    desc: 'Clips, headbands, scrunchies & combs',
+    image: 'https://images.unsplash.com/photo-1599624231144-7ee5e61e0d76?w=400&h=300&fit=crop',
+  },
+  {
+    name: 'Bags & Accessories',
+    icon: ShoppingBag,
+    slug: 'bags-accessories',
+    desc: 'Hardware, chains, keychains & charms',
+    image: 'https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=400&h=300&fit=crop',
+  },
+  {
+    name: 'Home Decor & Crafts',
+    icon: HomeIcon,
+    slug: 'home-decor-crafts',
+    desc: 'Tassels, beads, pearls & craft supplies',
+    image: 'https://images.unsplash.com/photo-1513519245088-0e12902e35a6?w=400&h=300&fit=crop',
+  },
+  {
+    name: 'Seasonal & Festival',
+    icon: Sparkles,
+    slug: 'seasonal-festival',
+    desc: 'Christmas, Eid, wedding & party supplies',
+    image: 'https://images.unsplash.com/photo-1543903921-628d6e88c4c6?w=400&h=300&fit=crop',
+  },
+];
+
+const whyChooseUs = [
+  {
+    icon: Globe,
+    title: 'Yiwu Direct',
+    desc: 'Source directly from the world\'s largest small commodities market in Yiwu, China.',
+  },
+  {
+    icon: Package,
+    title: 'Low MOQ',
+    desc: 'Start with as few as 1 piece. Flexible order quantities for businesses of all sizes.',
+  },
+  {
+    icon: Truck,
+    title: 'Global Shipping',
+    desc: 'Reliable logistics to 200+ countries across Europe, Americas, Middle East & Africa.',
+  },
+  {
+    icon: ShieldCheck,
+    title: 'Quality Assured',
+    desc: 'Every product inspected before shipment. We stand behind the quality we deliver.',
+  },
+];
 
 const Home = () => {
   const [products, setProducts] = useState<Product[]>([]);
-  const [currentSlide, setCurrentSlide] = useState(0);
 
   useEffect(() => {
     fetch('/api/products')
@@ -40,122 +112,121 @@ const Home = () => {
       .then(data => setProducts(data));
   }, []);
 
-  const slides = [
-    {
-      title: 'Global Shopping, Delivered to Your Door',
-      subtitle: 'Discover premium products from around the world with fast international shipping',
-      image: 'https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?w=1600&h=600&fit=crop',
-      cta: 'Shop Now',
-      link: '/products',
-    },
-    {
-      title: 'Start Selling Today',
-      subtitle: 'Join thousands of sellers and reach customers worldwide',
-      image: 'https://images.unsplash.com/photo-1468495244123-6c6c332eeece?w=1600&h=600&fit=crop',
-      cta: 'Sell Now',
-      link: '/sell',
-    },
-    {
-      title: 'Up to 50% Off Electronics',
-      subtitle: 'Limited time offer on all tech gadgets and accessories',
-      image: 'https://images.unsplash.com/photo-1556740755-069a40165b40?w=1600&h=600&fit=crop',
-      cta: 'Explore Deals',
-      link: '/products',
-    },
-  ];
-
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setCurrentSlide((prev) => (prev + 1) % slides.length);
-    }, 5000);
-    return () => clearInterval(timer);
-  }, [slides.length]);
-
-  const features = [
-    { icon: Truck, title: 'Free Shipping', desc: 'On orders over $50 worldwide' },
-    { icon: ShieldCheck, title: 'Secure Payment', desc: '100% secure checkout' },
-    { icon: Headphones, title: '24/7 Support', desc: 'Dedicated customer service' },
-    { icon: RotateCcw, title: 'Easy Returns', desc: '30-day return policy' },
-  ];
-
-  const featured = products.slice(0, 4);
+  const newProducts = products.slice(0, 8);
 
   return (
     <Layout>
-      <section className="relative h-[500px] overflow-hidden">
-        {slides.map((slide, index) => (
-          <div
-            key={index}
-            className={`absolute inset-0 transition-opacity duration-1000 ${index === currentSlide ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
-          >
-            <img src={slide.image} alt={slide.title} className="w-full h-full object-cover" />
-            <div className="absolute inset-0 bg-gradient-to-r from-dark-900/90 to-dark-900/40" />
-            <div className="absolute inset-0 flex items-center">
-              <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full pb-12">
-                <div className="max-w-xl">
-                  <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-dark-50 mb-4 leading-tight drop-shadow-lg">
-                    {slide.title}
-                  </h1>
-                  <p className="text-lg md:text-xl text-dark-100 mb-8 drop-shadow-md">{slide.subtitle}</p>
-                  <Link href={slide.link} className="inline-flex items-center gap-2 bg-accent-500 hover:bg-accent-400 text-dark-900 px-8 py-4 rounded-xl font-bold text-lg transition-all shadow-lg hover:shadow-accent-500/40 hover:scale-105">
-                    {slide.cta} <ArrowRight className="w-5 h-5" />
-                  </Link>
-                </div>
+      {/* ── Hero ── */}
+      <section className="relative h-[560px] md:h-[620px] overflow-hidden">
+        <img
+          src="https://images.unsplash.com/photo-1617038260897-41a1f14a8ca0?w=1600&h=700&fit=crop"
+          alt="Wholesale Jewelry & Accessories"
+          className="w-full h-full object-cover"
+        />
+        <div className="absolute inset-0 bg-gradient-to-r from-dark-900/95 via-dark-900/80 to-dark-900/40" />
+        <div className="absolute inset-0 geo-pattern opacity-40" />
+
+        <div className="absolute inset-0 flex items-center">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+            <div className="max-w-2xl">
+              <div className="inline-flex items-center gap-2 bg-primary-500/15 text-primary-400 px-4 py-1.5 rounded-full text-sm font-medium border border-primary-500/20 mb-6">
+                <Gem className="w-4 h-4" />
+                Wholesale from Yiwu
+              </div>
+              <h1 className="font-display text-4xl md:text-5xl lg:text-6xl text-dark-50 mb-5 leading-tight">
+                Your Trusted Source for{' '}
+                <span className="text-gradient-gold">Wholesale Jewelry</span>{' '}
+                &amp; Garment Accessories
+              </h1>
+              <p className="text-lg md:text-xl text-dark-200 mb-8 leading-relaxed max-w-lg">
+                Direct from Yiwu — premium fashion jewelry, garment accessories, and decorative trim at unbeatable wholesale prices.
+              </p>
+              <div className="flex flex-wrap gap-4">
+                <Link
+                  href="/products"
+                  className="inline-flex items-center gap-2 bg-primary-500 hover:bg-primary-400 text-dark-900 px-8 py-3.5 rounded-lg font-bold text-lg transition-all shadow-lg hover:shadow-primary-500/30 hover:scale-105"
+                >
+                  Browse Products <ArrowRight className="w-5 h-5" />
+                </Link>
+                <Link
+                  href="/sell"
+                  className="inline-flex items-center gap-2 border-2 border-primary-500 text-primary-400 hover:bg-primary-500 hover:text-dark-900 px-8 py-3.5 rounded-lg font-bold text-lg transition-all"
+                >
+                  Become a Seller
+                </Link>
               </div>
             </div>
           </div>
-        ))}
-        <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-2">
-          {slides.map((_, index) => (
-            <button
-              key={index}
-              onClick={() => setCurrentSlide(index)}
-              className={`w-3 h-3 rounded-full transition-all ${index === currentSlide ? 'bg-accent-500 w-8' : 'bg-dark-300/50'}`}
-            />
-          ))}
         </div>
       </section>
 
-      <section className="bg-dark-800 py-8 border-b border-dark-500/30">
+      {/* ── Categories ── */}
+      <section className="py-20 bg-dark-900">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-            {features.map((feature, index) => (
-              <div key={index} className="flex items-center gap-4">
-                <div className="bg-primary-800/50 p-3 rounded-full border border-primary-700/30">
-                  <feature.icon className="w-6 h-6 text-accent-500" />
+          <div className="text-center mb-12">
+            <h2 className="section-heading gold-line">Shop by Category</h2>
+            <p className="section-subheading mt-5">
+              Explore our curated wholesale categories
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {categoryItems.map((cat) => (
+              <Link
+                key={cat.slug}
+                href={`/products?category=${cat.slug}`}
+                className="group relative overflow-hidden rounded-xl border border-dark-700/40 card-hover"
+              >
+                <img
+                  src={cat.image}
+                  alt={cat.name}
+                  className="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-500"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-dark-900 via-dark-900/60 to-transparent" />
+                <div className="absolute inset-0 flex flex-col justify-end p-5">
+                  <div className="flex items-center gap-3 mb-2">
+                    <div className="w-10 h-10 rounded-lg bg-primary-500/20 border border-primary-500/30 flex items-center justify-center">
+                      <cat.icon className="w-5 h-5 text-primary-400" />
+                    </div>
+                    <h3 className="font-display text-xl text-dark-50 group-hover:text-primary-400 transition-colors">
+                      {cat.name}
+                    </h3>
+                  </div>
+                  <p className="text-dark-400 text-sm">{cat.desc}</p>
                 </div>
-                <div>
-                  <h3 className="font-semibold text-dark-50">{feature.title}</h3>
-                  <p className="text-sm text-dark-300">{feature.desc}</p>
-                </div>
-              </div>
+              </Link>
             ))}
           </div>
         </div>
       </section>
 
-      <section className="py-16 bg-dark-900">
+      {/* ── New Arrivals ── */}
+      <section className="py-20 bg-dark-800/50 border-t border-dark-700/30 border-b border-dark-700/30">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between mb-10">
             <div>
-              <h2 className="text-3xl md:text-4xl font-bold text-dark-50 mb-2">Featured Products</h2>
-              <p className="text-dark-300">Handpicked items just for you</p>
+              <h2 className="section-heading gold-line">New Arrivals</h2>
+              <p className="section-subheading mt-5">Latest additions to our wholesale catalog</p>
             </div>
-            <Link href="/products" className="hidden sm:flex items-center gap-1 text-accent-500 font-medium hover:text-accent-400 transition-colors">
+            <Link
+              href="/products"
+              className="hidden sm:flex items-center gap-1 text-primary-400 font-medium hover:text-primary-300 transition-colors"
+            >
               View All <ChevronRight className="w-5 h-5" />
             </Link>
           </div>
+
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {featured.length > 0 ? (
-              featured.map((product) => (
+            {newProducts.length > 0 ? (
+              newProducts.map((product) => (
                 <ProductCard key={product.id} product={product} />
               ))
             ) : (
               <div className="col-span-full text-center py-16">
-                <Package className="w-16 h-16 text-dark-500 mx-auto mb-4" />
-                <p className="text-dark-300">No products found. Be the first to list!</p>
-                <Link href="/sell" className="btn-primary mt-4">
-                  Sell Your First Product
+                <Package className="w-16 h-16 text-dark-600 mx-auto mb-4" />
+                <p className="text-dark-400 mb-4">No products yet. Check back soon!</p>
+                <Link href="/sell" className="btn-primary">
+                  Become a Seller
                 </Link>
               </div>
             )}
@@ -163,55 +234,81 @@ const Home = () => {
         </div>
       </section>
 
-      <section className="py-16 bg-gradient-to-r from-primary-900 to-dark-800 border-t border-dark-500/30">
+      {/* ── Why Choose Us ── */}
+      <section className="py-20 bg-dark-900 geo-pattern">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid md:grid-cols-2 gap-8 items-center">
-            <div>
-              <div className="inline-flex items-center gap-2 bg-accent-500/20 text-accent-500 px-4 py-2 rounded-full text-sm font-medium mb-6">
-                <Zap className="w-4 h-4" />
-                Become a Seller
+          <div className="text-center mb-12">
+            <h2 className="section-heading gold-line">Why Choose YEATRU</h2>
+            <p className="section-subheading mt-5">
+              Your competitive edge in wholesale sourcing
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {whyChooseUs.map((item, index) => (
+              <div
+                key={index}
+                className="bg-dark-800/80 rounded-xl p-6 border border-dark-700/40 text-center card-hover gold-glow"
+              >
+                <div className="w-14 h-14 rounded-full bg-primary-500/10 border border-primary-500/20 flex items-center justify-center mx-auto mb-4">
+                  <item.icon className="w-7 h-7 text-primary-400" />
+                </div>
+                <h3 className="font-display text-lg text-dark-50 mb-2">{item.title}</h3>
+                <p className="text-dark-400 text-sm leading-relaxed">{item.desc}</p>
               </div>
-              <h2 className="text-3xl md:text-4xl font-bold text-dark-50 mb-4">
-                Start Selling Today
-              </h2>
-              <p className="text-dark-200 text-lg mb-8">
-                Join thousands of sellers and reach customers worldwide. No upfront fees, no minimum sales.
-              </p>
-              <div className="flex flex-wrap gap-4">
-                <Link href="/sell" className="bg-accent-500 hover:bg-accent-400 text-dark-900 px-8 py-3 rounded-lg font-bold transition-colors">
-                  Start Selling
-                </Link>
-                <Link href="/sell" className="border-2 border-accent-500 text-accent-500 hover:bg-accent-500 hover:text-dark-900 px-8 py-3 rounded-lg font-bold transition-colors">
-                  Learn More
-                </Link>
-              </div>
-            </div>
-            <div className="grid grid-cols-2 gap-4">
-              <div className="bg-dark-800/60 backdrop-blur rounded-xl p-6 text-center border border-dark-500/30">
-                <Gift className="w-10 h-10 text-accent-500 mx-auto mb-3" />
-                <h3 className="text-dark-50 font-semibold mb-1">Free Listing</h3>
-                <p className="text-dark-300 text-sm">No listing fees</p>
-              </div>
-              <div className="bg-dark-800/60 backdrop-blur rounded-xl p-6 text-center border border-dark-500/30">
-                <Award className="w-10 h-10 text-accent-500 mx-auto mb-3" />
-                <h3 className="text-dark-50 font-semibold mb-1">Global Reach</h3>
-                <p className="text-dark-300 text-sm">150+ countries</p>
-              </div>
-              <div className="bg-dark-800/60 backdrop-blur rounded-xl p-6 text-center border border-dark-500/30">
-                <Clock className="w-10 h-10 text-accent-500 mx-auto mb-3" />
-                <h3 className="text-dark-50 font-semibold mb-1">Fast Payout</h3>
-                <p className="text-dark-300 text-sm">Weekly payments</p>
-              </div>
-              <div className="bg-dark-800/60 backdrop-blur rounded-xl p-6 text-center border border-dark-500/30">
-                <Star className="w-10 h-10 text-accent-500 mx-auto mb-3" />
-                <h3 className="text-dark-50 font-semibold mb-1">Top Support</h3>
-                <p className="text-dark-300 text-sm">24/7 assistance</p>
-              </div>
-            </div>
+            ))}
           </div>
         </div>
       </section>
 
+      {/* ── CTA Section ── */}
+      <section className="py-20 bg-dark-800 border-t border-dark-700/30 border-b border-dark-700/30">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid md:grid-cols-2 gap-8">
+            {/* Become a Seller */}
+            <div className="bg-dark-900 rounded-2xl p-8 border border-dark-700/40 gold-glow">
+              <div className="inline-flex items-center gap-2 bg-primary-500/15 text-primary-400 px-3 py-1.5 rounded-full text-sm font-medium border border-primary-500/20 mb-4">
+                <Award className="w-4 h-4" />
+                For Suppliers
+              </div>
+              <h3 className="font-display text-2xl text-dark-50 mb-3">
+                Become a Seller
+              </h3>
+              <p className="text-dark-400 mb-6 leading-relaxed">
+                List your products and reach wholesale buyers across 200+ countries.
+                No listing fees, dedicated support, and weekly payouts.
+              </p>
+              <Link
+                href="/sell"
+                className="inline-flex items-center gap-2 bg-primary-500 hover:bg-primary-400 text-dark-900 px-6 py-3 rounded-lg font-bold transition-colors"
+              >
+                Start Selling <ArrowRight className="w-5 h-5" />
+              </Link>
+            </div>
+
+            {/* Request Catalog */}
+            <div className="bg-dark-900 rounded-2xl p-8 border border-rose-500/20" style={{ boxShadow: '0 0 20px rgba(212, 131, 154, 0.1)' }}>
+              <div className="inline-flex items-center gap-2 bg-rose-500/15 text-rose-400 px-3 py-1.5 rounded-full text-sm font-medium border border-rose-500/20 mb-4">
+                <Globe className="w-4 h-4" />
+                For Buyers
+              </div>
+              <h3 className="font-display text-2xl text-dark-50 mb-3">
+                Request a Catalog
+              </h3>
+              <p className="text-dark-400 mb-6 leading-relaxed">
+                Get our latest wholesale catalog with thousands of SKUs across all categories.
+                Custom sourcing requests welcome — we find what you need in Yiwu.
+              </p>
+              <Link
+                href="/products"
+                className="inline-flex items-center gap-2 bg-rose-500 hover:bg-rose-400 text-white px-6 py-3 rounded-lg font-bold transition-colors"
+              >
+                Browse Catalog <ArrowRight className="w-5 h-5" />
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
     </Layout>
   );
 };

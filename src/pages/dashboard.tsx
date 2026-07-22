@@ -13,12 +13,15 @@ interface ProductItem {
   stock: number;
   salesCount: number;
   isPublished: boolean;
-  category: string;
+  categoryId: string;
+  category?: { id: string; name: string; slug: string };
   shippingCost: number;
   shippingMethod: string;
   sku: string | null;
   material: string | null;
   moq: number;
+  packSize: number;
+  stockStatus: string;
 }
 
 const Dashboard = () => {
@@ -36,6 +39,7 @@ const Dashboard = () => {
 
   useEffect(() => {
     if (session?.user?.id) {
+      // Always fetch only the current user's products
       fetch(`/api/products?authorId=${session.user.id}`)
         .then(res => res.json())
         .then(data => setProducts(data));
@@ -94,11 +98,25 @@ const Dashboard = () => {
   };
 
   const stats = [
-    { icon: Package, label: 'My Products', value: products.length, color: 'bg-primary-800/50 text-accent-500 border border-primary-700/30' },
+    { icon: Package, label: 'My Products', value: products.length, color: 'bg-primary-800/50 text-primary-500 border border-primary-700/30' },
     { icon: ShoppingCart, label: 'Orders', value: orders.length, color: 'bg-primary-800/50 text-primary-400 border border-primary-700/30' },
-    { icon: DollarSign, label: 'Total Sales', value: '$0.00', color: 'bg-primary-800/50 text-accent-500 border border-primary-700/30' },
+    { icon: DollarSign, label: 'Total Sales', value: '$0.00', color: 'bg-primary-800/50 text-primary-500 border border-primary-700/30' },
     { icon: TrendingUp, label: 'Published', value: products.filter(p => p.isPublished).length, color: 'bg-primary-800/50 text-primary-400 border border-primary-700/30' },
   ];
+
+  const stockStatusLabel: Record<string, string> = {
+    IN_STOCK: 'In Stock',
+    LOW_STOCK: 'Low Stock',
+    OUT_OF_STOCK: 'Out of Stock',
+    PRE_ORDER: 'Pre-Order',
+  };
+
+  const stockStatusColor: Record<string, string> = {
+    IN_STOCK: 'bg-green-500/10 text-green-500 border border-green-500/30',
+    LOW_STOCK: 'bg-yellow-500/10 text-yellow-500 border border-yellow-500/30',
+    OUT_OF_STOCK: 'bg-red-500/10 text-red-500 border border-red-500/30',
+    PRE_ORDER: 'bg-blue-500/10 text-blue-500 border border-blue-500/30',
+  };
 
   return (
     <Layout>
@@ -109,7 +127,7 @@ const Dashboard = () => {
               <h1 className="text-3xl font-bold text-dark-50">Seller Dashboard</h1>
               <p className="text-dark-300 mt-1">Welcome back, {session.user.name}</p>
             </div>
-            <Link href="/sell" className="flex items-center gap-2 bg-accent-500 hover:bg-accent-400 text-dark-900 px-6 py-3 rounded-lg font-bold transition-colors">
+            <Link href="/sell" className="flex items-center gap-2 bg-primary-500 hover:bg-primary-400 text-dark-900 px-6 py-3 rounded-lg font-bold transition-colors">
               <Plus className="w-5 h-5" />
               List Product
             </Link>
@@ -133,7 +151,7 @@ const Dashboard = () => {
         <div className="bg-dark-800 rounded-2xl shadow-lg p-6 mb-8 border border-dark-500/20">
           <div className="flex items-center justify-between mb-6">
             <h2 className="text-xl font-bold text-dark-50">My Product Management</h2>
-            <Link href="/sell" className="text-accent-500 hover:text-accent-400 font-medium text-sm">
+            <Link href="/sell" className="text-primary-500 hover:text-primary-400 font-medium text-sm">
               + Add New
             </Link>
           </div>
@@ -148,8 +166,11 @@ const Dashboard = () => {
                     <th className="text-left py-3 px-4 text-sm font-medium text-dark-400">Price</th>
                     <th className="text-left py-3 px-4 text-sm font-medium text-dark-400">Stock</th>
                     <th className="text-left py-3 px-4 text-sm font-medium text-dark-400">MOQ</th>
+                    <th className="text-left py-3 px-4 text-sm font-medium text-dark-400">Pack Size</th>
+                    <th className="text-left py-3 px-4 text-sm font-medium text-dark-400">Material</th>
+                    <th className="text-left py-3 px-4 text-sm font-medium text-dark-400">Stock Status</th>
                     <th className="text-left py-3 px-4 text-sm font-medium text-dark-400">Shipping</th>
-                    <th className="text-left py-3 px-4 text-sm font-medium text-dark-400">Status</th>
+                    <th className="text-left py-3 px-4 text-sm font-medium text-dark-400">Published</th>
                     <th className="text-left py-3 px-4 text-sm font-medium text-dark-400">Actions</th>
                   </tr>
                 </thead>
@@ -165,8 +186,8 @@ const Dashboard = () => {
                           </div>
                         </div>
                       </td>
-                      <td className="py-3 px-4 text-sm text-dark-300">{product.category}</td>
-                      <td className="py-3 px-4 text-sm font-medium text-accent-500">${Number(product.price).toFixed(2)}</td>
+                      <td className="py-3 px-4 text-sm text-dark-300">{product.category?.name ?? '-'}</td>
+                      <td className="py-3 px-4 text-sm font-medium text-primary-500">${Number(product.price).toFixed(2)}</td>
                       <td className="py-3 px-4 text-sm text-dark-300">
                         {editingProduct === product.id ? (
                           <input type="number" value={editForm.stock} onChange={e => setEditForm({...editForm, stock: e.target.value})} className="w-20 px-2 py-1 bg-dark-700 border border-dark-500/30 rounded text-sm text-dark-50" />
@@ -176,6 +197,13 @@ const Dashboard = () => {
                         {editingProduct === product.id ? (
                           <input type="number" value={editForm.moq} onChange={e => setEditForm({...editForm, moq: e.target.value})} className="w-20 px-2 py-1 bg-dark-700 border border-dark-500/30 rounded text-sm text-dark-50" />
                         ) : product.moq}
+                      </td>
+                      <td className="py-3 px-4 text-sm text-dark-300">{product.packSize}</td>
+                      <td className="py-3 px-4 text-sm text-dark-300">{product.material ?? '-'}</td>
+                      <td className="py-3 px-4">
+                        <span className={`inline-flex items-center px-2 py-1 rounded-full text-xs font-medium ${stockStatusColor[product.stockStatus] || 'bg-dark-700 text-dark-400 border border-dark-500/30'}`}>
+                          {stockStatusLabel[product.stockStatus] || product.stockStatus}
+                        </span>
                       </td>
                       <td className="py-3 px-4 text-sm text-dark-300">
                         {editingProduct === product.id ? (
@@ -197,7 +225,7 @@ const Dashboard = () => {
                         )}
                       </td>
                       <td className="py-3 px-4">
-                        <span className={`inline-flex items-center px-2 py-1 rounded-full text-xs font-medium ${product.isPublished ? 'bg-primary-800/50 text-accent-500 border border-primary-700/30' : 'bg-dark-700 text-dark-400 border border-dark-500/30'}`}>
+                        <span className={`inline-flex items-center px-2 py-1 rounded-full text-xs font-medium ${product.isPublished ? 'bg-primary-800/50 text-primary-500 border border-primary-700/30' : 'bg-dark-700 text-dark-400 border border-dark-500/30'}`}>
                           {product.isPublished ? 'Published' : 'Draft'}
                         </span>
                       </td>
@@ -217,7 +245,7 @@ const Dashboard = () => {
                               <button onClick={() => togglePublish(product.id, product.isPublished)} className={`p-1.5 rounded ${product.isPublished ? 'text-orange-500 hover:bg-orange-500/10' : 'text-green-500 hover:bg-green-500/10'}`} title={product.isPublished ? 'Unpublish' : 'Publish'}>
                                 {product.isPublished ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                               </button>
-                              <button onClick={() => startEdit(product)} className="p-1.5 text-accent-500 hover:bg-accent-500/10 rounded" title="Edit shipping & stock">
+                              <button onClick={() => startEdit(product)} className="p-1.5 text-primary-500 hover:bg-primary-500/10 rounded" title="Edit shipping & stock">
                                 <Edit3 className="w-4 h-4" />
                               </button>
                               <button onClick={() => deleteProduct(product.id)} className="p-1.5 text-red-500 hover:bg-red-500/10 rounded" title="Delete">
@@ -252,13 +280,13 @@ const Dashboard = () => {
                   <div key={order.id} className="p-4 bg-dark-700/50 rounded-xl border border-dark-500/20">
                     <div className="flex items-center justify-between mb-2">
                       <span className="text-sm font-medium text-dark-50">Order #{order.id.slice(-8)}</span>
-                      <span className={`text-xs font-medium px-2 py-1 rounded-full ${order.status === 'PAID' ? 'bg-primary-800/50 text-accent-500 border border-primary-700/30' : 'bg-yellow-500/10 text-yellow-500 border border-yellow-500/30'}`}>
+                      <span className={`text-xs font-medium px-2 py-1 rounded-full ${order.status === 'PAID' ? 'bg-primary-800/50 text-primary-500 border border-primary-700/30' : 'bg-yellow-500/10 text-yellow-500 border border-yellow-500/30'}`}>
                         {order.status}
                       </span>
                     </div>
                     <div className="flex items-center justify-between">
                       <span className="text-sm text-dark-400">{order.items?.length || 0} items</span>
-                      <span className="font-semibold text-accent-500">${order.totalAmount}</span>
+                      <span className="font-semibold text-primary-500">${order.totalAmount}</span>
                     </div>
                   </div>
                 ))}
@@ -275,7 +303,7 @@ const Dashboard = () => {
             <h3 className="font-semibold text-dark-50 mb-4">Quick Links</h3>
             <div className="space-y-3">
               <Link href="/sell" className="flex items-center gap-3 p-3 bg-dark-700/50 rounded-lg hover:bg-dark-700 transition-colors border border-dark-500/20">
-                <Package className="w-5 h-5 text-accent-500" />
+                <Package className="w-5 h-5 text-primary-500" />
                 <span className="text-dark-200">List New Product</span>
               </Link>
               <Link href="/orders" className="flex items-center gap-3 p-3 bg-dark-700/50 rounded-lg hover:bg-dark-700 transition-colors border border-dark-500/20">

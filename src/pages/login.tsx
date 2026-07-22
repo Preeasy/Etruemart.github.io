@@ -45,8 +45,8 @@ const Login = () => {
         <div className="max-w-md w-full">
           <div className="text-center mb-8">
             <Link href="/" className="flex items-center justify-center gap-2 mb-4 group">
-              <Package className="w-10 h-10 text-accent-500 group-hover:text-accent-400 transition-colors" />
-              <span className="text-2xl font-bold text-accent-500 group-hover:text-accent-400 transition-colors">eTruemart</span>
+              <Package className="w-10 h-10 text-primary-500 group-hover:text-primary-400 transition-colors" />
+              <span className="text-2xl font-bold text-primary-500 group-hover:text-primary-400 transition-colors">eTruemart</span>
             </Link>
             <h2 className="text-3xl font-bold text-dark-50">Sign in to your account</h2>
             <p className="mt-2 text-dark-300">Welcome back! Please sign in to continue.</p>
@@ -70,7 +70,7 @@ const Login = () => {
                   id="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="w-full px-4 py-3 pl-10 bg-dark-700 border border-dark-500/30 rounded-lg focus:outline-none focus:ring-2 focus:ring-accent-500/50 text-dark-50"
+                  className="w-full px-4 py-3 pl-10 bg-dark-700 border border-dark-500/30 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500/50 text-dark-50"
                   placeholder="you@example.com"
                   required
                 />
@@ -88,7 +88,7 @@ const Login = () => {
                   id="password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="w-full px-4 py-3 pl-10 pr-10 bg-dark-700 border border-dark-500/30 rounded-lg focus:outline-none focus:ring-2 focus:ring-accent-500/50 text-dark-50"
+                  className="w-full px-4 py-3 pl-10 pr-10 bg-dark-700 border border-dark-500/30 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500/50 text-dark-50"
                   placeholder="••••••••"
                   required
                 />
@@ -104,17 +104,17 @@ const Login = () => {
 
             <div className="flex items-center justify-between">
               <label className="flex items-center">
-                <input type="checkbox" className="w-4 h-4 text-accent-500 bg-dark-700 border-dark-500/30 rounded" />
+                <input type="checkbox" className="w-4 h-4 text-primary-500 bg-dark-700 border-dark-500/30 rounded" />
                 <span className="ml-2 text-sm text-dark-300">Remember me</span>
               </label>
-              <a href="#" className="text-sm text-accent-500 hover:text-accent-400">
+              <a href="#" className="text-sm text-primary-500 hover:text-primary-400">
                 Forgot your password?
               </a>
             </div>
 
             <button
               type="submit"
-              className="w-full flex items-center justify-center px-4 py-3 bg-accent-500 hover:bg-accent-400 text-dark-900 font-bold rounded-lg transition-colors"
+              className="w-full flex items-center justify-center px-4 py-3 bg-primary-500 hover:bg-primary-400 text-dark-900 font-bold rounded-lg transition-colors"
             >
               Sign in
             </button>
@@ -123,7 +123,7 @@ const Login = () => {
           <div className="mt-6 text-center">
             <p className="text-dark-300">
               Don&apos;t have an account?{' '}
-              <Link href="/register" className="text-accent-500 font-medium hover:text-accent-400">
+              <Link href="/register" className="text-primary-500 font-medium hover:text-primary-400">
                 Register here
               </Link>
             </p>

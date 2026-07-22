@@ -12,6 +12,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       include: {
         author: { select: { id: true, name: true, avatar: true } },
         variants: true,
+        category: { select: { id: true, name: true, slug: true } },
         reviews: {
           include: { user: { select: { id: true, name: true, avatar: true } } },
           orderBy: { createdAt: 'desc' },
@@ -33,11 +34,35 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
   if (req.method === 'PUT') {
     const product = await prisma.product.findUnique({ where: { id: id as string } });
-    if (!product || (product.authorId !== session.user.id && session.user.role !== 'ADMIN')) {
+    if (!product) {
+      return res.status(404).json({ error: 'Product not found' });
+    }
+
+    // Permission check: ADMIN can edit anything; others must be the author
+    if (product.authorId !== session.user.id && session.user.role !== 'ADMIN') {
       return res.status(403).json({ error: 'Forbidden' });
     }
 
-    const { name, description, price, originalPrice, image, images, category, stock, isPublished, shippingCost, shippingMethod, sku, material, moq } = req.body;
+    // Seller permission: non-ADMIN cannot change categoryId to a category outside their allowedCategoryId
+    if (session.user.role !== 'ADMIN' && session.user.allowedCategoryId) {
+      // If updating categoryId, must match allowedCategoryId
+      const newCategoryId = req.body.categoryId;
+      if (newCategoryId && newCategoryId !== session.user.allowedCategoryId) {
+        return res.status(403).json({ error: 'You can only assign products to your allowed category' });
+      }
+      // If not updating categoryId, existing product must already be in allowedCategoryId
+      if (!newCategoryId && product.categoryId !== session.user.allowedCategoryId) {
+        return res.status(403).json({ error: 'You can only edit products in your allowed category' });
+      }
+    }
+
+    const {
+      name, description, price, originalPrice, image, images, categoryId, stock,
+      isPublished, shippingCost, shippingMethod, sku, material, moq,
+      plating, process, color, size, packSize,
+      pkgLength, pkgWidth, pkgHeight, pkgWeight,
+      keywords, stockStatus,
+    } = req.body;
     const data: any = {};
     if (name !== undefined) data.name = name;
     if (description !== undefined) data.description = description;
@@ -45,7 +70,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     if (originalPrice !== undefined) data.originalPrice = originalPrice ? parseFloat(originalPrice) : null;
     if (image !== undefined) data.image = image;
     if (images !== undefined) data.images = images;
-    if (category !== undefined) data.category = category;
+    if (categoryId !== undefined) data.categoryId = categoryId;
     if (stock !== undefined) data.stock = parseInt(stock);
     if (isPublished !== undefined) data.isPublished = isPublished;
     if (shippingCost !== undefined) data.shippingCost = parseFloat(shippingCost);
@@ -53,6 +78,17 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     if (sku !== undefined) data.sku = sku;
     if (material !== undefined) data.material = material;
     if (moq !== undefined) data.moq = parseInt(moq);
+    if (plating !== undefined) data.plating = plating;
+    if (process !== undefined) data.process = process;
+    if (color !== undefined) data.color = color;
+    if (size !== undefined) data.size = size;
+    if (packSize !== undefined) data.packSize = parseInt(packSize);
+    if (pkgLength !== undefined) data.pkgLength = pkgLength ? parseFloat(pkgLength) : null;
+    if (pkgWidth !== undefined) data.pkgWidth = pkgWidth ? parseFloat(pkgWidth) : null;
+    if (pkgHeight !== undefined) data.pkgHeight = pkgHeight ? parseFloat(pkgHeight) : null;
+    if (pkgWeight !== undefined) data.pkgWeight = pkgWeight ? parseFloat(pkgWeight) : null;
+    if (keywords !== undefined) data.keywords = keywords;
+    if (stockStatus !== undefined) data.stockStatus = stockStatus;
 
     const updatedProduct = await prisma.product.update({
       where: { id: id as string },

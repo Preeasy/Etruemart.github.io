@@ -1,77 +1,134 @@
 import Link from 'next/link';
-import { Star, ShoppingCart } from 'lucide-react';
+import { Package } from 'lucide-react';
 
 interface ProductCardProps {
   product: {
     id: string;
     name: string;
-    category: string;
+    categoryId: string;
+    category?: { id: string; name: string; slug: string } | string;
     price: number;
     originalPrice?: number;
     image: string;
-    rating: number;
-    reviewCount: number;
-    salesCount: number;
+    moq?: number;
+    material?: string | null;
+    plating?: string | null;
+    packSize?: number;
+    sku?: string | null;
+    stockStatus?: string;
   };
 }
 
 const ProductCard = ({ product }: ProductCardProps) => {
   const price = Number(product.price);
   const originalPrice = product.originalPrice ? Number(product.originalPrice) : undefined;
-  const discount = originalPrice
-    ? Math.round(((originalPrice - price) / originalPrice) * 100)
-    : 0;
+  const moq = product.moq || 1;
+  const packSize = product.packSize || 1;
+
+  const categoryName =
+    typeof product.category === 'object' && product.category !== null
+      ? product.category.name
+      : typeof product.category === 'string'
+        ? product.category
+        : '';
 
   return (
-    <div className="bg-dark-800 rounded-xl overflow-hidden card-hover border border-dark-700/50 group">
-      <div className="relative">
+    <div className="bg-dark-800 rounded-xl overflow-hidden card-hover border border-dark-700/40 group">
+      {/* Image */}
+      <div className="relative overflow-hidden">
         <Link href={`/products/${product.id}`}>
           <img
             src={product.image}
             alt={product.name}
-            className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
+            className="w-full h-52 object-cover group-hover:scale-105 transition-transform duration-500"
           />
         </Link>
-        {discount > 0 && (
-          <span className="absolute top-3 left-3 bg-accent-500 text-dark-900 text-sm font-bold px-2 py-1 rounded-full">
-            -{discount}%
+        {/* Badges */}
+        <div className="absolute top-3 left-3 flex flex-col gap-1.5">
+          {originalPrice && originalPrice > price && (
+            <span className="bg-primary-500 text-dark-900 text-xs font-bold px-2 py-0.5 rounded">
+              -{Math.round(((originalPrice - price) / originalPrice) * 100)}%
+            </span>
+          )}
+          {product.stockStatus === 'IN_STOCK' && (
+            <span className="bg-dark-900/80 backdrop-blur-sm text-primary-400 text-[10px] font-medium px-2 py-0.5 rounded border border-primary-500/20">
+              IN STOCK
+            </span>
+          )}
+        </div>
+        {/* SKU tag */}
+        {product.sku && (
+          <span className="absolute bottom-2 right-2 bg-dark-900/70 backdrop-blur-sm text-dark-300 text-[10px] px-1.5 py-0.5 rounded font-mono">
+            {product.sku}
           </span>
         )}
       </div>
 
+      {/* Content */}
       <div className="p-4">
-        <span className="text-xs font-medium text-primary-400">{product.category}</span>
+        {/* Category */}
+        {categoryName && (
+          <span className="text-[11px] font-medium text-primary-400 uppercase tracking-wider">
+            {categoryName}
+          </span>
+        )}
+
+        {/* Name */}
         <Link href={`/products/${product.id}`} className="block mt-1">
-          <h3 className="font-semibold text-dark-100 line-clamp-2 hover:text-accent-400 transition-colors min-h-[2.5rem]">
+          <h3 className="font-medium text-dark-100 text-sm line-clamp-2 hover:text-primary-400 transition-colors min-h-[2.5rem] leading-5">
             {product.name}
           </h3>
         </Link>
 
-        <div className="flex items-center gap-2 mt-2">
-          <div className="flex">
-            {[...Array(5)].map((_, i) => (
-              <Star
-                key={i}
-                className={`w-3 h-3 ${i < Math.floor(product.rating) ? 'text-accent-500 fill-accent-500' : 'text-dark-600'}`}
-              />
-            ))}
-          </div>
-          <span className="text-xs text-dark-400">({product.reviewCount})</span>
+        {/* Material / Plating */}
+        <div className="flex flex-wrap gap-1.5 mt-2.5">
+          {product.material && (
+            <span className="inline-flex items-center gap-1 text-[10px] text-dark-300 bg-dark-700/60 px-2 py-0.5 rounded-full border border-dark-600/30">
+              {product.material}
+            </span>
+          )}
+          {product.plating && (
+            <span className="inline-flex items-center gap-1 text-[10px] text-rose-400 bg-rose-500/10 px-2 py-0.5 rounded-full border border-rose-500/20">
+              {product.plating}
+            </span>
+          )}
         </div>
 
-        <div className="flex items-center justify-between mt-3">
-          <div className="flex items-baseline gap-2">
-            <span className="text-xl font-bold text-accent-500">${price.toFixed(2)}</span>
-            {originalPrice && (
-              <span className="text-xs text-dark-500 line-through">${originalPrice.toFixed(2)}</span>
+        {/* Price + MOQ row */}
+        <div className="mt-3 pt-3 border-t border-dark-700/40">
+          <div className="flex items-baseline justify-between">
+            <div className="flex items-baseline gap-1.5">
+              <span className="text-lg font-bold text-primary-400">
+                ${price.toFixed(2)}
+              </span>
+              {originalPrice && originalPrice > price && (
+                <span className="text-xs text-dark-500 line-through">
+                  ${originalPrice.toFixed(2)}
+                </span>
+              )}
+            </div>
+          </div>
+
+          <div className="flex items-center justify-between mt-1.5">
+            <span className="text-[11px] text-dark-400">
+              MOQ: <span className="text-dark-200 font-medium">{moq} pcs</span>
+            </span>
+            {packSize > 1 && (
+              <span className="text-[11px] text-dark-400">
+                Pack: <span className="text-dark-200 font-medium">{packSize} pcs</span>
+              </span>
             )}
           </div>
         </div>
 
-        <button className="w-full mt-3 flex items-center justify-center gap-2 bg-primary-600 hover:bg-primary-500 text-dark-50 py-2 rounded-lg font-medium transition-colors">
-          <ShoppingCart className="w-4 h-4" />
-          Add to Cart
-        </button>
+        {/* Action */}
+        <Link
+          href={`/products/${product.id}`}
+          className="w-full mt-3 flex items-center justify-center gap-2 bg-dark-700 hover:bg-primary-500 text-dark-200 hover:text-dark-900 py-2.5 rounded-lg text-sm font-medium transition-all border border-dark-600/50 hover:border-primary-500"
+        >
+          <Package className="w-4 h-4" />
+          View Details
+        </Link>
       </div>
     </div>
   );
