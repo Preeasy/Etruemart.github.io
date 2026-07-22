@@ -35,22 +35,14 @@ async function main() {
   }
   console.log(`Categories ready: ${categories.length}`);
 
-  // 3. Delete existing products from seed to avoid duplicates, then recreate
+  // 3. Wipe all products to avoid duplicates, then recreate
   const products = siteData.products || [];
   console.log(`Found ${products.length} products in site-data.json`);
 
-  // Delete products that match by name from site-data
-  const productNames = products.map(p => p.name);
-  const existingProducts = await prisma.product.findMany({
-    where: { name: { in: productNames } },
-    select: { id: true, name: true },
-  });
-
-  if (existingProducts.length > 0) {
-    console.log(`Deleting ${existingProducts.length} existing products to re-seed...`);
-    await prisma.product.deleteMany({
-      where: { id: { in: existingProducts.map(p => p.id) } },
-    });
+  // Delete ALL products to ensure a clean state
+  const deleted = await prisma.product.deleteMany({});
+  if (deleted.count > 0) {
+    console.log(`Cleared ${deleted.count} existing products`);
   }
 
   // 4. Create products

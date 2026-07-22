@@ -34,16 +34,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     }
 
     const products = siteData.products || [];
-    const productNames = products.map((p: any) => p.name);
-    const existingProducts = await prisma.product.findMany({
-      where: { name: { in: productNames } },
-      select: { id: true },
-    });
-
-    if (existingProducts.length > 0) {
-      await prisma.product.deleteMany({
-        where: { id: { in: existingProducts.map((p: any) => p.id) } },
-      });
+    // Wipe ALL products to avoid duplicates, then re-import
+    const deleted = await prisma.product.deleteMany({});
+    if (deleted.count > 0) {
+      // Prisma will cascade delete variants, orderItems, cartItems, reviews
     }
 
     let created = 0;

@@ -7,7 +7,26 @@ import path from 'path';
 
 async function seedIfEmpty() {
   const count = await prisma.product.count();
-  if (count > 0) return;
+  if (count > 0) {
+    // Deduplicate: keep only the first product for each name
+    const all = await prisma.product.findMany({
+      select: { id: true, name: true, createdAt: true },
+      orderBy: { createdAt: 'asc' },
+    });
+    const seen = new Set<string>();
+    const toDelete: string[] = [];
+    for (const p of all) {
+      if (seen.has(p.name)) {
+        toDelete.push(p.id);
+      } else {
+        seen.add(p.name);
+      }
+    }
+    if (toDelete.length > 0) {
+      await prisma.product.deleteMany({ where: { id: { in: toDelete } } });
+    }
+    return;
+  }
 
   const siteDataPath = path.join(process.cwd(), 'site-data.json');
   const siteData = JSON.parse(fs.readFileSync(siteDataPath, 'utf-8'));
