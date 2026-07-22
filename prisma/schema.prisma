@@ -46,6 +46,7 @@ model Product {
   sku           String?
   material      String?
   moq           Int             @default(1)
+  aplus         Json?
   createdAt     DateTime        @default(now())
   updatedAt     DateTime        @updatedAt
   

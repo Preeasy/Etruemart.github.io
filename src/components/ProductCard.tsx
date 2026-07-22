@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { Star, ShoppingCart, Heart, Eye } from 'lucide-react';
+import { Star, ShoppingCart } from 'lucide-react';
 
 interface ProductCardProps {
   product: {
@@ -23,34 +23,26 @@ const ProductCard = ({ product }: ProductCardProps) => {
     : 0;
 
   return (
-    <div className="bg-dark-800 rounded-xl shadow-lg overflow-hidden card-hover group border border-dark-500/20">
+    <div className="bg-dark-800 rounded-xl overflow-hidden card-hover border border-dark-700/50 group">
       <div className="relative">
         <Link href={`/products/${product.id}`}>
           <img
             src={product.image}
             alt={product.name}
-            className="w-full h-56 object-cover group-hover:scale-105 transition-transform duration-300"
+            className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
           />
         </Link>
         {discount > 0 && (
-          <span className="absolute top-3 left-3 bg-accent-500 text-dark-900 text-sm font-bold px-3 py-1 rounded-full">
+          <span className="absolute top-3 left-3 bg-accent-500 text-dark-900 text-sm font-bold px-2 py-1 rounded-full">
             -{discount}%
           </span>
         )}
-        <div className="absolute top-3 right-3 flex flex-col gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
-          <button className="bg-dark-800/80 rounded-full p-2 shadow-md hover:bg-accent-500 hover:text-dark-900 transition-colors text-dark-50">
-            <Heart className="w-5 h-5" />
-          </button>
-          <button className="bg-dark-800/80 rounded-full p-2 shadow-md hover:bg-accent-500 hover:text-dark-900 transition-colors text-dark-50">
-            <Eye className="w-5 h-5" />
-          </button>
-        </div>
       </div>
 
-      <div className="p-5">
-        <span className="text-xs text-primary-400 font-medium">{product.category}</span>
+      <div className="p-4">
+        <span className="text-xs font-medium text-primary-400">{product.category}</span>
         <Link href={`/products/${product.id}`} className="block mt-1">
-          <h3 className="font-semibold text-dark-50 line-clamp-2 hover:text-accent-500 transition-colors min-h-[3rem]">
+          <h3 className="font-semibold text-dark-100 line-clamp-2 hover:text-accent-400 transition-colors min-h-[2.5rem]">
             {product.name}
           </h3>
         </Link>
@@ -60,28 +52,24 @@ const ProductCard = ({ product }: ProductCardProps) => {
             {[...Array(5)].map((_, i) => (
               <Star
                 key={i}
-                className={`w-4 h-4 ${i < Math.floor(product.rating) ? 'text-accent-500 fill-accent-500' : 'text-dark-500'}`}
+                className={`w-3 h-3 ${i < Math.floor(product.rating) ? 'text-accent-500 fill-accent-500' : 'text-dark-600'}`}
               />
             ))}
           </div>
-          <span className="text-sm text-dark-400">({product.reviewCount})</span>
+          <span className="text-xs text-dark-400">({product.reviewCount})</span>
         </div>
 
-        <div className="mt-2 text-sm text-dark-400">
-          <span className="font-medium text-dark-200">{product.salesCount}</span> sold
-        </div>
-
-        <div className="flex items-center justify-between mt-4">
+        <div className="flex items-center justify-between mt-3">
           <div className="flex items-baseline gap-2">
             <span className="text-xl font-bold text-accent-500">${price.toFixed(2)}</span>
             {originalPrice && (
-              <span className="text-sm text-dark-500 line-through">${originalPrice.toFixed(2)}</span>
+              <span className="text-xs text-dark-500 line-through">${originalPrice.toFixed(2)}</span>
             )}
           </div>
         </div>
 
-        <button className="w-full mt-4 flex items-center justify-center gap-2 bg-primary-600 hover:bg-primary-500 text-dark-50 py-2.5 rounded-lg font-bold transition-colors">
-          <ShoppingCart className="w-5 h-5" />
+        <button className="w-full mt-3 flex items-center justify-center gap-2 bg-primary-600 hover:bg-primary-500 text-dark-50 py-2 rounded-lg font-medium transition-colors">
+          <ShoppingCart className="w-4 h-4" />
           Add to Cart
         </button>
       </div>

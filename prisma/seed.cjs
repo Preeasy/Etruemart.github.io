@@ -86,6 +86,7 @@ async function main() {
           moq: productData.moq || 1,
           shippingCost: 0,
           shippingMethod: 'Standard Shipping',
+          aplus: productData.aplus || null,
           authorId: admin.id,
           variants: {
             create: variantData.length > 0 ? variantData : [{ color: 'Default', size: 'One Size', price: productData.priceMin || 0, stock: 100 }],
