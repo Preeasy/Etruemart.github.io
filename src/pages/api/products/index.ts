@@ -2,9 +2,86 @@ import { NextApiRequest, NextApiResponse } from 'next';
 import { getServerSession } from 'next-auth/next';
 import { authOptions } from '@/lib/auth';
 import { prisma } from '@/lib/prisma';
+import fs from 'fs';
+import path from 'path';
+
+async function seedIfEmpty() {
+  const count = await prisma.product.count();
+  if (count > 0) return;
+
+  const siteDataPath = path.join(process.cwd(), 'site-data.json');
+  const siteData = JSON.parse(fs.readFileSync(siteDataPath, 'utf-8'));
+
+  const adminEmail = 'admin@etruemart.com';
+  const admin = await prisma.user.upsert({
+    where: { email: adminEmail },
+    update: {},
+    create: {
+      email: adminEmail,
+      passwordHash: '$2b$10$N9qo8uLOickgx2ZMRZoMye.IjzqAKL9xL5jvMFVdNJHvGCgTq/VEq',
+      name: 'eTruemart Admin',
+      role: 'ADMIN',
+    },
+  });
+
+  const categories = siteData.categories || [];
+  for (const catName of categories) {
+    await prisma.category.upsert({
+      where: { name: catName },
+      update: {},
+      create: { name: catName },
+    });
+  }
+
+  const products = siteData.products || [];
+  for (const productData of products) {
+    const variations = productData.variations || [];
+    const variantData = variations.map((v: any) => ({
+      color: v.color || '',
+      size: v.size || '',
+      price: v.price || productData.priceMin || 0,
+      stock: 100,
+    }));
+
+    const images: string[] = [productData.image];
+    if (productData.aplus) {
+      for (const section of productData.aplus) {
+        if (section.image) images.push(section.image);
+      }
+    }
+    const uniqueImages = [...new Set(images)];
+
+    await prisma.product.create({
+      data: {
+        name: productData.name,
+        description: productData.description || '',
+        price: productData.priceMin || 0,
+        originalPrice: productData.priceMax && productData.priceMax > productData.priceMin
+          ? (productData.priceMax * 1.5)
+          : (productData.priceMin * 1.3),
+        image: productData.image,
+        images: uniqueImages,
+        category: productData.category || 'Other',
+        stock: 100,
+        isPublished: true,
+        sku: productData.sku || null,
+        material: productData.material || null,
+        moq: productData.moq || 1,
+        shippingCost: 0,
+        shippingMethod: 'Standard Shipping',
+        authorId: admin.id,
+        variants: {
+          create: variantData.length > 0 ? variantData : [{ color: 'Default', size: 'One Size', price: productData.priceMin || 0, stock: 100 }],
+        },
+      },
+    });
+  }
+}
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === 'GET') {
+    await seedIfEmpty();
+
     const { authorId, category } = req.query;
 
     const where: any = { isPublished: true };
