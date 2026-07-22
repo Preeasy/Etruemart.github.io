@@ -52,10 +52,15 @@ const ProductDetail = () => {
       fetch(`/api/products/${id}`)
         .then(res => res.json())
         .then(data => {
-          setProduct(data);
-          if (data.variants && data.variants.length > 0) {
-            setSelectedVariantColor(data.variants[0].color);
+          if (data && data.id) {
+            setProduct(data);
+            if (data.variants && Array.isArray(data.variants) && data.variants.length > 0) {
+              setSelectedVariantColor(data.variants[0].color || '');
+            }
           }
+        })
+        .catch(err => {
+          console.error('Failed to fetch product:', err);
         });
     }
   }, [id]);
@@ -71,8 +76,9 @@ const ProductDetail = () => {
     );
   }
 
-  const uniqueVariants = [...new Map(product.variants.map(v => [v.color, v])).values()];
-  const currentVariant = uniqueVariants.find(v => v.color === selectedVariantColor) || product.variants[0];
+  const variants = product.variants || [];
+  const uniqueVariants = [...new Map(variants.map(v => [v.color, v])).values()];
+  const currentVariant = uniqueVariants.find(v => v.color === selectedVariantColor) || variants[0];
   const discount = product.originalPrice
     ? Math.round(((product.originalPrice - (currentVariant?.price || product.price)) / product.originalPrice) * 100)
     : 0;
