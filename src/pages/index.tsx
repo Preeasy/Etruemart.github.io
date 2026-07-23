@@ -39,8 +39,8 @@ const categorySlides = [
     desc: 'Earrings, necklaces, bracelets & rings — direct from Yiwu manufacturers at factory prices.',
     icon: Gem,
     slug: 'fashion-jewelry',
-    gradient: 'bg-gradient-to-br from-dark-800 via-dark-900 to-dark-950',
-    glow: 'bg-gold-500/10',
+    gradient: 'bg-gradient-to-br from-gray-50 via-white to-gray-100',
+    glow: 'bg-gold-50',
     glowPosition: 'top-0 right-0',
   },
   {
@@ -49,8 +49,8 @@ const categorySlides = [
     desc: 'Buttons, zippers, lace & trim — everything your apparel production needs.',
     icon: Scissors,
     slug: 'garment-accessories',
-    gradient: 'bg-gradient-to-bl from-dark-800 via-dark-900 to-dark-950',
-    glow: 'bg-gold-500/5',
+    gradient: 'bg-gradient-to-bl from-gray-50 via-white to-gray-100',
+    glow: 'bg-gold-50',
     glowPosition: 'bottom-0 left-0',
   },
   {
@@ -59,8 +59,8 @@ const categorySlides = [
     desc: 'Clips, headbands, scrunchies & more — trendy styles at wholesale prices.',
     icon: Crown,
     slug: 'hair-accessories',
-    gradient: 'bg-gradient-to-tr from-dark-800 via-dark-900 to-dark-950',
-    glow: 'bg-gold-500/10',
+    gradient: 'bg-gradient-to-tr from-gray-50 via-white to-gray-100',
+    glow: 'bg-gold-50',
     glowPosition: 'top-0 left-0',
   },
   {
@@ -69,8 +69,8 @@ const categorySlides = [
     desc: 'Bag hardware, chains, keychains & fittings — premium quality from Yiwu.',
     icon: ShoppingBag,
     slug: 'bags-accessories',
-    gradient: 'bg-gradient-to-tl from-dark-800 via-dark-900 to-dark-950',
-    glow: 'bg-gold-500/5',
+    gradient: 'bg-gradient-to-tl from-gray-50 via-white to-gray-100',
+    glow: 'bg-gold-50',
     glowPosition: 'bottom-0 right-0',
   },
   {
@@ -79,8 +79,8 @@ const categorySlides = [
     desc: 'Tassels, beads, craft supplies & decorations — beautify every space.',
     icon: HomeIcon,
     slug: 'home-decor-crafts',
-    gradient: 'bg-gradient-to-r from-dark-800 via-dark-900 to-dark-950',
-    glow: 'bg-gold-500/10',
+    gradient: 'bg-gradient-to-r from-gray-50 via-white to-gray-100',
+    glow: 'bg-gold-50',
     glowPosition: 'top-1/2 left-0 -translate-y-1/2',
   },
   {
@@ -89,8 +89,8 @@ const categorySlides = [
     desc: 'Christmas, Eid, party supplies & festive decor — celebrate in style.',
     icon: Sparkles,
     slug: 'seasonal-festival',
-    gradient: 'bg-gradient-to-l from-dark-800 via-dark-900 to-dark-950',
-    glow: 'bg-gold-500/5',
+    gradient: 'bg-gradient-to-l from-gray-50 via-white to-gray-100',
+    glow: 'bg-gold-50',
     glowPosition: 'top-1/2 right-0 -translate-y-1/2',
   },
 ];
@@ -160,7 +160,7 @@ const Home = () => {
   return (
     <Layout>
       {/* Hero Carousel */}
-      <section className="relative h-[420px] md:h-[500px] overflow-hidden bg-dark-900">
+      <section className="relative h-[420px] md:h-[500px] overflow-hidden bg-white">
         {categorySlides.map((slide, index) => (
           <div
             key={slide.slug}
@@ -186,26 +186,26 @@ const Home = () => {
                 <div className="grid md:grid-cols-2 gap-8 items-center">
                   {/* Left: Text */}
                   <div>
-                    <div className="inline-flex items-center gap-2 bg-gold-500/15 text-gold-400 px-3 py-1.5 rounded-full text-xs font-medium border border-gold-500/20 mb-4">
+                    <div className="inline-flex items-center gap-2 bg-gold-50 text-gold-600 px-3 py-1.5 rounded-full text-xs font-medium border border-gold-200 mb-4">
                       <slide.icon className="w-3.5 h-3.5" />
                       {slide.name}
                     </div>
-                    <h1 className="font-display text-3xl md:text-4xl lg:text-5xl text-dark-50 mb-4 leading-tight">
+                    <h1 className="font-display text-3xl md:text-4xl lg:text-5xl text-gray-900 mb-4 leading-tight">
                       {slide.headline}
                     </h1>
-                    <p className="text-base text-dark-300 mb-6 leading-relaxed max-w-lg">
+                    <p className="text-base text-gray-500 mb-6 leading-relaxed max-w-lg">
                       {slide.desc}
                     </p>
                     <div className="flex flex-wrap gap-3">
                       <Link
                         href={`/products?category=${slide.slug}`}
-                        className="inline-flex items-center gap-2 bg-gold-500 hover:bg-gold-400 text-dark-900 px-6 py-2.5 rounded-lg font-bold text-sm transition-all shadow-lg hover:shadow-gold-500/30"
+                        className="inline-flex items-center gap-2 bg-gold-500 hover:bg-gold-400 text-white px-6 py-2.5 rounded-lg font-bold text-sm transition-all shadow-lg hover:shadow-gold-500/30"
                       >
                         Browse {slide.name} <ArrowRight className="w-4 h-4" />
                       </Link>
                       <Link
                         href="/products"
-                        className="inline-flex items-center gap-2 border-2 border-gold-500/50 text-gold-400 hover:bg-gold-500/10 px-6 py-2.5 rounded-lg font-bold text-sm transition-all"
+                        className="inline-flex items-center gap-2 border-2 border-gold-300 text-gold-600 hover:bg-gold-500/10 px-6 py-2.5 rounded-lg font-bold text-sm transition-all"
                       >
                         View All Products
                       </Link>
@@ -234,13 +234,13 @@ const Home = () => {
         {/* Navigation arrows */}
         <button
           onClick={prevSlide}
-          className="absolute left-4 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full bg-dark-800/80 border border-dark-700/50 flex items-center justify-center text-dark-300 hover:text-gold-400 hover:border-gold-500/30 transition-all"
+          className="absolute left-4 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full bg-dark-800/80 border border-gray-200 flex items-center justify-center text-gray-500 hover:text-gold-500 hover:border-gold-500/30 transition-all"
         >
           <ChevronLeft className="w-5 h-5" />
         </button>
         <button
           onClick={nextSlide}
-          className="absolute right-4 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full bg-dark-800/80 border border-dark-700/50 flex items-center justify-center text-dark-300 hover:text-gold-400 hover:border-gold-500/30 transition-all"
+          className="absolute right-4 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full bg-dark-800/80 border border-gray-200 flex items-center justify-center text-gray-500 hover:text-gold-500 hover:border-gold-500/30 transition-all"
         >
           <ChevronRight className="w-5 h-5" />
         </button>
@@ -259,10 +259,10 @@ const Home = () => {
         </div>
       </section>
 
-      <section className="py-10 bg-dark-900">
+      <section className="py-10 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-6">
-            <h2 className="font-display text-2xl md:text-3xl text-dark-50">Shop by Category</h2>
+            <h2 className="font-display text-2xl md:text-3xl text-gray-900">Shop by Category</h2>
             <div className="w-20 h-0.5 bg-gradient-to-r from-transparent via-gold-500 to-transparent mx-auto mt-3" />
           </div>
 
@@ -271,7 +271,7 @@ const Home = () => {
               <Link
                 key={cat.slug}
                 href={`/products?category=${cat.slug}`}
-                className="group relative overflow-hidden rounded-xl border border-dark-700/50 hover:border-gold-500/40 transition-all h-36"
+                className="group relative overflow-hidden rounded-xl border border-gray-200 hover:border-gold-500/40 transition-all h-36"
               >
                 {/* Background gradient */}
                 <div className={`absolute inset-0 ${cat.gradient}`} />
@@ -286,14 +286,14 @@ const Home = () => {
                 {/* Content */}
                 <div className="absolute inset-0 flex flex-col justify-end p-4">
                   <div className="flex items-center gap-2">
-                    <div className="w-8 h-8 rounded-lg bg-gold-500/20 border border-gold-500/30 flex items-center justify-center shrink-0">
-                      <cat.icon className="w-4 h-4 text-gold-400" />
+                    <div className="w-8 h-8 rounded-lg bg-gold-100 border border-gold-200 flex items-center justify-center shrink-0">
+                      <cat.icon className="w-4 h-4 text-gold-600" />
                     </div>
                     <div className="min-w-0">
-                      <h3 className="font-display text-sm text-dark-50 group-hover:text-gold-400 transition-colors truncate">
+                      <h3 className="font-display text-sm text-gray-900 group-hover:text-gold-400 transition-colors truncate">
                         {cat.name}
                       </h3>
-                      <p className="text-dark-400 text-xs mt-0.5 truncate">{cat.desc}</p>
+                      <p className="text-gray-500 text-xs mt-0.5 truncate">{cat.desc}</p>
                     </div>
                   </div>
                 </div>
@@ -303,16 +303,16 @@ const Home = () => {
         </div>
       </section>
 
-      <section className="py-10 bg-dark-800/50 border-t border-dark-700/30">
+      <section className="py-10 bg-gray-50 border-t border-gray-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between mb-5">
             <div>
-              <h2 className="font-display text-2xl md:text-3xl text-dark-50">New Arrivals</h2>
-              <p className="text-dark-400 text-sm mt-1">Latest additions to our wholesale catalog</p>
+              <h2 className="font-display text-2xl md:text-3xl text-gray-900">New Arrivals</h2>
+              <p className="text-gray-500 text-sm mt-1">Latest additions to our wholesale catalog</p>
             </div>
             <Link
               href="/products"
-              className="hidden sm:flex items-center gap-1 text-gold-400 font-medium hover:text-gold-300 transition-colors text-sm"
+              className="hidden sm:flex items-center gap-1 text-gold-600 font-medium hover:text-gold-300 transition-colors text-sm"
             >
               View All <ChevronRight className="w-4 h-4" />
             </Link>
@@ -325,18 +325,18 @@ const Home = () => {
               ))
             ) : (
               <div className="col-span-full text-center py-10">
-                <Package className="w-10 h-10 text-dark-600 mx-auto mb-2" />
-                <p className="text-dark-400 text-sm">No products yet. Check back soon!</p>
+                <Package className="w-10 h-10 text-gray-400 mx-auto mb-2" />
+                <p className="text-gray-500 text-sm">No products yet. Check back soon!</p>
               </div>
             )}
           </div>
         </div>
       </section>
 
-      <section className="py-10 bg-dark-900">
+      <section className="py-10 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-6">
-            <h2 className="font-display text-2xl md:text-3xl text-dark-50">Why Choose eTruemart</h2>
+            <h2 className="font-display text-2xl md:text-3xl text-gray-900">Why Choose eTruemart</h2>
             <div className="w-20 h-0.5 bg-gradient-to-r from-transparent via-gold-500 to-transparent mx-auto mt-3" />
           </div>
 
@@ -344,46 +344,46 @@ const Home = () => {
             {whyChooseUs.map((item, index) => (
               <div
                 key={index}
-                className="bg-dark-800/80 rounded-xl p-3 border border-dark-700/50 text-center"
+                className="bg-dark-800/80 rounded-xl p-3 border border-gray-200 text-center"
               >
-                <div className="w-10 h-10 rounded-full bg-gold-500/10 border border-gold-500/20 flex items-center justify-center mx-auto mb-2">
-                  <item.icon className="w-5 h-5 text-gold-400" />
+                <div className="w-10 h-10 rounded-full bg-gold-50 border border-gold-200 flex items-center justify-center mx-auto mb-2">
+                  <item.icon className="w-5 h-5 text-gold-600" />
                 </div>
-                <h3 className="font-display text-sm font-semibold text-dark-50 mb-1">{item.title}</h3>
-                <p className="text-dark-400 text-xs leading-relaxed">{item.desc}</p>
+                <h3 className="font-display text-sm font-semibold text-gray-900 mb-1">{item.title}</h3>
+                <p className="text-gray-500 text-xs leading-relaxed">{item.desc}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      <section className="py-10 bg-dark-800 border-t border-dark-700/30">
+      <section className="py-10 bg-gray-50 border-t border-gray-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="bg-gradient-to-r from-dark-900 to-dark-800 rounded-xl p-6 md:p-8 border border-gold-500/20 relative overflow-hidden">
-            <div className="absolute top-0 right-0 w-64 h-64 bg-gold-500/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
+          <div className="bg-gradient-to-r from-white to-dark-800 rounded-xl p-6 md:p-8 border border-gold-200 relative overflow-hidden">
+            <div className="absolute top-0 right-0 w-64 h-64 bg-gold-50 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
             <div className="relative grid md:grid-cols-2 gap-6 items-center">
               <div>
-                <div className="inline-flex items-center gap-2 bg-gold-500/15 text-gold-400 px-2.5 py-1 rounded-full text-xs font-medium border border-gold-500/20 mb-3">
+                <div className="inline-flex items-center gap-2 bg-gold-50 text-gold-600 px-2.5 py-1 rounded-full text-xs font-medium border border-gold-200 mb-3">
                   <Globe className="w-3.5 h-3.5" />
                   For Buyers
                 </div>
-                <h3 className="font-display text-xl md:text-2xl text-dark-50 mb-2">
+                <h3 className="font-display text-xl md:text-2xl text-gray-900 mb-2">
                   Need Bulk Pricing or Custom Sourcing?
                 </h3>
-                <p className="text-dark-400 text-sm leading-relaxed">
+                <p className="text-gray-500 text-sm leading-relaxed">
                   Tell us what you're looking for and our team will prepare a personalized quote with the best wholesale prices within 24 hours.
                 </p>
               </div>
               <div className="flex flex-col sm:flex-row gap-3 md:justify-end">
                 <Link
                   href="/products"
-                  className="inline-flex items-center justify-center gap-2 bg-gold-500 hover:bg-gold-400 text-dark-900 px-5 py-2.5 rounded-lg font-bold text-sm transition-colors"
+                  className="inline-flex items-center justify-center gap-2 bg-gold-500 hover:bg-gold-400 text-white px-5 py-2.5 rounded-lg font-bold text-sm transition-colors"
                 >
                   Browse Catalog <ArrowRight className="w-4 h-4" />
                 </Link>
                 <a
                   href="mailto:sales@etruemart.com?subject=Wholesale%20Inquiry"
-                  className="inline-flex items-center justify-center gap-2 border-2 border-gold-500/50 text-gold-400 hover:bg-gold-500/10 px-5 py-2.5 rounded-lg font-bold text-sm transition-all"
+                  className="inline-flex items-center justify-center gap-2 border-2 border-gold-300 text-gold-600 hover:bg-gold-500/10 px-5 py-2.5 rounded-lg font-bold text-sm transition-all"
                 >
                   Request a Quote
                 </a>

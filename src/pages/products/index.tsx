@@ -128,16 +128,16 @@ const Products = () => {
   return (
     <Layout>
       {/* Breadcrumb */}
-      <div className="bg-dark-800 border-b border-dark-700/30">
+      <div className="bg-gray-50 border-b border-gray-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-          <nav className="flex items-center gap-2 text-sm text-dark-400">
-            <Link href="/" className="hover:text-gold-400 transition-colors">Home</Link>
+          <nav className="flex items-center gap-2 text-sm text-gray-500">
+            <Link href="/" className="hover:text-gold-500 transition-colors">Home</Link>
             <ChevronRight className="w-4 h-4" />
             <span className="text-dark-100 font-medium">Products</span>
             {selectedCategory !== 'all' && (
               <>
                 <ChevronRight className="w-4 h-4" />
-                <span className="text-gold-400 font-medium">
+                <span className="text-gold-600 font-medium">
                   {categoryFilters.find(c => c.slug === selectedCategory)?.name || selectedCategory}
                 </span>
               </>
@@ -147,14 +147,14 @@ const Products = () => {
       </div>
 
       {/* Page header */}
-      <div className="bg-dark-800 border-b border-dark-700/30">
+      <div className="bg-gray-50 border-b border-gray-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-          <h1 className="font-display text-3xl font-bold text-dark-50">
+          <h1 className="font-display text-3xl font-bold text-gray-900">
             {selectedCategory !== 'all'
               ? categoryFilters.find(c => c.slug === selectedCategory)?.name || 'Products'
               : 'All Products'}
           </h1>
-          <p className="text-dark-400 mt-2">
+          <p className="text-gray-500 mt-2">
             Wholesale jewelry &amp; accessories — direct from Yiwu
           </p>
         </div>
@@ -165,7 +165,7 @@ const Products = () => {
         <div className="lg:hidden mb-4 flex gap-3">
           <button
             onClick={() => setShowSidebar(!showSidebar)}
-            className="flex items-center gap-2 px-4 py-2.5 bg-dark-800 border border-dark-700/40 rounded-lg text-dark-300 hover:border-gold-500/50 transition-colors"
+            className="flex items-center gap-2 px-4 py-2.5 bg-gray-50 border border-dark-700/40 rounded-lg text-gray-500 hover:border-gold-500/50 transition-colors"
           >
             <SlidersHorizontal className="w-4 h-4" />
             Filters
@@ -173,13 +173,13 @@ const Products = () => {
           <div className="flex items-center border border-dark-700/40 rounded-lg overflow-hidden">
             <button
               onClick={() => setViewMode('grid')}
-              className={`p-2.5 ${viewMode === 'grid' ? 'bg-gold-500 text-dark-900' : 'text-dark-400 hover:text-gold-400'}`}
+              className={`p-2.5 ${viewMode === 'grid' ? 'bg-gold-500 text-white' : 'text-gray-500 hover:text-gold-500'}`}
             >
               <Grid3X3 className="w-4 h-4" />
             </button>
             <button
               onClick={() => setViewMode('list')}
-              className={`p-2.5 ${viewMode === 'list' ? 'bg-gold-500 text-dark-900' : 'text-dark-400 hover:text-gold-400'}`}
+              className={`p-2.5 ${viewMode === 'list' ? 'bg-gold-500 text-white' : 'text-gray-500 hover:text-gold-500'}`}
             >
               <List className="w-4 h-4" />
             </button>
@@ -192,14 +192,14 @@ const Products = () => {
             className={`${showSidebar ? 'fixed inset-0 bg-black/50 z-40 lg:relative lg:bg-transparent' : 'hidden'} lg:block lg:w-72 flex-shrink-0`}
           >
             <div
-              className={`${showSidebar ? 'absolute left-0 top-0 h-full w-80 bg-dark-800 p-6 overflow-y-auto border-r border-dark-700/50' : ''} lg:relative lg:p-0 lg:w-full`}
+              className={`${showSidebar ? 'absolute left-0 top-0 h-full w-80 bg-gray-50 p-6 overflow-y-auto border-r border-gray-200' : ''} lg:relative lg:p-0 lg:w-full`}
             >
               <div className="lg:sticky lg:top-32">
                 {/* Mobile close */}
                 <div className="flex items-center justify-between mb-4 lg:hidden">
                   <h2 className="text-lg font-semibold text-dark-100">Filters</h2>
                   <button onClick={() => setShowSidebar(false)}>
-                    <X className="w-5 h-5 text-dark-400" />
+                    <X className="w-5 h-5 text-gray-500" />
                   </button>
                 </div>
 
@@ -211,7 +211,7 @@ const Products = () => {
                       placeholder="Search products..."
                       value={searchQuery}
                       onChange={(e) => setSearchQuery(e.target.value)}
-                      className="w-full px-4 py-2.5 pl-10 bg-dark-800 border border-dark-600/50 rounded-lg text-sm text-dark-200 placeholder-dark-500 focus:outline-none focus:ring-1 focus:ring-gold-500/50"
+                      className="w-full px-4 py-2.5 pl-10 bg-gray-50 border border-dark-600/50 rounded-lg text-sm text-gray-600 placeholder-dark-500 focus:outline-none focus:ring-1 focus:ring-gold-500/50"
                     />
                     <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-dark-500" />
                   </div>
@@ -219,7 +219,7 @@ const Products = () => {
 
                 {/* Categories */}
                 <div className="mb-6">
-                  <h3 className="text-xs font-semibold text-gold-400 uppercase tracking-wider mb-3">
+                  <h3 className="text-xs font-semibold text-gold-600 uppercase tracking-wider mb-3">
                     Categories
                   </h3>
                   <div className="space-y-1">
@@ -227,8 +227,8 @@ const Products = () => {
                       onClick={() => setSelectedCategory('all')}
                       className={`w-full text-left px-3 py-2 rounded-lg text-sm transition-colors ${
                         selectedCategory === 'all'
-                          ? 'bg-gold-500/15 text-gold-400 font-medium border border-gold-500/20'
-                          : 'text-dark-300 hover:bg-dark-700/50 hover:text-dark-100'
+                          ? 'bg-gold-50 text-gold-600 font-medium border border-gold-200'
+                          : 'text-gray-500 hover:bg-dark-700/50 hover:text-dark-100'
                       }`}
                     >
                       All Categories
@@ -239,8 +239,8 @@ const Products = () => {
                         onClick={() => setSelectedCategory(cat.slug)}
                         className={`w-full text-left px-3 py-2 rounded-lg text-sm transition-colors ${
                           selectedCategory === cat.slug
-                            ? 'bg-gold-500/15 text-gold-400 font-medium border border-gold-500/20'
-                            : 'text-dark-300 hover:bg-dark-700/50 hover:text-dark-100'
+                            ? 'bg-gold-50 text-gold-600 font-medium border border-gold-200'
+                            : 'text-gray-500 hover:bg-dark-700/50 hover:text-dark-100'
                         }`}
                       >
                         {cat.name}
@@ -251,13 +251,13 @@ const Products = () => {
 
                 {/* Material */}
                 <div className="mb-6">
-                  <h3 className="text-xs font-semibold text-gold-400 uppercase tracking-wider mb-3">
+                  <h3 className="text-xs font-semibold text-gold-600 uppercase tracking-wider mb-3">
                     Material
                   </h3>
                   <select
                     value={selectedMaterial}
                     onChange={(e) => setSelectedMaterial(e.target.value)}
-                    className="w-full bg-dark-800 border border-dark-600/50 rounded-lg px-3 py-2 text-sm text-dark-200 focus:outline-none focus:ring-1 focus:ring-gold-500/50"
+                    className="w-full bg-gray-50 border border-dark-600/50 rounded-lg px-3 py-2 text-sm text-gray-600 focus:outline-none focus:ring-1 focus:ring-gold-500/50"
                   >
                     <option value="">All Materials</option>
                     {materialOptions.map((m) => (
@@ -268,13 +268,13 @@ const Products = () => {
 
                 {/* Plating */}
                 <div className="mb-6">
-                  <h3 className="text-xs font-semibold text-gold-400 uppercase tracking-wider mb-3">
+                  <h3 className="text-xs font-semibold text-gold-600 uppercase tracking-wider mb-3">
                     Plating / Finish
                   </h3>
                   <select
                     value={selectedPlating}
                     onChange={(e) => setSelectedPlating(e.target.value)}
-                    className="w-full bg-dark-800 border border-dark-600/50 rounded-lg px-3 py-2 text-sm text-dark-200 focus:outline-none focus:ring-1 focus:ring-gold-500/50"
+                    className="w-full bg-gray-50 border border-dark-600/50 rounded-lg px-3 py-2 text-sm text-gray-600 focus:outline-none focus:ring-1 focus:ring-gold-500/50"
                   >
                     <option value="">All Finishes</option>
                     {platingOptions.map((p) => (
@@ -285,7 +285,7 @@ const Products = () => {
 
                 {/* Price range */}
                 <div className="mb-6">
-                  <h3 className="text-xs font-semibold text-gold-400 uppercase tracking-wider mb-3">
+                  <h3 className="text-xs font-semibold text-gold-600 uppercase tracking-wider mb-3">
                     Price Range (USD)
                   </h3>
                   <div className="flex items-center gap-2">
@@ -294,7 +294,7 @@ const Products = () => {
                       min={0}
                       value={priceRange[0]}
                       onChange={(e) => setPriceRange([Number(e.target.value), priceRange[1]])}
-                      className="w-full bg-dark-800 border border-dark-600/50 rounded-lg px-3 py-2 text-sm text-dark-200 focus:outline-none focus:ring-1 focus:ring-gold-500/50"
+                      className="w-full bg-gray-50 border border-dark-600/50 rounded-lg px-3 py-2 text-sm text-gray-600 focus:outline-none focus:ring-1 focus:ring-gold-500/50"
                       placeholder="Min"
                     />
                     <span className="text-dark-500">–</span>
@@ -303,7 +303,7 @@ const Products = () => {
                       min={0}
                       value={priceRange[1]}
                       onChange={(e) => setPriceRange([priceRange[0], Number(e.target.value)])}
-                      className="w-full bg-dark-800 border border-dark-600/50 rounded-lg px-3 py-2 text-sm text-dark-200 focus:outline-none focus:ring-1 focus:ring-gold-500/50"
+                      className="w-full bg-gray-50 border border-dark-600/50 rounded-lg px-3 py-2 text-sm text-gray-600 focus:outline-none focus:ring-1 focus:ring-gold-500/50"
                       placeholder="Max"
                     />
                   </div>
@@ -318,7 +318,7 @@ const Products = () => {
                     setSearchQuery('');
                     setPriceRange([0, 999]);
                   }}
-                  className="w-full text-sm text-dark-400 hover:text-gold-400 py-2 border border-dark-700/50 rounded-lg hover:border-gold-500/30 transition-colors"
+                  className="w-full text-sm text-gray-500 hover:text-gold-500 py-2 border border-gray-200 rounded-lg hover:border-gold-500/30 transition-colors"
                 >
                   Clear All Filters
                 </button>
@@ -329,8 +329,8 @@ const Products = () => {
           {/* Main content */}
           <div className="flex-1 min-w-0">
             {/* Toolbar */}
-            <div className="bg-dark-800 rounded-xl p-4 mb-6 border border-dark-700/40 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-              <p className="text-dark-400 text-sm">
+            <div className="bg-gray-50 rounded-xl p-4 mb-6 border border-dark-700/40 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+              <p className="text-gray-500 text-sm">
                 Showing <span className="font-semibold text-dark-100">{sortedProducts.length}</span> products
               </p>
               <div className="flex items-center gap-3">
@@ -338,13 +338,13 @@ const Products = () => {
                 <div className="hidden lg:flex items-center border border-dark-700/40 rounded-lg overflow-hidden">
                   <button
                     onClick={() => setViewMode('grid')}
-                    className={`p-2 ${viewMode === 'grid' ? 'bg-gold-500 text-dark-900' : 'text-dark-400 hover:text-gold-400'}`}
+                    className={`p-2 ${viewMode === 'grid' ? 'bg-gold-500 text-white' : 'text-gray-500 hover:text-gold-500'}`}
                   >
                     <Grid3X3 className="w-4 h-4" />
                   </button>
                   <button
                     onClick={() => setViewMode('list')}
-                    className={`p-2 ${viewMode === 'list' ? 'bg-gold-500 text-dark-900' : 'text-dark-400 hover:text-gold-400'}`}
+                    className={`p-2 ${viewMode === 'list' ? 'bg-gold-500 text-white' : 'text-gray-500 hover:text-gold-500'}`}
                   >
                     <List className="w-4 h-4" />
                   </button>
@@ -355,7 +355,7 @@ const Products = () => {
                   <select
                     value={sortBy}
                     onChange={(e) => setSortBy(e.target.value)}
-                    className="appearance-none bg-dark-700/50 border border-dark-600/50 px-4 py-2 pr-10 rounded-lg text-sm text-dark-200 focus:outline-none focus:ring-1 focus:ring-gold-500/50"
+                    className="appearance-none bg-dark-700/50 border border-dark-600/50 px-4 py-2 pr-10 rounded-lg text-sm text-gray-600 focus:outline-none focus:ring-1 focus:ring-gold-500/50"
                   >
                     <option value="newest">Newest First</option>
                     <option value="price-low">Price: Low to High</option>
@@ -370,7 +370,7 @@ const Products = () => {
             {loading ? (
               <div className="text-center py-20">
                 <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-gold-500 mx-auto mb-4"></div>
-                <p className="text-dark-400">Loading products...</p>
+                <p className="text-gray-500">Loading products...</p>
               </div>
             ) : sortedProducts.length > 0 ? (
               viewMode === 'grid' ? (
@@ -387,7 +387,7 @@ const Products = () => {
                       <Link
                         key={product.id}
                         href={`/products/${product.id}`}
-                        className="flex gap-5 bg-dark-800 rounded-xl border border-dark-700/40 p-4 hover:border-gold-500/30 transition-colors card-hover"
+                        className="flex gap-5 bg-gray-50 rounded-xl border border-dark-700/40 p-4 hover:border-gold-500/30 transition-colors card-hover"
                       >
                         <img
                           src={product.image}
@@ -396,34 +396,34 @@ const Products = () => {
                         />
                         <div className="flex-1 min-w-0">
                           {catName && (
-                            <span className="text-[11px] font-medium text-gold-400 uppercase tracking-wider">
+                            <span className="text-[11px] font-medium text-gold-600 uppercase tracking-wider">
                               {catName}
                             </span>
                           )}
-                          <h3 className="font-medium text-dark-100 mt-1 hover:text-gold-400 transition-colors line-clamp-1">
+                          <h3 className="font-medium text-dark-100 mt-1 hover:text-gold-500 transition-colors line-clamp-1">
                             {product.name}
                           </h3>
-                          <p className="text-sm text-dark-400 mt-1 line-clamp-2">
+                          <p className="text-sm text-gray-500 mt-1 line-clamp-2">
                             {product.description}
                           </p>
                           <div className="flex flex-wrap gap-1.5 mt-2">
                             {product.material && (
-                              <span className="text-[10px] text-dark-300 bg-dark-700/60 px-2 py-0.5 rounded-full border border-dark-600/30">
+                              <span className="text-[10px] text-gray-500 bg-dark-700/60 px-2 py-0.5 rounded-full border border-dark-600/30">
                                 {product.material}
                               </span>
                             )}
                             {product.plating && (
-                              <span className="text-[10px] text-gold-400 bg-gold-500/10 px-2 py-0.5 rounded-full border border-gold-500/20">
+                              <span className="text-[10px] text-gold-600 bg-gold-50 px-2 py-0.5 rounded-full border border-gold-200">
                                 {product.plating}
                               </span>
                             )}
                           </div>
                           <div className="flex items-center gap-4 mt-3">
-                            <span className="text-lg font-bold text-gold-400">
+                            <span className="text-lg font-bold text-gold-600">
                               ${Number(product.price).toFixed(2)}
                             </span>
-                            <span className="text-[11px] text-dark-400">
-                              MOQ: <span className="text-dark-200 font-medium">{product.moq || 1} pcs</span>
+                            <span className="text-[11px] text-gray-500">
+                              MOQ: <span className="text-gray-600 font-medium">{product.moq || 1} pcs</span>
                             </span>
                           </div>
                         </div>
@@ -433,8 +433,8 @@ const Products = () => {
                 </div>
               )
             ) : (
-              <div className="text-center py-16 bg-dark-800 rounded-xl border border-dark-700/40">
-                <Search className="w-16 h-16 text-dark-600 mx-auto mb-4" />
+              <div className="text-center py-16 bg-gray-50 rounded-xl border border-dark-700/40">
+                <Search className="w-16 h-16 text-gray-400 mx-auto mb-4" />
                 <h3 className="text-xl font-semibold text-dark-100 mb-2">No products found</h3>
                 <p className="text-dark-500 mb-6">Try adjusting your filters or search terms.</p>
                 <button

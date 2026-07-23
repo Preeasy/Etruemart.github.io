@@ -34,9 +34,9 @@ const ProductCard = ({ product }: ProductCardProps) => {
     : 0;
 
   return (
-    <div className="bg-dark-800 rounded-xl overflow-hidden border border-dark-700/50 group hover:border-gold-500/50 transition-all duration-300">
+    <div className="bg-gray-50 rounded-xl overflow-hidden border border-gray-200 group hover:border-gold-500/50 transition-all duration-300">
       <Link href={`/products/${product.id}`} className="block">
-        <div className="relative aspect-square overflow-hidden bg-dark-900">
+        <div className="relative aspect-square overflow-hidden bg-white">
           <Image
             src={product.image}
             alt={product.name}
@@ -47,12 +47,12 @@ const ProductCard = ({ product }: ProductCardProps) => {
             blurDataURL="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Crect fill='%23111111' width='200' height='200'/%3E%3C/svg%3E"
           />
           {discount > 0 && (
-            <span className="absolute top-2 left-2 bg-gold-500 text-dark-900 text-[10px] font-bold px-2 py-0.5 rounded">
+            <span className="absolute top-2 left-2 bg-gold-500 text-white text-[10px] font-bold px-2 py-0.5 rounded">
               -{discount}%
             </span>
           )}
           {product.stockStatus === 'IN_STOCK' && (
-            <span className="absolute top-2 right-2 bg-dark-900/90 text-gold-400 text-[9px] font-medium px-1.5 py-0.5 rounded border border-gold-500/30">
+            <span className="absolute top-2 right-2 bg-white/90 text-gold-600 text-[9px] font-medium px-1.5 py-0.5 rounded border border-gold-200">
               IN STOCK
             </span>
           )}
@@ -60,12 +60,12 @@ const ProductCard = ({ product }: ProductCardProps) => {
 
         <div className="p-2.5">
           {categoryName && (
-            <span className="text-[9px] font-medium text-gold-400 uppercase tracking-wider">
+            <span className="text-[9px] font-medium text-gold-600 uppercase tracking-wider">
               {categoryName}
             </span>
           )}
           
-          <h3 className="mt-1 font-medium text-dark-100 text-[11px] line-clamp-2 hover:text-gold-400 transition-colors leading-4">
+          <h3 className="mt-1 font-medium text-dark-100 text-[11px] line-clamp-2 hover:text-gold-500 transition-colors leading-4">
             {product.name}
           </h3>
 
@@ -79,7 +79,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
           </div>
 
           <div className="flex items-center justify-between mt-1">
-            <span className="text-[8px] text-dark-400">MOQ: <span className="text-dark-200 font-medium">{moq}</span></span>
+            <span className="text-[8px] text-gray-500">MOQ: <span className="text-gray-600 font-medium">{moq}</span></span>
           </div>
         </div>
       </Link>

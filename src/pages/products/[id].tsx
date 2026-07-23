@@ -82,7 +82,7 @@ const ProductDetail = () => {
       <Layout>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-gold-500 mx-auto mb-4"></div>
-          <p className="text-dark-400">Loading...</p>
+          <p className="text-gray-500">Loading...</p>
         </div>
       </Layout>
     );
@@ -122,9 +122,9 @@ const ProductDetail = () => {
 
   return (
     <Layout>
-      <div className="bg-dark-800 border-b border-dark-700/50">
+      <div className="bg-gray-50 border-b border-gray-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-          <nav className="flex items-center gap-2 text-sm text-dark-400">
+          <nav className="flex items-center gap-2 text-sm text-gray-500">
             <Link href="/" className="hover:text-gold-500 transition-colors">Home</Link>
             <ChevronLeft className="w-4 h-4 rotate-180" />
             <Link href="/products" className="hover:text-gold-500 transition-colors">Products</Link>
@@ -137,8 +137,8 @@ const ProductDetail = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="grid lg:grid-cols-2 gap-8">
           <div>
-            <div className="bg-dark-800 rounded-2xl p-4 border border-dark-700/50">
-              <div className="relative aspect-square bg-dark-900 rounded-xl overflow-hidden">
+            <div className="bg-gray-50 rounded-2xl p-4 border border-gray-200">
+              <div className="relative aspect-square bg-white rounded-xl overflow-hidden">
                 <Image
                   src={allImages[selectedImage] || product.image}
                   alt={product.name}
@@ -154,7 +154,7 @@ const ProductDetail = () => {
                   <button
                     key={index}
                     onClick={() => setSelectedImage(index)}
-                    className={`flex-shrink-0 w-16 h-16 rounded-lg overflow-hidden border-2 transition-all ${selectedImage === index ? 'border-gold-500 ring-2 ring-gold-500/30' : 'border-dark-700/50 hover:border-gold-500/50'}`}
+                    className={`flex-shrink-0 w-16 h-16 rounded-lg overflow-hidden border-2 transition-all ${selectedImage === index ? 'border-gold-500 ring-2 ring-gold-500/30' : 'border-gray-200 hover:border-gold-500/50'}`}
                   >
                     <Image src={img} alt={`View ${index + 1}`} fill className="object-cover" />
                   </button>
@@ -165,7 +165,7 @@ const ProductDetail = () => {
 
           <div>
             <div className="flex items-center gap-3 mb-3">
-              <span className="inline-block bg-gold-500/15 text-gold-400 text-sm font-medium px-3 py-1 rounded-full border border-gold-500/20">
+              <span className="inline-block bg-gold-50 text-gold-600 text-sm font-medium px-3 py-1 rounded-full border border-gold-200">
                 {typeof product.category === 'object' && product.category !== null ? product.category.name : typeof product.category === 'string' ? product.category : ''}
               </span>
               {product.sku && (
@@ -178,21 +178,21 @@ const ProductDetail = () => {
             <div className="flex items-center gap-3 mb-5">
               <div className="flex items-center gap-1">
                 {[...Array(5)].map((_, i) => (
-                  <Star key={i} className={`w-4 h-4 ${i < Math.floor(rating) ? 'text-gold-500 fill-gold-500' : 'text-dark-600'}`} />
+                  <Star key={i} className={`w-4 h-4 ${i < Math.floor(rating) ? 'text-gold-500 fill-gold-500' : 'text-gray-400'}`} />
                 ))}
               </div>
-              <span className="text-dark-400 text-sm">{rating.toFixed(1)} ({product.reviewCount} reviews)</span>
-              <span className="text-dark-600">|</span>
-              <span className="text-dark-400 text-sm">{product.salesCount} sold</span>
+              <span className="text-gray-500 text-sm">{rating.toFixed(1)} ({product.reviewCount} reviews)</span>
+              <span className="text-gray-400">|</span>
+              <span className="text-gray-500 text-sm">{product.salesCount} sold</span>
             </div>
 
-            <div className="bg-dark-800 rounded-xl p-4 mb-5 border border-dark-700/50">
+            <div className="bg-gray-50 rounded-xl p-4 mb-5 border border-gray-200">
               <div className="flex items-baseline gap-3">
                 <span className="text-3xl font-bold text-gold-500">${currentVariantPrice.toFixed(2)}</span>
                 {originalPrice && originalPrice > currentVariantPrice && (
                   <>
                     <span className="text-lg text-dark-500 line-through">${originalPrice.toFixed(2)}</span>
-                    <span className="bg-gold-500 text-dark-900 text-sm font-bold px-2 py-1 rounded">
+                    <span className="bg-gold-500 text-white text-sm font-bold px-2 py-1 rounded">
                       -{discount}%
                     </span>
                   </>
@@ -200,31 +200,31 @@ const ProductDetail = () => {
               </div>
             </div>
 
-            <p className="text-dark-300 text-sm mb-5 leading-relaxed">{product.description}</p>
+            <p className="text-gray-500 text-sm mb-5 leading-relaxed">{product.description}</p>
 
             <div className="grid grid-cols-2 gap-3 mb-5 text-xs">
               {product.material && (
-                <div className="flex items-center gap-2 text-dark-400">
-                  <span className="text-gold-400 font-medium">Material:</span>
-                  <span className="text-dark-200">{product.material}</span>
+                <div className="flex items-center gap-2 text-gray-500">
+                  <span className="text-gold-600 font-medium">Material:</span>
+                  <span className="text-gray-600">{product.material}</span>
                 </div>
               )}
               {product.plating && (
-                <div className="flex items-center gap-2 text-dark-400">
-                  <span className="text-gold-400 font-medium">Plating:</span>
-                  <span className="text-dark-200">{product.plating}</span>
+                <div className="flex items-center gap-2 text-gray-500">
+                  <span className="text-gold-600 font-medium">Plating:</span>
+                  <span className="text-gray-600">{product.plating}</span>
                 </div>
               )}
               {product.color && (
-                <div className="flex items-center gap-2 text-dark-400">
-                  <span className="text-gold-400 font-medium">Color:</span>
-                  <span className="text-dark-200">{product.color}</span>
+                <div className="flex items-center gap-2 text-gray-500">
+                  <span className="text-gold-600 font-medium">Color:</span>
+                  <span className="text-gray-600">{product.color}</span>
                 </div>
               )}
               {product.size && (
-                <div className="flex items-center gap-2 text-dark-400">
-                  <span className="text-gold-400 font-medium">Size:</span>
-                  <span className="text-dark-200">{product.size}</span>
+                <div className="flex items-center gap-2 text-gray-500">
+                  <span className="text-gold-600 font-medium">Size:</span>
+                  <span className="text-gray-600">{product.size}</span>
                 </div>
               )}
             </div>
@@ -237,7 +237,7 @@ const ProductDetail = () => {
                     <button
                       key={variant.id}
                       onClick={() => setSelectedVariantColor(variant.color)}
-                      className={`px-3 py-1.5 rounded-lg border-2 transition-all text-sm ${selectedVariantColor === variant.color ? 'border-gold-500 bg-gold-500/10 text-gold-500 font-medium' : 'border-dark-700/50 text-dark-300 hover:border-gold-500/50'}`}
+                      className={`px-3 py-1.5 rounded-lg border-2 transition-all text-sm ${selectedVariantColor === variant.color ? 'border-gold-500 bg-gold-50 text-gold-500 font-medium' : 'border-gray-200 text-gray-500 hover:border-gold-500/50'}`}
                     >
                       {variant.color}
                     </button>
@@ -249,55 +249,55 @@ const ProductDetail = () => {
             <div className="mb-5">
               <h3 className="font-semibold text-dark-100 mb-2 text-sm">Quantity</h3>
               <div className="flex items-center gap-4">
-                <div className="flex items-center border border-dark-700/50 rounded-lg bg-dark-800">
-                  <button onClick={() => setQuantity(Math.max(1, quantity - 1))} className="p-2 hover:bg-dark-700 transition-colors text-dark-300">
+                <div className="flex items-center border border-gray-200 rounded-lg bg-gray-50">
+                  <button onClick={() => setQuantity(Math.max(1, quantity - 1))} className="p-2 hover:bg-dark-700 transition-colors text-gray-500">
                     <Minus className="w-4 h-4" />
                   </button>
                   <span className="px-5 font-semibold text-dark-100">{quantity}</span>
-                  <button onClick={() => setQuantity(quantity + 1)} className="p-2 hover:bg-dark-700 transition-colors text-dark-300">
+                  <button onClick={() => setQuantity(quantity + 1)} className="p-2 hover:bg-dark-700 transition-colors text-gray-500">
                     <Plus className="w-4 h-4" />
                   </button>
                 </div>
                 <span className="text-dark-500 text-xs">
-                  <span className="text-gold-400 font-medium">In Stock</span> ({currentVariant?.stock || product.stock} available)
+                  <span className="text-gold-600 font-medium">In Stock</span> ({currentVariant?.stock || product.stock} available)
                 </span>
               </div>
             </div>
 
             <div className="flex flex-col sm:flex-row gap-2 mb-6">
-              <button onClick={handleAddToCart} className="flex-1 flex items-center justify-center gap-2 bg-gold-500 hover:bg-gold-400 text-dark-900 py-3 rounded-xl font-bold transition-colors">
+              <button onClick={handleAddToCart} className="flex-1 flex items-center justify-center gap-2 bg-gold-500 hover:bg-gold-400 text-white py-3 rounded-xl font-bold transition-colors">
                 <ShoppingCart className="w-5 h-5" />
                 Add to Cart
               </button>
-              <button className="flex-1 flex items-center justify-center gap-2 bg-gold-600 hover:bg-gold-500 text-dark-50 py-3 rounded-xl font-bold transition-colors">
+              <button className="flex-1 flex items-center justify-center gap-2 bg-gold-600 hover:bg-gold-500 text-gray-900 py-3 rounded-xl font-bold transition-colors">
                 <ShoppingCart className="w-5 h-5" />
                 Buy Now
               </button>
             </div>
 
             <div className="flex gap-2">
-              <button onClick={() => setIsFavorite(!isFavorite)} className="flex-1 p-3 border border-dark-700/50 rounded-xl hover:border-red-500 hover:text-red-500 transition-colors text-dark-400">
+              <button onClick={() => setIsFavorite(!isFavorite)} className="flex-1 p-3 border border-gray-200 rounded-xl hover:border-red-500 hover:text-red-500 transition-colors text-gray-500">
                 <Heart className={`w-5 h-5 ${isFavorite ? 'fill-red-500 text-red-500' : ''}`} />
               </button>
-              <button className="flex-1 p-3 border border-dark-700/50 rounded-xl hover:border-gold-500 hover:text-gold-500 transition-colors text-dark-400">
+              <button className="flex-1 p-3 border border-gray-200 rounded-xl hover:border-gold-500 hover:text-gold-500 transition-colors text-gray-500">
                 <Share2 className="w-5 h-5" />
               </button>
             </div>
 
             <div className="grid grid-cols-3 gap-2 mt-5">
-              <div className="bg-dark-800 rounded-xl p-3 text-center border border-dark-700/50">
+              <div className="bg-gray-50 rounded-xl p-3 text-center border border-gray-200">
                 <Truck className="w-5 h-5 text-gold-500 mx-auto mb-1" />
-                <p className="text-xs font-medium text-dark-200">Free Shipping</p>
+                <p className="text-xs font-medium text-gray-600">Free Shipping</p>
                 <p className="text-[10px] text-dark-500">Orders over $50</p>
               </div>
-              <div className="bg-dark-800 rounded-xl p-3 text-center border border-dark-700/50">
+              <div className="bg-gray-50 rounded-xl p-3 text-center border border-gray-200">
                 <ShieldCheck className="w-5 h-5 text-gold-500 mx-auto mb-1" />
-                <p className="text-xs font-medium text-dark-200">Secure Payment</p>
+                <p className="text-xs font-medium text-gray-600">Secure Payment</p>
                 <p className="text-[10px] text-dark-500">100% protected</p>
               </div>
-              <div className="bg-dark-800 rounded-xl p-3 text-center border border-dark-700/50">
+              <div className="bg-gray-50 rounded-xl p-3 text-center border border-gray-200">
                 <RotateCcw className="w-5 h-5 text-gold-500 mx-auto mb-1" />
-                <p className="text-xs font-medium text-dark-200">Easy Returns</p>
+                <p className="text-xs font-medium text-gray-600">Easy Returns</p>
                 <p className="text-[10px] text-dark-500">30-day policy</p>
               </div>
             </div>
@@ -305,24 +305,24 @@ const ProductDetail = () => {
         </div>
 
         <div className="mt-10">
-          <div className="border-b border-dark-700/50 mb-5">
+          <div className="border-b border-gray-200 mb-5">
             <div className="flex gap-4">
-              <button onClick={() => setActiveTab('description')} className={`pb-3 font-medium border-b-2 transition-colors text-sm ${activeTab === 'description' ? 'border-gold-500 text-gold-500' : 'border-transparent text-dark-400 hover:text-dark-200'}`}>
+              <button onClick={() => setActiveTab('description')} className={`pb-3 font-medium border-b-2 transition-colors text-sm ${activeTab === 'description' ? 'border-gold-500 text-gold-500' : 'border-transparent text-gray-500 hover:text-dark-200'}`}>
                 Description
               </button>
-              <button onClick={() => setActiveTab('specs')} className={`pb-3 font-medium border-b-2 transition-colors text-sm ${activeTab === 'specs' ? 'border-gold-500 text-gold-500' : 'border-transparent text-dark-400 hover:text-dark-200'}`}>
+              <button onClick={() => setActiveTab('specs')} className={`pb-3 font-medium border-b-2 transition-colors text-sm ${activeTab === 'specs' ? 'border-gold-500 text-gold-500' : 'border-transparent text-gray-500 hover:text-dark-200'}`}>
                 Specifications
               </button>
-              <button onClick={() => setActiveTab('reviews')} className={`pb-3 font-medium border-b-2 transition-colors text-sm ${activeTab === 'reviews' ? 'border-gold-500 text-gold-500' : 'border-transparent text-dark-400 hover:text-dark-200'}`}>
+              <button onClick={() => setActiveTab('reviews')} className={`pb-3 font-medium border-b-2 transition-colors text-sm ${activeTab === 'reviews' ? 'border-gold-500 text-gold-500' : 'border-transparent text-gray-500 hover:text-dark-200'}`}>
                 Reviews ({product.reviewCount})
               </button>
             </div>
           </div>
 
           {activeTab === 'description' && (
-            <div className="bg-dark-800 rounded-2xl p-5 border border-dark-700/50">
+            <div className="bg-gray-50 rounded-2xl p-5 border border-gray-200">
               <h2 className="text-lg font-bold text-dark-100 mb-3">Product Description</h2>
-              <p className="text-dark-300 text-sm leading-relaxed">{product.description}</p>
+              <p className="text-gray-500 text-sm leading-relaxed">{product.description}</p>
               {product.aplus && Array.isArray(product.aplus) && (
                 <div className="mt-5">
                   {product.aplus.map((section: any, index: number) => (
@@ -331,7 +331,7 @@ const ProductDetail = () => {
                         <h3 className="text-sm font-semibold text-dark-100 mb-2">{section.heading}</h3>
                       )}
                       {section.text && (
-                        <p className="text-dark-300 text-sm leading-relaxed" dangerouslySetInnerHTML={{ __html: section.text }} />
+                        <p className="text-gray-500 text-sm leading-relaxed" dangerouslySetInnerHTML={{ __html: section.text }} />
                       )}
                       {section.image && section.image.trim() && (
                         <div className="mt-3">
@@ -346,56 +346,56 @@ const ProductDetail = () => {
           )}
 
           {activeTab === 'specs' && (
-            <div className="bg-dark-800 rounded-2xl p-5 border border-dark-700/50">
+            <div className="bg-gray-50 rounded-2xl p-5 border border-gray-200">
               <h2 className="text-lg font-bold text-dark-100 mb-4">Product Specifications</h2>
               <div className="grid grid-cols-2 gap-3 text-sm">
-                <div className="flex justify-between py-2 border-b border-dark-700/30">
-                  <span className="text-dark-400">MOQ</span>
+                <div className="flex justify-between py-2 border-b border-gray-100">
+                  <span className="text-gray-500">MOQ</span>
                   <span className="text-dark-100 font-medium">{product.moq || 1} pcs</span>
                 </div>
-                <div className="flex justify-between py-2 border-b border-dark-700/30">
-                  <span className="text-dark-400">Pack Size</span>
+                <div className="flex justify-between py-2 border-b border-gray-100">
+                  <span className="text-gray-500">Pack Size</span>
                   <span className="text-dark-100 font-medium">{product.packSize || 1} pcs</span>
                 </div>
                 {product.material && (
-                  <div className="flex justify-between py-2 border-b border-dark-700/30">
-                    <span className="text-dark-400">Material</span>
+                  <div className="flex justify-between py-2 border-b border-gray-100">
+                    <span className="text-gray-500">Material</span>
                     <span className="text-dark-100 font-medium">{product.material}</span>
                   </div>
                 )}
                 {product.plating && (
-                  <div className="flex justify-between py-2 border-b border-dark-700/30">
-                    <span className="text-dark-400">Plating</span>
+                  <div className="flex justify-between py-2 border-b border-gray-100">
+                    <span className="text-gray-500">Plating</span>
                     <span className="text-dark-100 font-medium">{product.plating}</span>
                   </div>
                 )}
                 {product.process && (
-                  <div className="flex justify-between py-2 border-b border-dark-700/30">
-                    <span className="text-dark-400">Process</span>
+                  <div className="flex justify-between py-2 border-b border-gray-100">
+                    <span className="text-gray-500">Process</span>
                     <span className="text-dark-100 font-medium">{product.process}</span>
                   </div>
                 )}
                 {product.color && (
-                  <div className="flex justify-between py-2 border-b border-dark-700/30">
-                    <span className="text-dark-400">Color</span>
+                  <div className="flex justify-between py-2 border-b border-gray-100">
+                    <span className="text-gray-500">Color</span>
                     <span className="text-dark-100 font-medium">{product.color}</span>
                   </div>
                 )}
                 {product.size && (
-                  <div className="flex justify-between py-2 border-b border-dark-700/30">
-                    <span className="text-dark-400">Size</span>
+                  <div className="flex justify-between py-2 border-b border-gray-100">
+                    <span className="text-gray-500">Size</span>
                     <span className="text-dark-100 font-medium">{product.size}</span>
                   </div>
                 )}
                 {product.origin && (
-                  <div className="flex justify-between py-2 border-b border-dark-700/30">
-                    <span className="text-dark-400">Origin</span>
+                  <div className="flex justify-between py-2 border-b border-gray-100">
+                    <span className="text-gray-500">Origin</span>
                     <span className="text-dark-100 font-medium">{product.origin}</span>
                   </div>
                 )}
                 {product.supplierCity && (
-                  <div className="flex justify-between py-2 border-b border-dark-700/30">
-                    <span className="text-dark-400">Supplier City</span>
+                  <div className="flex justify-between py-2 border-b border-gray-100">
+                    <span className="text-gray-500">Supplier City</span>
                     <span className="text-dark-100 font-medium">{product.supplierCity}</span>
                   </div>
                 )}
@@ -404,17 +404,17 @@ const ProductDetail = () => {
           )}
 
           {activeTab === 'reviews' && (
-            <div className="bg-dark-800 rounded-2xl p-5 border border-dark-700/50">
-              <div className="flex items-center gap-6 mb-5 pb-5 border-b border-dark-700/30">
+            <div className="bg-gray-50 rounded-2xl p-5 border border-gray-200">
+              <div className="flex items-center gap-6 mb-5 pb-5 border-b border-gray-100">
                 <div>
                   <div className="text-3xl font-bold text-dark-100 mb-1">{rating.toFixed(1)}</div>
                   <div className="flex gap-1">
                     {[...Array(5)].map((_, i) => (
-                      <Star key={i} className={`w-4 h-4 ${i < Math.floor(rating) ? 'text-gold-500 fill-gold-500' : 'text-dark-600'}`} />
+                      <Star key={i} className={`w-4 h-4 ${i < Math.floor(rating) ? 'text-gold-500 fill-gold-500' : 'text-gray-400'}`} />
                     ))}
                   </div>
                 </div>
-                <div className="text-dark-400">
+                <div className="text-gray-500">
                   <p className="text-sm font-semibold text-dark-100">{product.reviewCount} customer reviews</p>
                 </div>
               </div>
@@ -422,22 +422,22 @@ const ProductDetail = () => {
               {product.reviews && product.reviews.length > 0 ? (
                 <div className="space-y-5">
                   {product.reviews.map((review) => (
-                    <div key={review.id} className="pb-5 border-b border-dark-700/30 last:border-0">
+                    <div key={review.id} className="pb-5 border-b border-gray-100 last:border-0">
                       <div className="flex items-center gap-3 mb-2">
-                        <div className="w-8 h-8 bg-gold-800/50 rounded-full flex items-center justify-center text-gold-400 font-bold text-sm">
+                        <div className="w-8 h-8 bg-gold-800/50 rounded-full flex items-center justify-center text-gold-600 font-bold text-sm">
                           {review.user?.name ? review.user.name[0] : 'U'}
                         </div>
                         <div>
                           <h4 className="font-semibold text-dark-100 text-sm">{review.user?.name || 'Anonymous'}</h4>
                           <div className="flex gap-1">
                             {[...Array(5)].map((_, i) => (
-                              <Star key={i} className={`w-3 h-3 ${i < review.rating ? 'text-gold-500 fill-gold-500' : 'text-dark-600'}`} />
+                              <Star key={i} className={`w-3 h-3 ${i < review.rating ? 'text-gold-500 fill-gold-500' : 'text-gray-400'}`} />
                             ))}
                           </div>
                         </div>
                       </div>
                       <h5 className="font-medium text-dark-100 text-sm mb-1">{review.title}</h5>
-                      <p className="text-dark-400 text-sm">{review.content}</p>
+                      <p className="text-gray-500 text-sm">{review.content}</p>
                       <p className="text-xs text-dark-500 mt-1">{new Date(review.createdAt).toLocaleDateString()}</p>
                     </div>
                   ))}

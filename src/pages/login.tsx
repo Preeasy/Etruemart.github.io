@@ -14,7 +14,7 @@ const Login = () => {
   const [error, setError] = useState('');
 
   if (status === 'loading') {
-    return <div className="text-center py-20 text-dark-400">Loading...</div>;
+    return <div className="text-center py-20 text-gray-500">Loading...</div>;
   }
 
   if (session) {
@@ -48,11 +48,11 @@ const Login = () => {
               <Package className="w-10 h-10 text-gold-500 group-hover:text-gold-400 transition-colors" />
               <span className="text-2xl font-bold text-gold-500 group-hover:text-gold-400 transition-colors">eTruemart</span>
             </Link>
-            <h2 className="text-3xl font-bold text-dark-50">Sign in to your account</h2>
-            <p className="mt-2 text-dark-300">Welcome back! Please sign in to continue.</p>
+            <h2 className="text-3xl font-bold text-gray-900">Sign in to your account</h2>
+            <p className="mt-2 text-gray-500">Welcome back! Please sign in to continue.</p>
           </div>
 
-          <form onSubmit={handleSubmit} className="bg-dark-800 rounded-2xl shadow-lg p-8 space-y-6 border border-dark-500/20">
+          <form onSubmit={handleSubmit} className="bg-gray-50 rounded-2xl shadow-lg p-8 space-y-6 border border-dark-500/20">
             {error && (
               <div className="bg-red-500/10 border border-red-500/30 text-red-400 px-4 py-3 rounded-lg text-sm">
                 {error}
@@ -60,17 +60,17 @@ const Login = () => {
             )}
 
             <div>
-              <label htmlFor="email" className="block text-sm font-medium text-dark-200 mb-2">
+              <label htmlFor="email" className="block text-sm font-medium text-gray-600 mb-2">
                 Email address
               </label>
               <div className="relative">
-                <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-dark-400" />
+                <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-500" />
                 <input
                   type="email"
                   id="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="w-full px-4 py-3 pl-10 bg-dark-700 border border-dark-500/30 rounded-lg focus:outline-none focus:ring-2 focus:ring-gold-500/50 text-dark-50"
+                  className="w-full px-4 py-3 pl-10 bg-dark-700 border border-dark-500/30 rounded-lg focus:outline-none focus:ring-2 focus:ring-gold-500/50 text-gray-900"
                   placeholder="you@example.com"
                   required
                 />
@@ -78,24 +78,24 @@ const Login = () => {
             </div>
 
             <div>
-              <label htmlFor="password" className="block text-sm font-medium text-dark-200 mb-2">
+              <label htmlFor="password" className="block text-sm font-medium text-gray-600 mb-2">
                 Password
               </label>
               <div className="relative">
-                <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-dark-400" />
+                <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-500" />
                 <input
                   type={showPassword ? 'text' : 'password'}
                   id="password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="w-full px-4 py-3 pl-10 pr-10 bg-dark-700 border border-dark-500/30 rounded-lg focus:outline-none focus:ring-2 focus:ring-gold-500/50 text-dark-50"
+                  className="w-full px-4 py-3 pl-10 pr-10 bg-dark-700 border border-dark-500/30 rounded-lg focus:outline-none focus:ring-2 focus:ring-gold-500/50 text-gray-900"
                   placeholder="••••••••"
                   required
                 />
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-dark-400 hover:text-dark-200"
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-dark-200"
                 >
                   {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
                 </button>
@@ -105,25 +105,25 @@ const Login = () => {
             <div className="flex items-center justify-between">
               <label className="flex items-center">
                 <input type="checkbox" className="w-4 h-4 text-gold-500 bg-dark-700 border-dark-500/30 rounded" />
-                <span className="ml-2 text-sm text-dark-300">Remember me</span>
+                <span className="ml-2 text-sm text-gray-500">Remember me</span>
               </label>
-              <a href="#" className="text-sm text-gold-500 hover:text-gold-400">
+              <a href="#" className="text-sm text-gold-500 hover:text-gold-500">
                 Forgot your password?
               </a>
             </div>
 
             <button
               type="submit"
-              className="w-full flex items-center justify-center px-4 py-3 bg-gold-500 hover:bg-gold-400 text-dark-900 font-bold rounded-lg transition-colors"
+              className="w-full flex items-center justify-center px-4 py-3 bg-gold-500 hover:bg-gold-400 text-white font-bold rounded-lg transition-colors"
             >
               Sign in
             </button>
           </form>
 
           <div className="mt-6 text-center">
-            <p className="text-dark-300">
+            <p className="text-gray-500">
               Don&apos;t have an account?{' '}
-              <Link href="/register" className="text-gold-500 font-medium hover:text-gold-400">
+              <Link href="/register" className="text-gold-500 font-medium hover:text-gold-500">
                 Register here
               </Link>
             </p>
@@ -135,16 +135,16 @@ const Login = () => {
                 <div className="w-full border-t border-dark-500/30"></div>
               </div>
               <div className="relative flex justify-center text-sm">
-                <span className="px-4 bg-dark-900 text-dark-400">Or continue with</span>
+                <span className="px-4 bg-white text-gray-500">Or continue with</span>
               </div>
             </div>
 
             <div className="mt-6 grid grid-cols-2 gap-4">
-              <button className="inline-flex items-center justify-center gap-2 px-4 py-3 bg-dark-800 border border-dark-500/30 rounded-lg hover:bg-dark-700 transition-colors text-dark-200">
+              <button className="inline-flex items-center justify-center gap-2 px-4 py-3 bg-gray-50 border border-dark-500/30 rounded-lg hover:bg-dark-700 transition-colors text-gray-600">
                 <span className="text-xl">F</span>
                 <span className="font-medium">Facebook</span>
               </button>
-              <button className="inline-flex items-center justify-center gap-2 px-4 py-3 bg-dark-800 border border-dark-500/30 rounded-lg hover:bg-dark-700 transition-colors text-dark-200">
+              <button className="inline-flex items-center justify-center gap-2 px-4 py-3 bg-gray-50 border border-dark-500/30 rounded-lg hover:bg-dark-700 transition-colors text-gray-600">
                 <span className="text-xl">G</span>
                 <span className="font-medium">Google</span>
               </button>

@@ -48,11 +48,11 @@ const Register = () => {
               <Package className="w-10 h-10 text-gold-500 group-hover:text-gold-400 transition-colors" />
               <span className="text-2xl font-bold text-gold-500 group-hover:text-gold-400 transition-colors">eTruemart</span>
             </Link>
-            <h2 className="text-3xl font-bold text-dark-50">Create your account</h2>
-            <p className="mt-2 text-dark-300">Join us and start shopping or selling today!</p>
+            <h2 className="text-3xl font-bold text-gray-900">Create your account</h2>
+            <p className="mt-2 text-gray-500">Join us and start shopping or selling today!</p>
           </div>
 
-          <form onSubmit={handleSubmit} className="bg-dark-800 rounded-2xl shadow-lg p-8 space-y-6 border border-dark-500/20">
+          <form onSubmit={handleSubmit} className="bg-gray-50 rounded-2xl shadow-lg p-8 space-y-6 border border-dark-500/20">
             {error && (
               <div className="bg-red-500/10 border border-red-500/30 text-red-400 px-4 py-3 rounded-lg text-sm">
                 {error}
@@ -60,17 +60,17 @@ const Register = () => {
             )}
 
             <div>
-              <label htmlFor="name" className="block text-sm font-medium text-dark-200 mb-2">
+              <label htmlFor="name" className="block text-sm font-medium text-gray-600 mb-2">
                 Full name
               </label>
               <div className="relative">
-                <User className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-dark-400" />
+                <User className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-500" />
                 <input
                   type="text"
                   id="name"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
-                  className="w-full px-4 py-3 pl-10 bg-dark-700 border border-dark-500/30 rounded-lg focus:outline-none focus:ring-2 focus:ring-gold-500/50 text-dark-50"
+                  className="w-full px-4 py-3 pl-10 bg-dark-700 border border-dark-500/30 rounded-lg focus:outline-none focus:ring-2 focus:ring-gold-500/50 text-gray-900"
                   placeholder="John Doe"
                   required
                 />
@@ -78,17 +78,17 @@ const Register = () => {
             </div>
 
             <div>
-              <label htmlFor="email" className="block text-sm font-medium text-dark-200 mb-2">
+              <label htmlFor="email" className="block text-sm font-medium text-gray-600 mb-2">
                 Email address
               </label>
               <div className="relative">
-                <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-dark-400" />
+                <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-500" />
                 <input
                   type="email"
                   id="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="w-full px-4 py-3 pl-10 bg-dark-700 border border-dark-500/30 rounded-lg focus:outline-none focus:ring-2 focus:ring-gold-500/50 text-dark-50"
+                  className="w-full px-4 py-3 pl-10 bg-dark-700 border border-dark-500/30 rounded-lg focus:outline-none focus:ring-2 focus:ring-gold-500/50 text-gray-900"
                   placeholder="you@example.com"
                   required
                 />
@@ -96,17 +96,17 @@ const Register = () => {
             </div>
 
             <div>
-              <label htmlFor="password" className="block text-sm font-medium text-dark-200 mb-2">
+              <label htmlFor="password" className="block text-sm font-medium text-gray-600 mb-2">
                 Password
               </label>
               <div className="relative">
-                <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-dark-400" />
+                <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-500" />
                 <input
                   type={showPassword ? 'text' : 'password'}
                   id="password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="w-full px-4 py-3 pl-10 pr-10 bg-dark-700 border border-dark-500/30 rounded-lg focus:outline-none focus:ring-2 focus:ring-gold-500/50 text-dark-50"
+                  className="w-full px-4 py-3 pl-10 pr-10 bg-dark-700 border border-dark-500/30 rounded-lg focus:outline-none focus:ring-2 focus:ring-gold-500/50 text-gray-900"
                   placeholder="••••••••"
                   required
                   minLength={6}
@@ -114,33 +114,33 @@ const Register = () => {
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-dark-400 hover:text-dark-200"
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-dark-200"
                 >
                   {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
                 </button>
               </div>
-              <p className="mt-1 text-xs text-dark-400">At least 6 characters</p>
+              <p className="mt-1 text-xs text-gray-500">At least 6 characters</p>
             </div>
 
             <div>
-              <label htmlFor="confirmPassword" className="block text-sm font-medium text-dark-200 mb-2">
+              <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-600 mb-2">
                 Confirm password
               </label>
               <div className="relative">
-                <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-dark-400" />
+                <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-500" />
                 <input
                   type={showConfirmPassword ? 'text' : 'password'}
                   id="confirmPassword"
                   value={confirmPassword}
                   onChange={(e) => setConfirmPassword(e.target.value)}
-                  className="w-full px-4 py-3 pl-10 pr-10 bg-dark-700 border border-dark-500/30 rounded-lg focus:outline-none focus:ring-2 focus:ring-gold-500/50 text-dark-50"
+                  className="w-full px-4 py-3 pl-10 pr-10 bg-dark-700 border border-dark-500/30 rounded-lg focus:outline-none focus:ring-2 focus:ring-gold-500/50 text-gray-900"
                   placeholder="••••••••"
                   required
                 />
                 <button
                   type="button"
                   onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-dark-400 hover:text-dark-200"
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-dark-200"
                 >
                   {showConfirmPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
                 </button>
@@ -154,26 +154,26 @@ const Register = () => {
                 className="w-4 h-4 text-gold-500 bg-dark-700 border-dark-500/30 rounded"
                 required
               />
-              <label htmlFor="terms" className="ml-2 text-sm text-dark-300">
+              <label htmlFor="terms" className="ml-2 text-sm text-gray-500">
                 I agree to the{' '}
-                <a href="#" className="text-gold-500 hover:text-gold-400">Terms of Service</a>{' '}
+                <a href="#" className="text-gold-500 hover:text-gold-500">Terms of Service</a>{' '}
                 and{' '}
-                <a href="#" className="text-gold-500 hover:text-gold-400">Privacy Policy</a>
+                <a href="#" className="text-gold-500 hover:text-gold-500">Privacy Policy</a>
               </label>
             </div>
 
             <button
               type="submit"
-              className="w-full flex items-center justify-center px-4 py-3 bg-gold-500 hover:bg-gold-400 text-dark-900 font-bold rounded-lg transition-colors"
+              className="w-full flex items-center justify-center px-4 py-3 bg-gold-500 hover:bg-gold-400 text-white font-bold rounded-lg transition-colors"
             >
               Create account
             </button>
           </form>
 
           <div className="mt-6 text-center">
-            <p className="text-dark-300">
+            <p className="text-gray-500">
               Already have an account?{' '}
-              <Link href="/login" className="text-gold-500 font-medium hover:text-gold-400">
+              <Link href="/login" className="text-gold-500 font-medium hover:text-gold-500">
                 Sign in here
               </Link>
             </p>
