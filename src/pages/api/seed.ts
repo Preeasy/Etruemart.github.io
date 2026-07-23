@@ -120,7 +120,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             ? (productData.priceMax * 1.5)
             : (productData.priceMin * 1.3),
           image: productData.image,
-          images: uniqueImages,
+          images: JSON.stringify(uniqueImages),
           categoryId,
           stock: 100,
           isPublished: true,
@@ -132,11 +132,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
           size: productData.size || null,
           packSize: productData.packSize || 1,
           moq: productData.moq || 1,
-          keywords: productData.keywords || [],
+          keywords: JSON.stringify(productData.keywords || []),
           stockStatus: productData.stockStatus || 'IN_STOCK',
           shippingCost: 0,
           shippingMethod: 'Standard Shipping',
-          aplus: productData.aplus || null,
+          aplus: productData.aplus ? JSON.stringify(productData.aplus) : null,
           authorId: admin.id,
           variants: {
             create: variantData.length > 0 ? variantData : [{ color: 'Default', size: 'One Size', price: productData.priceMin || 0, stock: 100 }],

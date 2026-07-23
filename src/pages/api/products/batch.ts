@@ -4,7 +4,7 @@ import { getServerSession } from 'next-auth/next';
 import { authOptions } from '@/lib/auth';
 import fs from 'fs';
 import path from 'path';
-import { Prisma } from '@prisma/client';
+
 
 interface ProductImportData {
   name: string;
@@ -97,10 +97,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             data: {
               name: item.name,
               description: item.description,
-              price: new Prisma.Decimal(item.priceMin),
-              priceMax: new Prisma.Decimal(item.priceMax),
+              price: item.priceMin,
+              priceMax: item.priceMax,
               image: item.image,
-              images: item.images,
+              images: JSON.stringify(item.images),
               categoryId,
               material: item.material || '',
               plating: item.plating || '',
@@ -117,7 +117,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
               origin: item.origin || 'Yiwu, China',
               supplierCity: item.supplierCity || 'Yiwu',
               stockStatus: item.stockStatus || 'IN_STOCK',
-              keywords: item.keywords || [],
+              keywords: JSON.stringify(item.keywords || []),
               updatedAt: new Date(),
             },
           });
@@ -130,10 +130,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             name: item.name,
             description: item.description,
             slug: item.slug,
-            price: new Prisma.Decimal(item.priceMin),
-            priceMax: new Prisma.Decimal(item.priceMax),
+            price: item.priceMin,
+            priceMax: item.priceMax,
             image: item.image,
-            images: item.images,
+            images: JSON.stringify(item.images),
             categoryId,
             material: item.material || '',
             plating: item.plating || '',
@@ -150,14 +150,14 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             origin: item.origin || 'Yiwu, China',
             supplierCity: item.supplierCity || 'Yiwu',
             stockStatus: item.stockStatus || 'IN_STOCK',
-            keywords: item.keywords || [],
+            keywords: JSON.stringify(item.keywords || []),
             authorId: session.user.id,
             isPublished: true,
             variants: {
               create: item.variations?.map(v => ({
                 color: v.color,
                 size: v.size,
-                price: new Prisma.Decimal(v.price),
+                price: v.price,
               })) || [],
             },
           },
