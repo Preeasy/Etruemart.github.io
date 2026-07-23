@@ -65,21 +65,21 @@ const ProductCard = ({ product }: ProductCardProps) => {
             </span>
           )}
           
-          <h3 className="mt-1 font-medium text-dark-100 text-[11px] line-clamp-2 hover:text-gold-500 transition-colors leading-4">
+          <h3 className="mt-1 font-medium text-gray-900 text-[11px] line-clamp-2 hover:text-gold-600 transition-colors leading-4">
             {product.name}
           </h3>
 
           <div className="flex items-baseline justify-between mt-1.5">
             <div className="flex items-baseline gap-1">
-              <span className="text-sm font-bold text-gold-500">${price.toFixed(2)}</span>
+              <span className="text-sm font-bold text-gold-600">${price.toFixed(2)}</span>
               {originalPrice && originalPrice > price && (
-                <span className="text-[9px] text-dark-500 line-through">${originalPrice.toFixed(2)}</span>
+                <span className="text-[9px] text-gray-500 line-through">${originalPrice.toFixed(2)}</span>
               )}
             </div>
           </div>
 
           <div className="flex items-center justify-between mt-1">
-            <span className="text-[8px] text-gray-500">MOQ: <span className="text-gray-600 font-medium">{moq}</span></span>
+            <span className="text-[8px] text-gray-500">MOQ: <span className="text-gray-700 font-medium">{moq}</span></span>
           </div>
         </div>
       </Link>

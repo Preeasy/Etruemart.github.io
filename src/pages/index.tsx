@@ -234,13 +234,13 @@ const Home = () => {
         {/* Navigation arrows */}
         <button
           onClick={prevSlide}
-          className="absolute left-4 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full bg-dark-800/80 border border-gray-200 flex items-center justify-center text-gray-500 hover:text-gold-500 hover:border-gold-500/30 transition-all"
+          className="absolute left-4 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full bg-gray-50/80 border border-gray-200 flex items-center justify-center text-gray-500 hover:text-gold-600 hover:border-gold-500/30 transition-all"
         >
           <ChevronLeft className="w-5 h-5" />
         </button>
         <button
           onClick={nextSlide}
-          className="absolute right-4 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full bg-dark-800/80 border border-gray-200 flex items-center justify-center text-gray-500 hover:text-gold-500 hover:border-gold-500/30 transition-all"
+          className="absolute right-4 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full bg-gray-50/80 border border-gray-200 flex items-center justify-center text-gray-500 hover:text-gold-600 hover:border-gold-500/30 transition-all"
         >
           <ChevronRight className="w-5 h-5" />
         </button>
@@ -252,7 +252,7 @@ const Home = () => {
               key={index}
               onClick={() => goToSlide(index)}
               className={`h-2 rounded-full transition-all duration-300 ${
-                index === currentSlide ? 'bg-gold-500 w-8' : 'bg-dark-600 w-2 hover:bg-dark-500'
+                index === currentSlide ? 'bg-gold-500 w-8' : 'bg-gray-300 w-2 hover:bg-gold-400'
               }`}
             />
           ))}
@@ -282,7 +282,7 @@ const Home = () => {
                   <cat.icon className="w-20 h-20 text-gold-500/15 group-hover:text-gold-500/25 transition-colors duration-500" strokeWidth={1} />
                 </div>
                 {/* Bottom gradient overlay */}
-                <div className="absolute inset-0 bg-gradient-to-t from-dark-900/95 via-dark-900/50 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-white/95 via-white/50 to-transparent" />
                 {/* Content */}
                 <div className="absolute inset-0 flex flex-col justify-end p-4">
                   <div className="flex items-center gap-2">
@@ -312,7 +312,7 @@ const Home = () => {
             </div>
             <Link
               href="/products"
-              className="hidden sm:flex items-center gap-1 text-gold-600 font-medium hover:text-gold-300 transition-colors text-sm"
+              className="hidden sm:flex items-center gap-1 text-gold-600 font-medium hover:text-gold-600 transition-colors text-sm"
             >
               View All <ChevronRight className="w-4 h-4" />
             </Link>
@@ -344,7 +344,7 @@ const Home = () => {
             {whyChooseUs.map((item, index) => (
               <div
                 key={index}
-                className="bg-dark-800/80 rounded-xl p-3 border border-gray-200 text-center"
+                className="bg-gray-50/80 rounded-xl p-3 border border-gray-200 text-center"
               >
                 <div className="w-10 h-10 rounded-full bg-gold-50 border border-gold-200 flex items-center justify-center mx-auto mb-2">
                   <item.icon className="w-5 h-5 text-gold-600" />
@@ -359,7 +359,7 @@ const Home = () => {
 
       <section className="py-10 bg-gray-50 border-t border-gray-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="bg-gradient-to-r from-white to-dark-800 rounded-xl p-6 md:p-8 border border-gold-200 relative overflow-hidden">
+          <div className="bg-gradient-to-r from-white to-gray-50 rounded-xl p-6 md:p-8 border border-gold-200 relative overflow-hidden">
             <div className="absolute top-0 right-0 w-64 h-64 bg-gold-50 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
             <div className="relative grid md:grid-cols-2 gap-6 items-center">
               <div>

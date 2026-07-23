@@ -8,6 +8,6 @@
   }
 
   .btn-secondary {
-    @apply border-2 border-gold-500 text-gold-500 hover:bg-gold-500 hover:text-white font-semibold py-3 px-6 rounded-lg transition-colors;
+    @apply border-2 border-gold-500 text-gold-600 hover:bg-gold-500 hover:text-white font-semibold py-3 px-6 rounded-lg transition-colors;
   }
 }

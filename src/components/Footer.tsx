@@ -63,16 +63,16 @@ const Footer = () => {
                 Serving buyers across Europe, Americas, Middle East &amp; Africa.
               </p>
               <div className="flex gap-4">
-                <a href="#" className="text-dark-500 hover:text-gold-500 transition-colors">
+                <a href="#" className="text-gray-500 hover:text-gold-600 transition-colors">
                   <Facebook className="w-5 h-5" />
                 </a>
-                <a href="#" className="text-dark-500 hover:text-gold-500 transition-colors">
+                <a href="#" className="text-gray-500 hover:text-gold-600 transition-colors">
                   <Instagram className="w-5 h-5" />
                 </a>
-                <a href="#" className="text-dark-500 hover:text-gold-500 transition-colors">
+                <a href="#" className="text-gray-500 hover:text-gold-600 transition-colors">
                   <Youtube className="w-5 h-5" />
                 </a>
-                <a href="#" className="text-dark-500 hover:text-gold-500 transition-colors">
+                <a href="#" className="text-gray-500 hover:text-gold-600 transition-colors">
                   <Twitter className="w-5 h-5" />
                 </a>
               </div>
@@ -84,12 +84,12 @@ const Footer = () => {
                 Categories
               </h4>
               <ul className="space-y-2.5 text-gray-500 text-sm">
-                <li><Link href="/products?category=fashion-jewelry" className="hover:text-gold-500 transition-colors">Fashion Jewelry</Link></li>
-                <li><Link href="/products?category=garment-accessories" className="hover:text-gold-500 transition-colors">Garment Accessories</Link></li>
-                <li><Link href="/products?category=hair-accessories" className="hover:text-gold-500 transition-colors">Hair Accessories</Link></li>
-                <li><Link href="/products?category=bags-accessories" className="hover:text-gold-500 transition-colors">Bags & Accessories</Link></li>
-                <li><Link href="/products?category=home-decor-crafts" className="hover:text-gold-500 transition-colors">Home Decor & Crafts</Link></li>
-                <li><Link href="/products?category=seasonal-festival" className="hover:text-gold-500 transition-colors">Seasonal & Festival</Link></li>
+                <li><Link href="/products?category=fashion-jewelry" className="hover:text-gold-600 transition-colors">Fashion Jewelry</Link></li>
+                <li><Link href="/products?category=garment-accessories" className="hover:text-gold-600 transition-colors">Garment Accessories</Link></li>
+                <li><Link href="/products?category=hair-accessories" className="hover:text-gold-600 transition-colors">Hair Accessories</Link></li>
+                <li><Link href="/products?category=bags-accessories" className="hover:text-gold-600 transition-colors">Bags & Accessories</Link></li>
+                <li><Link href="/products?category=home-decor-crafts" className="hover:text-gold-600 transition-colors">Home Decor & Crafts</Link></li>
+                <li><Link href="/products?category=seasonal-festival" className="hover:text-gold-600 transition-colors">Seasonal & Festival</Link></li>
               </ul>
             </div>
 
@@ -99,11 +99,11 @@ const Footer = () => {
                 Company
               </h4>
               <ul className="space-y-2.5 text-gray-500 text-sm">
-                <li><Link href="/products" className="hover:text-gold-500 transition-colors">All Products</Link></li>
-                <li><Link href="/sell" className="hover:text-gold-500 transition-colors">Become a Seller</Link></li>
-                <li><a href="#" className="hover:text-gold-500 transition-colors">About Us</a></li>
-                <li><a href="#" className="hover:text-gold-500 transition-colors">Sourcing Services</a></li>
-                <li><a href="#" className="hover:text-gold-500 transition-colors">Quality Assurance</a></li>
+                <li><Link href="/products" className="hover:text-gold-600 transition-colors">All Products</Link></li>
+                <li><Link href="/sell" className="hover:text-gold-600 transition-colors">Become a Seller</Link></li>
+                <li><a href="#" className="hover:text-gold-600 transition-colors">About Us</a></li>
+                <li><a href="#" className="hover:text-gold-600 transition-colors">Sourcing Services</a></li>
+                <li><a href="#" className="hover:text-gold-600 transition-colors">Quality Assurance</a></li>
               </ul>
             </div>
 
@@ -114,26 +114,26 @@ const Footer = () => {
               </h4>
               <ul className="space-y-3 text-gray-500 text-sm">
                 <li className="flex items-center gap-2.5">
-                  <Mail className="w-4 h-4 text-gold-500 flex-shrink-0" />
-                  <a href="mailto:info@yeatru.com" className="hover:text-gold-500 transition-colors">info@yeatru.com</a>
+                  <Mail className="w-4 h-4 text-gold-600 flex-shrink-0" />
+                  <a href="mailto:info@yeatru.com" className="hover:text-gold-600 transition-colors">info@yeatru.com</a>
                 </li>
                 <li className="flex items-center gap-2.5">
-                  <Phone className="w-4 h-4 text-gold-500 flex-shrink-0" />
+                  <Phone className="w-4 h-4 text-gold-600 flex-shrink-0" />
                   <span>+86 15988516408</span>
                 </li>
                 <li className="flex items-start gap-2.5">
-                  <MapPin className="w-4 h-4 text-gold-500 flex-shrink-0 mt-0.5" />
+                  <MapPin className="w-4 h-4 text-gold-600 flex-shrink-0 mt-0.5" />
                   <span>Yiwu City, Zhejiang, China</span>
                 </li>
               </ul>
 
               <div className="mt-5">
-                <h5 className="text-xs text-dark-500 uppercase tracking-wider mb-2">Newsletter</h5>
+                <h5 className="text-xs text-gray-500 uppercase tracking-wider mb-2">Newsletter</h5>
                 <div className="flex">
                   <input
                     type="email"
                     placeholder="Your email"
-                    className="flex-1 min-w-0 px-3 py-2 bg-gray-50 border border-dark-600/50 rounded-l-lg text-sm text-gray-600 placeholder-dark-500 focus:outline-none focus:ring-1 focus:ring-gold-500/50"
+                    className="flex-1 min-w-0 px-3 py-2 bg-gray-50 border border-gray-200/50 rounded-l-lg text-sm text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-gold-500/50"
                   />
                   <button className="bg-gold-500 hover:bg-gold-400 text-white px-3 py-2 rounded-r-lg transition-colors">
                     <ArrowRight className="w-4 h-4" />
@@ -149,13 +149,13 @@ const Footer = () => {
       <div className="border-t border-gray-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-            <p className="text-dark-500 text-xs">
+            <p className="text-gray-500 text-xs">
               &copy; {new Date().getFullYear()} eTruemart. All rights reserved. Powered by Yiwu sourcing.
             </p>
-            <div className="flex gap-6 text-xs text-dark-500">
-              <a href="#" className="hover:text-gold-500 transition-colors">Privacy Policy</a>
-              <a href="#" className="hover:text-gold-500 transition-colors">Terms of Service</a>
-              <a href="#" className="hover:text-gold-500 transition-colors">Cookie Policy</a>
+            <div className="flex gap-6 text-xs text-gray-500">
+              <a href="#" className="hover:text-gold-600 transition-colors">Privacy Policy</a>
+              <a href="#" className="hover:text-gold-600 transition-colors">Terms of Service</a>
+              <a href="#" className="hover:text-gold-600 transition-colors">Cookie Policy</a>
             </div>
           </div>
         </div>

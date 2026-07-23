@@ -131,9 +131,9 @@ const Products = () => {
       <div className="bg-gray-50 border-b border-gray-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
           <nav className="flex items-center gap-2 text-sm text-gray-500">
-            <Link href="/" className="hover:text-gold-500 transition-colors">Home</Link>
+            <Link href="/" className="hover:text-gold-600 transition-colors">Home</Link>
             <ChevronRight className="w-4 h-4" />
-            <span className="text-dark-100 font-medium">Products</span>
+            <span className="text-gray-900 font-medium">Products</span>
             {selectedCategory !== 'all' && (
               <>
                 <ChevronRight className="w-4 h-4" />
@@ -165,21 +165,21 @@ const Products = () => {
         <div className="lg:hidden mb-4 flex gap-3">
           <button
             onClick={() => setShowSidebar(!showSidebar)}
-            className="flex items-center gap-2 px-4 py-2.5 bg-gray-50 border border-dark-700/40 rounded-lg text-gray-500 hover:border-gold-500/50 transition-colors"
+            className="flex items-center gap-2 px-4 py-2.5 bg-gray-50 border border-gray-100/40 rounded-lg text-gray-500 hover:border-gold-500/50 transition-colors"
           >
             <SlidersHorizontal className="w-4 h-4" />
             Filters
           </button>
-          <div className="flex items-center border border-dark-700/40 rounded-lg overflow-hidden">
+          <div className="flex items-center border border-gray-100/40 rounded-lg overflow-hidden">
             <button
               onClick={() => setViewMode('grid')}
-              className={`p-2.5 ${viewMode === 'grid' ? 'bg-gold-500 text-white' : 'text-gray-500 hover:text-gold-500'}`}
+              className={`p-2.5 ${viewMode === 'grid' ? 'bg-gold-500 text-white' : 'text-gray-500 hover:text-gold-600'}`}
             >
               <Grid3X3 className="w-4 h-4" />
             </button>
             <button
               onClick={() => setViewMode('list')}
-              className={`p-2.5 ${viewMode === 'list' ? 'bg-gold-500 text-white' : 'text-gray-500 hover:text-gold-500'}`}
+              className={`p-2.5 ${viewMode === 'list' ? 'bg-gold-500 text-white' : 'text-gray-500 hover:text-gold-600'}`}
             >
               <List className="w-4 h-4" />
             </button>
@@ -197,7 +197,7 @@ const Products = () => {
               <div className="lg:sticky lg:top-32">
                 {/* Mobile close */}
                 <div className="flex items-center justify-between mb-4 lg:hidden">
-                  <h2 className="text-lg font-semibold text-dark-100">Filters</h2>
+                  <h2 className="text-lg font-semibold text-gray-900">Filters</h2>
                   <button onClick={() => setShowSidebar(false)}>
                     <X className="w-5 h-5 text-gray-500" />
                   </button>
@@ -211,9 +211,9 @@ const Products = () => {
                       placeholder="Search products..."
                       value={searchQuery}
                       onChange={(e) => setSearchQuery(e.target.value)}
-                      className="w-full px-4 py-2.5 pl-10 bg-gray-50 border border-dark-600/50 rounded-lg text-sm text-gray-600 placeholder-dark-500 focus:outline-none focus:ring-1 focus:ring-gold-500/50"
+                      className="w-full px-4 py-2.5 pl-10 bg-gray-50 border border-gray-200/50 rounded-lg text-sm text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-gold-500/50"
                     />
-                    <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-dark-500" />
+                    <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" />
                   </div>
                 </div>
 
@@ -228,7 +228,7 @@ const Products = () => {
                       className={`w-full text-left px-3 py-2 rounded-lg text-sm transition-colors ${
                         selectedCategory === 'all'
                           ? 'bg-gold-50 text-gold-600 font-medium border border-gold-200'
-                          : 'text-gray-500 hover:bg-dark-700/50 hover:text-dark-100'
+                          : 'text-gray-500 hover:bg-gray-50 hover:text-gray-900'
                       }`}
                     >
                       All Categories
@@ -240,7 +240,7 @@ const Products = () => {
                         className={`w-full text-left px-3 py-2 rounded-lg text-sm transition-colors ${
                           selectedCategory === cat.slug
                             ? 'bg-gold-50 text-gold-600 font-medium border border-gold-200'
-                            : 'text-gray-500 hover:bg-dark-700/50 hover:text-dark-100'
+                            : 'text-gray-500 hover:bg-gray-50 hover:text-gray-900'
                         }`}
                       >
                         {cat.name}
@@ -257,7 +257,7 @@ const Products = () => {
                   <select
                     value={selectedMaterial}
                     onChange={(e) => setSelectedMaterial(e.target.value)}
-                    className="w-full bg-gray-50 border border-dark-600/50 rounded-lg px-3 py-2 text-sm text-gray-600 focus:outline-none focus:ring-1 focus:ring-gold-500/50"
+                    className="w-full bg-gray-50 border border-gray-200/50 rounded-lg px-3 py-2 text-sm text-gray-700 focus:outline-none focus:ring-1 focus:ring-gold-500/50"
                   >
                     <option value="">All Materials</option>
                     {materialOptions.map((m) => (
@@ -274,7 +274,7 @@ const Products = () => {
                   <select
                     value={selectedPlating}
                     onChange={(e) => setSelectedPlating(e.target.value)}
-                    className="w-full bg-gray-50 border border-dark-600/50 rounded-lg px-3 py-2 text-sm text-gray-600 focus:outline-none focus:ring-1 focus:ring-gold-500/50"
+                    className="w-full bg-gray-50 border border-gray-200/50 rounded-lg px-3 py-2 text-sm text-gray-700 focus:outline-none focus:ring-1 focus:ring-gold-500/50"
                   >
                     <option value="">All Finishes</option>
                     {platingOptions.map((p) => (
@@ -294,16 +294,16 @@ const Products = () => {
                       min={0}
                       value={priceRange[0]}
                       onChange={(e) => setPriceRange([Number(e.target.value), priceRange[1]])}
-                      className="w-full bg-gray-50 border border-dark-600/50 rounded-lg px-3 py-2 text-sm text-gray-600 focus:outline-none focus:ring-1 focus:ring-gold-500/50"
+                      className="w-full bg-gray-50 border border-gray-200/50 rounded-lg px-3 py-2 text-sm text-gray-700 focus:outline-none focus:ring-1 focus:ring-gold-500/50"
                       placeholder="Min"
                     />
-                    <span className="text-dark-500">–</span>
+                    <span className="text-gray-500">–</span>
                     <input
                       type="number"
                       min={0}
                       value={priceRange[1]}
                       onChange={(e) => setPriceRange([priceRange[0], Number(e.target.value)])}
-                      className="w-full bg-gray-50 border border-dark-600/50 rounded-lg px-3 py-2 text-sm text-gray-600 focus:outline-none focus:ring-1 focus:ring-gold-500/50"
+                      className="w-full bg-gray-50 border border-gray-200/50 rounded-lg px-3 py-2 text-sm text-gray-700 focus:outline-none focus:ring-1 focus:ring-gold-500/50"
                       placeholder="Max"
                     />
                   </div>
@@ -318,7 +318,7 @@ const Products = () => {
                     setSearchQuery('');
                     setPriceRange([0, 999]);
                   }}
-                  className="w-full text-sm text-gray-500 hover:text-gold-500 py-2 border border-gray-200 rounded-lg hover:border-gold-500/30 transition-colors"
+                  className="w-full text-sm text-gray-500 hover:text-gold-600 py-2 border border-gray-200 rounded-lg hover:border-gold-500/30 transition-colors"
                 >
                   Clear All Filters
                 </button>
@@ -329,22 +329,22 @@ const Products = () => {
           {/* Main content */}
           <div className="flex-1 min-w-0">
             {/* Toolbar */}
-            <div className="bg-gray-50 rounded-xl p-4 mb-6 border border-dark-700/40 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div className="bg-gray-50 rounded-xl p-4 mb-6 border border-gray-100/40 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
               <p className="text-gray-500 text-sm">
-                Showing <span className="font-semibold text-dark-100">{sortedProducts.length}</span> products
+                Showing <span className="font-semibold text-gray-900">{sortedProducts.length}</span> products
               </p>
               <div className="flex items-center gap-3">
                 {/* View toggle (desktop) */}
-                <div className="hidden lg:flex items-center border border-dark-700/40 rounded-lg overflow-hidden">
+                <div className="hidden lg:flex items-center border border-gray-100/40 rounded-lg overflow-hidden">
                   <button
                     onClick={() => setViewMode('grid')}
-                    className={`p-2 ${viewMode === 'grid' ? 'bg-gold-500 text-white' : 'text-gray-500 hover:text-gold-500'}`}
+                    className={`p-2 ${viewMode === 'grid' ? 'bg-gold-500 text-white' : 'text-gray-500 hover:text-gold-600'}`}
                   >
                     <Grid3X3 className="w-4 h-4" />
                   </button>
                   <button
                     onClick={() => setViewMode('list')}
-                    className={`p-2 ${viewMode === 'list' ? 'bg-gold-500 text-white' : 'text-gray-500 hover:text-gold-500'}`}
+                    className={`p-2 ${viewMode === 'list' ? 'bg-gold-500 text-white' : 'text-gray-500 hover:text-gold-600'}`}
                   >
                     <List className="w-4 h-4" />
                   </button>
@@ -355,13 +355,13 @@ const Products = () => {
                   <select
                     value={sortBy}
                     onChange={(e) => setSortBy(e.target.value)}
-                    className="appearance-none bg-dark-700/50 border border-dark-600/50 px-4 py-2 pr-10 rounded-lg text-sm text-gray-600 focus:outline-none focus:ring-1 focus:ring-gold-500/50"
+                    className="appearance-none bg-gray-100/50 border border-gray-200/50 px-4 py-2 pr-10 rounded-lg text-sm text-gray-700 focus:outline-none focus:ring-1 focus:ring-gold-500/50"
                   >
                     <option value="newest">Newest First</option>
                     <option value="price-low">Price: Low to High</option>
                     <option value="price-high">Price: High to Low</option>
                   </select>
-                  <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-dark-500 pointer-events-none" />
+                  <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500 pointer-events-none" />
                 </div>
               </div>
             </div>
@@ -387,7 +387,7 @@ const Products = () => {
                       <Link
                         key={product.id}
                         href={`/products/${product.id}`}
-                        className="flex gap-5 bg-gray-50 rounded-xl border border-dark-700/40 p-4 hover:border-gold-500/30 transition-colors card-hover"
+                        className="flex gap-5 bg-gray-50 rounded-xl border border-gray-100/40 p-4 hover:border-gold-500/30 transition-colors card-hover"
                       >
                         <img
                           src={product.image}
@@ -400,7 +400,7 @@ const Products = () => {
                               {catName}
                             </span>
                           )}
-                          <h3 className="font-medium text-dark-100 mt-1 hover:text-gold-500 transition-colors line-clamp-1">
+                          <h3 className="font-medium text-gray-900 mt-1 hover:text-gold-600 transition-colors line-clamp-1">
                             {product.name}
                           </h3>
                           <p className="text-sm text-gray-500 mt-1 line-clamp-2">
@@ -408,7 +408,7 @@ const Products = () => {
                           </p>
                           <div className="flex flex-wrap gap-1.5 mt-2">
                             {product.material && (
-                              <span className="text-[10px] text-gray-500 bg-dark-700/60 px-2 py-0.5 rounded-full border border-dark-600/30">
+                              <span className="text-[10px] text-gray-500 bg-gray-100/60 px-2 py-0.5 rounded-full border border-gray-200/30">
                                 {product.material}
                               </span>
                             )}
@@ -423,7 +423,7 @@ const Products = () => {
                               ${Number(product.price).toFixed(2)}
                             </span>
                             <span className="text-[11px] text-gray-500">
-                              MOQ: <span className="text-gray-600 font-medium">{product.moq || 1} pcs</span>
+                              MOQ: <span className="text-gray-700 font-medium">{product.moq || 1} pcs</span>
                             </span>
                           </div>
                         </div>
@@ -433,10 +433,10 @@ const Products = () => {
                 </div>
               )
             ) : (
-              <div className="text-center py-16 bg-gray-50 rounded-xl border border-dark-700/40">
+              <div className="text-center py-16 bg-gray-50 rounded-xl border border-gray-100/40">
                 <Search className="w-16 h-16 text-gray-400 mx-auto mb-4" />
-                <h3 className="text-xl font-semibold text-dark-100 mb-2">No products found</h3>
-                <p className="text-dark-500 mb-6">Try adjusting your filters or search terms.</p>
+                <h3 className="text-xl font-semibold text-gray-900 mb-2">No products found</h3>
+                <p className="text-gray-500 mb-6">Try adjusting your filters or search terms.</p>
                 <button
                   onClick={() => {
                     setSelectedCategory('all');

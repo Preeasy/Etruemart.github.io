@@ -185,7 +185,7 @@ const Cart = () => {
               </button>
 
               <div className="mt-6 p-4 bg-gray-50 rounded-lg">
-                <div className="flex items-center gap-3 text-sm text-gray-600">
+                <div className="flex items-center gap-3 text-sm text-gray-700">
                   <Truck className="w-5 h-5 text-gold-600" />
                   <span>Free shipping on orders over $50</span>
                 </div>

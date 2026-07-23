@@ -103,10 +103,10 @@ const Dashboard = () => {
   };
 
   const stats = [
-    { icon: Package, label: 'My Products', value: products.length, color: 'bg-gold-800/50 text-gold-500 border border-gold-700/30' },
-    { icon: ShoppingCart, label: 'Orders', value: orders.length, color: 'bg-gold-800/50 text-gold-600 border border-gold-700/30' },
-    { icon: DollarSign, label: 'Total Sales', value: '$0.00', color: 'bg-gold-800/50 text-gold-500 border border-gold-700/30' },
-    { icon: TrendingUp, label: 'Published', value: products.filter(p => p.isPublished).length, color: 'bg-gold-800/50 text-gold-600 border border-gold-700/30' },
+    { icon: Package, label: 'My Products', value: products.length, color: 'bg-gold-100 text-gold-600 border border-gold-200' },
+    { icon: ShoppingCart, label: 'Orders', value: orders.length, color: 'bg-gold-100 text-gold-600 border border-gold-200' },
+    { icon: DollarSign, label: 'Total Sales', value: '$0.00', color: 'bg-gold-100 text-gold-600 border border-gold-200' },
+    { icon: TrendingUp, label: 'Published', value: products.filter(p => p.isPublished).length, color: 'bg-gold-100 text-gold-600 border border-gold-200' },
   ];
 
   const stockStatusLabel: Record<string, string> = {
@@ -125,7 +125,7 @@ const Dashboard = () => {
 
   return (
     <Layout>
-      <div className="bg-gray-50 border-b border-dark-500/30">
+      <div className="bg-gray-50 border-b border-gray-300/30">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           <div className="flex items-center justify-between">
             <div>
@@ -143,7 +143,7 @@ const Dashboard = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
           {stats.map((stat, index) => (
-            <div key={index} className="bg-gray-50 rounded-xl p-6 shadow-lg border border-dark-500/20">
+            <div key={index} className="bg-gray-50 rounded-xl p-6 shadow-lg border border-gray-300/20">
               <div className={`w-12 h-12 ${stat.color} rounded-xl flex items-center justify-center mb-4`}>
                 <stat.icon className="w-6 h-6" />
               </div>
@@ -153,15 +153,15 @@ const Dashboard = () => {
           ))}
         </div>
 
-        <div className="bg-gray-50 rounded-2xl shadow-lg p-6 mb-8 border border-dark-500/20">
+        <div className="bg-gray-50 rounded-2xl shadow-lg p-6 mb-8 border border-gray-300/20">
           <div className="flex items-center justify-between mb-6">
             <h2 className="text-xl font-bold text-gray-900">My Product Management</h2>
             <div className="flex items-center gap-3">
-              <button onClick={() => setShowImportModal(true)} className="flex items-center gap-2 bg-dark-700 hover:bg-dark-600 text-gray-600 px-4 py-2 rounded-lg font-medium text-sm transition-colors border border-dark-500/30">
+              <button onClick={() => setShowImportModal(true)} className="flex items-center gap-2 bg-gray-100 hover:bg-gray-200 text-gray-700 px-4 py-2 rounded-lg font-medium text-sm transition-colors border border-gray-300/30">
                 <Upload className="w-4 h-4" />
                 Batch Import
               </button>
-              <Link href="/sell" className="text-gold-500 hover:text-gold-500 font-medium text-sm">
+              <Link href="/sell" className="text-gold-600 hover:text-gold-600 font-medium text-sm">
                 + Add New
               </Link>
             </div>
@@ -171,7 +171,7 @@ const Dashboard = () => {
             <div className="overflow-x-auto">
               <table className="w-full">
                 <thead>
-                  <tr className="border-b border-dark-500/30">
+                  <tr className="border-b border-gray-300/30">
                     <th className="text-left py-3 px-4 text-sm font-medium text-gray-500">Product</th>
                     <th className="text-left py-3 px-4 text-sm font-medium text-gray-500">Category</th>
                     <th className="text-left py-3 px-4 text-sm font-medium text-gray-500">Price</th>
@@ -187,40 +187,40 @@ const Dashboard = () => {
                 </thead>
                 <tbody>
                   {products.map((product) => (
-                    <tr key={product.id} className="border-b border-dark-500/10 hover:bg-dark-700/50">
+                    <tr key={product.id} className="border-b border-gray-200 hover:bg-gray-50">
                       <td className="py-3 px-4">
                         <div className="flex items-center gap-3">
                           <img src={product.image} alt={product.name} className="w-12 h-12 object-cover rounded-lg" />
                           <div>
                             <p className="font-medium text-gray-900 text-sm line-clamp-1">{product.name}</p>
-                            {product.sku && <p className="text-xs text-dark-500">{product.sku}</p>}
+                            {product.sku && <p className="text-xs text-gray-500">{product.sku}</p>}
                           </div>
                         </div>
                       </td>
                       <td className="py-3 px-4 text-sm text-gray-500">{product.category?.name ?? '-'}</td>
-                      <td className="py-3 px-4 text-sm font-medium text-gold-500">${Number(product.price).toFixed(2)}</td>
+                      <td className="py-3 px-4 text-sm font-medium text-gold-600">${Number(product.price).toFixed(2)}</td>
                       <td className="py-3 px-4 text-sm text-gray-500">
                         {editingProduct === product.id ? (
-                          <input type="number" value={editForm.stock} onChange={e => setEditForm({...editForm, stock: e.target.value})} className="w-20 px-2 py-1 bg-dark-700 border border-dark-500/30 rounded text-sm text-gray-900" />
+                          <input type="number" value={editForm.stock} onChange={e => setEditForm({...editForm, stock: e.target.value})} className="w-20 px-2 py-1 bg-gray-100 border border-gray-300/30 rounded text-sm text-gray-900" />
                         ) : product.stock}
                       </td>
                       <td className="py-3 px-4 text-sm text-gray-500">
                         {editingProduct === product.id ? (
-                          <input type="number" value={editForm.moq} onChange={e => setEditForm({...editForm, moq: e.target.value})} className="w-20 px-2 py-1 bg-dark-700 border border-dark-500/30 rounded text-sm text-gray-900" />
+                          <input type="number" value={editForm.moq} onChange={e => setEditForm({...editForm, moq: e.target.value})} className="w-20 px-2 py-1 bg-gray-100 border border-gray-300/30 rounded text-sm text-gray-900" />
                         ) : product.moq}
                       </td>
                       <td className="py-3 px-4 text-sm text-gray-500">{product.packSize}</td>
                       <td className="py-3 px-4 text-sm text-gray-500">{product.material ?? '-'}</td>
                       <td className="py-3 px-4">
-                        <span className={`inline-flex items-center px-2 py-1 rounded-full text-xs font-medium ${stockStatusColor[product.stockStatus] || 'bg-dark-700 text-gray-500 border border-dark-500/30'}`}>
+                        <span className={`inline-flex items-center px-2 py-1 rounded-full text-xs font-medium ${stockStatusColor[product.stockStatus] || 'bg-gray-100 text-gray-500 border border-gray-300/30'}`}>
                           {stockStatusLabel[product.stockStatus] || product.stockStatus}
                         </span>
                       </td>
                       <td className="py-3 px-4 text-sm text-gray-500">
                         {editingProduct === product.id ? (
                           <div className="space-y-1">
-                            <input type="number" value={editForm.shippingCost} onChange={e => setEditForm({...editForm, shippingCost: e.target.value})} className="w-20 px-2 py-1 bg-dark-700 border border-dark-500/30 rounded text-sm text-gray-900" placeholder="Cost" />
-                            <select value={editForm.shippingMethod} onChange={e => setEditForm({...editForm, shippingMethod: e.target.value})} className="w-full px-2 py-1 bg-dark-700 border border-dark-500/30 rounded text-sm text-gray-900">
+                            <input type="number" value={editForm.shippingCost} onChange={e => setEditForm({...editForm, shippingCost: e.target.value})} className="w-20 px-2 py-1 bg-gray-100 border border-gray-300/30 rounded text-sm text-gray-900" placeholder="Cost" />
+                            <select value={editForm.shippingMethod} onChange={e => setEditForm({...editForm, shippingMethod: e.target.value})} className="w-full px-2 py-1 bg-gray-100 border border-gray-300/30 rounded text-sm text-gray-900">
                               <option value="Standard Shipping">Standard</option>
                               <option value="Express Shipping">Express</option>
                               <option value="Air Freight">Air Freight</option>
@@ -231,12 +231,12 @@ const Dashboard = () => {
                         ) : (
                           <div>
                             <p>${Number(product.shippingCost).toFixed(2)}</p>
-                            <p className="text-xs text-dark-500">{product.shippingMethod || 'Standard'}</p>
+                            <p className="text-xs text-gray-500">{product.shippingMethod || 'Standard'}</p>
                           </div>
                         )}
                       </td>
                       <td className="py-3 px-4">
-                        <span className={`inline-flex items-center px-2 py-1 rounded-full text-xs font-medium ${product.isPublished ? 'bg-gold-800/50 text-gold-500 border border-gold-700/30' : 'bg-dark-700 text-gray-500 border border-dark-500/30'}`}>
+                        <span className={`inline-flex items-center px-2 py-1 rounded-full text-xs font-medium ${product.isPublished ? 'bg-gold-100 text-gold-600 border border-gold-200' : 'bg-gray-100 text-gray-500 border border-gray-300/30'}`}>
                           {product.isPublished ? 'Published' : 'Draft'}
                         </span>
                       </td>
@@ -247,7 +247,7 @@ const Dashboard = () => {
                               <button onClick={() => saveEdit(product.id)} className="p-1.5 text-green-500 hover:bg-green-500/10 rounded" title="Save">
                                 <Save className="w-4 h-4" />
                               </button>
-                              <button onClick={() => setEditingProduct(null)} className="p-1.5 text-gray-500 hover:bg-dark-700 rounded" title="Cancel">
+                              <button onClick={() => setEditingProduct(null)} className="p-1.5 text-gray-500 hover:bg-gray-100 rounded" title="Cancel">
                                 <X className="w-4 h-4" />
                               </button>
                             </>
@@ -256,7 +256,7 @@ const Dashboard = () => {
                               <button onClick={() => togglePublish(product.id, product.isPublished)} className={`p-1.5 rounded ${product.isPublished ? 'text-orange-500 hover:bg-orange-500/10' : 'text-green-500 hover:bg-green-500/10'}`} title={product.isPublished ? 'Unpublish' : 'Publish'}>
                                 {product.isPublished ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                               </button>
-                              <button onClick={() => startEdit(product)} className="p-1.5 text-gold-500 hover:bg-gold-500/10 rounded" title="Edit shipping & stock">
+                              <button onClick={() => startEdit(product)} className="p-1.5 text-gold-600 hover:bg-gold-500/10 rounded" title="Edit shipping & stock">
                                 <Edit3 className="w-4 h-4" />
                               </button>
                               <button onClick={() => deleteProduct(product.id)} className="p-1.5 text-red-500 hover:bg-red-500/10 rounded" title="Delete">
@@ -273,7 +273,7 @@ const Dashboard = () => {
             </div>
           ) : (
             <div className="text-center py-12">
-              <Package className="w-16 h-16 text-dark-500 mx-auto mb-4" />
+              <Package className="w-16 h-16 text-gray-500 mx-auto mb-4" />
               <p className="text-gray-500 mb-4">You haven&apos;t listed any products yet.</p>
               <Link href="/sell" className="btn-primary">
                 List Your First Product
@@ -283,47 +283,47 @@ const Dashboard = () => {
         </div>
 
         <div className="grid lg:grid-cols-2 gap-8">
-          <div className="bg-gray-50 rounded-2xl shadow-lg p-6 border border-dark-500/20">
+          <div className="bg-gray-50 rounded-2xl shadow-lg p-6 border border-gray-300/20">
             <h2 className="text-xl font-bold text-gray-900 mb-4">Recent Orders</h2>
             {orders.length > 0 ? (
               <div className="space-y-4">
                 {orders.slice(0, 5).map((order) => (
-                  <div key={order.id} className="p-4 bg-dark-700/50 rounded-xl border border-dark-500/20">
+                  <div key={order.id} className="p-4 bg-gray-100/50 rounded-xl border border-gray-300/20">
                     <div className="flex items-center justify-between mb-2">
                       <span className="text-sm font-medium text-gray-900">Order #{order.id.slice(-8)}</span>
-                      <span className={`text-xs font-medium px-2 py-1 rounded-full ${order.status === 'PAID' ? 'bg-gold-800/50 text-gold-500 border border-gold-700/30' : 'bg-yellow-500/10 text-yellow-500 border border-yellow-500/30'}`}>
+                      <span className={`text-xs font-medium px-2 py-1 rounded-full ${order.status === 'PAID' ? 'bg-gold-100 text-gold-600 border border-gold-200' : 'bg-yellow-500/10 text-yellow-500 border border-yellow-500/30'}`}>
                         {order.status}
                       </span>
                     </div>
                     <div className="flex items-center justify-between">
                       <span className="text-sm text-gray-500">{order.items?.length || 0} items</span>
-                      <span className="font-semibold text-gold-500">${order.totalAmount}</span>
+                      <span className="font-semibold text-gold-600">${order.totalAmount}</span>
                     </div>
                   </div>
                 ))}
               </div>
             ) : (
               <div className="text-center py-8">
-                <ShoppingCart className="w-12 h-12 text-dark-500 mx-auto mb-3" />
+                <ShoppingCart className="w-12 h-12 text-gray-500 mx-auto mb-3" />
                 <p className="text-gray-500">No orders yet.</p>
               </div>
             )}
           </div>
 
-          <div className="bg-gray-50 rounded-2xl p-6 border border-dark-500/20">
+          <div className="bg-gray-50 rounded-2xl p-6 border border-gray-300/20">
             <h3 className="font-semibold text-gray-900 mb-4">Quick Links</h3>
             <div className="space-y-3">
-              <Link href="/sell" className="flex items-center gap-3 p-3 bg-dark-700/50 rounded-lg hover:bg-dark-700 transition-colors border border-dark-500/20">
-                <Package className="w-5 h-5 text-gold-500" />
-                <span className="text-gray-600">List New Product</span>
+              <Link href="/sell" className="flex items-center gap-3 p-3 bg-gray-100/50 rounded-lg hover:bg-gray-100 transition-colors border border-gray-300/20">
+                <Package className="w-5 h-5 text-gold-600" />
+                <span className="text-gray-700">List New Product</span>
               </Link>
-              <Link href="/orders" className="flex items-center gap-3 p-3 bg-dark-700/50 rounded-lg hover:bg-dark-700 transition-colors border border-dark-500/20">
+              <Link href="/orders" className="flex items-center gap-3 p-3 bg-gray-100/50 rounded-lg hover:bg-gray-100 transition-colors border border-gray-300/20">
                 <ShoppingCart className="w-5 h-5 text-gold-600" />
-                <span className="text-gray-600">Manage Orders</span>
+                <span className="text-gray-700">Manage Orders</span>
               </Link>
-              <Link href="/products" className="flex items-center gap-3 p-3 bg-dark-700/50 rounded-lg hover:bg-dark-700 transition-colors border border-dark-500/20">
+              <Link href="/products" className="flex items-center gap-3 p-3 bg-gray-100/50 rounded-lg hover:bg-gray-100 transition-colors border border-gray-300/20">
                 <Truck className="w-5 h-5 text-gold-600" />
-                <span className="text-gray-600">View All Products</span>
+                <span className="text-gray-700">View All Products</span>
               </Link>
             </div>
           </div>
@@ -332,19 +332,19 @@ const Dashboard = () => {
 
       {showImportModal && (
         <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-50 p-4">
-          <div className="bg-gray-50 rounded-2xl shadow-2xl w-full max-w-2xl border border-dark-500/30 overflow-hidden">
-            <div className="flex items-center justify-between p-6 border-b border-dark-500/30">
+          <div className="bg-gray-50 rounded-2xl shadow-2xl w-full max-w-2xl border border-gray-300/30 overflow-hidden">
+            <div className="flex items-center justify-between p-6 border-b border-gray-300/30">
               <h3 className="text-xl font-bold text-gray-900">Batch Import Products</h3>
-              <button onClick={() => { setShowImportModal(false); setImportFile(null); setImportResult(null); setImportProgress(0); }} className="p-2 hover:bg-dark-700 rounded-lg text-gray-500">
+              <button onClick={() => { setShowImportModal(false); setImportFile(null); setImportResult(null); setImportProgress(0); }} className="p-2 hover:bg-gray-100 rounded-lg text-gray-500">
                 <X className="w-5 h-5" />
               </button>
             </div>
 
             <div className="p-6">
               <div className="space-y-6">
-                <div className="bg-dark-700/50 rounded-xl p-6 border border-dark-500/20">
+                <div className="bg-gray-100/50 rounded-xl p-6 border border-gray-300/20">
                   <div className="flex items-center gap-3 mb-4">
-                    <FileJson className="w-6 h-6 text-gold-500" />
+                    <FileJson className="w-6 h-6 text-gold-600" />
                     <h4 className="font-semibold text-gray-900">Supported Format</h4>
                   </div>
                   <p className="text-sm text-gray-500 mb-4">Upload a JSON file with product data. The file should contain an array of products with the following structure:</p>
@@ -377,7 +377,7 @@ const Dashboard = () => {
                   </pre>
                 </div>
 
-                <div className="bg-dark-700/50 rounded-xl p-6 border border-dark-500/20">
+                <div className="bg-gray-100/50 rounded-xl p-6 border border-gray-300/20">
                   <div className="flex items-center gap-3 mb-4">
                     <FileText className="w-6 h-6 text-gold-600" />
                     <h4 className="font-semibold text-gray-900">Field Requirements</h4>
@@ -410,9 +410,9 @@ const Dashboard = () => {
                   </div>
                 </div>
 
-                <div className="border border-dashed border-dark-500/30 rounded-xl p-8 text-center hover:border-gold-500/30 transition-colors cursor-pointer" onClick={() => document.getElementById('import-file')?.click()} onDragOver={(e) => { e.preventDefault(); }} onDrop={(e) => { e.preventDefault(); const file = e.dataTransfer.files[0]; if (file && file.type === 'application/json') setImportFile(file); }}>
+                <div className="border border-dashed border-gray-300/30 rounded-xl p-8 text-center hover:border-gold-500/30 transition-colors cursor-pointer" onClick={() => document.getElementById('import-file')?.click()} onDragOver={(e) => { e.preventDefault(); }} onDrop={(e) => { e.preventDefault(); const file = e.dataTransfer.files[0]; if (file && file.type === 'application/json') setImportFile(file); }}>
                   <input id="import-file" type="file" accept=".json" className="hidden" onChange={(e) => { const file = e.target.files?.[0]; if (file) setImportFile(file); }} />
-                  <Upload className="w-12 h-12 text-dark-500 mx-auto mb-4" />
+                  <Upload className="w-12 h-12 text-gray-500 mx-auto mb-4" />
                   {importFile ? (
                     <div className="text-gray-900 font-medium">{importFile.name}</div>
                   ) : (
@@ -427,9 +427,9 @@ const Dashboard = () => {
                   <div className="space-y-3">
                     <div className="flex items-center justify-between text-sm">
                       <span className="text-gray-500">Importing products...</span>
-                      <span className="text-gold-500">{importProgress}%</span>
+                      <span className="text-gold-600">{importProgress}%</span>
                     </div>
-                    <div className="w-full bg-dark-700 rounded-full h-2 overflow-hidden">
+                    <div className="w-full bg-gray-100 rounded-full h-2 overflow-hidden">
                       <div className="bg-gold-500 h-full transition-all duration-300" style={{ width: `${importProgress}%` }}></div>
                     </div>
                   </div>
@@ -464,7 +464,7 @@ const Dashboard = () => {
                     link.href = '/api/products/sample';
                     link.download = 'sample-products.json';
                     link.click();
-                  }} className="flex-1 flex items-center justify-center gap-2 bg-dark-700 hover:bg-dark-600 text-gray-600 px-6 py-3 rounded-lg font-medium transition-colors border border-dark-500/30">
+                  }} className="flex-1 flex items-center justify-center gap-2 bg-gray-100 hover:bg-gray-200 text-gray-700 px-6 py-3 rounded-lg font-medium transition-colors border border-gray-300/30">
                     <Download className="w-5 h-5" />
                     Download Sample File
                   </button>
