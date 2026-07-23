@@ -150,7 +150,7 @@ const Navbar = () => {
               </div>
               <div className="flex flex-col">
                 <span className="text-lg font-display font-bold tracking-wide text-gold-400 group-hover:text-gold-300 transition-colors leading-tight">
-                  YEATRU
+                  eTruemart
                 </span>
                 <span className="text-[9px] tracking-[0.25em] text-dark-400 uppercase leading-tight">
                   Wholesale Source
@@ -202,12 +202,6 @@ const Navbar = () => {
                   Sign In
                 </Link>
               )}
-              <Link
-                href="/sell"
-                className="bg-gold-500 hover:bg-gold-400 text-dark-900 px-4 py-2 rounded-lg text-sm font-bold transition-colors"
-              >
-                Sell on YEATRU
-              </Link>
             </div>
 
             {/* Mobile menu button */}
@@ -327,9 +321,9 @@ const Navbar = () => {
               )}
               <Link
                 href="/sell"
-                className="block text-center bg-gold-500 text-dark-900 py-2.5 rounded-lg font-bold mt-2"
+                className="block py-2 text-dark-300 hover:text-gold-400 text-sm"
               >
-                Sell on YEATRU
+                Become a Seller
               </Link>
             </div>
           </div>

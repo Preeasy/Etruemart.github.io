@@ -28,14 +28,8 @@ const Footer = () => {
             </div>
             <div className="flex gap-3">
               <Link
-                href="/sell"
-                className="inline-flex items-center gap-2 bg-gold-500 hover:bg-gold-400 text-dark-900 px-6 py-3 rounded-lg font-bold transition-colors"
-              >
-                Become a Seller
-              </Link>
-              <Link
                 href="/products"
-                className="inline-flex items-center gap-2 border-2 border-gold-500 text-gold-400 hover:bg-gold-500 hover:text-dark-900 px-6 py-3 rounded-lg font-bold transition-colors"
+                className="inline-flex items-center gap-2 bg-gold-500 hover:bg-gold-400 text-dark-900 px-6 py-3 rounded-lg font-bold transition-colors"
               >
                 Request Catalog
               </Link>
@@ -56,7 +50,7 @@ const Footer = () => {
                 </div>
                 <div className="flex flex-col">
                   <span className="text-lg font-display font-bold tracking-wide text-gold-400 group-hover:text-gold-300 transition-colors leading-tight">
-                    YEATRU
+                    eTruemart
                   </span>
                   <span className="text-[9px] tracking-[0.25em] text-dark-400 uppercase leading-tight">
                     Wholesale Source
@@ -106,7 +100,7 @@ const Footer = () => {
               </h4>
               <ul className="space-y-2.5 text-dark-400 text-sm">
                 <li><Link href="/products" className="hover:text-gold-400 transition-colors">All Products</Link></li>
-                <li><Link href="/sell" className="hover:text-gold-400 transition-colors">Sell on YEATRU</Link></li>
+                <li><Link href="/sell" className="hover:text-gold-400 transition-colors">Become a Seller</Link></li>
                 <li><a href="#" className="hover:text-gold-400 transition-colors">About Us</a></li>
                 <li><a href="#" className="hover:text-gold-400 transition-colors">Sourcing Services</a></li>
                 <li><a href="#" className="hover:text-gold-400 transition-colors">Quality Assurance</a></li>
@@ -156,7 +150,7 @@ const Footer = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             <p className="text-dark-500 text-xs">
-              &copy; {new Date().getFullYear()} YEATRU. All rights reserved. Powered by Yiwu sourcing.
+              &copy; {new Date().getFullYear()} eTruemart. All rights reserved. Powered by Yiwu sourcing.
             </p>
             <div className="flex gap-6 text-xs text-dark-500">
               <a href="#" className="hover:text-gold-400 transition-colors">Privacy Policy</a>
