@@ -21,7 +21,7 @@ const Sell = () => {
     description: '',
     price: '',
     originalPrice: '',
-    image: 'https://images.unsplash.com/photo-1542273917363-3b1817f69a2d?w=800&h=800&fit=crop',
+    image: 'https://picsum.photos/id/1074/800/800',
     images: [] as string[],
     categoryId: '',
     stock: '',

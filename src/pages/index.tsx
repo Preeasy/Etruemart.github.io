@@ -37,42 +37,42 @@ const categoryItems = [
     icon: Gem,
     slug: 'fashion-jewelry',
     desc: 'Necklaces, earrings, bracelets & rings',
-    image: 'https://images.unsplash.com/photo-1515562141589-67f0d569b6c2?w=400&h=300&fit=crop',
+    image: 'https://picsum.photos/id/1074/400/300',
   },
   {
     name: 'Garment Accessories',
     icon: Scissors,
     slug: 'garment-accessories',
     desc: 'Buttons, zippers, lace & trim',
-    image: 'https://images.unsplash.com/photo-1558618666-fcd25c85f82e?w=400&h=300&fit=crop',
+    image: 'https://picsum.photos/id/15/400/300',
   },
   {
     name: 'Hair Accessories',
     icon: Crown,
     slug: 'hair-accessories',
     desc: 'Clips, headbands & scrunchies',
-    image: 'https://images.unsplash.com/photo-1599624231144-7ee5e61e0d76?w=400&h=300&fit=crop',
+    image: 'https://picsum.photos/id/1043/400/300',
   },
   {
     name: 'Bags & Accessories',
     icon: ShoppingBag,
     slug: 'bags-accessories',
     desc: 'Hardware, chains & keychains',
-    image: 'https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=400&h=300&fit=crop',
+    image: 'https://picsum.photos/id/1062/400/300',
   },
   {
     name: 'Home Decor & Crafts',
     icon: HomeIcon,
     slug: 'home-decor-crafts',
     desc: 'Tassels, beads & craft supplies',
-    image: 'https://images.unsplash.com/photo-1513519245088-0e12902e35a6?w=400&h=300&fit=crop',
+    image: 'https://picsum.photos/id/1067/400/300',
   },
   {
     name: 'Seasonal & Festival',
     icon: Sparkles,
     slug: 'seasonal-festival',
     desc: 'Christmas, Eid & party supplies',
-    image: 'https://images.unsplash.com/photo-1543903921-628d6e88c4c6?w=400&h=300&fit=crop',
+    image: 'https://picsum.photos/id/1035/400/300',
   },
 ];
 
@@ -114,7 +114,7 @@ const Home = () => {
     <Layout>
       <section className="relative h-[360px] md:h-[420px] overflow-hidden">
         <img
-          src="https://images.unsplash.com/photo-1617038260897-41a1f14a8ca0?w=1600&h=600&fit=crop"
+          src="https://picsum.photos/id/1078/1600/600"
           alt="Wholesale Jewelry & Accessories"
           className="w-full h-full object-cover"
         />
