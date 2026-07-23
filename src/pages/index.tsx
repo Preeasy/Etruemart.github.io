@@ -37,42 +37,42 @@ const categoryItems = [
     icon: Gem,
     slug: 'fashion-jewelry',
     desc: 'Necklaces, earrings, bracelets & rings',
-    image: 'https://picsum.photos/id/1074/400/300',
+    image: 'https://s.alicdn.com/@sc04/kf/H35b35daeca194796828b6ad966d258c8K.jpg_400x300.jpg',
   },
   {
     name: 'Garment Accessories',
     icon: Scissors,
     slug: 'garment-accessories',
     desc: 'Buttons, zippers, lace & trim',
-    image: 'https://picsum.photos/id/15/400/300',
+    image: 'https://s.alicdn.com/@sc04/kf/H5afb10ada38e4bf4ae641eee9a3fc4e5V.jpg_400x300.jpg',
   },
   {
     name: 'Hair Accessories',
     icon: Crown,
     slug: 'hair-accessories',
     desc: 'Clips, headbands & scrunchies',
-    image: 'https://picsum.photos/id/1043/400/300',
+    image: 'https://s.alicdn.com/@sc04/kf/H9e68ddd0f7e24737a0633e8d4a2d938aa.jpg_400x300.jpg',
   },
   {
     name: 'Bags & Accessories',
     icon: ShoppingBag,
     slug: 'bags-accessories',
     desc: 'Hardware, chains & keychains',
-    image: 'https://picsum.photos/id/1062/400/300',
+    image: 'https://s.alicdn.com/@sc04/kf/H37d502632524491aa0154c58d3ff7bd8N.jpg_400x300.jpg',
   },
   {
     name: 'Home Decor & Crafts',
     icon: HomeIcon,
     slug: 'home-decor-crafts',
     desc: 'Tassels, beads & craft supplies',
-    image: 'https://picsum.photos/id/1067/400/300',
+    image: 'https://s.alicdn.com/@sc04/kf/H15013bfca7db450d8f01f03d60478e42G.jpg_400x300.jpg',
   },
   {
     name: 'Seasonal & Festival',
     icon: Sparkles,
     slug: 'seasonal-festival',
     desc: 'Christmas, Eid & party supplies',
-    image: 'https://picsum.photos/id/1035/400/300',
+    image: 'https://s.alicdn.com/@sc04/kf/Hb085b493d7324e0181a3d7c780b5418dN.jpg_400x300.jpg',
   },
 ];
 
@@ -114,7 +114,7 @@ const Home = () => {
     <Layout>
       <section className="relative h-[360px] md:h-[420px] overflow-hidden">
         <img
-          src="https://picsum.photos/id/1078/1600/600"
+          src="https://cdn.pixabay.com/photo/2018/03/10/09/03/jewelry-3212361_960_720.jpg"
           alt="Wholesale Jewelry & Accessories"
           className="w-full h-full object-cover"
         />
