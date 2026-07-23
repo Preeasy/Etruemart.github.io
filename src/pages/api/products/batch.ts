@@ -4,7 +4,6 @@ import { getServerSession } from 'next-auth/next';
 import { authOptions } from '@/lib/auth';
 import fs from 'fs';
 import path from 'path';
-import { Prisma } from '@prisma/client';
 
 
 interface ProductImportData {
@@ -35,6 +34,18 @@ interface ProductImportData {
   variations?: { color: string; size: string; price: number }[];
 }
 
+function toNumber(value: any): number {
+  if (value === null || value === undefined) return 0;
+  if (typeof value === 'number') return value;
+  return parseFloat(String(value)) || 0;
+}
+
+function toStringArray(value: any): string {
+  if (Array.isArray(value)) return JSON.stringify(value);
+  if (typeof value === 'string') return value;
+  return JSON.stringify([]);
+}
+
 export const config = {
   api: {
     bodyParser: {
@@ -59,7 +70,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
   try {
     let data: ProductImportData[];
-    
+
     if (req.body.data) {
       data = req.body.data;
     } else {
@@ -98,10 +109,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             data: {
               name: item.name,
               description: item.description,
-              price: new Prisma.Decimal(item.priceMin),
-              priceMax: new Prisma.Decimal(item.priceMax),
+              price: toNumber(item.priceMin),
+              priceMax: toNumber(item.priceMax),
               image: item.image,
-              images: item.images,
+              images: toStringArray(item.images),
               categoryId,
               material: item.material || '',
               plating: item.plating || '',
@@ -118,7 +129,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
               origin: item.origin || 'Yiwu, China',
               supplierCity: item.supplierCity || 'Yiwu',
               stockStatus: item.stockStatus || 'IN_STOCK',
-              keywords: item.keywords || [],
+              keywords: toStringArray(item.keywords),
               updatedAt: new Date(),
             },
           });
@@ -131,10 +142,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             name: item.name,
             description: item.description,
             slug: item.slug,
-            price: new Prisma.Decimal(item.priceMin),
-            priceMax: new Prisma.Decimal(item.priceMax),
+            price: toNumber(item.priceMin),
+            priceMax: toNumber(item.priceMax),
             image: item.image,
-            images: item.images,
+            images: toStringArray(item.images),
             categoryId,
             material: item.material || '',
             plating: item.plating || '',
@@ -151,14 +162,14 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             origin: item.origin || 'Yiwu, China',
             supplierCity: item.supplierCity || 'Yiwu',
             stockStatus: item.stockStatus || 'IN_STOCK',
-            keywords: item.keywords || [],
+            keywords: toStringArray(item.keywords),
             authorId: session.user.id,
             isPublished: true,
             variants: {
               create: item.variations?.map(v => ({
                 color: v.color,
                 size: v.size,
-                price: new Prisma.Decimal(v.price),
+                price: toNumber(v.price),
               })) || [],
             },
           },

@@ -123,7 +123,7 @@ const Sell = () => {
                     type="text"
                     value={formData.name}
                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                    className="w-full px-4 py-3 bg-dark-700 border border-dark-500/30 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500/50 text-dark-50"
+                    className="w-full px-4 py-3 bg-dark-700 border border-dark-500/30 rounded-lg focus:outline-none focus:ring-2 focus:ring-gold-500/50 text-dark-50"
                     placeholder="Enter product name"
                     required
                   />
@@ -133,7 +133,7 @@ const Sell = () => {
                   <select
                     value={formData.categoryId}
                     onChange={(e) => setFormData({ ...formData, categoryId: e.target.value })}
-                    className="w-full px-4 py-3 bg-dark-700 border border-dark-500/30 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500/50 text-dark-50"
+                    className="w-full px-4 py-3 bg-dark-700 border border-dark-500/30 rounded-lg focus:outline-none focus:ring-2 focus:ring-gold-500/50 text-dark-50"
                     required
                     disabled={isCategoryLocked}
                   >
@@ -154,7 +154,7 @@ const Sell = () => {
                   value={formData.description}
                   onChange={(e) => setFormData({ ...formData, description: e.target.value })}
                   rows={4}
-                  className="w-full px-4 py-3 bg-dark-700 border border-dark-500/30 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500/50 text-dark-50"
+                  className="w-full px-4 py-3 bg-dark-700 border border-dark-500/30 rounded-lg focus:outline-none focus:ring-2 focus:ring-gold-500/50 text-dark-50"
                   placeholder="Describe your product in detail..."
                   required
                 />
@@ -169,7 +169,7 @@ const Sell = () => {
                       type="number"
                       value={formData.price}
                       onChange={(e) => setFormData({ ...formData, price: e.target.value })}
-                      className="w-full px-4 py-3 pl-10 bg-dark-700 border border-dark-500/30 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500/50 text-dark-50"
+                      className="w-full px-4 py-3 pl-10 bg-dark-700 border border-dark-500/30 rounded-lg focus:outline-none focus:ring-2 focus:ring-gold-500/50 text-dark-50"
                       placeholder="0.00"
                       required
                     />
@@ -183,7 +183,7 @@ const Sell = () => {
                       type="number"
                       value={formData.originalPrice}
                       onChange={(e) => setFormData({ ...formData, originalPrice: e.target.value })}
-                      className="w-full px-4 py-3 pl-10 bg-dark-700 border border-dark-500/30 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500/50 text-dark-50"
+                      className="w-full px-4 py-3 pl-10 bg-dark-700 border border-dark-500/30 rounded-lg focus:outline-none focus:ring-2 focus:ring-gold-500/50 text-dark-50"
                       placeholder="0.00"
                     />
                   </div>
@@ -194,7 +194,7 @@ const Sell = () => {
                     type="number"
                     value={formData.stock}
                     onChange={(e) => setFormData({ ...formData, stock: e.target.value })}
-                    className="w-full px-4 py-3 bg-dark-700 border border-dark-500/30 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500/50 text-dark-50"
+                    className="w-full px-4 py-3 bg-dark-700 border border-dark-500/30 rounded-lg focus:outline-none focus:ring-2 focus:ring-gold-500/50 text-dark-50"
                     placeholder="0"
                     required
                   />
@@ -209,7 +209,7 @@ const Sell = () => {
                     type="text"
                     value={formData.material}
                     onChange={(e) => setFormData({ ...formData, material: e.target.value })}
-                    className="w-full px-4 py-3 bg-dark-700 border border-dark-500/30 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500/50 text-dark-50"
+                    className="w-full px-4 py-3 bg-dark-700 border border-dark-500/30 rounded-lg focus:outline-none focus:ring-2 focus:ring-gold-500/50 text-dark-50"
                     placeholder="e.g., Stainless Steel"
                   />
                 </div>
@@ -219,7 +219,7 @@ const Sell = () => {
                     type="text"
                     value={formData.plating}
                     onChange={(e) => setFormData({ ...formData, plating: e.target.value })}
-                    className="w-full px-4 py-3 bg-dark-700 border border-dark-500/30 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500/50 text-dark-50"
+                    className="w-full px-4 py-3 bg-dark-700 border border-dark-500/30 rounded-lg focus:outline-none focus:ring-2 focus:ring-gold-500/50 text-dark-50"
                     placeholder="e.g., Gold Plated"
                   />
                 </div>
@@ -229,7 +229,7 @@ const Sell = () => {
                     type="text"
                     value={formData.process}
                     onChange={(e) => setFormData({ ...formData, process: e.target.value })}
-                    className="w-full px-4 py-3 bg-dark-700 border border-dark-500/30 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500/50 text-dark-50"
+                    className="w-full px-4 py-3 bg-dark-700 border border-dark-500/30 rounded-lg focus:outline-none focus:ring-2 focus:ring-gold-500/50 text-dark-50"
                     placeholder="e.g., Die Casting"
                   />
                 </div>
@@ -242,7 +242,7 @@ const Sell = () => {
                     type="text"
                     value={formData.color}
                     onChange={(e) => setFormData({ ...formData, color: e.target.value })}
-                    className="w-full px-4 py-3 bg-dark-700 border border-dark-500/30 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500/50 text-dark-50"
+                    className="w-full px-4 py-3 bg-dark-700 border border-dark-500/30 rounded-lg focus:outline-none focus:ring-2 focus:ring-gold-500/50 text-dark-50"
                     placeholder="e.g., Silver"
                   />
                 </div>
@@ -252,7 +252,7 @@ const Sell = () => {
                     type="text"
                     value={formData.size}
                     onChange={(e) => setFormData({ ...formData, size: e.target.value })}
-                    className="w-full px-4 py-3 bg-dark-700 border border-dark-500/30 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500/50 text-dark-50"
+                    className="w-full px-4 py-3 bg-dark-700 border border-dark-500/30 rounded-lg focus:outline-none focus:ring-2 focus:ring-gold-500/50 text-dark-50"
                     placeholder="e.g., M/L/XL"
                   />
                 </div>
@@ -262,7 +262,7 @@ const Sell = () => {
                     type="number"
                     value={formData.packSize}
                     onChange={(e) => setFormData({ ...formData, packSize: e.target.value })}
-                    className="w-full px-4 py-3 bg-dark-700 border border-dark-500/30 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500/50 text-dark-50"
+                    className="w-full px-4 py-3 bg-dark-700 border border-dark-500/30 rounded-lg focus:outline-none focus:ring-2 focus:ring-gold-500/50 text-dark-50"
                     placeholder="1"
                   />
                 </div>
@@ -275,7 +275,7 @@ const Sell = () => {
                     type="number"
                     value={formData.pkgLength}
                     onChange={(e) => setFormData({ ...formData, pkgLength: e.target.value })}
-                    className="w-full px-4 py-3 bg-dark-700 border border-dark-500/30 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500/50 text-dark-50"
+                    className="w-full px-4 py-3 bg-dark-700 border border-dark-500/30 rounded-lg focus:outline-none focus:ring-2 focus:ring-gold-500/50 text-dark-50"
                     placeholder="0"
                   />
                 </div>
@@ -285,7 +285,7 @@ const Sell = () => {
                     type="number"
                     value={formData.pkgWidth}
                     onChange={(e) => setFormData({ ...formData, pkgWidth: e.target.value })}
-                    className="w-full px-4 py-3 bg-dark-700 border border-dark-500/30 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500/50 text-dark-50"
+                    className="w-full px-4 py-3 bg-dark-700 border border-dark-500/30 rounded-lg focus:outline-none focus:ring-2 focus:ring-gold-500/50 text-dark-50"
                     placeholder="0"
                   />
                 </div>
@@ -295,7 +295,7 @@ const Sell = () => {
                     type="number"
                     value={formData.pkgHeight}
                     onChange={(e) => setFormData({ ...formData, pkgHeight: e.target.value })}
-                    className="w-full px-4 py-3 bg-dark-700 border border-dark-500/30 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500/50 text-dark-50"
+                    className="w-full px-4 py-3 bg-dark-700 border border-dark-500/30 rounded-lg focus:outline-none focus:ring-2 focus:ring-gold-500/50 text-dark-50"
                     placeholder="0"
                   />
                 </div>
@@ -305,7 +305,7 @@ const Sell = () => {
                     type="number"
                     value={formData.pkgWeight}
                     onChange={(e) => setFormData({ ...formData, pkgWeight: e.target.value })}
-                    className="w-full px-4 py-3 bg-dark-700 border border-dark-500/30 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500/50 text-dark-50"
+                    className="w-full px-4 py-3 bg-dark-700 border border-dark-500/30 rounded-lg focus:outline-none focus:ring-2 focus:ring-gold-500/50 text-dark-50"
                     placeholder="0"
                   />
                 </div>
@@ -318,7 +318,7 @@ const Sell = () => {
                     type="number"
                     value={formData.moq}
                     onChange={(e) => setFormData({ ...formData, moq: e.target.value })}
-                    className="w-full px-4 py-3 bg-dark-700 border border-dark-500/30 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500/50 text-dark-50"
+                    className="w-full px-4 py-3 bg-dark-700 border border-dark-500/30 rounded-lg focus:outline-none focus:ring-2 focus:ring-gold-500/50 text-dark-50"
                     placeholder="1"
                   />
                 </div>
@@ -328,7 +328,7 @@ const Sell = () => {
                     type="text"
                     value={formData.keywords}
                     onChange={(e) => setFormData({ ...formData, keywords: e.target.value })}
-                    className="w-full px-4 py-3 bg-dark-700 border border-dark-500/30 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500/50 text-dark-50"
+                    className="w-full px-4 py-3 bg-dark-700 border border-dark-500/30 rounded-lg focus:outline-none focus:ring-2 focus:ring-gold-500/50 text-dark-50"
                     placeholder="e.g., necklace, fashion, wholesale"
                   />
                 </div>
@@ -337,7 +337,7 @@ const Sell = () => {
                   <select
                     value={formData.stockStatus}
                     onChange={(e) => setFormData({ ...formData, stockStatus: e.target.value })}
-                    className="w-full px-4 py-3 bg-dark-700 border border-dark-500/30 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500/50 text-dark-50"
+                    className="w-full px-4 py-3 bg-dark-700 border border-dark-500/30 rounded-lg focus:outline-none focus:ring-2 focus:ring-gold-500/50 text-dark-50"
                   >
                     <option value="IN_STOCK">In Stock</option>
                     <option value="LOW_STOCK">Low Stock</option>
@@ -355,7 +355,7 @@ const Sell = () => {
                     type="url"
                     value={formData.image}
                     onChange={(e) => setFormData({ ...formData, image: e.target.value })}
-                    className="w-full px-4 py-3 pl-10 bg-dark-700 border border-dark-500/30 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500/50 text-dark-50"
+                    className="w-full px-4 py-3 pl-10 bg-dark-700 border border-dark-500/30 rounded-lg focus:outline-none focus:ring-2 focus:ring-gold-500/50 text-dark-50"
                     placeholder="https://example.com/image.jpg"
                     required
                   />
@@ -414,7 +414,7 @@ const Sell = () => {
                 <button
                   type="button"
                   onClick={addVariant}
-                  className="mt-3 flex items-center gap-2 text-primary-500 hover:text-primary-400 text-sm font-medium"
+                  className="mt-3 flex items-center gap-2 text-gold-500 hover:text-gold-400 text-sm font-medium"
                 >
                   <Plus className="w-4 h-4" />
                   Add Variant
@@ -424,7 +424,7 @@ const Sell = () => {
               <div className="flex gap-4 pt-4">
                 <button
                   type="submit"
-                  className="flex-1 bg-primary-500 hover:bg-primary-400 text-dark-900 font-bold py-3 rounded-lg transition-colors"
+                  className="flex-1 bg-gold-500 hover:bg-gold-400 text-dark-900 font-bold py-3 rounded-lg transition-colors"
                 >
                   Publish Product
                 </button>
@@ -444,19 +444,19 @@ const Sell = () => {
               <h3 className="font-semibold text-dark-50 mb-4">Selling Tips</h3>
               <ul className="space-y-3 text-sm text-dark-300">
                 <li className="flex items-start gap-2">
-                  <ChevronRight className="w-5 h-5 text-primary-500 flex-shrink-0" />
+                  <ChevronRight className="w-5 h-5 text-gold-500 flex-shrink-0" />
                   <span>Use high-quality images for better visibility</span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <ChevronRight className="w-5 h-5 text-primary-500 flex-shrink-0" />
+                  <ChevronRight className="w-5 h-5 text-gold-500 flex-shrink-0" />
                   <span>Write detailed descriptions to help buyers</span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <ChevronRight className="w-5 h-5 text-primary-500 flex-shrink-0" />
+                  <ChevronRight className="w-5 h-5 text-gold-500 flex-shrink-0" />
                   <span>Offer competitive pricing</span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <ChevronRight className="w-5 h-5 text-primary-500 flex-shrink-0" />
+                  <ChevronRight className="w-5 h-5 text-gold-500 flex-shrink-0" />
                   <span>Keep stock updated to avoid cancellations</span>
                 </li>
               </ul>

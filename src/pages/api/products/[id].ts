@@ -2,7 +2,14 @@ import { NextApiRequest, NextApiResponse } from 'next';
 import { getServerSession } from 'next-auth/next';
 import { authOptions } from '@/lib/auth';
 import { prisma } from '@/lib/prisma';
-import { Prisma } from '@prisma/client';
+
+function safeJsonParse<T>(str: string, fallback: T): T {
+  try {
+    return JSON.parse(str) as T;
+  } catch {
+    return fallback;
+  }
+}
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   const { id } = req.query;
@@ -25,7 +32,19 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       return res.status(404).json({ error: 'Product not found' });
     }
 
-    return res.json(product);
+    // 解析 JSON 字段
+    const serialized = {
+      ...product,
+      images: typeof product.images === 'string' ? safeJsonParse(product.images, []) : product.images,
+      keywords: typeof product.keywords === 'string' ? safeJsonParse(product.keywords, []) : product.keywords,
+      aplus: typeof product.aplus === 'string' ? safeJsonParse(product.aplus, null) : product.aplus,
+      price: Number(product.price),
+      originalPrice: product.originalPrice ? Number(product.originalPrice) : null,
+      rating: Number(product.rating),
+      variants: product.variants?.map(v => ({ ...v, price: Number(v.price) })) || [],
+    };
+
+    return res.json(serialized);
   }
 
   const session = await getServerSession(req, res, authOptions);
@@ -67,14 +86,14 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const data: any = {};
     if (name !== undefined) data.name = name;
     if (description !== undefined) data.description = description;
-    if (price !== undefined) data.price = new Prisma.Decimal(parseFloat(price));
-    if (originalPrice !== undefined) data.originalPrice = originalPrice ? new Prisma.Decimal(parseFloat(originalPrice)) : null;
+    if (price !== undefined) data.price = parseFloat(price);
+    if (originalPrice !== undefined) data.originalPrice = originalPrice ? parseFloat(originalPrice) : null;
     if (image !== undefined) data.image = image;
     if (images !== undefined) data.images = images;
     if (categoryId !== undefined) data.categoryId = categoryId;
     if (stock !== undefined) data.stock = parseInt(stock);
     if (isPublished !== undefined) data.isPublished = isPublished;
-    if (shippingCost !== undefined) data.shippingCost = new Prisma.Decimal(parseFloat(shippingCost));
+    if (shippingCost !== undefined) data.shippingCost = parseFloat(shippingCost);
     if (shippingMethod !== undefined) data.shippingMethod = shippingMethod;
     if (sku !== undefined) data.sku = sku;
     if (material !== undefined) data.material = material;

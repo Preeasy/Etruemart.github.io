@@ -4,7 +4,22 @@ import { authOptions } from '@/lib/auth';
 import { prisma } from '@/lib/prisma';
 import fs from 'fs';
 import path from 'path';
-import { Prisma } from '@prisma/client';
+
+function safeJsonParse<T>(str: any, fallback: T): T {
+  if (str === null || str === undefined) return fallback;
+  if (typeof str !== 'string') return str as T;
+  try {
+    return JSON.parse(str) as T;
+  } catch {
+    return fallback;
+  }
+}
+
+function toNumber(value: any): number {
+  if (value === null || value === undefined) return 0;
+  if (typeof value === 'number') return value;
+  return parseFloat(String(value)) || 0;
+}
 
 async function getAllCategoryIds(parentId: string): Promise<string[]> {
   const result: string[] = [parentId];
@@ -110,10 +125,10 @@ async function seedIfEmpty() {
   const products = siteData.products || [];
   for (const productData of products) {
     const variations = productData.variations || [];
-    const variantData = variations.map((v: any) => ({
+    const variantData: { color: string; size: string; price: number; stock: number }[] = variations.map((v: any) => ({
       color: v.color || '',
       size: v.size || '',
-      price: v.price || productData.priceMin || 0,
+      price: toNumber(v.price || productData.priceMin || 0),
       stock: 100,
     }));
 
@@ -135,12 +150,12 @@ async function seedIfEmpty() {
         name: productData.name,
         slug: productData.slug || productData.name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/-+$/, '') + '-' + Date.now().toString(36),
         description: productData.description || '',
-        price: new Prisma.Decimal(productData.priceMin || 0),
-        originalPrice: new Prisma.Decimal(productData.priceMax && productData.priceMax > productData.priceMin
+        price: toNumber(productData.priceMin),
+        originalPrice: toNumber(productData.priceMax && productData.priceMax > productData.priceMin
           ? (productData.priceMax * 1.5)
           : (productData.priceMin * 1.3)),
         image: productData.image,
-        images: uniqueImages,
+        images: JSON.stringify(uniqueImages),
         categoryId,
         stock: 100,
         isPublished: true,
@@ -152,14 +167,14 @@ async function seedIfEmpty() {
         size: productData.size || null,
         packSize: productData.packSize || 1,
         moq: productData.moq || 1,
-        keywords: productData.keywords || [],
+        keywords: JSON.stringify(productData.keywords || []),
         stockStatus: productData.stockStatus || 'IN_STOCK',
-        shippingCost: new Prisma.Decimal(0),
-        aplus: productData.aplus || null,
+        shippingCost: 0,
+        aplus: productData.aplus ? JSON.stringify(productData.aplus) : null,
         shippingMethod: 'Standard Shipping',
         authorId: admin.id,
         variants: {
-          create: variantData.length > 0 ? variantData.map(v => ({ ...v, price: new Prisma.Decimal(v.price) })) : [{ color: 'Default', size: 'One Size', price: new Prisma.Decimal(productData.priceMin || 0), stock: 100 }],
+          create: variantData.length > 0 ? variantData.map(v => ({ color: v.color, size: v.size, price: toNumber(v.price), stock: v.stock })) : [{ color: 'Default', size: 'One Size', price: toNumber(productData.priceMin), stock: 100 }],
         },
       },
     });
@@ -214,7 +229,19 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       orderBy: { createdAt: 'desc' },
     });
 
-    return res.json(products);
+    // 序列化所有响应数据
+    const serialized = products.map(p => ({
+      ...p,
+      images: safeJsonParse(p.images as any, []),
+      keywords: safeJsonParse(p.keywords as any, []),
+      aplus: safeJsonParse(p.aplus as any, null),
+      price: Number(p.price),
+      originalPrice: p.originalPrice ? Number(p.originalPrice) : null,
+      rating: Number(p.rating),
+      variants: p.variants?.map(v => ({ ...v, price: Number(v.price) })) || [],
+    }));
+
+    return res.json(serialized);
   }
 
   const session = await getServerSession(req, res, authOptions);
@@ -244,10 +271,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         name,
         slug: name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/-+$/, '') + '-' + Date.now().toString(36),
         description,
-        price: parseFloat(price),
-        originalPrice: originalPrice ? parseFloat(originalPrice) : undefined,
+        price: toNumber(price),
+        originalPrice: originalPrice ? toNumber(originalPrice) : undefined,
         image,
-        images: images || [],
+        images: images ? JSON.stringify(images) : '[]',
         categoryId,
         stock: parseInt(stock),
         material: material || null,
@@ -256,15 +283,15 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         color: color || null,
         size: size || null,
         packSize: packSize ? parseInt(packSize) : 1,
-        pkgLength: pkgLength ? parseFloat(pkgLength) : null,
-        pkgWidth: pkgWidth ? parseFloat(pkgWidth) : null,
-        pkgHeight: pkgHeight ? parseFloat(pkgHeight) : null,
-        pkgWeight: pkgWeight ? parseFloat(pkgWeight) : null,
-        keywords: keywords || [],
+        pkgLength: pkgLength ? toNumber(pkgLength) : null,
+        pkgWidth: pkgWidth ? toNumber(pkgWidth) : null,
+        pkgHeight: pkgHeight ? toNumber(pkgHeight) : null,
+        pkgWeight: pkgWeight ? toNumber(pkgWeight) : null,
+        keywords: keywords ? JSON.stringify(keywords) : '[]',
         stockStatus: stockStatus || 'IN_STOCK',
         moq: moq ? parseInt(moq) : 1,
         authorId: session.user.id,
-        variants: variants ? { create: variants } : undefined,
+        variants: variants ? { create: variants.map((v: any) => ({ ...v, price: toNumber(v.price) })) } : undefined,
       },
     });
 

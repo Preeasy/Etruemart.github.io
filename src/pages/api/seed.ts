@@ -2,7 +2,16 @@ import { NextApiRequest, NextApiResponse } from 'next';
 import { prisma } from '@/lib/prisma';
 import fs from 'fs';
 import path from 'path';
-import { Prisma } from '@prisma/client';
+
+function safeJsonParse<T = any>(value: any, fallback: T): T {
+  if (value === null || value === undefined) return fallback;
+  if (typeof value !== 'string') return value as T;
+  try {
+    return JSON.parse(value) as T;
+  } catch {
+    return fallback;
+  }
+}
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method !== 'POST') {
@@ -89,10 +98,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     let created = 0;
     for (const productData of products) {
       const variations = productData.variations || [];
-      const variantData = variations.map((v: any) => ({
+      const variantData: { color: string; size: string; price: number; stock: number }[] = variations.map((v: any) => ({
         color: v.color || '',
         size: v.size || '',
-        price: v.price || productData.priceMin || 0,
+        price: parseFloat(String(v.price || productData.priceMin || 0)),
         stock: 100,
       }));
 
@@ -111,17 +120,19 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       const fallbackCat = await prisma.category.findFirst();
       const categoryId = catRecord?.id || fallbackCat?.id || '';
 
+      const priceMin = parseFloat(String(productData.priceMin || 0));
+      const priceMax = parseFloat(String(productData.priceMax || 0));
+      const originalPrice = priceMax && priceMax > priceMin ? priceMax * 1.5 : priceMin * 1.3;
+
       await prisma.product.create({
         data: {
           name: productData.name,
           slug: productData.slug || productData.name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/-+$/, '') + '-' + Date.now().toString(36),
           description: productData.description || '',
-          price: new Prisma.Decimal(productData.priceMin || 0),
-          originalPrice: new Prisma.Decimal(productData.priceMax && productData.priceMax > productData.priceMin
-            ? (productData.priceMax * 1.5)
-            : (productData.priceMin * 1.3)),
+          price: priceMin,
+          originalPrice,
           image: productData.image,
-          images: uniqueImages,
+          images: JSON.stringify(uniqueImages),
           categoryId,
           stock: 100,
           isPublished: true,
@@ -133,14 +144,16 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
           size: productData.size || null,
           packSize: productData.packSize || 1,
           moq: productData.moq || 1,
-          keywords: productData.keywords || [],
+          keywords: JSON.stringify(productData.keywords || []),
           stockStatus: productData.stockStatus || 'IN_STOCK',
-          shippingCost: new Prisma.Decimal(0),
+          shippingCost: 0,
           shippingMethod: 'Standard Shipping',
-          aplus: productData.aplus || null,
+          aplus: productData.aplus ? JSON.stringify(productData.aplus) : null,
           authorId: admin.id,
           variants: {
-            create: variantData.length > 0 ? variantData.map(v => ({ ...v, price: new Prisma.Decimal(v.price) })) : [{ color: 'Default', size: 'One Size', price: new Prisma.Decimal(productData.priceMin || 0), stock: 100 }],
+            create: variantData.length > 0
+              ? variantData.map(v => ({ ...v, price: parseFloat(String(v.price)) }))
+              : [{ color: 'Default', size: 'One Size', price: priceMin, stock: 100 }],
           },
         },
       });

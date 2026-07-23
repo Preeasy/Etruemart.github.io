@@ -45,8 +45,8 @@ const Register = () => {
         <div className="max-w-md w-full">
           <div className="text-center mb-8">
             <Link href="/" className="flex items-center justify-center gap-2 mb-4 group">
-              <Package className="w-10 h-10 text-primary-500 group-hover:text-primary-400 transition-colors" />
-              <span className="text-2xl font-bold text-primary-500 group-hover:text-primary-400 transition-colors">eTruemart</span>
+              <Package className="w-10 h-10 text-gold-500 group-hover:text-gold-400 transition-colors" />
+              <span className="text-2xl font-bold text-gold-500 group-hover:text-gold-400 transition-colors">eTruemart</span>
             </Link>
             <h2 className="text-3xl font-bold text-dark-50">Create your account</h2>
             <p className="mt-2 text-dark-300">Join us and start shopping or selling today!</p>
@@ -70,7 +70,7 @@ const Register = () => {
                   id="name"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
-                  className="w-full px-4 py-3 pl-10 bg-dark-700 border border-dark-500/30 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500/50 text-dark-50"
+                  className="w-full px-4 py-3 pl-10 bg-dark-700 border border-dark-500/30 rounded-lg focus:outline-none focus:ring-2 focus:ring-gold-500/50 text-dark-50"
                   placeholder="John Doe"
                   required
                 />
@@ -88,7 +88,7 @@ const Register = () => {
                   id="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="w-full px-4 py-3 pl-10 bg-dark-700 border border-dark-500/30 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500/50 text-dark-50"
+                  className="w-full px-4 py-3 pl-10 bg-dark-700 border border-dark-500/30 rounded-lg focus:outline-none focus:ring-2 focus:ring-gold-500/50 text-dark-50"
                   placeholder="you@example.com"
                   required
                 />
@@ -106,7 +106,7 @@ const Register = () => {
                   id="password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="w-full px-4 py-3 pl-10 pr-10 bg-dark-700 border border-dark-500/30 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500/50 text-dark-50"
+                  className="w-full px-4 py-3 pl-10 pr-10 bg-dark-700 border border-dark-500/30 rounded-lg focus:outline-none focus:ring-2 focus:ring-gold-500/50 text-dark-50"
                   placeholder="••••••••"
                   required
                   minLength={6}
@@ -133,7 +133,7 @@ const Register = () => {
                   id="confirmPassword"
                   value={confirmPassword}
                   onChange={(e) => setConfirmPassword(e.target.value)}
-                  className="w-full px-4 py-3 pl-10 pr-10 bg-dark-700 border border-dark-500/30 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500/50 text-dark-50"
+                  className="w-full px-4 py-3 pl-10 pr-10 bg-dark-700 border border-dark-500/30 rounded-lg focus:outline-none focus:ring-2 focus:ring-gold-500/50 text-dark-50"
                   placeholder="••••••••"
                   required
                 />
@@ -151,20 +151,20 @@ const Register = () => {
               <input
                 type="checkbox"
                 id="terms"
-                className="w-4 h-4 text-primary-500 bg-dark-700 border-dark-500/30 rounded"
+                className="w-4 h-4 text-gold-500 bg-dark-700 border-dark-500/30 rounded"
                 required
               />
               <label htmlFor="terms" className="ml-2 text-sm text-dark-300">
                 I agree to the{' '}
-                <a href="#" className="text-primary-500 hover:text-primary-400">Terms of Service</a>{' '}
+                <a href="#" className="text-gold-500 hover:text-gold-400">Terms of Service</a>{' '}
                 and{' '}
-                <a href="#" className="text-primary-500 hover:text-primary-400">Privacy Policy</a>
+                <a href="#" className="text-gold-500 hover:text-gold-400">Privacy Policy</a>
               </label>
             </div>
 
             <button
               type="submit"
-              className="w-full flex items-center justify-center px-4 py-3 bg-primary-500 hover:bg-primary-400 text-dark-900 font-bold rounded-lg transition-colors"
+              className="w-full flex items-center justify-center px-4 py-3 bg-gold-500 hover:bg-gold-400 text-dark-900 font-bold rounded-lg transition-colors"
             >
               Create account
             </button>
@@ -173,7 +173,7 @@ const Register = () => {
           <div className="mt-6 text-center">
             <p className="text-dark-300">
               Already have an account?{' '}
-              <Link href="/login" className="text-primary-500 font-medium hover:text-primary-400">
+              <Link href="/login" className="text-gold-500 font-medium hover:text-gold-400">
                 Sign in here
               </Link>
             </p>

@@ -81,7 +81,7 @@ const ProductDetail = () => {
     return (
       <Layout>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-500 mx-auto mb-4"></div>
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-gold-500 mx-auto mb-4"></div>
           <p className="text-dark-400">Loading...</p>
         </div>
       </Layout>
@@ -125,9 +125,9 @@ const ProductDetail = () => {
       <div className="bg-dark-800 border-b border-dark-700/50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
           <nav className="flex items-center gap-2 text-sm text-dark-400">
-            <Link href="/" className="hover:text-primary-500 transition-colors">Home</Link>
+            <Link href="/" className="hover:text-gold-500 transition-colors">Home</Link>
             <ChevronLeft className="w-4 h-4 rotate-180" />
-            <Link href="/products" className="hover:text-primary-500 transition-colors">Products</Link>
+            <Link href="/products" className="hover:text-gold-500 transition-colors">Products</Link>
             <ChevronLeft className="w-4 h-4 rotate-180" />
             <span className="text-dark-100 font-medium">{product.name}</span>
           </nav>
@@ -154,7 +154,7 @@ const ProductDetail = () => {
                   <button
                     key={index}
                     onClick={() => setSelectedImage(index)}
-                    className={`flex-shrink-0 w-16 h-16 rounded-lg overflow-hidden border-2 transition-all ${selectedImage === index ? 'border-primary-500 ring-2 ring-primary-500/30' : 'border-dark-700/50 hover:border-primary-500/50'}`}
+                    className={`flex-shrink-0 w-16 h-16 rounded-lg overflow-hidden border-2 transition-all ${selectedImage === index ? 'border-gold-500 ring-2 ring-gold-500/30' : 'border-dark-700/50 hover:border-gold-500/50'}`}
                   >
                     <Image src={img} alt={`View ${index + 1}`} fill className="object-cover" />
                   </button>
@@ -165,7 +165,7 @@ const ProductDetail = () => {
 
           <div>
             <div className="flex items-center gap-3 mb-3">
-              <span className="inline-block bg-primary-500/15 text-primary-400 text-sm font-medium px-3 py-1 rounded-full border border-primary-500/20">
+              <span className="inline-block bg-gold-500/15 text-gold-400 text-sm font-medium px-3 py-1 rounded-full border border-gold-500/20">
                 {typeof product.category === 'object' && product.category !== null ? product.category.name : typeof product.category === 'string' ? product.category : ''}
               </span>
               {product.sku && (
@@ -178,7 +178,7 @@ const ProductDetail = () => {
             <div className="flex items-center gap-3 mb-5">
               <div className="flex items-center gap-1">
                 {[...Array(5)].map((_, i) => (
-                  <Star key={i} className={`w-4 h-4 ${i < Math.floor(rating) ? 'text-primary-500 fill-primary-500' : 'text-dark-600'}`} />
+                  <Star key={i} className={`w-4 h-4 ${i < Math.floor(rating) ? 'text-gold-500 fill-gold-500' : 'text-dark-600'}`} />
                 ))}
               </div>
               <span className="text-dark-400 text-sm">{rating.toFixed(1)} ({product.reviewCount} reviews)</span>
@@ -188,11 +188,11 @@ const ProductDetail = () => {
 
             <div className="bg-dark-800 rounded-xl p-4 mb-5 border border-dark-700/50">
               <div className="flex items-baseline gap-3">
-                <span className="text-3xl font-bold text-primary-500">${currentVariantPrice.toFixed(2)}</span>
+                <span className="text-3xl font-bold text-gold-500">${currentVariantPrice.toFixed(2)}</span>
                 {originalPrice && originalPrice > currentVariantPrice && (
                   <>
                     <span className="text-lg text-dark-500 line-through">${originalPrice.toFixed(2)}</span>
-                    <span className="bg-primary-500 text-dark-900 text-sm font-bold px-2 py-1 rounded">
+                    <span className="bg-gold-500 text-dark-900 text-sm font-bold px-2 py-1 rounded">
                       -{discount}%
                     </span>
                   </>
@@ -205,25 +205,25 @@ const ProductDetail = () => {
             <div className="grid grid-cols-2 gap-3 mb-5 text-xs">
               {product.material && (
                 <div className="flex items-center gap-2 text-dark-400">
-                  <span className="text-primary-400 font-medium">Material:</span>
+                  <span className="text-gold-400 font-medium">Material:</span>
                   <span className="text-dark-200">{product.material}</span>
                 </div>
               )}
               {product.plating && (
                 <div className="flex items-center gap-2 text-dark-400">
-                  <span className="text-primary-400 font-medium">Plating:</span>
+                  <span className="text-gold-400 font-medium">Plating:</span>
                   <span className="text-dark-200">{product.plating}</span>
                 </div>
               )}
               {product.color && (
                 <div className="flex items-center gap-2 text-dark-400">
-                  <span className="text-primary-400 font-medium">Color:</span>
+                  <span className="text-gold-400 font-medium">Color:</span>
                   <span className="text-dark-200">{product.color}</span>
                 </div>
               )}
               {product.size && (
                 <div className="flex items-center gap-2 text-dark-400">
-                  <span className="text-primary-400 font-medium">Size:</span>
+                  <span className="text-gold-400 font-medium">Size:</span>
                   <span className="text-dark-200">{product.size}</span>
                 </div>
               )}
@@ -237,7 +237,7 @@ const ProductDetail = () => {
                     <button
                       key={variant.id}
                       onClick={() => setSelectedVariantColor(variant.color)}
-                      className={`px-3 py-1.5 rounded-lg border-2 transition-all text-sm ${selectedVariantColor === variant.color ? 'border-primary-500 bg-primary-500/10 text-primary-500 font-medium' : 'border-dark-700/50 text-dark-300 hover:border-primary-500/50'}`}
+                      className={`px-3 py-1.5 rounded-lg border-2 transition-all text-sm ${selectedVariantColor === variant.color ? 'border-gold-500 bg-gold-500/10 text-gold-500 font-medium' : 'border-dark-700/50 text-dark-300 hover:border-gold-500/50'}`}
                     >
                       {variant.color}
                     </button>
@@ -259,17 +259,17 @@ const ProductDetail = () => {
                   </button>
                 </div>
                 <span className="text-dark-500 text-xs">
-                  <span className="text-primary-400 font-medium">In Stock</span> ({currentVariant?.stock || product.stock} available)
+                  <span className="text-gold-400 font-medium">In Stock</span> ({currentVariant?.stock || product.stock} available)
                 </span>
               </div>
             </div>
 
             <div className="flex flex-col sm:flex-row gap-2 mb-6">
-              <button onClick={handleAddToCart} className="flex-1 flex items-center justify-center gap-2 bg-primary-500 hover:bg-primary-400 text-dark-900 py-3 rounded-xl font-bold transition-colors">
+              <button onClick={handleAddToCart} className="flex-1 flex items-center justify-center gap-2 bg-gold-500 hover:bg-gold-400 text-dark-900 py-3 rounded-xl font-bold transition-colors">
                 <ShoppingCart className="w-5 h-5" />
                 Add to Cart
               </button>
-              <button className="flex-1 flex items-center justify-center gap-2 bg-primary-600 hover:bg-primary-500 text-dark-50 py-3 rounded-xl font-bold transition-colors">
+              <button className="flex-1 flex items-center justify-center gap-2 bg-gold-600 hover:bg-gold-500 text-dark-50 py-3 rounded-xl font-bold transition-colors">
                 <ShoppingCart className="w-5 h-5" />
                 Buy Now
               </button>
@@ -279,24 +279,24 @@ const ProductDetail = () => {
               <button onClick={() => setIsFavorite(!isFavorite)} className="flex-1 p-3 border border-dark-700/50 rounded-xl hover:border-red-500 hover:text-red-500 transition-colors text-dark-400">
                 <Heart className={`w-5 h-5 ${isFavorite ? 'fill-red-500 text-red-500' : ''}`} />
               </button>
-              <button className="flex-1 p-3 border border-dark-700/50 rounded-xl hover:border-primary-500 hover:text-primary-500 transition-colors text-dark-400">
+              <button className="flex-1 p-3 border border-dark-700/50 rounded-xl hover:border-gold-500 hover:text-gold-500 transition-colors text-dark-400">
                 <Share2 className="w-5 h-5" />
               </button>
             </div>
 
             <div className="grid grid-cols-3 gap-2 mt-5">
               <div className="bg-dark-800 rounded-xl p-3 text-center border border-dark-700/50">
-                <Truck className="w-5 h-5 text-primary-500 mx-auto mb-1" />
+                <Truck className="w-5 h-5 text-gold-500 mx-auto mb-1" />
                 <p className="text-xs font-medium text-dark-200">Free Shipping</p>
                 <p className="text-[10px] text-dark-500">Orders over $50</p>
               </div>
               <div className="bg-dark-800 rounded-xl p-3 text-center border border-dark-700/50">
-                <ShieldCheck className="w-5 h-5 text-primary-500 mx-auto mb-1" />
+                <ShieldCheck className="w-5 h-5 text-gold-500 mx-auto mb-1" />
                 <p className="text-xs font-medium text-dark-200">Secure Payment</p>
                 <p className="text-[10px] text-dark-500">100% protected</p>
               </div>
               <div className="bg-dark-800 rounded-xl p-3 text-center border border-dark-700/50">
-                <RotateCcw className="w-5 h-5 text-primary-500 mx-auto mb-1" />
+                <RotateCcw className="w-5 h-5 text-gold-500 mx-auto mb-1" />
                 <p className="text-xs font-medium text-dark-200">Easy Returns</p>
                 <p className="text-[10px] text-dark-500">30-day policy</p>
               </div>
@@ -307,13 +307,13 @@ const ProductDetail = () => {
         <div className="mt-10">
           <div className="border-b border-dark-700/50 mb-5">
             <div className="flex gap-4">
-              <button onClick={() => setActiveTab('description')} className={`pb-3 font-medium border-b-2 transition-colors text-sm ${activeTab === 'description' ? 'border-primary-500 text-primary-500' : 'border-transparent text-dark-400 hover:text-dark-200'}`}>
+              <button onClick={() => setActiveTab('description')} className={`pb-3 font-medium border-b-2 transition-colors text-sm ${activeTab === 'description' ? 'border-gold-500 text-gold-500' : 'border-transparent text-dark-400 hover:text-dark-200'}`}>
                 Description
               </button>
-              <button onClick={() => setActiveTab('specs')} className={`pb-3 font-medium border-b-2 transition-colors text-sm ${activeTab === 'specs' ? 'border-primary-500 text-primary-500' : 'border-transparent text-dark-400 hover:text-dark-200'}`}>
+              <button onClick={() => setActiveTab('specs')} className={`pb-3 font-medium border-b-2 transition-colors text-sm ${activeTab === 'specs' ? 'border-gold-500 text-gold-500' : 'border-transparent text-dark-400 hover:text-dark-200'}`}>
                 Specifications
               </button>
-              <button onClick={() => setActiveTab('reviews')} className={`pb-3 font-medium border-b-2 transition-colors text-sm ${activeTab === 'reviews' ? 'border-primary-500 text-primary-500' : 'border-transparent text-dark-400 hover:text-dark-200'}`}>
+              <button onClick={() => setActiveTab('reviews')} className={`pb-3 font-medium border-b-2 transition-colors text-sm ${activeTab === 'reviews' ? 'border-gold-500 text-gold-500' : 'border-transparent text-dark-400 hover:text-dark-200'}`}>
                 Reviews ({product.reviewCount})
               </button>
             </div>
@@ -410,7 +410,7 @@ const ProductDetail = () => {
                   <div className="text-3xl font-bold text-dark-100 mb-1">{rating.toFixed(1)}</div>
                   <div className="flex gap-1">
                     {[...Array(5)].map((_, i) => (
-                      <Star key={i} className={`w-4 h-4 ${i < Math.floor(rating) ? 'text-primary-500 fill-primary-500' : 'text-dark-600'}`} />
+                      <Star key={i} className={`w-4 h-4 ${i < Math.floor(rating) ? 'text-gold-500 fill-gold-500' : 'text-dark-600'}`} />
                     ))}
                   </div>
                 </div>
@@ -424,14 +424,14 @@ const ProductDetail = () => {
                   {product.reviews.map((review) => (
                     <div key={review.id} className="pb-5 border-b border-dark-700/30 last:border-0">
                       <div className="flex items-center gap-3 mb-2">
-                        <div className="w-8 h-8 bg-primary-800/50 rounded-full flex items-center justify-center text-primary-400 font-bold text-sm">
+                        <div className="w-8 h-8 bg-gold-800/50 rounded-full flex items-center justify-center text-gold-400 font-bold text-sm">
                           {review.user?.name ? review.user.name[0] : 'U'}
                         </div>
                         <div>
                           <h4 className="font-semibold text-dark-100 text-sm">{review.user?.name || 'Anonymous'}</h4>
                           <div className="flex gap-1">
                             {[...Array(5)].map((_, i) => (
-                              <Star key={i} className={`w-3 h-3 ${i < review.rating ? 'text-primary-500 fill-primary-500' : 'text-dark-600'}`} />
+                              <Star key={i} className={`w-3 h-3 ${i < review.rating ? 'text-gold-500 fill-gold-500' : 'text-dark-600'}`} />
                             ))}
                           </div>
                         </div>

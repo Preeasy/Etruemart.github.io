@@ -99,7 +99,7 @@ const Cart = () => {
                     />
                     <div className="flex-1">
                       <Link href={`/products/${item.product.id}`}>
-                        <h3 className="font-semibold text-gray-900 hover:text-primary-600">{item.product.name}</h3>
+                        <h3 className="font-semibold text-gray-900 hover:text-gold-600">{item.product.name}</h3>
                       </Link>
                       {item.variant && (
                         <p className="text-sm text-gray-500 mt-1">
@@ -107,7 +107,7 @@ const Cart = () => {
                         </p>
                       )}
                       <div className="flex items-center justify-between mt-4">
-                        <span className="text-xl font-bold text-primary-600">
+                        <span className="text-xl font-bold text-gold-600">
                           ${(item.variant?.price || item.product.price).toFixed(2)}
                         </span>
                         <div className="flex items-center gap-4">
@@ -160,7 +160,7 @@ const Cart = () => {
                 </div>
                 <div className="border-t pt-4 flex justify-between">
                   <span className="font-semibold text-gray-900">Total</span>
-                  <span className="text-2xl font-bold text-primary-600">${grandTotal.toFixed(2)}</span>
+                  <span className="text-2xl font-bold text-gold-600">${grandTotal.toFixed(2)}</span>
                 </div>
               </div>
 
@@ -170,7 +170,7 @@ const Cart = () => {
                   value={shippingAddress}
                   onChange={(e) => setShippingAddress(e.target.value)}
                   rows={3}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gold-500"
                   placeholder="Enter your shipping address..."
                   required
                 />
@@ -178,7 +178,7 @@ const Cart = () => {
 
               <button
                 onClick={handleCheckout}
-                className="w-full flex items-center justify-center gap-2 bg-primary-500 hover:bg-primary-600 text-white py-4 rounded-xl font-semibold text-lg transition-colors"
+                className="w-full flex items-center justify-center gap-2 bg-gold-500 hover:bg-gold-600 text-white py-4 rounded-xl font-semibold text-lg transition-colors"
               >
                 <CreditCard className="w-5 h-5" />
                 Proceed to Checkout
@@ -186,7 +186,7 @@ const Cart = () => {
 
               <div className="mt-6 p-4 bg-gray-50 rounded-lg">
                 <div className="flex items-center gap-3 text-sm text-gray-600">
-                  <Truck className="w-5 h-5 text-primary-600" />
+                  <Truck className="w-5 h-5 text-gold-600" />
                   <span>Free shipping on orders over $50</span>
                 </div>
               </div>

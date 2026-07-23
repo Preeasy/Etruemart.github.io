@@ -1,6 +1,5 @@
 import Link from 'next/link';
 import Image from 'next/image';
-import { Package } from 'lucide-react';
 
 interface ProductCardProps {
   product: {
@@ -12,8 +11,6 @@ interface ProductCardProps {
     originalPrice?: number;
     image: string;
     moq?: number;
-    material?: string | null;
-    plating?: string | null;
     packSize?: number;
     sku?: string | null;
     stockStatus?: string;
@@ -24,7 +21,6 @@ const ProductCard = ({ product }: ProductCardProps) => {
   const price = Number(product.price);
   const originalPrice = product.originalPrice ? Number(product.originalPrice) : undefined;
   const moq = product.moq || 1;
-  const packSize = product.packSize || 1;
 
   const categoryName =
     typeof product.category === 'object' && product.category !== null
@@ -33,8 +29,12 @@ const ProductCard = ({ product }: ProductCardProps) => {
         ? product.category
         : '';
 
+  const discount = originalPrice && originalPrice > price
+    ? Math.round(((originalPrice - price) / originalPrice) * 100)
+    : 0;
+
   return (
-    <div className="bg-dark-800 rounded-xl overflow-hidden border border-dark-700/40 group hover:border-primary-500/40 transition-all duration-300">
+    <div className="bg-dark-800 rounded-xl overflow-hidden border border-dark-700/50 group hover:border-gold-500/50 transition-all duration-300">
       <Link href={`/products/${product.id}`} className="block">
         <div className="relative aspect-square overflow-hidden bg-dark-900">
           <Image
@@ -44,52 +44,42 @@ const ProductCard = ({ product }: ProductCardProps) => {
             className="object-cover group-hover:scale-105 transition-transform duration-500"
             quality={80}
             placeholder="blur"
-            blurDataURL="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Crect fill='%231a1a1a' width='200' height='200'/%3E%3C/svg%3E"
+            blurDataURL="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Crect fill='%23111111' width='200' height='200'/%3E%3C/svg%3E"
           />
-          <div className="absolute top-2 left-2 flex flex-col gap-1">
-            {originalPrice && originalPrice > price && (
-              <span className="bg-primary-500 text-dark-900 text-[10px] font-bold px-1.5 py-0.5 rounded">
-                -{Math.round(((originalPrice - price) / originalPrice) * 100)}%
-              </span>
-            )}
-            {product.stockStatus === 'IN_STOCK' && (
-              <span className="bg-dark-900/90 text-primary-400 text-[9px] font-medium px-1.5 py-0.5 rounded border border-primary-500/30">
-                IN STOCK
-              </span>
-            )}
-          </div>
-          {product.sku && (
-            <span className="absolute bottom-1.5 right-1.5 bg-dark-900/80 text-dark-300 text-[9px] px-1.5 py-0.5 rounded font-mono">
-              {product.sku}
+          {discount > 0 && (
+            <span className="absolute top-2 left-2 bg-gold-500 text-dark-900 text-[10px] font-bold px-2 py-0.5 rounded">
+              -{discount}%
+            </span>
+          )}
+          {product.stockStatus === 'IN_STOCK' && (
+            <span className="absolute top-2 right-2 bg-dark-900/90 text-gold-400 text-[9px] font-medium px-1.5 py-0.5 rounded border border-gold-500/30">
+              IN STOCK
             </span>
           )}
         </div>
 
-        <div className="p-3">
+        <div className="p-2.5">
           {categoryName && (
-            <span className="text-[10px] font-medium text-primary-400 uppercase tracking-wider">
+            <span className="text-[9px] font-medium text-gold-400 uppercase tracking-wider">
               {categoryName}
             </span>
           )}
           
-          <h3 className="mt-1 font-medium text-dark-100 text-xs line-clamp-2 hover:text-primary-400 transition-colors leading-4">
+          <h3 className="mt-1 font-medium text-dark-100 text-[11px] line-clamp-2 hover:text-gold-400 transition-colors leading-4">
             {product.name}
           </h3>
 
-          <div className="flex items-baseline justify-between mt-2">
+          <div className="flex items-baseline justify-between mt-1.5">
             <div className="flex items-baseline gap-1">
-              <span className="text-base font-bold text-primary-500">${price.toFixed(2)}</span>
+              <span className="text-sm font-bold text-gold-500">${price.toFixed(2)}</span>
               {originalPrice && originalPrice > price && (
-                <span className="text-[10px] text-dark-500 line-through">${originalPrice.toFixed(2)}</span>
+                <span className="text-[9px] text-dark-500 line-through">${originalPrice.toFixed(2)}</span>
               )}
             </div>
           </div>
 
           <div className="flex items-center justify-between mt-1">
-            <span className="text-[9px] text-dark-400">MOQ: <span className="text-dark-300 font-medium">{moq}</span></span>
-            {packSize > 1 && (
-              <span className="text-[9px] text-dark-400">Pack: <span className="text-dark-300 font-medium">{packSize}</span></span>
-            )}
+            <span className="text-[8px] text-dark-400">MOQ: <span className="text-dark-200 font-medium">{moq}</span></span>
           </div>
         </div>
       </Link>
