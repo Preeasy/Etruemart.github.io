@@ -5,6 +5,7 @@ import {
   ShieldCheck,
   Globe,
   ChevronRight,
+  ChevronLeft,
   ArrowRight,
   Gem,
   Scissors,
@@ -31,50 +32,77 @@ interface Product {
   stockStatus?: string;
 }
 
-const categoryItems = [
+const categorySlides = [
   {
     name: 'Fashion Jewelry',
+    headline: 'Wholesale Fashion Jewelry',
+    desc: 'Earrings, necklaces, bracelets & rings — direct from Yiwu manufacturers at factory prices.',
     icon: Gem,
     slug: 'fashion-jewelry',
-    desc: 'Necklaces, earrings, bracelets & rings',
-    image: 'https://s.alicdn.com/@sc04/kf/H35b35daeca194796828b6ad966d258c8K.jpg_400x300.jpg',
+    gradient: 'bg-gradient-to-br from-dark-800 via-dark-900 to-dark-950',
+    glow: 'bg-gold-500/10',
+    glowPosition: 'top-0 right-0',
   },
   {
     name: 'Garment Accessories',
+    headline: 'Garment Accessories',
+    desc: 'Buttons, zippers, lace & trim — everything your apparel production needs.',
     icon: Scissors,
     slug: 'garment-accessories',
-    desc: 'Buttons, zippers, lace & trim',
-    image: 'https://s.alicdn.com/@sc04/kf/H5afb10ada38e4bf4ae641eee9a3fc4e5V.jpg_400x300.jpg',
+    gradient: 'bg-gradient-to-bl from-dark-800 via-dark-900 to-dark-950',
+    glow: 'bg-gold-500/5',
+    glowPosition: 'bottom-0 left-0',
   },
   {
     name: 'Hair Accessories',
+    headline: 'Hair Accessories',
+    desc: 'Clips, headbands, scrunchies & more — trendy styles at wholesale prices.',
     icon: Crown,
     slug: 'hair-accessories',
-    desc: 'Clips, headbands & scrunchies',
-    image: 'https://s.alicdn.com/@sc04/kf/H9e68ddd0f7e24737a0633e8d4a2d938aa.jpg_400x300.jpg',
+    gradient: 'bg-gradient-to-tr from-dark-800 via-dark-900 to-dark-950',
+    glow: 'bg-gold-500/10',
+    glowPosition: 'top-0 left-0',
   },
   {
     name: 'Bags & Accessories',
+    headline: 'Bags & Accessories',
+    desc: 'Bag hardware, chains, keychains & fittings — premium quality from Yiwu.',
     icon: ShoppingBag,
     slug: 'bags-accessories',
-    desc: 'Hardware, chains & keychains',
-    image: 'https://s.alicdn.com/@sc04/kf/H37d502632524491aa0154c58d3ff7bd8N.jpg_400x300.jpg',
+    gradient: 'bg-gradient-to-tl from-dark-800 via-dark-900 to-dark-950',
+    glow: 'bg-gold-500/5',
+    glowPosition: 'bottom-0 right-0',
   },
   {
     name: 'Home Decor & Crafts',
+    headline: 'Home Decor & Crafts',
+    desc: 'Tassels, beads, craft supplies & decorations — beautify every space.',
     icon: HomeIcon,
     slug: 'home-decor-crafts',
-    desc: 'Tassels, beads & craft supplies',
-    image: 'https://s.alicdn.com/@sc04/kf/H15013bfca7db450d8f01f03d60478e42G.jpg_400x300.jpg',
+    gradient: 'bg-gradient-to-r from-dark-800 via-dark-900 to-dark-950',
+    glow: 'bg-gold-500/10',
+    glowPosition: 'top-1/2 left-0 -translate-y-1/2',
   },
   {
     name: 'Seasonal & Festival',
+    headline: 'Seasonal & Festival',
+    desc: 'Christmas, Eid, party supplies & festive decor — celebrate in style.',
     icon: Sparkles,
     slug: 'seasonal-festival',
-    desc: 'Christmas, Eid & party supplies',
-    image: 'https://s.alicdn.com/@sc04/kf/Hb085b493d7324e0181a3d7c780b5418dN.jpg_400x300.jpg',
+    gradient: 'bg-gradient-to-l from-dark-800 via-dark-900 to-dark-950',
+    glow: 'bg-gold-500/5',
+    glowPosition: 'top-1/2 right-0 -translate-y-1/2',
   },
 ];
+
+const categoryItems = categorySlides.map(s => ({
+  name: s.name,
+  icon: s.icon,
+  slug: s.slug,
+  desc: s.desc.split('—')[0].trim(),
+  gradient: s.gradient,
+  glow: s.glow,
+}));
 
 const whyChooseUs = [
   {
@@ -101,6 +129,8 @@ const whyChooseUs = [
 
 const Home = () => {
   const [products, setProducts] = useState<Product[]>([]);
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const [isAutoPlaying, setIsAutoPlaying] = useState(true);
 
   useEffect(() => {
     fetch('/api/products')
@@ -108,49 +138,124 @@ const Home = () => {
       .then(data => setProducts(data));
   }, []);
 
+  useEffect(() => {
+    if (!isAutoPlaying) return;
+    const timer = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % categorySlides.length);
+    }, 5000);
+    return () => clearInterval(timer);
+  }, [isAutoPlaying]);
+
+  const goToSlide = (index: number) => {
+    setCurrentSlide(index);
+    setIsAutoPlaying(false);
+    setTimeout(() => setIsAutoPlaying(true), 8000);
+  };
+
+  const nextSlide = () => goToSlide((currentSlide + 1) % categorySlides.length);
+  const prevSlide = () => goToSlide((currentSlide - 1 + categorySlides.length) % categorySlides.length);
+
   const newProducts = products.slice(0, 8);
 
   return (
     <Layout>
-      <section className="relative h-[360px] md:h-[420px] overflow-hidden">
-        <img
-          src="https://cdn.pixabay.com/photo/2018/03/10/09/03/jewelry-3212361_960_720.jpg"
-          alt="Wholesale Jewelry & Accessories"
-          className="w-full h-full object-cover"
-        />
-        <div className="absolute inset-0 bg-gradient-to-r from-dark-900/95 via-dark-900/80 to-dark-900/40" />
+      {/* Hero Carousel */}
+      <section className="relative h-[420px] md:h-[500px] overflow-hidden bg-dark-900">
+        {categorySlides.map((slide, index) => (
+          <div
+            key={slide.slug}
+            className={`absolute inset-0 transition-opacity duration-700 ease-in-out ${
+              index === currentSlide ? 'opacity-100 z-10' : 'opacity-0 z-0'
+            }`}
+          >
+            {/* Background */}
+            <div className={`absolute inset-0 ${slide.gradient}`} />
+            {/* Glow effect */}
+            <div className={`absolute w-[500px] h-[500px] rounded-full blur-3xl ${slide.glow} ${slide.glowPosition}`} />
+            {/* Decorative pattern */}
+            <div
+              className="absolute inset-0 opacity-[0.03]"
+              style={{
+                backgroundImage: 'radial-gradient(circle, #D4AF37 1px, transparent 1px)',
+                backgroundSize: '40px 40px',
+              }}
+            />
 
-        <div className="absolute inset-0 flex items-center">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
-            <div className="max-w-2xl">
-              <div className="inline-flex items-center gap-2 bg-gold-500/15 text-gold-400 px-3 py-1 rounded-full text-xs font-medium border border-gold-500/20 mb-4">
-                <Gem className="w-3.5 h-3.5" />
-                Wholesale from Yiwu
-              </div>
-              <h1 className="font-display text-3xl md:text-4xl lg:text-5xl text-dark-50 mb-4 leading-tight">
-                Your Trusted Source for{' '}
-                <span className="text-gold-400">Wholesale Jewelry</span>{' '}
-                &amp; Accessories
-              </h1>
-              <p className="text-base text-dark-200 mb-6 leading-relaxed max-w-lg">
-                Direct from Yiwu — premium fashion jewelry and garment accessories at unbeatable wholesale prices.
-              </p>
-              <div className="flex flex-wrap gap-3">
-                <Link
-                  href="/products"
-                  className="inline-flex items-center gap-2 bg-gold-500 hover:bg-gold-400 text-dark-900 px-6 py-2.5 rounded-lg font-bold text-sm transition-all shadow-lg hover:shadow-gold-500/30"
-                >
-                  Browse Products <ArrowRight className="w-4 h-4" />
-                </Link>
-                <Link
-                  href="/sell"
-                  className="inline-flex items-center gap-2 border-2 border-gold-500 text-gold-400 hover:bg-gold-500 hover:text-dark-900 px-6 py-2.5 rounded-lg font-bold text-sm transition-all"
-                >
-                  Become a Seller
-                </Link>
+            <div className="absolute inset-0 flex items-center">
+              <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+                <div className="grid md:grid-cols-2 gap-8 items-center">
+                  {/* Left: Text */}
+                  <div>
+                    <div className="inline-flex items-center gap-2 bg-gold-500/15 text-gold-400 px-3 py-1.5 rounded-full text-xs font-medium border border-gold-500/20 mb-4">
+                      <slide.icon className="w-3.5 h-3.5" />
+                      {slide.name}
+                    </div>
+                    <h1 className="font-display text-3xl md:text-4xl lg:text-5xl text-dark-50 mb-4 leading-tight">
+                      {slide.headline}
+                    </h1>
+                    <p className="text-base text-dark-300 mb-6 leading-relaxed max-w-lg">
+                      {slide.desc}
+                    </p>
+                    <div className="flex flex-wrap gap-3">
+                      <Link
+                        href={`/products?category=${slide.slug}`}
+                        className="inline-flex items-center gap-2 bg-gold-500 hover:bg-gold-400 text-dark-900 px-6 py-2.5 rounded-lg font-bold text-sm transition-all shadow-lg hover:shadow-gold-500/30"
+                      >
+                        Browse {slide.name} <ArrowRight className="w-4 h-4" />
+                      </Link>
+                      <Link
+                        href="/products"
+                        className="inline-flex items-center gap-2 border-2 border-gold-500/50 text-gold-400 hover:bg-gold-500/10 px-6 py-2.5 rounded-lg font-bold text-sm transition-all"
+                      >
+                        View All Products
+                      </Link>
+                    </div>
+                  </div>
+
+                  {/* Right: Icon collage */}
+                  <div className="hidden md:flex justify-center items-center relative">
+                    <slide.icon className="w-48 h-48 text-gold-500/10" strokeWidth={0.5} />
+                    <div className="absolute top-8 left-16">
+                      <Sparkles className="w-10 h-10 text-gold-500/20" />
+                    </div>
+                    <div className="absolute bottom-12 right-20">
+                      <Gem className="w-8 h-8 text-gold-500/15" />
+                    </div>
+                    <div className="absolute top-20 right-10">
+                      <Package className="w-6 h-6 text-gold-500/10" />
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
+        ))}
+
+        {/* Navigation arrows */}
+        <button
+          onClick={prevSlide}
+          className="absolute left-4 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full bg-dark-800/80 border border-dark-700/50 flex items-center justify-center text-dark-300 hover:text-gold-400 hover:border-gold-500/30 transition-all"
+        >
+          <ChevronLeft className="w-5 h-5" />
+        </button>
+        <button
+          onClick={nextSlide}
+          className="absolute right-4 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full bg-dark-800/80 border border-dark-700/50 flex items-center justify-center text-dark-300 hover:text-gold-400 hover:border-gold-500/30 transition-all"
+        >
+          <ChevronRight className="w-5 h-5" />
+        </button>
+
+        {/* Indicators */}
+        <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-2 z-20">
+          {categorySlides.map((_, index) => (
+            <button
+              key={index}
+              onClick={() => goToSlide(index)}
+              className={`h-2 rounded-full transition-all duration-300 ${
+                index === currentSlide ? 'bg-gold-500 w-8' : 'bg-dark-600 w-2 hover:bg-dark-500'
+              }`}
+            />
+          ))}
         </div>
       </section>
 
@@ -166,22 +271,30 @@ const Home = () => {
               <Link
                 key={cat.slug}
                 href={`/products?category=${cat.slug}`}
-                className="group relative overflow-hidden rounded-xl border border-dark-700/50 hover:border-gold-500/40 transition-all"
+                className="group relative overflow-hidden rounded-xl border border-dark-700/50 hover:border-gold-500/40 transition-all h-36"
               >
-                <img
-                  src={cat.image}
-                  alt={cat.name}
-                  className="w-full h-32 object-cover group-hover:scale-105 transition-transform duration-500"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-dark-900/90 via-dark-900/40 to-transparent" />
-                <div className="absolute inset-0 flex flex-col justify-end p-3">
+                {/* Background gradient */}
+                <div className={`absolute inset-0 ${cat.gradient}`} />
+                {/* Glow effect */}
+                <div className={`absolute -top-10 -right-10 w-40 h-40 rounded-full blur-3xl ${cat.glow} opacity-50 group-hover:opacity-80 transition-opacity duration-500`} />
+                {/* Large centered icon */}
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <cat.icon className="w-20 h-20 text-gold-500/15 group-hover:text-gold-500/25 transition-colors duration-500" strokeWidth={1} />
+                </div>
+                {/* Bottom gradient overlay */}
+                <div className="absolute inset-0 bg-gradient-to-t from-dark-900/95 via-dark-900/50 to-transparent" />
+                {/* Content */}
+                <div className="absolute inset-0 flex flex-col justify-end p-4">
                   <div className="flex items-center gap-2">
-                    <div className="w-7 h-7 rounded-lg bg-gold-500/20 border border-gold-500/30 flex items-center justify-center">
-                      <cat.icon className="w-3.5 h-3.5 text-gold-400" />
+                    <div className="w-8 h-8 rounded-lg bg-gold-500/20 border border-gold-500/30 flex items-center justify-center shrink-0">
+                      <cat.icon className="w-4 h-4 text-gold-400" />
                     </div>
-                    <h3 className="font-display text-sm text-dark-50 group-hover:text-gold-400 transition-colors">
-                      {cat.name}
-                    </h3>
+                    <div className="min-w-0">
+                      <h3 className="font-display text-sm text-dark-50 group-hover:text-gold-400 transition-colors truncate">
+                        {cat.name}
+                      </h3>
+                      <p className="text-dark-400 text-xs mt-0.5 truncate">{cat.desc}</p>
+                    </div>
                   </div>
                 </div>
               </Link>
