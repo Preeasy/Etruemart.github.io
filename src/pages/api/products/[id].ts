@@ -24,7 +24,14 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       return res.status(404).json({ error: 'Product not found' });
     }
 
-    return res.json(product);
+    const serializedProduct = {
+      ...product,
+      images: product.images ? JSON.parse(product.images) : [],
+      keywords: product.keywords ? JSON.parse(product.keywords) : [],
+      aplus: product.aplus ? JSON.parse(product.aplus) : null,
+    };
+
+    return res.json(serializedProduct);
   }
 
   const session = await getServerSession(req, res, authOptions);
@@ -69,7 +76,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     if (price !== undefined) data.price = parseFloat(price);
     if (originalPrice !== undefined) data.originalPrice = originalPrice ? parseFloat(originalPrice) : null;
     if (image !== undefined) data.image = image;
-    if (images !== undefined) data.images = images;
+    if (images !== undefined) data.images = typeof images === 'string' ? images : JSON.stringify(images);
     if (categoryId !== undefined) data.categoryId = categoryId;
     if (stock !== undefined) data.stock = parseInt(stock);
     if (isPublished !== undefined) data.isPublished = isPublished;
@@ -87,7 +94,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     if (pkgWidth !== undefined) data.pkgWidth = pkgWidth ? parseFloat(pkgWidth) : null;
     if (pkgHeight !== undefined) data.pkgHeight = pkgHeight ? parseFloat(pkgHeight) : null;
     if (pkgWeight !== undefined) data.pkgWeight = pkgWeight ? parseFloat(pkgWeight) : null;
-    if (keywords !== undefined) data.keywords = keywords;
+    if (keywords !== undefined) data.keywords = typeof keywords === 'string' ? keywords : JSON.stringify(keywords);
     if (stockStatus !== undefined) data.stockStatus = stockStatus;
 
     const updatedProduct = await prisma.product.update({

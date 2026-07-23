@@ -117,40 +117,39 @@ const Home = () => {
   return (
     <Layout>
       {/* ── Hero ── */}
-      <section className="relative h-[560px] md:h-[620px] overflow-hidden">
+      <section className="relative h-[400px] md:h-[480px] overflow-hidden">
         <img
-          src="https://images.unsplash.com/photo-1617038260897-41a1f14a8ca0?w=1600&h=700&fit=crop"
+          src="https://images.unsplash.com/photo-1617038260897-41a1f14a8ca0?w=1600&h=600&fit=crop"
           alt="Wholesale Jewelry & Accessories"
           className="w-full h-full object-cover"
         />
         <div className="absolute inset-0 bg-gradient-to-r from-dark-900/95 via-dark-900/80 to-dark-900/40" />
-        <div className="absolute inset-0 geo-pattern opacity-40" />
 
         <div className="absolute inset-0 flex items-center">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
             <div className="max-w-2xl">
-              <div className="inline-flex items-center gap-2 bg-primary-500/15 text-primary-400 px-4 py-1.5 rounded-full text-sm font-medium border border-primary-500/20 mb-6">
-                <Gem className="w-4 h-4" />
+              <div className="inline-flex items-center gap-2 bg-primary-500/15 text-primary-400 px-3 py-1 rounded-full text-xs font-medium border border-primary-500/20 mb-4">
+                <Gem className="w-3.5 h-3.5" />
                 Wholesale from Yiwu
               </div>
-              <h1 className="font-display text-4xl md:text-5xl lg:text-6xl text-dark-50 mb-5 leading-tight">
+              <h1 className="font-display text-3xl md:text-4xl lg:text-5xl text-dark-50 mb-4 leading-tight">
                 Your Trusted Source for{' '}
                 <span className="text-gradient-gold">Wholesale Jewelry</span>{' '}
-                &amp; Garment Accessories
+                &amp; Accessories
               </h1>
-              <p className="text-lg md:text-xl text-dark-200 mb-8 leading-relaxed max-w-lg">
-                Direct from Yiwu — premium fashion jewelry, garment accessories, and decorative trim at unbeatable wholesale prices.
+              <p className="text-base md:text-lg text-dark-200 mb-6 leading-relaxed max-w-lg">
+                Direct from Yiwu — premium fashion jewelry and garment accessories at unbeatable wholesale prices.
               </p>
-              <div className="flex flex-wrap gap-4">
+              <div className="flex flex-wrap gap-3">
                 <Link
                   href="/products"
-                  className="inline-flex items-center gap-2 bg-primary-500 hover:bg-primary-400 text-dark-900 px-8 py-3.5 rounded-lg font-bold text-lg transition-all shadow-lg hover:shadow-primary-500/30 hover:scale-105"
+                  className="inline-flex items-center gap-2 bg-primary-500 hover:bg-primary-400 text-dark-900 px-6 py-2.5 rounded-lg font-bold text-sm transition-all shadow-lg hover:shadow-primary-500/30"
                 >
-                  Browse Products <ArrowRight className="w-5 h-5" />
+                  Browse Products <ArrowRight className="w-4 h-4" />
                 </Link>
                 <Link
                   href="/sell"
-                  className="inline-flex items-center gap-2 border-2 border-primary-500 text-primary-400 hover:bg-primary-500 hover:text-dark-900 px-8 py-3.5 rounded-lg font-bold text-lg transition-all"
+                  className="inline-flex items-center gap-2 border-2 border-primary-500 text-primary-400 hover:bg-primary-500 hover:text-dark-900 px-6 py-2.5 rounded-lg font-bold text-sm transition-all"
                 >
                   Become a Seller
                 </Link>
@@ -161,38 +160,35 @@ const Home = () => {
       </section>
 
       {/* ── Categories ── */}
-      <section className="py-20 bg-dark-900">
+      <section className="py-12 bg-dark-900">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="section-heading gold-line">Shop by Category</h2>
-            <p className="section-subheading mt-5">
-              Explore our curated wholesale categories
-            </p>
+          <div className="text-center mb-8">
+            <h2 className="font-display text-2xl md:text-3xl text-dark-50">Shop by Category</h2>
+            <div className="w-20 h-0.5 bg-gradient-to-r from-transparent via-primary-500 to-transparent mx-auto mt-3" />
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
             {categoryItems.map((cat) => (
               <Link
                 key={cat.slug}
                 href={`/products?category=${cat.slug}`}
-                className="group relative overflow-hidden rounded-xl border border-dark-700/40 card-hover"
+                className="group relative overflow-hidden rounded-xl border border-dark-700/40 hover:border-primary-500/30 transition-all"
               >
                 <img
                   src={cat.image}
                   alt={cat.name}
-                  className="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-500"
+                  className="w-full h-36 object-cover group-hover:scale-105 transition-transform duration-500"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-dark-900 via-dark-900/60 to-transparent" />
-                <div className="absolute inset-0 flex flex-col justify-end p-5">
-                  <div className="flex items-center gap-3 mb-2">
-                    <div className="w-10 h-10 rounded-lg bg-primary-500/20 border border-primary-500/30 flex items-center justify-center">
-                      <cat.icon className="w-5 h-5 text-primary-400" />
+                <div className="absolute inset-0 bg-gradient-to-t from-dark-900/90 via-dark-900/40 to-transparent" />
+                <div className="absolute inset-0 flex flex-col justify-end p-4">
+                  <div className="flex items-center gap-2">
+                    <div className="w-8 h-8 rounded-lg bg-primary-500/20 border border-primary-500/30 flex items-center justify-center">
+                      <cat.icon className="w-4 h-4 text-primary-400" />
                     </div>
-                    <h3 className="font-display text-xl text-dark-50 group-hover:text-primary-400 transition-colors">
+                    <h3 className="font-display text-base text-dark-50 group-hover:text-primary-400 transition-colors">
                       {cat.name}
                     </h3>
                   </div>
-                  <p className="text-dark-400 text-sm">{cat.desc}</p>
                 </div>
               </Link>
             ))}
@@ -201,33 +197,30 @@ const Home = () => {
       </section>
 
       {/* ── New Arrivals ── */}
-      <section className="py-20 bg-dark-800/50 border-t border-dark-700/30 border-b border-dark-700/30">
+      <section className="py-12 bg-dark-800/50 border-t border-dark-700/30">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between mb-10">
+          <div className="flex items-center justify-between mb-6">
             <div>
-              <h2 className="section-heading gold-line">New Arrivals</h2>
-              <p className="section-subheading mt-5">Latest additions to our wholesale catalog</p>
+              <h2 className="font-display text-2xl md:text-3xl text-dark-50">New Arrivals</h2>
+              <p className="text-dark-400 text-sm mt-1">Latest additions to our wholesale catalog</p>
             </div>
             <Link
               href="/products"
-              className="hidden sm:flex items-center gap-1 text-primary-400 font-medium hover:text-primary-300 transition-colors"
+              className="hidden sm:flex items-center gap-1 text-primary-400 font-medium hover:text-primary-300 transition-colors text-sm"
             >
-              View All <ChevronRight className="w-5 h-5" />
+              View All <ChevronRight className="w-4 h-4" />
             </Link>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
             {newProducts.length > 0 ? (
               newProducts.map((product) => (
                 <ProductCard key={product.id} product={product} />
               ))
             ) : (
-              <div className="col-span-full text-center py-16">
-                <Package className="w-16 h-16 text-dark-600 mx-auto mb-4" />
-                <p className="text-dark-400 mb-4">No products yet. Check back soon!</p>
-                <Link href="/sell" className="btn-primary">
-                  Become a Seller
-                </Link>
+              <div className="col-span-full text-center py-12">
+                <Package className="w-12 h-12 text-dark-600 mx-auto mb-3" />
+                <p className="text-dark-400 text-sm">No products yet. Check back soon!</p>
               </div>
             )}
           </div>
@@ -235,26 +228,24 @@ const Home = () => {
       </section>
 
       {/* ── Why Choose Us ── */}
-      <section className="py-20 bg-dark-900 geo-pattern">
+      <section className="py-12 bg-dark-900">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="section-heading gold-line">Why Choose YEATRU</h2>
-            <p className="section-subheading mt-5">
-              Your competitive edge in wholesale sourcing
-            </p>
+          <div className="text-center mb-8">
+            <h2 className="font-display text-2xl md:text-3xl text-dark-50">Why Choose YEATRU</h2>
+            <div className="w-20 h-0.5 bg-gradient-to-r from-transparent via-primary-500 to-transparent mx-auto mt-3" />
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             {whyChooseUs.map((item, index) => (
               <div
                 key={index}
-                className="bg-dark-800/80 rounded-xl p-6 border border-dark-700/40 text-center card-hover gold-glow"
+                className="bg-dark-800/80 rounded-xl p-4 border border-dark-700/40 text-center"
               >
-                <div className="w-14 h-14 rounded-full bg-primary-500/10 border border-primary-500/20 flex items-center justify-center mx-auto mb-4">
-                  <item.icon className="w-7 h-7 text-primary-400" />
+                <div className="w-12 h-12 rounded-full bg-primary-500/10 border border-primary-500/20 flex items-center justify-center mx-auto mb-3">
+                  <item.icon className="w-6 h-6 text-primary-400" />
                 </div>
-                <h3 className="font-display text-lg text-dark-50 mb-2">{item.title}</h3>
-                <p className="text-dark-400 text-sm leading-relaxed">{item.desc}</p>
+                <h3 className="font-display text-sm font-semibold text-dark-50 mb-1">{item.title}</h3>
+                <p className="text-dark-400 text-xs leading-relaxed">{item.desc}</p>
               </div>
             ))}
           </div>
@@ -262,48 +253,46 @@ const Home = () => {
       </section>
 
       {/* ── CTA Section ── */}
-      <section className="py-20 bg-dark-800 border-t border-dark-700/30 border-b border-dark-700/30">
+      <section className="py-12 bg-dark-800 border-t border-dark-700/30">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid md:grid-cols-2 gap-8">
-            {/* Become a Seller */}
-            <div className="bg-dark-900 rounded-2xl p-8 border border-dark-700/40 gold-glow">
-              <div className="inline-flex items-center gap-2 bg-primary-500/15 text-primary-400 px-3 py-1.5 rounded-full text-sm font-medium border border-primary-500/20 mb-4">
-                <Award className="w-4 h-4" />
+          <div className="grid md:grid-cols-2 gap-6">
+            <div className="bg-dark-900 rounded-xl p-6 border border-dark-700/40">
+              <div className="inline-flex items-center gap-2 bg-primary-500/15 text-primary-400 px-2.5 py-1 rounded-full text-xs font-medium border border-primary-500/20 mb-3">
+                <Award className="w-3.5 h-3.5" />
                 For Suppliers
               </div>
-              <h3 className="font-display text-2xl text-dark-50 mb-3">
+              <h3 className="font-display text-xl text-dark-50 mb-2">
                 Become a Seller
               </h3>
-              <p className="text-dark-400 mb-6 leading-relaxed">
+              <p className="text-dark-400 text-sm mb-4 leading-relaxed">
                 List your products and reach wholesale buyers across 200+ countries.
                 No listing fees, dedicated support, and weekly payouts.
               </p>
               <Link
                 href="/sell"
-                className="inline-flex items-center gap-2 bg-primary-500 hover:bg-primary-400 text-dark-900 px-6 py-3 rounded-lg font-bold transition-colors"
+                className="inline-flex items-center gap-2 bg-primary-500 hover:bg-primary-400 text-dark-900 px-5 py-2 rounded-lg font-bold text-sm transition-colors"
               >
-                Start Selling <ArrowRight className="w-5 h-5" />
+                Start Selling <ArrowRight className="w-4 h-4" />
               </Link>
             </div>
 
-            {/* Request Catalog */}
-            <div className="bg-dark-900 rounded-2xl p-8 border border-rose-500/20" style={{ boxShadow: '0 0 20px rgba(212, 131, 154, 0.1)' }}>
-              <div className="inline-flex items-center gap-2 bg-rose-500/15 text-rose-400 px-3 py-1.5 rounded-full text-sm font-medium border border-rose-500/20 mb-4">
-                <Globe className="w-4 h-4" />
+            <div className="bg-dark-900 rounded-xl p-6 border border-rose-500/20">
+              <div className="inline-flex items-center gap-2 bg-rose-500/15 text-rose-400 px-2.5 py-1 rounded-full text-xs font-medium border border-rose-500/20 mb-3">
+                <Globe className="w-3.5 h-3.5" />
                 For Buyers
               </div>
-              <h3 className="font-display text-2xl text-dark-50 mb-3">
+              <h3 className="font-display text-xl text-dark-50 mb-2">
                 Request a Catalog
               </h3>
-              <p className="text-dark-400 mb-6 leading-relaxed">
+              <p className="text-dark-400 text-sm mb-4 leading-relaxed">
                 Get our latest wholesale catalog with thousands of SKUs across all categories.
                 Custom sourcing requests welcome — we find what you need in Yiwu.
               </p>
               <Link
                 href="/products"
-                className="inline-flex items-center gap-2 bg-rose-500 hover:bg-rose-400 text-white px-6 py-3 rounded-lg font-bold transition-colors"
+                className="inline-flex items-center gap-2 bg-rose-500 hover:bg-rose-400 text-white px-5 py-2 rounded-lg font-bold text-sm transition-colors"
               >
-                Browse Catalog <ArrowRight className="w-5 h-5" />
+                Browse Catalog <ArrowRight className="w-4 h-4" />
               </Link>
             </div>
           </div>

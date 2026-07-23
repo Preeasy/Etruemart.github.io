@@ -5,6 +5,15 @@ import { prisma } from '@/lib/prisma';
 import fs from 'fs';
 import path from 'path';
 
+async function getAllCategoryIds(parentId: string): Promise<string[]> {
+  const result: string[] = [parentId];
+  const children = await prisma.category.findMany({ where: { parentId } });
+  for (const child of children) {
+    result.push(...(await getAllCategoryIds(child.id)));
+  }
+  return result;
+}
+
 async function seedIfEmpty() {
   const count = await prisma.product.count();
   if (count > 0) {
@@ -130,7 +139,7 @@ async function seedIfEmpty() {
           ? (productData.priceMax * 1.5)
           : (productData.priceMin * 1.3),
         image: productData.image,
-        images: uniqueImages,
+        images: JSON.stringify(uniqueImages),
         categoryId,
         stock: 100,
         isPublished: true,
@@ -142,10 +151,10 @@ async function seedIfEmpty() {
         size: productData.size || null,
         packSize: productData.packSize || 1,
         moq: productData.moq || 1,
-        keywords: productData.keywords || [],
+        keywords: JSON.stringify(productData.keywords || []),
         stockStatus: productData.stockStatus || 'IN_STOCK',
         shippingCost: 0,
-        aplus: productData.aplus || null,
+        aplus: productData.aplus ? JSON.stringify(productData.aplus) : null,
         shippingMethod: 'Standard Shipping',
         authorId: admin.id,
         variants: {
@@ -160,7 +169,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   if (req.method === 'GET') {
     await seedIfEmpty();
 
-    const { authorId, categoryId, material, plating, color, priceMin, priceMax } = req.query;
+    const { authorId, categoryId, category, material, plating, color, priceMin, priceMax } = req.query;
 
     const where: any = { isPublished: true };
 
@@ -172,16 +181,24 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       where.categoryId = categoryId as string;
     }
 
+    if (category && category !== 'all') {
+      const cat = await prisma.category.findUnique({ where: { slug: category as string } });
+      if (cat) {
+        const allChildIds = await getAllCategoryIds(cat.id);
+        where.categoryId = { in: allChildIds };
+      }
+    }
+
     if (material) {
-      where.material = material as string;
+      where.material = { contains: material as string, mode: 'insensitive' };
     }
 
     if (plating) {
-      where.plating = plating as string;
+      where.plating = { contains: plating as string, mode: 'insensitive' };
     }
 
     if (color) {
-      where.color = color as string;
+      where.color = { contains: color as string, mode: 'insensitive' };
     }
 
     if (priceMin || priceMax) {
@@ -196,7 +213,14 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       orderBy: { createdAt: 'desc' },
     });
 
-    return res.json(products);
+    const serializedProducts = products.map(p => ({
+      ...p,
+      images: p.images ? JSON.parse(p.images) : [],
+      keywords: p.keywords ? JSON.parse(p.keywords) : [],
+      aplus: p.aplus ? JSON.parse(p.aplus) : null,
+    }));
+
+    return res.json(serializedProducts);
   }
 
   const session = await getServerSession(req, res, authOptions);
