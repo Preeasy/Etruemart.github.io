@@ -4,6 +4,7 @@ import { authOptions } from '@/lib/auth';
 import { prisma } from '@/lib/prisma';
 import fs from 'fs';
 import path from 'path';
+import { Prisma } from '@prisma/client';
 
 async function getAllCategoryIds(parentId: string): Promise<string[]> {
   const result: string[] = [parentId];
@@ -134,12 +135,12 @@ async function seedIfEmpty() {
         name: productData.name,
         slug: productData.slug || productData.name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/-+$/, '') + '-' + Date.now().toString(36),
         description: productData.description || '',
-        price: productData.priceMin || 0,
-        originalPrice: productData.priceMax && productData.priceMax > productData.priceMin
+        price: new Prisma.Decimal(productData.priceMin || 0),
+        originalPrice: new Prisma.Decimal(productData.priceMax && productData.priceMax > productData.priceMin
           ? (productData.priceMax * 1.5)
-          : (productData.priceMin * 1.3),
+          : (productData.priceMin * 1.3)),
         image: productData.image,
-        images: JSON.stringify(uniqueImages),
+        images: uniqueImages,
         categoryId,
         stock: 100,
         isPublished: true,
@@ -151,14 +152,14 @@ async function seedIfEmpty() {
         size: productData.size || null,
         packSize: productData.packSize || 1,
         moq: productData.moq || 1,
-        keywords: JSON.stringify(productData.keywords || []),
+        keywords: productData.keywords || [],
         stockStatus: productData.stockStatus || 'IN_STOCK',
-        shippingCost: 0,
-        aplus: productData.aplus ? JSON.stringify(productData.aplus) : null,
+        shippingCost: new Prisma.Decimal(0),
+        aplus: productData.aplus || null,
         shippingMethod: 'Standard Shipping',
         authorId: admin.id,
         variants: {
-          create: variantData.length > 0 ? variantData : [{ color: 'Default', size: 'One Size', price: productData.priceMin || 0, stock: 100 }],
+          create: variantData.length > 0 ? variantData.map(v => ({ ...v, price: new Prisma.Decimal(v.price) })) : [{ color: 'Default', size: 'One Size', price: new Prisma.Decimal(productData.priceMin || 0), stock: 100 }],
         },
       },
     });
@@ -213,14 +214,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       orderBy: { createdAt: 'desc' },
     });
 
-    const serializedProducts = products.map(p => ({
-      ...p,
-      images: p.images ? JSON.parse(p.images) : [],
-      keywords: p.keywords ? JSON.parse(p.keywords) : [],
-      aplus: p.aplus ? JSON.parse(p.aplus) : null,
-    }));
-
-    return res.json(serializedProducts);
+    return res.json(products);
   }
 
   const session = await getServerSession(req, res, authOptions);

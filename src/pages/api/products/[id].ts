@@ -2,6 +2,7 @@ import { NextApiRequest, NextApiResponse } from 'next';
 import { getServerSession } from 'next-auth/next';
 import { authOptions } from '@/lib/auth';
 import { prisma } from '@/lib/prisma';
+import { Prisma } from '@prisma/client';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   const { id } = req.query;
@@ -24,14 +25,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       return res.status(404).json({ error: 'Product not found' });
     }
 
-    const serializedProduct = {
-      ...product,
-      images: product.images ? JSON.parse(product.images) : [],
-      keywords: product.keywords ? JSON.parse(product.keywords) : [],
-      aplus: product.aplus ? JSON.parse(product.aplus) : null,
-    };
-
-    return res.json(serializedProduct);
+    return res.json(product);
   }
 
   const session = await getServerSession(req, res, authOptions);
@@ -73,14 +67,14 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const data: any = {};
     if (name !== undefined) data.name = name;
     if (description !== undefined) data.description = description;
-    if (price !== undefined) data.price = parseFloat(price);
-    if (originalPrice !== undefined) data.originalPrice = originalPrice ? parseFloat(originalPrice) : null;
+    if (price !== undefined) data.price = new Prisma.Decimal(parseFloat(price));
+    if (originalPrice !== undefined) data.originalPrice = originalPrice ? new Prisma.Decimal(parseFloat(originalPrice)) : null;
     if (image !== undefined) data.image = image;
-    if (images !== undefined) data.images = typeof images === 'string' ? images : JSON.stringify(images);
+    if (images !== undefined) data.images = images;
     if (categoryId !== undefined) data.categoryId = categoryId;
     if (stock !== undefined) data.stock = parseInt(stock);
     if (isPublished !== undefined) data.isPublished = isPublished;
-    if (shippingCost !== undefined) data.shippingCost = parseFloat(shippingCost);
+    if (shippingCost !== undefined) data.shippingCost = new Prisma.Decimal(parseFloat(shippingCost));
     if (shippingMethod !== undefined) data.shippingMethod = shippingMethod;
     if (sku !== undefined) data.sku = sku;
     if (material !== undefined) data.material = material;
@@ -94,7 +88,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     if (pkgWidth !== undefined) data.pkgWidth = pkgWidth ? parseFloat(pkgWidth) : null;
     if (pkgHeight !== undefined) data.pkgHeight = pkgHeight ? parseFloat(pkgHeight) : null;
     if (pkgWeight !== undefined) data.pkgWeight = pkgWeight ? parseFloat(pkgWeight) : null;
-    if (keywords !== undefined) data.keywords = typeof keywords === 'string' ? keywords : JSON.stringify(keywords);
+    if (keywords !== undefined) data.keywords = keywords;
     if (stockStatus !== undefined) data.stockStatus = stockStatus;
 
     const updatedProduct = await prisma.product.update({
