@@ -4,7 +4,6 @@ import {
   Truck,
   ShieldCheck,
   Globe,
-  Award,
   ChevronRight,
   ArrowRight,
   Gem,
@@ -247,39 +246,35 @@ const Home = () => {
 
       <section className="py-10 bg-dark-800 border-t border-dark-700/30">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid md:grid-cols-2 gap-4">
-            <div className="bg-dark-900 rounded-xl p-5 border border-dark-700/50">
-              <div className="inline-flex items-center gap-2 bg-gold-500/15 text-gold-400 px-2.5 py-1 rounded-full text-xs font-medium border border-gold-500/20 mb-3">
-                <Award className="w-3.5 h-3.5" />
-                For Suppliers
+          <div className="bg-gradient-to-r from-dark-900 to-dark-800 rounded-xl p-6 md:p-8 border border-gold-500/20 relative overflow-hidden">
+            <div className="absolute top-0 right-0 w-64 h-64 bg-gold-500/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
+            <div className="relative grid md:grid-cols-2 gap-6 items-center">
+              <div>
+                <div className="inline-flex items-center gap-2 bg-gold-500/15 text-gold-400 px-2.5 py-1 rounded-full text-xs font-medium border border-gold-500/20 mb-3">
+                  <Globe className="w-3.5 h-3.5" />
+                  For Buyers
+                </div>
+                <h3 className="font-display text-xl md:text-2xl text-dark-50 mb-2">
+                  Need Bulk Pricing or Custom Sourcing?
+                </h3>
+                <p className="text-dark-400 text-sm leading-relaxed">
+                  Tell us what you're looking for and our team will prepare a personalized quote with the best wholesale prices within 24 hours.
+                </p>
               </div>
-              <h3 className="font-display text-lg text-dark-50 mb-2">Become a Seller</h3>
-              <p className="text-dark-400 text-sm mb-3 leading-relaxed">
-                List your products and reach wholesale buyers across 200+ countries. No listing fees.
-              </p>
-              <Link
-                href="/sell"
-                className="inline-flex items-center gap-2 bg-gold-500 hover:bg-gold-400 text-dark-900 px-5 py-2 rounded-lg font-bold text-sm transition-colors"
-              >
-                Start Selling <ArrowRight className="w-4 h-4" />
-              </Link>
-            </div>
-
-            <div className="bg-dark-900 rounded-xl p-5 border border-gold-500/20">
-              <div className="inline-flex items-center gap-2 bg-gold-500/15 text-gold-400 px-2.5 py-1 rounded-full text-xs font-medium border border-gold-500/20 mb-3">
-                <Globe className="w-3.5 h-3.5" />
-                For Buyers
+              <div className="flex flex-col sm:flex-row gap-3 md:justify-end">
+                <Link
+                  href="/products"
+                  className="inline-flex items-center justify-center gap-2 bg-gold-500 hover:bg-gold-400 text-dark-900 px-5 py-2.5 rounded-lg font-bold text-sm transition-colors"
+                >
+                  Browse Catalog <ArrowRight className="w-4 h-4" />
+                </Link>
+                <a
+                  href="mailto:sales@etruemart.com?subject=Wholesale%20Inquiry"
+                  className="inline-flex items-center justify-center gap-2 border-2 border-gold-500/50 text-gold-400 hover:bg-gold-500/10 px-5 py-2.5 rounded-lg font-bold text-sm transition-all"
+                >
+                  Request a Quote
+                </a>
               </div>
-              <h3 className="font-display text-lg text-dark-50 mb-2">Request a Catalog</h3>
-              <p className="text-dark-400 text-sm mb-3 leading-relaxed">
-                Get our latest wholesale catalog with thousands of SKUs. Custom sourcing available.
-              </p>
-              <Link
-                href="/products"
-                className="inline-flex items-center gap-2 bg-gold-500 hover:bg-gold-400 text-dark-900 px-5 py-2 rounded-lg font-bold text-sm transition-colors"
-              >
-                Browse Catalog <ArrowRight className="w-4 h-4" />
-              </Link>
             </div>
           </div>
         </div>
