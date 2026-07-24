@@ -94,4 +94,27 @@
     -webkit-text-fill-color: transparent;
     background-clip: text;
   }
+
+  .aplus-content h1,
+  .aplus-content h2,
+  .aplus-content h3,
+  .aplus-content h4 {
+    font-family: 'Playfair Display', Georgia, serif;
+    color: #111827;
+    font-weight: 700;
+    margin-top: 0;
+    margin-bottom: 0.75rem;
+    line-height: 1.4;
+  }
+  .aplus-content h1 { font-size: 1.5rem; }
+  .aplus-content h2 { font-size: 1.25rem; }
+  .aplus-content h3 { font-size: 1.1rem; }
+  .aplus-content p { margin-bottom: 0.75rem; line-height: 1.7; color: #4b5563; }
+  .aplus-content ul, .aplus-content ol { margin-bottom: 0.75rem; padding-left: 1.25rem; color: #4b5563; }
+  .aplus-content li { margin-bottom: 0.35rem; line-height: 1.6; }
+  .aplus-content ul li { list-style: disc; }
+  .aplus-content ol li { list-style: decimal; }
+  .aplus-content strong, .aplus-content b { color: #111827; font-weight: 600; }
+  .aplus-content em, .aplus-content i { font-style: italic; }
+  .aplus-content img { max-width: 100%; height: auto; border-radius: 0.5rem; margin: 0.5rem 0; }
 }

@@ -17,7 +17,10 @@
     {
       "id": 1,
       "image": "https://cdn.jsdelivr.net/gh/Yeatru/Image@main/Images/YSCL201Apic2.jpg",
-      "category": "Apparel",
+      "category": {
+        "name": "Home Decor & Crafts",
+        "slug": "home-decor-crafts"
+      },
       "name": "Men Quick Dry Workout Tracksuit Set",
       "sku": "YS-CL-201A",
       "material": "Polyester",
@@ -87,7 +90,10 @@
     {
       "id": 2,
       "image": "https://cdn.jsdelivr.net/gh/Yeatru/Image@main/Images/YSCL102WS.jpg",
-      "category": "Apparel",
+      "category": {
+        "name": "Home Decor & Crafts",
+        "slug": "home-decor-crafts"
+      },
       "name": "Islamic Modest Burkini Swimsuit",
       "sku": "YS-CL-102WS",
       "material": "Polyester",
@@ -176,7 +182,10 @@
     {
       "id": 1781664526234,
       "image": "https://cdn.jsdelivr.net/gh/Yeatru/Image@main/Images/YSHB1001A1.jpg",
-      "category": "Hand Bag",
+      "category": {
+        "name": "Bags & Accessories",
+        "slug": "bags-accessories"
+      },
       "name": "Mini Cute Flap Square Crossbody Bag",
       "sku": "YS-HB-1001A",
       "material": "Synthetic Patent Leather",
@@ -235,7 +244,10 @@
     {
       "id": 1781666116700,
       "image": "https://cdn.jsdelivr.net/gh/Yeatru/Image@main/Images/YSHB1002A2.jpg",
-      "category": "Hand Bag",
+      "category": {
+        "name": "Bags & Accessories",
+        "slug": "bags-accessories"
+      },
       "name": "Mini Flap Square Crossbody Bag",
       "sku": "YS-HB-1002A",
       "material": "Soft PU Leather",
@@ -300,7 +312,10 @@
     {
       "id": 1781680522475,
       "image": "https://cdn.jsdelivr.net/gh/Yeatru/Image@main/Images/earphone610.png",
-      "category": "Electronics",
+      "category": {
+        "name": "Home Decor & Crafts",
+        "slug": "home-decor-crafts"
+      },
       "name": "In-Ear Wireless Bluetooth Earbuds",
       "sku": "YS-ET-1001S",
       "material": "ABS",
@@ -352,7 +367,10 @@
     {
       "id": 1781681799719,
       "image": "https://cdn.jsdelivr.net/gh/Yeatru/Image@main/Images/YSKW1001K1.png",
-      "category": "Kitchenware",
+      "category": {
+        "name": "Home Decor & Crafts",
+        "slug": "home-decor-crafts"
+      },
       "name": "6-Cavity Train Silicone Baking Mold",
       "sku": "YS-KW-1001K",
       "material": "Silicone",
@@ -405,7 +423,10 @@
     {
       "id": 1781767772101,
       "image": "https://cdn.jsdelivr.net/gh/Yeatru/Image@main/Images/YSKW2001P.png",
-      "category": "Kitchenware",
+      "category": {
+        "name": "Home Decor & Crafts",
+        "slug": "home-decor-crafts"
+      },
       "name": "Stainless Steel Coffee Frothing Pot",
       "sku": "YS-KW-2001P",
       "material": "SS201 Stainless Steel ",
@@ -476,7 +497,10 @@
     {
       "id": 1781769285225,
       "image": "https://cdn.jsdelivr.net/gh/Yeatru/Image@main/Images/YSHD1007M%20(1).png",
-      "category": "Home",
+      "category": {
+        "name": "Home Decor & Crafts",
+        "slug": "home-decor-crafts"
+      },
       "name": "Slim Press-Top Plastic Trash Can",
       "sku": "YS-HD-1007M",
       "material": "PP Plastic",
@@ -571,7 +595,10 @@
     {
       "id": 1781838654950,
       "image": "https://cdn.jsdelivr.net/gh/Yeatru/Image@main/Images/YSHD2008B1.png",
-      "category": "Home",
+      "category": {
+        "name": "Home Decor & Crafts",
+        "slug": "home-decor-crafts"
+      },
       "name": "No Drilling Corner Caddy Shelves",
       "sku": "YS-HD-2008B",
       "material": "Iron with painting (White/Black)",
@@ -624,7 +651,10 @@
     {
       "id": 1781839317334,
       "image": "https://cdn.jsdelivr.net/gh/Yeatru/Image@main/Images/YSHD2008S1.png",
-      "category": "Home",
+      "category": {
+        "name": "Home Decor & Crafts",
+        "slug": "home-decor-crafts"
+      },
       "name": "Straight Wall Shower Caddy Set",
       "sku": "YS-HD-2008S",
       "material": "Iron",
@@ -719,7 +749,10 @@
     {
       "id": 1781938167021,
       "image": "https://cdn.jsdelivr.net/gh/Yeatru/Image@main/Images/YSKW1002R.jpg",
-      "category": "Kitchenware",
+      "category": {
+        "name": "Home Decor & Crafts",
+        "slug": "home-decor-crafts"
+      },
       "name": "Silicone Baking Mold Multi Shape",
       "sku": "YS-KW-1002R",
       "material": "Food Grade Silicone",
@@ -838,7 +871,10 @@
     {
       "id": 1781939184987,
       "image": "https://cdn.jsdelivr.net/gh/Yeatru/Image@main/Images/YSTY1002T.jpg",
-      "category": "Toys",
+      "category": {
+        "name": "Home Decor & Crafts",
+        "slug": "home-decor-crafts"
+      },
       "name": "Foldable XPE Baby Play Mat",
       "sku": "YS-TY-1002T",
       "material": "XPE",
@@ -885,7 +921,10 @@
     {
       "id": 1782111772835,
       "image": "https://cdn.jsdelivr.net/gh/Yeatru/Image@main/Images/YSNV1000A%20(1).png",
-      "category": "Material",
+      "category": {
+        "name": "Home Decor & Crafts",
+        "slug": "home-decor-crafts"
+      },
       "name": "PLA 3D Printer Filament 1.75mm 1KG",
       "sku": "YS-NV-1000A",
       "material": "PLA",
@@ -1004,7 +1043,10 @@
     {
       "id": 1782114188919,
       "image": "https://cdn.jsdelivr.net/gh/Yeatru/Image@main/Images/YSNV1001W6.png",
-      "category": "Material",
+      "category": {
+        "name": "Home Decor & Crafts",
+        "slug": "home-decor-crafts"
+      },
       "name": "Color Changing PLA Filament 1.75mm",
       "sku": "YSNV1001W",
       "material": "FLA",
@@ -1117,7 +1159,10 @@
     {
       "id": 1782205877374,
       "image": "https://cdn.jsdelivr.net/gh/Yeatru/Image@main/Images/YSCL3001A%20(1).png",
-      "category": "Apparel",
+      "category": {
+        "name": "Home Decor & Crafts",
+        "slug": "home-decor-crafts"
+      },
       "name": "High Visibility Reflective Safety Vest",
       "sku": "YS-CL-3001A",
       "material": "Polyester Woven Fabric / Mesh Breathable Fabric",
@@ -1194,7 +1239,10 @@
     {
       "id": 1782716951247,
       "image": "https://cdn.jsdelivr.net/gh/Yeatru/Image@main/Images/YSST1001A9.jpg",
-      "category": "Storage",
+      "category": {
+        "name": "Home Decor & Crafts",
+        "slug": "home-decor-crafts"
+      },
       "name": "Supermarket Metal Shopping Cart",
       "sku": "YS-ST-1001A",
       "material": "Iron",
@@ -1295,7 +1343,10 @@
     {
       "id": 1782798709991,
       "image": "https://cdn.jsdelivr.net/gh/Yeatru/Image@main/Images/YSCLS01A3.jpg",
-      "category": "Apparel",
+      "category": {
+        "name": "Home Decor & Crafts",
+        "slug": "home-decor-crafts"
+      },
       "name": "Men's Breathable Mesh Running Shoes, Lightweight Air Cushion Athletic Sneakers",
       "sku": "YS-CL-S01A",
       "material": "woven mesh",
@@ -1407,7 +1458,10 @@
     {
       "id": 1782874892906,
       "image": "https://cdn.jsdelivr.net/gh/Yeatru/Image@main/Images/YS-ST-B02A%20(1).png",
-      "category": "Storage",
+      "category": {
+        "name": "Home Decor & Crafts",
+        "slug": "home-decor-crafts"
+      },
       "name": "70L Rolling Plastic Shopping Basket with Handle",
       "sku": "YS-ST-B02A",
       "material": "PP plastic + silent PU wheels",
@@ -1477,7 +1531,10 @@
     {
       "id": 1782875868789,
       "image": "https://cdn.jsdelivr.net/gh/Yeatru/Image@main/Images/YS-ST-B03A.png",
-      "category": "Storage",
+      "category": {
+        "name": "Home Decor & Crafts",
+        "slug": "home-decor-crafts"
+      },
       "name": "35L/45L/50L Rolling Plastic Shopping Basket with Foldable Handle",
       "sku": "YS-ST-B03A",
       "material": "PP ( All New)",
@@ -1608,7 +1665,10 @@
     {
       "id": 1783328238381,
       "image": "https://cdn.jsdelivr.net/gh/Yeatru/Image@main/Images/YS-KW-901D%20(1).jpg",
-      "category": "Kitchenware",
+      "category": {
+        "name": "Home Decor & Crafts",
+        "slug": "home-decor-crafts"
+      },
       "name": "Sink Filter Holder with Disposable Mesh Bags",
       "sku": "YS-KW-901D",
       "material": "ABS Plastic",
@@ -1672,7 +1732,10 @@
     {
       "id": 1783332091444,
       "image": "https://cdn.jsdelivr.net/gh/Yeatru/Image@main/Images/YS-ET-201H1.png",
-      "category": "Electronics",
+      "category": {
+        "name": "Home Decor & Crafts",
+        "slug": "home-decor-crafts"
+      },
       "name": "Vacuum Suction Magnetic Phone Mount",
       "sku": "YS-ET-201H",
       "material": "Vacuum Suction Magnetic Phone Mount",
@@ -1725,7 +1788,10 @@
     {
       "id": 1783332968135,
       "image": "https://cdn.jsdelivr.net/gh/Yeatru/Image@main/Images/YS-ET-501M%20(1).jpg",
-      "category": "Electronics",
+      "category": {
+        "name": "Home Decor & Crafts",
+        "slug": "home-decor-crafts"
+      },
       "name": "Wireless Lavalier Microphone",
       "sku": "YS-ET-501M",
       "material": "Matte ABS Plastic + High Density Sponge",

@@ -156,83 +156,87 @@ const Home = () => {
   return (
     <Layout>
       {/* Hero Carousel */}
-      <section className="relative h-[420px] md:h-[500px] overflow-hidden bg-white">
-        {categorySlides.map((slide, index) => (
-          <div
-            key={slide.slug}
-            className={`absolute inset-0 transition-opacity duration-700 ease-in-out ${
-              index === currentSlide ? 'opacity-100 z-10' : 'opacity-0 z-0'
-            }`}
-          >
-            {/* Background image */}
-            <div className="absolute inset-0">
-              <img
-                src={slide.banner}
-                alt={slide.name}
-                className="w-full h-full object-cover"
-              />
-              {/* Gradient overlay for text readability */}
-              <div className="absolute inset-0 bg-gradient-to-r from-white/95 via-white/70 to-transparent" />
-            </div>
-
-            <div className="absolute inset-0 flex items-center">
-              <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
-                <div className="max-w-lg">
-                  <div className="inline-flex items-center gap-2 bg-gold-50 text-gold-600 px-3 py-1.5 rounded-full text-xs font-medium border border-gold-200 mb-4 backdrop-blur-sm">
-                    <slide.icon className="w-3.5 h-3.5" />
-                    {slide.name}
+      <section className="relative overflow-hidden bg-gradient-to-br from-gray-50 to-gray-100">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
+          <div className="relative w-full">
+            <div className="aspect-[2.8/1] w-full relative rounded-2xl overflow-hidden shadow-lg">
+              {categorySlides.map((slide, index) => (
+                <div
+                  key={slide.slug}
+                  className={`absolute inset-0 transition-opacity duration-700 ease-in-out ${
+                    index === currentSlide ? 'opacity-100 z-10' : 'opacity-0 z-0'
+                  }`}
+                >
+                  <div className="absolute inset-0">
+                    <img
+                      src={slide.banner}
+                      alt={slide.name}
+                      className="w-full h-full object-contain bg-white"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-r from-white/95 via-white/70 to-transparent" />
                   </div>
-                  <h1 className="font-display text-3xl md:text-4xl lg:text-5xl text-gray-900 mb-4 leading-tight">
-                    {slide.headline}
-                  </h1>
-                  <p className="text-base text-gray-700 mb-6 leading-relaxed">
-                    {slide.desc}
-                  </p>
-                  <div className="flex flex-wrap gap-3">
-                    <Link
-                      href={`/products?category=${slide.slug}`}
-                      className="inline-flex items-center gap-2 bg-gold-500 hover:bg-gold-400 text-white px-6 py-2.5 rounded-lg font-bold text-sm transition-all shadow-lg hover:shadow-gold-500/30"
-                    >
-                      Browse {slide.name} <ArrowRight className="w-4 h-4" />
-                    </Link>
-                    <Link
-                      href="/products"
-                      className="inline-flex items-center gap-2 border-2 border-gold-300 text-gold-600 hover:bg-gold-500/10 px-6 py-2.5 rounded-lg font-bold text-sm transition-all"
-                    >
-                      View All Products
-                    </Link>
+
+                  <div className="absolute inset-0 flex items-center">
+                    <div className="px-8 md:px-12 w-full">
+                      <div className="max-w-lg">
+                        <div className="inline-flex items-center gap-2 bg-gold-50 text-gold-600 px-3 py-1.5 rounded-full text-xs font-medium border border-gold-200 mb-4 backdrop-blur-sm">
+                          <slide.icon className="w-3.5 h-3.5" />
+                          {slide.name}
+                        </div>
+                        <h1 className="font-display text-3xl md:text-4xl lg:text-5xl text-gray-900 mb-4 leading-tight">
+                          {slide.headline}
+                        </h1>
+                        <p className="text-base text-gray-700 mb-6 leading-relaxed">
+                          {slide.desc}
+                        </p>
+                        <div className="flex flex-wrap gap-3">
+                          <Link
+                            href={`/products?category=${slide.slug}`}
+                            className="inline-flex items-center gap-2 bg-gold-500 hover:bg-gold-400 text-white px-6 py-2.5 rounded-lg font-bold text-sm transition-all shadow-lg hover:shadow-gold-500/30"
+                          >
+                            Browse {slide.name} <ArrowRight className="w-4 h-4" />
+                          </Link>
+                          <Link
+                            href="/products"
+                            className="inline-flex items-center gap-2 border-2 border-gold-300 text-gold-600 hover:bg-gold-500/10 px-6 py-2.5 rounded-lg font-bold text-sm transition-all"
+                          >
+                            View All Products
+                          </Link>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
+              ))}
+
+              {/* Navigation arrows */}
+              <button
+                onClick={prevSlide}
+                className="absolute left-4 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full bg-gray-50/80 border border-gray-200 flex items-center justify-center text-gray-500 hover:text-gold-600 hover:border-gold-500/30 transition-all"
+              >
+                <ChevronLeft className="w-5 h-5" />
+              </button>
+              <button
+                onClick={nextSlide}
+                className="absolute right-4 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full bg-gray-50/80 border border-gray-200 flex items-center justify-center text-gray-500 hover:text-gold-600 hover:border-gold-500/30 transition-all"
+              >
+                <ChevronRight className="w-5 h-5" />
+              </button>
+
+              {/* Indicators */}
+              <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2 z-20">
+                {categorySlides.map((_, index) => (
+                  <button
+                    key={index}
+                    onClick={() => goToSlide(index)}
+                    className={`h-2 rounded-full transition-all duration-300 ${
+                      index === currentSlide ? 'bg-gold-500 w-8' : 'bg-gray-300 w-2 hover:bg-gold-400'
+                    }`}
+                  />
+                ))}
               </div>
             </div>
           </div>
-        ))}
-
-        {/* Navigation arrows */}
-        <button
-          onClick={prevSlide}
-          className="absolute left-4 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full bg-gray-50/80 border border-gray-200 flex items-center justify-center text-gray-500 hover:text-gold-600 hover:border-gold-500/30 transition-all"
-        >
-          <ChevronLeft className="w-5 h-5" />
-        </button>
-        <button
-          onClick={nextSlide}
-          className="absolute right-4 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full bg-gray-50/80 border border-gray-200 flex items-center justify-center text-gray-500 hover:text-gold-600 hover:border-gold-500/30 transition-all"
-        >
-          <ChevronRight className="w-5 h-5" />
-        </button>
-
-        {/* Indicators */}
-        <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-2 z-20">
-          {categorySlides.map((_, index) => (
-            <button
-              key={index}
-              onClick={() => goToSlide(index)}
-              className={`h-2 rounded-full transition-all duration-300 ${
-                index === currentSlide ? 'bg-gold-500 w-8' : 'bg-gray-300 w-2 hover:bg-gold-400'
-              }`}
-            />
-          ))}
         </div>
       </section>
 

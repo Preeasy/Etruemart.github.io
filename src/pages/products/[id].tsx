@@ -135,10 +135,10 @@ const ProductDetail = () => {
       </div>
 
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="grid lg:grid-cols-5 gap-8">
-          <div className="lg:col-span-2">
+        <div className="grid lg:grid-cols-12 gap-8">
+          <div className="lg:col-span-7">
             <div className="sticky top-24">
-              <div className="bg-white rounded-2xl p-3 border border-gray-200 shadow-sm">
+              <div className="bg-white rounded-2xl p-4 border border-gray-200 shadow-sm">
                 <div className="relative aspect-square bg-gray-50 rounded-xl overflow-hidden">
                   <Image
                     src={allImages[selectedImage] || product.image}
@@ -155,7 +155,7 @@ const ProductDetail = () => {
                     <button
                       key={index}
                       onClick={() => setSelectedImage(index)}
-                      className={`flex-shrink-0 w-14 h-14 rounded-lg overflow-hidden border-2 transition-all ${selectedImage === index ? 'border-gold-500 ring-2 ring-gold-500/30' : 'border-gray-200 hover:border-gold-500/50'}`}
+                      className={`flex-shrink-0 w-16 h-16 rounded-lg overflow-hidden border-2 transition-all ${selectedImage === index ? 'border-gold-500 ring-2 ring-gold-500/30' : 'border-gray-200 hover:border-gold-500/50'}`}
                     >
                       <Image src={img} alt={`View ${index + 1}`} fill className="object-cover" />
                     </button>
@@ -165,7 +165,7 @@ const ProductDetail = () => {
             </div>
           </div>
 
-          <div className="lg:col-span-3">
+          <div className="lg:col-span-5">
             <div className="flex items-center gap-3 mb-3">
               <span className="inline-block bg-gold-50 text-gold-600 text-sm font-medium px-3 py-1 rounded-full border border-gold-200">
                 {typeof product.category === 'object' && product.category !== null ? product.category.name : typeof product.category === 'string' ? product.category : ''}
@@ -322,26 +322,102 @@ const ProductDetail = () => {
           </div>
 
           {activeTab === 'description' && (
-            <div className="bg-gray-50 rounded-2xl p-5 border border-gray-200">
-              <h2 className="text-lg font-bold text-gray-900 mb-3">Product Description</h2>
-              <p className="text-gray-500 text-sm leading-relaxed">{product.description}</p>
-              {product.aplus && Array.isArray(product.aplus) && (
-                <div className="mt-5">
-                  {product.aplus.map((section: any, index: number) => (
-                    <div key={index} className="mb-6 last:mb-0">
-                      {section.heading && (
-                        <h3 className="text-sm font-semibold text-gray-900 mb-2">{section.heading}</h3>
-                      )}
-                      {section.text && (
-                        <p className="text-gray-500 text-sm leading-relaxed" dangerouslySetInnerHTML={{ __html: section.text }} />
-                      )}
-                      {section.image && section.image.trim() && (
-                        <div className="mt-3 flex justify-center">
-                          <Image src={section.image} alt={section.heading || 'Product image'} className="max-w-md rounded-lg shadow-sm" width={500} height={400} objectFit="contain" />
+            <div className="bg-white rounded-2xl border border-gray-200 overflow-hidden">
+              <div className="p-5 border-b border-gray-100">
+                <h2 className="text-lg font-bold text-gray-900">Product Description</h2>
+              </div>
+              <div className="p-5">
+                <p className="text-gray-600 text-sm leading-relaxed mb-6">{product.description}</p>
+              </div>
+              {product.aplus && Array.isArray(product.aplus) && product.aplus.length > 0 && (
+                <div className="border-t border-gray-100">
+                  {product.aplus.map((section: any, index: number) => {
+                    const hasImage = section.image && section.image.trim();
+                    const hasText = section.text && section.text.trim();
+                    const hasHeading = section.heading && section.heading.trim();
+                    const type = section.type || 'text';
+
+                    if (type === 'hero' && hasImage) {
+                      return (
+                        <div key={index} className="relative w-full bg-gray-50">
+                          <div className="relative h-48 md:h-64 overflow-hidden">
+                            <Image src={section.image} alt={section.heading || 'Hero'} fill className="object-cover" />
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
+                            {hasHeading && (
+                              <div className="absolute bottom-0 left-0 right-0 p-6">
+                                <h3 className="text-xl md:text-2xl font-bold text-white">{section.heading}</h3>
+                              </div>
+                            )}
+                          </div>
                         </div>
-                      )}
-                    </div>
-                  ))}
+                      );
+                    }
+
+                    if (type === 'imageText' && hasImage && hasText) {
+                      return (
+                        <div key={index} className="grid md:grid-cols-2 gap-6 p-5 border-b border-gray-100 last:border-b-0 items-center">
+                          <div className="order-1 md:order-1">
+                            <div className="relative aspect-[4/3] bg-gray-50 rounded-xl overflow-hidden">
+                              <Image src={section.image} alt={section.heading || 'Product image'} fill className="object-contain p-3" />
+                            </div>
+                          </div>
+                          <div className="order-2 md:order-2">
+                            {hasHeading && <h3 className="text-base font-bold text-gray-900 mb-3">{section.heading}</h3>}
+                            <div className="text-sm text-gray-600 leading-relaxed aplus-content" dangerouslySetInnerHTML={{ __html: section.text }} />
+                          </div>
+                        </div>
+                      );
+                    }
+
+                    if (type === 'textImage' && hasImage && hasText) {
+                      return (
+                        <div key={index} className="grid md:grid-cols-2 gap-6 p-5 border-b border-gray-100 last:border-b-0 items-center">
+                          <div className="order-2 md:order-1">
+                            {hasHeading && <h3 className="text-base font-bold text-gray-900 mb-3">{section.heading}</h3>}
+                            <div className="text-sm text-gray-600 leading-relaxed aplus-content" dangerouslySetInnerHTML={{ __html: section.text }} />
+                          </div>
+                          <div className="order-1 md:order-2">
+                            <div className="relative aspect-[4/3] bg-gray-50 rounded-xl overflow-hidden">
+                              <Image src={section.image} alt={section.heading || 'Product image'} fill className="object-contain p-3" />
+                            </div>
+                          </div>
+                        </div>
+                      );
+                    }
+
+                    if (type === 'text' || !hasImage) {
+                      return (
+                        <div key={index} className="p-5 border-b border-gray-100 last:border-b-0">
+                          {hasHeading && <h3 className="text-base font-bold text-gray-900 mb-3">{section.heading}</h3>}
+                          {hasText && (
+                            <div className="text-sm text-gray-600 leading-relaxed aplus-content" dangerouslySetInnerHTML={{ __html: section.text }} />
+                          )}
+                        </div>
+                      );
+                    }
+
+                    if (type === 'image' || (!hasText && hasImage)) {
+                      return (
+                        <div key={index} className="p-5 border-b border-gray-100 last:border-b-0 flex justify-center">
+                          <div className="relative w-full max-w-lg aspect-[4/3] bg-gray-50 rounded-xl overflow-hidden">
+                            <Image src={section.image} alt={section.heading || 'Product image'} fill className="object-contain p-3" />
+                          </div>
+                        </div>
+                      );
+                    }
+
+                    return (
+                      <div key={index} className="p-5 border-b border-gray-100 last:border-b-0">
+                        {hasHeading && <h3 className="text-sm font-semibold text-gray-900 mb-2">{section.heading}</h3>}
+                        {hasText && <p className="text-gray-500 text-sm leading-relaxed" dangerouslySetInnerHTML={{ __html: section.text }} />}
+                        {hasImage && (
+                          <div className="mt-3 flex justify-center">
+                            <Image src={section.image} alt={section.heading || 'Product image'} className="max-w-md rounded-lg shadow-sm" width={500} height={400} objectFit="contain" />
+                          </div>
+                        )}
+                      </div>
+                    );
+                  })}
                 </div>
               )}
             </div>
