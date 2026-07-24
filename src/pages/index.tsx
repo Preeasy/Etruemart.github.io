@@ -33,7 +33,7 @@ interface Product {
 }
 
 const CDN_BASE = 'https://cdn.jsdelivr.net/gh/Preeasy/images@main/Images';
-const IMG_V = '?v=3';
+const IMG_V = '?v=4';
 
 const categorySlides = [
   {
@@ -42,7 +42,7 @@ const categorySlides = [
     desc: 'Earrings, necklaces, bracelets & rings — direct from Yiwu manufacturers at factory prices.',
     icon: Gem,
     slug: 'fashion-jewelry',
-    banner: `${CDN_BASE}/banner-01-fashion-jewelry%20V2.jpg${IMG_V}`,
+    banner: 'https://images.pexels.com/photos/775358/pexels-photo-775358.jpeg?auto=compress&cs=tinysrgb&w=2000&h=400&fit=crop',
     image: `${CDN_BASE}/01-fashion-jewelry.jpg${IMG_V}`,
   },
   {
@@ -51,7 +51,7 @@ const categorySlides = [
     desc: 'Buttons, zippers, lace & trim — everything your apparel production needs.',
     icon: Scissors,
     slug: 'garment-accessories',
-    banner: `${CDN_BASE}/banner-02-garment-accessories%20V2.jpg${IMG_V}`,
+    banner: 'https://images.unsplash.com/photo-1556911220-bff31c812dba?w=2000&h=400&fit=crop',
     image: `${CDN_BASE}/02-garment-accessories.jpg${IMG_V}`,
   },
   {
@@ -60,7 +60,7 @@ const categorySlides = [
     desc: 'Clips, headbands, scrunchies & more — trendy styles at wholesale prices.',
     icon: Crown,
     slug: 'hair-accessories',
-    banner: `${CDN_BASE}/banner-03-hair-accessories%20V2.jpg${IMG_V}`,
+    banner: 'https://images.unsplash.com/photo-1606787366850-de6330128bfc?w=2000&h=400&fit=crop',
     image: `${CDN_BASE}/03-hair-accessories.jpg${IMG_V}`,
   },
   {
@@ -69,7 +69,7 @@ const categorySlides = [
     desc: 'Bag hardware, chains, keychains & fittings — premium quality from Yiwu.',
     icon: ShoppingBag,
     slug: 'bags-accessories',
-    banner: `${CDN_BASE}/banner-04-bags-accessories%20V2.jpg${IMG_V}`,
+    banner: 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=2000&h=400&fit=crop',
     image: `${CDN_BASE}/04-bags-accessories.jpg${IMG_V}`,
   },
   {
@@ -78,7 +78,7 @@ const categorySlides = [
     desc: 'Tassels, beads, craft supplies & decorations — beautify every space.',
     icon: HomeIcon,
     slug: 'home-decor-crafts',
-    banner: `${CDN_BASE}/banner-05-home-decor-crafts%20V2.jpg${IMG_V}`,
+    banner: 'https://images.pexels.com/photos/1162251/pexels-photo-1162251.jpeg?auto=compress&cs=tinysrgb&w=2000&h=400&fit=crop',
     image: `${CDN_BASE}/05-home-decor-crafts.jpg${IMG_V}`,
   },
   {
@@ -87,7 +87,7 @@ const categorySlides = [
     desc: 'Christmas, Eid, party supplies & festive decor — celebrate in style.',
     icon: Sparkles,
     slug: 'seasonal-festival',
-    banner: `${CDN_BASE}/banner-06-seasonal-festival%20V2.jpg${IMG_V}`,
+    banner: 'https://images.unsplash.com/photo-1519681393784-d120267933ba?w=2000&h=400&fit=crop',
     image: `${CDN_BASE}/06-seasonal-festival.jpg${IMG_V}`,
   },
 ];
