@@ -41,8 +41,7 @@ const categorySlides = [
     desc: 'Earrings, necklaces, bracelets & rings — direct from Yiwu manufacturers at factory prices.',
     icon: Gem,
     slug: 'fashion-jewelry',
-    banner: `${PEXELS}/3862695/pexels-photo-3862695.jpeg?auto=compress&cs=tinysrgb&w=2000&h=400&fit=crop`,
-    image: `${PEXELS}/3862695/pexels-photo-3862695.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop`,
+    image: `${PEXELS}/3862695/pexels-photo-3862695.jpeg?auto=compress&cs=tinysrgb&w=2400&h=800&fit=crop`,
   },
   {
     name: 'Garment Accessories',
@@ -50,8 +49,7 @@ const categorySlides = [
     desc: 'Buttons, zippers, lace & trim — everything your apparel production needs.',
     icon: Scissors,
     slug: 'garment-accessories',
-    banner: `${PEXELS}/5217116/pexels-photo-5217116.jpeg?auto=compress&cs=tinysrgb&w=2000&h=400&fit=crop`,
-    image: `${PEXELS}/5217116/pexels-photo-5217116.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop`,
+    image: `${PEXELS}/5217116/pexels-photo-5217116.jpeg?auto=compress&cs=tinysrgb&w=2400&h=800&fit=crop`,
   },
   {
     name: 'Hair Accessories',
@@ -59,8 +57,7 @@ const categorySlides = [
     desc: 'Clips, headbands, scrunchies & more — trendy styles at wholesale prices.',
     icon: Crown,
     slug: 'hair-accessories',
-    banner: `${PEXELS}/4219639/pexels-photo-4219639.jpeg?auto=compress&cs=tinysrgb&w=2000&h=400&fit=crop`,
-    image: `${PEXELS}/4219639/pexels-photo-4219639.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop`,
+    image: `${PEXELS}/4219639/pexels-photo-4219639.jpeg?auto=compress&cs=tinysrgb&w=2400&h=800&fit=crop`,
   },
   {
     name: 'Bags & Accessories',
@@ -68,8 +65,7 @@ const categorySlides = [
     desc: 'Bag hardware, chains, keychains & fittings — premium quality from Yiwu.',
     icon: ShoppingBag,
     slug: 'bags-accessories',
-    banner: `${PEXELS}/4219640/pexels-photo-4219640.jpeg?auto=compress&cs=tinysrgb&w=2000&h=400&fit=crop`,
-    image: `${PEXELS}/4219640/pexels-photo-4219640.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop`,
+    image: `${PEXELS}/4219640/pexels-photo-4219640.jpeg?auto=compress&cs=tinysrgb&w=2400&h=800&fit=crop`,
   },
   {
     name: 'Home Decor & Crafts',
@@ -77,8 +73,7 @@ const categorySlides = [
     desc: 'Tassels, beads, craft supplies & decorations — beautify every space.',
     icon: HomeIcon,
     slug: 'home-decor-crafts',
-    banner: `${PEXELS}/1642124/pexels-photo-1642124.jpeg?auto=compress&cs=tinysrgb&w=2000&h=400&fit=crop`,
-    image: `${PEXELS}/1642124/pexels-photo-1642124.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop`,
+    image: `${PEXELS}/1642124/pexels-photo-1642124.jpeg?auto=compress&cs=tinysrgb&w=2400&h=800&fit=crop`,
   },
   {
     name: 'Toys & Gift',
@@ -86,8 +81,7 @@ const categorySlides = [
     desc: 'Educational toys, plush, games & gift sets — fun for all ages at wholesale prices.',
     icon: Gift,
     slug: 'toys-gift',
-    banner: `${PEXELS}/779948/pexels-photo-779948.jpeg?auto=compress&cs=tinysrgb&w=2000&h=400&fit=crop`,
-    image: `${PEXELS}/779948/pexels-photo-779948.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop`,
+    image: `${PEXELS}/779948/pexels-photo-779948.jpeg?auto=compress&cs=tinysrgb&w=2400&h=800&fit=crop`,
   },
 ];
 
@@ -154,149 +148,110 @@ const Home = () => {
 
   return (
     <Layout>
-      {/* Hero Carousel */}
-      <section className="relative overflow-hidden bg-white">
-        <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16 py-6 md:py-8">
-          <div className="relative w-full max-w-[1600px] mx-auto">
-            <div className="aspect-[4/1] md:aspect-[5/1] w-full relative rounded-2xl overflow-hidden shadow-lg border border-gray-100">
-              {categorySlides.map((slide, index) => (
-                <div
-                  key={slide.slug}
-                  className={`absolute inset-0 transition-opacity duration-700 ease-in-out ${
-                    index === currentSlide ? 'opacity-100 z-10' : 'opacity-0 z-0'
-                  }`}
-                >
-                  {/* Blurred background layer - fills entire space with image colors */}
-                  <div className="absolute inset-0 overflow-hidden">
-                    <img
-                      src={slide.banner}
-                      alt=""
-                      className="w-full h-full object-cover scale-110 blur-2xl opacity-40"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-r from-white/95 via-white/80 to-white/45" />
+      <section className="relative w-full h-[50vh] md:h-[65vh] lg:h-[75vh] overflow-hidden">
+        {categorySlides.map((slide, index) => (
+          <div
+            key={slide.slug}
+            className={`absolute inset-0 transition-all duration-700 ease-in-out ${
+              index === currentSlide ? 'opacity-100 scale-100' : 'opacity-0 scale-105'
+            }`}
+          >
+            <img
+              src={slide.image}
+              alt={slide.name}
+              className="w-full h-full object-cover"
+            />
+            <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/40 to-transparent" />
+            <div className="absolute inset-0 flex items-center">
+              <div className="w-full max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12">
+                <div className="max-w-xl">
+                  <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md text-white px-4 py-2 rounded-full text-xs font-semibold border border-white/20 mb-6">
+                    <slide.icon className="w-4 h-4" />
+                    {slide.name}
                   </div>
-
-                  {/* Foreground image - complete, no distortion */}
-                  <div className="absolute inset-0 flex items-center justify-end pr-6 md:pr-12 lg:pr-16">
-                    <div className="relative h-[85%] w-[50%] md:w-[45%] lg:w-[42%] max-w-[550px]">
-                      <img
-                        src={slide.banner}
-                        alt={slide.name}
-                        className="w-full h-full object-contain drop-shadow-2xl"
-                      />
-                    </div>
-                  </div>
-
-                  {/* Text content */}
-                  <div className="absolute inset-0 flex items-center">
-                    <div className="px-6 md:px-12 lg:px-16 w-full">
-                      <div className="max-w-lg">
-                        <div className="inline-flex items-center gap-2 bg-white/90 text-gold-700 px-3 py-1.5 rounded-full text-xs font-semibold border border-gold-200 mb-4 backdrop-blur-sm shadow-sm">
-                          <slide.icon className="w-3.5 h-3.5" />
-                          {slide.name}
-                        </div>
-                        <h1 className="font-display text-2xl md:text-3xl lg:text-4xl xl:text-5xl text-gray-900 mb-3 md:mb-4 leading-tight">
-                          {slide.headline}
-                        </h1>
-                        <p className="text-sm md:text-base text-gray-600 mb-4 md:mb-6 leading-relaxed">
-                          {slide.desc}
-                        </p>
-                        <div className="flex flex-wrap gap-3">
-                          <Link
-                            href={`/products?category=${slide.slug}`}
-                            className="inline-flex items-center gap-2 bg-gold-500 hover:bg-gold-400 text-white px-6 py-2.5 rounded-lg font-bold text-sm transition-all shadow-lg shadow-gold-500/25 hover:shadow-gold-500/40"
-                          >
-                            Browse {slide.name} <ArrowRight className="w-4 h-4" />
-                          </Link>
-                          <Link
-                            href="/products"
-                            className="inline-flex items-center gap-2 border-2 border-gold-300 text-gold-700 hover:bg-gold-500/10 px-6 py-2.5 rounded-lg font-bold text-sm transition-all"
-                          >
-                            View All Products
-                          </Link>
-                        </div>
-                      </div>
-                    </div>
+                  <h1 className="font-display text-4xl md:text-5xl lg:text-6xl xl:text-7xl text-white mb-4 md:mb-6 leading-tight">
+                    {slide.headline}
+                  </h1>
+                  <p className="text-white/80 text-base md:text-lg mb-6 md:mb-8 leading-relaxed">
+                    {slide.desc}
+                  </p>
+                  <div className="flex flex-wrap gap-3">
+                    <Link
+                      href={`/products?category=${slide.slug}`}
+                      className="inline-flex items-center gap-2 bg-gold-500 hover:bg-gold-400 text-white px-8 py-3.5 rounded-lg font-bold text-base transition-all shadow-lg shadow-gold-500/30 hover:shadow-gold-500/50"
+                    >
+                      Browse {slide.name} <ArrowRight className="w-5 h-5" />
+                    </Link>
+                    <Link
+                      href="/products"
+                      className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md text-white hover:bg-white/20 px-8 py-3.5 rounded-lg font-bold text-base transition-all border border-white/20"
+                    >
+                      View All Products
+                    </Link>
                   </div>
                 </div>
-              ))}
-
-              {/* Navigation arrows */}
-              <button
-                onClick={prevSlide}
-                className="absolute left-3 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full bg-white/90 border border-gray-200 flex items-center justify-center text-gray-600 hover:text-gold-600 hover:border-gold-400 transition-all shadow-md"
-                aria-label="Previous slide"
-              >
-                <ChevronLeft className="w-5 h-5" />
-              </button>
-              <button
-                onClick={nextSlide}
-                className="absolute right-3 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full bg-white/90 border border-gray-200 flex items-center justify-center text-gray-600 hover:text-gold-600 hover:border-gold-400 transition-all shadow-md"
-                aria-label="Next slide"
-              >
-                <ChevronRight className="w-5 h-5" />
-              </button>
-
-              {/* Indicators */}
-              <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2 z-20">
-                {categorySlides.map((_, index) => (
-                  <button
-                    key={index}
-                    onClick={() => goToSlide(index)}
-                    className={`h-1.5 rounded-full transition-all duration-300 ${
-                      index === currentSlide ? 'bg-gold-500 w-7' : 'bg-gray-300 w-1.5 hover:bg-gold-400'
-                    }`}
-                    aria-label={`Go to slide ${index + 1}`}
-                  />
-                ))}
               </div>
             </div>
           </div>
+        ))}
+
+        <button
+          onClick={prevSlide}
+          className="absolute left-4 md:left-8 top-1/2 -translate-y-1/2 z-20 w-12 h-12 rounded-full bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center text-white hover:bg-white/20 hover:text-gold-300 transition-all"
+          aria-label="Previous slide"
+        >
+          <ChevronLeft className="w-6 h-6" />
+        </button>
+        <button
+          onClick={nextSlide}
+          className="absolute right-4 md:right-8 top-1/2 -translate-y-1/2 z-20 w-12 h-12 rounded-full bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center text-white hover:bg-white/20 hover:text-gold-300 transition-all"
+          aria-label="Next slide"
+        >
+          <ChevronRight className="w-6 h-6" />
+        </button>
+
+        <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-3 z-20">
+          {categorySlides.map((_, index) => (
+            <button
+              key={index}
+              onClick={() => goToSlide(index)}
+              className={`h-1.5 rounded-full transition-all duration-300 ${
+                index === currentSlide ? 'bg-gold-400 w-8' : 'bg-white/50 w-2 hover:bg-white/80'
+              }`}
+              aria-label={`Go to slide ${index + 1}`}
+            />
+          ))}
         </div>
       </section>
 
-      <section className="py-12 bg-white">
-        <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16 max-w-[1600px] mx-auto">
-          <div className="text-center mb-8">
+      <section className="py-16 bg-white">
+        <div className="w-full max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12">
+          <div className="text-center mb-12">
             <span className="text-xs font-semibold text-gold-600 uppercase tracking-[0.2em]">Browse Collection</span>
-            <h2 className="font-display text-2xl md:text-3xl text-gray-900 mt-2">Shop by Category</h2>
-            <div className="w-20 h-0.5 bg-gradient-to-r from-transparent via-gold-500 to-transparent mx-auto mt-3" />
+            <h2 className="font-display text-3xl md:text-4xl text-gray-900 mt-3">Shop by Category</h2>
           </div>
 
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
             {categoryItems.map((cat) => (
               <Link
                 key={cat.slug}
                 href={`/products?category=${cat.slug}`}
-                className="group relative overflow-hidden rounded-xl border border-gray-200 hover:border-gold-400 transition-all h-44 shadow-sm hover:shadow-lg"
+                className="group relative h-64 md:h-72 overflow-hidden rounded-2xl"
               >
-                {/* Blurred background */}
                 <img
                   src={cat.image}
-                  alt=""
-                  className="absolute inset-0 w-full h-full object-cover scale-110 blur-sm opacity-50 group-hover:scale-125 group-hover:opacity-60 transition-all duration-500"
+                  alt={cat.name}
+                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                 />
-                {/* Foreground image - complete, no distortion */}
-                <div className="absolute inset-0 flex items-center justify-center p-3">
-                  <img
-                    src={cat.image}
-                    alt={cat.name}
-                    className="max-w-full max-h-full object-contain drop-shadow-lg group-hover:scale-105 transition-transform duration-500"
-                  />
-                </div>
-                {/* Bottom gradient overlay */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/15 to-transparent" />
-                {/* Content */}
-                <div className="absolute inset-0 flex flex-col justify-end p-4">
-                  <div className="flex items-center gap-2.5">
-                    <div className="w-9 h-9 rounded-lg bg-gold-500 flex items-center justify-center shrink-0 shadow-md">
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+                <div className="absolute inset-0 flex flex-col justify-end p-6">
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 rounded-xl bg-gold-500/90 flex items-center justify-center">
                       <cat.icon className="w-5 h-5 text-white" />
                     </div>
-                    <div className="min-w-0">
-                      <h3 className="font-display text-base font-semibold text-white group-hover:text-gold-200 transition-colors truncate">
-                        {cat.name}
-                      </h3>
-                      <p className="text-white/75 text-xs mt-0.5 truncate">{cat.desc}</p>
+                    <div>
+                      <h3 className="font-display text-lg font-semibold text-white">{cat.name}</h3>
+                      <p className="text-white/70 text-xs mt-0.5">{cat.desc}</p>
                     </div>
                   </div>
                 </div>
@@ -306,55 +261,54 @@ const Home = () => {
         </div>
       </section>
 
-      <section className="py-12 bg-gray-50 border-t border-gray-100">
-        <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16 max-w-[1600px] mx-auto">
-          <div className="flex items-center justify-between mb-6">
+      <section className="py-16 bg-gray-50">
+        <div className="w-full max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12">
+          <div className="flex items-center justify-between mb-10">
             <div>
               <span className="text-xs font-semibold text-gold-600 uppercase tracking-[0.2em]">Fresh Stock</span>
-              <h2 className="font-display text-2xl md:text-3xl text-gray-900 mt-2">New Arrivals</h2>
-              <p className="text-gray-600 text-sm mt-1">Latest additions to our wholesale catalog</p>
+              <h2 className="font-display text-3xl md:text-4xl text-gray-900 mt-3">New Arrivals</h2>
+              <p className="text-gray-600 text-sm mt-2">Latest additions to our wholesale catalog</p>
             </div>
             <Link
               href="/products"
-              className="hidden sm:inline-flex items-center gap-1 text-gold-700 font-semibold hover:text-gold-500 transition-colors text-sm border border-gold-200 hover:border-gold-400 px-4 py-2 rounded-lg"
+              className="hidden sm:inline-flex items-center gap-2 text-gold-700 font-semibold hover:text-gold-500 transition-colors px-5 py-2.5 bg-white rounded-lg shadow-sm"
             >
-              View All <ChevronRight className="w-4 h-4" />
+              View All <ChevronRight className="w-5 h-5" />
             </Link>
           </div>
 
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
             {newProducts.length > 0 ? (
               newProducts.map((product) => (
                 <ProductCard key={product.id} product={product} />
               ))
             ) : (
-              <div className="col-span-full text-center py-12">
-                <Package className="w-12 h-12 text-gray-300 mx-auto mb-3" />
-                <p className="text-gray-500 text-sm">No products yet. Check back soon!</p>
+              <div className="col-span-full text-center py-16">
+                <Package className="w-16 h-16 text-gray-300 mx-auto mb-4" />
+                <p className="text-gray-500">No products yet. Check back soon!</p>
               </div>
             )}
           </div>
         </div>
       </section>
 
-      <section className="py-12 bg-white">
-        <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16 max-w-[1600px] mx-auto">
-          <div className="text-center mb-8">
+      <section className="py-16 bg-white">
+        <div className="w-full max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12">
+          <div className="text-center mb-12">
             <span className="text-xs font-semibold text-gold-600 uppercase tracking-[0.2em]">Our Advantages</span>
-            <h2 className="font-display text-2xl md:text-3xl text-gray-900 mt-2">Why Choose eTruemart</h2>
-            <div className="w-20 h-0.5 bg-gradient-to-r from-transparent via-gold-500 to-transparent mx-auto mt-3" />
+            <h2 className="font-display text-3xl md:text-4xl text-gray-900 mt-3">Why Choose eTruemart</h2>
           </div>
 
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
             {whyChooseUs.map((item, index) => (
               <div
                 key={index}
-                className="bg-white rounded-xl p-5 border border-gray-200 text-center hover:border-gold-300 hover:shadow-md transition-all duration-300 group"
+                className="text-center p-6 group"
               >
-                <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-gold-50 to-gold-100 border border-gold-200 flex items-center justify-center mx-auto mb-3 group-hover:from-gold-400 group-hover:to-gold-600 group-hover:border-gold-500 transition-all duration-300">
-                  <item.icon className="w-6 h-6 text-gold-600 group-hover:text-white transition-colors duration-300" />
+                <div className="w-16 h-16 rounded-2xl bg-gold-50 flex items-center justify-center mx-auto mb-5 group-hover:bg-gold-500 transition-colors duration-300">
+                  <item.icon className="w-8 h-8 text-gold-600 group-hover:text-white transition-colors duration-300" />
                 </div>
-                <h3 className="font-display text-base font-semibold text-gray-900 mb-1.5">{item.title}</h3>
+                <h3 className="font-display text-lg font-semibold text-gray-900 mb-2">{item.title}</h3>
                 <p className="text-gray-600 text-sm leading-relaxed">{item.desc}</p>
               </div>
             ))}
@@ -362,38 +316,30 @@ const Home = () => {
         </div>
       </section>
 
-      <section className="py-12 bg-gray-50 border-t border-gray-100">
-        <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16 max-w-[1600px] mx-auto">
-          <div className="bg-gradient-to-br from-white via-white to-gold-50/40 rounded-2xl p-8 md:p-10 border border-gold-200 relative overflow-hidden shadow-sm">
-            <div className="absolute top-0 right-0 w-72 h-72 bg-gold-100/60 rounded-full blur-3xl -translate-y-1/3 translate-x-1/3" />
-            <div className="absolute bottom-0 left-0 w-56 h-56 bg-gold-50 rounded-full blur-3xl translate-y-1/3 -translate-x-1/3" />
-            <div className="relative grid md:grid-cols-2 gap-6 items-center">
-              <div>
-                <div className="inline-flex items-center gap-2 bg-gold-100 text-gold-700 px-3 py-1 rounded-full text-xs font-semibold border border-gold-200 mb-4">
-                  <Globe className="w-3.5 h-3.5" />
-                  For Buyers
-                </div>
-                <h3 className="font-display text-2xl md:text-3xl text-gray-900 mb-3 leading-tight">
-                  Need Bulk Pricing or Custom Sourcing?
-                </h3>
-                <p className="text-gray-600 text-sm leading-relaxed mb-2">
-                  Tell us what you're looking for and our team will prepare a personalized quote with the best wholesale prices within 24 hours.
-                </p>
-              </div>
-              <div className="flex flex-col sm:flex-row gap-3 md:justify-end">
-                <Link
-                  href="/products"
-                  className="inline-flex items-center justify-center gap-2 bg-gold-500 hover:bg-gold-400 text-white px-6 py-3 rounded-lg font-bold text-sm transition-colors shadow-lg shadow-gold-500/20"
-                >
-                  Browse Catalog <ArrowRight className="w-4 h-4" />
-                </Link>
-                <a
-                  href="mailto:sales@etruemart.com?subject=Wholesale%20Inquiry"
-                  className="inline-flex items-center justify-center gap-2 border-2 border-gold-300 text-gold-700 hover:bg-gold-500 hover:text-white hover:border-gold-500 px-6 py-3 rounded-lg font-bold text-sm transition-all"
-                >
-                  Request a Quote
-                </a>
-              </div>
+      <section className="py-16 bg-gradient-to-br from-gold-500 to-gold-600">
+        <div className="w-full max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12">
+          <div className="grid md:grid-cols-2 gap-8 items-center">
+            <div>
+              <h3 className="font-display text-3xl md:text-4xl text-white mb-4 leading-tight">
+                Need Bulk Pricing or Custom Sourcing?
+              </h3>
+              <p className="text-white/90 text-base leading-relaxed">
+                Tell us what you're looking for and our team will prepare a personalized quote with the best wholesale prices within 24 hours.
+              </p>
+            </div>
+            <div className="flex flex-col sm:flex-row gap-4 md:justify-end">
+              <Link
+                href="/products"
+                className="inline-flex items-center justify-center gap-2 bg-white text-gold-600 hover:bg-gray-100 px-8 py-4 rounded-lg font-bold text-base transition-colors shadow-lg"
+              >
+                Browse Catalog <ArrowRight className="w-5 h-5" />
+              </Link>
+              <a
+                href="mailto:sales@etruemart.com?subject=Wholesale%20Inquiry"
+                className="inline-flex items-center justify-center gap-2 border-2 border-white/50 text-white hover:bg-white hover:text-gold-600 px-8 py-4 rounded-lg font-bold text-base transition-all"
+              >
+                Request a Quote
+              </a>
             </div>
           </div>
         </div>
