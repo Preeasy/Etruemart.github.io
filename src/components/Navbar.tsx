@@ -105,45 +105,11 @@ const Navbar = () => {
   const [activeMenu, setActiveMenu] = useState<string | null>(null);
 
   return (
-    <nav className="sticky top-0 z-50 shadow-sm">
-      {/* Top bar - contact info */}
-      <div className="bg-white border-b border-gray-100">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-9 text-xs text-gray-500">
-            <div className="flex items-center gap-6">
-              <a
-                href="mailto:info@yeatru.com"
-                className="flex items-center gap-1.5 hover:text-gold-600 transition-colors"
-              >
-                <Mail className="w-3.5 h-3.5" />
-                info@yeatru.com
-              </a>
-              <a
-                href="tel:+8615988516408"
-                className="hidden sm:flex items-center gap-1.5 hover:text-gold-600 transition-colors"
-              >
-                <Phone className="w-3.5 h-3.5" />
-                +86 15988516408
-              </a>
-            </div>
-            <div className="flex items-center gap-4">
-              <Link href="/sell" className="hover:text-gold-600 transition-colors">
-                Become a Seller
-              </Link>
-              <span className="text-gray-300">|</span>
-              <Link href="/orders" className="hover:text-gold-600 transition-colors">
-                Track Order
-              </Link>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Main nav */}
-      <div className="bg-white/95 backdrop-blur-md border-b border-gray-100">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16">
-            {/* Logo */}
+    <nav className="sticky top-0 z-50 bg-white/95 backdrop-blur-md shadow-sm border-b border-gray-100">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex items-center justify-between h-16">
+          {/* Left: Logo + Contact */}
+          <div className="flex items-center gap-6">
             <Link href="/" className="flex items-center gap-2.5 group">
               <div className="w-9 h-9 rounded-lg bg-gold-500 flex items-center justify-center">
                 <Gem className="w-5 h-5 text-white" />
@@ -157,37 +123,64 @@ const Navbar = () => {
                 </span>
               </div>
             </Link>
-
-            {/* Search bar */}
-            <div className="hidden md:flex flex-1 max-w-xl mx-8">
-              <div className="relative w-full">
-                <input
-                  type="text"
-                  placeholder="Search jewelry, accessories, trim..."
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-full px-4 py-2.5 pl-10 pr-24 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-gold-500/30 focus:border-gold-500 transition-colors text-sm"
-                />
-                <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
-                <button className="absolute right-1 top-1/2 -translate-y-1/2 bg-gold-500 hover:bg-gold-600 text-white px-4 py-1.5 rounded-md text-sm font-semibold transition-colors">
-                  Search
-                </button>
-              </div>
+            <div className="hidden lg:flex items-center gap-4 text-xs text-gray-500 pl-4 border-l border-gray-200">
+              <a
+                href="mailto:info@yeatru.com"
+                className="flex items-center gap-1.5 hover:text-gold-600 transition-colors"
+              >
+                <Mail className="w-3.5 h-3.5" />
+                info@yeatru.com
+              </a>
+              <a
+                href="tel:+8615988516408"
+                className="flex items-center gap-1.5 hover:text-gold-600 transition-colors"
+              >
+                <Phone className="w-3.5 h-3.5" />
+                +86 15988516408
+              </a>
             </div>
+          </div>
 
-            {/* Right actions */}
-            <div className="hidden md:flex items-center gap-5">
+          {/* Center: Search bar */}
+          <div className="hidden md:flex flex-1 max-w-lg mx-8">
+            <div className="relative w-full">
+              <input
+                type="text"
+                placeholder="Search jewelry, accessories, trim..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="w-full px-4 py-2.5 pl-10 pr-24 rounded-lg bg-gray-50 border border-gray-200 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-gold-500/30 focus:border-gold-500 transition-colors text-sm"
+              />
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+              <button className="absolute right-1 top-1/2 -translate-y-1/2 bg-gold-500 hover:bg-gold-600 text-white px-4 py-1.5 rounded-md text-sm font-semibold transition-colors">
+                Search
+              </button>
+            </div>
+          </div>
+
+          {/* Right: actions */}
+          <div className="flex items-center gap-4">
+            <div className="hidden sm:flex items-center gap-3 text-xs text-gray-500">
+              <Link href="/sell" className="hover:text-gold-600 transition-colors">
+                Become a Seller
+              </Link>
+              <span className="text-gray-200">|</span>
+              <Link href="/orders" className="hover:text-gold-600 transition-colors">
+                Track Order
+              </Link>
+            </div>
+            <div className="hidden md:flex items-center gap-1 pl-3 border-l border-gray-200">
               {session ? (
                 <>
                   <Link
                     href="/dashboard"
-                    className="text-sm text-gray-700 hover:text-gold-600 transition-colors"
+                    className="px-3 py-2 text-sm text-gray-700 hover:text-gold-600 transition-colors"
                   >
                     Dashboard
                   </Link>
                   <button
                     onClick={() => signOut()}
-                    className="flex items-center gap-1.5 text-sm text-gray-700 hover:text-gold-600 transition-colors"
+                    className="flex items-center gap-1.5 px-3 py-2 text-sm text-gray-700 hover:text-gold-600 transition-colors"
                   >
                     <User className="w-4 h-4" />
                     Logout
@@ -196,7 +189,7 @@ const Navbar = () => {
               ) : (
                 <Link
                   href="/login"
-                  className="flex items-center gap-1.5 text-sm text-gray-700 hover:text-gold-600 transition-colors"
+                  className="flex items-center gap-1.5 px-3 py-2 text-sm text-gray-700 hover:text-gold-600 transition-colors"
                 >
                   <User className="w-4 h-4" />
                   Sign In
@@ -213,55 +206,51 @@ const Navbar = () => {
             </button>
           </div>
         </div>
-      </div>
 
-      {/* Category nav */}
-      <div className="bg-white/95 backdrop-blur-md border-b border-gray-100">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="hidden md:flex items-center h-11 gap-0.5">
-            {categories.map((cat) => (
-              <div
-                key={cat.slug}
-                className="relative"
-                onMouseEnter={() => setActiveMenu(cat.slug)}
-                onMouseLeave={() => setActiveMenu(null)}
+        {/* Category nav */}
+        <div className="hidden md:flex items-center h-11 gap-0.5 border-t border-gray-100">
+          {categories.map((cat) => (
+            <div
+              key={cat.slug}
+              className="relative"
+              onMouseEnter={() => setActiveMenu(cat.slug)}
+              onMouseLeave={() => setActiveMenu(null)}
+            >
+              <Link
+                href={`/products?category=${cat.slug}`}
+                className="flex items-center gap-1.5 px-3 py-2 text-sm text-gray-700 hover:text-gold-600 transition-colors rounded-md hover:bg-gold-50"
               >
-                <Link
-                  href={`/products?category=${cat.slug}`}
-                  className="flex items-center gap-1.5 px-3 py-2 text-sm text-gray-700 hover:text-gold-600 transition-colors rounded-md hover:bg-gold-50"
-                >
-                  <cat.icon className="w-4 h-4" />
-                  {cat.name}
-                  <ChevronDown className="w-3 h-3 opacity-50" />
-                </Link>
+                <cat.icon className="w-4 h-4" />
+                {cat.name}
+                <ChevronDown className="w-3 h-3 opacity-50" />
+              </Link>
 
-                {/* Mega menu */}
-                {activeMenu === cat.slug && (
-                  <div className="absolute left-0 top-full pt-0 z-50">
-                    <div className="bg-white border border-gray-200 rounded-b-lg shadow-xl py-3 min-w-[220px]">
-                      {cat.children.map((child) => (
-                        <Link
-                          key={child}
-                          href={`/products?category=${cat.slug}&sub=${child.toLowerCase().replace(/\s+/g, '-')}`}
-                          className="block px-5 py-2 text-sm text-gray-700 hover:text-gold-600 hover:bg-gold-50 transition-colors"
-                        >
-                          {child}
-                        </Link>
-                      ))}
-                      <div className="border-t border-gray-100 mt-2 pt-2">
-                        <Link
-                          href={`/products?category=${cat.slug}`}
-                          className="block px-5 py-2 text-sm text-gold-600 hover:text-gold-600 font-medium transition-colors"
-                        >
-                          View All {cat.name} →
-                        </Link>
-                      </div>
+              {/* Mega menu */}
+              {activeMenu === cat.slug && (
+                <div className="absolute left-0 top-full pt-0 z-50">
+                  <div className="bg-white border border-gray-200 rounded-b-lg shadow-xl py-3 min-w-[220px]">
+                    {cat.children.map((child) => (
+                      <Link
+                        key={child}
+                        href={`/products?category=${cat.slug}&sub=${child.toLowerCase().replace(/\s+/g, '-')}`}
+                        className="block px-5 py-2 text-sm text-gray-700 hover:text-gold-600 hover:bg-gold-50 transition-colors"
+                      >
+                        {child}
+                      </Link>
+                    ))}
+                    <div className="border-t border-gray-100 mt-2 pt-2">
+                      <Link
+                        href={`/products?category=${cat.slug}`}
+                        className="block px-5 py-2 text-sm text-gold-600 hover:text-gold-600 font-medium transition-colors"
+                      >
+                        View All {cat.name} →
+                      </Link>
                     </div>
                   </div>
-                )}
-              </div>
-            ))}
-          </div>
+                </div>
+              )}
+            </div>
+          ))}
         </div>
       </div>
 
@@ -273,9 +262,20 @@ const Navbar = () => {
               <input
                 type="text"
                 placeholder="Search products..."
-                className="w-full px-4 py-2.5 pl-10 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-gold-500/30 text-sm"
+                className="w-full px-4 py-2.5 pl-10 rounded-lg bg-gray-50 border border-gray-200 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-gold-500/30 text-sm"
               />
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+            </div>
+
+            <div className="flex items-center gap-4 py-2 text-xs text-gray-500 border-b border-gray-100">
+              <a href="mailto:info@yeatru.com" className="flex items-center gap-1">
+                <Mail className="w-3.5 h-3.5" />
+                info@yeatru.com
+              </a>
+              <a href="tel:+8615988516408" className="flex items-center gap-1">
+                <Phone className="w-3.5 h-3.5" />
+                +86 15988516408
+              </a>
             </div>
 
             {categories.map((cat) => (
@@ -319,12 +319,15 @@ const Navbar = () => {
                   Sign In
                 </Link>
               )}
-              <Link
-                href="/sell"
-                className="block py-2 text-gray-700 hover:text-gold-600 text-sm"
-              >
-                Become a Seller
-              </Link>
+              <div className="flex items-center gap-3 text-xs text-gray-500 pt-2 border-t border-gray-100">
+                <Link href="/sell" className="hover:text-gold-600">
+                  Become a Seller
+                </Link>
+                <span className="text-gray-200">|</span>
+                <Link href="/orders" className="hover:text-gold-600">
+                  Track Order
+                </Link>
+              </div>
             </div>
           </div>
         </div>
