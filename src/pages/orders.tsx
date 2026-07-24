@@ -53,13 +53,13 @@ const Orders = () => {
   return (
     <Layout>
       <div className="bg-white border-b">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16 max-w-[1600px] mx-auto py-8">
           <h1 className="text-3xl font-bold text-gray-900">My Orders</h1>
           <p className="text-gray-500 mt-1">Track and manage your orders</p>
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16 max-w-[1600px] mx-auto py-8">
         {orders.length > 0 ? (
           <div className="space-y-6">
             {orders.map((order) => {

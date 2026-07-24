@@ -129,7 +129,7 @@ const Products = () => {
     <Layout>
       {/* Breadcrumb */}
       <div className="bg-gray-50 border-b border-gray-100">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3.5">
+        <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16 max-w-[1600px] mx-auto py-3.5">
           <nav className="flex items-center gap-2 text-sm text-gray-600">
             <Link href="/" className="hover:text-gold-600 transition-colors">Home</Link>
             <ChevronRight className="w-4 h-4 text-gray-400" />
@@ -148,7 +148,7 @@ const Products = () => {
 
       {/* Page header */}
       <div className="bg-gradient-to-b from-gray-50 to-white border-b border-gray-100">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16 max-w-[1600px] mx-auto py-8">
           <span className="text-xs font-semibold text-gold-600 uppercase tracking-[0.2em]">Wholesale Catalog</span>
           <h1 className="font-display text-3xl font-bold text-gray-900 mt-2">
             {selectedCategory !== 'all'
@@ -161,7 +161,7 @@ const Products = () => {
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16 max-w-[1600px] mx-auto py-8">
         {/* Mobile filter toggle */}
         <div className="lg:hidden mb-4 flex gap-3">
           <button

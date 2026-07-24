@@ -80,7 +80,7 @@ const ProductDetail = () => {
   if (!product) {
     return (
       <Layout>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 text-center">
+        <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16 max-w-[1600px] mx-auto py-20 text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-gold-500 mx-auto mb-4"></div>
           <p className="text-gray-500">Loading...</p>
         </div>
@@ -123,7 +123,7 @@ const ProductDetail = () => {
   return (
     <Layout>
       <div className="bg-gray-50 border-b border-gray-200">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-3.5">
+        <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16 max-w-[1400px] mx-auto py-3.5">
           <nav className="flex items-center gap-2 text-sm text-gray-600">
             <Link href="/" className="hover:text-gold-600 transition-colors">Home</Link>
             <ChevronLeft className="w-4 h-4 rotate-180 text-gray-400" />
@@ -134,7 +134,7 @@ const ProductDetail = () => {
         </div>
       </div>
 
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16 max-w-[1400px] mx-auto py-8">
         <div className="grid lg:grid-cols-12 gap-8">
           <div className="lg:col-span-7">
             <div className="sticky top-24">

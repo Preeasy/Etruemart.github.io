@@ -157,9 +157,9 @@ const Home = () => {
     <Layout>
       {/* Hero Carousel */}
       <section className="relative overflow-hidden bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 md:py-8">
-          <div className="relative w-full">
-            <div className="aspect-[3/1] w-full relative rounded-2xl overflow-hidden shadow-lg border border-gray-100">
+        <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16 py-6 md:py-8">
+          <div className="relative w-full max-w-[1600px] mx-auto">
+            <div className="aspect-[4/1] md:aspect-[5/1] w-full relative rounded-2xl overflow-hidden shadow-lg border border-gray-100">
               {categorySlides.map((slide, index) => (
                 <div
                   key={slide.slug}
@@ -178,8 +178,8 @@ const Home = () => {
                   </div>
 
                   {/* Foreground image - complete, no distortion */}
-                  <div className="absolute inset-0 flex items-center justify-end pr-8 md:pr-16">
-                    <div className="relative h-[72%] w-[55%] max-w-[600px]">
+                  <div className="absolute inset-0 flex items-center justify-end pr-6 md:pr-12 lg:pr-16">
+                    <div className="relative h-[85%] w-[50%] md:w-[45%] lg:w-[42%] max-w-[550px]">
                       <img
                         src={slide.banner}
                         alt={slide.name}
@@ -190,16 +190,16 @@ const Home = () => {
 
                   {/* Text content */}
                   <div className="absolute inset-0 flex items-center">
-                    <div className="px-8 md:px-12 w-full">
-                      <div className="max-w-md">
+                    <div className="px-6 md:px-12 lg:px-16 w-full">
+                      <div className="max-w-lg">
                         <div className="inline-flex items-center gap-2 bg-white/90 text-gold-700 px-3 py-1.5 rounded-full text-xs font-semibold border border-gold-200 mb-4 backdrop-blur-sm shadow-sm">
                           <slide.icon className="w-3.5 h-3.5" />
                           {slide.name}
                         </div>
-                        <h1 className="font-display text-3xl md:text-4xl lg:text-5xl text-gray-900 mb-4 leading-tight">
+                        <h1 className="font-display text-2xl md:text-3xl lg:text-4xl xl:text-5xl text-gray-900 mb-3 md:mb-4 leading-tight">
                           {slide.headline}
                         </h1>
-                        <p className="text-base text-gray-600 mb-6 leading-relaxed">
+                        <p className="text-sm md:text-base text-gray-600 mb-4 md:mb-6 leading-relaxed">
                           {slide.desc}
                         </p>
                         <div className="flex flex-wrap gap-3">
@@ -257,7 +257,7 @@ const Home = () => {
       </section>
 
       <section className="py-12 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16 max-w-[1600px] mx-auto">
           <div className="text-center mb-8">
             <span className="text-xs font-semibold text-gold-600 uppercase tracking-[0.2em]">Browse Collection</span>
             <h2 className="font-display text-2xl md:text-3xl text-gray-900 mt-2">Shop by Category</h2>
@@ -308,7 +308,7 @@ const Home = () => {
       </section>
 
       <section className="py-12 bg-gray-50 border-t border-gray-100">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16 max-w-[1600px] mx-auto">
           <div className="flex items-center justify-between mb-6">
             <div>
               <span className="text-xs font-semibold text-gold-600 uppercase tracking-[0.2em]">Fresh Stock</span>
@@ -339,7 +339,7 @@ const Home = () => {
       </section>
 
       <section className="py-12 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16 max-w-[1600px] mx-auto">
           <div className="text-center mb-8">
             <span className="text-xs font-semibold text-gold-600 uppercase tracking-[0.2em]">Our Advantages</span>
             <h2 className="font-display text-2xl md:text-3xl text-gray-900 mt-2">Why Choose eTruemart</h2>
@@ -364,7 +364,7 @@ const Home = () => {
       </section>
 
       <section className="py-12 bg-gray-50 border-t border-gray-100">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16 max-w-[1600px] mx-auto">
           <div className="bg-gradient-to-br from-white via-white to-gold-50/40 rounded-2xl p-8 md:p-10 border border-gold-200 relative overflow-hidden shadow-sm">
             <div className="absolute top-0 right-0 w-72 h-72 bg-gold-100/60 rounded-full blur-3xl -translate-y-1/3 translate-x-1/3" />
             <div className="absolute bottom-0 left-0 w-56 h-56 bg-gold-50 rounded-full blur-3xl translate-y-1/3 -translate-x-1/3" />
