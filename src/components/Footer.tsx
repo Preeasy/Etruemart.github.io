@@ -84,12 +84,12 @@ const Footer = () => {
                 Categories
               </h4>
               <ul className="space-y-2.5 text-gray-600 text-sm">
+                <li><Link href="/products?category=toys-gift" className="hover:text-gold-600 transition-colors">Toys & Gift</Link></li>
                 <li><Link href="/products?category=fashion-jewelry" className="hover:text-gold-600 transition-colors">Fashion Jewelry</Link></li>
-                <li><Link href="/products?category=garment-accessories" className="hover:text-gold-600 transition-colors">Garment Accessories</Link></li>
                 <li><Link href="/products?category=hair-accessories" className="hover:text-gold-600 transition-colors">Hair Accessories</Link></li>
                 <li><Link href="/products?category=bags-accessories" className="hover:text-gold-600 transition-colors">Bags & Accessories</Link></li>
+                <li><Link href="/products?category=garment-accessories" className="hover:text-gold-600 transition-colors">Garment Accessories</Link></li>
                 <li><Link href="/products?category=home-decor-crafts" className="hover:text-gold-600 transition-colors">Home Decor & Crafts</Link></li>
-                <li><Link href="/products?category=toys-gift" className="hover:text-gold-600 transition-colors">Toys & Gift</Link></li>
               </ul>
             </div>
 

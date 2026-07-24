@@ -32,12 +32,12 @@ interface Product {
 }
 
 const categoryFilters = [
+  { name: 'Toys & Gift', slug: 'toys-gift' },
   { name: 'Fashion Jewelry', slug: 'fashion-jewelry' },
-  { name: 'Garment Accessories', slug: 'garment-accessories' },
   { name: 'Hair Accessories', slug: 'hair-accessories' },
   { name: 'Bags & Accessories', slug: 'bags-accessories' },
+  { name: 'Garment Accessories', slug: 'garment-accessories' },
   { name: 'Home Decor & Crafts', slug: 'home-decor-crafts' },
-  { name: 'Toys & Gift', slug: 'toys-gift' },
 ];
 
 const materialOptions = ['Alloy', 'Stainless Steel', 'Brass', 'Acrylic', 'Crystal', 'Pearl', 'Resin', 'Fabric', 'Rhinestone'];
