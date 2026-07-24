@@ -1,8 +1,6 @@
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import {
-  Truck,
-  ShieldCheck,
   Globe,
   ChevronRight,
   ChevronLeft,
@@ -49,7 +47,7 @@ const categorySlides = [
     desc: 'Buttons, zippers, lace & trim — everything your apparel production needs.',
     icon: Scissors,
     slug: 'garment-accessories',
-    image: `${PEXELS}/5217116/pexels-photo-5217116.jpeg?auto=compress&cs=tinysrgb&w=2400&h=800&fit=crop`,
+    image: `${PEXELS}/6194019/pexels-photo-6194019.jpeg?auto=compress&cs=tinysrgb&w=2400&h=800&fit=crop`,
   },
   {
     name: 'Hair Accessories',
@@ -57,7 +55,7 @@ const categorySlides = [
     desc: 'Clips, headbands, scrunchies & more — trendy styles at wholesale prices.',
     icon: Crown,
     slug: 'hair-accessories',
-    image: `${PEXELS}/4219639/pexels-photo-4219639.jpeg?auto=compress&cs=tinysrgb&w=2400&h=800&fit=crop`,
+    image: `${PEXELS}/6983530/pexels-photo-6983530.jpeg?auto=compress&cs=tinysrgb&w=2400&h=800&fit=crop`,
   },
   {
     name: 'Bags & Accessories',
@@ -65,7 +63,7 @@ const categorySlides = [
     desc: 'Bag hardware, chains, keychains & fittings — premium quality from Yiwu.',
     icon: ShoppingBag,
     slug: 'bags-accessories',
-    image: `${PEXELS}/4219640/pexels-photo-4219640.jpeg?auto=compress&cs=tinysrgb&w=2400&h=800&fit=crop`,
+    image: `${PEXELS}/3908800/pexels-photo-3908800.jpeg?auto=compress&cs=tinysrgb&w=2400&h=800&fit=crop`,
   },
   {
     name: 'Home Decor & Crafts',
@@ -73,7 +71,7 @@ const categorySlides = [
     desc: 'Tassels, beads, craft supplies & decorations — beautify every space.',
     icon: HomeIcon,
     slug: 'home-decor-crafts',
-    image: `${PEXELS}/1642124/pexels-photo-1642124.jpeg?auto=compress&cs=tinysrgb&w=2400&h=800&fit=crop`,
+    image: `${PEXELS}/7061396/pexels-photo-7061396.jpeg?auto=compress&cs=tinysrgb&w=2400&h=800&fit=crop`,
   },
   {
     name: 'Toys & Gift',
@@ -81,7 +79,7 @@ const categorySlides = [
     desc: 'Educational toys, plush, games & gift sets — fun for all ages at wholesale prices.',
     icon: Gift,
     slug: 'toys-gift',
-    image: `${PEXELS}/779948/pexels-photo-779948.jpeg?auto=compress&cs=tinysrgb&w=2400&h=800&fit=crop`,
+    image: `${PEXELS}/8613149/pexels-photo-8613149.jpeg?auto=compress&cs=tinysrgb&w=2400&h=800&fit=crop`,
   },
 ];
 
@@ -92,29 +90,6 @@ const categoryItems = categorySlides.map(s => ({
   desc: s.desc.split('—')[0].trim(),
   image: s.image,
 }));
-
-const whyChooseUs = [
-  {
-    icon: Globe,
-    title: 'Yiwu Direct',
-    desc: 'Source directly from the world\'s largest small commodities market.',
-  },
-  {
-    icon: Package,
-    title: 'Low MOQ',
-    desc: 'Start with as few as 1 piece. Flexible order quantities.',
-  },
-  {
-    icon: Truck,
-    title: 'Global Shipping',
-    desc: 'Reliable logistics to 200+ countries worldwide.',
-  },
-  {
-    icon: ShieldCheck,
-    title: 'Quality Assured',
-    desc: 'Every product inspected before shipment.',
-  },
-];
 
 const Home = () => {
   const [products, setProducts] = useState<Product[]>([]);
@@ -288,30 +263,6 @@ const Home = () => {
                 <p className="text-gray-500">No products yet. Check back soon!</p>
               </div>
             )}
-          </div>
-        </div>
-      </section>
-
-      <section className="py-16 bg-white">
-        <div className="w-full max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12">
-          <div className="text-center mb-12">
-            <span className="text-xs font-semibold text-gold-600 uppercase tracking-[0.2em]">Our Advantages</span>
-            <h2 className="font-display text-3xl md:text-4xl text-gray-900 mt-3">Why Choose eTruemart</h2>
-          </div>
-
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-            {whyChooseUs.map((item, index) => (
-              <div
-                key={index}
-                className="text-center p-6 group"
-              >
-                <div className="w-16 h-16 rounded-2xl bg-gold-50 flex items-center justify-center mx-auto mb-5 group-hover:bg-gold-500 transition-colors duration-300">
-                  <item.icon className="w-8 h-8 text-gold-600 group-hover:text-white transition-colors duration-300" />
-                </div>
-                <h3 className="font-display text-lg font-semibold text-gray-900 mb-2">{item.title}</h3>
-                <p className="text-gray-600 text-sm leading-relaxed">{item.desc}</p>
-              </div>
-            ))}
           </div>
         </div>
       </section>
