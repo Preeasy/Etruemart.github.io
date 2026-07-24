@@ -2901,6 +2901,1097 @@
           "price": 0.35
         }
       ]
+    },
+    {
+      "name": "Jumbo Butter Squishy Stress Relief Toy",
+      "description": "Viral jumbo butter bar squishy toy — super soft, slow-rising, and scented. The hottest stress relief fidget toy trending on TikTok. Perfect for retail stores, online sellers, and promotional gifts. Sourced direct from Yiwu manufacturers at unbeatable wholesale prices.",
+      "slug": "jumbo-butter-squishy-stress-relief-toy",
+      "priceMin": 0.85,
+      "priceMax": 1.8,
+      "image": "https://images.pexels.com/photos/6983746/pexels-photo-6983746.jpeg?auto=compress&cs=tinysrgb&w=800&h=800&fit=crop",
+      "images": [
+        "https://images.pexels.com/photos/6983746/pexels-photo-6983746.jpeg?auto=compress&cs=tinysrgb&w=800&h=800&fit=crop",
+        "https://images.pexels.com/photos/6983866/pexels-photo-6983866.jpeg?auto=compress&cs=tinysrgb&w=800&h=800&fit=crop",
+        "https://images.pexels.com/photos/7528923/pexels-photo-7528923.jpeg?auto=compress&cs=tinysrgb&w=800&h=800&fit=crop"
+      ],
+      "categorySlug": "stress-relief-toys",
+      "material": "TPR + Silicone Foam",
+      "plating": "N/A",
+      "process": "Molded",
+      "color": "Yellow / Pink / Blue",
+      "size": "24cm x 6cm",
+      "packSize": 10,
+      "pkgLength": 25,
+      "pkgWidth": 8,
+      "pkgHeight": 8,
+      "pkgWeight": 0.12,
+      "moq": 10,
+      "sku": "YW-SRT-001",
+      "origin": "Yiwu, China",
+      "supplierCity": "Yiwu",
+      "stockStatus": "IN_STOCK",
+      "keywords": [
+        "butter squishy",
+        "stress relief toy",
+        "捏捏乐",
+        "butter bar",
+        "squishy toy wholesale"
+      ],
+      "variations": [
+        {
+          "color": "Classic Butter",
+          "size": "24cm",
+          "price": 0.85
+        },
+        {
+          "color": "Strawberry",
+          "size": "24cm",
+          "price": 1.2
+        },
+        {
+          "color": "Rainbow",
+          "size": "24cm",
+          "price": 1.8
+        },
+        {
+          "color": "Mini Butter",
+          "size": "13.5cm",
+          "price": 0.55
+        }
+      ]
+    },
+    {
+      "name": "Slow Rise Squishy Dessert Set",
+      "description": "Adorable dessert-themed squishy set featuring cake, donut and bread designs. Slow-rising foam material with sweet scent. A best-seller for kawaii toy retailers and gift shops. Yiwu factory direct pricing for maximum margin.",
+      "slug": "slow-rise-squishy-dessert-set",
+      "priceMin": 1.2,
+      "priceMax": 2.5,
+      "image": "https://images.pexels.com/photos/6983746/pexels-photo-6983746.jpeg?auto=compress&cs=tinysrgb&w=800&h=800&fit=crop",
+      "images": [
+        "https://images.pexels.com/photos/6983746/pexels-photo-6983746.jpeg?auto=compress&cs=tinysrgb&w=800&h=800&fit=crop",
+        "https://images.pexels.com/photos/6983866/pexels-photo-6983866.jpeg?auto=compress&cs=tinysrgb&w=800&h=800&fit=crop"
+      ],
+      "categorySlug": "stress-relief-toys",
+      "material": "PU Foam",
+      "plating": "N/A",
+      "process": "Molded",
+      "color": "Assorted",
+      "size": "8-12cm",
+      "packSize": 12,
+      "pkgLength": 15,
+      "pkgWidth": 12,
+      "pkgHeight": 10,
+      "pkgWeight": 0.15,
+      "moq": 12,
+      "sku": "YW-SRT-002",
+      "origin": "Yiwu, China",
+      "supplierCity": "Yiwu",
+      "stockStatus": "IN_STOCK",
+      "keywords": [
+        "squishy dessert",
+        "kawaii toy",
+        "slow rise squishy",
+        "dessert squishy set"
+      ],
+      "variations": [
+        {
+          "color": "Cake Set (6pc)",
+          "size": "Assorted",
+          "price": 2.5
+        },
+        {
+          "color": "Donut Set (4pc)",
+          "size": "Assorted",
+          "price": 1.8
+        },
+        {
+          "color": "Bread Single",
+          "size": "10cm",
+          "price": 1.2
+        }
+      ]
+    },
+    {
+      "name": "Mini Squishy Animal Keychain Toy",
+      "description": "Cute mini squishy animal keychain — perfect party favor and impulse buy item. Slow-rise foam with adorable cat, dog, and panda designs. Compact size ideal for checkout counter displays and gift shops.",
+      "slug": "mini-squishy-animal-keychain-toy",
+      "priceMin": 0.35,
+      "priceMax": 0.8,
+      "image": "https://images.pexels.com/photos/6983866/pexels-photo-6983866.jpeg?auto=compress&cs=tinysrgb&w=800&h=800&fit=crop",
+      "images": [
+        "https://images.pexels.com/photos/6983866/pexels-photo-6983866.jpeg?auto=compress&cs=tinysrgb&w=800&h=800&fit=crop",
+        "https://images.pexels.com/photos/6983746/pexels-photo-6983746.jpeg?auto=compress&cs=tinysrgb&w=800&h=800&fit=crop"
+      ],
+      "categorySlug": "stress-relief-toys",
+      "material": "TPR",
+      "plating": "N/A",
+      "process": "Molded",
+      "color": "Assorted",
+      "size": "5cm",
+      "packSize": 24,
+      "pkgLength": 10,
+      "pkgWidth": 8,
+      "pkgHeight": 5,
+      "pkgWeight": 0.03,
+      "moq": 24,
+      "sku": "YW-SRT-003",
+      "origin": "Yiwu, China",
+      "supplierCity": "Yiwu",
+      "stockStatus": "IN_STOCK",
+      "keywords": [
+        "squishy keychain",
+        "mini squishy",
+        "animal squishy",
+        "party favor toy"
+      ],
+      "variations": [
+        {
+          "color": "Cat (Assorted)",
+          "size": "5cm",
+          "price": 0.35
+        },
+        {
+          "color": "Panda (Assorted)",
+          "size": "5cm",
+          "price": 0.45
+        },
+        {
+          "color": "Dog (Assorted)",
+          "size": "5cm",
+          "price": 0.4
+        },
+        {
+          "color": "Mixed 24pc Display",
+          "size": "5cm",
+          "price": 0.8
+        }
+      ]
+    },
+    {
+      "name": "Giant Squishy Sugar Ball Fidget Toy",
+      "description": "Extra large sugar-texture squishy ball — viral TikTok sensation. Dense, satisfying squeeze with slow rebound. Perfect for stress relief, anxiety management, and sensory play. A must-have for trending toy retailers.",
+      "slug": "giant-squishy-sugar-ball-fidget-toy",
+      "priceMin": 1.5,
+      "priceMax": 3.2,
+      "image": "https://images.pexels.com/photos/7528923/pexels-photo-7528923.jpeg?auto=compress&cs=tinysrgb&w=800&h=800&fit=crop",
+      "images": [
+        "https://images.pexels.com/photos/7528923/pexels-photo-7528923.jpeg?auto=compress&cs=tinysrgb&w=800&h=800&fit=crop",
+        "https://images.pexels.com/photos/6983746/pexels-photo-6983746.jpeg?auto=compress&cs=tinysrgb&w=800&h=800&fit=crop"
+      ],
+      "categorySlug": "stress-relief-toys",
+      "material": "Silicone + Sugar Fill",
+      "plating": "N/A",
+      "process": "Molded",
+      "color": "Pink / Blue / Purple / Orange",
+      "size": "10cm diameter",
+      "packSize": 12,
+      "pkgLength": 12,
+      "pkgWidth": 12,
+      "pkgHeight": 12,
+      "pkgWeight": 0.25,
+      "moq": 12,
+      "sku": "YW-SRT-004",
+      "origin": "Yiwu, China",
+      "supplierCity": "Yiwu",
+      "stockStatus": "IN_STOCK",
+      "keywords": [
+        "sugar ball",
+        "giant squishy",
+        "fidget ball",
+        "stress ball",
+        "anxiety toy"
+      ],
+      "variations": [
+        {
+          "color": "Pink",
+          "size": "10cm",
+          "price": 1.5
+        },
+        {
+          "color": "Blue",
+          "size": "10cm",
+          "price": 1.5
+        },
+        {
+          "color": "Purple",
+          "size": "10cm",
+          "price": 1.8
+        },
+        {
+          "color": "Jumbo 15cm",
+          "size": "15cm",
+          "price": 3.2
+        }
+      ]
+    },
+    {
+      "name": "Rainbow Pop It Fidget Square",
+      "description": "Classic rainbow pop-it fidget square — the evergreen best-seller. Silicone bubble pop toy in vibrant rainbow colors. Great for focus, anxiety relief, and as a fun game. Low price point makes it perfect for impulse purchases.",
+      "slug": "rainbow-pop-it-fidget-square",
+      "priceMin": 0.4,
+      "priceMax": 0.95,
+      "image": "https://images.pexels.com/photos/8108399/pexels-photo-8108399.jpeg?auto=compress&cs=tinysrgb&w=800&h=800&fit=crop",
+      "images": [
+        "https://images.pexels.com/photos/8108399/pexels-photo-8108399.jpeg?auto=compress&cs=tinysrgb&w=800&h=800&fit=crop",
+        "https://images.pexels.com/photos/6983746/pexels-photo-6983746.jpeg?auto=compress&cs=tinysrgb&w=800&h=800&fit=crop"
+      ],
+      "categorySlug": "fidget-toys",
+      "material": "Food-grade Silicone",
+      "plating": "N/A",
+      "process": "Molded",
+      "color": "Rainbow",
+      "size": "12.5 x 12.5cm",
+      "packSize": 24,
+      "pkgLength": 13,
+      "pkgWidth": 13,
+      "pkgHeight": 2,
+      "pkgWeight": 0.08,
+      "moq": 24,
+      "sku": "YW-FT-001",
+      "origin": "Yiwu, China",
+      "supplierCity": "Yiwu",
+      "stockStatus": "IN_STOCK",
+      "keywords": [
+        "pop it",
+        "fidget toy",
+        "rainbow pop",
+        "bubble pop",
+        "sensory toy"
+      ],
+      "variations": [
+        {
+          "color": "Rainbow Square",
+          "size": "12.5cm",
+          "price": 0.4
+        },
+        {
+          "color": "Rainbow Round",
+          "size": "12cm",
+          "price": 0.45
+        },
+        {
+          "color": "Rainbow Heart",
+          "size": "12cm",
+          "price": 0.55
+        },
+        {
+          "color": "Jumbo Square",
+          "size": "20cm",
+          "price": 0.95
+        }
+      ]
+    },
+    {
+      "name": "Metal Fidget Spinner Pro",
+      "description": "Premium metal fidget spinner with ceramic bearings for ultra-smooth, long spins. A timeless classic that keeps selling. Great for focus and stress relief. Premium feel at wholesale pricing from Yiwu.",
+      "slug": "metal-fidget-spinner-pro",
+      "priceMin": 0.75,
+      "priceMax": 1.6,
+      "image": "https://images.pexels.com/photos/3661193/pexels-photo-3661193.jpeg?auto=compress&cs=tinysrgb&w=800&h=800&fit=crop",
+      "images": [
+        "https://images.pexels.com/photos/3661193/pexels-photo-3661193.jpeg?auto=compress&cs=tinysrgb&w=800&h=800&fit=crop",
+        "https://images.pexels.com/photos/8108399/pexels-photo-8108399.jpeg?auto=compress&cs=tinysrgb&w=800&h=800&fit=crop"
+      ],
+      "categorySlug": "fidget-toys",
+      "material": "Zinc Alloy + Ceramic Bearing",
+      "plating": "Electroplating",
+      "process": "CNC Machined",
+      "color": "Gold / Silver / Black / Rainbow",
+      "size": "7.5 x 7.5cm",
+      "packSize": 50,
+      "pkgLength": 8,
+      "pkgWidth": 8,
+      "pkgHeight": 2,
+      "pkgWeight": 0.07,
+      "moq": 50,
+      "sku": "YW-FT-002",
+      "origin": "Yiwu, China",
+      "supplierCity": "Yiwu",
+      "stockStatus": "IN_STOCK",
+      "keywords": [
+        "fidget spinner",
+        "metal spinner",
+        "stress toy",
+        "focus toy",
+        "EDC spinner"
+      ],
+      "variations": [
+        {
+          "color": "Gold",
+          "size": "7.5cm",
+          "price": 0.75
+        },
+        {
+          "color": "Silver",
+          "size": "7.5cm",
+          "price": 0.75
+        },
+        {
+          "color": "Black",
+          "size": "7.5cm",
+          "price": 0.85
+        },
+        {
+          "color": "Rainbow",
+          "size": "7.5cm",
+          "price": 1.6
+        }
+      ]
+    },
+    {
+      "name": "Fidget Cube Sensory Toy",
+      "description": "Original 12-side fidget cube with clicks, rolls, switches, and spins. Multiple tactile experiences in one compact toy. Great for ADHD, anxiety, and focus. A staple item for any toy retailer.",
+      "slug": "fidget-cube-sensory-toy",
+      "priceMin": 0.5,
+      "priceMax": 1.1,
+      "image": "https://images.pexels.com/photos/8108399/pexels-photo-8108399.jpeg?auto=compress&cs=tinysrgb&w=800&h=800&fit=crop",
+      "images": [
+        "https://images.pexels.com/photos/8108399/pexels-photo-8108399.jpeg?auto=compress&cs=tinysrgb&w=800&h=800&fit=crop",
+        "https://images.pexels.com/photos/3661193/pexels-photo-3661193.jpeg?auto=compress&cs=tinysrgb&w=800&h=800&fit=crop"
+      ],
+      "categorySlug": "fidget-toys",
+      "material": "ABS + Silicone",
+      "plating": "N/A",
+      "process": "Injection Molded",
+      "color": "Assorted",
+      "size": "3.3 x 3.3 x 3.3cm",
+      "packSize": 48,
+      "pkgLength": 4,
+      "pkgWidth": 4,
+      "pkgHeight": 4,
+      "pkgWeight": 0.05,
+      "moq": 48,
+      "sku": "YW-FT-003",
+      "origin": "Yiwu, China",
+      "supplierCity": "Yiwu",
+      "stockStatus": "IN_STOCK",
+      "keywords": [
+        "fidget cube",
+        "sensory cube",
+        "ADHD toy",
+        "anxiety toy",
+        "focus cube"
+      ],
+      "variations": [
+        {
+          "color": "Black",
+          "size": "3.3cm",
+          "price": 0.5
+        },
+        {
+          "color": "White",
+          "size": "3.3cm",
+          "price": 0.5
+        },
+        {
+          "color": "12-Side Upgrade",
+          "size": "3.3cm",
+          "price": 1.1
+        }
+      ]
+    },
+    {
+      "name": "Magnetic Building Blocks STEM Set",
+      "description": "Premium magnetic building blocks set for STEM learning. Colorful magnetic tiles that inspire creativity and spatial thinking. Meets international safety standards. A top pick for educational toy retailers and online sellers.",
+      "slug": "magnetic-building-blocks-stem-set",
+      "priceMin": 3.5,
+      "priceMax": 12,
+      "image": "https://images.pexels.com/photos/207891/pexels-photo-207891.jpeg?auto=compress&cs=tinysrgb&w=800&h=800&fit=crop",
+      "images": [
+        "https://images.pexels.com/photos/207891/pexels-photo-207891.jpeg?auto=compress&cs=tinysrgb&w=800&h=800&fit=crop",
+        "https://images.pexels.com/photos/3661264/pexels-photo-3661264.jpeg?auto=compress&cs=tinysrgb&w=800&h=800&fit=crop"
+      ],
+      "categorySlug": "educational-toys",
+      "material": "ABS + NdFeB Magnet",
+      "plating": "N/A",
+      "process": "Ultrasonic Welding",
+      "color": "Assorted",
+      "size": "Various",
+      "packSize": 1,
+      "pkgLength": 30,
+      "pkgWidth": 25,
+      "pkgHeight": 8,
+      "pkgWeight": 0.6,
+      "moq": 5,
+      "sku": "YW-EDU-001",
+      "origin": "Yiwu, China",
+      "supplierCity": "Yiwu",
+      "stockStatus": "IN_STOCK",
+      "keywords": [
+        "magnetic blocks",
+        "STEM toy",
+        "building blocks",
+        "educational toy",
+        "magnetic tiles"
+      ],
+      "variations": [
+        {
+          "color": "32pc Set",
+          "size": "Standard",
+          "price": 3.5
+        },
+        {
+          "color": "60pc Set",
+          "size": "Standard",
+          "price": 6
+        },
+        {
+          "color": "100pc Set",
+          "size": "Standard",
+          "price": 9
+        },
+        {
+          "color": "120pc Deluxe",
+          "size": "Standard",
+          "price": 12
+        }
+      ]
+    },
+    {
+      "name": "Wooden Puzzle Brain Teaser Set",
+      "description": "Classic wooden interlocking puzzle set — 8 different brain teasers in one pack. Great for developing logic and problem-solving skills. Eco-friendly wood construction. An evergreen seller for gift shops and toy stores.",
+      "slug": "wooden-puzzle-brain-teaser-set",
+      "priceMin": 1.8,
+      "priceMax": 4.5,
+      "image": "https://images.pexels.com/photos/207891/pexels-photo-207891.jpeg?auto=compress&cs=tinysrgb&w=800&h=800&fit=crop",
+      "images": [
+        "https://images.pexels.com/photos/207891/pexels-photo-207891.jpeg?auto=compress&cs=tinysrgb&w=800&h=800&fit=crop",
+        "https://images.pexels.com/photos/3661264/pexels-photo-3661264.jpeg?auto=compress&cs=tinysrgb&w=800&h=800&fit=crop"
+      ],
+      "categorySlug": "educational-toys",
+      "material": "Natural Wood",
+      "plating": "N/A",
+      "process": "Laser Cut",
+      "color": "Natural Wood",
+      "size": "Various",
+      "packSize": 8,
+      "pkgLength": 20,
+      "pkgWidth": 15,
+      "pkgHeight": 5,
+      "pkgWeight": 0.3,
+      "moq": 8,
+      "sku": "YW-EDU-002",
+      "origin": "Yiwu, China",
+      "supplierCity": "Yiwu",
+      "stockStatus": "IN_STOCK",
+      "keywords": [
+        "wooden puzzle",
+        "brain teaser",
+        "IQ toy",
+        "logic puzzle",
+        "wooden toy"
+      ],
+      "variations": [
+        {
+          "color": "8-in-1 Set",
+          "size": "Standard",
+          "price": 1.8
+        },
+        {
+          "color": "16-in-1 Set",
+          "size": "Standard",
+          "price": 3.2
+        },
+        {
+          "color": "Deluxe 24-in-1",
+          "size": "Standard",
+          "price": 4.5
+        }
+      ]
+    },
+    {
+      "name": "Mini Building Bricks Block Set",
+      "description": "Compatible mini building bricks set — great for DIY building and creativity. Vibrant colors, smooth fit. Perfect for party favor bags, stocking stuffers, and impulse buys. Small pack sizes at unbeatable wholesale prices.",
+      "slug": "mini-building-bricks-block-set",
+      "priceMin": 0.45,
+      "priceMax": 1.2,
+      "image": "https://images.pexels.com/photos/3661264/pexels-photo-3661264.jpeg?auto=compress&cs=tinysrgb&w=800&h=800&fit=crop",
+      "images": [
+        "https://images.pexels.com/photos/3661264/pexels-photo-3661264.jpeg?auto=compress&cs=tinysrgb&w=800&h=800&fit=crop",
+        "https://images.pexels.com/photos/207891/pexels-photo-207891.jpeg?auto=compress&cs=tinysrgb&w=800&h=800&fit=crop"
+      ],
+      "categorySlug": "educational-toys",
+      "material": "ABS",
+      "plating": "N/A",
+      "process": "Injection Molded",
+      "color": "Assorted",
+      "size": "Various",
+      "packSize": 24,
+      "pkgLength": 8,
+      "pkgWidth": 6,
+      "pkgHeight": 4,
+      "pkgWeight": 0.04,
+      "moq": 24,
+      "sku": "YW-EDU-003",
+      "origin": "Yiwu, China",
+      "supplierCity": "Yiwu",
+      "stockStatus": "IN_STOCK",
+      "keywords": [
+        "building bricks",
+        "mini blocks",
+        "DIY toy",
+        "construction toy",
+        "party favor"
+      ],
+      "variations": [
+        {
+          "color": "50pc Pack",
+          "size": "Mini",
+          "price": 0.45
+        },
+        {
+          "color": "100pc Pack",
+          "size": "Mini",
+          "price": 0.75
+        },
+        {
+          "color": "200pc Pack",
+          "size": "Mini",
+          "price": 1.2
+        }
+      ]
+    },
+    {
+      "name": "Party Favor Toy Gift Set (24pc)",
+      "description": "Complete party favor toy gift set with 24 assorted mini toys — squishies, fidget spinners, puzzles, and more. Perfect for birthday parties, classroom rewards, and gift bags. One-stop solution for party supply retailers.",
+      "slug": "party-favor-toy-gift-set-24pc",
+      "priceMin": 6.5,
+      "priceMax": 12,
+      "image": "https://images.pexels.com/photos/8108399/pexels-photo-8108399.jpeg?auto=compress&cs=tinysrgb&w=800&h=800&fit=crop",
+      "images": [
+        "https://images.pexels.com/photos/8108399/pexels-photo-8108399.jpeg?auto=compress&cs=tinysrgb&w=800&h=800&fit=crop",
+        "https://images.pexels.com/photos/6983746/pexels-photo-6983746.jpeg?auto=compress&cs=tinysrgb&w=800&h=800&fit=crop",
+        "https://images.pexels.com/photos/3661193/pexels-photo-3661193.jpeg?auto=compress&cs=tinysrgb&w=800&h=800&fit=crop"
+      ],
+      "categorySlug": "gift-sets",
+      "material": "Mixed Materials",
+      "plating": "N/A",
+      "process": "Mixed",
+      "color": "Assorted",
+      "size": "Various",
+      "packSize": 1,
+      "pkgLength": 35,
+      "pkgWidth": 25,
+      "pkgHeight": 10,
+      "pkgWeight": 0.8,
+      "moq": 5,
+      "sku": "YW-GS-001",
+      "origin": "Yiwu, China",
+      "supplierCity": "Yiwu",
+      "stockStatus": "IN_STOCK",
+      "keywords": [
+        "party favor",
+        "gift set",
+        "toy set",
+        "birthday party",
+        "bulk toys"
+      ],
+      "variations": [
+        {
+          "color": "24pc Standard Set",
+          "size": "Assorted",
+          "price": 6.5
+        },
+        {
+          "color": "36pc Deluxe Set",
+          "size": "Assorted",
+          "price": 9
+        },
+        {
+          "color": "50pc Mega Set",
+          "size": "Assorted",
+          "price": 12
+        }
+      ]
+    },
+    {
+      "name": "Novelty Squishy Toy Gift Box",
+      "description": "Premium squishy toy gift box — beautifully packaged assortment of trending squishy toys. Perfect for retail gifting, holidays, and special occasions. High perceived value at low wholesale cost from Yiwu.",
+      "slug": "novelty-squishy-toy-gift-box",
+      "priceMin": 4.5,
+      "priceMax": 8.5,
+      "image": "https://images.pexels.com/photos/6983746/pexels-photo-6983746.jpeg?auto=compress&cs=tinysrgb&w=800&h=800&fit=crop",
+      "images": [
+        "https://images.pexels.com/photos/6983746/pexels-photo-6983746.jpeg?auto=compress&cs=tinysrgb&w=800&h=800&fit=crop",
+        "https://images.pexels.com/photos/6983866/pexels-photo-6983866.jpeg?auto=compress&cs=tinysrgb&w=800&h=800&fit=crop",
+        "https://images.pexels.com/photos/7528923/pexels-photo-7528923.jpeg?auto=compress&cs=tinysrgb&w=800&h=800&fit=crop"
+      ],
+      "categorySlug": "gift-sets",
+      "material": "TPR + PU Foam",
+      "plating": "N/A",
+      "process": "Molded",
+      "color": "Assorted",
+      "size": "Gift Box 25x20cm",
+      "packSize": 1,
+      "pkgLength": 26,
+      "pkgWidth": 21,
+      "pkgHeight": 8,
+      "pkgWeight": 0.4,
+      "moq": 5,
+      "sku": "YW-GS-002",
+      "origin": "Yiwu, China",
+      "supplierCity": "Yiwu",
+      "stockStatus": "IN_STOCK",
+      "keywords": [
+        "squishy gift box",
+        "toy gift",
+        "novelty gift",
+        "squishy set"
+      ],
+      "variations": [
+        {
+          "color": "6pc Gift Box",
+          "size": "Standard",
+          "price": 4.5
+        },
+        {
+          "color": "10pc Gift Box",
+          "size": "Standard",
+          "price": 6.5
+        },
+        {
+          "color": "15pc Deluxe Box",
+          "size": "Standard",
+          "price": 8.5
+        }
+      ]
+    },
+    {
+      "name": "Gold Plated Layered Necklace Set",
+      "description": "Trendy layered necklace set with gold-plated finish — includes pendant, chain, and choker. A best-seller for fashion jewelry retailers. Yiwu factory direct at competitive wholesale pricing.",
+      "slug": "gold-plated-layered-necklace-set",
+      "priceMin": 0.9,
+      "priceMax": 2.2,
+      "image": "https://images.pexels.com/photos/4735895/pexels-photo-4735895.jpeg?auto=compress&cs=tinysrgb&w=800&h=800&fit=crop",
+      "images": [
+        "https://images.pexels.com/photos/4735895/pexels-photo-4735895.jpeg?auto=compress&cs=tinysrgb&w=800&h=800&fit=crop",
+        "https://images.pexels.com/photos/1454171/pexels-photo-1454171.jpeg?auto=compress&cs=tinysrgb&w=800&h=800&fit=crop",
+        "https://images.pexels.com/photos/1191531/pexels-photo-1191531.jpeg?auto=compress&cs=tinysrgb&w=800&h=800&fit=crop"
+      ],
+      "categorySlug": "necklaces",
+      "material": "Stainless Steel + Gold Plating",
+      "plating": "18K Gold Plated",
+      "process": "Electroplating",
+      "color": "Gold",
+      "size": "45+5cm",
+      "packSize": 12,
+      "pkgLength": 25,
+      "pkgWidth": 15,
+      "pkgHeight": 3,
+      "pkgWeight": 0.05,
+      "moq": 12,
+      "sku": "YW-NK-001",
+      "origin": "Yiwu, China",
+      "supplierCity": "Yiwu",
+      "stockStatus": "IN_STOCK",
+      "keywords": [
+        "layered necklace",
+        "gold necklace",
+        "pendant necklace",
+        "fashion jewelry"
+      ],
+      "variations": [
+        {
+          "color": "Gold",
+          "size": "45+5cm",
+          "price": 0.9
+        },
+        {
+          "color": "Silver",
+          "size": "45+5cm",
+          "price": 0.9
+        },
+        {
+          "color": "Rose Gold",
+          "size": "45+5cm",
+          "price": 1.2
+        },
+        {
+          "color": "3-Set Bundle",
+          "size": "45+5cm",
+          "price": 2.2
+        }
+      ]
+    },
+    {
+      "name": "Crystal Stud Earrings Bulk Pack",
+      "description": "Sparkling cubic zirconia stud earrings in bulk — 12 pairs per pack with assorted designs. Hypoallergenic posts. A staple for jewelry retailers and market vendors. Best value from Yiwu.",
+      "slug": "crystal-stud-earrings-bulk-pack",
+      "priceMin": 1.5,
+      "priceMax": 3.8,
+      "image": "https://images.pexels.com/photos/1454171/pexels-photo-1454171.jpeg?auto=compress&cs=tinysrgb&w=800&h=800&fit=crop",
+      "images": [
+        "https://images.pexels.com/photos/1454171/pexels-photo-1454171.jpeg?auto=compress&cs=tinysrgb&w=800&h=800&fit=crop",
+        "https://images.pexels.com/photos/1191531/pexels-photo-1191531.jpeg?auto=compress&cs=tinysrgb&w=800&h=800&fit=crop"
+      ],
+      "categorySlug": "stud-earrings",
+      "material": "Brass + Cubic Zirconia",
+      "plating": "Gold/Silver Plated",
+      "process": "Prong Setting",
+      "color": "Assorted",
+      "size": "4-8mm",
+      "packSize": 12,
+      "pkgLength": 15,
+      "pkgWidth": 10,
+      "pkgHeight": 2,
+      "pkgWeight": 0.08,
+      "moq": 12,
+      "sku": "YW-ER-001",
+      "origin": "Yiwu, China",
+      "supplierCity": "Yiwu",
+      "stockStatus": "IN_STOCK",
+      "keywords": [
+        "stud earrings",
+        "crystal earrings",
+        "bulk earrings",
+        "cz studs"
+      ],
+      "variations": [
+        {
+          "color": "12pc Silver Set",
+          "size": "Assorted",
+          "price": 1.5
+        },
+        {
+          "color": "12pc Gold Set",
+          "size": "Assorted",
+          "price": 1.8
+        },
+        {
+          "color": "24pc Mixed Set",
+          "size": "Assorted",
+          "price": 3.8
+        }
+      ]
+    },
+    {
+      "name": "Satin Scrunchie Hair Tie Set (12pc)",
+      "description": "Premium satin scrunchie set — 12 assorted colors. Gentle on hair, reduces breakage. A top-selling item for beauty supply stores and fashion accessory retailers. Yiwu direct pricing.",
+      "slug": "satin-scrunchie-hair-tie-set-12pc",
+      "priceMin": 0.8,
+      "priceMax": 2.5,
+      "image": "https://images.pexels.com/photos/3997991/pexels-photo-3997991.jpeg?auto=compress&cs=tinysrgb&w=800&h=800&fit=crop",
+      "images": [
+        "https://images.pexels.com/photos/3997991/pexels-photo-3997991.jpeg?auto=compress&cs=tinysrgb&w=800&h=800&fit=crop",
+        "https://images.pexels.com/photos/3997989/pexels-photo-3997989.jpeg?auto=compress&cs=tinysrgb&w=800&h=800&fit=crop"
+      ],
+      "categorySlug": "hair-ties",
+      "material": "Satin + Elastic",
+      "plating": "N/A",
+      "process": "Sewn",
+      "color": "Assorted",
+      "size": "Standard",
+      "packSize": 12,
+      "pkgLength": 15,
+      "pkgWidth": 10,
+      "pkgHeight": 3,
+      "pkgWeight": 0.1,
+      "moq": 12,
+      "sku": "YW-HT-001",
+      "origin": "Yiwu, China",
+      "supplierCity": "Yiwu",
+      "stockStatus": "IN_STOCK",
+      "keywords": [
+        "scrunchie",
+        "satin scrunchie",
+        "hair tie",
+        "hair accessory"
+      ],
+      "variations": [
+        {
+          "color": "12pc Pastel Set",
+          "size": "Standard",
+          "price": 0.8
+        },
+        {
+          "color": "12pc Dark Set",
+          "size": "Standard",
+          "price": 0.8
+        },
+        {
+          "color": "24pc Mixed Set",
+          "size": "Standard",
+          "price": 1.5
+        },
+        {
+          "color": "Silk Upgrade 12pc",
+          "size": "Standard",
+          "price": 2.5
+        }
+      ]
+    },
+    {
+      "name": "Pearl Bead Hair Clip Set",
+      "description": "Elegant pearl bead hair clip set — 6 pieces with assorted designs. Trendy bridal and fashion accessory. Perfect for beauty retailers and boutique owners. Premium quality at Yiwu wholesale prices.",
+      "slug": "pearl-bead-hair-clip-set",
+      "priceMin": 1.2,
+      "priceMax": 2.8,
+      "image": "https://images.pexels.com/photos/3997989/pexels-photo-3997989.jpeg?auto=compress&cs=tinysrgb&w=800&h=800&fit=crop",
+      "images": [
+        "https://images.pexels.com/photos/3997989/pexels-photo-3997989.jpeg?auto=compress&cs=tinysrgb&w=800&h=800&fit=crop",
+        "https://images.pexels.com/photos/3997991/pexels-photo-3997991.jpeg?auto=compress&cs=tinysrgb&w=800&h=800&fit=crop"
+      ],
+      "categorySlug": "hair-clips",
+      "material": "Alloy + Faux Pearl",
+      "plating": "Gold Plated",
+      "process": "Hand Set",
+      "color": "White Pearl + Gold",
+      "size": "Various",
+      "packSize": 6,
+      "pkgLength": 15,
+      "pkgWidth": 10,
+      "pkgHeight": 3,
+      "pkgWeight": 0.08,
+      "moq": 12,
+      "sku": "YW-HC-001",
+      "origin": "Yiwu, China",
+      "supplierCity": "Yiwu",
+      "stockStatus": "IN_STOCK",
+      "keywords": [
+        "pearl hair clip",
+        "hair pin",
+        "bridal hair accessory",
+        "fashion hair clip"
+      ],
+      "variations": [
+        {
+          "color": "6pc Pearl Set",
+          "size": "Assorted",
+          "price": 1.2
+        },
+        {
+          "color": "12pc Pearl Set",
+          "size": "Assorted",
+          "price": 2.2
+        },
+        {
+          "color": "Bridal Deluxe Set",
+          "size": "Assorted",
+          "price": 2.8
+        }
+      ]
+    },
+    {
+      "name": "Premium Bag Chain Strap Gold",
+      "description": "Premium gold-tone bag chain strap — adjustable, versatile, and stylish. Perfect for DIY bag makers and accessory brands. Heavy-duty construction with elegant finish. Yiwu manufacturer direct.",
+      "slug": "premium-bag-chain-strap-gold",
+      "priceMin": 1.8,
+      "priceMax": 4.5,
+      "image": "https://images.pexels.com/photos/1152077/pexels-photo-1152077.jpeg?auto=compress&cs=tinysrgb&w=800&h=800&fit=crop",
+      "images": [
+        "https://images.pexels.com/photos/1152077/pexels-photo-1152077.jpeg?auto=compress&cs=tinysrgb&w=800&h=800&fit=crop"
+      ],
+      "categorySlug": "bag-charms",
+      "material": "Zinc Alloy",
+      "plating": "Gold Plated",
+      "process": "Electroplating",
+      "color": "Gold",
+      "size": "120cm adjustable",
+      "packSize": 10,
+      "pkgLength": 15,
+      "pkgWidth": 10,
+      "pkgHeight": 3,
+      "pkgWeight": 0.15,
+      "moq": 10,
+      "sku": "YW-BC-001",
+      "origin": "Yiwu, China",
+      "supplierCity": "Yiwu",
+      "stockStatus": "IN_STOCK",
+      "keywords": [
+        "bag chain",
+        "bag strap",
+        "gold chain",
+        "bag accessory",
+        "purse chain"
+      ],
+      "variations": [
+        {
+          "color": "Gold 120cm",
+          "size": "120cm",
+          "price": 1.8
+        },
+        {
+          "color": "Silver 120cm",
+          "size": "120cm",
+          "price": 1.8
+        },
+        {
+          "color": "Gun Black 120cm",
+          "size": "120cm",
+          "price": 2.2
+        },
+        {
+          "color": "Premium Thick 120cm",
+          "size": "120cm",
+          "price": 4.5
+        }
+      ]
+    },
+    {
+      "name": "Resin Button Assorted Pack (500pc)",
+      "description": "Bulk assorted resin button pack — 500 pieces in various sizes and colors. Perfect for garment manufacturers, tailor shops, and craft businesses. Yiwu factory direct at unbeatable prices.",
+      "slug": "resin-button-assorted-pack-500pc",
+      "priceMin": 3.5,
+      "priceMax": 8,
+      "image": "https://images.pexels.com/photos/5217116/pexels-photo-5217116.jpeg?auto=compress&cs=tinysrgb&w=800&h=800&fit=crop",
+      "images": [
+        "https://images.pexels.com/photos/5217116/pexels-photo-5217116.jpeg?auto=compress&cs=tinysrgb&w=800&h=800&fit=crop"
+      ],
+      "categorySlug": "buttons",
+      "material": "Resin",
+      "plating": "N/A",
+      "process": "Molded",
+      "color": "Assorted",
+      "size": "10-25mm",
+      "packSize": 1,
+      "pkgLength": 25,
+      "pkgWidth": 15,
+      "pkgHeight": 8,
+      "pkgWeight": 0.5,
+      "moq": 5,
+      "sku": "YW-BT-001",
+      "origin": "Yiwu, China",
+      "supplierCity": "Yiwu",
+      "stockStatus": "IN_STOCK",
+      "keywords": [
+        "bulk buttons",
+        "resin buttons",
+        "sewing buttons",
+        "assorted buttons"
+      ],
+      "variations": [
+        {
+          "color": "500pc Mixed",
+          "size": "Assorted",
+          "price": 3.5
+        },
+        {
+          "color": "500pc Pastel",
+          "size": "Assorted",
+          "price": 4.5
+        },
+        {
+          "color": "1000pc Mixed",
+          "size": "Assorted",
+          "price": 6
+        },
+        {
+          "color": "1000pc Premium",
+          "size": "Assorted",
+          "price": 8
+        }
+      ]
+    },
+    {
+      "name": "Glass Seed Bead Mix (1000pc)",
+      "description": "Premium glass seed bead mix — 1000 pieces in vibrant colors. Perfect for jewelry making, craft projects, and DIY decorations. Consistent quality from Yiwu's top bead manufacturers.",
+      "slug": "glass-seed-bead-mix-1000pc",
+      "priceMin": 1.2,
+      "priceMax": 3.5,
+      "image": "https://images.pexels.com/photos/2104252/pexels-photo-2104252.jpeg?auto=compress&cs=tinysrgb&w=800&h=800&fit=crop",
+      "images": [
+        "https://images.pexels.com/photos/2104252/pexels-photo-2104252.jpeg?auto=compress&cs=tinysrgb&w=800&h=800&fit=crop"
+      ],
+      "categorySlug": "beads-charms",
+      "material": "Glass",
+      "plating": "N/A",
+      "process": "Molded",
+      "color": "Assorted",
+      "size": "4-8mm",
+      "packSize": 1,
+      "pkgLength": 15,
+      "pkgWidth": 10,
+      "pkgHeight": 3,
+      "pkgWeight": 0.1,
+      "moq": 10,
+      "sku": "YW-BC-002",
+      "origin": "Yiwu, China",
+      "supplierCity": "Yiwu",
+      "stockStatus": "IN_STOCK",
+      "keywords": [
+        "seed beads",
+        "glass beads",
+        "bead mix",
+        "jewelry making",
+        "craft beads"
+      ],
+      "variations": [
+        {
+          "color": "1000pc Mixed",
+          "size": "4-8mm",
+          "price": 1.2
+        },
+        {
+          "color": "1000pc Warm Tones",
+          "size": "4-8mm",
+          "price": 1.5
+        },
+        {
+          "color": "1000pc Cool Tones",
+          "size": "4-8mm",
+          "price": 1.5
+        },
+        {
+          "color": "3000pc Mega Mix",
+          "size": "4-8mm",
+          "price": 3.5
+        }
+      ]
+    },
+    {
+      "name": "Decorative Tassel Trim Roll (10m)",
+      "description": "Premium decorative tassel trim on a 10-meter roll. Perfect for home decor, garment embellishment, and craft projects. Multiple colors available. Yiwu factory direct at wholesale pricing.",
+      "slug": "decorative-tassel-trim-roll-10m",
+      "priceMin": 2.5,
+      "priceMax": 5.5,
+      "image": "https://images.pexels.com/photos/6444/pencil-typography-black-design.jpg?auto=compress&cs=tinysrgb&w=800&h=800&fit=crop",
+      "images": [
+        "https://images.pexels.com/photos/6444/pencil-typography-black-design.jpg?auto=compress&cs=tinysrgb&w=800&h=800&fit=crop"
+      ],
+      "categorySlug": "craft-supplies",
+      "material": "Polyester + Cotton",
+      "plating": "N/A",
+      "process": "Woven",
+      "color": "Assorted",
+      "size": "10m roll",
+      "packSize": 1,
+      "pkgLength": 15,
+      "pkgWidth": 10,
+      "pkgHeight": 5,
+      "pkgWeight": 0.2,
+      "moq": 5,
+      "sku": "YW-CS-001",
+      "origin": "Yiwu, China",
+      "supplierCity": "Yiwu",
+      "stockStatus": "IN_STOCK",
+      "keywords": [
+        "tassel trim",
+        "decorative trim",
+        "fringe trim",
+        "craft supplies"
+      ],
+      "variations": [
+        {
+          "color": "White 10m",
+          "size": "10m",
+          "price": 2.5
+        },
+        {
+          "color": "Pink 10m",
+          "size": "10m",
+          "price": 2.5
+        },
+        {
+          "color": "Gold 10m",
+          "size": "10m",
+          "price": 3.5
+        },
+        {
+          "color": "Mixed 3-Roll Set",
+          "size": "30m",
+          "price": 5.5
+        }
+      ]
     }
   ]
 }

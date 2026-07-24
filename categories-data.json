@@ -41,12 +41,12 @@
       "seoDesc": "Wholesale beads, rhinestones and craft supplies direct from Yiwu. Bulk pricing for craft retailers, DIY brands and home decor importers across global markets."
     },
     {
-      "name": "Seasonal & Festival",
-      "slug": "seasonal-festival",
+      "name": "Toys & Gift",
+      "slug": "toys-gift",
       "parentId": null,
       "sortOrder": 6,
-      "seoTitle": "Seasonal & Festival Decorations Wholesale – Christmas, Halloween & Valentine",
-      "seoDesc": "Stock up on wholesale seasonal and festival products from Yiwu. Bulk Christmas, Halloween and Valentine decorations for party supply stores and seasonal retailers worldwide."
+      "seoTitle": "Wholesale Toys & Gift – Stress Relief Toys, Fidget Toys & Gift Sets in Bulk",
+      "seoDesc": "Source wholesale toys and gifts from Yiwu at factory prices. Bulk stress relief toys, squishy toys, fidget spinners, educational toys and gift sets for toy retailers and distributors worldwide."
     },
 
     {
@@ -231,28 +231,36 @@
     },
 
     {
-      "name": "Christmas",
-      "slug": "christmas",
-      "parentId": "seasonal-festival",
+      "name": "Stress Relief Toys",
+      "slug": "stress-relief-toys",
+      "parentId": "toys-gift",
       "sortOrder": 1,
-      "seoTitle": "Wholesale Christmas Decorations – Ornaments & Lights in Bulk from Yiwu",
-      "seoDesc": "Buy wholesale Christmas decorations from Yiwu. Bulk ornaments, string lights, tree toppers and holiday decor for party supply stores and seasonal retailers worldwide."
+      "seoTitle": "Wholesale Stress Relief Toys – Squishy & Fidget Toys in Bulk",
+      "seoDesc": "Buy wholesale stress relief toys from Yiwu. Bulk squishy toys, butter bars,捏捏乐 and stress balls for toy retailers and online sellers worldwide."
     },
     {
-      "name": "Halloween",
-      "slug": "halloween",
-      "parentId": "seasonal-festival",
+      "name": "Fidget Toys",
+      "slug": "fidget-toys",
+      "parentId": "toys-gift",
       "sortOrder": 2,
-      "seoTitle": "Wholesale Halloween Decorations & Props in Bulk",
-      "seoDesc": "Shop wholesale Halloween products from Yiwu. Bulk decorations, costume accessories, party props and scary decor for seasonal retailers and party supply importers globally."
+      "seoTitle": "Wholesale Fidget Toys – Spinners, Cubes & Pop-its in Bulk",
+      "seoDesc": "Shop wholesale fidget toys from Yiwu. Bulk fidget spinners, fidget cubes, pop-it boards and sensory toys for toy stores and online retailers globally."
     },
     {
-      "name": "Valentine",
-      "slug": "valentine",
-      "parentId": "seasonal-festival",
+      "name": "Educational Toys",
+      "slug": "educational-toys",
+      "parentId": "toys-gift",
       "sortOrder": 3,
-      "seoTitle": "Wholesale Valentine's Day Products – Gifts & Decor in Bulk",
-      "seoDesc": "Source wholesale Valentine products from Yiwu. Bulk romantic gifts, heart decorations and Valentine gift packaging for gift shops and seasonal retailers across global markets."
+      "seoTitle": "Wholesale Educational Toys – STEM & Learning Toys in Bulk",
+      "seoDesc": "Buy wholesale educational toys from Yiwu. Bulk STEM toys, building blocks, puzzle toys and learning kits for toy retailers and educational suppliers worldwide."
+    },
+    {
+      "name": "Gift Sets",
+      "slug": "gift-sets",
+      "parentId": "toys-gift",
+      "sortOrder": 4,
+      "seoTitle": "Wholesale Gift Sets – Toy Gift Sets & Party Favors in Bulk",
+      "seoDesc": "Source wholesale toy gift sets from Yiwu. Bulk party favor sets, novelty gift sets and toy bundles for gift shops and party supply distributors globally."
     },
 
     {
