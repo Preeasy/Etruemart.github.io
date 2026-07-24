@@ -33,6 +33,7 @@ interface Product {
 }
 
 const CDN_BASE = 'https://cdn.jsdelivr.net/gh/Preeasy/images@main/Images';
+const IMG_V = '?v=2';
 
 const categorySlides = [
   {
@@ -41,8 +42,8 @@ const categorySlides = [
     desc: 'Earrings, necklaces, bracelets & rings — direct from Yiwu manufacturers at factory prices.',
     icon: Gem,
     slug: 'fashion-jewelry',
-    banner: `${CDN_BASE}/banner-01-fashion-jewelry.jpg`,
-    image: `${CDN_BASE}/01-fashion-jewelry.jpg`,
+    banner: `${CDN_BASE}/banner-01-fashion-jewelry.jpg${IMG_V}`,
+    image: `${CDN_BASE}/01-fashion-jewelry.jpg${IMG_V}`,
   },
   {
     name: 'Garment Accessories',
@@ -50,8 +51,8 @@ const categorySlides = [
     desc: 'Buttons, zippers, lace & trim — everything your apparel production needs.',
     icon: Scissors,
     slug: 'garment-accessories',
-    banner: `${CDN_BASE}/banner-02-garment-accessories.jpg`,
-    image: `${CDN_BASE}/02-garment-accessories.jpg`,
+    banner: `${CDN_BASE}/banner-02-garment-accessories.jpg${IMG_V}`,
+    image: `${CDN_BASE}/02-garment-accessories.jpg${IMG_V}`,
   },
   {
     name: 'Hair Accessories',
@@ -59,8 +60,8 @@ const categorySlides = [
     desc: 'Clips, headbands, scrunchies & more — trendy styles at wholesale prices.',
     icon: Crown,
     slug: 'hair-accessories',
-    banner: `${CDN_BASE}/banner-03-hair-accessories.jpg`,
-    image: `${CDN_BASE}/03-hair-accessories.jpg`,
+    banner: `${CDN_BASE}/banner-03-hair-accessories.jpg${IMG_V}`,
+    image: `${CDN_BASE}/03-hair-accessories.jpg${IMG_V}`,
   },
   {
     name: 'Bags & Accessories',
@@ -68,8 +69,8 @@ const categorySlides = [
     desc: 'Bag hardware, chains, keychains & fittings — premium quality from Yiwu.',
     icon: ShoppingBag,
     slug: 'bags-accessories',
-    banner: `${CDN_BASE}/banner-04-bags-accessories.jpg`,
-    image: `${CDN_BASE}/04-bags-accessories.jpg`,
+    banner: `${CDN_BASE}/banner-04-bags-accessories.jpg${IMG_V}`,
+    image: `${CDN_BASE}/04-bags-accessories.jpg${IMG_V}`,
   },
   {
     name: 'Home Decor & Crafts',
@@ -77,8 +78,8 @@ const categorySlides = [
     desc: 'Tassels, beads, craft supplies & decorations — beautify every space.',
     icon: HomeIcon,
     slug: 'home-decor-crafts',
-    banner: `${CDN_BASE}/banner-05-home-decor-crafts.jpg`,
-    image: `${CDN_BASE}/05-home-decor-crafts.jpg`,
+    banner: `${CDN_BASE}/banner-05-home-decor-crafts.jpg${IMG_V}`,
+    image: `${CDN_BASE}/05-home-decor-crafts.jpg${IMG_V}`,
   },
   {
     name: 'Seasonal & Festival',
@@ -86,8 +87,8 @@ const categorySlides = [
     desc: 'Christmas, Eid, party supplies & festive decor — celebrate in style.',
     icon: Sparkles,
     slug: 'seasonal-festival',
-    banner: `${CDN_BASE}/banner-06-seasonal-festival.jpg`,
-    image: `${CDN_BASE}/06-seasonal-festival.jpg`,
+    banner: `${CDN_BASE}/banner-06-seasonal-festival.jpg${IMG_V}`,
+    image: `${CDN_BASE}/06-seasonal-festival.jpg${IMG_V}`,
   },
 ];
 
