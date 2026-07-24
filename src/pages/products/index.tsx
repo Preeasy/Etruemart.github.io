@@ -37,7 +37,7 @@ const categoryFilters = [
   { name: 'Hair Accessories', slug: 'hair-accessories' },
   { name: 'Bags & Accessories', slug: 'bags-accessories' },
   { name: 'Home Decor & Crafts', slug: 'home-decor-crafts' },
-  { name: 'Seasonal & Festival', slug: 'seasonal-festival' },
+  { name: 'Toys & Gift', slug: 'toys-gift' },
 ];
 
 const materialOptions = ['Alloy', 'Stainless Steel', 'Brass', 'Acrylic', 'Crystal', 'Pearl', 'Resin', 'Fabric', 'Rhinestone'];

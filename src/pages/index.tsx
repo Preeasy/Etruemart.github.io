@@ -12,7 +12,7 @@ import {
   Crown,
   ShoppingBag,
   Home as HomeIcon,
-  Sparkles,
+  Gift,
   Package,
 } from 'lucide-react';
 import ProductCard from '@/components/ProductCard';
@@ -32,8 +32,7 @@ interface Product {
   stockStatus?: string;
 }
 
-const CDN_BASE = 'https://cdn.jsdelivr.net/gh/Preeasy/images@main/Images';
-const IMG_V = '?v=4';
+const PEXELS = 'https://images.pexels.com/photos';
 
 const categorySlides = [
   {
@@ -42,8 +41,8 @@ const categorySlides = [
     desc: 'Earrings, necklaces, bracelets & rings — direct from Yiwu manufacturers at factory prices.',
     icon: Gem,
     slug: 'fashion-jewelry',
-    banner: 'https://images.pexels.com/photos/775358/pexels-photo-775358.jpeg?auto=compress&cs=tinysrgb&w=2000&h=400&fit=crop',
-    image: `${CDN_BASE}/01-fashion-jewelry.jpg${IMG_V}`,
+    banner: `${PEXELS}/775358/pexels-photo-775358.jpeg?auto=compress&cs=tinysrgb&w=2000&h=400&fit=crop`,
+    image: `${PEXELS}/6153885/pexels-photo-6153885.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop`,
   },
   {
     name: 'Garment Accessories',
@@ -51,8 +50,8 @@ const categorySlides = [
     desc: 'Buttons, zippers, lace & trim — everything your apparel production needs.',
     icon: Scissors,
     slug: 'garment-accessories',
-    banner: 'https://images.unsplash.com/photo-1556911220-bff31c812dba?w=2000&h=400&fit=crop',
-    image: `${CDN_BASE}/02-garment-accessories.jpg${IMG_V}`,
+    banner: `${PEXELS}/5217116/pexels-photo-5217116.jpeg?auto=compress&cs=tinysrgb&w=2000&h=400&fit=crop`,
+    image: `${PEXELS}/6194123/pexels-photo-6194123.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop`,
   },
   {
     name: 'Hair Accessories',
@@ -60,8 +59,8 @@ const categorySlides = [
     desc: 'Clips, headbands, scrunchies & more — trendy styles at wholesale prices.',
     icon: Crown,
     slug: 'hair-accessories',
-    banner: 'https://images.unsplash.com/photo-1606787366850-de6330128bfc?w=2000&h=400&fit=crop',
-    image: `${CDN_BASE}/03-hair-accessories.jpg${IMG_V}`,
+    banner: `${PEXELS}/10983168/pexels-photo-10983168.jpeg?auto=compress&cs=tinysrgb&w=2000&h=400&fit=crop`,
+    image: `${PEXELS}/6983530/pexels-photo-6983530.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop`,
   },
   {
     name: 'Bags & Accessories',
@@ -69,8 +68,8 @@ const categorySlides = [
     desc: 'Bag hardware, chains, keychains & fittings — premium quality from Yiwu.',
     icon: ShoppingBag,
     slug: 'bags-accessories',
-    banner: 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=2000&h=400&fit=crop',
-    image: `${CDN_BASE}/04-bags-accessories.jpg${IMG_V}`,
+    banner: `${PEXELS}/1936848/pexels-photo-1936848.jpeg?auto=compress&cs=tinysrgb&w=2000&h=400&fit=crop`,
+    image: `${PEXELS}/3908800/pexels-photo-3908800.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop`,
   },
   {
     name: 'Home Decor & Crafts',
@@ -78,17 +77,17 @@ const categorySlides = [
     desc: 'Tassels, beads, craft supplies & decorations — beautify every space.',
     icon: HomeIcon,
     slug: 'home-decor-crafts',
-    banner: 'https://images.pexels.com/photos/1162251/pexels-photo-1162251.jpeg?auto=compress&cs=tinysrgb&w=2000&h=400&fit=crop',
-    image: `${CDN_BASE}/05-home-decor-crafts.jpg${IMG_V}`,
+    banner: `${PEXELS}/4271665/pexels-photo-4271665.jpeg?auto=compress&cs=tinysrgb&w=2000&h=400&fit=crop`,
+    image: `${PEXELS}/7061396/pexels-photo-7061396.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop`,
   },
   {
-    name: 'Seasonal & Festival',
-    headline: 'Seasonal & Festival',
-    desc: 'Christmas, Eid, party supplies & festive decor — celebrate in style.',
-    icon: Sparkles,
-    slug: 'seasonal-festival',
-    banner: 'https://images.unsplash.com/photo-1519681393784-d120267933ba?w=2000&h=400&fit=crop',
-    image: `${CDN_BASE}/06-seasonal-festival.jpg${IMG_V}`,
+    name: 'Toys & Gift',
+    headline: 'Toys & Gift',
+    desc: 'Educational toys, plush, games & gift sets — fun for all ages at wholesale prices.',
+    icon: Gift,
+    slug: 'toys-gift',
+    banner: `${PEXELS}/207891/pexels-photo-207891.jpeg?auto=compress&cs=tinysrgb&w=2000&h=400&fit=crop`,
+    image: `${PEXELS}/8613149/pexels-photo-8613149.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop`,
   },
 ];
 

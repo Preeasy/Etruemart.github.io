@@ -13,7 +13,7 @@ import {
   Crown,
   ShoppingBag,
   Home,
-  Sparkles,
+  Gift,
   Phone,
 } from 'lucide-react';
 
@@ -84,16 +84,16 @@ const categories = [
     ],
   },
   {
-    name: 'Seasonal & Festival',
-    icon: Sparkles,
-    slug: 'seasonal-festival',
+    name: 'Toys & Gift',
+    icon: Gift,
+    slug: 'toys-gift',
     children: [
-      'Christmas Decor',
-      'Eid & Ramadan',
-      'Halloween',
-      'Valentine\'s Day',
-      'Wedding Supplies',
-      'Party Decorations',
+      'Educational Toys',
+      'Plush & Stuffed',
+      'Games & Puzzles',
+      'Gift Sets',
+      'Party Favors',
+      'Novelty Toys',
     ],
   },
 ];

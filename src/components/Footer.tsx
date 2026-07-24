@@ -89,7 +89,7 @@ const Footer = () => {
                 <li><Link href="/products?category=hair-accessories" className="hover:text-gold-600 transition-colors">Hair Accessories</Link></li>
                 <li><Link href="/products?category=bags-accessories" className="hover:text-gold-600 transition-colors">Bags & Accessories</Link></li>
                 <li><Link href="/products?category=home-decor-crafts" className="hover:text-gold-600 transition-colors">Home Decor & Crafts</Link></li>
-                <li><Link href="/products?category=seasonal-festival" className="hover:text-gold-600 transition-colors">Seasonal & Festival</Link></li>
+                <li><Link href="/products?category=toys-gift" className="hover:text-gold-600 transition-colors">Toys & Gift</Link></li>
               </ul>
             </div>
 
