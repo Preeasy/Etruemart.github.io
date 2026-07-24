@@ -159,7 +159,7 @@ const Home = () => {
       <section className="relative overflow-hidden bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 md:py-8">
           <div className="relative w-full">
-            <div className="aspect-[3/1] w-full relative rounded-2xl overflow-hidden shadow-md border border-gray-100">
+            <div className="aspect-[3/1] w-full relative rounded-2xl overflow-hidden shadow-lg border border-gray-100">
               {categorySlides.map((slide, index) => (
                 <div
                   key={slide.slug}
@@ -174,16 +174,16 @@ const Home = () => {
                       alt=""
                       className="w-full h-full object-cover scale-110 blur-2xl opacity-40"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-r from-white/92 via-white/75 to-white/40" />
+                    <div className="absolute inset-0 bg-gradient-to-r from-white/95 via-white/80 to-white/45" />
                   </div>
 
                   {/* Foreground image - complete, no distortion */}
                   <div className="absolute inset-0 flex items-center justify-end pr-8 md:pr-16">
-                    <div className="relative h-[70%] w-[55%] max-w-[600px]">
+                    <div className="relative h-[72%] w-[55%] max-w-[600px]">
                       <img
                         src={slide.banner}
                         alt={slide.name}
-                        className="w-full h-full object-contain drop-shadow-xl"
+                        className="w-full h-full object-contain drop-shadow-2xl"
                       />
                     </div>
                   </div>
@@ -192,7 +192,7 @@ const Home = () => {
                   <div className="absolute inset-0 flex items-center">
                     <div className="px-8 md:px-12 w-full">
                       <div className="max-w-md">
-                        <div className="inline-flex items-center gap-2 bg-gold-50/90 text-gold-600 px-3 py-1.5 rounded-full text-xs font-medium border border-gold-200 mb-4 backdrop-blur-sm">
+                        <div className="inline-flex items-center gap-2 bg-white/90 text-gold-700 px-3 py-1.5 rounded-full text-xs font-semibold border border-gold-200 mb-4 backdrop-blur-sm shadow-sm">
                           <slide.icon className="w-3.5 h-3.5" />
                           {slide.name}
                         </div>
@@ -205,13 +205,13 @@ const Home = () => {
                         <div className="flex flex-wrap gap-3">
                           <Link
                             href={`/products?category=${slide.slug}`}
-                            className="inline-flex items-center gap-2 bg-gold-500 hover:bg-gold-400 text-white px-6 py-2.5 rounded-lg font-bold text-sm transition-all shadow-lg hover:shadow-gold-500/30"
+                            className="inline-flex items-center gap-2 bg-gold-500 hover:bg-gold-400 text-white px-6 py-2.5 rounded-lg font-bold text-sm transition-all shadow-lg shadow-gold-500/25 hover:shadow-gold-500/40"
                           >
                             Browse {slide.name} <ArrowRight className="w-4 h-4" />
                           </Link>
                           <Link
                             href="/products"
-                            className="inline-flex items-center gap-2 border-2 border-gold-300 text-gold-600 hover:bg-gold-500/10 px-6 py-2.5 rounded-lg font-bold text-sm transition-all"
+                            className="inline-flex items-center gap-2 border-2 border-gold-300 text-gold-700 hover:bg-gold-500/10 px-6 py-2.5 rounded-lg font-bold text-sm transition-all"
                           >
                             View All Products
                           </Link>
@@ -225,26 +225,29 @@ const Home = () => {
               {/* Navigation arrows */}
               <button
                 onClick={prevSlide}
-                className="absolute left-3 top-1/2 -translate-y-1/2 z-20 w-9 h-9 rounded-full bg-white/80 border border-gray-200 flex items-center justify-center text-gray-500 hover:text-gold-600 hover:border-gold-500/30 transition-all shadow-sm"
+                className="absolute left-3 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full bg-white/90 border border-gray-200 flex items-center justify-center text-gray-600 hover:text-gold-600 hover:border-gold-400 transition-all shadow-md"
+                aria-label="Previous slide"
               >
                 <ChevronLeft className="w-5 h-5" />
               </button>
               <button
                 onClick={nextSlide}
-                className="absolute right-3 top-1/2 -translate-y-1/2 z-20 w-9 h-9 rounded-full bg-white/80 border border-gray-200 flex items-center justify-center text-gray-500 hover:text-gold-600 hover:border-gold-500/30 transition-all shadow-sm"
+                className="absolute right-3 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full bg-white/90 border border-gray-200 flex items-center justify-center text-gray-600 hover:text-gold-600 hover:border-gold-400 transition-all shadow-md"
+                aria-label="Next slide"
               >
                 <ChevronRight className="w-5 h-5" />
               </button>
 
               {/* Indicators */}
-              <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-2 z-20">
+              <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2 z-20">
                 {categorySlides.map((_, index) => (
                   <button
                     key={index}
                     onClick={() => goToSlide(index)}
                     className={`h-1.5 rounded-full transition-all duration-300 ${
-                      index === currentSlide ? 'bg-gold-500 w-6' : 'bg-gray-300 w-1.5 hover:bg-gold-400'
+                      index === currentSlide ? 'bg-gold-500 w-7' : 'bg-gray-300 w-1.5 hover:bg-gold-400'
                     }`}
+                    aria-label={`Go to slide ${index + 1}`}
                   />
                 ))}
               </div>
@@ -253,25 +256,26 @@ const Home = () => {
         </div>
       </section>
 
-      <section className="py-10 bg-white">
+      <section className="py-12 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-6">
-            <h2 className="font-display text-2xl md:text-3xl text-gray-900">Shop by Category</h2>
+          <div className="text-center mb-8">
+            <span className="text-xs font-semibold text-gold-600 uppercase tracking-[0.2em]">Browse Collection</span>
+            <h2 className="font-display text-2xl md:text-3xl text-gray-900 mt-2">Shop by Category</h2>
             <div className="w-20 h-0.5 bg-gradient-to-r from-transparent via-gold-500 to-transparent mx-auto mt-3" />
           </div>
 
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
             {categoryItems.map((cat) => (
               <Link
                 key={cat.slug}
                 href={`/products?category=${cat.slug}`}
-                className="group relative overflow-hidden rounded-xl border border-gray-200 hover:border-gold-500/40 transition-all h-40"
+                className="group relative overflow-hidden rounded-xl border border-gray-200 hover:border-gold-400 transition-all h-44 shadow-sm hover:shadow-lg"
               >
                 {/* Blurred background */}
                 <img
                   src={cat.image}
                   alt=""
-                  className="absolute inset-0 w-full h-full object-cover scale-110 blur-sm opacity-50 group-hover:scale-125 transition-transform duration-500"
+                  className="absolute inset-0 w-full h-full object-cover scale-110 blur-sm opacity-50 group-hover:scale-125 group-hover:opacity-60 transition-all duration-500"
                 />
                 {/* Foreground image - complete, no distortion */}
                 <div className="absolute inset-0 flex items-center justify-center p-3">
@@ -282,18 +286,18 @@ const Home = () => {
                   />
                 </div>
                 {/* Bottom gradient overlay */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/15 to-transparent" />
                 {/* Content */}
                 <div className="absolute inset-0 flex flex-col justify-end p-4">
-                  <div className="flex items-center gap-2">
-                    <div className="w-8 h-8 rounded-lg bg-gold-500/90 flex items-center justify-center shrink-0">
-                      <cat.icon className="w-4 h-4 text-white" />
+                  <div className="flex items-center gap-2.5">
+                    <div className="w-9 h-9 rounded-lg bg-gold-500 flex items-center justify-center shrink-0 shadow-md">
+                      <cat.icon className="w-5 h-5 text-white" />
                     </div>
                     <div className="min-w-0">
-                      <h3 className="font-display text-sm font-semibold text-white group-hover:text-gold-300 transition-colors truncate">
+                      <h3 className="font-display text-base font-semibold text-white group-hover:text-gold-200 transition-colors truncate">
                         {cat.name}
                       </h3>
-                      <p className="text-white/70 text-xs mt-0.5 truncate">{cat.desc}</p>
+                      <p className="text-white/75 text-xs mt-0.5 truncate">{cat.desc}</p>
                     </div>
                   </div>
                 </div>
@@ -303,29 +307,30 @@ const Home = () => {
         </div>
       </section>
 
-      <section className="py-10 bg-gray-50 border-t border-gray-100">
+      <section className="py-12 bg-gray-50 border-t border-gray-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between mb-5">
+          <div className="flex items-center justify-between mb-6">
             <div>
-              <h2 className="font-display text-2xl md:text-3xl text-gray-900">New Arrivals</h2>
-              <p className="text-gray-500 text-sm mt-1">Latest additions to our wholesale catalog</p>
+              <span className="text-xs font-semibold text-gold-600 uppercase tracking-[0.2em]">Fresh Stock</span>
+              <h2 className="font-display text-2xl md:text-3xl text-gray-900 mt-2">New Arrivals</h2>
+              <p className="text-gray-600 text-sm mt-1">Latest additions to our wholesale catalog</p>
             </div>
             <Link
               href="/products"
-              className="hidden sm:flex items-center gap-1 text-gold-600 font-medium hover:text-gold-600 transition-colors text-sm"
+              className="hidden sm:inline-flex items-center gap-1 text-gold-700 font-semibold hover:text-gold-500 transition-colors text-sm border border-gold-200 hover:border-gold-400 px-4 py-2 rounded-lg"
             >
               View All <ChevronRight className="w-4 h-4" />
             </Link>
           </div>
 
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
             {newProducts.length > 0 ? (
               newProducts.map((product) => (
                 <ProductCard key={product.id} product={product} />
               ))
             ) : (
-              <div className="col-span-full text-center py-10">
-                <Package className="w-10 h-10 text-gray-400 mx-auto mb-2" />
+              <div className="col-span-full text-center py-12">
+                <Package className="w-12 h-12 text-gray-300 mx-auto mb-3" />
                 <p className="text-gray-500 text-sm">No products yet. Check back soon!</p>
               </div>
             )}
@@ -333,57 +338,59 @@ const Home = () => {
         </div>
       </section>
 
-      <section className="py-10 bg-white">
+      <section className="py-12 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-6">
-            <h2 className="font-display text-2xl md:text-3xl text-gray-900">Why Choose eTruemart</h2>
+          <div className="text-center mb-8">
+            <span className="text-xs font-semibold text-gold-600 uppercase tracking-[0.2em]">Our Advantages</span>
+            <h2 className="font-display text-2xl md:text-3xl text-gray-900 mt-2">Why Choose eTruemart</h2>
             <div className="w-20 h-0.5 bg-gradient-to-r from-transparent via-gold-500 to-transparent mx-auto mt-3" />
           </div>
 
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             {whyChooseUs.map((item, index) => (
               <div
                 key={index}
-                className="bg-gray-50/80 rounded-xl p-3 border border-gray-200 text-center"
+                className="bg-white rounded-xl p-5 border border-gray-200 text-center hover:border-gold-300 hover:shadow-md transition-all duration-300 group"
               >
-                <div className="w-10 h-10 rounded-full bg-gold-50 border border-gold-200 flex items-center justify-center mx-auto mb-2">
-                  <item.icon className="w-5 h-5 text-gold-600" />
+                <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-gold-50 to-gold-100 border border-gold-200 flex items-center justify-center mx-auto mb-3 group-hover:from-gold-400 group-hover:to-gold-600 group-hover:border-gold-500 transition-all duration-300">
+                  <item.icon className="w-6 h-6 text-gold-600 group-hover:text-white transition-colors duration-300" />
                 </div>
-                <h3 className="font-display text-sm font-semibold text-gray-900 mb-1">{item.title}</h3>
-                <p className="text-gray-500 text-xs leading-relaxed">{item.desc}</p>
+                <h3 className="font-display text-base font-semibold text-gray-900 mb-1.5">{item.title}</h3>
+                <p className="text-gray-600 text-sm leading-relaxed">{item.desc}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      <section className="py-10 bg-gray-50 border-t border-gray-100">
+      <section className="py-12 bg-gray-50 border-t border-gray-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="bg-gradient-to-r from-white to-gray-50 rounded-xl p-6 md:p-8 border border-gold-200 relative overflow-hidden">
-            <div className="absolute top-0 right-0 w-64 h-64 bg-gold-50 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
+          <div className="bg-gradient-to-br from-white via-white to-gold-50/40 rounded-2xl p-8 md:p-10 border border-gold-200 relative overflow-hidden shadow-sm">
+            <div className="absolute top-0 right-0 w-72 h-72 bg-gold-100/60 rounded-full blur-3xl -translate-y-1/3 translate-x-1/3" />
+            <div className="absolute bottom-0 left-0 w-56 h-56 bg-gold-50 rounded-full blur-3xl translate-y-1/3 -translate-x-1/3" />
             <div className="relative grid md:grid-cols-2 gap-6 items-center">
               <div>
-                <div className="inline-flex items-center gap-2 bg-gold-50 text-gold-600 px-2.5 py-1 rounded-full text-xs font-medium border border-gold-200 mb-3">
+                <div className="inline-flex items-center gap-2 bg-gold-100 text-gold-700 px-3 py-1 rounded-full text-xs font-semibold border border-gold-200 mb-4">
                   <Globe className="w-3.5 h-3.5" />
                   For Buyers
                 </div>
-                <h3 className="font-display text-xl md:text-2xl text-gray-900 mb-2">
+                <h3 className="font-display text-2xl md:text-3xl text-gray-900 mb-3 leading-tight">
                   Need Bulk Pricing or Custom Sourcing?
                 </h3>
-                <p className="text-gray-500 text-sm leading-relaxed">
+                <p className="text-gray-600 text-sm leading-relaxed mb-2">
                   Tell us what you're looking for and our team will prepare a personalized quote with the best wholesale prices within 24 hours.
                 </p>
               </div>
               <div className="flex flex-col sm:flex-row gap-3 md:justify-end">
                 <Link
                   href="/products"
-                  className="inline-flex items-center justify-center gap-2 bg-gold-500 hover:bg-gold-400 text-white px-5 py-2.5 rounded-lg font-bold text-sm transition-colors"
+                  className="inline-flex items-center justify-center gap-2 bg-gold-500 hover:bg-gold-400 text-white px-6 py-3 rounded-lg font-bold text-sm transition-colors shadow-lg shadow-gold-500/20"
                 >
                   Browse Catalog <ArrowRight className="w-4 h-4" />
                 </Link>
                 <a
                   href="mailto:sales@etruemart.com?subject=Wholesale%20Inquiry"
-                  className="inline-flex items-center justify-center gap-2 border-2 border-gold-300 text-gold-600 hover:bg-gold-500/10 px-5 py-2.5 rounded-lg font-bold text-sm transition-all"
+                  className="inline-flex items-center justify-center gap-2 border-2 border-gold-300 text-gold-700 hover:bg-gold-500 hover:text-white hover:border-gold-500 px-6 py-3 rounded-lg font-bold text-sm transition-all"
                 >
                   Request a Quote
                 </a>

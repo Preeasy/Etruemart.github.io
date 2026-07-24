@@ -123,13 +123,13 @@ const ProductDetail = () => {
   return (
     <Layout>
       <div className="bg-gray-50 border-b border-gray-200">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-          <nav className="flex items-center gap-2 text-sm text-gray-500">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-3.5">
+          <nav className="flex items-center gap-2 text-sm text-gray-600">
             <Link href="/" className="hover:text-gold-600 transition-colors">Home</Link>
-            <ChevronLeft className="w-4 h-4 rotate-180" />
+            <ChevronLeft className="w-4 h-4 rotate-180 text-gray-400" />
             <Link href="/products" className="hover:text-gold-600 transition-colors">Products</Link>
-            <ChevronLeft className="w-4 h-4 rotate-180" />
-            <span className="text-gray-900 font-medium">{product.name}</span>
+            <ChevronLeft className="w-4 h-4 rotate-180 text-gray-400" />
+            <span className="text-gray-900 font-medium truncate">{product.name}</span>
           </nav>
         </div>
       </div>
@@ -167,15 +167,15 @@ const ProductDetail = () => {
 
           <div className="lg:col-span-5">
             <div className="flex items-center gap-3 mb-3">
-              <span className="inline-block bg-gold-50 text-gold-600 text-sm font-medium px-3 py-1 rounded-full border border-gold-200">
+              <span className="inline-block bg-gold-50 text-gold-700 text-sm font-medium px-3 py-1 rounded-full border border-gold-200">
                 {typeof product.category === 'object' && product.category !== null ? product.category.name : typeof product.category === 'string' ? product.category : ''}
               </span>
               {product.sku && (
-                <span className="text-xs text-gray-500 font-mono">{product.sku}</span>
+                <span className="text-xs text-gray-500 font-mono">SKU: {product.sku}</span>
               )}
             </div>
-            
-            <h1 className="text-xl md:text-2xl font-bold text-gray-900 mb-3">{product.name}</h1>
+
+            <h1 className="text-xl md:text-2xl font-bold text-gray-900 mb-3 leading-tight">{product.name}</h1>
 
             <div className="flex items-center gap-3 mb-5">
               <div className="flex items-center gap-1">
@@ -183,18 +183,18 @@ const ProductDetail = () => {
                   <Star key={i} className={`w-4 h-4 ${i < Math.floor(rating) ? 'text-gold-600 fill-gold-500' : 'text-gray-400'}`} />
                 ))}
               </div>
-              <span className="text-gray-500 text-sm">{rating.toFixed(1)} ({product.reviewCount} reviews)</span>
-              <span className="text-gray-400">|</span>
-              <span className="text-gray-500 text-sm">{product.salesCount} sold</span>
+              <span className="text-gray-600 text-sm">{rating.toFixed(1)} ({product.reviewCount} reviews)</span>
+              <span className="text-gray-300">|</span>
+              <span className="text-gray-600 text-sm">{product.salesCount} sold</span>
             </div>
 
-            <div className="bg-gray-50 rounded-xl p-4 mb-5 border border-gray-200">
+            <div className="bg-gradient-to-r from-gold-50 to-white rounded-xl p-4 mb-5 border border-gold-200">
               <div className="flex items-baseline gap-3">
                 <span className="text-3xl font-bold text-gold-600">${currentVariantPrice.toFixed(2)}</span>
                 {originalPrice && originalPrice > currentVariantPrice && (
                   <>
-                    <span className="text-lg text-gray-500 line-through">${originalPrice.toFixed(2)}</span>
-                    <span className="bg-gold-500 text-white text-sm font-bold px-2 py-1 rounded">
+                    <span className="text-lg text-gray-400 line-through">${originalPrice.toFixed(2)}</span>
+                    <span className="bg-gold-500 text-white text-xs font-bold px-2 py-1 rounded">
                       -{discount}%
                     </span>
                   </>
@@ -202,31 +202,31 @@ const ProductDetail = () => {
               </div>
             </div>
 
-            <p className="text-gray-500 text-sm mb-5 leading-relaxed">{product.description}</p>
+            <p className="text-gray-600 text-sm mb-5 leading-relaxed">{product.description}</p>
 
             <div className="grid grid-cols-2 gap-3 mb-5 text-xs">
               {product.material && (
-                <div className="flex items-center gap-2 text-gray-500">
-                  <span className="text-gold-600 font-medium">Material:</span>
-                  <span className="text-gray-700">{product.material}</span>
+                <div className="flex items-center gap-2 text-gray-600">
+                  <span className="text-gold-700 font-medium">Material:</span>
+                  <span className="text-gray-800">{product.material}</span>
                 </div>
               )}
               {product.plating && (
-                <div className="flex items-center gap-2 text-gray-500">
-                  <span className="text-gold-600 font-medium">Plating:</span>
-                  <span className="text-gray-700">{product.plating}</span>
+                <div className="flex items-center gap-2 text-gray-600">
+                  <span className="text-gold-700 font-medium">Plating:</span>
+                  <span className="text-gray-800">{product.plating}</span>
                 </div>
               )}
               {product.color && (
-                <div className="flex items-center gap-2 text-gray-500">
-                  <span className="text-gold-600 font-medium">Color:</span>
-                  <span className="text-gray-700">{product.color}</span>
+                <div className="flex items-center gap-2 text-gray-600">
+                  <span className="text-gold-700 font-medium">Color:</span>
+                  <span className="text-gray-800">{product.color}</span>
                 </div>
               )}
               {product.size && (
-                <div className="flex items-center gap-2 text-gray-500">
-                  <span className="text-gold-600 font-medium">Size:</span>
-                  <span className="text-gray-700">{product.size}</span>
+                <div className="flex items-center gap-2 text-gray-600">
+                  <span className="text-gold-700 font-medium">Size:</span>
+                  <span className="text-gray-800">{product.size}</span>
                 </div>
               )}
             </div>
@@ -239,7 +239,7 @@ const ProductDetail = () => {
                     <button
                       key={variant.id}
                       onClick={() => setSelectedVariantColor(variant.color)}
-                      className={`px-3 py-1.5 rounded-lg border-2 transition-all text-sm ${selectedVariantColor === variant.color ? 'border-gold-500 bg-gold-50 text-gold-600 font-medium' : 'border-gray-200 text-gray-500 hover:border-gold-500/50'}`}
+                      className={`px-3 py-1.5 rounded-lg border-2 transition-all text-sm ${selectedVariantColor === variant.color ? 'border-gold-500 bg-gold-50 text-gold-700 font-medium' : 'border-gray-200 text-gray-600 hover:border-gold-500/50'}`}
                     >
                       {variant.color}
                     </button>
@@ -252,54 +252,54 @@ const ProductDetail = () => {
               <h3 className="font-semibold text-gray-900 mb-2 text-sm">Quantity</h3>
               <div className="flex items-center gap-4">
                 <div className="flex items-center border border-gray-200 rounded-lg bg-gray-50">
-                  <button onClick={() => setQuantity(Math.max(1, quantity - 1))} className="p-2 hover:bg-gray-100 transition-colors text-gray-500">
+                  <button onClick={() => setQuantity(Math.max(1, quantity - 1))} className="p-2 hover:bg-gray-100 transition-colors text-gray-600" aria-label="Decrease quantity">
                     <Minus className="w-4 h-4" />
                   </button>
                   <span className="px-5 font-semibold text-gray-900">{quantity}</span>
-                  <button onClick={() => setQuantity(quantity + 1)} className="p-2 hover:bg-gray-100 transition-colors text-gray-500">
+                  <button onClick={() => setQuantity(quantity + 1)} className="p-2 hover:bg-gray-100 transition-colors text-gray-600" aria-label="Increase quantity">
                     <Plus className="w-4 h-4" />
                   </button>
                 </div>
-                <span className="text-gray-500 text-xs">
-                  <span className="text-gold-600 font-medium">In Stock</span> ({currentVariant?.stock || product.stock} available)
+                <span className="text-gray-600 text-xs">
+                  <span className="text-gold-700 font-medium">In Stock</span> ({currentVariant?.stock || product.stock} available)
                 </span>
               </div>
             </div>
 
             <div className="flex flex-col sm:flex-row gap-2 mb-6">
-              <button onClick={handleAddToCart} className="flex-1 flex items-center justify-center gap-2 bg-gold-500 hover:bg-gold-400 text-white py-3 rounded-xl font-bold transition-colors">
+              <button onClick={handleAddToCart} className="flex-1 flex items-center justify-center gap-2 bg-gold-500 hover:bg-gold-400 text-white py-3 rounded-xl font-bold transition-colors shadow-md shadow-gold-500/20">
                 <ShoppingCart className="w-5 h-5" />
                 Add to Cart
               </button>
-              <button className="flex-1 flex items-center justify-center gap-2 bg-gold-600 hover:bg-gold-500 text-gray-900 py-3 rounded-xl font-bold transition-colors">
+              <button className="flex-1 flex items-center justify-center gap-2 bg-gray-900 hover:bg-gray-800 text-white py-3 rounded-xl font-bold transition-colors shadow-sm">
                 <ShoppingCart className="w-5 h-5" />
                 Buy Now
               </button>
             </div>
 
             <div className="flex gap-2">
-              <button onClick={() => setIsFavorite(!isFavorite)} className="flex-1 p-3 border border-gray-200 rounded-xl hover:border-red-500 hover:text-red-500 transition-colors text-gray-500">
-                <Heart className={`w-5 h-5 ${isFavorite ? 'fill-red-500 text-red-500' : ''}`} />
+              <button onClick={() => setIsFavorite(!isFavorite)} className="flex-1 p-3 border border-gray-200 rounded-xl hover:border-red-500 hover:text-red-500 transition-colors text-gray-600" aria-label="Add to favorites">
+                <Heart className={`w-5 h-5 mx-auto ${isFavorite ? 'fill-red-500 text-red-500' : ''}`} />
               </button>
-              <button className="flex-1 p-3 border border-gray-200 rounded-xl hover:border-gold-500 hover:text-gold-600 transition-colors text-gray-500">
-                <Share2 className="w-5 h-5" />
+              <button className="flex-1 p-3 border border-gray-200 rounded-xl hover:border-gold-500 hover:text-gold-600 transition-colors text-gray-600" aria-label="Share product">
+                <Share2 className="w-5 h-5 mx-auto" />
               </button>
             </div>
 
             <div className="grid grid-cols-3 gap-2 mt-5">
               <div className="bg-gray-50 rounded-xl p-3 text-center border border-gray-200">
                 <Truck className="w-5 h-5 text-gold-600 mx-auto mb-1" />
-                <p className="text-xs font-medium text-gray-700">Free Shipping</p>
+                <p className="text-xs font-medium text-gray-800">Free Shipping</p>
                 <p className="text-[10px] text-gray-500">Orders over $50</p>
               </div>
               <div className="bg-gray-50 rounded-xl p-3 text-center border border-gray-200">
                 <ShieldCheck className="w-5 h-5 text-gold-600 mx-auto mb-1" />
-                <p className="text-xs font-medium text-gray-700">Secure Payment</p>
+                <p className="text-xs font-medium text-gray-800">Secure Payment</p>
                 <p className="text-[10px] text-gray-500">100% protected</p>
               </div>
               <div className="bg-gray-50 rounded-xl p-3 text-center border border-gray-200">
                 <RotateCcw className="w-5 h-5 text-gold-600 mx-auto mb-1" />
-                <p className="text-xs font-medium text-gray-700">Easy Returns</p>
+                <p className="text-xs font-medium text-gray-800">Easy Returns</p>
                 <p className="text-[10px] text-gray-500">30-day policy</p>
               </div>
             </div>
@@ -309,13 +309,13 @@ const ProductDetail = () => {
         <div className="mt-10">
           <div className="border-b border-gray-200 mb-5">
             <div className="flex gap-4">
-              <button onClick={() => setActiveTab('description')} className={`pb-3 font-medium border-b-2 transition-colors text-sm ${activeTab === 'description' ? 'border-gold-500 text-gold-600' : 'border-transparent text-gray-500 hover:text-gray-900'}`}>
+              <button onClick={() => setActiveTab('description')} className={`pb-3 font-medium border-b-2 transition-colors text-sm ${activeTab === 'description' ? 'border-gold-500 text-gold-700' : 'border-transparent text-gray-500 hover:text-gray-900'}`}>
                 Description
               </button>
-              <button onClick={() => setActiveTab('specs')} className={`pb-3 font-medium border-b-2 transition-colors text-sm ${activeTab === 'specs' ? 'border-gold-500 text-gold-600' : 'border-transparent text-gray-500 hover:text-gray-900'}`}>
+              <button onClick={() => setActiveTab('specs')} className={`pb-3 font-medium border-b-2 transition-colors text-sm ${activeTab === 'specs' ? 'border-gold-500 text-gold-700' : 'border-transparent text-gray-500 hover:text-gray-900'}`}>
                 Specifications
               </button>
-              <button onClick={() => setActiveTab('reviews')} className={`pb-3 font-medium border-b-2 transition-colors text-sm ${activeTab === 'reviews' ? 'border-gold-500 text-gold-600' : 'border-transparent text-gray-500 hover:text-gray-900'}`}>
+              <button onClick={() => setActiveTab('reviews')} className={`pb-3 font-medium border-b-2 transition-colors text-sm ${activeTab === 'reviews' ? 'border-gold-500 text-gold-700' : 'border-transparent text-gray-500 hover:text-gray-900'}`}>
                 Reviews ({product.reviewCount})
               </button>
             </div>
@@ -342,10 +342,10 @@ const ProductDetail = () => {
                         <div key={index} className="relative w-full bg-gray-50">
                           <div className="relative h-48 md:h-64 overflow-hidden">
                             <Image src={section.image} alt={section.heading || 'Hero'} fill className="object-cover" />
-                            <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
                             {hasHeading && (
                               <div className="absolute bottom-0 left-0 right-0 p-6">
-                                <h3 className="text-xl md:text-2xl font-bold text-white">{section.heading}</h3>
+                                <h3 className="text-xl md:text-2xl font-bold text-white drop-shadow-lg">{section.heading}</h3>
                               </div>
                             )}
                           </div>
@@ -409,7 +409,7 @@ const ProductDetail = () => {
                     return (
                       <div key={index} className="p-5 border-b border-gray-100 last:border-b-0">
                         {hasHeading && <h3 className="text-sm font-semibold text-gray-900 mb-2">{section.heading}</h3>}
-                        {hasText && <p className="text-gray-500 text-sm leading-relaxed" dangerouslySetInnerHTML={{ __html: section.text }} />}
+                        {hasText && <p className="text-gray-600 text-sm leading-relaxed" dangerouslySetInnerHTML={{ __html: section.text }} />}
                         {hasImage && (
                           <div className="mt-3 flex justify-center">
                             <Image src={section.image} alt={section.heading || 'Product image'} className="max-w-md rounded-lg shadow-sm" width={500} height={400} objectFit="contain" />
@@ -424,56 +424,56 @@ const ProductDetail = () => {
           )}
 
           {activeTab === 'specs' && (
-            <div className="bg-gray-50 rounded-2xl p-5 border border-gray-200">
+            <div className="bg-white rounded-2xl p-5 border border-gray-200">
               <h2 className="text-lg font-bold text-gray-900 mb-4">Product Specifications</h2>
-              <div className="grid grid-cols-2 gap-3 text-sm">
-                <div className="flex justify-between py-2 border-b border-gray-100">
-                  <span className="text-gray-500">MOQ</span>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-0 text-sm">
+                <div className="flex justify-between py-2.5 border-b border-gray-100">
+                  <span className="text-gray-600">MOQ</span>
                   <span className="text-gray-900 font-medium">{product.moq || 1} pcs</span>
                 </div>
-                <div className="flex justify-between py-2 border-b border-gray-100">
-                  <span className="text-gray-500">Pack Size</span>
+                <div className="flex justify-between py-2.5 border-b border-gray-100">
+                  <span className="text-gray-600">Pack Size</span>
                   <span className="text-gray-900 font-medium">{product.packSize || 1} pcs</span>
                 </div>
                 {product.material && (
-                  <div className="flex justify-between py-2 border-b border-gray-100">
-                    <span className="text-gray-500">Material</span>
+                  <div className="flex justify-between py-2.5 border-b border-gray-100">
+                    <span className="text-gray-600">Material</span>
                     <span className="text-gray-900 font-medium">{product.material}</span>
                   </div>
                 )}
                 {product.plating && (
-                  <div className="flex justify-between py-2 border-b border-gray-100">
-                    <span className="text-gray-500">Plating</span>
+                  <div className="flex justify-between py-2.5 border-b border-gray-100">
+                    <span className="text-gray-600">Plating</span>
                     <span className="text-gray-900 font-medium">{product.plating}</span>
                   </div>
                 )}
                 {product.process && (
-                  <div className="flex justify-between py-2 border-b border-gray-100">
-                    <span className="text-gray-500">Process</span>
+                  <div className="flex justify-between py-2.5 border-b border-gray-100">
+                    <span className="text-gray-600">Process</span>
                     <span className="text-gray-900 font-medium">{product.process}</span>
                   </div>
                 )}
                 {product.color && (
-                  <div className="flex justify-between py-2 border-b border-gray-100">
-                    <span className="text-gray-500">Color</span>
+                  <div className="flex justify-between py-2.5 border-b border-gray-100">
+                    <span className="text-gray-600">Color</span>
                     <span className="text-gray-900 font-medium">{product.color}</span>
                   </div>
                 )}
                 {product.size && (
-                  <div className="flex justify-between py-2 border-b border-gray-100">
-                    <span className="text-gray-500">Size</span>
+                  <div className="flex justify-between py-2.5 border-b border-gray-100">
+                    <span className="text-gray-600">Size</span>
                     <span className="text-gray-900 font-medium">{product.size}</span>
                   </div>
                 )}
                 {product.origin && (
-                  <div className="flex justify-between py-2 border-b border-gray-100">
-                    <span className="text-gray-500">Origin</span>
+                  <div className="flex justify-between py-2.5 border-b border-gray-100">
+                    <span className="text-gray-600">Origin</span>
                     <span className="text-gray-900 font-medium">{product.origin}</span>
                   </div>
                 )}
                 {product.supplierCity && (
-                  <div className="flex justify-between py-2 border-b border-gray-100">
-                    <span className="text-gray-500">Supplier City</span>
+                  <div className="flex justify-between py-2.5 border-b border-gray-100">
+                    <span className="text-gray-600">Supplier City</span>
                     <span className="text-gray-900 font-medium">{product.supplierCity}</span>
                   </div>
                 )}
@@ -482,7 +482,7 @@ const ProductDetail = () => {
           )}
 
           {activeTab === 'reviews' && (
-            <div className="bg-gray-50 rounded-2xl p-5 border border-gray-200">
+            <div className="bg-white rounded-2xl p-5 border border-gray-200">
               <div className="flex items-center gap-6 mb-5 pb-5 border-b border-gray-100">
                 <div>
                   <div className="text-3xl font-bold text-gray-900 mb-1">{rating.toFixed(1)}</div>
@@ -492,7 +492,7 @@ const ProductDetail = () => {
                     ))}
                   </div>
                 </div>
-                <div className="text-gray-500">
+                <div>
                   <p className="text-sm font-semibold text-gray-900">{product.reviewCount} customer reviews</p>
                 </div>
               </div>
@@ -502,7 +502,7 @@ const ProductDetail = () => {
                   {product.reviews.map((review) => (
                     <div key={review.id} className="pb-5 border-b border-gray-100 last:border-0">
                       <div className="flex items-center gap-3 mb-2">
-                        <div className="w-8 h-8 bg-gold-100 rounded-full flex items-center justify-center text-gold-600 font-bold text-sm">
+                        <div className="w-8 h-8 bg-gold-100 rounded-full flex items-center justify-center text-gold-700 font-bold text-sm">
                           {review.user?.name ? review.user.name[0] : 'U'}
                         </div>
                         <div>
@@ -515,7 +515,7 @@ const ProductDetail = () => {
                         </div>
                       </div>
                       <h5 className="font-medium text-gray-900 text-sm mb-1">{review.title}</h5>
-                      <p className="text-gray-500 text-sm">{review.content}</p>
+                      <p className="text-gray-600 text-sm">{review.content}</p>
                       <p className="text-xs text-gray-500 mt-1">{new Date(review.createdAt).toLocaleDateString()}</p>
                     </div>
                   ))}
