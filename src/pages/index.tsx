@@ -33,7 +33,6 @@ interface Product {
   stockStatus?: string;
 }
 
-const CDN = 'https://cdn.jsdelivr.net/gh/Preeasy/Images@main/Images';
 const PEXELS = 'https://images.pexels.com/photos';
 
 const slides = [
@@ -42,7 +41,7 @@ const slides = [
     headline: 'Stress Relief Toys',
     desc: 'Butter bars, squishy toys, fidget spinners & more — trending减压玩具 at factory prices.',
     slug: 'toys-gift',
-    image: `${CDN}/06-toys-gift.jpg`,
+    image: `${PEXELS}/7528923/pexels-photo-7528923.jpeg?auto=compress&cs=tinysrgb&w=2400&h=700&fit=crop`,
   },
   {
     name: 'Fashion Jewelry',
@@ -56,21 +55,21 @@ const slides = [
     headline: 'Bags & Accessories',
     desc: 'Bag hardware, chains & keychains — premium from Yiwu.',
     slug: 'bags-accessories',
-    image: `${CDN}/04-bags-accessories.jpg`,
+    image: `${PEXELS}/761963/pexels-photo-761963.jpeg?auto=compress&cs=tinysrgb&w=2400&h=700&fit=crop`,
   },
   {
     name: 'Hair Accessories',
     headline: 'Hair Accessories',
     desc: 'Clips, headbands & scrunchies — trendy wholesale styles.',
     slug: 'hair-accessories',
-    image: `${CDN}/03-hair-accessories.jpg`,
+    image: `${PEXELS}/6462247/pexels-photo-6462247.jpeg?auto=compress&cs=tinysrgb&w=2400&h=700&fit=crop`,
   },
   {
     name: 'Home Decor & Crafts',
     headline: 'Home Decor & Crafts',
     desc: 'Tassels, beads & craft supplies — beautify every space.',
     slug: 'home-decor-crafts',
-    image: `${CDN}/05-home-decor-crafts.jpg`,
+    image: `${PEXELS}/1640777/pexels-photo-1640777.jpeg?auto=compress&cs=tinysrgb&w=2400&h=700&fit=crop`,
   },
 ];
 
@@ -234,7 +233,7 @@ const Home = () => {
           <div className="grid md:grid-cols-2 gap-6 items-center">
             <div className="relative h-48 md:h-64 rounded-xl overflow-hidden">
               <img
-                src={`${CDN}/06-toys-gift.jpg`}
+                src={`${PEXELS}/7528923/pexels-photo-7528923.jpeg?auto=compress&cs=tinysrgb&w=1200&h=600&fit=crop`}
                 alt="Toys & Gift"
                 className="w-full h-full object-cover"
               />
