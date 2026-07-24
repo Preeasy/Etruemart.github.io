@@ -134,36 +134,38 @@ const ProductDetail = () => {
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="grid lg:grid-cols-2 gap-8">
-          <div>
-            <div className="bg-gray-50 rounded-2xl p-4 border border-gray-200">
-              <div className="relative aspect-square bg-white rounded-xl overflow-hidden">
-                <Image
-                  src={allImages[selectedImage] || product.image}
-                  alt={product.name}
-                  fill
-                  className="object-cover"
-                  quality={80}
-                />
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div className="grid lg:grid-cols-5 gap-8">
+          <div className="lg:col-span-2">
+            <div className="sticky top-24">
+              <div className="bg-white rounded-2xl p-3 border border-gray-200 shadow-sm">
+                <div className="relative aspect-square bg-gray-50 rounded-xl overflow-hidden">
+                  <Image
+                    src={allImages[selectedImage] || product.image}
+                    alt={product.name}
+                    fill
+                    className="object-contain"
+                    quality={85}
+                  />
+                </div>
               </div>
+              {allImages.length > 1 && (
+                <div className="flex gap-2 mt-3 overflow-x-auto pb-1">
+                  {allImages.map((img, index) => (
+                    <button
+                      key={index}
+                      onClick={() => setSelectedImage(index)}
+                      className={`flex-shrink-0 w-14 h-14 rounded-lg overflow-hidden border-2 transition-all ${selectedImage === index ? 'border-gold-500 ring-2 ring-gold-500/30' : 'border-gray-200 hover:border-gold-500/50'}`}
+                    >
+                      <Image src={img} alt={`View ${index + 1}`} fill className="object-cover" />
+                    </button>
+                  ))}
+                </div>
+              )}
             </div>
-            {allImages.length > 1 && (
-              <div className="flex gap-2 mt-4 overflow-x-auto pb-2">
-                {allImages.map((img, index) => (
-                  <button
-                    key={index}
-                    onClick={() => setSelectedImage(index)}
-                    className={`flex-shrink-0 w-16 h-16 rounded-lg overflow-hidden border-2 transition-all ${selectedImage === index ? 'border-gold-500 ring-2 ring-gold-500/30' : 'border-gray-200 hover:border-gold-500/50'}`}
-                  >
-                    <Image src={img} alt={`View ${index + 1}`} fill className="object-cover" />
-                  </button>
-                ))}
-              </div>
-            )}
           </div>
 
-          <div>
+          <div className="lg:col-span-3">
             <div className="flex items-center gap-3 mb-3">
               <span className="inline-block bg-gold-50 text-gold-600 text-sm font-medium px-3 py-1 rounded-full border border-gold-200">
                 {typeof product.category === 'object' && product.category !== null ? product.category.name : typeof product.category === 'string' ? product.category : ''}
@@ -334,8 +336,8 @@ const ProductDetail = () => {
                         <p className="text-gray-500 text-sm leading-relaxed" dangerouslySetInnerHTML={{ __html: section.text }} />
                       )}
                       {section.image && section.image.trim() && (
-                        <div className="mt-3">
-                          <Image src={section.image} alt={section.heading || 'Product image'} className="w-full rounded-lg" width={800} height={600} objectFit="cover" />
+                        <div className="mt-3 flex justify-center">
+                          <Image src={section.image} alt={section.heading || 'Product image'} className="max-w-md rounded-lg shadow-sm" width={500} height={400} objectFit="contain" />
                         </div>
                       )}
                     </div>
