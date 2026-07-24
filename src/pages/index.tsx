@@ -39,9 +39,9 @@ const slides = [
   {
     name: 'Toys & Gift',
     headline: 'Stress Relief Toys',
-    desc: 'Butter bars, squishy toys, fidget spinners & more — trending减压玩具 at factory prices.',
+    desc: 'Butter bars, squishy toys, fidget spinners & more — trending stress relief toys at factory prices.',
     slug: 'toys-gift',
-    image: `${PEXELS}/7528923/pexels-photo-7528923.jpeg?auto=compress&cs=tinysrgb&w=2400&h=700&fit=crop`,
+    image: `${PEXELS}/6983866/pexels-photo-6983866.jpeg?auto=compress&cs=tinysrgb&w=2400&h=700&fit=crop`,
   },
   {
     name: 'Fashion Jewelry',
@@ -55,7 +55,7 @@ const slides = [
     headline: 'Bags & Accessories',
     desc: 'Bag hardware, chains & keychains — premium from Yiwu.',
     slug: 'bags-accessories',
-    image: `${PEXELS}/761963/pexels-photo-761963.jpeg?auto=compress&cs=tinysrgb&w=2400&h=700&fit=crop`,
+    image: `${PEXELS}/1152077/pexels-photo-1152077.jpeg?auto=compress&cs=tinysrgb&w=2400&h=700&fit=crop`,
   },
   {
     name: 'Hair Accessories',
@@ -233,7 +233,7 @@ const Home = () => {
           <div className="grid md:grid-cols-2 gap-6 items-center">
             <div className="relative h-48 md:h-64 rounded-xl overflow-hidden">
               <img
-                src={`${PEXELS}/7528923/pexels-photo-7528923.jpeg?auto=compress&cs=tinysrgb&w=1200&h=600&fit=crop`}
+                src={`${PEXELS}/6983746/pexels-photo-6983746.jpeg?auto=compress&cs=tinysrgb&w=1200&h=600&fit=crop`}
                 alt="Toys & Gift"
                 className="w-full h-full object-cover"
               />
@@ -248,7 +248,7 @@ const Home = () => {
                 Stress Relief & Fidget Toys
               </h2>
               <p className="text-gray-600 text-sm md:text-base mb-4 leading-relaxed">
-                Butter bars, squishy toys, fidget spinners and more — the hottest减压玩具趋势.
+                Butter bars, squishy toys, fidget spinners and more — the hottest stress relief toy trends.
                 Low MOQ, fast shipping from Yiwu. Perfect for retail, gifting & promotions.
               </p>
               <Link
