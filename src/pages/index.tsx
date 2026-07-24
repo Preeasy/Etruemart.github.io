@@ -156,10 +156,10 @@ const Home = () => {
   return (
     <Layout>
       {/* Hero Carousel */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-gray-50 to-gray-100">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
+      <section className="relative overflow-hidden bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 md:py-8">
           <div className="relative w-full">
-            <div className="aspect-[2.8/1] w-full relative rounded-2xl overflow-hidden shadow-lg">
+            <div className="aspect-[3/1] w-full relative rounded-2xl overflow-hidden shadow-md border border-gray-100">
               {categorySlides.map((slide, index) => (
                 <div
                   key={slide.slug}
@@ -167,26 +167,39 @@ const Home = () => {
                     index === currentSlide ? 'opacity-100 z-10' : 'opacity-0 z-0'
                   }`}
                 >
-                  <div className="absolute inset-0">
+                  {/* Blurred background layer - fills entire space with image colors */}
+                  <div className="absolute inset-0 overflow-hidden">
                     <img
                       src={slide.banner}
-                      alt={slide.name}
-                      className="w-full h-full object-contain bg-white"
+                      alt=""
+                      className="w-full h-full object-cover scale-110 blur-2xl opacity-40"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-r from-white/95 via-white/70 to-transparent" />
+                    <div className="absolute inset-0 bg-gradient-to-r from-white/92 via-white/75 to-white/40" />
                   </div>
 
+                  {/* Foreground image - complete, no distortion */}
+                  <div className="absolute inset-0 flex items-center justify-end pr-8 md:pr-16">
+                    <div className="relative h-[70%] w-[55%] max-w-[600px]">
+                      <img
+                        src={slide.banner}
+                        alt={slide.name}
+                        className="w-full h-full object-contain drop-shadow-xl"
+                      />
+                    </div>
+                  </div>
+
+                  {/* Text content */}
                   <div className="absolute inset-0 flex items-center">
                     <div className="px-8 md:px-12 w-full">
-                      <div className="max-w-lg">
-                        <div className="inline-flex items-center gap-2 bg-gold-50 text-gold-600 px-3 py-1.5 rounded-full text-xs font-medium border border-gold-200 mb-4 backdrop-blur-sm">
+                      <div className="max-w-md">
+                        <div className="inline-flex items-center gap-2 bg-gold-50/90 text-gold-600 px-3 py-1.5 rounded-full text-xs font-medium border border-gold-200 mb-4 backdrop-blur-sm">
                           <slide.icon className="w-3.5 h-3.5" />
                           {slide.name}
                         </div>
                         <h1 className="font-display text-3xl md:text-4xl lg:text-5xl text-gray-900 mb-4 leading-tight">
                           {slide.headline}
                         </h1>
-                        <p className="text-base text-gray-700 mb-6 leading-relaxed">
+                        <p className="text-base text-gray-600 mb-6 leading-relaxed">
                           {slide.desc}
                         </p>
                         <div className="flex flex-wrap gap-3">
@@ -212,25 +225,25 @@ const Home = () => {
               {/* Navigation arrows */}
               <button
                 onClick={prevSlide}
-                className="absolute left-4 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full bg-gray-50/80 border border-gray-200 flex items-center justify-center text-gray-500 hover:text-gold-600 hover:border-gold-500/30 transition-all"
+                className="absolute left-3 top-1/2 -translate-y-1/2 z-20 w-9 h-9 rounded-full bg-white/80 border border-gray-200 flex items-center justify-center text-gray-500 hover:text-gold-600 hover:border-gold-500/30 transition-all shadow-sm"
               >
                 <ChevronLeft className="w-5 h-5" />
               </button>
               <button
                 onClick={nextSlide}
-                className="absolute right-4 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full bg-gray-50/80 border border-gray-200 flex items-center justify-center text-gray-500 hover:text-gold-600 hover:border-gold-500/30 transition-all"
+                className="absolute right-3 top-1/2 -translate-y-1/2 z-20 w-9 h-9 rounded-full bg-white/80 border border-gray-200 flex items-center justify-center text-gray-500 hover:text-gold-600 hover:border-gold-500/30 transition-all shadow-sm"
               >
                 <ChevronRight className="w-5 h-5" />
               </button>
 
               {/* Indicators */}
-              <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2 z-20">
+              <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-2 z-20">
                 {categorySlides.map((_, index) => (
                   <button
                     key={index}
                     onClick={() => goToSlide(index)}
-                    className={`h-2 rounded-full transition-all duration-300 ${
-                      index === currentSlide ? 'bg-gold-500 w-8' : 'bg-gray-300 w-2 hover:bg-gold-400'
+                    className={`h-1.5 rounded-full transition-all duration-300 ${
+                      index === currentSlide ? 'bg-gold-500 w-6' : 'bg-gray-300 w-1.5 hover:bg-gold-400'
                     }`}
                   />
                 ))}
@@ -254,14 +267,22 @@ const Home = () => {
                 href={`/products?category=${cat.slug}`}
                 className="group relative overflow-hidden rounded-xl border border-gray-200 hover:border-gold-500/40 transition-all h-40"
               >
-                {/* Category image */}
+                {/* Blurred background */}
                 <img
                   src={cat.image}
-                  alt={cat.name}
-                  className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  alt=""
+                  className="absolute inset-0 w-full h-full object-cover scale-110 blur-sm opacity-50 group-hover:scale-125 transition-transform duration-500"
                 />
+                {/* Foreground image - complete, no distortion */}
+                <div className="absolute inset-0 flex items-center justify-center p-3">
+                  <img
+                    src={cat.image}
+                    alt={cat.name}
+                    className="max-w-full max-h-full object-contain drop-shadow-lg group-hover:scale-105 transition-transform duration-500"
+                  />
+                </div>
                 {/* Bottom gradient overlay */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
                 {/* Content */}
                 <div className="absolute inset-0 flex flex-col justify-end p-4">
                   <div className="flex items-center gap-2">
