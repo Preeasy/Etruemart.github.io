@@ -34,6 +34,7 @@ interface Product {
 }
 
 const PEXELS = 'https://images.pexels.com/photos';
+const GEN = 'https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image';
 
 const slides = [
   {
@@ -41,7 +42,7 @@ const slides = [
     headline: 'Stress Relief Toys',
     desc: 'Butter bars, squishy toys, fidget spinners & more — trending stress relief toys at factory prices.',
     slug: 'toys-gift',
-    image: `${PEXELS}/6983866/pexels-photo-6983866.jpeg?auto=compress&cs=tinysrgb&w=2400&h=700&fit=crop`,
+    image: `${GEN}?prompt=colorful%20fidget%20toys%20squishy%20stress%20relief%20toys%20collection%20flat%20lay%20product%20photography%20pop%20it%20stress%20ball%20butter%20squishy&image_size=landscape_16_9`,
   },
   {
     name: 'Fashion Jewelry',
@@ -62,14 +63,14 @@ const slides = [
     headline: 'Hair Accessories',
     desc: 'Clips, headbands & scrunchies — trendy wholesale styles.',
     slug: 'hair-accessories',
-    image: `${PEXELS}/6462247/pexels-photo-6462247.jpeg?auto=compress&cs=tinysrgb&w=2400&h=700&fit=crop`,
+    image: `${GEN}?prompt=hair%20accessories%20collection%20hair%20clips%20scrunchies%20headbands%20hairpins%20barrettes%20flat%20lay%20product%20photography%20pastel%20aesthetic&image_size=landscape_16_9`,
   },
   {
     name: 'Home Decor & Crafts',
     headline: 'Home Decor & Crafts',
     desc: 'Tassels, beads & craft supplies — beautify every space.',
     slug: 'home-decor-crafts',
-    image: `${PEXELS}/1640777/pexels-photo-1640777.jpeg?auto=compress&cs=tinysrgb&w=2400&h=700&fit=crop`,
+    image: `${GEN}?prompt=home%20decor%20craft%20supplies%20tassels%20beads%20ribbons%20decorative%20trim%20craft%20materials%20flat%20lay%20product%20photography%20warm%20cozy&image_size=landscape_16_9`,
   },
 ];
 
@@ -233,7 +234,7 @@ const Home = () => {
           <div className="grid md:grid-cols-2 gap-6 items-center">
             <div className="relative h-48 md:h-64 rounded-xl overflow-hidden">
               <img
-                src={`${PEXELS}/6983746/pexels-photo-6983746.jpeg?auto=compress&cs=tinysrgb&w=1200&h=600&fit=crop`}
+                src={`${GEN}?prompt=colorful%20fidget%20toys%20squishy%20stress%20relief%20toys%20collection%20product%20photography&image_size=landscape_4_3`}
                 alt="Toys & Gift"
                 className="w-full h-full object-cover"
               />
