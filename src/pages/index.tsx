@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import {
   ChevronRight,
-  ChevronLeft,
   ArrowRight,
   Gem,
   Scissors,
@@ -10,13 +9,10 @@ import {
   ShoppingBag,
   Home as HomeIcon,
   Gift,
+  Flame,
+  Tag,
   Package,
-  Sparkles,
-  Truck,
-  ShieldCheck,
-  Globe,
 } from 'lucide-react';
-import ProductCard from '@/components/ProductCard';
 import Layout from '@/components/Layout';
 
 interface Product {
@@ -35,262 +31,349 @@ interface Product {
 
 const PEXELS = 'https://images.pexels.com/photos';
 
-const slides = [
+// Left sidebar categories — matches Navbar categories
+const sidebarCategories = [
   {
     name: 'Toys & Gift',
-    headline: 'Stress Relief Toys',
-    desc: 'Butter bars, squishy toys, fidget spinners & more — trending stress relief toys at factory prices.',
+    icon: Gift,
     slug: 'toys-gift',
-    image: `${PEXELS}/6983746/pexels-photo-6983746.jpeg?auto=compress&cs=tinysrgb&w=2400&h=700&fit=crop`,
+    children: [
+      { name: 'Stress Relief Toys', slug: 'stress-relief-toys' },
+      { name: 'Fidget Toys', slug: 'fidget-toys' },
+      { name: 'Educational Toys', slug: 'educational-toys' },
+      { name: 'Gift Sets', slug: 'gift-sets' },
+    ],
   },
   {
     name: 'Fashion Jewelry',
-    headline: 'Fashion Jewelry',
-    desc: 'Earrings, necklaces & rings — wholesale from Yiwu.',
+    icon: Gem,
     slug: 'fashion-jewelry',
-    image: `${PEXELS}/4735895/pexels-photo-4735895.jpeg?auto=compress&cs=tinysrgb&w=2400&h=700&fit=crop`,
-  },
-  {
-    name: 'Bags & Accessories',
-    headline: 'Bags & Accessories',
-    desc: 'Bag hardware, chains & keychains — premium from Yiwu.',
-    slug: 'bags-accessories',
-    image: `${PEXELS}/1152077/pexels-photo-1152077.jpeg?auto=compress&cs=tinysrgb&w=2400&h=700&fit=crop`,
+    children: [
+      { name: 'Necklaces', slug: 'necklaces' },
+      { name: 'Earrings', slug: 'earrings' },
+      { name: 'Rings', slug: 'rings' },
+      { name: 'Bracelets & Bangles', slug: 'bracelets-bangles' },
+      { name: 'Brooches & Pins', slug: 'brooches-pins' },
+      { name: 'Jewelry Sets', slug: 'jewelry-sets' },
+    ],
   },
   {
     name: 'Hair Accessories',
-    headline: 'Hair Accessories',
-    desc: 'Clips, headbands & scrunchies — trendy wholesale styles.',
+    icon: Crown,
     slug: 'hair-accessories',
-    image: `${PEXELS}/6983530/pexels-photo-6983530.jpeg?auto=compress&cs=tinysrgb&w=2400&h=700&fit=crop`,
+    children: [
+      { name: 'Hair Clips', slug: 'hair-clips' },
+      { name: 'Headbands', slug: 'headbands' },
+      { name: 'Hair Ties', slug: 'hair-ties' },
+      { name: 'Hair Pins', slug: 'hair-pins' },
+    ],
+  },
+  {
+    name: 'Bags & Accessories',
+    icon: ShoppingBag,
+    slug: 'bags-accessories',
+    children: [
+      { name: 'Bag Charms', slug: 'bag-charms' },
+      { name: 'Keychains', slug: 'keychains' },
+      { name: 'Belt Buckles', slug: 'belt-buckles' },
+    ],
+  },
+  {
+    name: 'Garment Accessories',
+    icon: Scissors,
+    slug: 'garment-accessories',
+    children: [
+      { name: 'Zippers', slug: 'zippers' },
+      { name: 'Buttons', slug: 'buttons' },
+      { name: 'Lace & Trim', slug: 'lace-trim' },
+      { name: 'Embroidery Patches', slug: 'embroidery-patches' },
+    ],
   },
   {
     name: 'Home Decor & Crafts',
-    headline: 'Home Decor & Crafts',
-    desc: 'Tassels, beads & craft supplies — beautify every space.',
+    icon: HomeIcon,
     slug: 'home-decor-crafts',
-    image: `${PEXELS}/1640777/pexels-photo-1640777.jpeg?auto=compress&cs=tinysrgb&w=2400&h=700&fit=crop`,
+    children: [
+      { name: 'Beads & Charms', slug: 'beads-charms' },
+      { name: 'Rhinestones', slug: 'rhinestones' },
+      { name: 'Craft Supplies', slug: 'craft-supplies' },
+    ],
   },
 ];
 
-const features = [
-  { icon: Globe, title: 'Yiwu Direct', desc: 'Source from the world\'s largest small commodities market.' },
-  { icon: Package, title: 'Low MOQ', desc: 'Start with as few as 1 piece. Flexible quantities.' },
-  { icon: Truck, title: 'Global Shipping', desc: 'Reliable logistics to 200+ countries worldwide.' },
-  { icon: ShieldCheck, title: 'Quality Assured', desc: 'Every product inspected before shipment.' },
+// Category hero guide rows — one-line banners matching each category's product imagery
+const categoryGuides = [
+  {
+    title: 'Stress Relief & Fidget Toys',
+    desc: 'Butter bars, squishies, pop-it & fidget spinners — trending wholesale toys.',
+    slug: 'toys-gift',
+    badge: 'Trending',
+    image: `${PEXELS}/6983746/pexels-photo-6983746.jpeg?auto=compress&cs=tinysrgb&w=800&h=400&fit=crop`,
+  },
+  {
+    title: 'Fashion Jewelry',
+    desc: 'Necklaces, earrings, rings & bracelets — wholesale from Yiwu.',
+    slug: 'fashion-jewelry',
+    badge: 'Best Seller',
+    image: `${PEXELS}/4735895/pexels-photo-4735895.jpeg?auto=compress&cs=tinysrgb&w=800&h=400&fit=crop`,
+  },
+  {
+    title: 'Hair Accessories',
+    desc: 'Clips, headbands & scrunchies — trendy wholesale styles.',
+    slug: 'hair-accessories',
+    badge: 'New',
+    image: `${PEXELS}/6983530/pexels-photo-6983530.jpeg?auto=compress&cs=tinysrgb&w=800&h=400&fit=crop`,
+  },
+  {
+    title: 'Bags & Accessories',
+    desc: 'Bag charms, keychains & belt buckles — premium hardware from Yiwu.',
+    slug: 'bags-accessories',
+    badge: 'Hot',
+    image: `${PEXELS}/1152077/pexels-photo-1152077.jpeg?auto=compress&cs=tinysrgb&w=800&h=400&fit=crop`,
+  },
+  {
+    title: 'Garment Accessories',
+    desc: 'Zippers, buttons, lace & patches — bulk trim for apparel makers.',
+    slug: 'garment-accessories',
+    badge: null,
+    image: `${PEXELS}/5704720/pexels-photo-5704720.jpeg?auto=compress&cs=tinysrgb&w=800&h=400&fit=crop`,
+  },
+  {
+    title: 'Home Decor & Crafts',
+    desc: 'Beads, rhinestones & craft supplies — beautify every space.',
+    slug: 'home-decor-crafts',
+    badge: null,
+    image: `${PEXELS}/1640777/pexels-photo-1640777.jpeg?auto=compress&cs=tinysrgb&w=800&h=400&fit=crop`,
+  },
 ];
 
 const Home = () => {
   const [products, setProducts] = useState<Product[]>([]);
-  const [currentSlide, setCurrentSlide] = useState(0);
-  const [isAutoPlaying, setIsAutoPlaying] = useState(true);
+  const [openCat, setOpenCat] = useState<string | null>(null);
 
   useEffect(() => {
     fetch('/api/products')
       .then(res => res.json())
-      .then(data => setProducts(data));
+      .then(data => setProducts(data))
+      .catch(() => setProducts([]));
   }, []);
 
-  useEffect(() => {
-    if (!isAutoPlaying) return;
-    const timer = setInterval(() => {
-      setCurrentSlide((prev) => (prev + 1) % slides.length);
-    }, 5000);
-    return () => clearInterval(timer);
-  }, [isAutoPlaying]);
-
-  const goToSlide = (index: number) => {
-    setCurrentSlide(index);
-    setIsAutoPlaying(false);
-    setTimeout(() => setIsAutoPlaying(true), 8000);
-  };
-
-  const nextSlide = () => goToSlide((currentSlide + 1) % slides.length);
-  const prevSlide = () => goToSlide((currentSlide - 1 + slides.length) % slides.length);
-
-  const newProducts = products.slice(0, 10);
+  const topDeals = products.slice(0, 6);
 
   return (
     <Layout>
-      {/* Hero Carousel - 紧凑型横幅 */}
-      <section className="relative w-full h-[280px] sm:h-[340px] md:h-[400px] lg:h-[440px] overflow-hidden">
-        {slides.map((slide, index) => (
-          <div
-            key={slide.slug}
-            className={`absolute inset-0 transition-all duration-700 ease-in-out ${
-              index === currentSlide ? 'opacity-100 scale-100' : 'opacity-0 scale-105'
-            }`}
-          >
-            <img
-              src={slide.image}
-              alt={slide.name}
-              className="w-full h-full object-cover"
-            />
-            <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/30 to-transparent" />
-            <div className="absolute inset-0 flex items-center">
-              <div className="w-full max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12">
-                <div className="max-w-lg">
-                  <h1 className="font-display text-2xl md:text-4xl lg:text-5xl text-white mb-2 md:mb-3 leading-tight font-bold">
-                    {slide.headline}
-                  </h1>
-                  <p className="text-white/80 text-sm md:text-base mb-4 md:mb-5 leading-relaxed line-clamp-2">
-                    {slide.desc}
-                  </p>
+      {/* Main content area: left sidebar + right content */}
+      <div className="bg-gray-50 min-h-screen">
+        <div className="w-full max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-10 py-6">
+          <div className="flex gap-6">
+            {/* Left Sidebar - Categories */}
+            <aside className="hidden lg:block w-64 shrink-0">
+              <div className="sticky top-20 bg-white rounded-lg border border-gray-200 overflow-hidden">
+                <div className="px-4 py-3 border-b border-gray-100 bg-gray-50">
+                  <h2 className="font-semibold text-sm text-gray-900 uppercase tracking-wider">
+                    All Categories
+                  </h2>
+                </div>
+                <nav className="py-1">
+                  {sidebarCategories.map((cat) => (
+                    <div key={cat.slug}>
+                      <button
+                        onClick={() => setOpenCat(openCat === cat.slug ? null : cat.slug)}
+                        onMouseEnter={() => setOpenCat(cat.slug)}
+                        className="w-full flex items-center justify-between px-4 py-2.5 text-sm text-gray-700 hover:bg-orange-50 hover:text-orange-700 transition-colors"
+                      >
+                        <span className="flex items-center gap-2.5">
+                          <cat.icon className="w-4 h-4 text-gray-400" />
+                          {cat.name}
+                        </span>
+                        <ChevronRight className={`w-3.5 h-3.5 text-gray-300 transition-transform ${openCat === cat.slug ? 'rotate-90' : ''}`} />
+                      </button>
+                      {openCat === cat.slug && (
+                        <div className="pb-1.5 bg-orange-50/30">
+                          {cat.children.map((child) => (
+                            <Link
+                              key={child.slug}
+                              href={`/products?category=${cat.slug}&sub=${child.slug}`}
+                              className="block pl-11 pr-4 py-1.5 text-xs text-gray-600 hover:text-orange-700 hover:bg-orange-50 transition-colors"
+                            >
+                              {child.name}
+                            </Link>
+                          ))}
+                          <Link
+                            href={`/products?category=${cat.slug}`}
+                            className="block pl-11 pr-4 py-1.5 text-xs font-semibold text-orange-600 hover:text-orange-700 transition-colors"
+                          >
+                            View All →
+                          </Link>
+                        </div>
+                      )}
+                    </div>
+                  ))}
+                </nav>
+              </div>
+            </aside>
+
+            {/* Right Content */}
+            <div className="flex-1 min-w-0 space-y-6">
+              {/* Hero - Top Deals Guide (one-line banner) */}
+              <section className="relative overflow-hidden rounded-lg bg-gradient-to-r from-[#0F2A4A] to-[#1a3a5c]">
+                <div className="flex items-center justify-between px-6 md:px-10 py-8 md:py-10">
+                  <div className="max-w-xl">
+                    <div className="inline-flex items-center gap-1.5 bg-orange-500/20 text-orange-300 px-2.5 py-1 rounded-full text-xs font-semibold mb-3">
+                      <Flame className="w-3 h-3" />
+                      Top Deals
+                    </div>
+                    <h1 className="font-display text-2xl md:text-4xl text-white font-bold leading-tight mb-2">
+                      Wholesale Direct from Yiwu
+                    </h1>
+                    <p className="text-gray-300 text-sm md:text-base mb-4">
+                      Stress relief toys, jewelry, hair accessories & more. Low MOQ, factory prices.
+                    </p>
+                    <Link
+                      href="/products"
+                      className="inline-flex items-center gap-2 bg-orange-500 hover:bg-orange-400 text-white px-5 py-2.5 rounded-md font-semibold text-sm transition-colors"
+                    >
+                      Shop All Products <ArrowRight className="w-4 h-4" />
+                    </Link>
+                  </div>
+                  <div className="hidden md:flex shrink-0">
+                    <img
+                      src={`${PEXELS}/6983866/pexels-photo-6983866.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop`}
+                      alt="Top Deals"
+                      className="w-56 h-36 object-cover rounded-md shadow-xl"
+                    />
+                  </div>
+                </div>
+              </section>
+
+              {/* Activity Promo Banner (one-line) */}
+              <section className="relative overflow-hidden rounded-lg bg-white border border-gray-200">
+                <div className="flex items-center justify-between px-6 py-4">
+                  <div className="flex items-center gap-4 min-w-0">
+                    <div className="w-10 h-10 rounded-full bg-orange-100 flex items-center justify-center shrink-0">
+                      <Tag className="w-5 h-5 text-orange-600" />
+                    </div>
+                    <div className="min-w-0">
+                      <h3 className="font-semibold text-gray-900 text-sm md:text-base truncate">
+                        Summer Sourcing Festival — Up to 20% Off Bulk Orders
+                      </h3>
+                      <p className="text-xs text-gray-500 truncate">
+                        Limited-time factory pricing on stress relief toys & jewelry. Ends soon.
+                      </p>
+                    </div>
+                  </div>
                   <Link
-                    href={`/products?category=${slide.slug}`}
-                    className="inline-flex items-center gap-2 bg-gold-500 hover:bg-gold-400 text-white px-6 py-2.5 md:px-7 md:py-3 rounded-lg font-bold text-sm md:text-base transition-all shadow-lg shadow-gold-500/30"
+                    href="/products?promo=summer"
+                    className="inline-flex items-center gap-1.5 text-orange-600 hover:text-orange-700 font-semibold text-sm shrink-0 ml-4"
                   >
-                    Shop Now <ArrowRight className="w-4 h-4 md:w-5 md:h-5" />
+                    View Deals <ChevronRight className="w-4 h-4" />
                   </Link>
                 </div>
-              </div>
-            </div>
-          </div>
-        ))}
+              </section>
 
-        <button
-          onClick={prevSlide}
-          className="absolute left-3 md:left-6 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center text-white hover:bg-white/20 transition-all"
-          aria-label="Previous slide"
-        >
-          <ChevronLeft className="w-5 h-5" />
-        </button>
-        <button
-          onClick={nextSlide}
-          className="absolute right-3 md:right-6 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center text-white hover:bg-white/20 transition-all"
-          aria-label="Next slide"
-        >
-          <ChevronRight className="w-5 h-5" />
-        </button>
+              {/* Top Deals Products Grid */}
+              {topDeals.length > 0 && (
+                <section className="bg-white rounded-lg border border-gray-200 p-5">
+                  <div className="flex items-center justify-between mb-4">
+                    <h2 className="font-display text-lg md:text-xl font-bold text-gray-900">
+                      Top Deals
+                    </h2>
+                    <Link
+                      href="/products?sort=hot"
+                      className="text-sm text-orange-600 hover:text-orange-700 font-semibold"
+                    >
+                      See more
+                    </Link>
+                  </div>
+                  <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
+                    {topDeals.map((p) => (
+                      <Link
+                        key={p.id}
+                        href={`/products/${p.id}`}
+                        className="group block"
+                      >
+                        <div className="aspect-square bg-gray-50 rounded-md overflow-hidden mb-2">
+                          <img
+                            src={p.image}
+                            alt={p.name}
+                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                          />
+                        </div>
+                        <p className="text-xs text-gray-700 line-clamp-2 leading-tight group-hover:text-orange-600 transition-colors">
+                          {p.name}
+                        </p>
+                        <p className="text-sm font-bold text-orange-600 mt-0.5">
+                          ${Number(p.price).toFixed(2)}
+                        </p>
+                      </Link>
+                    ))}
+                  </div>
+                </section>
+              )}
 
-        <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2 z-20">
-          {slides.map((_, index) => (
-            <button
-              key={index}
-              onClick={() => goToSlide(index)}
-              className={`h-1.5 rounded-full transition-all duration-300 ${
-                index === currentSlide ? 'bg-gold-400 w-6' : 'bg-white/40 w-2 hover:bg-white/70'
-              }`}
-              aria-label={`Go to slide ${index + 1}`}
-            />
-          ))}
-        </div>
-      </section>
-
-      {/* Features Bar - 紧凑信息条 */}
-      <section className="bg-gray-50 border-b border-gray-100">
-        <div className="w-full max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12">
-          <div className="grid grid-cols-2 md:grid-cols-4 divide-x divide-gray-200">
-            {features.map((item, index) => (
-              <div key={index} className="flex items-center gap-3 py-3 px-2 md:px-4">
-                <div className="w-9 h-9 rounded-lg bg-gold-50 flex items-center justify-center shrink-0">
-                  <item.icon className="w-5 h-5 text-gold-600" />
+              {/* Category Guide Rows — one-line banners per category */}
+              <section className="space-y-3">
+                <div className="flex items-center justify-between">
+                  <h2 className="font-display text-lg md:text-xl font-bold text-gray-900">
+                    Shop by Category
+                  </h2>
                 </div>
-                <div className="min-w-0">
-                  <h3 className="text-sm font-semibold text-gray-900 leading-tight">{item.title}</h3>
-                  <p className="text-xs text-gray-500 leading-tight truncate">{item.desc}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
 
-      {/* New Arrivals - 新品到货 */}
-      <section className="py-10 md:py-12 bg-white">
-        <div className="w-full max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12">
-          <div className="flex items-center justify-between mb-6">
-            <div>
-              <span className="text-xs font-semibold text-gold-600 uppercase tracking-[0.2em]">Fresh Stock</span>
-              <h2 className="font-display text-2xl md:text-3xl text-gray-900 mt-1.5">New Arrivals</h2>
-            </div>
-            <Link
-              href="/products"
-              className="inline-flex items-center gap-1.5 text-gold-700 font-semibold hover:text-gold-500 transition-colors text-sm"
-            >
-              View All <ChevronRight className="w-4 h-4" />
-            </Link>
-          </div>
+                {categoryGuides.map((cat) => (
+                  <div
+                    key={cat.slug}
+                    className="group relative overflow-hidden rounded-lg bg-white border border-gray-200 hover:border-orange-300 hover:shadow-md transition-all"
+                  >
+                    <div className="flex items-center">
+                      {/* Image */}
+                      <div className="relative w-28 sm:w-36 md:w-44 h-24 sm:h-28 md:h-32 shrink-0 overflow-hidden">
+                        <img
+                          src={cat.image}
+                          alt={cat.title}
+                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                        />
+                      </div>
+                      {/* Text */}
+                      <div className="flex-1 min-w-0 px-4 md:px-6 py-3">
+                        {cat.badge && (
+                          <span className="inline-block bg-orange-100 text-orange-700 px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider mb-1.5">
+                            {cat.badge}
+                          </span>
+                        )}
+                        <h3 className="font-semibold text-gray-900 text-sm md:text-base leading-tight mb-1">
+                          {cat.title}
+                        </h3>
+                        <p className="text-xs md:text-sm text-gray-500 line-clamp-1">
+                          {cat.desc}
+                        </p>
+                      </div>
+                      {/* CTA */}
+                      <div className="pr-4 md:pr-6 shrink-0">
+                        <Link
+                          href={`/products?category=${cat.slug}`}
+                          className="inline-flex items-center gap-1.5 bg-[#0F2A4A] hover:bg-orange-500 text-white px-4 py-2 rounded-md text-xs md:text-sm font-semibold transition-colors whitespace-nowrap"
+                        >
+                          Shop Now <ArrowRight className="w-3.5 h-3.5" />
+                        </Link>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </section>
 
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
-            {newProducts.length > 0 ? (
-              newProducts.map((product) => (
-                <ProductCard key={product.id} product={product} />
-              ))
-            ) : (
-              <div className="col-span-full text-center py-12">
-                <Package className="w-12 h-12 text-gray-300 mx-auto mb-3" />
-                <p className="text-gray-500 text-sm">No products yet. Check back soon!</p>
-              </div>
-            )}
-          </div>
-        </div>
-      </section>
-
-      {/* Toys Spotlight - 玩具特色区域 */}
-      <section className="py-10 md:py-12 bg-gray-50">
-        <div className="w-full max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12">
-          <div className="grid md:grid-cols-2 gap-6 items-center">
-            <div className="relative h-48 md:h-64 rounded-xl overflow-hidden">
-              <img
-                src={`${PEXELS}/6983866/pexels-photo-6983866.jpeg?auto=compress&cs=tinysrgb&w=1200&h=600&fit=crop`}
-                alt="Toys & Gift"
-                className="w-full h-full object-cover"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
-            </div>
-            <div>
-              <div className="inline-flex items-center gap-2 bg-gold-100 text-gold-700 px-3 py-1.5 rounded-full text-xs font-bold mb-3">
-                <Sparkles className="w-3.5 h-3.5" />
-                Trending Now
-              </div>
-              <h2 className="font-display text-2xl md:text-3xl text-gray-900 mb-3 leading-tight">
-                Stress Relief & Fidget Toys
-              </h2>
-              <p className="text-gray-600 text-sm md:text-base mb-4 leading-relaxed">
-                Butter bars, squishy toys, fidget spinners and more — the hottest stress relief toy trends.
-                Low MOQ, fast shipping from Yiwu. Perfect for retail, gifting & promotions.
-              </p>
-              <Link
-                href="/products?category=toys-gift"
-                className="inline-flex items-center gap-2 bg-gold-500 hover:bg-gold-400 text-white px-6 py-3 rounded-lg font-bold text-sm transition-all shadow-md shadow-gold-500/20"
-              >
-                Browse Toys & Gift <ArrowRight className="w-4 h-4" />
-              </Link>
+              {/* Empty state if no products */}
+              {products.length === 0 && (
+                <section className="bg-white rounded-lg border border-gray-200 p-12 text-center">
+                  <Package className="w-12 h-12 text-gray-300 mx-auto mb-3" />
+                  <p className="text-gray-500 text-sm">
+                    Products are loading. Browse categories in the meantime.
+                  </p>
+                </section>
+              )}
             </div>
           </div>
         </div>
-      </section>
-
-      {/* CTA - 询价区域 */}
-      <section className="py-10 md:py-12 bg-gradient-to-r from-gold-500 to-gold-600">
-        <div className="w-full max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12">
-          <div className="flex flex-col md:flex-row gap-4 items-center justify-between">
-            <div>
-              <h3 className="font-display text-xl md:text-2xl text-white font-bold leading-tight">
-                Need Bulk Pricing or Custom Sourcing?
-              </h3>
-              <p className="text-white/85 text-sm mt-1.5">
-                Get a personalized quote within 24 hours.
-              </p>
-            </div>
-            <div className="flex gap-3 shrink-0">
-              <Link
-                href="/products"
-                className="inline-flex items-center gap-2 bg-white text-gold-600 hover:bg-gray-100 px-6 py-3 rounded-lg font-bold text-sm transition-colors"
-              >
-                Browse Catalog <ArrowRight className="w-4 h-4" />
-              </Link>
-              <a
-                href="mailto:sales@etruemart.com?subject=Wholesale%20Inquiry"
-                className="inline-flex items-center gap-2 border-2 border-white/50 text-white hover:bg-white hover:text-gold-600 px-6 py-3 rounded-lg font-bold text-sm transition-all"
-              >
-                Request a Quote
-              </a>
-            </div>
-          </div>
-        </div>
-      </section>
+      </div>
     </Layout>
   );
 };
