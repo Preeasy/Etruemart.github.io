@@ -1483,6 +1483,52 @@
       ]
     },
     {
+      "name": "Pearl Stud Earrings",
+      "description": "Premium pearl stud earrings wholesale from Yiwu. Fashion Jewelry for retailers, boutiques, and online sellers. Factory direct pricing, low MOQ, reliable quality. Bulk orders welcome.",
+      "slug": "pearl-stud-earrings",
+      "priceMin": 1.28,
+      "priceMax": 1.66,
+      "image": "https://images.pexels.com/photos/4735902/pexels-photo-4735902.jpeg?auto=compress&cs=tinysrgb&w=600&h=600&fit=crop",
+      "images": [
+        "https://images.pexels.com/photos/4735902/pexels-photo-4735902.jpeg?auto=compress&cs=tinysrgb&w=600&h=600&fit=crop"
+      ],
+      "categorySlug": "earrings",
+      "material": "925 Silver + Cubic Zirconia",
+      "plating": "18K Gold",
+      "process": "Factory Made",
+      "color": "Classic / Pastel / Neon",
+      "size": "Standard",
+      "packSize": 12,
+      "pkgLength": 15,
+      "pkgWidth": 10,
+      "pkgHeight": 8,
+      "pkgWeight": 0.1,
+      "moq": 12,
+      "sku": "YW-EARRIN-030",
+      "origin": "Yiwu, China",
+      "supplierCity": "Yiwu",
+      "stockStatus": "IN_STOCK",
+      "keywords": [
+        "pearl stud earrings",
+        "fashion jewelry",
+        "wholesale",
+        "yiwu",
+        "earrings"
+      ],
+      "variations": [
+        {
+          "color": "Classic",
+          "size": "Standard",
+          "price": 1.28
+        },
+        {
+          "color": "Pastel",
+          "size": "Standard",
+          "price": 1.43
+        }
+      ]
+    },
+    {
       "name": "Gemstone Adjustable Ring",
       "description": "Premium gemstone adjustable ring wholesale from Yiwu. Fashion Jewelry for retailers, boutiques, and online sellers. Factory direct pricing, low MOQ, reliable quality. Bulk orders welcome.",
       "slug": "gemstone-adjustable-ring",
@@ -10181,5 +10227,7 @@
         }
       ]
     }
-  ]
+  ],
+  "generatedAt": "2026-07-25T04:44:38.728Z",
+  "count": 200
 }

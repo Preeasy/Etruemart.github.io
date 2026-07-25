@@ -31,6 +31,74 @@ interface Product {
 
 const PEXELS = 'https://images.pexels.com/photos';
 
+// Parent categories for guide rows — each shows 4-5 products in one row
+const categoryGuides = [
+  {
+    title: 'Toys & Gift',
+    desc: 'Stress relief toys, fidget toys & gift sets',
+    slug: 'toys-gift',
+    badge: 'Trending',
+  },
+  {
+    title: 'Fashion Jewelry',
+    desc: 'Necklaces, earrings, rings & bracelets',
+    slug: 'fashion-jewelry',
+    badge: 'Best Seller',
+  },
+  {
+    title: 'Hair Accessories',
+    desc: 'Clips, headbands, scrunchies & pins',
+    slug: 'hair-accessories',
+    badge: 'New',
+  },
+  {
+    title: 'Bags & Accessories',
+    desc: 'Bag charms, keychains & belt buckles',
+    slug: 'bags-accessories',
+    badge: 'Hot',
+  },
+  {
+    title: 'Garment Accessories',
+    desc: 'Zippers, buttons, lace & patches',
+    slug: 'garment-accessories',
+    badge: null,
+  },
+  {
+    title: 'Home Decor & Crafts',
+    desc: 'Beads, rhinestones & craft supplies',
+    slug: 'home-decor-crafts',
+    badge: null,
+  },
+];
+
+// Map product.categorySlug (subcategory) -> parent category slug
+const SUB_TO_PARENT: Record<string, string> = {
+  'stress-relief-toys': 'toys-gift',
+  'fidget-toys': 'toys-gift',
+  'educational-toys': 'toys-gift',
+  'gift-sets': 'toys-gift',
+  'necklaces': 'fashion-jewelry',
+  'earrings': 'fashion-jewelry',
+  'rings': 'fashion-jewelry',
+  'bracelets-bangles': 'fashion-jewelry',
+  'brooches-pins': 'fashion-jewelry',
+  'jewelry-sets': 'fashion-jewelry',
+  'hair-clips': 'hair-accessories',
+  'headbands': 'hair-accessories',
+  'hair-ties': 'hair-accessories',
+  'hair-pins': 'hair-accessories',
+  'bag-charms': 'bags-accessories',
+  'keychains': 'bags-accessories',
+  'belt-buckles': 'bags-accessories',
+  'zippers': 'garment-accessories',
+  'buttons': 'garment-accessories',
+  'lace-trim': 'garment-accessories',
+  'embroidery-patches': 'garment-accessories',
+  'beads-charms': 'home-decor-crafts',
+  'rhinestones': 'home-decor-crafts',
+  'craft-supplies': 'home-decor-crafts',
+};
+
 // Left sidebar categories — matches Navbar categories
 const sidebarCategories = [
   {
@@ -101,51 +169,7 @@ const sidebarCategories = [
   },
 ];
 
-// Category hero guide rows — one-line banners matching each category's product imagery
-const categoryGuides = [
-  {
-    title: 'Stress Relief & Fidget Toys',
-    desc: 'Butter bars, squishies, pop-it & fidget spinners — trending wholesale toys.',
-    slug: 'toys-gift',
-    badge: 'Trending',
-    image: `${PEXELS}/6983746/pexels-photo-6983746.jpeg?auto=compress&cs=tinysrgb&w=800&h=400&fit=crop`,
-  },
-  {
-    title: 'Fashion Jewelry',
-    desc: 'Necklaces, earrings, rings & bracelets — wholesale from Yiwu.',
-    slug: 'fashion-jewelry',
-    badge: 'Best Seller',
-    image: `${PEXELS}/4735895/pexels-photo-4735895.jpeg?auto=compress&cs=tinysrgb&w=800&h=400&fit=crop`,
-  },
-  {
-    title: 'Hair Accessories',
-    desc: 'Clips, headbands & scrunchies — trendy wholesale styles.',
-    slug: 'hair-accessories',
-    badge: 'New',
-    image: `${PEXELS}/6983530/pexels-photo-6983530.jpeg?auto=compress&cs=tinysrgb&w=800&h=400&fit=crop`,
-  },
-  {
-    title: 'Bags & Accessories',
-    desc: 'Bag charms, keychains & belt buckles — premium hardware from Yiwu.',
-    slug: 'bags-accessories',
-    badge: 'Hot',
-    image: `${PEXELS}/1152077/pexels-photo-1152077.jpeg?auto=compress&cs=tinysrgb&w=800&h=400&fit=crop`,
-  },
-  {
-    title: 'Garment Accessories',
-    desc: 'Zippers, buttons, lace & patches — bulk trim for apparel makers.',
-    slug: 'garment-accessories',
-    badge: null,
-    image: `${PEXELS}/5704720/pexels-photo-5704720.jpeg?auto=compress&cs=tinysrgb&w=800&h=400&fit=crop`,
-  },
-  {
-    title: 'Home Decor & Crafts',
-    desc: 'Beads, rhinestones & craft supplies — beautify every space.',
-    slug: 'home-decor-crafts',
-    badge: null,
-    image: `${PEXELS}/1640777/pexels-photo-1640777.jpeg?auto=compress&cs=tinysrgb&w=800&h=400&fit=crop`,
-  },
-];
+// Category hero guide rows — handled above (product rows, no static images)
 
 const Home = () => {
   const [products, setProducts] = useState<Product[]>([]);
@@ -311,54 +335,89 @@ const Home = () => {
                 </section>
               )}
 
-              {/* Category Guide Rows — one-line banners per category */}
-              <section className="space-y-3">
+              {/* Category Guide Rows — one row of 4-5 products per category */}
+              <section className="space-y-5">
                 <div className="flex items-center justify-between">
                   <h2 className="font-display text-lg md:text-xl font-bold text-gray-900">
                     Shop by Category
                   </h2>
                 </div>
 
-                {categoryGuides.map((cat) => (
-                  <div
-                    key={cat.slug}
-                    className="group relative overflow-hidden rounded-lg bg-white border border-gray-200 hover:border-orange-300 hover:shadow-md transition-all"
-                  >
-                    <div className="flex items-center">
-                      {/* Image */}
-                      <div className="relative w-28 sm:w-36 md:w-44 h-24 sm:h-28 md:h-32 shrink-0 overflow-hidden">
-                        <img
-                          src={cat.image}
-                          alt={cat.title}
-                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                        />
-                      </div>
-                      {/* Text */}
-                      <div className="flex-1 min-w-0 px-4 md:px-6 py-3">
-                        {cat.badge && (
-                          <span className="inline-block bg-orange-100 text-orange-700 px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider mb-1.5">
-                            {cat.badge}
+                {categoryGuides.map((cat) => {
+                  // Get up to 5 products for this parent category
+                  const catProducts = products
+                    .filter(p => {
+                      // API returns category as {id, name, slug} where slug is the subcategory
+                      const subSlug = typeof p.category === 'object' ? p.category?.slug : '';
+                      if (!subSlug) return false;
+                      return SUB_TO_PARENT[subSlug] === cat.slug;
+                    })
+                    .slice(0, 5);
+
+                  return (
+                    <div
+                      key={cat.slug}
+                      className="bg-white rounded-lg border border-gray-200 overflow-hidden hover:shadow-md transition-shadow"
+                    >
+                      {/* Category header — single line with See more */}
+                      <div className="flex items-center justify-between px-5 py-3 border-b border-gray-100 bg-gray-50">
+                        <div className="flex items-center gap-2 min-w-0">
+                          {cat.badge && (
+                            <span className="inline-block bg-orange-100 text-orange-700 px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider shrink-0">
+                              {cat.badge}
+                            </span>
+                          )}
+                          <h3 className="font-semibold text-gray-900 text-sm md:text-base truncate">
+                            {cat.title}
+                          </h3>
+                          <span className="hidden sm:inline text-xs text-gray-400 truncate">
+                            {cat.desc}
                           </span>
-                        )}
-                        <h3 className="font-semibold text-gray-900 text-sm md:text-base leading-tight mb-1">
-                          {cat.title}
-                        </h3>
-                        <p className="text-xs md:text-sm text-gray-500 line-clamp-1">
-                          {cat.desc}
-                        </p>
-                      </div>
-                      {/* CTA */}
-                      <div className="pr-4 md:pr-6 shrink-0">
+                        </div>
                         <Link
                           href={`/products?category=${cat.slug}`}
-                          className="inline-flex items-center gap-1.5 bg-[#0F2A4A] hover:bg-orange-500 text-white px-4 py-2 rounded-md text-xs md:text-sm font-semibold transition-colors whitespace-nowrap"
+                          className="inline-flex items-center gap-1 text-orange-600 hover:text-orange-700 text-xs md:text-sm font-semibold shrink-0 ml-3"
                         >
-                          Shop Now <ArrowRight className="w-3.5 h-3.5" />
+                          See more <ChevronRight className="w-3.5 h-3.5" />
                         </Link>
                       </div>
+
+                      {/* Product row — 4 to 5 products in one line */}
+                      {catProducts.length > 0 ? (
+                        <div className="grid grid-cols-4 lg:grid-cols-5 gap-3 p-4">
+                          {catProducts.map((p) => (
+                            <Link
+                              key={p.id}
+                              href={`/products/${p.id}`}
+                              className="group block"
+                            >
+                              <div className="aspect-square bg-gray-50 rounded-md overflow-hidden mb-2">
+                                <img
+                                  src={p.image}
+                                  alt={p.name}
+                                  loading="lazy"
+                                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                                />
+                              </div>
+                              <p className="text-xs text-gray-700 line-clamp-2 leading-tight group-hover:text-orange-600 transition-colors">
+                                {p.name}
+                              </p>
+                              <p className="text-sm font-bold text-orange-600 mt-0.5">
+                                ${Number(p.price).toFixed(2)}
+                              </p>
+                            </Link>
+                          ))}
+                        </div>
+                      ) : (
+                        <div className="p-6 text-center">
+                          <p className="text-xs text-gray-400">
+                            Loading products...
+                          </p>
+                        </div>
+                      )}
                     </div>
-                  </div>
-                ))}
+                  );
+                })}
               </section>
 
               {/* Empty state if no products */}
