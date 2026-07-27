@@ -231,7 +231,8 @@ async function seedIfEmpty() {
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === 'GET') {
-    await seedIfEmpty();
+    // Don't run seed on every GET - it's too slow for 200 products
+    // Seed manually via /api/seed or on first deploy
 
     const { authorId, categoryId, category, material, plating, color, priceMin, priceMax } = req.query;
 

@@ -115,8 +115,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       }
       const uniqueImages = [...new Set(images)];
 
-      // Find category by name from productData.category string
-      const catRecord = await prisma.category.findFirst({ where: { name: productData.category || 'Other' } });
+      // Find category by name from productData.category object
+      const catName = typeof productData.category === 'object' ? productData.category.name : (productData.category || 'Other');
+      const catRecord = await prisma.category.findFirst({ where: { name: catName } });
       const fallbackCat = await prisma.category.findFirst();
       const categoryId = catRecord?.id || fallbackCat?.id || '';
 
