@@ -12,9 +12,13 @@ import {
   Tag,
   Package,
   Sparkles,
-  TrendingUp,
+  Star,
+  ShieldCheck,
+  Truck,
+  Award,
 } from 'lucide-react';
 import Layout from '@/components/Layout';
+import Sidebar from '@/components/Sidebar';
 import fs from 'fs';
 import path from 'path';
 
@@ -58,22 +62,20 @@ const SUB_TO_PARENT: Record<string, string> = {
   'craft-supplies': 'home-decor-crafts',
 };
 
-const sidebarCategories = [
-  { name: 'Toys & Gift', icon: Gift, slug: 'toys-gift' },
-  { name: 'Fashion Jewelry', icon: Gem, slug: 'fashion-jewelry' },
-  { name: 'Hair Accessories', icon: Crown, slug: 'hair-accessories' },
-  { name: 'Bags & Accessories', icon: ShoppingBag, slug: 'bags-accessories' },
-  { name: 'Garment Accessories', icon: Scissors, slug: 'garment-accessories' },
-  { name: 'Home Decor & Crafts', icon: HomeIcon, slug: 'home-decor-crafts' },
+const categoryGuides = [
+  { title: 'Toys & Gift', desc: 'Stress relief, fidget toys & gift sets', slug: 'toys-gift', badge: 'Trending', color: 'from-blue-600 to-blue-700', icon: Gift },
+  { title: 'Fashion Jewelry', desc: 'Necklaces, earrings, rings & bracelets', slug: 'fashion-jewelry', badge: 'Best Seller', color: 'from-amber-500 to-orange-600', icon: Gem },
+  { title: 'Hair Accessories', desc: 'Clips, headbands, scrunchies & pins', slug: 'hair-accessories', badge: 'New', color: 'from-pink-500 to-rose-600', icon: Crown },
+  { title: 'Bags & Accessories', desc: 'Bag charms, keychains & belt buckles', slug: 'bags-accessories', badge: 'Hot', color: 'from-emerald-500 to-teal-600', icon: ShoppingBag },
+  { title: 'Garment Accessories', desc: 'Zippers, buttons, lace & patches', slug: 'garment-accessories', badge: null, color: 'from-slate-600 to-gray-700', icon: Scissors },
+  { title: 'Home Decor & Crafts', desc: 'Beads, rhinestones & craft supplies', slug: 'home-decor-crafts', badge: null, color: 'from-purple-500 to-violet-600', icon: HomeIcon },
 ];
 
-const categoryGuides = [
-  { title: 'Toys & Gift', desc: 'Stress relief toys, fidget toys & gift sets', slug: 'toys-gift', badge: 'Trending', color: 'from-blue-600 to-blue-800' },
-  { title: 'Fashion Jewelry', desc: 'Necklaces, earrings, rings & bracelets', slug: 'fashion-jewelry', badge: 'Best Seller', color: 'from-amber-600 to-orange-700' },
-  { title: 'Hair Accessories', desc: 'Clips, headbands, scrunchies & pins', slug: 'hair-accessories', badge: 'New', color: 'from-pink-500 to-rose-600' },
-  { title: 'Bags & Accessories', desc: 'Bag charms, keychains & belt buckles', slug: 'bags-accessories', badge: 'Hot', color: 'from-emerald-600 to-green-700' },
-  { title: 'Garment Accessories', desc: 'Zippers, buttons, lace & patches', slug: 'garment-accessories', badge: null, color: 'from-slate-600 to-gray-700' },
-  { title: 'Home Decor & Crafts', desc: 'Beads, rhinestones & craft supplies', slug: 'home-decor-crafts', badge: null, color: 'from-purple-600 to-violet-700' },
+const valueProps = [
+  { icon: Truck, label: 'Free Shipping', desc: 'On orders $50+' },
+  { icon: ShieldCheck, label: 'Secure Payment', desc: '100% protected' },
+  { icon: Award, label: 'Premium Quality', desc: 'Verified factories' },
+  { icon: Star, label: 'Top Rated', desc: '4.8/5 customer rating' },
 ];
 
 const Home = ({ products }: { products: Product[] }) => {
@@ -81,140 +83,127 @@ const Home = ({ products }: { products: Product[] }) => {
 
   return (
     <Layout>
-      <div className="bg-gradient-to-b from-gray-50 to-white">
-        <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-10 py-6">
-          <div className="flex gap-6">
-            <aside className="hidden lg:block w-56 shrink-0">
-              <div className="sticky top-20">
-                <div className="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden">
-                  <div className="px-4 py-3 bg-gradient-to-r from-orange-500 to-amber-500">
-                    <h2 className="font-semibold text-white text-sm uppercase tracking-wider flex items-center gap-2">
-                      <Sparkles className="w-4 h-4" />
-                      All Categories
-                    </h2>
-                  </div>
-                  <nav className="py-2">
-                    {sidebarCategories.map((cat) => (
-                      <Link
-                        key={cat.slug}
-                        href={`/products?category=${cat.slug}`}
-                        className="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-700 hover:bg-orange-50 hover:text-orange-700 transition-all group"
-                      >
-                        <cat.icon className="w-4 h-4 text-gray-400 group-hover:text-orange-500 transition-colors" />
-                        {cat.name}
-                        <ChevronRight className="w-3 h-3 ml-auto text-gray-300 group-hover:text-orange-400 transition-colors" />
-                      </Link>
-                    ))}
-                  </nav>
-                </div>
+      <div className="bg-ink-50 min-h-screen">
+        <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-10 py-6 lg:py-8">
+          <div className="flex gap-6 lg:gap-8">
+            <Sidebar products={products} />
 
-                <div className="mt-4 bg-gradient-to-br from-orange-500 to-amber-600 rounded-xl p-5 text-white shadow-lg">
-                  <div className="flex items-center gap-2 mb-2">
-                    <TrendingUp className="w-5 h-5" />
-                    <span className="font-bold text-lg">Summer Sale</span>
-                  </div>
-                  <p className="text-sm text-orange-100 mb-4">Up to 25% OFF on selected items!</p>
-                  <Link
-                    href="/products?promo=summer"
-                    className="inline-flex items-center gap-1 bg-white text-orange-600 px-4 py-2 rounded-lg text-sm font-semibold hover:bg-orange-50 transition-colors"
-                  >
-                    Shop Now <ArrowRight className="w-4 h-4" />
-                  </Link>
+            <div className="flex-1 min-w-0 space-y-6 lg:space-y-8">
+              {/* Hero Banner */}
+              <section className="relative overflow-hidden rounded-3xl bg-hero-gradient shadow-premium">
+                <div className="absolute inset-0 premium-pattern opacity-30" />
+                <div className="absolute inset-0 opacity-30">
+                  <div className="absolute top-0 right-0 w-96 h-96 bg-accent-500/30 rounded-full blur-[120px]" />
+                  <div className="absolute bottom-0 left-0 w-64 h-64 bg-blue-500/20 rounded-full blur-[100px]" />
                 </div>
-              </div>
-            </aside>
-
-            <div className="flex-1 min-w-0 space-y-6">
-              <section className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 shadow-xl">
-                <div className="absolute inset-0 opacity-20">
-                  <div className="absolute top-0 right-0 w-96 h-96 bg-orange-500 rounded-full blur-[120px]" />
-                  <div className="absolute bottom-0 left-0 w-64 h-64 bg-blue-500 rounded-full blur-[100px]" />
-                </div>
-                <div className="relative flex flex-col lg:flex-row items-center justify-between px-8 md:px-12 py-10 md:py-14">
+                <div className="relative flex flex-col lg:flex-row items-center justify-between px-6 md:px-12 py-10 md:py-14">
                   <div className="text-center lg:text-left max-w-xl">
-                    <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur text-orange-400 px-4 py-1.5 rounded-full text-sm font-semibold mb-5">
-                      <Flame className="w-4 h-4" />
+                    <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md text-accent-300 px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-[0.1em] mb-5 border border-white/10">
+                      <Flame className="w-3.5 h-3.5" />
                       Direct from Yiwu Factories
                     </div>
-                    <h1 className="font-display text-3xl md:text-5xl font-bold text-white leading-tight mb-4">
-                      Wholesale <span className="text-orange-400">Toys & Jewelry</span>
+                    <h1 className="font-display text-3xl md:text-5xl font-bold text-white leading-[1.1] mb-4 tracking-tight">
+                      Wholesale <span className="text-accent-400">Toys & Jewelry</span>
                     </h1>
-                    <p className="text-gray-300 text-base md:text-lg mb-6">
+                    <p className="text-ink-200 text-base md:text-lg mb-7 leading-relaxed">
                       Premium quality at factory prices. Stress relief toys, fashion jewelry, hair accessories & more. Low MOQ, fast shipping.
                     </p>
                     <div className="flex flex-col sm:flex-row gap-3 justify-center lg:justify-start">
                       <Link
                         href="/products"
-                        className="inline-flex items-center justify-center gap-2 bg-orange-500 hover:bg-orange-400 text-white px-6 py-3 rounded-xl font-semibold text-base transition-all hover:shadow-lg hover:shadow-orange-500/25"
+                        className="inline-flex items-center justify-center gap-2 bg-accent-500 hover:bg-accent-600 text-white px-7 py-3.5 rounded-xl font-bold text-sm transition-all shadow-accent-glow hover:shadow-lg"
                       >
-                        Browse All Products <ArrowRight className="w-5 h-5" />
+                        Browse All Products <ArrowRight className="w-4 h-4" />
                       </Link>
                       <Link
                         href="/sell"
-                        className="inline-flex items-center justify-center gap-2 bg-white/10 hover:bg-white/20 text-white px-6 py-3 rounded-xl font-semibold text-base transition-all backdrop-blur"
+                        className="inline-flex items-center justify-center gap-2 bg-white/10 hover:bg-white/15 text-white px-7 py-3.5 rounded-xl font-bold text-sm transition-all backdrop-blur-md border border-white/10"
                       >
                         Become a Seller
                       </Link>
                     </div>
                   </div>
-                  <div className="mt-8 lg:mt-0 lg:ml-8">
+                  <div className="mt-8 lg:mt-0 lg:ml-8 hidden md:block">
                     <div className="relative">
-                      <div className="absolute -inset-4 bg-gradient-to-r from-orange-500/20 to-blue-500/20 rounded-2xl blur-xl" />
-                      <img
-                        src="https://images.pexels.com/photos/6983866/pexels-photo-6983866.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop"
-                        alt="Wholesale Products"
-                        className="relative w-72 h-48 object-cover rounded-xl shadow-2xl"
-                      />
+                      <div className="absolute -inset-6 bg-gradient-to-br from-accent-500/20 to-blue-500/20 rounded-3xl blur-2xl" />
+                      <div className="relative w-80 h-56 rounded-2xl overflow-hidden border border-white/10 shadow-2xl">
+                        <img
+                          src="/images/products/1783332968156.jpg"
+                          alt="Wholesale Products"
+                          className="w-full h-full object-cover"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-navy-900/40 to-transparent" />
+                        <div className="absolute bottom-3 left-3 px-2.5 py-1 bg-white/90 backdrop-blur text-navy-800 text-[10px] font-bold rounded-md">
+                          200+ Premium Items
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
               </section>
 
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-                <Link href="/products?category=toys-gift" className="group bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl p-4 text-white hover:shadow-lg transition-all hover:-translate-y-0.5">
-                  <div className="flex items-center gap-3 mb-2">
-                    <Gift className="w-6 h-6" />
-                    <span className="font-semibold">Toys</span>
-                  </div>
-                  <p className="text-xs text-blue-100">{products.filter(p => SUB_TO_PARENT[p.category.slug] === 'toys-gift').length} items</p>
-                </Link>
-                <Link href="/products?category=fashion-jewelry" className="group bg-gradient-to-br from-amber-500 to-orange-500 rounded-xl p-4 text-white hover:shadow-lg transition-all hover:-translate-y-0.5">
-                  <div className="flex items-center gap-3 mb-2">
-                    <Gem className="w-6 h-6" />
-                    <span className="font-semibold">Jewelry</span>
-                  </div>
-                  <p className="text-xs text-orange-100">{products.filter(p => SUB_TO_PARENT[p.category.slug] === 'fashion-jewelry').length} items</p>
-                </Link>
-                <Link href="/products?category=hair-accessories" className="group bg-gradient-to-br from-pink-500 to-rose-500 rounded-xl p-4 text-white hover:shadow-lg transition-all hover:-translate-y-0.5">
-                  <div className="flex items-center gap-3 mb-2">
-                    <Crown className="w-6 h-6" />
-                    <span className="font-semibold">Hair</span>
-                  </div>
-                  <p className="text-xs text-pink-100">{products.filter(p => SUB_TO_PARENT[p.category.slug] === 'hair-accessories').length} items</p>
-                </Link>
-                <Link href="/products?category=bags-accessories" className="group bg-gradient-to-br from-emerald-500 to-green-500 rounded-xl p-4 text-white hover:shadow-lg transition-all hover:-translate-y-0.5">
-                  <div className="flex items-center gap-3 mb-2">
-                    <ShoppingBag className="w-6 h-6" />
-                    <span className="font-semibold">Bags</span>
-                  </div>
-                  <p className="text-xs text-green-100">{products.filter(p => SUB_TO_PARENT[p.category.slug] === 'bags-accessories').length} items</p>
-                </Link>
-              </div>
+              {/* Value Props */}
+              <section className="grid grid-cols-2 md:grid-cols-4 gap-3">
+                {valueProps.map((vp, i) => {
+                  const Icon = vp.icon;
+                  return (
+                    <div
+                      key={i}
+                      className="bg-white rounded-2xl border border-ink-200 p-4 flex items-center gap-3 shadow-soft hover:shadow-medium transition-shadow"
+                    >
+                      <div className="w-10 h-10 rounded-xl bg-accent-50 flex items-center justify-center flex-shrink-0">
+                        <Icon className="w-5 h-5 text-accent-600" />
+                      </div>
+                      <div className="min-w-0">
+                        <p className="text-sm font-bold text-navy-800 leading-tight">{vp.label}</p>
+                        <p className="text-[11px] text-ink-500 leading-tight mt-0.5">{vp.desc}</p>
+                      </div>
+                    </div>
+                  );
+                })}
+              </section>
 
+              {/* Quick Categories */}
+              <section className="grid grid-cols-2 md:grid-cols-4 gap-3">
+                {categoryGuides.slice(0, 4).map((cat) => {
+                  const Icon = cat.icon;
+                  const count = products.filter(p => SUB_TO_PARENT[p.category.slug] === cat.slug).length;
+                  return (
+                    <Link
+                      key={cat.slug}
+                      href={`/products?category=${cat.slug}`}
+                      className={`group relative overflow-hidden bg-gradient-to-br ${cat.color} rounded-2xl p-4 text-white hover:shadow-lg transition-all hover:-translate-y-0.5`}
+                    >
+                      <div className="absolute -right-4 -bottom-4 w-20 h-20 bg-white/10 rounded-full" />
+                      <div className="relative">
+                        <div className="flex items-center gap-2.5 mb-2">
+                          <div className="w-9 h-9 rounded-lg bg-white/20 backdrop-blur flex items-center justify-center">
+                            <Icon className="w-5 h-5" />
+                          </div>
+                          <span className="font-bold text-sm">{cat.title.split(' ')[0]}</span>
+                        </div>
+                        <p className="text-xs text-white/80">{count} items</p>
+                      </div>
+                    </Link>
+                  );
+                })}
+              </section>
+
+              {/* Top Deals */}
               {topDeals.length > 0 && (
-                <section className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
-                  <div className="px-6 py-4 border-b border-gray-100 bg-gradient-to-r from-orange-50 to-amber-50">
+                <section className="bg-white rounded-2xl border border-ink-200 shadow-soft overflow-hidden">
+                  <div className="px-6 py-4 border-b border-ink-100 bg-gradient-to-r from-accent-50 to-orange-50/50">
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-3">
-                        <div className="w-8 h-8 rounded-lg bg-orange-500 flex items-center justify-center">
+                        <div className="w-10 h-10 rounded-xl bg-accent-gradient flex items-center justify-center shadow-accent-glow">
                           <Flame className="w-5 h-5 text-white" />
                         </div>
                         <div>
-                          <h2 className="font-display text-xl font-bold text-gray-900">Top Deals</h2>
-                          <p className="text-xs text-gray-500">Best selling products at lowest prices</p>
+                          <h2 className="font-display text-xl font-bold text-navy-800 tracking-tight">Top Deals</h2>
+                          <p className="text-xs text-ink-500">Best selling products at lowest prices</p>
                         </div>
                       </div>
-                      <Link href="/products?sort=hot" className="inline-flex items-center gap-1.5 text-orange-600 hover:text-orange-700 font-semibold text-sm">
+                      <Link href="/products" className="inline-flex items-center gap-1 text-accent-600 hover:text-accent-700 font-bold text-sm">
                         View All <ChevronRight className="w-4 h-4" />
                       </Link>
                     </div>
@@ -222,16 +211,25 @@ const Home = ({ products }: { products: Product[] }) => {
                   <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4 p-5">
                     {topDeals.map((p) => (
                       <Link key={p.id} href={`/products/${p.id}`} className="group">
-                        <div className="aspect-square bg-gray-50 rounded-xl overflow-hidden mb-3 shadow-sm group-hover:shadow-md transition-shadow">
-                          <img src={p.image} alt={p.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                        <div className="aspect-square bg-ink-50 rounded-xl overflow-hidden mb-3 border border-ink-100 group-hover:border-accent-300 transition-colors">
+                          <img
+                            src={p.image}
+                            alt={p.name}
+                            loading="lazy"
+                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                          />
                         </div>
                         <div className="space-y-1">
-                          <p className="text-xs text-gray-700 line-clamp-2 leading-tight group-hover:text-orange-600 transition-colors">{p.name}</p>
-                          <div className="flex items-baseline gap-1">
-                            <span className="text-sm font-bold text-orange-600">${p.priceMin.toFixed(2)}</span>
-                            {p.priceMax > p.priceMin && <span className="text-xs text-gray-400">${p.priceMax.toFixed(2)}</span>}
+                          <p className="text-xs text-ink-700 line-clamp-2 leading-snug group-hover:text-accent-600 transition-colors min-h-[2.4em] font-medium">
+                            {p.name}
+                          </p>
+                          <div className="flex items-baseline gap-1.5">
+                            <span className="text-sm font-bold text-navy-800">${p.priceMin.toFixed(2)}</span>
+                            {p.priceMax > p.priceMin && (
+                              <span className="text-[10px] text-ink-400 line-through">${p.priceMax.toFixed(2)}</span>
+                            )}
                           </div>
-                          {p.moq && <span className="text-[10px] text-gray-400">MOQ: {p.moq}</span>}
+                          {p.moq && <span className="text-[10px] text-ink-400">MOQ: {p.moq} pcs</span>}
                         </div>
                       </Link>
                     ))}
@@ -239,31 +237,52 @@ const Home = ({ products }: { products: Product[] }) => {
                 </section>
               )}
 
+              {/* Shop by Category */}
               <section className="space-y-5">
-                <div className="flex items-center gap-2">
-                  <Tag className="w-5 h-5 text-orange-500" />
-                  <h2 className="font-display text-xl font-bold text-gray-900">Shop by Category</h2>
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-xl bg-navy-gradient flex items-center justify-center">
+                    <Tag className="w-5 h-5 text-white" />
+                  </div>
+                  <div>
+                    <h2 className="font-display text-2xl font-bold text-navy-800 tracking-tight">Shop by Category</h2>
+                    <p className="text-xs text-ink-500">Explore our curated wholesale collections</p>
+                  </div>
                 </div>
 
                 {categoryGuides.map((cat) => {
+                  const Icon = cat.icon;
                   const catProducts = products
-    .filter(p => p.category.slug === cat.slug)
-    .slice(0, 5);
+                    .filter(p => p.category.slug === cat.slug)
+                    .slice(0, 5);
 
                   return (
-                    <div key={cat.slug} className="bg-white rounded-xl border border-gray-100 shadow-sm overflow-hidden hover:shadow-md transition-shadow">
-                      <div className="px-5 py-3 border-b border-gray-50 bg-gray-50/50">
+                    <div
+                      key={cat.slug}
+                      className="bg-white rounded-2xl border border-ink-200 shadow-soft overflow-hidden hover:shadow-medium transition-shadow"
+                    >
+                      <div className="px-5 py-3.5 border-b border-ink-100 bg-gradient-to-r from-ink-50 to-white">
                         <div className="flex items-center justify-between">
                           <div className="flex items-center gap-3">
-                            {cat.badge && (
-                              <span className={`inline-flex items-center gap-1 bg-gradient-to-r ${cat.color} text-white px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider`}>
-                                {cat.badge}
-                              </span>
-                            )}
-                            <h3 className="font-semibold text-gray-900 text-base">{cat.title}</h3>
-                            <span className="text-xs text-gray-400 hidden sm:inline">{cat.desc}</span>
+                            <div className={`w-9 h-9 rounded-lg bg-gradient-to-br ${cat.color} flex items-center justify-center`}>
+                              <Icon className="w-4 h-4 text-white" />
+                            </div>
+                            <div>
+                              <div className="flex items-center gap-2">
+                                <h3 className="font-bold text-navy-800 text-base">{cat.title}</h3>
+                                {cat.badge && (
+                                  <span className={`inline-flex items-center gap-1 bg-gradient-to-r ${cat.color} text-white px-2 py-0.5 rounded text-[9px] font-bold uppercase tracking-wider`}>
+                                    <Sparkles className="w-2.5 h-2.5" />
+                                    {cat.badge}
+                                  </span>
+                                )}
+                              </div>
+                              <p className="text-xs text-ink-500">{cat.desc}</p>
+                            </div>
                           </div>
-                          <Link href={`/products?category=${cat.slug}`} className="inline-flex items-center gap-1 text-orange-600 hover:text-orange-700 text-sm font-semibold">
+                          <Link
+                            href={`/products?category=${cat.slug}`}
+                            className="inline-flex items-center gap-1 text-accent-600 hover:text-accent-700 text-sm font-bold"
+                          >
                             See more <ChevronRight className="w-4 h-4" />
                           </Link>
                         </div>
@@ -272,18 +291,25 @@ const Home = ({ products }: { products: Product[] }) => {
                         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 p-5">
                           {catProducts.map((p) => (
                             <Link key={p.id} href={`/products/${p.id}`} className="group">
-                              <div className="aspect-square bg-gray-50 rounded-lg overflow-hidden mb-2 group-hover:ring-2 ring-orange-200 transition-all">
-                                <img src={p.image} alt={p.name} loading="lazy" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                              <div className="aspect-square bg-ink-50 rounded-xl overflow-hidden mb-2 border border-ink-100 group-hover:border-accent-300 group-hover:ring-2 ring-accent-200 transition-all">
+                                <img
+                                  src={p.image}
+                                  alt={p.name}
+                                  loading="lazy"
+                                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                                />
                               </div>
-                              <p className="text-xs text-gray-700 line-clamp-2 leading-tight group-hover:text-orange-600 transition-colors">{p.name}</p>
-                              <p className="text-sm font-bold text-orange-600 mt-1">${p.priceMin.toFixed(2)}</p>
+                              <p className="text-xs text-ink-700 line-clamp-2 leading-snug group-hover:text-accent-600 transition-colors min-h-[2.2em] font-medium">
+                                {p.name}
+                              </p>
+                              <p className="text-sm font-bold text-navy-800 mt-1">${p.priceMin.toFixed(2)}</p>
                             </Link>
                           ))}
                         </div>
                       ) : (
-                        <div className="p-8 text-center">
-                          <Package className="w-10 h-10 text-gray-200 mx-auto mb-2" />
-                          <p className="text-sm text-gray-400">No products available</p>
+                        <div className="p-10 text-center">
+                          <Package className="w-10 h-10 text-ink-200 mx-auto mb-2" />
+                          <p className="text-sm text-ink-400">No products available</p>
                         </div>
                       )}
                     </div>
@@ -291,17 +317,30 @@ const Home = ({ products }: { products: Product[] }) => {
                 })}
               </section>
 
-              <section className="bg-gradient-to-r from-slate-900 to-slate-800 rounded-2xl p-6 md:p-8">
-                <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+              {/* CTA Section */}
+              <section className="relative overflow-hidden bg-navy-gradient rounded-2xl p-8 md:p-10 shadow-premium">
+                <div className="absolute inset-0 premium-pattern opacity-20" />
+                <div className="absolute -right-12 -top-12 w-48 h-48 bg-accent-500/20 rounded-full blur-3xl" />
+                <div className="relative flex flex-col md:flex-row items-center justify-between gap-6">
                   <div className="text-center md:text-left">
-                    <h2 className="font-display text-2xl md:text-3xl font-bold text-white mb-2">Ready to Start Sourcing?</h2>
-                    <p className="text-gray-400">Join thousands of retailers worldwide who trust eTruemart for their wholesale needs.</p>
+                    <h2 className="font-display text-2xl md:text-3xl font-bold text-white mb-2 tracking-tight">
+                      Ready to Start Sourcing?
+                    </h2>
+                    <p className="text-ink-200 max-w-lg">
+                      Join thousands of retailers worldwide who trust eTruemart for their wholesale needs.
+                    </p>
                   </div>
-                  <div className="flex gap-3">
-                    <Link href="/register" className="inline-flex items-center gap-2 bg-orange-500 hover:bg-orange-400 text-white px-6 py-3 rounded-xl font-semibold transition-colors">
-                      Create Account <ArrowRight className="w-5 h-5" />
+                  <div className="flex gap-3 flex-shrink-0">
+                    <Link
+                      href="/register"
+                      className="inline-flex items-center gap-2 bg-accent-500 hover:bg-accent-600 text-white px-6 py-3 rounded-xl font-bold transition-colors shadow-accent-glow"
+                    >
+                      Create Account <ArrowRight className="w-4 h-4" />
                     </Link>
-                    <Link href="/sell" className="inline-flex items-center gap-2 bg-white/10 hover:bg-white/20 text-white px-6 py-3 rounded-xl font-semibold transition-colors">
+                    <Link
+                      href="/sell"
+                      className="inline-flex items-center gap-2 bg-white/10 hover:bg-white/15 text-white px-6 py-3 rounded-xl font-bold transition-colors backdrop-blur border border-white/10"
+                    >
                       Sell on eTruemart
                     </Link>
                   </div>

@@ -34,54 +34,52 @@ const ProductCard = ({ product }: ProductCardProps) => {
     : 0;
 
   return (
-    <div className="bg-white rounded-xl overflow-hidden border border-gray-200 group hover:border-gold-400 hover:shadow-lg hover:shadow-gold-500/5 transition-all duration-300">
+    <div className="group bg-white rounded-2xl overflow-hidden border border-ink-200 hover:border-accent-300 hover:shadow-medium transition-all duration-300">
       <Link href={`/products/${product.id}`} className="block">
-        <div className="relative aspect-square overflow-hidden bg-gray-50">
+        <div className="relative aspect-square overflow-hidden bg-ink-50">
           <Image
             src={product.image}
             alt={product.name}
             fill
             className="object-cover group-hover:scale-105 transition-transform duration-500"
-            quality={85}
-            placeholder="blur"
-            blurDataURL="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Crect fill='%23f9fafb' width='200' height='200'/%3E%3C/svg%3E"
+            quality={90}
+            sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
           />
           {discount > 0 && (
-            <span className="absolute top-2 left-2 bg-gold-500 text-white text-xs font-bold px-2 py-1 rounded-md shadow-sm">
+            <span className="absolute top-2.5 left-2.5 bg-accent-500 text-white text-[10px] font-bold px-2 py-1 rounded-md shadow-accent-glow uppercase tracking-wide">
               -{discount}%
             </span>
           )}
+          <div className="absolute inset-0 bg-gradient-to-t from-navy-900/0 group-hover:from-navy-900/5 transition-all pointer-events-none" />
           {product.stockStatus === 'IN_STOCK' && (
-            <span className="absolute top-2 right-2 bg-white/95 text-gold-700 text-[10px] font-semibold px-2 py-1 rounded-md border border-gold-200 shadow-sm uppercase tracking-wide">
+            <span className="absolute top-2.5 right-2.5 bg-white/95 text-navy-800 text-[9px] font-bold px-2 py-1 rounded-md border border-ink-200 shadow-sm uppercase tracking-wider">
               In Stock
             </span>
           )}
         </div>
 
-        <div className="p-3.5">
+        <div className="p-4">
           {categoryName && (
-            <span className="text-[11px] font-semibold text-gold-600 uppercase tracking-wider">
+            <span className="text-[10px] font-bold text-accent-600 uppercase tracking-[0.12em]">
               {categoryName}
             </span>
           )}
 
-          <h3 className="mt-1 font-medium text-gray-900 text-sm line-clamp-2 hover:text-gold-700 transition-colors leading-5 min-h-[2.5rem]">
+          <h3 className="mt-1.5 font-semibold text-navy-800 text-sm line-clamp-2 group-hover:text-accent-600 transition-colors leading-snug min-h-[2.5rem]">
             {product.name}
           </h3>
 
-          <div className="flex items-baseline justify-between mt-2.5">
-            <div className="flex items-baseline gap-1.5">
-              <span className="text-lg font-bold text-gold-600">${price.toFixed(2)}</span>
-              {originalPrice && originalPrice > price && (
-                <span className="text-xs text-gray-400 line-through">${originalPrice.toFixed(2)}</span>
-              )}
-            </div>
+          <div className="flex items-baseline gap-2 mt-2.5">
+            <span className="text-lg font-bold text-navy-800">${price.toFixed(2)}</span>
+            {originalPrice && originalPrice > price && (
+              <span className="text-xs text-ink-400 line-through">${originalPrice.toFixed(2)}</span>
+            )}
           </div>
 
-          <div className="flex items-center justify-between mt-2 pt-2 border-t border-gray-100">
-            <span className="text-xs text-gray-500">MOQ: <span className="text-gray-700 font-medium">{moq}</span></span>
+          <div className="flex items-center justify-between mt-2.5 pt-2.5 border-t border-ink-100">
+            <span className="text-[11px] text-ink-500">MOQ: <span className="text-navy-800 font-semibold">{moq}</span></span>
             {product.sku && (
-              <span className="text-[10px] text-gray-400 font-mono truncate max-w-[80px]">{product.sku}</span>
+              <span className="text-[10px] text-ink-400 font-mono truncate max-w-[80px]">{product.sku}</span>
             )}
           </div>
         </div>
