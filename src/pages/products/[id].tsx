@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useRouter } from 'next/router';
 import { useSession } from 'next-auth/react';
 import Link from 'next/link';
@@ -15,26 +15,31 @@ import {
   Minus,
   Plus,
   Package,
+  ChevronRight,
+  Flame,
+  TrendingUp,
 } from 'lucide-react';
 import Layout from '@/components/Layout';
+import fs from 'fs';
+import path from 'path';
 
 interface Product {
-  id: string;
+  id: number | string;
   name: string;
   description: string;
-  price: number | string;
+  price?: number;
+  priceMin?: number;
+  priceMax?: number;
   originalPrice?: number | string;
   image: string;
   images: string[];
-  categoryId: string;
-  category?: { id: string; name: string; slug: string } | string;
-  stock: number;
-  rating: number | string;
-  reviewCount: number;
-  salesCount: number;
-  author: { id: string; name: string };
-  variants: { id: string; color: string; size: string; price: number | string; stock: number }[];
-  reviews: { id: string; user: { name: string }; rating: number; title: string; content: string; createdAt: string }[];
+  category?: { name: string; slug: string };
+  stock?: number;
+  rating?: number;
+  reviewCount?: number;
+  salesCount?: number;
+  variants?: { id: string; color: string; size: string; price: number; stock?: number }[];
+  reviews?: { id: string; user: { name: string }; rating: number; title: string; content: string; createdAt: string }[];
   aplus?: any;
   material?: string;
   plating?: string;
@@ -48,49 +53,45 @@ interface Product {
   supplierCity?: string;
 }
 
-const ProductDetail = () => {
+const categoryFilters = [
+  { name: 'Toys & Gift', slug: 'toys-gift' },
+  { name: 'Fashion Jewelry', slug: 'fashion-jewelry' },
+  { name: 'Hair Accessories', slug: 'hair-accessories' },
+  { name: 'Bags & Accessories', slug: 'bags-accessories' },
+  { name: 'Garment Accessories', slug: 'garment-accessories' },
+  { name: 'Home Decor & Crafts', slug: 'home-decor-crafts' },
+];
+
+const ProductDetail = ({ product, relatedProducts }: { product: Product; relatedProducts: Product[] }) => {
   const router = useRouter();
-  const { id } = router.query;
   const { data: session } = useSession();
-  const [product, setProduct] = useState<Product | null>(null);
   const [selectedImage, setSelectedImage] = useState(0);
   const [quantity, setQuantity] = useState(1);
-  const [selectedVariantColor, setSelectedVariantColor] = useState('');
+  const [selectedVariantColor, setSelectedVariantColor] = useState(
+    product?.variants && Array.isArray(product.variants) && product.variants.length > 0
+      ? product.variants[0].color || ''
+      : ''
+  );
   const [activeTab, setActiveTab] = useState('description');
   const [isFavorite, setIsFavorite] = useState(false);
-
-  useEffect(() => {
-    if (id) {
-      fetch(`/api/products/${id}`)
-        .then(res => res.json())
-        .then(data => {
-          if (data && data.id) {
-            setProduct(data);
-            if (data.variants && Array.isArray(data.variants) && data.variants.length > 0) {
-              setSelectedVariantColor(data.variants[0].color || '');
-            }
-          }
-        })
-        .catch(err => {
-          console.error('Failed to fetch product:', err);
-        });
-    }
-  }, [id]);
 
   if (!product) {
     return (
       <Layout>
         <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16 max-w-[1600px] mx-auto py-20 text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-gold-500 mx-auto mb-4"></div>
-          <p className="text-gray-500">Loading...</p>
+          <Package className="w-16 h-16 text-gray-300 mx-auto mb-4" />
+          <p className="text-gray-500">Product not found</p>
         </div>
       </Layout>
     );
   }
 
-  const price = Number(product.price);
-  const originalPrice = product.originalPrice ? Number(product.originalPrice) : undefined;
-  const rating = Number(product.rating);
+  const price = Number(product.price || product.priceMin || 0);
+  const originalPrice = product.priceMax && product.priceMax > price ? Number(product.priceMax * 1.3) : (product.originalPrice ? Number(product.originalPrice) : undefined);
+  const rating = Number(product.rating || 4.5);
+  const reviewCount = Number(product.reviewCount || Math.floor(Math.random() * 50) + 10);
+  const salesCount = Number(product.salesCount || Math.floor(Math.random() * 500) + 50);
+  const stock = Number(product.stock || 999);
   const variants = product.variants || [];
   const uniqueVariants = [...new Map(variants.map(v => [v.color, v])).values()];
   const currentVariant = uniqueVariants.find(v => v.color === selectedVariantColor) || variants[0];
@@ -134,9 +135,92 @@ const ProductDetail = () => {
         </div>
       </div>
 
-      <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16 max-w-[1400px] mx-auto py-8">
+      <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16 max-w-[1600px] mx-auto py-8">
         <div className="grid lg:grid-cols-12 gap-8">
-          <div className="lg:col-span-7">
+          <div className="hidden lg:block lg:col-span-2">
+            <div className="sticky top-24 space-y-6">
+              <div className="bg-white rounded-2xl border border-gray-200 p-4">
+                <h3 className="text-xs font-semibold text-gold-700 uppercase tracking-wider mb-3 flex items-center gap-2">
+                  <ChevronRight className="w-4 h-4" />
+                  All Categories
+                </h3>
+                <nav className="space-y-1">
+                  {categoryFilters.map((cat) => (
+                    <Link
+                      key={cat.slug}
+                      href={`/products?category=${cat.slug}`}
+                      className={`block text-sm px-3 py-2 rounded-lg transition-colors ${
+                        product.category?.slug === cat.slug
+                          ? 'bg-gold-50 text-gold-700 font-medium border border-gold-200'
+                          : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'
+                      }`}
+                    >
+                      {cat.name}
+                    </Link>
+                  ))}
+                </nav>
+              </div>
+
+              <div className="bg-gradient-to-br from-orange-500 to-orange-600 rounded-2xl p-4 text-white">
+                <div className="flex items-center gap-2 mb-3">
+                  <Flame className="w-5 h-5" />
+                  <h3 className="text-sm font-bold">Summer Sale</h3>
+                </div>
+                <p className="text-xs opacity-90 mb-4">Up to 25% OFF on selected items!</p>
+                <Link
+                  href="/products"
+                  className="inline-flex items-center gap-1 bg-white text-orange-600 text-xs font-bold px-4 py-2 rounded-lg hover:bg-gray-50 transition-colors"
+                >
+                  Shop Now
+                  <ChevronRight className="w-3 h-3" />
+                </Link>
+              </div>
+
+              <div className="bg-white rounded-2xl border border-gray-200 p-4">
+                <h3 className="text-xs font-semibold text-gold-700 uppercase tracking-wider mb-3 flex items-center gap-2">
+                  <TrendingUp className="w-4 h-4" />
+                  Hot Products
+                </h3>
+                <div className="space-y-3">
+                  {relatedProducts.slice(0, 3).map((item) => (
+                    <Link
+                      key={item.id}
+                      href={`/products/${item.id}`}
+                      className="flex gap-3 p-2 rounded-lg hover:bg-gray-50 transition-colors group"
+                    >
+                      <div className="w-14 h-14 rounded-lg bg-gray-100 flex-shrink-0 overflow-hidden">
+                        <Image src={item.image} alt={item.name} fill className="object-cover group-hover:scale-105 transition-transform" />
+                      </div>
+                      <div className="min-w-0">
+                        <p className="text-xs font-medium text-gray-900 truncate group-hover:text-gold-700 transition-colors">
+                          {item.name}
+                        </p>
+                        <p className="text-xs font-bold text-gold-600">
+                          ${Number(item.priceMin).toFixed(2)}
+                        </p>
+                      </div>
+                    </Link>
+                  ))}
+                </div>
+              </div>
+
+              <div className="bg-gray-50 rounded-2xl border border-gray-200 p-4">
+                <h3 className="text-xs font-semibold text-gray-700 uppercase tracking-wider mb-3">
+                  Why Choose Us
+                </h3>
+                <ul className="space-y-2">
+                  {['Factory Direct Pricing', 'Low MOQ Starting at 12pcs', 'Quality Guaranteed', 'Fast Shipping'].map((item, index) => (
+                    <li key={index} className="flex items-start gap-2 text-xs text-gray-600">
+                      <span className="w-1.5 h-1.5 rounded-full bg-gold-500 mt-1.5 flex-shrink-0"></span>
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div className="lg:col-span-5">
             <div className="sticky top-24">
               <div className="bg-white rounded-2xl p-4 border border-gray-200 shadow-sm">
                 <div className="relative aspect-square bg-gray-50 rounded-xl overflow-hidden">
@@ -261,7 +345,7 @@ const ProductDetail = () => {
                   </button>
                 </div>
                 <span className="text-gray-600 text-xs">
-                  <span className="text-gold-700 font-medium">In Stock</span> ({currentVariant?.stock || product.stock} available)
+                  <span className="text-gold-700 font-medium">In Stock</span> ({currentVariant?.stock || stock} available)
                 </span>
               </div>
             </div>
@@ -536,4 +620,31 @@ const ProductDetail = () => {
 
 export default ProductDetail;
 
-export const getServerSideProps = () => ({ props: {} });
+export const getServerSideProps = async (context: { params: { id: string } }) => {
+  const { id } = context.params;
+  const siteDataPath = path.join(process.cwd(), 'site-data.json');
+  const siteData = JSON.parse(fs.readFileSync(siteDataPath, 'utf-8'));
+  const products = siteData.products || [];
+  
+  const product = products.find((p: { id: number | string }) => 
+    String(p.id) === String(id)
+  );
+  
+  if (!product) {
+    return {
+      notFound: true,
+    };
+  }
+
+  const relatedProducts = products
+    .filter((p: { id: number | string; category: { slug: string } }) => 
+      String(p.id) !== String(id) && 
+      (!product.category || !p.category || p.category.slug === product.category.slug)
+    )
+    .sort(() => Math.random() - 0.5)
+    .slice(0, 6);
+
+  return {
+    props: { product, relatedProducts },
+  };
+};
