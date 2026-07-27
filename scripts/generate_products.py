@@ -1,430 +1,365 @@
 import os
 import json
-import random
-import openpyxl
+import re
+from openpyxl import Workbook
 from openpyxl.styles import Font, Alignment, Border, Side, PatternFill
+from openpyxl.drawing.image import Image as ExcelImage
+import urllib.request
 
 IMAGE_BASE_URL = "https://raw.githubusercontent.com/Preeasy/images/main/Images/"
 
-CATEGORY_CONFIG = {
+category_config = {
     "Fashion Jewelry": {
         "slug": "fashion-jewelry",
-        "subcategories": ["Necklaces", "Earrings", "Rings", "Bracelets", "Brooches", "Pendants"],
-        "materials": ["Zinc Alloy", "Copper", "Stainless Steel", "Brass", "Silver Plated", "Gold Plated", "Rose Gold Plated", "Rhinestone", "Crystal", "Pearl", "Acrylic", "Resin"],
-        "prices": [(0.35, 0.65), (0.55, 0.95), (0.85, 1.35), (0.45, 0.85), (0.75, 1.25), (1.25, 2.15)],
-        "moqs": [12, 24, 48, 100],
         "names_en": [
-            "Fashion Pendant Necklace", "Dainty Chain Necklace", "Layered Choker Necklace",
-            "Statement Earrings", "Drop Dangle Earrings", "Hoop Earrings", "Stud Earrings",
-            "Adjustable Ring", "Stackable Ring", "Statement Ring", "Wedding Band",
-            "Charm Bracelet", "Chain Bracelet", "Bangle Bracelet", "Cuff Bracelet",
-            "Brooch Pin", "Floral Brooch", "Crystal Brooch", "Lapel Pin",
-            "Pendant Charm", "Lock Pendant", "Heart Pendant", "Star Pendant",
-            "Tassel Necklace", "Layered Bracelet", "Gemstone Ring", "Diamond Stud",
-            "Gold Bracelet", "Silver Necklace", "Pearl Earrings", "Crystal Pendant",
-            "Rhinestone Necklace", "Alloy Earrings", "Copper Ring", "Resin Bracelet"
+            "Layered Chain Necklace", "Gold Hoop Earrings", "Dainty Pendant Necklace",
+            "Statement Choker", "Minimalist Bracelet", "Bohemian Anklet",
+            "Crystal Drop Earrings", "Pearl Stud Earrings", "Tassel Earrings",
+            "Charm Bracelet", "Turquoise Bead Necklace", "Geometric Pendant",
+            "Heart Shape Necklace", "Starburst Earrings", "Cuff Bracelet",
+            "Shell Pendant", "Floral Brooch", "Moonstone Ring",
+            "Multi-strand Bracelet", "Cross Pendant", "Zircon Studs",
+            "Infinity Necklace", "Hamsa Hand Pendant", "Evil Eye Bracelet",
+            "Layered Bracelet", "Gemstone Ring", "Butterfly Pendant",
+            "Leaf Earrings", "Arrow Necklace", "Initial Pendant",
+            "Twist Hoop Earrings", "Bar Pendant", "Sparkle Bracelet",
+            "Diamond Studs", "Collar Necklace", "Beaded Necklace",
+            "Spiral Earrings", "Y-Necklace", "Cluster Ring",
+            "Waterfall Earrings", "Chain Link Bracelet", "Pave Ring",
+            "Drop Pendant", "Hoop Studs", "Layered Ring",
+            "Tiny Studs", "Chandelier Earrings", "Open Ring",
+            "Bolo Tie Necklace", "Fringe Earrings", "Coin Pendant",
+            "Wave Bracelet", "Star Pendant"
         ],
         "names_cn": [
-            "时尚吊坠项链", "精致链条项链", "叠戴颈链",
-            "夸张耳环", "垂坠耳环", "圆环耳环", "耳钉",
-            "可调节戒指", "叠戴戒指", "夸张戒指", "婚戒",
-            "吊坠手链", "链条手链", "手镯", "开口手镯",
-            "胸针", "花朵胸针", "水晶胸针", "领针",
-            "吊坠", "锁形吊坠", "心形吊坠", "星星吊坠",
-            "流苏项链", "叠戴手链", "宝石戒指", "钻石耳钉",
-            "金手链", "银项链", "珍珠耳环", "水晶吊坠",
-            "水钻项链", "合金耳环", "铜戒指", "树脂手链"
-        ]
+            "多层链条项链", "金色圆环耳环", "精致吊坠项链",
+            "时尚项圈", "简约手链", "波西米亚脚链",
+            "水晶坠耳环", "珍珠耳钉", "流苏耳环",
+            "魅力手链", "绿松石珠项链", "几何吊坠",
+            "心形项链", "星芒耳环", "开口手镯",
+            "贝壳吊坠", "花卉胸针", "月光石戒指",
+            "多股手链", "十字架吊坠", "锆石耳钉",
+            "无限符号项链", "法蒂玛之手吊坠", "恶魔之眼手链",
+            "多层手链", "宝石戒指", "蝴蝶吊坠",
+            "叶子耳环", "箭头项链", "字母吊坠",
+            "扭纹圆环耳环", "条形吊坠", "闪亮手链",
+            "钻石耳钉", "衣领项链", "串珠项链",
+            "螺旋耳环", "Y型项链", "群镶戒指",
+            "瀑布耳环", "链节手链", "密镶戒指",
+            "水滴吊坠", "圆环耳钉", "多层戒指",
+            "迷你耳钉", "吊灯耳环", "开口戒指",
+            "波洛领带", "流苏耳环", "硬币吊坠",
+            "波浪手链", "星星吊坠"
+        ],
+        "materials": ["Alloy", "Stainless Steel", "Brass", "Acrylic", "Crystal", "Pearl", "Rhinestone"],
+        "plating": ["Gold Plated", "Silver Plated", "Rose Gold Plated", "Rhodium Plated"],
+        "price_ranges": [(0.15, 0.85), (0.50, 1.50), (0.80, 2.00), (0.20, 0.90), (0.60, 1.80)],
+        "moq_list": [12, 24, 36, 48, 60]
     },
     "Garment Accessories": {
         "slug": "garment-accessories",
-        "subcategories": ["Buttons", "Zippers", "Lace Trim", "Patches", "Ribbons", "Buckles"],
-        "materials": ["Metal", "Plastic", "Resin", "Fabric", "Silk", "Polyester", "Cotton"],
-        "prices": [(0.05, 0.15), (0.12, 0.28), (0.35, 0.75), (0.45, 0.95), (0.18, 0.45), (0.25, 0.55)],
-        "moqs": [100, 200, 500, 1000],
         "names_en": [
-            "Metal Snap Button", "Plastic Button", "Pearl Button", "Decorative Button",
-            "Metal Zipper", "Nylon Zipper", "Invisible Zipper", "Two-Way Zipper",
-            "Lace Trim Ribbon", "Floral Lace", "Scalloped Lace", "Guipure Lace",
-            "Embroidery Patch", "Iron-On Patch", "Velcro Patch", "Woven Patch",
-            "Satin Ribbon", "Grosgrain Ribbon", "Organza Ribbon", "Printed Ribbon",
-            "Metal Buckle", "Plastic Buckle", "Belt Buckle", "Shoe Buckle",
-            "Hook Eye", "Snap Fastener", "Eyelet", "Rivet",
-            "Elastic Band", "Cord", "Label", "Tag"
+            "Metal Snap Button", "Decorative Buckle", "Zipper Pull",
+            "Rhinestone Brooch", "Fabric Patch", "Lace Trim",
+            "Dress Clip", "Bow Tie", "Silk Ribbon",
+            "Fur Pom Pom", "Bead Embellishment", "Sequin Applique",
+            "Collar Stay", "Hook & Eye", "Snap Fastener",
+            "Button Cover", "Shank Button", "Velcro Strap"
         ],
         "names_cn": [
-            "金属按扣", "塑料纽扣", "珍珠纽扣", "装饰纽扣",
-            "金属拉链", "尼龙拉链", "隐形拉链", "双向拉链",
-            "蕾丝花边", "花朵蕾丝", "扇形蕾丝", "镂空蕾丝",
-            "刺绣布贴", "烫印布贴", "魔术贴", "织唛布贴",
-            "缎带", "罗纹带", "雪纱带", "印花丝带",
-            "金属扣", "塑料扣", "皮带扣", "鞋扣",
-            "风纪扣", "四合扣", "鸡眼扣", "铆钉",
-            "松紧带", "绳带", "标签", "吊牌"
-        ]
+            "金属按扣", "装饰扣", "拉链头",
+            "水钻胸针", "布贴", "蕾丝花边",
+            "裙夹", "蝴蝶结", "丝绸缎带",
+            "毛绒球", "珠子装饰", "亮片贴花",
+            "领撑", "风纪扣", "按扣",
+            "纽扣套", "柄扣", "魔术贴"
+        ],
+        "materials": ["Alloy", "Brass", "Fabric", "Rhinestone", "Plastic", "Metal"],
+        "plating": ["Gold Plated", "Silver Plated", "Antique Bronze", "Gunmetal"],
+        "price_ranges": [(0.05, 0.35), (0.10, 0.50), (0.08, 0.40), (0.20, 0.80)],
+        "moq_list": [100, 200, 500]
     },
     "Hair Accessories": {
         "slug": "hair-accessories",
-        "subcategories": ["Hair Clips", "Headbands", "Hair Ties", "Hair Pins", "Scrunchies", "Barrettes"],
-        "materials": ["Metal", "Plastic", "Fabric", "Rhinestone", "Pearl", "Silk", "Velvet"],
-        "prices": [(0.45, 0.85), (0.85, 1.55), (0.25, 0.55), (0.35, 0.75), (0.55, 1.05), (0.65, 1.25)],
-        "moqs": [24, 48, 100],
         "names_en": [
-            "Hair Clip", "Alligator Clip", "Duckbill Clip", "Snap Clip",
-            "Headband", "Alice Band", "Padded Headband", "Sparkle Headband",
-            "Hair Tie", "Elastic Hair Tie", "Silk Hair Tie", "Velvet Hair Tie",
-            "Hair Pin", "Bobby Pin", "Decorative Hair Pin", "U-Shaped Hair Pin",
-            "Scrunchie", "Silk Scrunchie", "Velvet Scrunchie", "Printed Scrunchie",
-            "Barrette", "French Barrette", "Crystal Barrette", "Floral Barrette",
-            "Hair Comb", "Hair Stick", "Hair Bow", "Hair Net",
-            "Hair Clip Set", "Headwrap", "Hair Extension", "Wig Accessory"
+            "Sparkle Hair Clip", "Satin Scrunchie", "Floral Hair Pin",
+            "Pearl Headband", "Bow Hair Clip", "Metal Hair Comb",
+            "Velvet Headband", "Crystal Hair Barrette", "Butterfly Hair Clip",
+            "Beaded Hair Pin", "Tassel Hair Tie", "Sequined Headband"
         ],
         "names_cn": [
-            "发夹", "鳄鱼夹", "鸭嘴夹", "弹簧夹",
-            "发箍", "爱丽丝发箍", "软垫发箍", "闪亮发箍",
-            "发绳", "弹力发绳", "丝绸发绳", "天鹅绒发绳",
-            "发簪", "一字夹", "装饰发针", "U形发针",
-            "大肠发圈", "丝绸发圈", "天鹅绒发圈", "印花发圈",
-            "法式发夹", "法国夹", "水晶发夹", "花朵发夹",
-            "发梳", "发簪", "蝴蝶结", "发网",
-            "发夹套装", "发带", "假发配件", "头套配件"
-        ]
+            "闪亮发夹", "缎面发圈", "花卉发簪",
+            "珍珠发箍", "蝴蝶结发夹", "金属发梳",
+            "天鹅绒发箍", "水晶发夹", "蝴蝶发夹",
+            "串珠发簪", "流苏发绳", "亮片发箍"
+        ],
+        "materials": ["Acrylic", "Crystal", "Pearl", "Fabric", "Metal", "Rhinestone"],
+        "plating": ["Gold Plated", "Silver Plated", "Rose Gold Plated"],
+        "price_ranges": [(0.25, 0.90), (0.40, 1.20), (0.30, 1.00)],
+        "moq_list": [24, 36, 48]
     },
-    "Bag Accessories": {
+    "Bag accessories": {
         "slug": "bags-accessories",
-        "subcategories": ["Bag Charms", "Keychains", "Belt Buckles", "Bag Straps", "Bag Handles", "Dust Bags"],
-        "materials": ["Metal", "PVC", "Leather", "PU Leather", "Fabric", "Acrylic", "Resin"],
-        "prices": [(0.85, 1.65), (0.55, 1.15), (0.65, 1.35), (2.55, 4.55), (1.85, 3.55), (0.45, 0.95)],
-        "moqs": [24, 48, 100],
         "names_en": [
-            "Bag Charm", "Keychain Charm", "Pom Pom Charm", "Tassel Charm",
-            "Keychain", "Metal Keychain", "PVC Keychain", "Leather Keychain",
-            "Belt Buckle", "Pin Buckle", "Plate Buckle", "Box Buckle",
-            "Bag Strap", "Leather Strap", "Chain Strap", "Adjustable Strap",
-            "Bag Handle", "Leather Handle", "Chain Handle", "Fabric Handle",
-            "Dust Bag", "Cotton Dust Bag", "Satin Dust Bag", "Drawstring Dust Bag",
-            "Bag Hook", "Bag Lock", "Zipper Pull", "Bag Label",
-            "Bag Feet", "Bag Lining", "Bag Hardware", "Bag Accessory Set"
+            "Bag Charm", "Metal Zipper", "Leather Strap",
+            "Bag Hook", "Keychain Pendant", "Bag Lock",
+            "Diamond Rivet", "Bag Tag", "Adjustable Strap",
+            "Magnetic Snap", "Bag Feet", "Decorative Stud",
+            "Chain Strap", "Bag Handle", "Toggle Clasp",
+            "D-Ring", "Swivel Hook", "Shoulder Pad"
         ],
         "names_cn": [
-            "包挂件", "钥匙扣挂件", "毛球挂件", "流苏挂件",
-            "钥匙扣", "金属钥匙扣", "PVC钥匙扣", "皮革钥匙扣",
-            "皮带扣", "针扣", "板扣", "箱扣",
-            "包带", "皮革包带", "链条包带", "可调节包带",
-            "包把手", "皮革把手", "链条把手", "布制把手",
-            "防尘袋", "棉防尘袋", "绸缎防尘袋", "抽绳防尘袋",
-            "包挂钩", "包锁", "拉链头", "包标",
-            "包底钉", "包衬", "包五金", "箱包配件套装"
-        ]
+            "包挂件", "金属拉链", "皮革肩带",
+            "挂包钩", "钥匙扣吊坠", "包锁",
+            "钻石铆钉", "包牌", "可调节肩带",
+            "磁吸扣", "包底钉", "装饰钉",
+            "链条肩带", "包把手", "插扣",
+            "D形环", "旋转钩", "肩垫"
+        ],
+        "materials": ["Alloy", "Leather", "Plastic", "Metal", "Rhinestone"],
+        "plating": ["Gold Plated", "Silver Plated", "Antique Bronze", "Gunmetal"],
+        "price_ranges": [(0.15, 0.60), (0.30, 1.00), (0.20, 0.80), (0.40, 1.20)],
+        "moq_list": [50, 100, 200]
     },
-    "Home Decor & Crafts": {
+    "Home_Decor_Crafts": {
         "slug": "home-decor-crafts",
-        "subcategories": ["Beads", "Rhinestones", "Craft Supplies", "Decorative Items", "Candles", "Vases"],
-        "materials": ["Glass", "Crystal", "Acrylic", "Plastic", "Wood", "Ceramic", "Metal", "Resin"],
-        "prices": [(0.15, 0.45), (0.05, 0.25), (0.85, 1.75), (1.55, 3.25), (0.75, 1.55), (2.25, 4.75)],
-        "moqs": [50, 100, 200, 500],
         "names_en": [
-            "Glass Beads", "Acrylic Beads", "Crystal Beads", "Wooden Beads",
-            "Flatback Rhinestone", "Hotfix Rhinestone", "Crystal Rhinestone", "Acrylic Rhinestone",
-            "Craft Kit", "DIY Kit", "Jewelry Making Kit", "Beading Kit",
-            "Decorative Figurine", "Wall Decor", "Table Decor", "Shelf Decor",
-            "Scented Candle", "Soy Candle", "Tea Light", "Candle Holder",
-            "Ceramic Vase", "Glass Vase", "Metal Vase", "Wooden Vase",
-            "Planter", "Flower Pot", "Photo Frame", "Picture Frame",
-            "Wall Clock", "Table Lamp", "Night Light", "String Light"
+            "Ceramic Vase", "Decorative Candle", "Wall Hanging",
+            "Wooden Figurine", "Glass Bowl", "Metal Lantern",
+            "Fabric Throw Pillow", "Artificial Flower", "Resin Figurine",
+            "Marble Coaster", "Woven Basket", "Crystal Ornament",
+            "Stone Paperweight", "Brass Candlestick", "Porcelain Figurine",
+            "Macrame Wall Decor", "Terracotta Pot", "Glass Vase",
+            "Metal Sculpture", "Silk Flower Arrangement", "Bamboo Decor",
+            "Cotton Tapestry", "Felt Craft", "Clay Figurine"
         ],
         "names_cn": [
-            "玻璃珠子", "亚克力珠子", "水晶珠子", "木珠",
-            "平底水钻", "热熔水钻", "水晶水钻", "亚克力水钻",
-            "手工套件", "DIY套件", "珠宝制作套件", "串珠套件",
-            "装饰摆件", "墙面装饰", "桌面装饰", "架子装饰",
-            "香薰蜡烛", "大豆蜡烛", "茶蜡", "烛台",
-            "陶瓷花瓶", "玻璃花瓶", "金属花瓶", "木质花瓶",
-            "花盆", "花器", "相框", "画框",
-            "挂钟", "台灯", "夜灯", "串灯"
-        ]
+            "陶瓷花瓶", "装饰蜡烛", "壁挂",
+            "木雕摆件", "玻璃碗", "金属灯笼",
+            "布艺抱枕", "人造花", "树脂摆件",
+            "大理石杯垫", "编织篮", "水晶饰品",
+            "石头镇纸", "黄铜烛台", "瓷塑摆件",
+            "绳编壁挂", "陶土花盆", "玻璃花瓶",
+            "金属雕塑", "绢花插花", "竹制装饰",
+            "棉质挂毯", "毛毡工艺品", "黏土摆件"
+        ],
+        "materials": ["Ceramic", "Wood", "Glass", "Metal", "Fabric", "Resin", "Stone", "Marble"],
+        "plating": [],
+        "price_ranges": [(0.80, 2.50), (1.50, 4.00), (0.50, 1.80), (2.00, 5.00)],
+        "moq_list": [12, 24, 48]
     },
-    "Toys & Gift": {
+    "Toys_Gift": {
         "slug": "toys-gift",
-        "subcategories": ["Stress Relief Toys", "Fidget Toys", "Educational Toys", "Gift Sets", "Party Supplies", "Seasonal Decor"],
-        "materials": ["TPR", "Silicone", "ABS", "EVA", "Plush", "Wood", "Metal"],
-        "prices": [(0.55, 1.15), (0.45, 0.95), (1.25, 2.75), (2.25, 4.75), (0.35, 0.85), (0.85, 1.85)],
-        "moqs": [24, 48, 100, 200],
         "names_en": [
-            "Stress Ball", "Squishy Toy", "Fidget Spinner", "Pop It",
-            "Rubik Cube", "Puzzle", "Building Blocks", "Learning Toy",
-            "Gift Box Set", "Jewelry Gift Set", "Accessory Gift Set", "Holiday Gift Set",
-            "Party Favor", "Party Hat", "Party Banner", "Party Balloon",
-            "Christmas Decor", "Halloween Decor", "Easter Decor", "Valentine Decor",
-            "Plush Toy", "Keychain Toy", "Mini Figure", "Novelty Toy",
-            "Slime", "Play Dough", "Water Toy", "Bubble Wand",
-            "Board Game", "Card Game", "Doll", "Action Figure"
+            "Squishy Toy", "Fidget Spinner", "LED Light Up Toy",
+            "Stuffed Animal", "Keychain Toy", "Novelty Pen",
+            "Party Popper", "Glow Stick", "Finger Puppet",
+            "Mini Puzzle", "Wind-up Toy", "Water Gun",
+            "Bubble Wand", "Mask", "Toy Car",
+            "Doll Accessory", "Play Dough", "Card Game",
+            "Temporary Tattoo", "Whistle", "Yoyo",
+            "Rubber Duck", "Sticker Pack", "Toy Sword",
+            "Magic Trick", "Miniature Toy", "Plush Keychain",
+            "Balloon", "Coloring Book", "Toy Camera",
+            "Fake Mustache", "Party Hat", "Toy Train",
+            "Ring Pop", "Mini Figure", "Stress Ball"
         ],
         "names_cn": [
-            "解压球", "捏捏乐", "指尖陀螺", "泡泡乐",
-            "魔方", "拼图", "积木", "益智玩具",
-            "礼盒套装", "珠宝礼盒", "饰品礼盒", "节日礼盒",
-            "派对用品", "派对帽", "派对横幅", "派对气球",
-            "圣诞装饰", "万圣节装饰", "复活节装饰", "情人节装饰",
-            "毛绒玩具", "钥匙扣玩具", "迷你人偶", "新奇玩具",
-            "史莱姆", "橡皮泥", "水上玩具", "泡泡棒",
-            "桌游", "卡牌游戏", "玩偶", "动作人偶"
-        ]
+            "捏捏乐", "指尖陀螺", "LED发光玩具",
+            "毛绒玩具", "钥匙扣玩具", "新奇笔",
+            "派对礼花", "荧光棒", "手指玩偶",
+            "迷你拼图", "发条玩具", "水枪",
+            "泡泡棒", "面具", "玩具车",
+            "娃娃配件", "橡皮泥", "纸牌游戏",
+            "临时纹身", "口哨", "悠悠球",
+            "橡皮鸭", "贴纸包", "玩具剑",
+            "魔术道具", "迷你玩具", "毛绒钥匙扣",
+            "气球", "涂色书", "玩具相机",
+            "假胡子", "派对帽", "玩具火车",
+            "戒指糖", "迷你人偶", "减压球"
+        ],
+        "materials": ["Silicone", "Plastic", "Rubber", "Fabric", "Paper", "Wood"],
+        "plating": [],
+        "price_ranges": [(0.15, 0.70), (0.30, 1.00), (0.50, 1.50), (0.20, 0.80)],
+        "moq_list": [24, 48, 100, 200]
     }
 }
 
-NUMBERED_IMAGE_ASSIGNMENT = {
-    '001.jpg': 'Fashion Jewelry',
-    '002.jpg': 'Fashion Jewelry',
-    '003.jpg': 'Fashion Jewelry',
-    '004.jpg': 'Fashion Jewelry',
-    '005.jpg': 'Garment Accessories',
-    '006.jpg': 'Garment Accessories',
-    '007.jpg': 'Garment Accessories',
-    '008.jpg': 'Hair Accessories',
-    '009.jpg': 'Hair Accessories',
-    '010.jpg': 'Bag Accessories',
-    '011.jpg': 'Bag Accessories',
-    '012.jpg': 'Bag Accessories',
-    '013.jpg': 'Home Decor & Crafts',
-    '014.jpg': 'Home Decor & Crafts',
-    '015.jpg': 'Home Decor & Crafts',
-    '016.jpg': 'Toys & Gift',
-    '017.jpg': 'Toys & Gift',
-    '018.jpg': 'Toys & Gift',
-    '019.jpg': 'Toys & Gift',
-    '020.jpg': 'Fashion Jewelry',
-    '021.jpg': 'Fashion Jewelry',
-    '022.jpg': 'Fashion Jewelry',
+description_templates = {
+    "Fashion Jewelry": "High-quality fashion jewelry made with premium materials. Perfect for daily wear or special occasions. Trendy design that complements any outfit.",
+    "Garment Accessories": "Durable garment accessories for clothing manufacturing and DIY projects. Easy to install and long-lasting performance.",
+    "Hair Accessories": "Stylish hair accessories to elevate your hairstyle. Comfortable to wear and perfect for all hair types. Ideal for parties and everyday looks.",
+    "Bag accessories": "Premium bag accessories for handbag repair and customization. Sturdy construction for long-term use.",
+    "Home_Decor_Crafts": "Beautiful home decor crafts to enhance your living space. Unique designs that add charm to any room. Perfect for gifts and personal use.",
+    "Toys_Gift": "Fun and entertaining toys for kids and adults alike. Safe materials and durable construction. Great for party favors and gift giving."
 }
 
-
-def categorize_files(images_dir):
-    files = sorted(os.listdir(images_dir))
-    categorized = {}
-    for cat_name in CATEGORY_CONFIG.keys():
-        categorized[cat_name] = []
-
-    for f in files:
-        if not f.endswith('.jpg') or f.startswith('banner'):
-            continue
-
-        matched = False
-
-        if f in NUMBERED_IMAGE_ASSIGNMENT:
-            cat_name = NUMBERED_IMAGE_ASSIGNMENT[f]
-            categorized[cat_name].append(f)
-            matched = True
-        else:
-            for cat_name in CATEGORY_CONFIG.keys():
-                if f.startswith(cat_name):
-                    categorized[cat_name].append(f)
+def get_image_files():
+    repo_path = "/tmp/images_repo/Images"
+    if not os.path.exists(repo_path):
+        print("Repo not found")
+        return {}
+    
+    files = {}
+    for filename in os.listdir(repo_path):
+        if filename.endswith(".jpg") and not filename.startswith("banner") and not filename.startswith("0"):
+            matched = False
+            for cat_name in category_config.keys():
+                if cat_name.lower().replace(" ", "-") in filename.lower() or cat_name.lower().replace("_", "-") in filename.lower():
+                    if cat_name not in files:
+                        files[cat_name] = []
+                    files[cat_name].append(filename)
                     matched = True
                     break
-
             if not matched:
-                if f.startswith('Bag accessories'):
-                    categorized['Bag Accessories'].append(f)
-                    matched = True
-                elif f.startswith('Home_Decor_Crafts'):
-                    categorized['Home Decor & Crafts'].append(f)
-                    matched = True
-                elif f.startswith('Toys_Gift'):
-                    categorized['Toys & Gift'].append(f)
-                    matched = True
+                if "uncategorized" not in files:
+                    files["uncategorized"] = []
+                files["uncategorized"].append(filename)
+    
+    for cat in files:
+        files[cat].sort()
+    
+    return files
 
-        if not matched:
-            # 以分类缩写命名的图片（如 01-fashion-jewelry.jpg）
-            if f.startswith('01-fashion') or f.startswith('01-fashion-jewelry'):
-                categorized['Fashion Jewelry'].append(f)
-                matched = True
-            elif f.startswith('02-garment'):
-                categorized['Garment Accessories'].append(f)
-                matched = True
-            elif f.startswith('03-hair'):
-                categorized['Hair Accessories'].append(f)
-                matched = True
-            elif f.startswith('04-bag'):
-                categorized['Bag Accessories'].append(f)
-                matched = True
-            elif f.startswith('05-home'):
-                categorized['Home Decor & Crafts'].append(f)
-                matched = True
-            elif f.startswith('06-seasonal') or f.startswith('06-toys'):
-                categorized['Toys & Gift'].append(f)
-                matched = True
-
-        if not matched:
-            print(f"Warning: Unmatched file: {f}")
-
-    return categorized
-
-
-def generate_products(categorized_files):
+def generate_products():
+    image_files = get_image_files()
     products = []
-    sku_counter = 1
-
-    for cat_name, files in categorized_files.items():
-        if cat_name == 'uncategorized' or not files:
+    excel_data = []
+    
+    for cat_name, files in image_files.items():
+        if cat_name not in category_config:
             continue
-
-        config = CATEGORY_CONFIG[cat_name]
-        num_files = len(files)
-
-        for i in range(num_files):
-            # 每个产品仅展示一张主图，避免误导
-            main_file = files[i]
-
-            name_idx = i % len(config['names_en'])
-            name_en = config['names_en'][name_idx]
-            name_cn = config['names_cn'][name_idx]
-
-            # 加上型号编号以区分每个产品
-            model_no = f" #{sku_counter:03d}"
-            name_en = name_en + model_no
-            name_cn = name_cn + model_no
-
-            subcat_idx = i % len(config['subcategories'])
-            subcategory = config['subcategories'][subcat_idx]
-
-            material_idx = i % len(config['materials'])
-            material = config['materials'][material_idx]
-
-            price_range = config['prices'][i % len(config['prices'])]
-            price_min = round(random.uniform(price_range[0], price_range[1] * 0.8), 2)
-            price_max = round(random.uniform(price_range[1] * 0.8, price_range[1]), 2)
-
-            moq = config['moqs'][i % len(config['moqs'])]
-
-            sku = f"YW-{config['slug'].upper().replace('-', '')}-{str(sku_counter).zfill(3)}"
-            sku_counter += 1
-
-            main_image = IMAGE_BASE_URL + main_file.replace(' ', '%20')
-            images = [main_image]
-
+        
+        config = category_config[cat_name]
+        print(f"\nProcessing {cat_name}: {len(files)} images")
+        
+        for i, filename in enumerate(files):
+            idx = i % len(config["names_en"])
+            name_en = config["names_en"][idx]
+            name_cn = config["names_cn"][idx]
+            material = config["materials"][idx % len(config["materials"])]
+            
+            price_idx = idx % len(config["price_ranges"])
+            price_min, price_max = config["price_ranges"][price_idx]
+            
+            moq = config["moq_list"][idx % len(config["moq_list"])]
+            
+            plating = ""
+            if config["plating"]:
+                plating = config["plating"][idx % len(config["plating"])]
+            
+            main_image = IMAGE_BASE_URL + filename.replace(" ", "%20")
+            
+            sku_prefix = config["slug"].replace("-", "")[:3].upper()
+            sku = f"{sku_prefix}-{cat_name[:3].upper()}-{str(i+1).zfill(3)}"
+            
             product = {
-                "id": 1783332968000 + len(products),
+                "id": int(str(1783332968000 + len(products))),
                 "image": main_image,
-                "images": images,
+                "images": [main_image],
                 "category": {
-                    "name": cat_name,
-                    "slug": config['slug'],
-                    "subcategory": subcategory
+                    "name": cat_name.replace("_", " "),
+                    "slug": config["slug"]
                 },
                 "name": name_en,
                 "nameCn": name_cn,
+                "description": description_templates[cat_name],
                 "sku": sku,
-                "material": material,
                 "moq": moq,
-                "priceMin": price_min,
-                "priceMax": price_max,
-                "description": f"Premium wholesale {name_en.lower()} from Yiwu. {cat_name} for retailers, boutiques, and online sellers. Material: {material}. Factory direct pricing, low MOQ {moq} pcs, reliable quality. Bulk orders welcome.",
-                "origin": "China",
-                "packSize": random.choice([12, 24, 48, 100]),
+                "priceMin": round(price_min, 2),
+                "priceMax": round(price_max, 2),
+                "material": material,
+                "plating": plating,
                 "stockStatus": "IN_STOCK",
-                "rating": round(random.uniform(4.5, 4.9), 1),
-                "reviewCount": random.randint(20, 150),
-                "salesCount": random.randint(100, 1500),
                 "seller": "Yiwu Yeatru trading company"
             }
+            
             products.append(product)
+            
+            excel_data.append([
+                main_image,
+                sku,
+                name_cn,
+                name_en,
+                moq,
+                f"${price_min:.2f} - ${price_max:.2f}",
+                cat_name.replace("_", " "),
+                name_en
+            ])
+    
+    return products, excel_data
 
-    return products
-
-
-def generate_site_data(products):
-    return {
-        "version": 2,
-        "updatedAt": "2026-07-27T00:00:00Z",
-        "logo": "https://raw.githubusercontent.com/Preeasy/images/main/Images/01-fashion-jewelry.jpg",
+def save_site_data(products):
+    site_data = {
         "siteName": "eTrue Mark",
-        "categories": list(CATEGORY_CONFIG.keys()),
-        "products": products
+        "products": products,
+        "categories": [
+            {"name": "Fashion Jewelry", "slug": "fashion-jewelry"},
+            {"name": "Garment Accessories", "slug": "garment-accessories"},
+            {"name": "Hair Accessories", "slug": "hair-accessories"},
+            {"name": "Bags & Accessories", "slug": "bags-accessories"},
+            {"name": "Home Decor & Crafts", "slug": "home-decor-crafts"},
+            {"name": "Toys & Gift", "slug": "toys-gift"}
+        ]
     }
+    
+    with open("/workspace/site-data.json", "w", encoding="utf-8") as f:
+        json.dump(site_data, f, indent=2, ensure_ascii=False)
+    
+    print(f"\nSaved {len(products)} products to site-data.json")
 
-
-def generate_excel(products, output_path):
-    wb = openpyxl.Workbook()
+def create_excel(excel_data):
+    wb = Workbook()
     ws = wb.active
     ws.title = "Product List"
-
-    headers = ["产品图片", "SKU号", "产品名称（中文）", "产品名称（En）", "MOQ", "价格", "产品一级分类", "二级分类"]
-
-    header_font = Font(bold=True, color="FFFFFF", size=11)
-    header_fill = PatternFill(start_color="1E3A5F", end_color="1E3A5F", fill_type="solid")
+    
+    header_fill = PatternFill(start_color="1e3a5f", end_color="1e3a5f", fill_type="solid")
+    header_font = Font(color="ffffff", bold=True, size=11)
     thin_border = Border(
         left=Side(style='thin'),
         right=Side(style='thin'),
         top=Side(style='thin'),
         bottom=Side(style='thin')
     )
-
+    
+    headers = ["Product Image URL", "SKU", "Product Name (CN)", "Product Name (EN)", "MOQ", "Price", "Primary Category", "Secondary Category"]
+    
     for col, header in enumerate(headers, 1):
         cell = ws.cell(row=1, column=col, value=header)
-        cell.font = header_font
         cell.fill = header_fill
+        cell.font = header_font
         cell.alignment = Alignment(horizontal='center', vertical='center')
         cell.border = thin_border
-
-    for row_idx, product in enumerate(products, 2):
-        main_image = product['image']
-        sku = product['sku']
-        name_cn = product.get('nameCn', '')
-        name_en = product['name']
-        moq = product['moq']
-        price = f"${product['priceMin']} - ${product['priceMax']}"
-        main_category = product['category']['name']
-        sub_category = product['category'].get('subcategory', '')
-
-        ws.cell(row=row_idx, column=1, value=main_image).border = thin_border
-        ws.cell(row=row_idx, column=2, value=sku).border = thin_border
-        ws.cell(row=row_idx, column=3, value=name_cn).border = thin_border
-        ws.cell(row=row_idx, column=4, value=name_en).border = thin_border
-        ws.cell(row=row_idx, column=5, value=moq).border = thin_border
-        ws.cell(row=row_idx, column=6, value=price).border = thin_border
-        ws.cell(row=row_idx, column=7, value=main_category).border = thin_border
-        ws.cell(row=row_idx, column=8, value=sub_category).border = thin_border
-
+    
+    for row_idx, row_data in enumerate(excel_data, 2):
+        for col_idx, value in enumerate(row_data, 1):
+            cell = ws.cell(row=row_idx, column=col_idx, value=value)
+            cell.border = thin_border
+            cell.alignment = Alignment(vertical='center', wrap_text=True)
+            if col_idx == 5:
+                cell.alignment = Alignment(horizontal='center', vertical='center')
+    
     ws.column_dimensions['A'].width = 50
-    ws.column_dimensions['B'].width = 22
+    ws.column_dimensions['B'].width = 18
     ws.column_dimensions['C'].width = 25
     ws.column_dimensions['D'].width = 30
     ws.column_dimensions['E'].width = 10
-    ws.column_dimensions['F'].width = 18
-    ws.column_dimensions['G'].width = 22
-    ws.column_dimensions['H'].width = 20
-
+    ws.column_dimensions['F'].width = 20
+    ws.column_dimensions['G'].width = 25
+    ws.column_dimensions['H'].width = 25
+    
+    for row in range(1, len(excel_data) + 2):
+        ws.row_dimensions[row].height = 25
+    
+    output_path = "/workspace/product_list.xlsx"
     wb.save(output_path)
+    print(f"\nExcel file saved to {output_path}")
+    
+    public_path = "/workspace/public/product_list.xlsx"
+    wb.save(public_path)
+    print(f"Excel file copied to {public_path}")
 
-
-def main():
-    images_dir = '/tmp/images_repo/Images'
-
-    print("Categorizing files...")
-    categorized = categorize_files(images_dir)
-    for cat, files in categorized.items():
-        print(f"  {cat}: {len(files)} images")
-
-    total_images = sum(len(files) for files in categorized.values())
-    print(f"\nTotal images: {total_images}")
-
-    print("\nGenerating products...")
-    products = generate_products(categorized)
-    print(f"Generated {len(products)} products")
-
-    print("\nSaving site-data.json...")
-    site_data = generate_site_data(products)
-    with open('/workspace/site-data.json', 'w', encoding='utf-8') as f:
-        json.dump(site_data, f, indent=2, ensure_ascii=False)
-
-    print("Saving product_list.xlsx...")
-    generate_excel(products, '/workspace/product_list.xlsx')
-
-    print("\nDone!")
-    print(f"Products: {len(products)}")
-    print(f"Site data saved to: /workspace/site-data.json")
-    print(f"Excel saved to: /workspace/product_list.xlsx")
-
-
-if __name__ == '__main__':
-    main()
+if __name__ == "__main__":
+    products, excel_data = generate_products()
+    save_site_data(products)
+    create_excel(excel_data)
