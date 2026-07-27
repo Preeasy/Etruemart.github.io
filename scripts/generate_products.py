@@ -272,14 +272,8 @@ def generate_products(categorized_files):
         num_files = len(files)
 
         for i in range(num_files):
-            # 当前图片作为主图，相邻同类图片作为附加主图
+            # 每个产品仅展示一张主图，避免误导
             main_file = files[i]
-            extra_indices = []
-            for offset in [-2, -1, 1, 2]:
-                idx = i + offset
-                if 0 <= idx < num_files and idx != i:
-                    extra_indices.append(idx)
-            product_image_files = [main_file] + [files[idx] for idx in extra_indices[:4]]
 
             name_idx = i % len(config['names_en'])
             name_en = config['names_en'][name_idx]
@@ -306,7 +300,7 @@ def generate_products(categorized_files):
             sku_counter += 1
 
             main_image = IMAGE_BASE_URL + main_file.replace(' ', '%20')
-            images = [IMAGE_BASE_URL + f.replace(' ', '%20') for f in product_image_files]
+            images = [main_image]
 
             product = {
                 "id": 1783332968000 + len(products),
