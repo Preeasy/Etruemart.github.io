@@ -43,6 +43,7 @@ import {
 } from 'lucide-react';
 import Layout from '@/components/Layout';
 import ProductCard from '@/components/ProductCard';
+import ShippingSelector from '@/components/ShippingSelector';
 import fs from 'fs';
 import path from 'path';
 
@@ -72,12 +73,6 @@ interface Product {
   origin?: string;
   supplierCity?: string;
 }
-
-const shippingOptions = [
-  { method: 'Express (DHL/FedEx)', time: '5-9 days', cost: '$15-25' },
-  { method: 'Air Shipping', time: '9-15 days', cost: '$8-15' },
-  { method: 'Sea Shipping', time: '25-40 days', cost: '$2-5/kg' },
-];
 
 export default function ProductDetail({ product, relatedProducts }: { product: Product; relatedProducts: Product[] }) {
   const router = useRouter();
@@ -357,28 +352,12 @@ export default function ProductDetail({ product, relatedProducts }: { product: P
             </div>
 
             {/* 9. 物流信息 */}
-            <div className="bg-white rounded-2xl border border-ink-200 p-5 shadow-soft">
-              <div className="flex items-center gap-2 mb-3">
-                <Truck className="w-4 h-4 text-accent-500" />
-                <h3 className="text-sm font-bold text-navy-800 uppercase tracking-[0.08em]">Shipping & Delivery</h3>
-              </div>
-              <div className="space-y-2">
-                {shippingOptions.map((opt, i) => (
-                  <div key={i} className="flex items-center justify-between p-2.5 rounded-lg bg-ink-50">
-                    <div>
-                      <p className="text-xs font-bold text-navy-800">{opt.method}</p>
-                      <p className="text-[10px] text-ink-500">{opt.time}</p>
-                    </div>
-                    <span className="text-xs font-bold text-accent-600">{opt.cost}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
+            <ShippingSelector categorySlug={product.category?.slug} />
 
             {/* 10. 供应商卡片 */}
             <Link href="/store/yiwu-premium-trading" className="block bg-gradient-to-r from-ink-50 to-white rounded-2xl p-4 border border-ink-200 hover:border-accent-300 hover:shadow-medium transition-all group">
               <div className="flex items-center gap-3">
-                <div className="w-12 h-12 rounded-xl bg-navy-gradient flex items-center justify-center text-white font-bold text-lg shadow-soft">
+                <div className="w-12 h-12 rounded-xl bg-navy-800 bg-navy-gradient flex items-center justify-center text-white font-bold text-lg shadow-soft">
                   YW
                 </div>
                 <div className="flex-1 min-w-0">
@@ -508,7 +487,7 @@ export default function ProductDetail({ product, relatedProducts }: { product: P
                               {[...Array(5)].map((_, i) => <Star key={i} className={`w-3 h-3 ${i < row.stars ? 'text-accent-500 fill-accent-500' : 'text-ink-200'}`} />)}
                             </div>
                             <div className="flex-1 h-2 bg-ink-200 rounded-full overflow-hidden">
-                              <div className="h-full bg-accent-gradient rounded-full" style={{ width: `${row.pct}%` }}></div>
+                              <div className="h-full bg-accent-600 bg-accent-gradient rounded-full" style={{ width: `${row.pct}%` }}></div>
                             </div>
                             <span className="text-xs text-ink-600 w-10 text-right font-bold">{row.pct}%</span>
                           </div>
@@ -519,7 +498,7 @@ export default function ProductDetail({ product, relatedProducts }: { product: P
                       {sampleReviews.map((review) => (
                         <div key={review.id} className="pb-5 border-b border-ink-100 last:border-0">
                           <div className="flex items-center gap-3 mb-2.5">
-                            <div className="w-10 h-10 rounded-full bg-navy-gradient flex items-center justify-center text-white font-bold text-sm">{review.user?.name?.[0] || 'U'}</div>
+                            <div className="w-10 h-10 rounded-full bg-navy-800 bg-navy-gradient flex items-center justify-center text-white font-bold text-sm">{review.user?.name?.[0] || 'U'}</div>
                             <div>
                               <p className="text-sm font-bold text-navy-800">{review.user?.name || 'Anonymous'}</p>
                               <div className="flex items-center gap-2">
@@ -546,7 +525,7 @@ export default function ProductDetail({ product, relatedProducts }: { product: P
                         <details key={i} className="group border border-ink-200 rounded-xl overflow-hidden hover:border-accent-300 transition-colors">
                           <summary className="flex items-center justify-between p-4 cursor-pointer hover:bg-ink-50 transition-colors">
                             <span className="text-sm font-bold text-navy-800 pr-4">{faq.q}</span>
-                            <div className="w-7 h-7 rounded-lg bg-accent-50 flex items-center justify-center flex-shrink-0 group-open:bg-accent-gradient group-open:text-white transition-colors">
+                            <div className="w-7 h-7 rounded-lg bg-accent-50 flex items-center justify-center flex-shrink-0 group-open:bg-accent-600 group-open:bg-accent-gradient group-open:text-white transition-colors">
                               <Plus className="w-3.5 h-3.5 text-accent-600 group-open:text-white transition-all group-open:rotate-45" />
                             </div>
                           </summary>
@@ -564,7 +543,7 @@ export default function ProductDetail({ product, relatedProducts }: { product: P
               <div className="mt-8">
                 <div className="flex items-center justify-between mb-5">
                   <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-xl bg-accent-gradient flex items-center justify-center shadow-accent-glow">
+                    <div className="w-10 h-10 rounded-xl bg-accent-600 bg-accent-gradient flex items-center justify-center shadow-accent-glow">
                       <TrendingUp className="w-5 h-5 text-white" />
                     </div>
                     <div>
@@ -585,7 +564,7 @@ export default function ProductDetail({ product, relatedProducts }: { product: P
           <aside className="hidden lg:block lg:col-span-4">
             <div className="sticky top-24 space-y-5">
               <div className="bg-white rounded-2xl border border-ink-200 shadow-soft overflow-hidden">
-                <div className="bg-navy-gradient px-5 py-3.5 relative overflow-hidden">
+                <div className="bg-navy-800 bg-navy-gradient px-5 py-3.5 relative overflow-hidden">
                   <h3 className="text-sm font-bold text-white flex items-center gap-2 relative"><Flame className="w-4 h-4 text-accent-400" />Hot Products</h3>
                 </div>
                 <div className="p-3 space-y-2.5">
@@ -593,7 +572,7 @@ export default function ProductDetail({ product, relatedProducts }: { product: P
                     <Link key={item.id} href={`/products/${item.id}`} className="flex gap-3 p-2.5 rounded-xl hover:bg-accent-50/50 transition-colors group">
                       <div className="relative w-16 h-16 flex-shrink-0 bg-ink-50 rounded-lg overflow-hidden">
                         <Image src={item.image} alt={item.name} fill className="object-contain p-1" sizes="64px" />
-                        <span className="absolute top-0.5 left-0.5 w-5 h-5 bg-accent-gradient text-white text-[10px] font-bold rounded flex items-center justify-center shadow-sm">{i + 1}</span>
+                        <span className="absolute top-0.5 left-0.5 w-5 h-5 bg-accent-600 bg-accent-gradient text-white text-[10px] font-bold rounded flex items-center justify-center shadow-sm">{i + 1}</span>
                       </div>
                       <div className="flex-1 min-w-0">
                         <p className="text-xs font-bold text-navy-800 line-clamp-2 group-hover:text-accent-600 transition-colors leading-tight">{item.name}</p>
@@ -604,7 +583,7 @@ export default function ProductDetail({ product, relatedProducts }: { product: P
                 </div>
               </div>
 
-              <div className="relative overflow-hidden bg-navy-gradient rounded-2xl p-5 text-white">
+              <div className="relative overflow-hidden bg-navy-800 bg-navy-gradient rounded-2xl p-5 text-white">
                 <div className="absolute premium-pattern inset-0 opacity-10" />
                 <div className="relative">
                   <h3 className="text-base font-bold mb-1.5">Become a Seller</h3>

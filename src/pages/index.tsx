@@ -90,7 +90,7 @@ const Home = ({ products }: { products: Product[] }) => {
 
             <div className="flex-1 min-w-0 space-y-6 lg:space-y-8">
               {/* Hero Banner */}
-              <section className="relative overflow-hidden rounded-3xl bg-hero-gradient shadow-premium">
+              <section className="relative overflow-hidden rounded-3xl bg-navy-900 bg-hero-gradient shadow-premium">
                 <div className="absolute inset-0 premium-pattern opacity-30" />
                 <div className="absolute inset-0 opacity-30">
                   <div className="absolute top-0 right-0 w-96 h-96 bg-accent-500/30 rounded-full blur-[120px]" />
@@ -98,8 +98,8 @@ const Home = ({ products }: { products: Product[] }) => {
                 </div>
                 <div className="relative flex flex-col lg:flex-row items-center justify-between px-6 md:px-12 py-10 md:py-14">
                   <div className="text-center lg:text-left max-w-xl">
-                    <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md text-accent-300 px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-[0.1em] mb-5 border border-white/10">
-                      <Flame className="w-3.5 h-3.5" />
+                    <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md text-amber-300 px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-[0.1em] mb-5 border border-white/10">
+                      <Flame className="w-3.5 h-3.5 text-amber-400" />
                       Direct from Yiwu Factories
                     </div>
                     <h1 className="font-display text-3xl md:text-5xl font-bold text-white leading-[1.1] mb-4 tracking-tight">
@@ -195,7 +195,7 @@ const Home = ({ products }: { products: Product[] }) => {
                   <div className="px-6 py-4 border-b border-ink-100 bg-gradient-to-r from-accent-50 to-orange-50/50">
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-3">
-                        <div className="w-10 h-10 rounded-xl bg-accent-gradient flex items-center justify-center shadow-accent-glow">
+                        <div className="w-10 h-10 rounded-xl bg-accent-600 bg-accent-gradient flex items-center justify-center shadow-accent-glow">
                           <Flame className="w-5 h-5 text-white" />
                         </div>
                         <div>
@@ -240,7 +240,7 @@ const Home = ({ products }: { products: Product[] }) => {
               {/* Shop by Category */}
               <section className="space-y-5">
                 <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-xl bg-navy-gradient flex items-center justify-center">
+                  <div className="w-10 h-10 rounded-xl bg-navy-800 bg-navy-gradient flex items-center justify-center">
                     <Tag className="w-5 h-5 text-white" />
                   </div>
                   <div>
@@ -318,7 +318,7 @@ const Home = ({ products }: { products: Product[] }) => {
               </section>
 
               {/* CTA Section */}
-              <section className="relative overflow-hidden bg-navy-gradient rounded-2xl p-8 md:p-10 shadow-premium">
+              <section className="relative overflow-hidden bg-navy-800 bg-navy-gradient rounded-2xl p-8 md:p-10 shadow-premium">
                 <div className="absolute inset-0 premium-pattern opacity-20" />
                 <div className="absolute -right-12 -top-12 w-48 h-48 bg-accent-500/20 rounded-full blur-3xl" />
                 <div className="relative flex flex-col md:flex-row items-center justify-between gap-6">

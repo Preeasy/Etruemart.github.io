@@ -106,7 +106,7 @@ export default function StorePage({ products }: { products: Product[] }) {
       </div>
 
       {/* ─── STORE HEADER ─── */}
-      <div className="bg-navy-gradient relative overflow-hidden">
+      <div className="bg-navy-800 bg-navy-gradient relative overflow-hidden">
         <div className="absolute inset-0 premium-pattern opacity-20" />
         <div className="absolute -right-20 -top-20 w-80 h-80 bg-accent-500/15 rounded-full blur-[100px]" />
         <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16 max-w-[1600px] mx-auto py-10 md:py-14 relative">

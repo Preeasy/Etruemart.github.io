@@ -46,7 +46,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
             sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
           />
           {discount > 0 && (
-            <span className="absolute top-2.5 left-2.5 bg-accent-500 text-white text-[10px] font-bold px-2 py-1 rounded-md shadow-accent-glow uppercase tracking-wide">
+            <span className="absolute top-2.5 left-2.5 bg-red-500 text-white text-[10px] font-bold px-2 py-1 rounded-md shadow-sm uppercase tracking-wide">
               -{discount}%
             </span>
           )}
@@ -58,29 +58,37 @@ const ProductCard = ({ product }: ProductCardProps) => {
           )}
         </div>
 
-        <div className="p-4">
-          {categoryName && (
-            <span className="text-[10px] font-bold text-accent-600 uppercase tracking-[0.12em]">
-              {categoryName}
-            </span>
-          )}
-
-          <h3 className="mt-1.5 font-semibold text-navy-800 text-sm line-clamp-2 group-hover:text-accent-600 transition-colors leading-snug min-h-[2.5rem]">
-            {product.name}
-          </h3>
-
-          <div className="flex items-baseline gap-2 mt-2.5">
-            <span className="text-lg font-bold text-navy-800">${price.toFixed(2)}</span>
-            {originalPrice && originalPrice > price && (
-              <span className="text-xs text-ink-400 line-through">${originalPrice.toFixed(2)}</span>
+        <div className="p-3.5">
+          {/* Row 1: Category + SKU on same line */}
+          <div className="flex items-center justify-between gap-2">
+            {categoryName && (
+              <span className="text-[10px] font-bold text-accent-600 uppercase tracking-[0.1em] truncate">
+                {categoryName}
+              </span>
+            )}
+            {product.sku && (
+              <span className="text-[10px] text-ink-400 font-mono truncate flex-shrink-0">
+                {product.sku}
+              </span>
             )}
           </div>
 
-          <div className="flex items-center justify-between mt-2.5 pt-2.5 border-t border-ink-100">
-            <span className="text-[11px] text-ink-500">MOQ: <span className="text-navy-800 font-semibold">{moq}</span></span>
-            {product.sku && (
-              <span className="text-[10px] text-ink-400 font-mono truncate max-w-[80px]">{product.sku}</span>
-            )}
+          {/* Product Name */}
+          <h3 className="mt-1 font-semibold text-navy-800 text-sm line-clamp-2 group-hover:text-accent-600 transition-colors leading-snug min-h-[2.5rem]">
+            {product.name}
+          </h3>
+
+          {/* Row 2: Price + MOQ on same line */}
+          <div className="flex items-center justify-between mt-2">
+            <div className="flex items-baseline gap-1.5">
+              <span className="text-base font-bold text-navy-800">${price.toFixed(2)}</span>
+              {originalPrice && originalPrice > price && (
+                <span className="text-[11px] text-ink-400 line-through">${originalPrice.toFixed(2)}</span>
+              )}
+            </div>
+            <span className="text-[11px] text-ink-500 flex-shrink-0">
+              MOQ: <span className="text-navy-800 font-semibold">{moq}</span>
+            </span>
           </div>
         </div>
       </Link>
