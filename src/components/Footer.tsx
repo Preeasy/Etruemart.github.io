@@ -13,7 +13,7 @@ const Footer = () => {
             </div>
             <div className="flex flex-col">
               <span className="text-sm font-display font-bold tracking-wide text-white group-hover:text-orange-300 transition-colors leading-tight">
-                eTruemart
+                eTrue Mark
               </span>
               <span className="text-[9px] tracking-[0.25em] text-gray-400 uppercase leading-tight">
                 Wholesale Source
@@ -41,7 +41,7 @@ const Footer = () => {
         {/* Bottom bar */}
         <div className="border-t border-gray-700 mt-6 pt-6 flex flex-col md:flex-row justify-between items-center gap-3">
           <p className="text-gray-400 text-xs">
-            &copy; {new Date().getFullYear()} eTruemart. Wholesale sourcing from Yiwu, China.
+            &copy; {new Date().getFullYear()} eTrue Mark. Wholesale sourcing from Yiwu, China.
           </p>
           <div className="flex gap-5 text-xs text-gray-400">
             <a href="#" className="hover:text-orange-300 transition-colors">Privacy</a>

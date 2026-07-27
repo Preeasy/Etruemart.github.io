@@ -465,7 +465,7 @@ const Sell = () => {
             <div className="bg-gray-50 rounded-2xl p-6 shadow-lg border border-gray-300/20">
               <h3 className="font-semibold text-gray-900 mb-4">Ready to Sell?</h3>
               <p className="text-sm text-gray-500 mb-4">
-                Join thousands of sellers who trust eTruemart. Start selling today and reach customers worldwide.
+                Join thousands of sellers who trust eTrue Mark. Start selling today and reach customers worldwide.
               </p>
               <Link href="/dashboard" className="btn-primary w-full block text-center">
                 View Your Products

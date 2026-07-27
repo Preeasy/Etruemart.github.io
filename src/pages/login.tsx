@@ -46,7 +46,7 @@ const Login = () => {
           <div className="text-center mb-8">
             <Link href="/" className="flex items-center justify-center gap-2 mb-4 group">
               <Package className="w-10 h-10 text-gold-600 group-hover:text-gold-400 transition-colors" />
-              <span className="text-2xl font-bold text-gold-600 group-hover:text-gold-400 transition-colors">eTruemart</span>
+              <span className="text-2xl font-bold text-gold-600 group-hover:text-gold-400 transition-colors">eTrue Mark</span>
             </Link>
             <h2 className="text-3xl font-bold text-gray-900">Sign in to your account</h2>
             <p className="mt-2 text-gray-500">Welcome back! Please sign in to continue.</p>

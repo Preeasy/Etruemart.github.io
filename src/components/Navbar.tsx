@@ -27,7 +27,7 @@ const Navbar = () => {
             </div>
             <div className="flex flex-col">
               <span className="text-base font-display font-bold tracking-wide text-white group-hover:text-orange-300 transition-colors leading-tight">
-                eTruemart
+                eTrue Mark
               </span>
               <span className="text-[9px] tracking-[0.25em] text-gray-400 uppercase leading-tight">
                 Wholesale Source

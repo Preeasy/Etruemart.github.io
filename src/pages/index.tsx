@@ -327,7 +327,7 @@ const Home = ({ products }: { products: Product[] }) => {
                       Ready to Start Sourcing?
                     </h2>
                     <p className="text-ink-200 max-w-lg">
-                      Join thousands of retailers worldwide who trust eTruemart for their wholesale needs.
+                      Join thousands of retailers worldwide who trust eTrue Mark for their wholesale needs.
                     </p>
                   </div>
                   <div className="flex gap-3 flex-shrink-0">
@@ -341,7 +341,7 @@ const Home = ({ products }: { products: Product[] }) => {
                       href="/sell"
                       className="inline-flex items-center gap-2 bg-white/10 hover:bg-white/15 text-white px-6 py-3 rounded-xl font-bold transition-colors backdrop-blur border border-white/10"
                     >
-                      Sell on eTruemart
+                      Sell on eTrue Mark
                     </Link>
                   </div>
                 </div>

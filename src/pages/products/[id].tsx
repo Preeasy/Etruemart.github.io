@@ -362,7 +362,7 @@ export default function ProductDetail({ product, relatedProducts }: { product: P
                 </div>
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2">
-                    <p className="text-sm font-bold text-navy-800 group-hover:text-accent-600 transition-colors">Yiwu Premium Trading Co.</p>
+                    <p className="text-sm font-bold text-navy-800 group-hover:text-accent-600 transition-colors">Yiwu Yeatru trading company</p>
                     <CheckCircle2 className="w-3.5 h-3.5 text-success-500" />
                   </div>
                   <div className="flex items-center gap-2 mt-0.5">
