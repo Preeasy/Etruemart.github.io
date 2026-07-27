@@ -31,28 +31,6 @@ async function getAllCategoryIds(parentId: string): Promise<string[]> {
 }
 
 async function seedIfEmpty() {
-  const count = await prisma.product.count();
-  if (count > 0) {
-    // Deduplicate: keep only the first product for each name
-    const all = await prisma.product.findMany({
-      select: { id: true, name: true, createdAt: true },
-      orderBy: { createdAt: 'asc' },
-    });
-    const seen = new Set<string>();
-    const toDelete: string[] = [];
-    for (const p of all) {
-      if (seen.has(p.name)) {
-        toDelete.push(p.id);
-      } else {
-        seen.add(p.name);
-      }
-    }
-    if (toDelete.length > 0) {
-      await prisma.product.deleteMany({ where: { id: { in: toDelete } } });
-    }
-    return;
-  }
-
   const siteDataPath = path.join(process.cwd(), 'site-data.json');
   const siteData = JSON.parse(fs.readFileSync(siteDataPath, 'utf-8'));
 
@@ -78,7 +56,12 @@ async function seedIfEmpty() {
       if (!cat.parentId) {
         await prisma.category.upsert({
           where: { slug: cat.slug },
-          update: {},
+          update: {
+            name: cat.name,
+            sortOrder: cat.sortOrder || 0,
+            seoTitle: cat.seoTitle || null,
+            seoDesc: cat.seoDesc || null,
+          },
           create: {
             name: cat.name,
             slug: cat.slug,
@@ -96,7 +79,13 @@ async function seedIfEmpty() {
         if (parent) {
           await prisma.category.upsert({
             where: { slug: cat.slug },
-            update: {},
+            update: {
+              name: cat.name,
+              parentId: parent.id,
+              sortOrder: cat.sortOrder || 0,
+              seoTitle: cat.seoTitle || null,
+              seoDesc: cat.seoDesc || null,
+            },
             create: {
               name: cat.name,
               slug: cat.slug,
@@ -122,7 +111,15 @@ async function seedIfEmpty() {
     }
   }
 
+  // Incremental product sync: upsert products from site-data.json
   const products = siteData.products || [];
+  const existingProducts = await prisma.product.findMany({ select: { id: true, name: true, slug: true } });
+  const existingNames = new Map(existingProducts.map(p => [p.name, p.id]));
+  const existingSlugs = new Set(existingProducts.map(p => p.slug));
+
+  let createdCount = 0;
+  let updatedCount = 0;
+
   for (const productData of products) {
     const variations = productData.variations || [];
     const variantData: { color: string; size: string; price: number; stock: number }[] = variations.map((v: any) => ({
@@ -140,44 +137,95 @@ async function seedIfEmpty() {
     }
     const uniqueImages = [...new Set(images)];
 
-    // Find category by name from productData.category string
-    const catRecord = await prisma.category.findFirst({ where: { name: productData.category || 'Other' } });
+    // Find category by name from productData.category object
+    const catName = typeof productData.category === 'object' ? productData.category.name : (productData.category || 'Other');
+    const catRecord = await prisma.category.findFirst({ where: { name: catName } });
     const fallbackCat = await prisma.category.findFirst();
     const categoryId = catRecord?.id || fallbackCat?.id || '';
 
-    await prisma.product.create({
-      data: {
-        name: productData.name,
-        slug: productData.slug || productData.name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/-+$/, '') + '-' + Date.now().toString(36),
-        description: productData.description || '',
-        price: toNumber(productData.priceMin),
-        originalPrice: toNumber(productData.priceMax && productData.priceMax > productData.priceMin
-          ? (productData.priceMax * 1.5)
-          : (productData.priceMin * 1.3)),
-        image: productData.image,
-        images: JSON.stringify(uniqueImages),
-        categoryId,
-        stock: 100,
-        isPublished: true,
-        sku: productData.sku || null,
-        material: productData.material || null,
-        plating: productData.plating || null,
-        process: productData.process || null,
-        color: productData.color || null,
-        size: productData.size || null,
-        packSize: productData.packSize || 1,
-        moq: productData.moq || 1,
-        keywords: JSON.stringify(productData.keywords || []),
-        stockStatus: productData.stockStatus || 'IN_STOCK',
-        shippingCost: 0,
-        aplus: productData.aplus ? JSON.stringify(productData.aplus) : null,
-        shippingMethod: 'Standard Shipping',
-        authorId: admin.id,
-        variants: {
-          create: variantData.length > 0 ? variantData.map(v => ({ color: v.color, size: v.size, price: toNumber(v.price), stock: v.stock })) : [{ color: 'Default', size: 'One Size', price: toNumber(productData.priceMin), stock: 100 }],
+    // Generate slug if not provided
+    let slug = productData.slug;
+    if (!slug) {
+      slug = productData.name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/-+$/, '');
+      if (existingSlugs.has(slug)) {
+        slug = slug + '-' + Date.now().toString(36);
+      }
+    }
+    existingSlugs.add(slug);
+
+    // Upsert: update if exists, create if not
+    const existingId = existingNames.get(productData.name);
+    if (existingId) {
+      // Update existing product
+      await prisma.product.update({
+        where: { id: existingId },
+        data: {
+          name: productData.name,
+          slug,
+          description: productData.description || '',
+          price: toNumber(productData.priceMin),
+          originalPrice: toNumber(productData.priceMax && productData.priceMax > productData.priceMin
+            ? (productData.priceMax * 1.5)
+            : (productData.priceMin * 1.3)),
+          image: productData.image,
+          images: JSON.stringify(uniqueImages),
+          categoryId,
+          material: productData.material || null,
+          plating: productData.plating || null,
+          process: productData.process || null,
+          color: productData.color || null,
+          size: productData.size || null,
+          packSize: productData.packSize || 1,
+          moq: productData.moq || 1,
+          keywords: JSON.stringify(productData.keywords || []),
+          stockStatus: productData.stockStatus || 'IN_STOCK',
         },
-      },
-    });
+      });
+      updatedCount++;
+    } else {
+      // Create new product
+      await prisma.product.create({
+        data: {
+          name: productData.name,
+          slug,
+          description: productData.description || '',
+          price: toNumber(productData.priceMin),
+          originalPrice: toNumber(productData.priceMax && productData.priceMax > productData.priceMin
+            ? (productData.priceMax * 1.5)
+            : (productData.priceMin * 1.3)),
+          image: productData.image,
+          images: JSON.stringify(uniqueImages),
+          categoryId,
+          stock: 100,
+          isPublished: true,
+          sku: productData.sku || null,
+          material: productData.material || null,
+          plating: productData.plating || null,
+          process: productData.process || null,
+          color: productData.color || null,
+          size: productData.size || null,
+          packSize: productData.packSize || 1,
+          moq: productData.moq || 1,
+          keywords: JSON.stringify(productData.keywords || []),
+          stockStatus: productData.stockStatus || 'IN_STOCK',
+          shippingCost: 0,
+          aplus: productData.aplus ? JSON.stringify(productData.aplus) : null,
+          shippingMethod: 'Standard Shipping',
+          authorId: admin.id,
+          variants: {
+            create: variantData.length > 0 ? variantData.map(v => ({ color: v.color, size: v.size, price: toNumber(v.price), stock: v.stock })) : [{ color: 'Default', size: 'One Size', price: toNumber(productData.priceMin), stock: 100 }],
+          },
+        },
+      });
+      createdCount++;
+    }
+  }
+
+  // Clean up products that are no longer in site-data.json
+  const siteProductNames = new Set((products as any[]).map((p: any) => p.name));
+  const toDelete = existingProducts.filter(p => !siteProductNames.has(p.name)).map(p => p.id);
+  if (toDelete.length > 0) {
+    await prisma.product.deleteMany({ where: { id: { in: toDelete } } });
   }
 }
 
