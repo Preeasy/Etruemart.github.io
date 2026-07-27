@@ -3,12 +3,12 @@ import Image from 'next/image';
 
 interface ProductCardProps {
   product: {
-    id: string;
+    id: number | string;
     name: string;
-    categoryId: string;
-    category?: { id: string; name: string; slug: string } | string;
-    price: number;
-    originalPrice?: number;
+    category?: { name: string; slug: string } | string;
+    price?: number;
+    priceMin?: number;
+    priceMax?: number;
     image: string;
     moq?: number;
     packSize?: number;
@@ -18,8 +18,8 @@ interface ProductCardProps {
 }
 
 const ProductCard = ({ product }: ProductCardProps) => {
-  const price = Number(product.price);
-  const originalPrice = product.originalPrice ? Number(product.originalPrice) : undefined;
+  const price = Number(product.price || product.priceMin || 0);
+  const originalPrice = product.priceMax && product.priceMax > price ? Number(product.priceMax * 1.3) : undefined;
   const moq = product.moq || 1;
 
   const categoryName =

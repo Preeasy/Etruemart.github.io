@@ -247,8 +247,8 @@ const Home = ({ products }: { products: Product[] }) => {
 
                 {categoryGuides.map((cat) => {
                   const catProducts = products
-                    .filter(p => SUB_TO_PARENT[p.category.slug] === cat.slug)
-                    .slice(0, 5);
+    .filter(p => p.category.slug === cat.slug)
+    .slice(0, 5);
 
                   return (
                     <div key={cat.slug} className="bg-white rounded-xl border border-gray-100 shadow-sm overflow-hidden hover:shadow-md transition-shadow">
