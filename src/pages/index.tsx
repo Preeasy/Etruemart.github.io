@@ -62,12 +62,12 @@ const SUB_TO_PARENT: Record<string, string> = {
 };
 
 const categoryGuides = [
-  { title: 'Toys & Gift', desc: 'Stress relief, fidget toys & gift sets', slug: 'toys-gift', badge: 'Trending', color: 'from-blue-600 to-blue-700', icon: Gift },
-  { title: 'Fashion Jewelry', desc: 'Necklaces, earrings, rings & bracelets', slug: 'fashion-jewelry', badge: 'Best Seller', color: 'from-amber-500 to-orange-600', icon: Gem },
-  { title: 'Hair Accessories', desc: 'Clips, headbands, scrunchies & pins', slug: 'hair-accessories', badge: 'New', color: 'from-pink-500 to-rose-600', icon: Crown },
-  { title: 'Bags & Accessories', desc: 'Bag charms, keychains & belt buckles', slug: 'bags-accessories', badge: 'Hot', color: 'from-emerald-500 to-teal-600', icon: ShoppingBag },
-  { title: 'Garment Accessories', desc: 'Zippers, buttons, lace & patches', slug: 'garment-accessories', badge: null, color: 'from-slate-600 to-gray-700', icon: Scissors },
-  { title: 'Home Decor & Crafts', desc: 'Beads, rhinestones & craft supplies', slug: 'home-decor-crafts', badge: null, color: 'from-purple-500 to-violet-600', icon: HomeIcon },
+  { title: 'Toys & Gift', desc: 'Stress relief, fidget toys & gift sets', slug: 'toys-gift', badge: 'Trending', icon: Gift },
+  { title: 'Fashion Jewelry', desc: 'Necklaces, earrings, rings & bracelets', slug: 'fashion-jewelry', badge: 'Best Seller', icon: Gem },
+  { title: 'Hair Accessories', desc: 'Clips, headbands, scrunchies & pins', slug: 'hair-accessories', badge: 'New', icon: Crown },
+  { title: 'Bags & Accessories', desc: 'Bag charms, keychains & belt buckles', slug: 'bags-accessories', badge: 'Hot', icon: ShoppingBag },
+  { title: 'Garment Accessories', desc: 'Zippers, buttons, lace & patches', slug: 'garment-accessories', badge: null, icon: Scissors },
+  { title: 'Home Decor & Crafts', desc: 'Beads, rhinestones & craft supplies', slug: 'home-decor-crafts', badge: null, icon: HomeIcon },
 ];
 
 const valueProps = [
@@ -91,9 +91,8 @@ const Home = ({ products }: { products: Product[] }) => {
               {/* Hero Banner */}
               <section className="relative overflow-hidden rounded-3xl bg-navy-900 bg-hero-gradient shadow-premium">
                 <div className="absolute inset-0 premium-pattern opacity-30" />
-                <div className="absolute inset-0 opacity-30">
+                <div className="absolute inset-0 opacity-20">
                   <div className="absolute top-0 right-0 w-96 h-96 bg-accent-500/30 rounded-full blur-[120px]" />
-                  <div className="absolute bottom-0 left-0 w-64 h-64 bg-blue-500/20 rounded-full blur-[100px]" />
                 </div>
                 <div className="relative flex flex-col lg:flex-row items-center justify-between px-6 md:px-12 py-10 md:py-14">
                   <div className="text-center lg:text-left max-w-xl">
@@ -171,17 +170,17 @@ const Home = ({ products }: { products: Product[] }) => {
                     <Link
                       key={cat.slug}
                       href={`/products?category=${cat.slug}`}
-                      className={`group relative overflow-hidden bg-gradient-to-br ${cat.color} rounded-2xl p-4 text-white hover:shadow-lg transition-all hover:-translate-y-0.5`}
+                      className="group relative overflow-hidden bg-navy-800 bg-navy-gradient rounded-2xl p-4 text-white hover:shadow-medium transition-all hover:-translate-y-0.5"
                     >
-                      <div className="absolute -right-4 -bottom-4 w-20 h-20 bg-white/10 rounded-full" />
+                      <div className="absolute -right-4 -bottom-4 w-20 h-20 bg-white/5 rounded-full" />
                       <div className="relative">
                         <div className="flex items-center gap-2.5 mb-2">
-                          <div className="w-9 h-9 rounded-lg bg-white/20 backdrop-blur flex items-center justify-center">
+                          <div className="w-9 h-9 rounded-lg bg-white/15 backdrop-blur flex items-center justify-center">
                             <Icon className="w-5 h-5" />
                           </div>
                           <span className="font-bold text-sm">{cat.title.split(' ')[0]}</span>
                         </div>
-                        <p className="text-xs text-white/80">{count} items</p>
+                        <p className="text-xs text-white/70">{count} items</p>
                       </div>
                     </Link>
                   );
@@ -262,14 +261,14 @@ const Home = ({ products }: { products: Product[] }) => {
                       <div className="px-5 py-3.5 border-b border-ink-100 bg-gradient-to-r from-ink-50 to-white">
                         <div className="flex items-center justify-between">
                           <div className="flex items-center gap-3">
-                            <div className={`w-9 h-9 rounded-lg bg-gradient-to-br ${cat.color} flex items-center justify-center`}>
+                            <div className="w-9 h-9 rounded-lg bg-navy-800 bg-navy-gradient flex items-center justify-center">
                               <Icon className="w-4 h-4 text-white" />
                             </div>
                             <div>
                               <div className="flex items-center gap-2">
                                 <h3 className="font-bold text-navy-800 text-base">{cat.title}</h3>
                                 {cat.badge && (
-                                  <span className={`inline-flex items-center gap-1 bg-gradient-to-r ${cat.color} text-white px-2 py-0.5 rounded text-[9px] font-bold uppercase tracking-wider`}>
+                                  <span className="inline-flex items-center gap-1 bg-accent-500 text-white px-2 py-0.5 rounded text-[9px] font-bold uppercase tracking-wider">
                                     <Sparkles className="w-2.5 h-2.5" />
                                     {cat.badge}
                                   </span>
