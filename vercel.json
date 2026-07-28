@@ -4,7 +4,6 @@
   "installCommand": "npm install",
   "framework": "nextjs",
   "env": {
-    "DATABASE_URL": "file:./prisma/dev.db",
     "NEXTAUTH_URL": "https://etruemart.vercel.app",
     "NEXTAUTH_SECRET": "your-secret-key-here-change-in-production"
   }
