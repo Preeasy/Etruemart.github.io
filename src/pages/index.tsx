@@ -78,7 +78,11 @@ const valueProps = [
 ];
 
 const Home = ({ products }: { products: Product[] }) => {
-  const topDeals = products.slice(0, 6);
+  const topDeals = [...products].sort((a, b) => {
+    const aPrice = Number(a.priceMin || 999);
+    const bPrice = Number(b.priceMin || 999);
+    return aPrice - bPrice;
+  }).slice(0, 6);
 
   return (
     <Layout>

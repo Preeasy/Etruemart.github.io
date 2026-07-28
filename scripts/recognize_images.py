@@ -307,10 +307,25 @@ def classify_product(features, filename):
             return "Seasonal Item", "季节性产品", "seasonal"
     
     # 未知类别 - 根据特征推断
-    # 优先判断包包（皮革材质，有把手特征）
+    # 优先判断包包：低边缘密度 + 中等前景比例 + 适中饱和度
+    if edge < 10 and fg_ratio > 0.1 and fg_ratio < 0.7 and brightness > 140:
+        if sat > 0.02 and sat < 0.5:
+            if aspect > 0.6 and aspect < 2.0:
+                return "Leather Handbag", "皮革手提包", "bag"
+    
+    # 高银色比例但低边缘密度 = 白色背景的包包，不是银色首饰
+    if silver > 0.1 and edge < 15 and fg_ratio > 0.1:
+        if aspect > 0.6 and aspect < 2.0:
+            return "Leather Handbag", "皮革手提包", "bag"
+    
+    # 金色比例高但边缘密度低也可能是包包
+    if gold > 0.1 and edge < 12 and fg_ratio > 0.15:
+        if aspect > 0.6 and aspect < 2.0:
+            return "Fashion Handbag", "时尚手提包", "bag"
+    
     if sat > 0.05 and sat < 0.35 and brightness > 100 and brightness < 250:
-        if (aspect > 0.8 and aspect < 1.5) and (fg_ratio > 0.2 and fg_ratio < 0.6):
-            if edge < 20 or (silver > 0.1 and edge < 30):
+        if (aspect > 0.6 and aspect < 2.0) and (fg_ratio > 0.1 and fg_ratio < 0.7):
+            if edge < 25:
                 return "Leather Handbag", "皮革手提包", "bag"
             elif colors > 15 and colors < 35:
                 return "Fashion Bag", "时尚包包", "bag"
