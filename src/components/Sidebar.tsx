@@ -255,11 +255,11 @@ export default function Sidebar({ products, currentCategory }: SidebarProps) {
           <div className="space-y-2">
             <div className="flex items-center gap-2 text-xs text-ink-600">
               <Mail className="w-3.5 h-3.5 text-accent-500 flex-shrink-0" />
-              <span className="truncate">support@etruemart.com</span>
+              <span className="truncate">Yeatrusourcing@gmail.com</span>
             </div>
             <div className="flex items-center gap-2 text-xs text-ink-600">
               <Phone className="w-3.5 h-3.5 text-accent-500 flex-shrink-0" />
-              <span>+86 579-8555-8888</span>
+              <span>WhatsApp: +86 15988516408</span>
             </div>
           </div>
         </div>
