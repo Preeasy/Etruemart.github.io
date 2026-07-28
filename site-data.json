@@ -46,17 +46,17 @@
     },
     {
       "id": 1783332968002,
-      "image": "https://raw.githubusercontent.com/Preeasy/images/main/Images/003.jpg",
+      "image": "https://raw.githubusercontent.com/Preeasy/images/main/Images/005.jpg",
       "images": [
-        "https://raw.githubusercontent.com/Preeasy/images/main/Images/003.jpg"
+        "https://raw.githubusercontent.com/Preeasy/images/main/Images/005.jpg"
       ],
       "category": {
         "name": "Fashion Jewelry",
         "slug": "fashion-jewelry"
       },
-      "name": "Gold Jewelry",
-      "nameCn": "金色首饰",
-      "description": "Premium quality gold jewelry crafted with brass. Rose Gold Plated finish for lasting shine. Perfect for retail and wholesale. OEM/ODM welcome.",
+      "name": "Gold Pendant",
+      "nameCn": "金色吊坠",
+      "description": "Premium quality gold pendant crafted with brass. Rose Gold Plated finish for lasting shine. Perfect for retail and wholesale. OEM/ODM welcome.",
       "sku": "YW-FJ-003",
       "moq": 36,
       "priceMin": 0.8,
@@ -68,17 +68,17 @@
     },
     {
       "id": 1783332968003,
-      "image": "https://raw.githubusercontent.com/Preeasy/images/main/Images/004.jpg",
+      "image": "https://raw.githubusercontent.com/Preeasy/images/main/Images/006.jpg",
       "images": [
-        "https://raw.githubusercontent.com/Preeasy/images/main/Images/004.jpg"
+        "https://raw.githubusercontent.com/Preeasy/images/main/Images/006.jpg"
       ],
       "category": {
         "name": "Fashion Jewelry",
         "slug": "fashion-jewelry"
       },
-      "name": "Silver Earrings",
-      "nameCn": "银色耳环",
-      "description": "Premium quality silver earrings crafted with acrylic. Rhodium Plated finish for lasting shine. Perfect for retail and wholesale. OEM/ODM welcome.",
+      "name": "Fashion Accessory",
+      "nameCn": "时尚配饰",
+      "description": "Premium quality fashion accessory crafted with acrylic. Rhodium Plated finish for lasting shine. Perfect for retail and wholesale. OEM/ODM welcome.",
       "sku": "YW-FJ-004",
       "moq": 48,
       "priceMin": 0.2,
@@ -90,9 +90,9 @@
     },
     {
       "id": 1783332968004,
-      "image": "https://raw.githubusercontent.com/Preeasy/images/main/Images/005.jpg",
+      "image": "https://raw.githubusercontent.com/Preeasy/images/main/Images/007.jpg",
       "images": [
-        "https://raw.githubusercontent.com/Preeasy/images/main/Images/005.jpg"
+        "https://raw.githubusercontent.com/Preeasy/images/main/Images/007.jpg"
       ],
       "category": {
         "name": "Fashion Jewelry",
@@ -112,17 +112,17 @@
     },
     {
       "id": 1783332968005,
-      "image": "https://raw.githubusercontent.com/Preeasy/images/main/Images/006.jpg",
+      "image": "https://raw.githubusercontent.com/Preeasy/images/main/Images/008.jpg",
       "images": [
-        "https://raw.githubusercontent.com/Preeasy/images/main/Images/006.jpg"
+        "https://raw.githubusercontent.com/Preeasy/images/main/Images/008.jpg"
       ],
       "category": {
         "name": "Fashion Jewelry",
         "slug": "fashion-jewelry"
       },
-      "name": "Fashion Accessory",
-      "nameCn": "时尚配饰",
-      "description": "Premium quality fashion accessory crafted with pearl. Silver Plated finish for lasting shine. Perfect for retail and wholesale. OEM/ODM welcome.",
+      "name": "Gold Pendant",
+      "nameCn": "金色吊坠",
+      "description": "Premium quality gold pendant crafted with pearl. Silver Plated finish for lasting shine. Perfect for retail and wholesale. OEM/ODM welcome.",
       "sku": "YW-FJ-006",
       "moq": 12,
       "priceMin": 0.15,
@@ -134,17 +134,17 @@
     },
     {
       "id": 1783332968006,
-      "image": "https://raw.githubusercontent.com/Preeasy/images/main/Images/007.jpg",
+      "image": "https://raw.githubusercontent.com/Preeasy/images/main/Images/010.jpg",
       "images": [
-        "https://raw.githubusercontent.com/Preeasy/images/main/Images/007.jpg"
+        "https://raw.githubusercontent.com/Preeasy/images/main/Images/010.jpg"
       ],
       "category": {
         "name": "Fashion Jewelry",
         "slug": "fashion-jewelry"
       },
-      "name": "Gold Pendant",
-      "nameCn": "金色吊坠",
-      "description": "Premium quality gold pendant crafted with rhinestone. Rose Gold Plated finish for lasting shine. Perfect for retail and wholesale. OEM/ODM welcome.",
+      "name": "Silver Chain",
+      "nameCn": "银色链条",
+      "description": "Premium quality silver chain crafted with rhinestone. Rose Gold Plated finish for lasting shine. Perfect for retail and wholesale. OEM/ODM welcome.",
       "sku": "YW-FJ-007",
       "moq": 24,
       "priceMin": 0.5,
@@ -156,9 +156,9 @@
     },
     {
       "id": 1783332968007,
-      "image": "https://raw.githubusercontent.com/Preeasy/images/main/Images/008.jpg",
+      "image": "https://raw.githubusercontent.com/Preeasy/images/main/Images/012.jpg",
       "images": [
-        "https://raw.githubusercontent.com/Preeasy/images/main/Images/008.jpg"
+        "https://raw.githubusercontent.com/Preeasy/images/main/Images/012.jpg"
       ],
       "category": {
         "name": "Fashion Jewelry",
@@ -178,17 +178,17 @@
     },
     {
       "id": 1783332968008,
-      "image": "https://raw.githubusercontent.com/Preeasy/images/main/Images/009.jpg",
+      "image": "https://raw.githubusercontent.com/Preeasy/images/main/Images/015.jpg",
       "images": [
-        "https://raw.githubusercontent.com/Preeasy/images/main/Images/009.jpg"
+        "https://raw.githubusercontent.com/Preeasy/images/main/Images/015.jpg"
       ],
       "category": {
         "name": "Fashion Jewelry",
         "slug": "fashion-jewelry"
       },
-      "name": "Gold Pendant",
-      "nameCn": "金色吊坠",
-      "description": "Premium quality gold pendant crafted with stainless steel. Gold Plated finish for lasting shine. Perfect for retail and wholesale. OEM/ODM welcome.",
+      "name": "Silver Pendant",
+      "nameCn": "银色吊坠",
+      "description": "Premium quality silver pendant crafted with stainless steel. Gold Plated finish for lasting shine. Perfect for retail and wholesale. OEM/ODM welcome.",
       "sku": "YW-FJ-009",
       "moq": 48,
       "priceMin": 0.2,
@@ -200,9 +200,9 @@
     },
     {
       "id": 1783332968009,
-      "image": "https://raw.githubusercontent.com/Preeasy/images/main/Images/010.jpg",
+      "image": "https://raw.githubusercontent.com/Preeasy/images/main/Images/016.jpg",
       "images": [
-        "https://raw.githubusercontent.com/Preeasy/images/main/Images/010.jpg"
+        "https://raw.githubusercontent.com/Preeasy/images/main/Images/016.jpg"
       ],
       "category": {
         "name": "Fashion Jewelry",
@@ -222,17 +222,17 @@
     },
     {
       "id": 1783332968010,
-      "image": "https://raw.githubusercontent.com/Preeasy/images/main/Images/011.jpg",
+      "image": "https://raw.githubusercontent.com/Preeasy/images/main/Images/017.jpg",
       "images": [
-        "https://raw.githubusercontent.com/Preeasy/images/main/Images/011.jpg"
+        "https://raw.githubusercontent.com/Preeasy/images/main/Images/017.jpg"
       ],
       "category": {
         "name": "Fashion Jewelry",
         "slug": "fashion-jewelry"
       },
-      "name": "Gold Pendant",
-      "nameCn": "金色吊坠",
-      "description": "Premium quality gold pendant crafted with acrylic. Rose Gold Plated finish for lasting shine. Perfect for retail and wholesale. OEM/ODM welcome.",
+      "name": "Silver Chain",
+      "nameCn": "银色链条",
+      "description": "Premium quality silver chain crafted with acrylic. Rose Gold Plated finish for lasting shine. Perfect for retail and wholesale. OEM/ODM welcome.",
       "sku": "YW-FJ-011",
       "moq": 12,
       "priceMin": 0.15,
@@ -244,17 +244,17 @@
     },
     {
       "id": 1783332968011,
-      "image": "https://raw.githubusercontent.com/Preeasy/images/main/Images/012.jpg",
+      "image": "https://raw.githubusercontent.com/Preeasy/images/main/Images/019.jpg",
       "images": [
-        "https://raw.githubusercontent.com/Preeasy/images/main/Images/012.jpg"
+        "https://raw.githubusercontent.com/Preeasy/images/main/Images/019.jpg"
       ],
       "category": {
         "name": "Fashion Jewelry",
         "slug": "fashion-jewelry"
       },
-      "name": "Gold Pendant",
-      "nameCn": "金色吊坠",
-      "description": "Premium quality gold pendant crafted with crystal. Rhodium Plated finish for lasting shine. Perfect for retail and wholesale. OEM/ODM welcome.",
+      "name": "Silver Jewelry",
+      "nameCn": "银色首饰",
+      "description": "Premium quality silver jewelry crafted with crystal. Rhodium Plated finish for lasting shine. Perfect for retail and wholesale. OEM/ODM welcome.",
       "sku": "YW-FJ-012",
       "moq": 24,
       "priceMin": 0.5,
@@ -266,9 +266,9 @@
     },
     {
       "id": 1783332968012,
-      "image": "https://raw.githubusercontent.com/Preeasy/images/main/Images/013.jpg",
+      "image": "https://raw.githubusercontent.com/Preeasy/images/main/Images/021.jpg",
       "images": [
-        "https://raw.githubusercontent.com/Preeasy/images/main/Images/013.jpg"
+        "https://raw.githubusercontent.com/Preeasy/images/main/Images/021.jpg"
       ],
       "category": {
         "name": "Fashion Jewelry",
@@ -288,17 +288,17 @@
     },
     {
       "id": 1783332968013,
-      "image": "https://raw.githubusercontent.com/Preeasy/images/main/Images/014.jpg",
+      "image": "https://raw.githubusercontent.com/Preeasy/images/main/Images/022.jpg",
       "images": [
-        "https://raw.githubusercontent.com/Preeasy/images/main/Images/014.jpg"
+        "https://raw.githubusercontent.com/Preeasy/images/main/Images/022.jpg"
       ],
       "category": {
         "name": "Fashion Jewelry",
         "slug": "fashion-jewelry"
       },
-      "name": "Gold Pendant",
-      "nameCn": "金色吊坠",
-      "description": "Premium quality gold pendant crafted with rhinestone. Silver Plated finish for lasting shine. Perfect for retail and wholesale. OEM/ODM welcome.",
+      "name": "Silver Pendant",
+      "nameCn": "银色吊坠",
+      "description": "Premium quality silver pendant crafted with rhinestone. Silver Plated finish for lasting shine. Perfect for retail and wholesale. OEM/ODM welcome.",
       "sku": "YW-FJ-014",
       "moq": 48,
       "priceMin": 0.2,
@@ -310,17 +310,17 @@
     },
     {
       "id": 1783332968014,
-      "image": "https://raw.githubusercontent.com/Preeasy/images/main/Images/015.jpg",
+      "image": "https://raw.githubusercontent.com/Preeasy/images/main/Images/Fashion%20Jewelry%281%29.jpg",
       "images": [
-        "https://raw.githubusercontent.com/Preeasy/images/main/Images/015.jpg"
+        "https://raw.githubusercontent.com/Preeasy/images/main/Images/Fashion%20Jewelry%281%29.jpg"
       ],
       "category": {
         "name": "Fashion Jewelry",
         "slug": "fashion-jewelry"
       },
-      "name": "Silver Pendant",
-      "nameCn": "银色吊坠",
-      "description": "Premium quality silver pendant crafted with alloy. Rose Gold Plated finish for lasting shine. Perfect for retail and wholesale. OEM/ODM welcome.",
+      "name": "Silver Stud Earrings",
+      "nameCn": "银色耳钉",
+      "description": "Premium quality silver stud earrings crafted with alloy. Rose Gold Plated finish for lasting shine. Perfect for retail and wholesale. OEM/ODM welcome.",
       "sku": "YW-FJ-015",
       "moq": 60,
       "priceMin": 0.6,
@@ -332,17 +332,17 @@
     },
     {
       "id": 1783332968015,
-      "image": "https://raw.githubusercontent.com/Preeasy/images/main/Images/016.jpg",
+      "image": "https://raw.githubusercontent.com/Preeasy/images/main/Images/Fashion%20Jewelry%2810%29.jpg",
       "images": [
-        "https://raw.githubusercontent.com/Preeasy/images/main/Images/016.jpg"
+        "https://raw.githubusercontent.com/Preeasy/images/main/Images/Fashion%20Jewelry%2810%29.jpg"
       ],
       "category": {
         "name": "Fashion Jewelry",
         "slug": "fashion-jewelry"
       },
-      "name": "Silver Chain",
-      "nameCn": "银色链条",
-      "description": "Premium quality silver chain crafted with stainless steel. Rhodium Plated finish for lasting shine. Perfect for retail and wholesale. OEM/ODM welcome.",
+      "name": "Drop Earrings",
+      "nameCn": "垂坠耳环",
+      "description": "Premium quality drop earrings crafted with stainless steel. Rhodium Plated finish for lasting shine. Perfect for retail and wholesale. OEM/ODM welcome.",
       "sku": "YW-FJ-016",
       "moq": 12,
       "priceMin": 0.15,
@@ -354,17 +354,17 @@
     },
     {
       "id": 1783332968016,
-      "image": "https://raw.githubusercontent.com/Preeasy/images/main/Images/017.jpg",
+      "image": "https://raw.githubusercontent.com/Preeasy/images/main/Images/Fashion%20Jewelry%2811%29.jpg",
       "images": [
-        "https://raw.githubusercontent.com/Preeasy/images/main/Images/017.jpg"
+        "https://raw.githubusercontent.com/Preeasy/images/main/Images/Fashion%20Jewelry%2811%29.jpg"
       ],
       "category": {
         "name": "Fashion Jewelry",
         "slug": "fashion-jewelry"
       },
-      "name": "Silver Chain",
-      "nameCn": "银色链条",
-      "description": "Premium quality silver chain crafted with brass. Gold Plated finish for lasting shine. Perfect for retail and wholesale. OEM/ODM welcome.",
+      "name": "Ring",
+      "nameCn": "戒指",
+      "description": "Premium quality ring crafted with brass. Gold Plated finish for lasting shine. Perfect for retail and wholesale. OEM/ODM welcome.",
       "sku": "YW-FJ-017",
       "moq": 24,
       "priceMin": 0.5,
@@ -376,17 +376,17 @@
     },
     {
       "id": 1783332968017,
-      "image": "https://raw.githubusercontent.com/Preeasy/images/main/Images/018.jpg",
+      "image": "https://raw.githubusercontent.com/Preeasy/images/main/Images/Fashion%20Jewelry%2812%29.jpg",
       "images": [
-        "https://raw.githubusercontent.com/Preeasy/images/main/Images/018.jpg"
+        "https://raw.githubusercontent.com/Preeasy/images/main/Images/Fashion%20Jewelry%2812%29.jpg"
       ],
       "category": {
         "name": "Fashion Jewelry",
         "slug": "fashion-jewelry"
       },
-      "name": "Gold Jewelry",
-      "nameCn": "金色首饰",
-      "description": "Premium quality gold jewelry crafted with acrylic. Silver Plated finish for lasting shine. Perfect for retail and wholesale. OEM/ODM welcome.",
+      "name": "Silver Bracelet",
+      "nameCn": "银色手链",
+      "description": "Premium quality silver bracelet crafted with acrylic. Silver Plated finish for lasting shine. Perfect for retail and wholesale. OEM/ODM welcome.",
       "sku": "YW-FJ-018",
       "moq": 36,
       "priceMin": 0.8,
@@ -398,17 +398,17 @@
     },
     {
       "id": 1783332968018,
-      "image": "https://raw.githubusercontent.com/Preeasy/images/main/Images/019.jpg",
+      "image": "https://raw.githubusercontent.com/Preeasy/images/main/Images/Fashion%20Jewelry%2813%29.jpg",
       "images": [
-        "https://raw.githubusercontent.com/Preeasy/images/main/Images/019.jpg"
+        "https://raw.githubusercontent.com/Preeasy/images/main/Images/Fashion%20Jewelry%2813%29.jpg"
       ],
       "category": {
         "name": "Fashion Jewelry",
         "slug": "fashion-jewelry"
       },
-      "name": "Silver Jewelry",
-      "nameCn": "银色首饰",
-      "description": "Premium quality silver jewelry crafted with crystal. Rose Gold Plated finish for lasting shine. Perfect for retail and wholesale. OEM/ODM welcome.",
+      "name": "Gold Earrings",
+      "nameCn": "金色耳环",
+      "description": "Premium quality gold earrings crafted with crystal. Rose Gold Plated finish for lasting shine. Perfect for retail and wholesale. OEM/ODM welcome.",
       "sku": "YW-FJ-019",
       "moq": 48,
       "priceMin": 0.2,
@@ -420,17 +420,17 @@
     },
     {
       "id": 1783332968019,
-      "image": "https://raw.githubusercontent.com/Preeasy/images/main/Images/020.jpg",
+      "image": "https://raw.githubusercontent.com/Preeasy/images/main/Images/Fashion%20Jewelry%2814%29.jpg",
       "images": [
-        "https://raw.githubusercontent.com/Preeasy/images/main/Images/020.jpg"
+        "https://raw.githubusercontent.com/Preeasy/images/main/Images/Fashion%20Jewelry%2814%29.jpg"
       ],
       "category": {
         "name": "Fashion Jewelry",
         "slug": "fashion-jewelry"
       },
-      "name": "Silver Jewelry",
-      "nameCn": "银色首饰",
-      "description": "Premium quality silver jewelry crafted with pearl. Rhodium Plated finish for lasting shine. Perfect for retail and wholesale. OEM/ODM welcome.",
+      "name": "Ring",
+      "nameCn": "戒指",
+      "description": "Premium quality ring crafted with pearl. Rhodium Plated finish for lasting shine. Perfect for retail and wholesale. OEM/ODM welcome.",
       "sku": "YW-FJ-020",
       "moq": 60,
       "priceMin": 0.6,
@@ -442,17 +442,17 @@
     },
     {
       "id": 1783332968020,
-      "image": "https://raw.githubusercontent.com/Preeasy/images/main/Images/021.jpg",
+      "image": "https://raw.githubusercontent.com/Preeasy/images/main/Images/Fashion%20Jewelry%2815%29.jpg",
       "images": [
-        "https://raw.githubusercontent.com/Preeasy/images/main/Images/021.jpg"
+        "https://raw.githubusercontent.com/Preeasy/images/main/Images/Fashion%20Jewelry%2815%29.jpg"
       ],
       "category": {
         "name": "Fashion Jewelry",
         "slug": "fashion-jewelry"
       },
-      "name": "Gold Jewelry Set",
-      "nameCn": "金色首饰套装",
-      "description": "Premium quality gold jewelry set crafted with rhinestone. Gold Plated finish for lasting shine. Perfect for retail and wholesale. OEM/ODM welcome.",
+      "name": "Silver Hoop Earrings",
+      "nameCn": "银色圆环耳环",
+      "description": "Premium quality silver hoop earrings crafted with rhinestone. Gold Plated finish for lasting shine. Perfect for retail and wholesale. OEM/ODM welcome.",
       "sku": "YW-FJ-021",
       "moq": 12,
       "priceMin": 0.15,
@@ -464,17 +464,17 @@
     },
     {
       "id": 1783332968021,
-      "image": "https://raw.githubusercontent.com/Preeasy/images/main/Images/022.jpg",
+      "image": "https://raw.githubusercontent.com/Preeasy/images/main/Images/Fashion%20Jewelry%2816%29.jpg",
       "images": [
-        "https://raw.githubusercontent.com/Preeasy/images/main/Images/022.jpg"
+        "https://raw.githubusercontent.com/Preeasy/images/main/Images/Fashion%20Jewelry%2816%29.jpg"
       ],
       "category": {
         "name": "Fashion Jewelry",
         "slug": "fashion-jewelry"
       },
-      "name": "Silver Pendant",
-      "nameCn": "银色吊坠",
-      "description": "Premium quality silver pendant crafted with alloy. Silver Plated finish for lasting shine. Perfect for retail and wholesale. OEM/ODM welcome.",
+      "name": "Gold Stud Earrings",
+      "nameCn": "金色耳钉",
+      "description": "Premium quality gold stud earrings crafted with alloy. Silver Plated finish for lasting shine. Perfect for retail and wholesale. OEM/ODM welcome.",
       "sku": "YW-FJ-022",
       "moq": 24,
       "priceMin": 0.5,
@@ -486,17 +486,17 @@
     },
     {
       "id": 1783332968022,
-      "image": "https://raw.githubusercontent.com/Preeasy/images/main/Images/Fashion%20Jewelry%281%29.jpg",
+      "image": "https://raw.githubusercontent.com/Preeasy/images/main/Images/Fashion%20Jewelry%2817%29.jpg",
       "images": [
-        "https://raw.githubusercontent.com/Preeasy/images/main/Images/Fashion%20Jewelry%281%29.jpg"
+        "https://raw.githubusercontent.com/Preeasy/images/main/Images/Fashion%20Jewelry%2817%29.jpg"
       ],
       "category": {
         "name": "Fashion Jewelry",
         "slug": "fashion-jewelry"
       },
-      "name": "Silver Stud Earrings",
-      "nameCn": "银色耳钉",
-      "description": "Premium quality silver stud earrings crafted with stainless steel. Rose Gold Plated finish for lasting shine. Perfect for retail and wholesale. OEM/ODM welcome.",
+      "name": "Gold Stud Earrings",
+      "nameCn": "金色耳钉",
+      "description": "Premium quality gold stud earrings crafted with stainless steel. Rose Gold Plated finish for lasting shine. Perfect for retail and wholesale. OEM/ODM welcome.",
       "sku": "YW-FJ-023",
       "moq": 36,
       "priceMin": 0.8,
@@ -508,17 +508,17 @@
     },
     {
       "id": 1783332968023,
-      "image": "https://raw.githubusercontent.com/Preeasy/images/main/Images/Fashion%20Jewelry%2810%29.jpg",
+      "image": "https://raw.githubusercontent.com/Preeasy/images/main/Images/Fashion%20Jewelry%2818%29.jpg",
       "images": [
-        "https://raw.githubusercontent.com/Preeasy/images/main/Images/Fashion%20Jewelry%2810%29.jpg"
+        "https://raw.githubusercontent.com/Preeasy/images/main/Images/Fashion%20Jewelry%2818%29.jpg"
       ],
       "category": {
         "name": "Fashion Jewelry",
         "slug": "fashion-jewelry"
       },
-      "name": "Drop Earrings",
-      "nameCn": "垂坠耳环",
-      "description": "Premium quality drop earrings crafted with brass. Rhodium Plated finish for lasting shine. Perfect for retail and wholesale. OEM/ODM welcome.",
+      "name": "Gold Earrings",
+      "nameCn": "金色耳环",
+      "description": "Premium quality gold earrings crafted with brass. Rhodium Plated finish for lasting shine. Perfect for retail and wholesale. OEM/ODM welcome.",
       "sku": "YW-FJ-024",
       "moq": 48,
       "priceMin": 0.2,
@@ -530,17 +530,17 @@
     },
     {
       "id": 1783332968024,
-      "image": "https://raw.githubusercontent.com/Preeasy/images/main/Images/Fashion%20Jewelry%2811%29.jpg",
+      "image": "https://raw.githubusercontent.com/Preeasy/images/main/Images/Fashion%20Jewelry%2819%29.jpg",
       "images": [
-        "https://raw.githubusercontent.com/Preeasy/images/main/Images/Fashion%20Jewelry%2811%29.jpg"
+        "https://raw.githubusercontent.com/Preeasy/images/main/Images/Fashion%20Jewelry%2819%29.jpg"
       ],
       "category": {
         "name": "Fashion Jewelry",
         "slug": "fashion-jewelry"
       },
-      "name": "Ring",
-      "nameCn": "戒指",
-      "description": "Premium quality ring crafted with acrylic. Gold Plated finish for lasting shine. Perfect for retail and wholesale. OEM/ODM welcome.",
+      "name": "Gold Hoop Earrings",
+      "nameCn": "金色圆环耳环",
+      "description": "Premium quality gold hoop earrings crafted with acrylic. Gold Plated finish for lasting shine. Perfect for retail and wholesale. OEM/ODM welcome.",
       "sku": "YW-FJ-025",
       "moq": 60,
       "priceMin": 0.6,
@@ -552,17 +552,17 @@
     },
     {
       "id": 1783332968025,
-      "image": "https://raw.githubusercontent.com/Preeasy/images/main/Images/Fashion%20Jewelry%2812%29.jpg",
+      "image": "https://raw.githubusercontent.com/Preeasy/images/main/Images/Fashion%20Jewelry%282%29.jpg",
       "images": [
-        "https://raw.githubusercontent.com/Preeasy/images/main/Images/Fashion%20Jewelry%2812%29.jpg"
+        "https://raw.githubusercontent.com/Preeasy/images/main/Images/Fashion%20Jewelry%282%29.jpg"
       ],
       "category": {
         "name": "Fashion Jewelry",
         "slug": "fashion-jewelry"
       },
-      "name": "Silver Bracelet",
-      "nameCn": "银色手链",
-      "description": "Premium quality silver bracelet crafted with crystal. Silver Plated finish for lasting shine. Perfect for retail and wholesale. OEM/ODM welcome.",
+      "name": "Stud Earrings",
+      "nameCn": "耳钉",
+      "description": "Premium quality stud earrings crafted with crystal. Silver Plated finish for lasting shine. Perfect for retail and wholesale. OEM/ODM welcome.",
       "sku": "YW-FJ-026",
       "moq": 12,
       "priceMin": 0.15,
@@ -574,17 +574,17 @@
     },
     {
       "id": 1783332968026,
-      "image": "https://raw.githubusercontent.com/Preeasy/images/main/Images/Fashion%20Jewelry%2813%29.jpg",
+      "image": "https://raw.githubusercontent.com/Preeasy/images/main/Images/Fashion%20Jewelry%2820%29.jpg",
       "images": [
-        "https://raw.githubusercontent.com/Preeasy/images/main/Images/Fashion%20Jewelry%2813%29.jpg"
+        "https://raw.githubusercontent.com/Preeasy/images/main/Images/Fashion%20Jewelry%2820%29.jpg"
       ],
       "category": {
         "name": "Fashion Jewelry",
         "slug": "fashion-jewelry"
       },
-      "name": "Gold Earrings",
-      "nameCn": "金色耳环",
-      "description": "Premium quality gold earrings crafted with pearl. Rose Gold Plated finish for lasting shine. Perfect for retail and wholesale. OEM/ODM welcome.",
+      "name": "Gold Hoop Earrings",
+      "nameCn": "金色圆环耳环",
+      "description": "Premium quality gold hoop earrings crafted with pearl. Rose Gold Plated finish for lasting shine. Perfect for retail and wholesale. OEM/ODM welcome.",
       "sku": "YW-FJ-027",
       "moq": 24,
       "priceMin": 0.5,
@@ -596,17 +596,17 @@
     },
     {
       "id": 1783332968027,
-      "image": "https://raw.githubusercontent.com/Preeasy/images/main/Images/Fashion%20Jewelry%2814%29.jpg",
+      "image": "https://raw.githubusercontent.com/Preeasy/images/main/Images/Fashion%20Jewelry%2821%29.jpg",
       "images": [
-        "https://raw.githubusercontent.com/Preeasy/images/main/Images/Fashion%20Jewelry%2814%29.jpg"
+        "https://raw.githubusercontent.com/Preeasy/images/main/Images/Fashion%20Jewelry%2821%29.jpg"
       ],
       "category": {
         "name": "Fashion Jewelry",
         "slug": "fashion-jewelry"
       },
-      "name": "Ring",
-      "nameCn": "戒指",
-      "description": "Premium quality ring crafted with rhinestone. Rhodium Plated finish for lasting shine. Perfect for retail and wholesale. OEM/ODM welcome.",
+      "name": "Silver Chain Bracelet",
+      "nameCn": "银色链条手链",
+      "description": "Premium quality silver chain bracelet crafted with rhinestone. Rhodium Plated finish for lasting shine. Perfect for retail and wholesale. OEM/ODM welcome.",
       "sku": "YW-FJ-028",
       "moq": 36,
       "priceMin": 0.8,
@@ -618,17 +618,17 @@
     },
     {
       "id": 1783332968028,
-      "image": "https://raw.githubusercontent.com/Preeasy/images/main/Images/Fashion%20Jewelry%2815%29.jpg",
+      "image": "https://raw.githubusercontent.com/Preeasy/images/main/Images/Fashion%20Jewelry%2822%29.jpg",
       "images": [
-        "https://raw.githubusercontent.com/Preeasy/images/main/Images/Fashion%20Jewelry%2815%29.jpg"
+        "https://raw.githubusercontent.com/Preeasy/images/main/Images/Fashion%20Jewelry%2822%29.jpg"
       ],
       "category": {
         "name": "Fashion Jewelry",
         "slug": "fashion-jewelry"
       },
-      "name": "Silver Hoop Earrings",
-      "nameCn": "银色圆环耳环",
-      "description": "Premium quality silver hoop earrings crafted with alloy. Gold Plated finish for lasting shine. Perfect for retail and wholesale. OEM/ODM welcome.",
+      "name": "Ring",
+      "nameCn": "戒指",
+      "description": "Premium quality ring crafted with alloy. Gold Plated finish for lasting shine. Perfect for retail and wholesale. OEM/ODM welcome.",
       "sku": "YW-FJ-029",
       "moq": 48,
       "priceMin": 0.2,
@@ -640,17 +640,17 @@
     },
     {
       "id": 1783332968029,
-      "image": "https://raw.githubusercontent.com/Preeasy/images/main/Images/Fashion%20Jewelry%2816%29.jpg",
+      "image": "https://raw.githubusercontent.com/Preeasy/images/main/Images/Fashion%20Jewelry%2823%29.jpg",
       "images": [
-        "https://raw.githubusercontent.com/Preeasy/images/main/Images/Fashion%20Jewelry%2816%29.jpg"
+        "https://raw.githubusercontent.com/Preeasy/images/main/Images/Fashion%20Jewelry%2823%29.jpg"
       ],
       "category": {
         "name": "Fashion Jewelry",
         "slug": "fashion-jewelry"
       },
-      "name": "Gold Stud Earrings",
-      "nameCn": "金色耳钉",
-      "description": "Premium quality gold stud earrings crafted with stainless steel. Silver Plated finish for lasting shine. Perfect for retail and wholesale. OEM/ODM welcome.",
+      "name": "Silver Ring",
+      "nameCn": "银色戒指",
+      "description": "Premium quality silver ring crafted with stainless steel. Silver Plated finish for lasting shine. Perfect for retail and wholesale. OEM/ODM welcome.",
       "sku": "YW-FJ-030",
       "moq": 60,
       "priceMin": 0.6,
@@ -662,17 +662,17 @@
     },
     {
       "id": 1783332968030,
-      "image": "https://raw.githubusercontent.com/Preeasy/images/main/Images/Fashion%20Jewelry%2817%29.jpg",
+      "image": "https://raw.githubusercontent.com/Preeasy/images/main/Images/Fashion%20Jewelry%2824%29.jpg",
       "images": [
-        "https://raw.githubusercontent.com/Preeasy/images/main/Images/Fashion%20Jewelry%2817%29.jpg"
+        "https://raw.githubusercontent.com/Preeasy/images/main/Images/Fashion%20Jewelry%2824%29.jpg"
       ],
       "category": {
         "name": "Fashion Jewelry",
         "slug": "fashion-jewelry"
       },
-      "name": "Gold Stud Earrings",
-      "nameCn": "金色耳钉",
-      "description": "Premium quality gold stud earrings crafted with brass. Rose Gold Plated finish for lasting shine. Perfect for retail and wholesale. OEM/ODM welcome.",
+      "name": "Silver Hoop Earrings",
+      "nameCn": "银色圆环耳环",
+      "description": "Premium quality silver hoop earrings crafted with brass. Rose Gold Plated finish for lasting shine. Perfect for retail and wholesale. OEM/ODM welcome.",
       "sku": "YW-FJ-031",
       "moq": 12,
       "priceMin": 0.15,
@@ -684,17 +684,17 @@
     },
     {
       "id": 1783332968031,
-      "image": "https://raw.githubusercontent.com/Preeasy/images/main/Images/Fashion%20Jewelry%2818%29.jpg",
+      "image": "https://raw.githubusercontent.com/Preeasy/images/main/Images/Fashion%20Jewelry%2825%29.jpg",
       "images": [
-        "https://raw.githubusercontent.com/Preeasy/images/main/Images/Fashion%20Jewelry%2818%29.jpg"
+        "https://raw.githubusercontent.com/Preeasy/images/main/Images/Fashion%20Jewelry%2825%29.jpg"
       ],
       "category": {
         "name": "Fashion Jewelry",
         "slug": "fashion-jewelry"
       },
-      "name": "Gold Earrings",
-      "nameCn": "金色耳环",
-      "description": "Premium quality gold earrings crafted with acrylic. Rhodium Plated finish for lasting shine. Perfect for retail and wholesale. OEM/ODM welcome.",
+      "name": "Silver Chain Bracelet",
+      "nameCn": "银色链条手链",
+      "description": "Premium quality silver chain bracelet crafted with acrylic. Rhodium Plated finish for lasting shine. Perfect for retail and wholesale. OEM/ODM welcome.",
       "sku": "YW-FJ-032",
       "moq": 24,
       "priceMin": 0.5,
@@ -706,17 +706,17 @@
     },
     {
       "id": 1783332968032,
-      "image": "https://raw.githubusercontent.com/Preeasy/images/main/Images/Fashion%20Jewelry%2819%29.jpg",
+      "image": "https://raw.githubusercontent.com/Preeasy/images/main/Images/Fashion%20Jewelry%2826%29.jpg",
       "images": [
-        "https://raw.githubusercontent.com/Preeasy/images/main/Images/Fashion%20Jewelry%2819%29.jpg"
+        "https://raw.githubusercontent.com/Preeasy/images/main/Images/Fashion%20Jewelry%2826%29.jpg"
       ],
       "category": {
         "name": "Fashion Jewelry",
         "slug": "fashion-jewelry"
       },
-      "name": "Gold Hoop Earrings",
-      "nameCn": "金色圆环耳环",
-      "description": "Premium quality gold hoop earrings crafted with crystal. Gold Plated finish for lasting shine. Perfect for retail and wholesale. OEM/ODM welcome.",
+      "name": "Silver Ring",
+      "nameCn": "银色戒指",
+      "description": "Premium quality silver ring crafted with crystal. Gold Plated finish for lasting shine. Perfect for retail and wholesale. OEM/ODM welcome.",
       "sku": "YW-FJ-033",
       "moq": 36,
       "priceMin": 0.8,
@@ -728,17 +728,17 @@
     },
     {
       "id": 1783332968033,
-      "image": "https://raw.githubusercontent.com/Preeasy/images/main/Images/Fashion%20Jewelry%282%29.jpg",
+      "image": "https://raw.githubusercontent.com/Preeasy/images/main/Images/Fashion%20Jewelry%2827%29.jpg",
       "images": [
-        "https://raw.githubusercontent.com/Preeasy/images/main/Images/Fashion%20Jewelry%282%29.jpg"
+        "https://raw.githubusercontent.com/Preeasy/images/main/Images/Fashion%20Jewelry%2827%29.jpg"
       ],
       "category": {
         "name": "Fashion Jewelry",
         "slug": "fashion-jewelry"
       },
-      "name": "Stud Earrings",
-      "nameCn": "耳钉",
-      "description": "Premium quality stud earrings crafted with pearl. Silver Plated finish for lasting shine. Perfect for retail and wholesale. OEM/ODM welcome.",
+      "name": "Silver Hoop Earrings",
+      "nameCn": "银色圆环耳环",
+      "description": "Premium quality silver hoop earrings crafted with pearl. Silver Plated finish for lasting shine. Perfect for retail and wholesale. OEM/ODM welcome.",
       "sku": "YW-FJ-034",
       "moq": 48,
       "priceMin": 0.2,
@@ -750,17 +750,17 @@
     },
     {
       "id": 1783332968034,
-      "image": "https://raw.githubusercontent.com/Preeasy/images/main/Images/Fashion%20Jewelry%2820%29.jpg",
+      "image": "https://raw.githubusercontent.com/Preeasy/images/main/Images/Fashion%20Jewelry%2828%29.jpg",
       "images": [
-        "https://raw.githubusercontent.com/Preeasy/images/main/Images/Fashion%20Jewelry%2820%29.jpg"
+        "https://raw.githubusercontent.com/Preeasy/images/main/Images/Fashion%20Jewelry%2828%29.jpg"
       ],
       "category": {
         "name": "Fashion Jewelry",
         "slug": "fashion-jewelry"
       },
-      "name": "Gold Hoop Earrings",
-      "nameCn": "金色圆环耳环",
-      "description": "Premium quality gold hoop earrings crafted with rhinestone. Rose Gold Plated finish for lasting shine. Perfect for retail and wholesale. OEM/ODM welcome.",
+      "name": "Hoop Earrings",
+      "nameCn": "圆环耳环",
+      "description": "Premium quality hoop earrings crafted with rhinestone. Rose Gold Plated finish for lasting shine. Perfect for retail and wholesale. OEM/ODM welcome.",
       "sku": "YW-FJ-035",
       "moq": 60,
       "priceMin": 0.6,
@@ -772,17 +772,17 @@
     },
     {
       "id": 1783332968035,
-      "image": "https://raw.githubusercontent.com/Preeasy/images/main/Images/Fashion%20Jewelry%2821%29.jpg",
+      "image": "https://raw.githubusercontent.com/Preeasy/images/main/Images/Fashion%20Jewelry%2829%29.jpg",
       "images": [
-        "https://raw.githubusercontent.com/Preeasy/images/main/Images/Fashion%20Jewelry%2821%29.jpg"
+        "https://raw.githubusercontent.com/Preeasy/images/main/Images/Fashion%20Jewelry%2829%29.jpg"
       ],
       "category": {
         "name": "Fashion Jewelry",
         "slug": "fashion-jewelry"
       },
-      "name": "Silver Chain Bracelet",
-      "nameCn": "银色链条手链",
-      "description": "Premium quality silver chain bracelet crafted with alloy. Rhodium Plated finish for lasting shine. Perfect for retail and wholesale. OEM/ODM welcome.",
+      "name": "Gold Stud Earrings",
+      "nameCn": "金色耳钉",
+      "description": "Premium quality gold stud earrings crafted with alloy. Rhodium Plated finish for lasting shine. Perfect for retail and wholesale. OEM/ODM welcome.",
       "sku": "YW-FJ-036",
       "moq": 12,
       "priceMin": 0.15,
@@ -794,17 +794,17 @@
     },
     {
       "id": 1783332968036,
-      "image": "https://raw.githubusercontent.com/Preeasy/images/main/Images/Fashion%20Jewelry%2822%29.jpg",
+      "image": "https://raw.githubusercontent.com/Preeasy/images/main/Images/Fashion%20Jewelry%283%29.jpg",
       "images": [
-        "https://raw.githubusercontent.com/Preeasy/images/main/Images/Fashion%20Jewelry%2822%29.jpg"
+        "https://raw.githubusercontent.com/Preeasy/images/main/Images/Fashion%20Jewelry%283%29.jpg"
       ],
       "category": {
         "name": "Fashion Jewelry",
         "slug": "fashion-jewelry"
       },
-      "name": "Ring",
-      "nameCn": "戒指",
-      "description": "Premium quality ring crafted with stainless steel. Gold Plated finish for lasting shine. Perfect for retail and wholesale. OEM/ODM welcome.",
+      "name": "Silver Ring",
+      "nameCn": "银色戒指",
+      "description": "Premium quality silver ring crafted with stainless steel. Gold Plated finish for lasting shine. Perfect for retail and wholesale. OEM/ODM welcome.",
       "sku": "YW-FJ-037",
       "moq": 24,
       "priceMin": 0.5,
@@ -816,17 +816,17 @@
     },
     {
       "id": 1783332968037,
-      "image": "https://raw.githubusercontent.com/Preeasy/images/main/Images/Fashion%20Jewelry%2823%29.jpg",
+      "image": "https://raw.githubusercontent.com/Preeasy/images/main/Images/Fashion%20Jewelry%2830%29.jpg",
       "images": [
-        "https://raw.githubusercontent.com/Preeasy/images/main/Images/Fashion%20Jewelry%2823%29.jpg"
+        "https://raw.githubusercontent.com/Preeasy/images/main/Images/Fashion%20Jewelry%2830%29.jpg"
       ],
       "category": {
         "name": "Fashion Jewelry",
         "slug": "fashion-jewelry"
       },
-      "name": "Silver Ring",
-      "nameCn": "银色戒指",
-      "description": "Premium quality silver ring crafted with brass. Silver Plated finish for lasting shine. Perfect for retail and wholesale. OEM/ODM welcome.",
+      "name": "Silver Stud Earrings",
+      "nameCn": "银色耳钉",
+      "description": "Premium quality silver stud earrings crafted with brass. Silver Plated finish for lasting shine. Perfect for retail and wholesale. OEM/ODM welcome.",
       "sku": "YW-FJ-038",
       "moq": 36,
       "priceMin": 0.8,
@@ -838,17 +838,17 @@
     },
     {
       "id": 1783332968038,
-      "image": "https://raw.githubusercontent.com/Preeasy/images/main/Images/Fashion%20Jewelry%2824%29.jpg",
+      "image": "https://raw.githubusercontent.com/Preeasy/images/main/Images/Fashion%20Jewelry%2831%29.jpg",
       "images": [
-        "https://raw.githubusercontent.com/Preeasy/images/main/Images/Fashion%20Jewelry%2824%29.jpg"
+        "https://raw.githubusercontent.com/Preeasy/images/main/Images/Fashion%20Jewelry%2831%29.jpg"
       ],
       "category": {
         "name": "Fashion Jewelry",
         "slug": "fashion-jewelry"
       },
-      "name": "Silver Hoop Earrings",
-      "nameCn": "银色圆环耳环",
-      "description": "Premium quality silver hoop earrings crafted with acrylic. Rose Gold Plated finish for lasting shine. Perfect for retail and wholesale. OEM/ODM welcome.",
+      "name": "Silver Ring",
+      "nameCn": "银色戒指",
+      "description": "Premium quality silver ring crafted with acrylic. Rose Gold Plated finish for lasting shine. Perfect for retail and wholesale. OEM/ODM welcome.",
       "sku": "YW-FJ-039",
       "moq": 48,
       "priceMin": 0.2,
@@ -860,17 +860,17 @@
     },
     {
       "id": 1783332968039,
-      "image": "https://raw.githubusercontent.com/Preeasy/images/main/Images/Fashion%20Jewelry%2825%29.jpg",
+      "image": "https://raw.githubusercontent.com/Preeasy/images/main/Images/Fashion%20Jewelry%2832%29.jpg",
       "images": [
-        "https://raw.githubusercontent.com/Preeasy/images/main/Images/Fashion%20Jewelry%2825%29.jpg"
+        "https://raw.githubusercontent.com/Preeasy/images/main/Images/Fashion%20Jewelry%2832%29.jpg"
       ],
       "category": {
         "name": "Fashion Jewelry",
         "slug": "fashion-jewelry"
       },
-      "name": "Silver Chain Bracelet",
-      "nameCn": "银色链条手链",
-      "description": "Premium quality silver chain bracelet crafted with crystal. Rhodium Plated finish for lasting shine. Perfect for retail and wholesale. OEM/ODM welcome.",
+      "name": "Silver Hoop Earrings",
+      "nameCn": "银色圆环耳环",
+      "description": "Premium quality silver hoop earrings crafted with crystal. Rhodium Plated finish for lasting shine. Perfect for retail and wholesale. OEM/ODM welcome.",
       "sku": "YW-FJ-040",
       "moq": 60,
       "priceMin": 0.6,
@@ -882,17 +882,17 @@
     },
     {
       "id": 1783332968040,
-      "image": "https://raw.githubusercontent.com/Preeasy/images/main/Images/Fashion%20Jewelry%2826%29.jpg",
+      "image": "https://raw.githubusercontent.com/Preeasy/images/main/Images/Fashion%20Jewelry%2833%29.jpg",
       "images": [
-        "https://raw.githubusercontent.com/Preeasy/images/main/Images/Fashion%20Jewelry%2826%29.jpg"
+        "https://raw.githubusercontent.com/Preeasy/images/main/Images/Fashion%20Jewelry%2833%29.jpg"
       ],
       "category": {
         "name": "Fashion Jewelry",
         "slug": "fashion-jewelry"
       },
-      "name": "Silver Ring",
-      "nameCn": "银色戒指",
-      "description": "Premium quality silver ring crafted with pearl. Gold Plated finish for lasting shine. Perfect for retail and wholesale. OEM/ODM welcome.",
+      "name": "Silver Hoop Earrings",
+      "nameCn": "银色圆环耳环",
+      "description": "Premium quality silver hoop earrings crafted with pearl. Gold Plated finish for lasting shine. Perfect for retail and wholesale. OEM/ODM welcome.",
       "sku": "YW-FJ-041",
       "moq": 12,
       "priceMin": 0.15,
@@ -904,17 +904,17 @@
     },
     {
       "id": 1783332968041,
-      "image": "https://raw.githubusercontent.com/Preeasy/images/main/Images/Fashion%20Jewelry%2827%29.jpg",
+      "image": "https://raw.githubusercontent.com/Preeasy/images/main/Images/Fashion%20Jewelry%2834%29.jpg",
       "images": [
-        "https://raw.githubusercontent.com/Preeasy/images/main/Images/Fashion%20Jewelry%2827%29.jpg"
+        "https://raw.githubusercontent.com/Preeasy/images/main/Images/Fashion%20Jewelry%2834%29.jpg"
       ],
       "category": {
         "name": "Fashion Jewelry",
         "slug": "fashion-jewelry"
       },
-      "name": "Silver Hoop Earrings",
-      "nameCn": "银色圆环耳环",
-      "description": "Premium quality silver hoop earrings crafted with rhinestone. Silver Plated finish for lasting shine. Perfect for retail and wholesale. OEM/ODM welcome.",
+      "name": "Gold Earrings",
+      "nameCn": "金色耳环",
+      "description": "Premium quality gold earrings crafted with rhinestone. Silver Plated finish for lasting shine. Perfect for retail and wholesale. OEM/ODM welcome.",
       "sku": "YW-FJ-042",
       "moq": 24,
       "priceMin": 0.5,
@@ -926,17 +926,17 @@
     },
     {
       "id": 1783332968042,
-      "image": "https://raw.githubusercontent.com/Preeasy/images/main/Images/Fashion%20Jewelry%2828%29.jpg",
+      "image": "https://raw.githubusercontent.com/Preeasy/images/main/Images/Fashion%20Jewelry%2835%29.jpg",
       "images": [
-        "https://raw.githubusercontent.com/Preeasy/images/main/Images/Fashion%20Jewelry%2828%29.jpg"
+        "https://raw.githubusercontent.com/Preeasy/images/main/Images/Fashion%20Jewelry%2835%29.jpg"
       ],
       "category": {
         "name": "Fashion Jewelry",
         "slug": "fashion-jewelry"
       },
-      "name": "Hoop Earrings",
-      "nameCn": "圆环耳环",
-      "description": "Premium quality hoop earrings crafted with alloy. Rose Gold Plated finish for lasting shine. Perfect for retail and wholesale. OEM/ODM welcome.",
+      "name": "Earrings",
+      "nameCn": "耳环",
+      "description": "Premium quality earrings crafted with alloy. Rose Gold Plated finish for lasting shine. Perfect for retail and wholesale. OEM/ODM welcome.",
       "sku": "YW-FJ-043",
       "moq": 36,
       "priceMin": 0.8,
@@ -948,17 +948,17 @@
     },
     {
       "id": 1783332968043,
-      "image": "https://raw.githubusercontent.com/Preeasy/images/main/Images/Fashion%20Jewelry%2829%29.jpg",
+      "image": "https://raw.githubusercontent.com/Preeasy/images/main/Images/Fashion%20Jewelry%2836%29.jpg",
       "images": [
-        "https://raw.githubusercontent.com/Preeasy/images/main/Images/Fashion%20Jewelry%2829%29.jpg"
+        "https://raw.githubusercontent.com/Preeasy/images/main/Images/Fashion%20Jewelry%2836%29.jpg"
       ],
       "category": {
         "name": "Fashion Jewelry",
         "slug": "fashion-jewelry"
       },
-      "name": "Gold Stud Earrings",
-      "nameCn": "金色耳钉",
-      "description": "Premium quality gold stud earrings crafted with stainless steel. Rhodium Plated finish for lasting shine. Perfect for retail and wholesale. OEM/ODM welcome.",
+      "name": "Silver Hoop Earrings",
+      "nameCn": "银色圆环耳环",
+      "description": "Premium quality silver hoop earrings crafted with stainless steel. Rhodium Plated finish for lasting shine. Perfect for retail and wholesale. OEM/ODM welcome.",
       "sku": "YW-FJ-044",
       "moq": 48,
       "priceMin": 0.2,
@@ -970,17 +970,17 @@
     },
     {
       "id": 1783332968044,
-      "image": "https://raw.githubusercontent.com/Preeasy/images/main/Images/Fashion%20Jewelry%283%29.jpg",
+      "image": "https://raw.githubusercontent.com/Preeasy/images/main/Images/Fashion%20Jewelry%2837%29.jpg",
       "images": [
-        "https://raw.githubusercontent.com/Preeasy/images/main/Images/Fashion%20Jewelry%283%29.jpg"
+        "https://raw.githubusercontent.com/Preeasy/images/main/Images/Fashion%20Jewelry%2837%29.jpg"
       ],
       "category": {
         "name": "Fashion Jewelry",
         "slug": "fashion-jewelry"
       },
-      "name": "Silver Ring",
-      "nameCn": "银色戒指",
-      "description": "Premium quality silver ring crafted with brass. Gold Plated finish for lasting shine. Perfect for retail and wholesale. OEM/ODM welcome.",
+      "name": "Gold Hoop Earrings",
+      "nameCn": "金色圆环耳环",
+      "description": "Premium quality gold hoop earrings crafted with brass. Gold Plated finish for lasting shine. Perfect for retail and wholesale. OEM/ODM welcome.",
       "sku": "YW-FJ-045",
       "moq": 60,
       "priceMin": 0.6,
@@ -992,17 +992,17 @@
     },
     {
       "id": 1783332968045,
-      "image": "https://raw.githubusercontent.com/Preeasy/images/main/Images/Fashion%20Jewelry%2830%29.jpg",
+      "image": "https://raw.githubusercontent.com/Preeasy/images/main/Images/Fashion%20Jewelry%2838%29.jpg",
       "images": [
-        "https://raw.githubusercontent.com/Preeasy/images/main/Images/Fashion%20Jewelry%2830%29.jpg"
+        "https://raw.githubusercontent.com/Preeasy/images/main/Images/Fashion%20Jewelry%2838%29.jpg"
       ],
       "category": {
         "name": "Fashion Jewelry",
         "slug": "fashion-jewelry"
       },
-      "name": "Silver Stud Earrings",
-      "nameCn": "银色耳钉",
-      "description": "Premium quality silver stud earrings crafted with acrylic. Silver Plated finish for lasting shine. Perfect for retail and wholesale. OEM/ODM welcome.",
+      "name": "Gold Hoop Earrings",
+      "nameCn": "金色圆环耳环",
+      "description": "Premium quality gold hoop earrings crafted with acrylic. Silver Plated finish for lasting shine. Perfect for retail and wholesale. OEM/ODM welcome.",
       "sku": "YW-FJ-046",
       "moq": 12,
       "priceMin": 0.15,
@@ -1014,17 +1014,17 @@
     },
     {
       "id": 1783332968046,
-      "image": "https://raw.githubusercontent.com/Preeasy/images/main/Images/Fashion%20Jewelry%2831%29.jpg",
+      "image": "https://raw.githubusercontent.com/Preeasy/images/main/Images/Fashion%20Jewelry%2839%29.jpg",
       "images": [
-        "https://raw.githubusercontent.com/Preeasy/images/main/Images/Fashion%20Jewelry%2831%29.jpg"
+        "https://raw.githubusercontent.com/Preeasy/images/main/Images/Fashion%20Jewelry%2839%29.jpg"
       ],
       "category": {
         "name": "Fashion Jewelry",
         "slug": "fashion-jewelry"
       },
-      "name": "Silver Ring",
-      "nameCn": "银色戒指",
-      "description": "Premium quality silver ring crafted with crystal. Rose Gold Plated finish for lasting shine. Perfect for retail and wholesale. OEM/ODM welcome.",
+      "name": "Silver Hoop Earrings",
+      "nameCn": "银色圆环耳环",
+      "description": "Premium quality silver hoop earrings crafted with crystal. Rose Gold Plated finish for lasting shine. Perfect for retail and wholesale. OEM/ODM welcome.",
       "sku": "YW-FJ-047",
       "moq": 24,
       "priceMin": 0.5,
@@ -1036,17 +1036,17 @@
     },
     {
       "id": 1783332968047,
-      "image": "https://raw.githubusercontent.com/Preeasy/images/main/Images/Fashion%20Jewelry%2832%29.jpg",
+      "image": "https://raw.githubusercontent.com/Preeasy/images/main/Images/Fashion%20Jewelry%284%29.jpg",
       "images": [
-        "https://raw.githubusercontent.com/Preeasy/images/main/Images/Fashion%20Jewelry%2832%29.jpg"
+        "https://raw.githubusercontent.com/Preeasy/images/main/Images/Fashion%20Jewelry%284%29.jpg"
       ],
       "category": {
         "name": "Fashion Jewelry",
         "slug": "fashion-jewelry"
       },
-      "name": "Silver Hoop Earrings",
-      "nameCn": "银色圆环耳环",
-      "description": "Premium quality silver hoop earrings crafted with pearl. Rhodium Plated finish for lasting shine. Perfect for retail and wholesale. OEM/ODM welcome.",
+      "name": "Chain Bracelet",
+      "nameCn": "链条手链",
+      "description": "Premium quality chain bracelet crafted with pearl. Rhodium Plated finish for lasting shine. Perfect for retail and wholesale. OEM/ODM welcome.",
       "sku": "YW-FJ-048",
       "moq": 36,
       "priceMin": 0.8,
@@ -1058,17 +1058,17 @@
     },
     {
       "id": 1783332968048,
-      "image": "https://raw.githubusercontent.com/Preeasy/images/main/Images/Fashion%20Jewelry%2833%29.jpg",
+      "image": "https://raw.githubusercontent.com/Preeasy/images/main/Images/Fashion%20Jewelry%2840%29.jpg",
       "images": [
-        "https://raw.githubusercontent.com/Preeasy/images/main/Images/Fashion%20Jewelry%2833%29.jpg"
+        "https://raw.githubusercontent.com/Preeasy/images/main/Images/Fashion%20Jewelry%2840%29.jpg"
       ],
       "category": {
         "name": "Fashion Jewelry",
         "slug": "fashion-jewelry"
       },
-      "name": "Silver Hoop Earrings",
-      "nameCn": "银色圆环耳环",
-      "description": "Premium quality silver hoop earrings crafted with rhinestone. Gold Plated finish for lasting shine. Perfect for retail and wholesale. OEM/ODM welcome.",
+      "name": "Gold Hoop Earrings",
+      "nameCn": "金色圆环耳环",
+      "description": "Premium quality gold hoop earrings crafted with rhinestone. Gold Plated finish for lasting shine. Perfect for retail and wholesale. OEM/ODM welcome.",
       "sku": "YW-FJ-049",
       "moq": 48,
       "priceMin": 0.2,
@@ -1080,9 +1080,9 @@
     },
     {
       "id": 1783332968049,
-      "image": "https://raw.githubusercontent.com/Preeasy/images/main/Images/Fashion%20Jewelry%2834%29.jpg",
+      "image": "https://raw.githubusercontent.com/Preeasy/images/main/Images/Fashion%20Jewelry%2841%29.jpg",
       "images": [
-        "https://raw.githubusercontent.com/Preeasy/images/main/Images/Fashion%20Jewelry%2834%29.jpg"
+        "https://raw.githubusercontent.com/Preeasy/images/main/Images/Fashion%20Jewelry%2841%29.jpg"
       ],
       "category": {
         "name": "Fashion Jewelry",
@@ -1102,17 +1102,17 @@
     },
     {
       "id": 1783332968050,
-      "image": "https://raw.githubusercontent.com/Preeasy/images/main/Images/Fashion%20Jewelry%2835%29.jpg",
+      "image": "https://raw.githubusercontent.com/Preeasy/images/main/Images/Fashion%20Jewelry%2842%29.jpg",
       "images": [
-        "https://raw.githubusercontent.com/Preeasy/images/main/Images/Fashion%20Jewelry%2835%29.jpg"
+        "https://raw.githubusercontent.com/Preeasy/images/main/Images/Fashion%20Jewelry%2842%29.jpg"
       ],
       "category": {
         "name": "Fashion Jewelry",
         "slug": "fashion-jewelry"
       },
-      "name": "Earrings",
-      "nameCn": "耳环",
-      "description": "Premium quality earrings crafted with stainless steel. Rose Gold Plated finish for lasting shine. Perfect for retail and wholesale. OEM/ODM welcome.",
+      "name": "Gold Hoop Earrings",
+      "nameCn": "金色圆环耳环",
+      "description": "Premium quality gold hoop earrings crafted with stainless steel. Rose Gold Plated finish for lasting shine. Perfect for retail and wholesale. OEM/ODM welcome.",
       "sku": "YW-FJ-051",
       "moq": 12,
       "priceMin": 0.15,
@@ -1124,17 +1124,17 @@
     },
     {
       "id": 1783332968051,
-      "image": "https://raw.githubusercontent.com/Preeasy/images/main/Images/Fashion%20Jewelry%2836%29.jpg",
+      "image": "https://raw.githubusercontent.com/Preeasy/images/main/Images/Fashion%20Jewelry%2843%29.jpg",
       "images": [
-        "https://raw.githubusercontent.com/Preeasy/images/main/Images/Fashion%20Jewelry%2836%29.jpg"
+        "https://raw.githubusercontent.com/Preeasy/images/main/Images/Fashion%20Jewelry%2843%29.jpg"
       ],
       "category": {
         "name": "Fashion Jewelry",
         "slug": "fashion-jewelry"
       },
-      "name": "Silver Hoop Earrings",
-      "nameCn": "银色圆环耳环",
-      "description": "Premium quality silver hoop earrings crafted with brass. Rhodium Plated finish for lasting shine. Perfect for retail and wholesale. OEM/ODM welcome.",
+      "name": "Ring",
+      "nameCn": "戒指",
+      "description": "Premium quality ring crafted with brass. Rhodium Plated finish for lasting shine. Perfect for retail and wholesale. OEM/ODM welcome.",
       "sku": "YW-FJ-052",
       "moq": 24,
       "priceMin": 0.5,
@@ -1146,9 +1146,9 @@
     },
     {
       "id": 1783332968052,
-      "image": "https://raw.githubusercontent.com/Preeasy/images/main/Images/Fashion%20Jewelry%2837%29.jpg",
+      "image": "https://raw.githubusercontent.com/Preeasy/images/main/Images/Fashion%20Jewelry%2844%29.jpg",
       "images": [
-        "https://raw.githubusercontent.com/Preeasy/images/main/Images/Fashion%20Jewelry%2837%29.jpg"
+        "https://raw.githubusercontent.com/Preeasy/images/main/Images/Fashion%20Jewelry%2844%29.jpg"
       ],
       "category": {
         "name": "Fashion Jewelry",
@@ -1168,17 +1168,17 @@
     },
     {
       "id": 1783332968053,
-      "image": "https://raw.githubusercontent.com/Preeasy/images/main/Images/Fashion%20Jewelry%2838%29.jpg",
+      "image": "https://raw.githubusercontent.com/Preeasy/images/main/Images/Fashion%20Jewelry%2845%29.jpg",
       "images": [
-        "https://raw.githubusercontent.com/Preeasy/images/main/Images/Fashion%20Jewelry%2838%29.jpg"
+        "https://raw.githubusercontent.com/Preeasy/images/main/Images/Fashion%20Jewelry%2845%29.jpg"
       ],
       "category": {
         "name": "Fashion Jewelry",
         "slug": "fashion-jewelry"
       },
-      "name": "Gold Hoop Earrings",
-      "nameCn": "金色圆环耳环",
-      "description": "Premium quality gold hoop earrings crafted with crystal. Silver Plated finish for lasting shine. Perfect for retail and wholesale. OEM/ODM welcome.",
+      "name": "Silver Hoop Earrings",
+      "nameCn": "银色圆环耳环",
+      "description": "Premium quality silver hoop earrings crafted with crystal. Silver Plated finish for lasting shine. Perfect for retail and wholesale. OEM/ODM welcome.",
       "sku": "YW-FJ-054",
       "moq": 48,
       "priceMin": 0.2,
@@ -1190,17 +1190,17 @@
     },
     {
       "id": 1783332968054,
-      "image": "https://raw.githubusercontent.com/Preeasy/images/main/Images/Fashion%20Jewelry%2839%29.jpg",
+      "image": "https://raw.githubusercontent.com/Preeasy/images/main/Images/Fashion%20Jewelry%2846%29.jpg",
       "images": [
-        "https://raw.githubusercontent.com/Preeasy/images/main/Images/Fashion%20Jewelry%2839%29.jpg"
+        "https://raw.githubusercontent.com/Preeasy/images/main/Images/Fashion%20Jewelry%2846%29.jpg"
       ],
       "category": {
         "name": "Fashion Jewelry",
         "slug": "fashion-jewelry"
       },
-      "name": "Silver Hoop Earrings",
-      "nameCn": "银色圆环耳环",
-      "description": "Premium quality silver hoop earrings crafted with pearl. Rose Gold Plated finish for lasting shine. Perfect for retail and wholesale. OEM/ODM welcome.",
+      "name": "Gold Hoop Earrings",
+      "nameCn": "金色圆环耳环",
+      "description": "Premium quality gold hoop earrings crafted with pearl. Rose Gold Plated finish for lasting shine. Perfect for retail and wholesale. OEM/ODM welcome.",
       "sku": "YW-FJ-055",
       "moq": 60,
       "priceMin": 0.6,
@@ -1212,17 +1212,17 @@
     },
     {
       "id": 1783332968055,
-      "image": "https://raw.githubusercontent.com/Preeasy/images/main/Images/Fashion%20Jewelry%284%29.jpg",
+      "image": "https://raw.githubusercontent.com/Preeasy/images/main/Images/Fashion%20Jewelry%2847%29.jpg",
       "images": [
-        "https://raw.githubusercontent.com/Preeasy/images/main/Images/Fashion%20Jewelry%284%29.jpg"
+        "https://raw.githubusercontent.com/Preeasy/images/main/Images/Fashion%20Jewelry%2847%29.jpg"
       ],
       "category": {
         "name": "Fashion Jewelry",
         "slug": "fashion-jewelry"
       },
-      "name": "Chain Bracelet",
-      "nameCn": "链条手链",
-      "description": "Premium quality chain bracelet crafted with rhinestone. Rhodium Plated finish for lasting shine. Perfect for retail and wholesale. OEM/ODM welcome.",
+      "name": "Gold Hoop Earrings",
+      "nameCn": "金色圆环耳环",
+      "description": "Premium quality gold hoop earrings crafted with rhinestone. Rhodium Plated finish for lasting shine. Perfect for retail and wholesale. OEM/ODM welcome.",
       "sku": "YW-FJ-056",
       "moq": 12,
       "priceMin": 0.15,
@@ -1234,17 +1234,17 @@
     },
     {
       "id": 1783332968056,
-      "image": "https://raw.githubusercontent.com/Preeasy/images/main/Images/Fashion%20Jewelry%2840%29.jpg",
+      "image": "https://raw.githubusercontent.com/Preeasy/images/main/Images/Fashion%20Jewelry%2848%29.jpg",
       "images": [
-        "https://raw.githubusercontent.com/Preeasy/images/main/Images/Fashion%20Jewelry%2840%29.jpg"
+        "https://raw.githubusercontent.com/Preeasy/images/main/Images/Fashion%20Jewelry%2848%29.jpg"
       ],
       "category": {
         "name": "Fashion Jewelry",
         "slug": "fashion-jewelry"
       },
-      "name": "Gold Hoop Earrings",
-      "nameCn": "金色圆环耳环",
-      "description": "Premium quality gold hoop earrings crafted with alloy. Gold Plated finish for lasting shine. Perfect for retail and wholesale. OEM/ODM welcome.",
+      "name": "Silver Hoop Earrings",
+      "nameCn": "银色圆环耳环",
+      "description": "Premium quality silver hoop earrings crafted with alloy. Gold Plated finish for lasting shine. Perfect for retail and wholesale. OEM/ODM welcome.",
       "sku": "YW-FJ-057",
       "moq": 24,
       "priceMin": 0.5,
@@ -1256,17 +1256,17 @@
     },
     {
       "id": 1783332968057,
-      "image": "https://raw.githubusercontent.com/Preeasy/images/main/Images/Fashion%20Jewelry%2841%29.jpg",
+      "image": "https://raw.githubusercontent.com/Preeasy/images/main/Images/Fashion%20Jewelry%2849%29.jpg",
       "images": [
-        "https://raw.githubusercontent.com/Preeasy/images/main/Images/Fashion%20Jewelry%2841%29.jpg"
+        "https://raw.githubusercontent.com/Preeasy/images/main/Images/Fashion%20Jewelry%2849%29.jpg"
       ],
       "category": {
         "name": "Fashion Jewelry",
         "slug": "fashion-jewelry"
       },
-      "name": "Gold Earrings",
-      "nameCn": "金色耳环",
-      "description": "Premium quality gold earrings crafted with stainless steel. Silver Plated finish for lasting shine. Perfect for retail and wholesale. OEM/ODM welcome.",
+      "name": "Gold Hoop Earrings",
+      "nameCn": "金色圆环耳环",
+      "description": "Premium quality gold hoop earrings crafted with stainless steel. Silver Plated finish for lasting shine. Perfect for retail and wholesale. OEM/ODM welcome.",
       "sku": "YW-FJ-058",
       "moq": 36,
       "priceMin": 0.8,
@@ -1278,17 +1278,17 @@
     },
     {
       "id": 1783332968058,
-      "image": "https://raw.githubusercontent.com/Preeasy/images/main/Images/Fashion%20Jewelry%2842%29.jpg",
+      "image": "https://raw.githubusercontent.com/Preeasy/images/main/Images/Fashion%20Jewelry%285%29.jpg",
       "images": [
-        "https://raw.githubusercontent.com/Preeasy/images/main/Images/Fashion%20Jewelry%2842%29.jpg"
+        "https://raw.githubusercontent.com/Preeasy/images/main/Images/Fashion%20Jewelry%285%29.jpg"
       ],
       "category": {
         "name": "Fashion Jewelry",
         "slug": "fashion-jewelry"
       },
-      "name": "Gold Hoop Earrings",
-      "nameCn": "金色圆环耳环",
-      "description": "Premium quality gold hoop earrings crafted with brass. Rose Gold Plated finish for lasting shine. Perfect for retail and wholesale. OEM/ODM welcome.",
+      "name": "Silver Hoop Earrings",
+      "nameCn": "银色圆环耳环",
+      "description": "Premium quality silver hoop earrings crafted with brass. Rose Gold Plated finish for lasting shine. Perfect for retail and wholesale. OEM/ODM welcome.",
       "sku": "YW-FJ-059",
       "moq": 48,
       "priceMin": 0.2,
@@ -1300,17 +1300,17 @@
     },
     {
       "id": 1783332968059,
-      "image": "https://raw.githubusercontent.com/Preeasy/images/main/Images/Fashion%20Jewelry%2843%29.jpg",
+      "image": "https://raw.githubusercontent.com/Preeasy/images/main/Images/Fashion%20Jewelry%2850%29.jpg",
       "images": [
-        "https://raw.githubusercontent.com/Preeasy/images/main/Images/Fashion%20Jewelry%2843%29.jpg"
+        "https://raw.githubusercontent.com/Preeasy/images/main/Images/Fashion%20Jewelry%2850%29.jpg"
       ],
       "category": {
         "name": "Fashion Jewelry",
         "slug": "fashion-jewelry"
       },
-      "name": "Ring",
-      "nameCn": "戒指",
-      "description": "Premium quality ring crafted with acrylic. Rhodium Plated finish for lasting shine. Perfect for retail and wholesale. OEM/ODM welcome.",
+      "name": "Silver Stud Earrings",
+      "nameCn": "银色耳钉",
+      "description": "Premium quality silver stud earrings crafted with acrylic. Rhodium Plated finish for lasting shine. Perfect for retail and wholesale. OEM/ODM welcome.",
       "sku": "YW-FJ-060",
       "moq": 60,
       "priceMin": 0.6,
@@ -1322,17 +1322,17 @@
     },
     {
       "id": 1783332968060,
-      "image": "https://raw.githubusercontent.com/Preeasy/images/main/Images/Fashion%20Jewelry%2844%29.jpg",
+      "image": "https://raw.githubusercontent.com/Preeasy/images/main/Images/Fashion%20Jewelry%2851%29.jpg",
       "images": [
-        "https://raw.githubusercontent.com/Preeasy/images/main/Images/Fashion%20Jewelry%2844%29.jpg"
+        "https://raw.githubusercontent.com/Preeasy/images/main/Images/Fashion%20Jewelry%2851%29.jpg"
       ],
       "category": {
         "name": "Fashion Jewelry",
         "slug": "fashion-jewelry"
       },
-      "name": "Gold Hoop Earrings",
-      "nameCn": "金色圆环耳环",
-      "description": "Premium quality gold hoop earrings crafted with crystal. Gold Plated finish for lasting shine. Perfect for retail and wholesale. OEM/ODM welcome.",
+      "name": "Hoop Earrings",
+      "nameCn": "圆环耳环",
+      "description": "Premium quality hoop earrings crafted with crystal. Gold Plated finish for lasting shine. Perfect for retail and wholesale. OEM/ODM welcome.",
       "sku": "YW-FJ-061",
       "moq": 12,
       "priceMin": 0.15,
@@ -1344,9 +1344,9 @@
     },
     {
       "id": 1783332968061,
-      "image": "https://raw.githubusercontent.com/Preeasy/images/main/Images/Fashion%20Jewelry%2845%29.jpg",
+      "image": "https://raw.githubusercontent.com/Preeasy/images/main/Images/Fashion%20Jewelry%2852%29.jpg",
       "images": [
-        "https://raw.githubusercontent.com/Preeasy/images/main/Images/Fashion%20Jewelry%2845%29.jpg"
+        "https://raw.githubusercontent.com/Preeasy/images/main/Images/Fashion%20Jewelry%2852%29.jpg"
       ],
       "category": {
         "name": "Fashion Jewelry",
@@ -1366,17 +1366,17 @@
     },
     {
       "id": 1783332968062,
-      "image": "https://raw.githubusercontent.com/Preeasy/images/main/Images/Fashion%20Jewelry%2846%29.jpg",
+      "image": "https://raw.githubusercontent.com/Preeasy/images/main/Images/Fashion%20Jewelry%2853%29.jpg",
       "images": [
-        "https://raw.githubusercontent.com/Preeasy/images/main/Images/Fashion%20Jewelry%2846%29.jpg"
+        "https://raw.githubusercontent.com/Preeasy/images/main/Images/Fashion%20Jewelry%2853%29.jpg"
       ],
       "category": {
         "name": "Fashion Jewelry",
         "slug": "fashion-jewelry"
       },
-      "name": "Gold Hoop Earrings",
-      "nameCn": "金色圆环耳环",
-      "description": "Premium quality gold hoop earrings crafted with rhinestone. Rose Gold Plated finish for lasting shine. Perfect for retail and wholesale. OEM/ODM welcome.",
+      "name": "Silver Bracelet",
+      "nameCn": "银色手链",
+      "description": "Premium quality silver bracelet crafted with rhinestone. Rose Gold Plated finish for lasting shine. Perfect for retail and wholesale. OEM/ODM welcome.",
       "sku": "YW-FJ-063",
       "moq": 36,
       "priceMin": 0.8,
@@ -1388,9 +1388,9 @@
     },
     {
       "id": 1783332968063,
-      "image": "https://raw.githubusercontent.com/Preeasy/images/main/Images/Fashion%20Jewelry%2847%29.jpg",
+      "image": "https://raw.githubusercontent.com/Preeasy/images/main/Images/Fashion%20Jewelry%286%29.jpg",
       "images": [
-        "https://raw.githubusercontent.com/Preeasy/images/main/Images/Fashion%20Jewelry%2847%29.jpg"
+        "https://raw.githubusercontent.com/Preeasy/images/main/Images/Fashion%20Jewelry%286%29.jpg"
       ],
       "category": {
         "name": "Fashion Jewelry",
@@ -1410,17 +1410,17 @@
     },
     {
       "id": 1783332968064,
-      "image": "https://raw.githubusercontent.com/Preeasy/images/main/Images/Fashion%20Jewelry%2848%29.jpg",
+      "image": "https://raw.githubusercontent.com/Preeasy/images/main/Images/Fashion%20Jewelry%287%29.jpg",
       "images": [
-        "https://raw.githubusercontent.com/Preeasy/images/main/Images/Fashion%20Jewelry%2848%29.jpg"
+        "https://raw.githubusercontent.com/Preeasy/images/main/Images/Fashion%20Jewelry%287%29.jpg"
       ],
       "category": {
         "name": "Fashion Jewelry",
         "slug": "fashion-jewelry"
       },
-      "name": "Silver Hoop Earrings",
-      "nameCn": "银色圆环耳环",
-      "description": "Premium quality silver hoop earrings crafted with stainless steel. Gold Plated finish for lasting shine. Perfect for retail and wholesale. OEM/ODM welcome.",
+      "name": "Hoop Earrings",
+      "nameCn": "圆环耳环",
+      "description": "Premium quality hoop earrings crafted with stainless steel. Gold Plated finish for lasting shine. Perfect for retail and wholesale. OEM/ODM welcome.",
       "sku": "YW-FJ-065",
       "moq": 60,
       "priceMin": 0.6,
@@ -1432,9 +1432,9 @@
     },
     {
       "id": 1783332968065,
-      "image": "https://raw.githubusercontent.com/Preeasy/images/main/Images/Fashion%20Jewelry%2849%29.jpg",
+      "image": "https://raw.githubusercontent.com/Preeasy/images/main/Images/Fashion%20Jewelry%288%29.jpg",
       "images": [
-        "https://raw.githubusercontent.com/Preeasy/images/main/Images/Fashion%20Jewelry%2849%29.jpg"
+        "https://raw.githubusercontent.com/Preeasy/images/main/Images/Fashion%20Jewelry%288%29.jpg"
       ],
       "category": {
         "name": "Fashion Jewelry",
@@ -1454,9 +1454,9 @@
     },
     {
       "id": 1783332968066,
-      "image": "https://raw.githubusercontent.com/Preeasy/images/main/Images/Fashion%20Jewelry%285%29.jpg",
+      "image": "https://raw.githubusercontent.com/Preeasy/images/main/Images/Fashion%20Jewelry%289%29.jpg",
       "images": [
-        "https://raw.githubusercontent.com/Preeasy/images/main/Images/Fashion%20Jewelry%285%29.jpg"
+        "https://raw.githubusercontent.com/Preeasy/images/main/Images/Fashion%20Jewelry%289%29.jpg"
       ],
       "category": {
         "name": "Fashion Jewelry",
@@ -1476,182 +1476,6 @@
     },
     {
       "id": 1783332968067,
-      "image": "https://raw.githubusercontent.com/Preeasy/images/main/Images/Fashion%20Jewelry%2850%29.jpg",
-      "images": [
-        "https://raw.githubusercontent.com/Preeasy/images/main/Images/Fashion%20Jewelry%2850%29.jpg"
-      ],
-      "category": {
-        "name": "Fashion Jewelry",
-        "slug": "fashion-jewelry"
-      },
-      "name": "Silver Stud Earrings",
-      "nameCn": "银色耳钉",
-      "description": "Premium quality silver stud earrings crafted with crystal. Rhodium Plated finish for lasting shine. Perfect for retail and wholesale. OEM/ODM welcome.",
-      "sku": "YW-FJ-068",
-      "moq": 36,
-      "priceMin": 0.8,
-      "priceMax": 2.0,
-      "material": "Crystal",
-      "plating": "Rhodium Plated",
-      "stockStatus": "IN_STOCK",
-      "seller": "Yiwu Yeatru trading company"
-    },
-    {
-      "id": 1783332968068,
-      "image": "https://raw.githubusercontent.com/Preeasy/images/main/Images/Fashion%20Jewelry%2851%29.jpg",
-      "images": [
-        "https://raw.githubusercontent.com/Preeasy/images/main/Images/Fashion%20Jewelry%2851%29.jpg"
-      ],
-      "category": {
-        "name": "Fashion Jewelry",
-        "slug": "fashion-jewelry"
-      },
-      "name": "Hoop Earrings",
-      "nameCn": "圆环耳环",
-      "description": "Premium quality hoop earrings crafted with pearl. Gold Plated finish for lasting shine. Perfect for retail and wholesale. OEM/ODM welcome.",
-      "sku": "YW-FJ-069",
-      "moq": 48,
-      "priceMin": 0.2,
-      "priceMax": 0.9,
-      "material": "Pearl",
-      "plating": "Gold Plated",
-      "stockStatus": "IN_STOCK",
-      "seller": "Yiwu Yeatru trading company"
-    },
-    {
-      "id": 1783332968069,
-      "image": "https://raw.githubusercontent.com/Preeasy/images/main/Images/Fashion%20Jewelry%2852%29.jpg",
-      "images": [
-        "https://raw.githubusercontent.com/Preeasy/images/main/Images/Fashion%20Jewelry%2852%29.jpg"
-      ],
-      "category": {
-        "name": "Fashion Jewelry",
-        "slug": "fashion-jewelry"
-      },
-      "name": "Silver Hoop Earrings",
-      "nameCn": "银色圆环耳环",
-      "description": "Premium quality silver hoop earrings crafted with rhinestone. Silver Plated finish for lasting shine. Perfect for retail and wholesale. OEM/ODM welcome.",
-      "sku": "YW-FJ-070",
-      "moq": 60,
-      "priceMin": 0.6,
-      "priceMax": 1.8,
-      "material": "Rhinestone",
-      "plating": "Silver Plated",
-      "stockStatus": "IN_STOCK",
-      "seller": "Yiwu Yeatru trading company"
-    },
-    {
-      "id": 1783332968070,
-      "image": "https://raw.githubusercontent.com/Preeasy/images/main/Images/Fashion%20Jewelry%2853%29.jpg",
-      "images": [
-        "https://raw.githubusercontent.com/Preeasy/images/main/Images/Fashion%20Jewelry%2853%29.jpg"
-      ],
-      "category": {
-        "name": "Fashion Jewelry",
-        "slug": "fashion-jewelry"
-      },
-      "name": "Silver Bracelet",
-      "nameCn": "银色手链",
-      "description": "Premium quality silver bracelet crafted with alloy. Rose Gold Plated finish for lasting shine. Perfect for retail and wholesale. OEM/ODM welcome.",
-      "sku": "YW-FJ-071",
-      "moq": 12,
-      "priceMin": 0.15,
-      "priceMax": 0.85,
-      "material": "Alloy",
-      "plating": "Rose Gold Plated",
-      "stockStatus": "IN_STOCK",
-      "seller": "Yiwu Yeatru trading company"
-    },
-    {
-      "id": 1783332968071,
-      "image": "https://raw.githubusercontent.com/Preeasy/images/main/Images/Fashion%20Jewelry%286%29.jpg",
-      "images": [
-        "https://raw.githubusercontent.com/Preeasy/images/main/Images/Fashion%20Jewelry%286%29.jpg"
-      ],
-      "category": {
-        "name": "Fashion Jewelry",
-        "slug": "fashion-jewelry"
-      },
-      "name": "Gold Hoop Earrings",
-      "nameCn": "金色圆环耳环",
-      "description": "Premium quality gold hoop earrings crafted with stainless steel. Rhodium Plated finish for lasting shine. Perfect for retail and wholesale. OEM/ODM welcome.",
-      "sku": "YW-FJ-072",
-      "moq": 24,
-      "priceMin": 0.5,
-      "priceMax": 1.5,
-      "material": "Stainless Steel",
-      "plating": "Rhodium Plated",
-      "stockStatus": "IN_STOCK",
-      "seller": "Yiwu Yeatru trading company"
-    },
-    {
-      "id": 1783332968072,
-      "image": "https://raw.githubusercontent.com/Preeasy/images/main/Images/Fashion%20Jewelry%287%29.jpg",
-      "images": [
-        "https://raw.githubusercontent.com/Preeasy/images/main/Images/Fashion%20Jewelry%287%29.jpg"
-      ],
-      "category": {
-        "name": "Fashion Jewelry",
-        "slug": "fashion-jewelry"
-      },
-      "name": "Hoop Earrings",
-      "nameCn": "圆环耳环",
-      "description": "Premium quality hoop earrings crafted with brass. Gold Plated finish for lasting shine. Perfect for retail and wholesale. OEM/ODM welcome.",
-      "sku": "YW-FJ-073",
-      "moq": 36,
-      "priceMin": 0.8,
-      "priceMax": 2.0,
-      "material": "Brass",
-      "plating": "Gold Plated",
-      "stockStatus": "IN_STOCK",
-      "seller": "Yiwu Yeatru trading company"
-    },
-    {
-      "id": 1783332968073,
-      "image": "https://raw.githubusercontent.com/Preeasy/images/main/Images/Fashion%20Jewelry%288%29.jpg",
-      "images": [
-        "https://raw.githubusercontent.com/Preeasy/images/main/Images/Fashion%20Jewelry%288%29.jpg"
-      ],
-      "category": {
-        "name": "Fashion Jewelry",
-        "slug": "fashion-jewelry"
-      },
-      "name": "Gold Hoop Earrings",
-      "nameCn": "金色圆环耳环",
-      "description": "Premium quality gold hoop earrings crafted with acrylic. Silver Plated finish for lasting shine. Perfect for retail and wholesale. OEM/ODM welcome.",
-      "sku": "YW-FJ-074",
-      "moq": 48,
-      "priceMin": 0.2,
-      "priceMax": 0.9,
-      "material": "Acrylic",
-      "plating": "Silver Plated",
-      "stockStatus": "IN_STOCK",
-      "seller": "Yiwu Yeatru trading company"
-    },
-    {
-      "id": 1783332968074,
-      "image": "https://raw.githubusercontent.com/Preeasy/images/main/Images/Fashion%20Jewelry%289%29.jpg",
-      "images": [
-        "https://raw.githubusercontent.com/Preeasy/images/main/Images/Fashion%20Jewelry%289%29.jpg"
-      ],
-      "category": {
-        "name": "Fashion Jewelry",
-        "slug": "fashion-jewelry"
-      },
-      "name": "Silver Hoop Earrings",
-      "nameCn": "银色圆环耳环",
-      "description": "Premium quality silver hoop earrings crafted with crystal. Rose Gold Plated finish for lasting shine. Perfect for retail and wholesale. OEM/ODM welcome.",
-      "sku": "YW-FJ-075",
-      "moq": 60,
-      "priceMin": 0.6,
-      "priceMax": 1.8,
-      "material": "Crystal",
-      "plating": "Rose Gold Plated",
-      "stockStatus": "IN_STOCK",
-      "seller": "Yiwu Yeatru trading company"
-    },
-    {
-      "id": 1783332968075,
       "image": "https://raw.githubusercontent.com/Preeasy/images/main/Images/Garment%20Accessories%20%2810%29.jpg",
       "images": [
         "https://raw.githubusercontent.com/Preeasy/images/main/Images/Garment%20Accessories%20%2810%29.jpg"
@@ -1673,7 +1497,7 @@
       "seller": "Yiwu Yeatru trading company"
     },
     {
-      "id": 1783332968076,
+      "id": 1783332968068,
       "image": "https://raw.githubusercontent.com/Preeasy/images/main/Images/Garment%20Accessories%20%2811%29.jpg",
       "images": [
         "https://raw.githubusercontent.com/Preeasy/images/main/Images/Garment%20Accessories%20%2811%29.jpg"
@@ -1695,7 +1519,7 @@
       "seller": "Yiwu Yeatru trading company"
     },
     {
-      "id": 1783332968077,
+      "id": 1783332968069,
       "image": "https://raw.githubusercontent.com/Preeasy/images/main/Images/Garment%20Accessories%20%2812%29.jpg",
       "images": [
         "https://raw.githubusercontent.com/Preeasy/images/main/Images/Garment%20Accessories%20%2812%29.jpg"
@@ -1717,7 +1541,7 @@
       "seller": "Yiwu Yeatru trading company"
     },
     {
-      "id": 1783332968078,
+      "id": 1783332968070,
       "image": "https://raw.githubusercontent.com/Preeasy/images/main/Images/Garment%20Accessories%20%2813%29.jpg",
       "images": [
         "https://raw.githubusercontent.com/Preeasy/images/main/Images/Garment%20Accessories%20%2813%29.jpg"
@@ -1739,7 +1563,7 @@
       "seller": "Yiwu Yeatru trading company"
     },
     {
-      "id": 1783332968079,
+      "id": 1783332968071,
       "image": "https://raw.githubusercontent.com/Preeasy/images/main/Images/Garment%20Accessories%20%2814%29.jpg",
       "images": [
         "https://raw.githubusercontent.com/Preeasy/images/main/Images/Garment%20Accessories%20%2814%29.jpg"
@@ -1761,7 +1585,7 @@
       "seller": "Yiwu Yeatru trading company"
     },
     {
-      "id": 1783332968080,
+      "id": 1783332968072,
       "image": "https://raw.githubusercontent.com/Preeasy/images/main/Images/Garment%20Accessories%20%2815%29.jpg",
       "images": [
         "https://raw.githubusercontent.com/Preeasy/images/main/Images/Garment%20Accessories%20%2815%29.jpg"
@@ -1783,7 +1607,7 @@
       "seller": "Yiwu Yeatru trading company"
     },
     {
-      "id": 1783332968081,
+      "id": 1783332968073,
       "image": "https://raw.githubusercontent.com/Preeasy/images/main/Images/Garment%20Accessories%20%2816%29.jpg",
       "images": [
         "https://raw.githubusercontent.com/Preeasy/images/main/Images/Garment%20Accessories%20%2816%29.jpg"
@@ -1805,7 +1629,7 @@
       "seller": "Yiwu Yeatru trading company"
     },
     {
-      "id": 1783332968082,
+      "id": 1783332968074,
       "image": "https://raw.githubusercontent.com/Preeasy/images/main/Images/Garment%20Accessories%20%2817%29.jpg",
       "images": [
         "https://raw.githubusercontent.com/Preeasy/images/main/Images/Garment%20Accessories%20%2817%29.jpg"
@@ -1827,7 +1651,7 @@
       "seller": "Yiwu Yeatru trading company"
     },
     {
-      "id": 1783332968083,
+      "id": 1783332968075,
       "image": "https://raw.githubusercontent.com/Preeasy/images/main/Images/Garment%20Accessories%20%2818%29.jpg",
       "images": [
         "https://raw.githubusercontent.com/Preeasy/images/main/Images/Garment%20Accessories%20%2818%29.jpg"
@@ -1849,7 +1673,7 @@
       "seller": "Yiwu Yeatru trading company"
     },
     {
-      "id": 1783332968084,
+      "id": 1783332968076,
       "image": "https://raw.githubusercontent.com/Preeasy/images/main/Images/Garment%20Accessories%20%2819%29.jpg",
       "images": [
         "https://raw.githubusercontent.com/Preeasy/images/main/Images/Garment%20Accessories%20%2819%29.jpg"
@@ -1871,7 +1695,7 @@
       "seller": "Yiwu Yeatru trading company"
     },
     {
-      "id": 1783332968085,
+      "id": 1783332968077,
       "image": "https://raw.githubusercontent.com/Preeasy/images/main/Images/Garment%20Accessories%20%283%29.jpg",
       "images": [
         "https://raw.githubusercontent.com/Preeasy/images/main/Images/Garment%20Accessories%20%283%29.jpg"
@@ -1893,7 +1717,7 @@
       "seller": "Yiwu Yeatru trading company"
     },
     {
-      "id": 1783332968086,
+      "id": 1783332968078,
       "image": "https://raw.githubusercontent.com/Preeasy/images/main/Images/Garment%20Accessories%20%284%29.jpg",
       "images": [
         "https://raw.githubusercontent.com/Preeasy/images/main/Images/Garment%20Accessories%20%284%29.jpg"
@@ -1915,7 +1739,7 @@
       "seller": "Yiwu Yeatru trading company"
     },
     {
-      "id": 1783332968087,
+      "id": 1783332968079,
       "image": "https://raw.githubusercontent.com/Preeasy/images/main/Images/Garment%20Accessories%20%285%29.jpg",
       "images": [
         "https://raw.githubusercontent.com/Preeasy/images/main/Images/Garment%20Accessories%20%285%29.jpg"
@@ -1937,7 +1761,7 @@
       "seller": "Yiwu Yeatru trading company"
     },
     {
-      "id": 1783332968088,
+      "id": 1783332968080,
       "image": "https://raw.githubusercontent.com/Preeasy/images/main/Images/Garment%20Accessories%20%286%29.jpg",
       "images": [
         "https://raw.githubusercontent.com/Preeasy/images/main/Images/Garment%20Accessories%20%286%29.jpg"
@@ -1959,7 +1783,7 @@
       "seller": "Yiwu Yeatru trading company"
     },
     {
-      "id": 1783332968089,
+      "id": 1783332968081,
       "image": "https://raw.githubusercontent.com/Preeasy/images/main/Images/Garment%20Accessories%20%287%29.jpg",
       "images": [
         "https://raw.githubusercontent.com/Preeasy/images/main/Images/Garment%20Accessories%20%287%29.jpg"
@@ -1981,7 +1805,7 @@
       "seller": "Yiwu Yeatru trading company"
     },
     {
-      "id": 1783332968090,
+      "id": 1783332968082,
       "image": "https://raw.githubusercontent.com/Preeasy/images/main/Images/Garment%20Accessories%20%288%29.jpg",
       "images": [
         "https://raw.githubusercontent.com/Preeasy/images/main/Images/Garment%20Accessories%20%288%29.jpg"
@@ -2003,7 +1827,7 @@
       "seller": "Yiwu Yeatru trading company"
     },
     {
-      "id": 1783332968091,
+      "id": 1783332968083,
       "image": "https://raw.githubusercontent.com/Preeasy/images/main/Images/Garment%20Accessories%20%289%29.jpg",
       "images": [
         "https://raw.githubusercontent.com/Preeasy/images/main/Images/Garment%20Accessories%20%289%29.jpg"
@@ -2025,6 +1849,182 @@
       "seller": "Yiwu Yeatru trading company"
     },
     {
+      "id": 1783332968084,
+      "image": "https://raw.githubusercontent.com/Preeasy/images/main/Images/003.jpg",
+      "images": [
+        "https://raw.githubusercontent.com/Preeasy/images/main/Images/003.jpg"
+      ],
+      "category": {
+        "name": "Bag Accessories",
+        "slug": "bags-accessories"
+      },
+      "name": "Leather Handbag",
+      "nameCn": "皮革手提包",
+      "description": "Premium leather handbag for handbag manufacturing and repair. alloy construction with Gold Plated finish. Sturdy and reliable for long-term use.",
+      "sku": "YW-BA-001",
+      "moq": 50,
+      "priceMin": 0.15,
+      "priceMax": 0.6,
+      "material": "Alloy",
+      "plating": "Gold Plated",
+      "stockStatus": "IN_STOCK",
+      "seller": "Yiwu Yeatru trading company"
+    },
+    {
+      "id": 1783332968085,
+      "image": "https://raw.githubusercontent.com/Preeasy/images/main/Images/004.jpg",
+      "images": [
+        "https://raw.githubusercontent.com/Preeasy/images/main/Images/004.jpg"
+      ],
+      "category": {
+        "name": "Bag Accessories",
+        "slug": "bags-accessories"
+      },
+      "name": "Leather Handbag",
+      "nameCn": "皮革手提包",
+      "description": "Premium leather handbag for handbag manufacturing and repair. metal construction with Silver Plated finish. Sturdy and reliable for long-term use.",
+      "sku": "YW-BA-002",
+      "moq": 100,
+      "priceMin": 0.3,
+      "priceMax": 1.0,
+      "material": "Metal",
+      "plating": "Silver Plated",
+      "stockStatus": "IN_STOCK",
+      "seller": "Yiwu Yeatru trading company"
+    },
+    {
+      "id": 1783332968086,
+      "image": "https://raw.githubusercontent.com/Preeasy/images/main/Images/009.jpg",
+      "images": [
+        "https://raw.githubusercontent.com/Preeasy/images/main/Images/009.jpg"
+      ],
+      "category": {
+        "name": "Bag Accessories",
+        "slug": "bags-accessories"
+      },
+      "name": "Leather Handbag",
+      "nameCn": "皮革手提包",
+      "description": "Premium leather handbag for handbag manufacturing and repair. zinc alloy construction with Antique Bronze finish. Sturdy and reliable for long-term use.",
+      "sku": "YW-BA-003",
+      "moq": 200,
+      "priceMin": 0.4,
+      "priceMax": 1.2,
+      "material": "Zinc Alloy",
+      "plating": "Antique Bronze",
+      "stockStatus": "IN_STOCK",
+      "seller": "Yiwu Yeatru trading company"
+    },
+    {
+      "id": 1783332968087,
+      "image": "https://raw.githubusercontent.com/Preeasy/images/main/Images/011.jpg",
+      "images": [
+        "https://raw.githubusercontent.com/Preeasy/images/main/Images/011.jpg"
+      ],
+      "category": {
+        "name": "Bag Accessories",
+        "slug": "bags-accessories"
+      },
+      "name": "Leather Handbag",
+      "nameCn": "皮革手提包",
+      "description": "Premium leather handbag for handbag manufacturing and repair. stainless steel construction with Gunmetal finish. Sturdy and reliable for long-term use.",
+      "sku": "YW-BA-004",
+      "moq": 500,
+      "priceMin": 0.2,
+      "priceMax": 0.8,
+      "material": "Stainless Steel",
+      "plating": "Gunmetal",
+      "stockStatus": "IN_STOCK",
+      "seller": "Yiwu Yeatru trading company"
+    },
+    {
+      "id": 1783332968088,
+      "image": "https://raw.githubusercontent.com/Preeasy/images/main/Images/013.jpg",
+      "images": [
+        "https://raw.githubusercontent.com/Preeasy/images/main/Images/013.jpg"
+      ],
+      "category": {
+        "name": "Bag Accessories",
+        "slug": "bags-accessories"
+      },
+      "name": "Leather Handbag",
+      "nameCn": "皮革手提包",
+      "description": "Premium leather handbag for handbag manufacturing and repair. leather construction with Rose Gold finish. Sturdy and reliable for long-term use.",
+      "sku": "YW-BA-005",
+      "moq": 1000,
+      "priceMin": 0.5,
+      "priceMax": 1.5,
+      "material": "Leather",
+      "plating": "Rose Gold",
+      "stockStatus": "IN_STOCK",
+      "seller": "Yiwu Yeatru trading company"
+    },
+    {
+      "id": 1783332968089,
+      "image": "https://raw.githubusercontent.com/Preeasy/images/main/Images/014.jpg",
+      "images": [
+        "https://raw.githubusercontent.com/Preeasy/images/main/Images/014.jpg"
+      ],
+      "category": {
+        "name": "Bag Accessories",
+        "slug": "bags-accessories"
+      },
+      "name": "Leather Handbag",
+      "nameCn": "皮革手提包",
+      "description": "Premium leather handbag for handbag manufacturing and repair. plastic construction with Gold Plated finish. Sturdy and reliable for long-term use.",
+      "sku": "YW-BA-006",
+      "moq": 50,
+      "priceMin": 0.15,
+      "priceMax": 0.6,
+      "material": "Plastic",
+      "plating": "Gold Plated",
+      "stockStatus": "IN_STOCK",
+      "seller": "Yiwu Yeatru trading company"
+    },
+    {
+      "id": 1783332968090,
+      "image": "https://raw.githubusercontent.com/Preeasy/images/main/Images/018.jpg",
+      "images": [
+        "https://raw.githubusercontent.com/Preeasy/images/main/Images/018.jpg"
+      ],
+      "category": {
+        "name": "Bag Accessories",
+        "slug": "bags-accessories"
+      },
+      "name": "Leather Handbag",
+      "nameCn": "皮革手提包",
+      "description": "Premium leather handbag for handbag manufacturing and repair. alloy construction with Silver Plated finish. Sturdy and reliable for long-term use.",
+      "sku": "YW-BA-007",
+      "moq": 100,
+      "priceMin": 0.3,
+      "priceMax": 1.0,
+      "material": "Alloy",
+      "plating": "Silver Plated",
+      "stockStatus": "IN_STOCK",
+      "seller": "Yiwu Yeatru trading company"
+    },
+    {
+      "id": 1783332968091,
+      "image": "https://raw.githubusercontent.com/Preeasy/images/main/Images/020.jpg",
+      "images": [
+        "https://raw.githubusercontent.com/Preeasy/images/main/Images/020.jpg"
+      ],
+      "category": {
+        "name": "Bag Accessories",
+        "slug": "bags-accessories"
+      },
+      "name": "Leather Handbag",
+      "nameCn": "皮革手提包",
+      "description": "Premium leather handbag for handbag manufacturing and repair. metal construction with Antique Bronze finish. Sturdy and reliable for long-term use.",
+      "sku": "YW-BA-008",
+      "moq": 200,
+      "priceMin": 0.4,
+      "priceMax": 1.2,
+      "material": "Metal",
+      "plating": "Antique Bronze",
+      "stockStatus": "IN_STOCK",
+      "seller": "Yiwu Yeatru trading company"
+    },
+    {
       "id": 1783332968092,
       "image": "https://raw.githubusercontent.com/Preeasy/images/main/Images/Bag%20accessories%20%281%29.jpg",
       "images": [
@@ -2036,183 +2036,7 @@
       },
       "name": "Chain Strap",
       "nameCn": "链条肩带",
-      "description": "Premium chain strap for handbag manufacturing and repair. alloy construction with Gold Plated finish. Sturdy and reliable for long-term use.",
-      "sku": "YW-BA-001",
-      "moq": 50,
-      "priceMin": 0.15,
-      "priceMax": 0.6,
-      "material": "Alloy",
-      "plating": "Gold Plated",
-      "stockStatus": "IN_STOCK",
-      "seller": "Yiwu Yeatru trading company"
-    },
-    {
-      "id": 1783332968093,
-      "image": "https://raw.githubusercontent.com/Preeasy/images/main/Images/Bag%20accessories%20%2811%29.jpg",
-      "images": [
-        "https://raw.githubusercontent.com/Preeasy/images/main/Images/Bag%20accessories%20%2811%29.jpg"
-      ],
-      "category": {
-        "name": "Bag Accessories",
-        "slug": "bags-accessories"
-      },
-      "name": "Bag Ring",
-      "nameCn": "包环",
-      "description": "Premium bag ring for handbag manufacturing and repair. metal construction with Silver Plated finish. Sturdy and reliable for long-term use.",
-      "sku": "YW-BA-002",
-      "moq": 100,
-      "priceMin": 0.3,
-      "priceMax": 1.0,
-      "material": "Metal",
-      "plating": "Silver Plated",
-      "stockStatus": "IN_STOCK",
-      "seller": "Yiwu Yeatru trading company"
-    },
-    {
-      "id": 1783332968094,
-      "image": "https://raw.githubusercontent.com/Preeasy/images/main/Images/Bag%20accessories%20%2813%29.jpg",
-      "images": [
-        "https://raw.githubusercontent.com/Preeasy/images/main/Images/Bag%20accessories%20%2813%29.jpg"
-      ],
-      "category": {
-        "name": "Bag Accessories",
-        "slug": "bags-accessories"
-      },
-      "name": "Bag Accessory",
-      "nameCn": "箱包配件",
-      "description": "Premium bag accessory for handbag manufacturing and repair. zinc alloy construction with Antique Bronze finish. Sturdy and reliable for long-term use.",
-      "sku": "YW-BA-003",
-      "moq": 200,
-      "priceMin": 0.4,
-      "priceMax": 1.2,
-      "material": "Zinc Alloy",
-      "plating": "Antique Bronze",
-      "stockStatus": "IN_STOCK",
-      "seller": "Yiwu Yeatru trading company"
-    },
-    {
-      "id": 1783332968095,
-      "image": "https://raw.githubusercontent.com/Preeasy/images/main/Images/Bag%20accessories%20%2816%29.jpg",
-      "images": [
-        "https://raw.githubusercontent.com/Preeasy/images/main/Images/Bag%20accessories%20%2816%29.jpg"
-      ],
-      "category": {
-        "name": "Bag Accessories",
-        "slug": "bags-accessories"
-      },
-      "name": "Chain Strap",
-      "nameCn": "链条肩带",
-      "description": "Premium chain strap for handbag manufacturing and repair. stainless steel construction with Gunmetal finish. Sturdy and reliable for long-term use.",
-      "sku": "YW-BA-004",
-      "moq": 500,
-      "priceMin": 0.2,
-      "priceMax": 0.8,
-      "material": "Stainless Steel",
-      "plating": "Gunmetal",
-      "stockStatus": "IN_STOCK",
-      "seller": "Yiwu Yeatru trading company"
-    },
-    {
-      "id": 1783332968096,
-      "image": "https://raw.githubusercontent.com/Preeasy/images/main/Images/Bag%20accessories%20%2817%29.jpg",
-      "images": [
-        "https://raw.githubusercontent.com/Preeasy/images/main/Images/Bag%20accessories%20%2817%29.jpg"
-      ],
-      "category": {
-        "name": "Bag Accessories",
-        "slug": "bags-accessories"
-      },
-      "name": "Chain Strap",
-      "nameCn": "链条肩带",
-      "description": "Premium chain strap for handbag manufacturing and repair. leather construction with Rose Gold finish. Sturdy and reliable for long-term use.",
-      "sku": "YW-BA-005",
-      "moq": 1000,
-      "priceMin": 0.5,
-      "priceMax": 1.5,
-      "material": "Leather",
-      "plating": "Rose Gold",
-      "stockStatus": "IN_STOCK",
-      "seller": "Yiwu Yeatru trading company"
-    },
-    {
-      "id": 1783332968097,
-      "image": "https://raw.githubusercontent.com/Preeasy/images/main/Images/Bag%20accessories%20%2818%29.jpg",
-      "images": [
-        "https://raw.githubusercontent.com/Preeasy/images/main/Images/Bag%20accessories%20%2818%29.jpg"
-      ],
-      "category": {
-        "name": "Bag Accessories",
-        "slug": "bags-accessories"
-      },
-      "name": "Bag Ring",
-      "nameCn": "包环",
-      "description": "Premium bag ring for handbag manufacturing and repair. plastic construction with Gold Plated finish. Sturdy and reliable for long-term use.",
-      "sku": "YW-BA-006",
-      "moq": 50,
-      "priceMin": 0.15,
-      "priceMax": 0.6,
-      "material": "Plastic",
-      "plating": "Gold Plated",
-      "stockStatus": "IN_STOCK",
-      "seller": "Yiwu Yeatru trading company"
-    },
-    {
-      "id": 1783332968098,
-      "image": "https://raw.githubusercontent.com/Preeasy/images/main/Images/Bag%20accessories%20%2819%29.jpg",
-      "images": [
-        "https://raw.githubusercontent.com/Preeasy/images/main/Images/Bag%20accessories%20%2819%29.jpg"
-      ],
-      "category": {
-        "name": "Bag Accessories",
-        "slug": "bags-accessories"
-      },
-      "name": "Bag Ring",
-      "nameCn": "包环",
-      "description": "Premium bag ring for handbag manufacturing and repair. alloy construction with Silver Plated finish. Sturdy and reliable for long-term use.",
-      "sku": "YW-BA-007",
-      "moq": 100,
-      "priceMin": 0.3,
-      "priceMax": 1.0,
-      "material": "Alloy",
-      "plating": "Silver Plated",
-      "stockStatus": "IN_STOCK",
-      "seller": "Yiwu Yeatru trading company"
-    },
-    {
-      "id": 1783332968099,
-      "image": "https://raw.githubusercontent.com/Preeasy/images/main/Images/Bag%20accessories%20%282%29.jpg",
-      "images": [
-        "https://raw.githubusercontent.com/Preeasy/images/main/Images/Bag%20accessories%20%282%29.jpg"
-      ],
-      "category": {
-        "name": "Bag Accessories",
-        "slug": "bags-accessories"
-      },
-      "name": "Bag Accessory",
-      "nameCn": "箱包配件",
-      "description": "Premium bag accessory for handbag manufacturing and repair. metal construction with Antique Bronze finish. Sturdy and reliable for long-term use.",
-      "sku": "YW-BA-008",
-      "moq": 200,
-      "priceMin": 0.4,
-      "priceMax": 1.2,
-      "material": "Metal",
-      "plating": "Antique Bronze",
-      "stockStatus": "IN_STOCK",
-      "seller": "Yiwu Yeatru trading company"
-    },
-    {
-      "id": 1783332968100,
-      "image": "https://raw.githubusercontent.com/Preeasy/images/main/Images/Bag%20accessories%20%2820%29.jpg",
-      "images": [
-        "https://raw.githubusercontent.com/Preeasy/images/main/Images/Bag%20accessories%20%2820%29.jpg"
-      ],
-      "category": {
-        "name": "Bag Accessories",
-        "slug": "bags-accessories"
-      },
-      "name": "Bag Ring",
-      "nameCn": "包环",
-      "description": "Premium bag ring for handbag manufacturing and repair. zinc alloy construction with Gunmetal finish. Sturdy and reliable for long-term use.",
+      "description": "Premium chain strap for handbag manufacturing and repair. zinc alloy construction with Gunmetal finish. Sturdy and reliable for long-term use.",
       "sku": "YW-BA-009",
       "moq": 500,
       "priceMin": 0.2,
@@ -2223,10 +2047,10 @@
       "seller": "Yiwu Yeatru trading company"
     },
     {
-      "id": 1783332968101,
-      "image": "https://raw.githubusercontent.com/Preeasy/images/main/Images/Bag%20accessories%20%2822%29.jpg",
+      "id": 1783332968093,
+      "image": "https://raw.githubusercontent.com/Preeasy/images/main/Images/Bag%20accessories%20%2811%29.jpg",
       "images": [
-        "https://raw.githubusercontent.com/Preeasy/images/main/Images/Bag%20accessories%20%2822%29.jpg"
+        "https://raw.githubusercontent.com/Preeasy/images/main/Images/Bag%20accessories%20%2811%29.jpg"
       ],
       "category": {
         "name": "Bag Accessories",
@@ -2245,10 +2069,10 @@
       "seller": "Yiwu Yeatru trading company"
     },
     {
-      "id": 1783332968102,
-      "image": "https://raw.githubusercontent.com/Preeasy/images/main/Images/Bag%20accessories%20%2823%29.jpg",
+      "id": 1783332968094,
+      "image": "https://raw.githubusercontent.com/Preeasy/images/main/Images/Bag%20accessories%20%2813%29.jpg",
       "images": [
-        "https://raw.githubusercontent.com/Preeasy/images/main/Images/Bag%20accessories%20%2823%29.jpg"
+        "https://raw.githubusercontent.com/Preeasy/images/main/Images/Bag%20accessories%20%2813%29.jpg"
       ],
       "category": {
         "name": "Bag Accessories",
@@ -2267,10 +2091,10 @@
       "seller": "Yiwu Yeatru trading company"
     },
     {
-      "id": 1783332968103,
-      "image": "https://raw.githubusercontent.com/Preeasy/images/main/Images/Bag%20accessories%20%2824%29.jpg",
+      "id": 1783332968095,
+      "image": "https://raw.githubusercontent.com/Preeasy/images/main/Images/Bag%20accessories%20%2816%29.jpg",
       "images": [
-        "https://raw.githubusercontent.com/Preeasy/images/main/Images/Bag%20accessories%20%2824%29.jpg"
+        "https://raw.githubusercontent.com/Preeasy/images/main/Images/Bag%20accessories%20%2816%29.jpg"
       ],
       "category": {
         "name": "Bag Accessories",
@@ -2289,18 +2113,18 @@
       "seller": "Yiwu Yeatru trading company"
     },
     {
-      "id": 1783332968104,
-      "image": "https://raw.githubusercontent.com/Preeasy/images/main/Images/Bag%20accessories%20%283%29.jpg",
+      "id": 1783332968096,
+      "image": "https://raw.githubusercontent.com/Preeasy/images/main/Images/Bag%20accessories%20%2817%29.jpg",
       "images": [
-        "https://raw.githubusercontent.com/Preeasy/images/main/Images/Bag%20accessories%20%283%29.jpg"
+        "https://raw.githubusercontent.com/Preeasy/images/main/Images/Bag%20accessories%20%2817%29.jpg"
       ],
       "category": {
         "name": "Bag Accessories",
         "slug": "bags-accessories"
       },
-      "name": "Bag Ring",
-      "nameCn": "包环",
-      "description": "Premium bag ring for handbag manufacturing and repair. alloy construction with Antique Bronze finish. Sturdy and reliable for long-term use.",
+      "name": "Chain Strap",
+      "nameCn": "链条肩带",
+      "description": "Premium chain strap for handbag manufacturing and repair. alloy construction with Antique Bronze finish. Sturdy and reliable for long-term use.",
       "sku": "YW-BA-013",
       "moq": 200,
       "priceMin": 0.4,
@@ -2311,18 +2135,18 @@
       "seller": "Yiwu Yeatru trading company"
     },
     {
-      "id": 1783332968105,
-      "image": "https://raw.githubusercontent.com/Preeasy/images/main/Images/Bag%20accessories%20%284%29.jpg",
+      "id": 1783332968097,
+      "image": "https://raw.githubusercontent.com/Preeasy/images/main/Images/Bag%20accessories%20%2818%29.jpg",
       "images": [
-        "https://raw.githubusercontent.com/Preeasy/images/main/Images/Bag%20accessories%20%284%29.jpg"
+        "https://raw.githubusercontent.com/Preeasy/images/main/Images/Bag%20accessories%20%2818%29.jpg"
       ],
       "category": {
         "name": "Bag Accessories",
         "slug": "bags-accessories"
       },
-      "name": "Bag Accessory",
-      "nameCn": "箱包配件",
-      "description": "Premium bag accessory for handbag manufacturing and repair. metal construction with Gunmetal finish. Sturdy and reliable for long-term use.",
+      "name": "Bag Ring",
+      "nameCn": "包环",
+      "description": "Premium bag ring for handbag manufacturing and repair. metal construction with Gunmetal finish. Sturdy and reliable for long-term use.",
       "sku": "YW-BA-014",
       "moq": 500,
       "priceMin": 0.2,
@@ -2333,10 +2157,10 @@
       "seller": "Yiwu Yeatru trading company"
     },
     {
-      "id": 1783332968106,
-      "image": "https://raw.githubusercontent.com/Preeasy/images/main/Images/Bag%20accessories%20%285%29.jpg",
+      "id": 1783332968098,
+      "image": "https://raw.githubusercontent.com/Preeasy/images/main/Images/Bag%20accessories%20%2819%29.jpg",
       "images": [
-        "https://raw.githubusercontent.com/Preeasy/images/main/Images/Bag%20accessories%20%285%29.jpg"
+        "https://raw.githubusercontent.com/Preeasy/images/main/Images/Bag%20accessories%20%2819%29.jpg"
       ],
       "category": {
         "name": "Bag Accessories",
@@ -2355,10 +2179,10 @@
       "seller": "Yiwu Yeatru trading company"
     },
     {
-      "id": 1783332968107,
-      "image": "https://raw.githubusercontent.com/Preeasy/images/main/Images/Bag%20accessories%20%286%29.jpg",
+      "id": 1783332968099,
+      "image": "https://raw.githubusercontent.com/Preeasy/images/main/Images/Bag%20accessories%20%282%29.jpg",
       "images": [
-        "https://raw.githubusercontent.com/Preeasy/images/main/Images/Bag%20accessories%20%286%29.jpg"
+        "https://raw.githubusercontent.com/Preeasy/images/main/Images/Bag%20accessories%20%282%29.jpg"
       ],
       "category": {
         "name": "Bag Accessories",
@@ -2377,10 +2201,10 @@
       "seller": "Yiwu Yeatru trading company"
     },
     {
-      "id": 1783332968108,
-      "image": "https://raw.githubusercontent.com/Preeasy/images/main/Images/Bag%20accessories%20%287%29.jpg",
+      "id": 1783332968100,
+      "image": "https://raw.githubusercontent.com/Preeasy/images/main/Images/Bag%20accessories%20%2820%29.jpg",
       "images": [
-        "https://raw.githubusercontent.com/Preeasy/images/main/Images/Bag%20accessories%20%287%29.jpg"
+        "https://raw.githubusercontent.com/Preeasy/images/main/Images/Bag%20accessories%20%2820%29.jpg"
       ],
       "category": {
         "name": "Bag Accessories",
@@ -2399,10 +2223,10 @@
       "seller": "Yiwu Yeatru trading company"
     },
     {
-      "id": 1783332968109,
-      "image": "https://raw.githubusercontent.com/Preeasy/images/main/Images/Bag%20accessories%20%288%29.jpg",
+      "id": 1783332968101,
+      "image": "https://raw.githubusercontent.com/Preeasy/images/main/Images/Bag%20accessories%20%2822%29.jpg",
       "images": [
-        "https://raw.githubusercontent.com/Preeasy/images/main/Images/Bag%20accessories%20%288%29.jpg"
+        "https://raw.githubusercontent.com/Preeasy/images/main/Images/Bag%20accessories%20%2822%29.jpg"
       ],
       "category": {
         "name": "Bag Accessories",
@@ -2421,6 +2245,182 @@
       "seller": "Yiwu Yeatru trading company"
     },
     {
+      "id": 1783332968102,
+      "image": "https://raw.githubusercontent.com/Preeasy/images/main/Images/Bag%20accessories%20%2823%29.jpg",
+      "images": [
+        "https://raw.githubusercontent.com/Preeasy/images/main/Images/Bag%20accessories%20%2823%29.jpg"
+      ],
+      "category": {
+        "name": "Bag Accessories",
+        "slug": "bags-accessories"
+      },
+      "name": "Bag Accessory",
+      "nameCn": "箱包配件",
+      "description": "Premium bag accessory for handbag manufacturing and repair. alloy construction with Gunmetal finish. Sturdy and reliable for long-term use.",
+      "sku": "YW-BA-019",
+      "moq": 500,
+      "priceMin": 0.2,
+      "priceMax": 0.8,
+      "material": "Alloy",
+      "plating": "Gunmetal",
+      "stockStatus": "IN_STOCK",
+      "seller": "Yiwu Yeatru trading company"
+    },
+    {
+      "id": 1783332968103,
+      "image": "https://raw.githubusercontent.com/Preeasy/images/main/Images/Bag%20accessories%20%2824%29.jpg",
+      "images": [
+        "https://raw.githubusercontent.com/Preeasy/images/main/Images/Bag%20accessories%20%2824%29.jpg"
+      ],
+      "category": {
+        "name": "Bag Accessories",
+        "slug": "bags-accessories"
+      },
+      "name": "Chain Strap",
+      "nameCn": "链条肩带",
+      "description": "Premium chain strap for handbag manufacturing and repair. metal construction with Rose Gold finish. Sturdy and reliable for long-term use.",
+      "sku": "YW-BA-020",
+      "moq": 1000,
+      "priceMin": 0.5,
+      "priceMax": 1.5,
+      "material": "Metal",
+      "plating": "Rose Gold",
+      "stockStatus": "IN_STOCK",
+      "seller": "Yiwu Yeatru trading company"
+    },
+    {
+      "id": 1783332968104,
+      "image": "https://raw.githubusercontent.com/Preeasy/images/main/Images/Bag%20accessories%20%283%29.jpg",
+      "images": [
+        "https://raw.githubusercontent.com/Preeasy/images/main/Images/Bag%20accessories%20%283%29.jpg"
+      ],
+      "category": {
+        "name": "Bag Accessories",
+        "slug": "bags-accessories"
+      },
+      "name": "Bag Ring",
+      "nameCn": "包环",
+      "description": "Premium bag ring for handbag manufacturing and repair. zinc alloy construction with Gold Plated finish. Sturdy and reliable for long-term use.",
+      "sku": "YW-BA-021",
+      "moq": 50,
+      "priceMin": 0.15,
+      "priceMax": 0.6,
+      "material": "Zinc Alloy",
+      "plating": "Gold Plated",
+      "stockStatus": "IN_STOCK",
+      "seller": "Yiwu Yeatru trading company"
+    },
+    {
+      "id": 1783332968105,
+      "image": "https://raw.githubusercontent.com/Preeasy/images/main/Images/Bag%20accessories%20%284%29.jpg",
+      "images": [
+        "https://raw.githubusercontent.com/Preeasy/images/main/Images/Bag%20accessories%20%284%29.jpg"
+      ],
+      "category": {
+        "name": "Bag Accessories",
+        "slug": "bags-accessories"
+      },
+      "name": "Bag Accessory",
+      "nameCn": "箱包配件",
+      "description": "Premium bag accessory for handbag manufacturing and repair. stainless steel construction with Silver Plated finish. Sturdy and reliable for long-term use.",
+      "sku": "YW-BA-022",
+      "moq": 100,
+      "priceMin": 0.3,
+      "priceMax": 1.0,
+      "material": "Stainless Steel",
+      "plating": "Silver Plated",
+      "stockStatus": "IN_STOCK",
+      "seller": "Yiwu Yeatru trading company"
+    },
+    {
+      "id": 1783332968106,
+      "image": "https://raw.githubusercontent.com/Preeasy/images/main/Images/Bag%20accessories%20%285%29.jpg",
+      "images": [
+        "https://raw.githubusercontent.com/Preeasy/images/main/Images/Bag%20accessories%20%285%29.jpg"
+      ],
+      "category": {
+        "name": "Bag Accessories",
+        "slug": "bags-accessories"
+      },
+      "name": "Bag Ring",
+      "nameCn": "包环",
+      "description": "Premium bag ring for handbag manufacturing and repair. leather construction with Antique Bronze finish. Sturdy and reliable for long-term use.",
+      "sku": "YW-BA-023",
+      "moq": 200,
+      "priceMin": 0.4,
+      "priceMax": 1.2,
+      "material": "Leather",
+      "plating": "Antique Bronze",
+      "stockStatus": "IN_STOCK",
+      "seller": "Yiwu Yeatru trading company"
+    },
+    {
+      "id": 1783332968107,
+      "image": "https://raw.githubusercontent.com/Preeasy/images/main/Images/Bag%20accessories%20%286%29.jpg",
+      "images": [
+        "https://raw.githubusercontent.com/Preeasy/images/main/Images/Bag%20accessories%20%286%29.jpg"
+      ],
+      "category": {
+        "name": "Bag Accessories",
+        "slug": "bags-accessories"
+      },
+      "name": "Bag Accessory",
+      "nameCn": "箱包配件",
+      "description": "Premium bag accessory for handbag manufacturing and repair. plastic construction with Gunmetal finish. Sturdy and reliable for long-term use.",
+      "sku": "YW-BA-024",
+      "moq": 500,
+      "priceMin": 0.2,
+      "priceMax": 0.8,
+      "material": "Plastic",
+      "plating": "Gunmetal",
+      "stockStatus": "IN_STOCK",
+      "seller": "Yiwu Yeatru trading company"
+    },
+    {
+      "id": 1783332968108,
+      "image": "https://raw.githubusercontent.com/Preeasy/images/main/Images/Bag%20accessories%20%287%29.jpg",
+      "images": [
+        "https://raw.githubusercontent.com/Preeasy/images/main/Images/Bag%20accessories%20%287%29.jpg"
+      ],
+      "category": {
+        "name": "Bag Accessories",
+        "slug": "bags-accessories"
+      },
+      "name": "Bag Ring",
+      "nameCn": "包环",
+      "description": "Premium bag ring for handbag manufacturing and repair. alloy construction with Rose Gold finish. Sturdy and reliable for long-term use.",
+      "sku": "YW-BA-025",
+      "moq": 1000,
+      "priceMin": 0.5,
+      "priceMax": 1.5,
+      "material": "Alloy",
+      "plating": "Rose Gold",
+      "stockStatus": "IN_STOCK",
+      "seller": "Yiwu Yeatru trading company"
+    },
+    {
+      "id": 1783332968109,
+      "image": "https://raw.githubusercontent.com/Preeasy/images/main/Images/Bag%20accessories%20%288%29.jpg",
+      "images": [
+        "https://raw.githubusercontent.com/Preeasy/images/main/Images/Bag%20accessories%20%288%29.jpg"
+      ],
+      "category": {
+        "name": "Bag Accessories",
+        "slug": "bags-accessories"
+      },
+      "name": "Bag Ring",
+      "nameCn": "包环",
+      "description": "Premium bag ring for handbag manufacturing and repair. metal construction with Gold Plated finish. Sturdy and reliable for long-term use.",
+      "sku": "YW-BA-026",
+      "moq": 50,
+      "priceMin": 0.15,
+      "priceMax": 0.6,
+      "material": "Metal",
+      "plating": "Gold Plated",
+      "stockStatus": "IN_STOCK",
+      "seller": "Yiwu Yeatru trading company"
+    },
+    {
       "id": 1783332968110,
       "image": "https://raw.githubusercontent.com/Preeasy/images/main/Images/Bag%20accessories%20%289%29.jpg",
       "images": [
@@ -2432,13 +2432,13 @@
       },
       "name": "Bag Ring",
       "nameCn": "包环",
-      "description": "Premium bag ring for handbag manufacturing and repair. alloy construction with Gunmetal finish. Sturdy and reliable for long-term use.",
-      "sku": "YW-BA-019",
-      "moq": 500,
-      "priceMin": 0.2,
-      "priceMax": 0.8,
-      "material": "Alloy",
-      "plating": "Gunmetal",
+      "description": "Premium bag ring for handbag manufacturing and repair. zinc alloy construction with Silver Plated finish. Sturdy and reliable for long-term use.",
+      "sku": "YW-BA-027",
+      "moq": 100,
+      "priceMin": 0.3,
+      "priceMax": 1.0,
+      "material": "Zinc Alloy",
+      "plating": "Silver Plated",
       "stockStatus": "IN_STOCK",
       "seller": "Yiwu Yeatru trading company"
     },

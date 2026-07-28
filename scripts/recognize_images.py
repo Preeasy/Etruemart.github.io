@@ -307,7 +307,14 @@ def classify_product(features, filename):
             return "Seasonal Item", "季节性产品", "seasonal"
     
     # 未知类别 - 根据特征推断
-    # 对于没有明确分类的图片，全部归为首饰类
+    # 优先判断包包（皮革材质，有把手特征）
+    if sat > 0.05 and sat < 0.35 and brightness > 100 and brightness < 250:
+        if (aspect > 0.8 and aspect < 1.5) and (fg_ratio > 0.2 and fg_ratio < 0.6):
+            if edge < 20 or (silver > 0.1 and edge < 30):
+                return "Leather Handbag", "皮革手提包", "bag"
+            elif colors > 15 and colors < 35:
+                return "Fashion Bag", "时尚包包", "bag"
+    
     if gold > 0.1:
         if aspect > 1.5:
             return "Gold Chain", "金色链条", "jewelry"

@@ -150,10 +150,10 @@ export default function ProductDetail({ product, relatedProducts }: { product: P
         </div>
       </div>
 
-      <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16 max-w-[1600px] mx-auto py-8">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8">
+      <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16 max-w-[1600px] mx-auto py-6">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 lg:gap-6">
           <div className="lg:col-span-6">
-            <div className="lg:sticky lg:top-24 space-y-3">
+            <div className="lg:sticky lg:top-20 space-y-2.5">
               {/* Main Image */}
               <div className="relative bg-white rounded-2xl border border-ink-100 overflow-hidden shadow-sm group cursor-zoom-in" onClick={() => openLightbox(selectedImage)}>
                 {discount > 0 && (
@@ -190,7 +190,7 @@ export default function ProductDetail({ product, relatedProducts }: { product: P
             </div>
           </div>
 
-          <div className="lg:col-span-6 space-y-5">
+          <div className="lg:col-span-6 space-y-4">
             {/* Category + SKU + Stock */}
             <div className="flex items-center gap-3 flex-wrap">
               {product.category && (
@@ -224,9 +224,9 @@ export default function ProductDetail({ product, relatedProducts }: { product: P
             </div>
 
             {/* Price */}
-            <div className="bg-white border border-ink-100 rounded-2xl p-5">
+            <div className="bg-white border border-ink-100 rounded-xl p-4">
               <div className="flex items-baseline gap-3 flex-wrap">
-                <span className="text-4xl font-extrabold text-navy-900">${price.toFixed(2)}</span>
+                <span className="text-3xl font-extrabold text-navy-900">${price.toFixed(2)}</span>
                 {originalPrice && originalPrice > price && (
                   <span className="text-base text-ink-400 line-through">${originalPrice.toFixed(2)}</span>
                 )}
@@ -236,7 +236,7 @@ export default function ProductDetail({ product, relatedProducts }: { product: P
                   </span>
                 )}
               </div>
-              <p className="text-xs text-ink-500 mt-1.5">Price varies by quantity & customization. Bulk discounts available.</p>
+              <p className="text-xs text-ink-500 mt-1">Price varies by quantity & customization. Bulk discounts available.</p>
             </div>
 
             {/* Specs */}
@@ -279,56 +279,52 @@ export default function ProductDetail({ product, relatedProducts }: { product: P
             <p className="text-sm text-ink-600 leading-relaxed">{product.description}</p>
 
             {/* Quantity + CTA */}
-            <div className="bg-white rounded-2xl border border-ink-100 p-5 space-y-4">
+            <div className="bg-white rounded-xl border border-ink-100 p-4 space-y-3.5">
               <div>
                 <div className="flex items-center justify-between mb-2">
                   <h3 className="text-sm font-bold text-navy-800">Order Quantity</h3>
                 </div>
                 <div className="flex items-center gap-3">
-                  <div className="flex items-center border border-ink-200 rounded-xl bg-white overflow-hidden">
-                    <button onClick={() => setQuantity(Math.max(product.moq || 1, quantity - 12))} className="px-3 py-2.5 hover:bg-ink-50 transition-colors text-ink-600"><Minus className="w-4 h-4" /></button>
-                    <span className="px-5 font-bold text-navy-800 min-w-[70px] text-center">{quantity}</span>
-                    <button onClick={() => setQuantity(quantity + 12)} className="px-3 py-2.5 hover:bg-ink-50 transition-colors text-ink-600"><Plus className="w-4 h-4" /></button>
+                  <div className="flex items-center border border-ink-200 rounded-lg bg-white overflow-hidden">
+                    <button onClick={() => setQuantity(Math.max(product.moq || 1, quantity - 12))} className="px-3 py-2 hover:bg-ink-50 transition-colors text-ink-600"><Minus className="w-4 h-4" /></button>
+                    <span className="px-4 font-bold text-navy-800 min-w-[60px] text-center">{quantity}</span>
+                    <button onClick={() => setQuantity(quantity + 12)} className="px-3 py-2 hover:bg-ink-50 transition-colors text-ink-600"><Plus className="w-4 h-4" /></button>
                   </div>
                   <span className="text-xs text-ink-500 font-medium">Step: 12 pcs</span>
                 </div>
               </div>
-              <div className="flex flex-col sm:flex-row gap-3">
-                <button onClick={handleAddToCart} className="flex-1 flex items-center justify-center gap-2 bg-accent-600 hover:bg-accent-700 text-white py-3.5 rounded-xl font-bold transition-colors">
+              <div className="flex flex-col sm:flex-row gap-2.5">
+                <button onClick={handleAddToCart} className="flex-1 flex items-center justify-center gap-2 bg-accent-600 hover:bg-accent-700 text-white py-3 rounded-lg font-bold transition-colors">
                   <MessageCircle className="w-5 h-5" />Contact Supplier
                 </button>
-                <button onClick={handleAddToCart} className="flex-1 flex items-center justify-center gap-2 bg-navy-800 hover:bg-navy-900 text-white py-3.5 rounded-xl font-bold transition-colors">
+                <button onClick={handleAddToCart} className="flex-1 flex items-center justify-center gap-2 bg-navy-800 hover:bg-navy-900 text-white py-3 rounded-lg font-bold transition-colors">
                   <ShoppingCart className="w-5 h-5" />Add to Inquiry
                 </button>
               </div>
             </div>
 
             {/* Purchase Protection */}
-            <div className="bg-white rounded-2xl border border-ink-100 p-5">
-              <h3 className="text-sm font-bold text-navy-800 uppercase tracking-[0.08em] mb-3 flex items-center gap-2">
+            <div className="bg-white rounded-xl border border-ink-100 p-4">
+              <h3 className="text-sm font-bold text-navy-800 uppercase tracking-[0.08em] mb-2.5 flex items-center gap-2">
                 <Shield className="w-4 h-4 text-accent-500" />
                 Purchase Protection
               </h3>
-              <div className="grid grid-cols-2 gap-2.5">
+              <div className="grid grid-cols-4 gap-2">
                 {[
                   { icon: Truck, label: 'Free Shipping', desc: 'Orders $50+' },
                   { icon: ShieldCheck, label: 'Secure Payment', desc: 'SSL encrypted' },
                   { icon: RotateCcw, label: 'Easy Returns', desc: '30-day policy' },
                   { icon: Headphones, label: '24/7 Support', desc: 'Live chat' },
-                  { icon: Award, label: 'Premium Quality', desc: 'Top factories' },
-                  { icon: Globe, label: 'Global Shipping', desc: '180+ countries' },
-                  { icon: Clock, label: 'Fast Lead Time', desc: '7-15 days' },
-                  { icon: BadgeCheck, label: 'Verified Supplier', desc: 'On-site audited' },
                 ].map((item, i) => {
                   const Icon = item.icon;
                   return (
-                    <div key={i} className="flex items-center gap-2.5 p-2 rounded-lg hover:bg-ink-50 transition-colors">
-                      <div className="w-8 h-8 rounded-lg bg-navy-50 flex items-center justify-center flex-shrink-0">
-                        <Icon className="w-4 h-4 text-navy-600" />
+                    <div key={i} className="flex items-center gap-2 p-2 rounded-lg hover:bg-ink-50 transition-colors">
+                      <div className="w-7 h-7 rounded-lg bg-navy-50 flex items-center justify-center flex-shrink-0">
+                        <Icon className="w-3.5 h-3.5 text-navy-600" />
                       </div>
                       <div className="min-w-0">
-                        <p className="text-xs font-bold text-navy-800 leading-tight">{item.label}</p>
-                        <p className="text-[10px] text-ink-500 leading-tight">{item.desc}</p>
+                        <p className="text-[10px] font-bold text-navy-800 leading-tight">{item.label}</p>
+                        <p className="text-[9px] text-ink-500 leading-tight">{item.desc}</p>
                       </div>
                     </div>
                   );
@@ -340,29 +336,29 @@ export default function ProductDetail({ product, relatedProducts }: { product: P
             <ShippingSelector categorySlug={product.category?.slug} />
 
             {/* Supplier Card */}
-            <Link href="/store/yiwu-premium-trading" className="block bg-white rounded-2xl p-4 border border-ink-100 hover:border-accent-300 hover:shadow-sm transition-all group">
-              <div className="flex items-center gap-3">
-                <div className="w-12 h-12 rounded-xl bg-navy-800 flex items-center justify-center text-white font-bold text-lg">
+            <Link href="/store/yiwu-premium-trading" className="block bg-white rounded-xl p-3 border border-ink-100 hover:border-accent-300 hover:shadow-sm transition-all group">
+              <div className="flex items-center gap-2.5">
+                <div className="w-10 h-10 rounded-lg bg-navy-800 flex items-center justify-center text-white font-bold text-base">
                   YW
                 </div>
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2">
-                    <p className="text-sm font-bold text-navy-800 group-hover:text-accent-600 transition-colors">{product.seller || 'Yiwu Yeatru trading company'}</p>
-                    <CheckCircle2 className="w-3.5 h-3.5 text-success-500" />
+                    <p className="text-xs font-bold text-navy-800 group-hover:text-accent-600 transition-colors">{product.seller || 'Yiwu Yeatru trading company'}</p>
+                    <CheckCircle2 className="w-3 h-3 text-success-500" />
                   </div>
                   <div className="flex items-center gap-2 mt-0.5">
-                    <span className="text-[10px] bg-success-50 text-success-700 px-1.5 py-0.5 rounded font-bold border border-success-200">VERIFIED</span>
-                    <span className="text-[10px] text-ink-500 font-medium">8 yrs · 95% response</span>
+                    <span className="text-[9px] bg-success-50 text-success-700 px-1.5 py-0.5 rounded font-bold border border-success-200">VERIFIED</span>
+                    <span className="text-[9px] text-ink-500 font-medium">8 yrs · 95% response</span>
                   </div>
                 </div>
-                <Store className="w-5 h-5 text-accent-500" />
+                <Store className="w-4 h-4 text-accent-500" />
               </div>
             </Link>
           </div>
         </div>
 
         {/* Tabs + Sidebar */}
-        <div className="grid lg:grid-cols-12 gap-6 lg:gap-8 mt-10">
+        <div className="grid lg:grid-cols-12 gap-5 lg:gap-6 mt-8">
           <div className="lg:col-span-8">
             <div className="bg-white rounded-2xl border border-ink-100 overflow-hidden">
               {/* Tabs */}

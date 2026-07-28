@@ -39,12 +39,12 @@ interface SidebarProps {
 }
 
 const sidebarCategories = [
-  { name: 'Toys & Gift', icon: Gift, slug: 'toys-gift', color: 'from-blue-500 to-blue-600' },
-  { name: 'Fashion Jewelry', icon: Gem, slug: 'fashion-jewelry', color: 'from-amber-500 to-orange-500' },
-  { name: 'Hair Accessories', icon: Crown, slug: 'hair-accessories', color: 'from-pink-500 to-rose-500' },
-  { name: 'Bags & Accessories', icon: ShoppingBag, slug: 'bags-accessories', color: 'from-emerald-500 to-teal-500' },
-  { name: 'Garment Accessories', icon: Scissors, slug: 'garment-accessories', color: 'from-slate-600 to-gray-700' },
-  { name: 'Home Decor & Crafts', icon: HomeIcon, slug: 'home-decor-crafts', color: 'from-purple-500 to-violet-600' },
+  { name: 'Toys & Gift', icon: Gift, slug: 'toys-gift' },
+  { name: 'Fashion Jewelry', icon: Gem, slug: 'fashion-jewelry' },
+  { name: 'Hair Accessories', icon: Crown, slug: 'hair-accessories' },
+  { name: 'Bags & Accessories', icon: ShoppingBag, slug: 'bags-accessories' },
+  { name: 'Garment Accessories', icon: Scissors, slug: 'garment-accessories' },
+  { name: 'Home Decor & Crafts', icon: HomeIcon, slug: 'home-decor-crafts' },
 ];
 
 const trustItems = [
@@ -84,8 +84,8 @@ export default function Sidebar({ products, currentCategory }: SidebarProps) {
                       : 'text-ink-700 hover:bg-ink-50 hover:text-navy-800'
                   }`}
                 >
-                  <div className={`w-8 h-8 rounded-lg bg-gradient-to-br ${cat.color} flex items-center justify-center flex-shrink-0`}>
-                    <cat.icon className="w-4 h-4 text-white" />
+                  <div className="w-8 h-8 rounded-lg bg-navy-100 flex items-center justify-center flex-shrink-0 group-hover:bg-accent-100 transition-colors">
+                    <cat.icon className="w-4 h-4 text-navy-600 group-hover:text-accent-600 transition-colors" />
                   </div>
                   <span className="flex-1">{cat.name}</span>
                   <ChevronRight className={`w-3.5 h-3.5 ${isActive ? 'text-accent-500' : 'text-ink-300 group-hover:text-navy-800'} transition-colors`} />

@@ -165,7 +165,7 @@ const Home = ({ products }: { products: Product[] }) => {
               <section className="grid grid-cols-2 md:grid-cols-4 gap-3">
                 {categoryGuides.slice(0, 4).map((cat) => {
                   const Icon = cat.icon;
-                  const count = products.filter(p => SUB_TO_PARENT[p.category.slug] === cat.slug).length;
+                  const count = products.filter(p => p.category.slug === cat.slug).length;
                   return (
                     <Link
                       key={cat.slug}
