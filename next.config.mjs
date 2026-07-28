@@ -13,10 +13,6 @@ const nextConfig = {
       { protocol: 'https', hostname: 'raw.githubusercontent.com' },
     ],
   },
-  output: 'export',
-  trailingSlash: true,
-  basePath: '/Etruemart.github.io',
-  assetPrefix: '/Etruemart.github.io/',
 }
 
 export default nextConfig
