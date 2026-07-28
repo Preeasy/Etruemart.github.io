@@ -61,8 +61,18 @@ const Sell = () => {
   }, [session?.user]);
 
   if (!session) {
-    router.push('/login');
-    return null;
+    return (
+      <Layout>
+        <div className="flex items-center justify-center min-h-[60vh]">
+          <div className="text-center">
+            <p className="text-ink-600 mb-4">Please sign in to access this page.</p>
+            <Link href="/login" className="inline-flex items-center px-4 py-2 bg-accent-500 text-white rounded-lg hover:bg-accent-600">
+              Sign In
+            </Link>
+          </div>
+        </div>
+      </Layout>
+    );
   }
 
   const handleSubmit = async (e: React.FormEvent) => {
