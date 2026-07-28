@@ -37,8 +37,7 @@ import {
 import Layout from '@/components/Layout';
 import ProductCard from '@/components/ProductCard';
 import ShippingSelector from '@/components/ShippingSelector';
-import fs from 'fs';
-import path from 'path';
+import siteDataJson from '../../../site-data.json';
 
 interface Product {
   id: number | string;
@@ -624,11 +623,17 @@ export default function ProductDetail({ product, relatedProducts }: { product: P
   );
 }
 
-export const getServerSideProps = async (context: { params: { id: string } }) => {
+export async function getStaticPaths() {
+  const products = (siteDataJson as any).products || [];
+  return {
+    paths: products.map((p: { id: number | string }) => ({ params: { id: String(p.id) } })),
+    fallback: false,
+  };
+}
+
+export const getStaticProps = async (context: { params: { id: string } }) => {
   const { id } = context.params;
-  const siteDataPath = path.join(process.cwd(), 'site-data.json');
-  const siteData = JSON.parse(fs.readFileSync(siteDataPath, 'utf-8'));
-  const products = siteData.products || [];
+  const products = (siteDataJson as any).products || [];
   const product = products.find((p: { id: number | string }) => String(p.id) === String(id));
   if (!product) return { notFound: true };
   const relatedProducts = products.filter((p: { id: number | string; category: { slug: string } }) => String(p.id) !== String(id) && (!product.category || !p.category || p.category.slug === product.category.slug)).slice(0, 8);

@@ -29,8 +29,7 @@ import {
 } from 'lucide-react';
 import Layout from '@/components/Layout';
 import ProductCard from '@/components/ProductCard';
-import fs from 'fs';
-import path from 'path';
+import siteDataJson from '../../../site-data.json';
 
 interface Product {
   id: number | string;
@@ -322,9 +321,14 @@ export default function StorePage({ products }: { products: Product[] }) {
   );
 }
 
-export const getServerSideProps = async () => {
-  const siteDataPath = path.join(process.cwd(), 'site-data.json');
-  const siteData = JSON.parse(fs.readFileSync(siteDataPath, 'utf-8'));
-  const products = siteData.products || [];
+export async function getStaticPaths() {
+  return {
+    paths: [{ params: { slug: 'yiwu-premium-trading' } }],
+    fallback: false,
+  };
+}
+
+export const getStaticProps = async (context: { params: { slug: string } }) => {
+  const products = (siteDataJson as any).products || [];
   return { props: { products } };
 };

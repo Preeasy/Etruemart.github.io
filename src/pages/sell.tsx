@@ -479,5 +479,3 @@ const Sell = () => {
 };
 
 export default Sell;
-
-export const getServerSideProps = () => ({ props: {} });

@@ -15,8 +15,7 @@ import {
 import ProductCard from '@/components/ProductCard';
 import Sidebar from '@/components/Sidebar';
 import Layout from '@/components/Layout';
-import fs from 'fs';
-import path from 'path';
+import siteDataJson from '../../../site-data.json';
 
 interface Product {
   id: number;
@@ -495,9 +494,7 @@ const Products = ({ products }: { products: Product[] }) => {
 
 export default Products;
 
-export const getServerSideProps = async () => {
-  const siteDataPath = path.join(process.cwd(), 'site-data.json');
-  const siteData = JSON.parse(fs.readFileSync(siteDataPath, 'utf-8'));
-  const products = siteData.products || [];
+export const getStaticProps = async () => {
+  const products = (siteDataJson as any).products || [];
   return { props: { products } };
 };

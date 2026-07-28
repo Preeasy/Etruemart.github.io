@@ -185,5 +185,3 @@ const Register = () => {
 };
 
 export default Register;
-
-export const getServerSideProps = () => ({ props: {} });

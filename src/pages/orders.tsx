@@ -133,5 +133,3 @@ const Orders = () => {
 };
 
 export default Orders;
-
-export const getServerSideProps = () => ({ props: {} });

@@ -199,5 +199,3 @@ const Cart = () => {
 };
 
 export default Cart;
-
-export const getServerSideProps = () => ({ props: {} });

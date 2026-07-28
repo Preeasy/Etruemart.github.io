@@ -519,5 +519,3 @@ const Dashboard = () => {
 };
 
 export default Dashboard;
-
-export const getServerSideProps = () => ({ props: {} });
