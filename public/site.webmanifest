@@ -1,0 +1,26 @@
+{
+  "name": "eTrue Mark - Wholesale Sourcing Platform",
+  "short_name": "eTrue Mark",
+  "description": "Wholesale jewelry, accessories & crafts direct from Yiwu factories.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0F2A4A",
+  "theme_color": "#0F2A4A",
+  "icons": [
+    {
+      "src": "/favicon-32x32.png",
+      "sizes": "32x32",
+      "type": "image/png"
+    },
+    {
+      "src": "/favicon-16x16.png",
+      "sizes": "16x16",
+      "type": "image/png"
+    },
+    {
+      "src": "/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    }
+  ]
+}

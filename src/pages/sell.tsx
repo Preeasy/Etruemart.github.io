@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
+import Head from 'next/head';
 import { Package, Plus, Image, DollarSign, ChevronRight } from 'lucide-react';
 import Layout from '@/components/Layout';
 
@@ -115,6 +116,10 @@ const Sell = () => {
 
   return (
     <Layout>
+      <Head>
+        <title>Become a Seller | eTrue Mark Wholesale Platform</title>
+        <meta name="description" content="Join 10,000+ suppliers on eTrue Mark. Reach global buyers, get verified, and grow your wholesale business." />
+      </Head>
       <div className="bg-gray-50 border-b border-gray-300/30">
         <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16 max-w-[1600px] mx-auto py-8">
           <h1 className="text-3xl font-bold text-gray-900">List a New Product</h1>

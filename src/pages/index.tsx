@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Head from 'next/head';
 import {
   ChevronRight,
   ArrowRight,
@@ -86,6 +87,15 @@ const Home = ({ products }: { products: Product[] }) => {
 
   return (
     <Layout>
+      <Head>
+        <title>eTrue Mark | Wholesale Jewelry, Accessories & Crafts from Yiwu, China</title>
+        <meta name="description" content="Source wholesale fashion jewelry, bag accessories, hair accessories, toys, gifts & home decor direct from Yiwu factories. Low MOQ, factory-direct pricing, global shipping to 180+ countries." />
+        <meta name="keywords" content="wholesale jewelry, Yiwu market, B2B sourcing, fashion jewelry wholesale, bag accessories wholesale, low MOQ jewelry, factory direct China" />
+        <link rel="canonical" href="https://etruemart.vercel.app/" />
+        <meta property="og:title" content="eTrue Mark | Wholesale Jewelry & Accessories from Yiwu" />
+        <meta property="og:description" content="Factory-direct wholesale jewelry, accessories & crafts. Low MOQ, global shipping." />
+        <meta property="og:type" content="website" />
+      </Head>
       <div className="bg-ink-50 min-h-screen">
         <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-10 py-6 lg:py-8">
           <div className="flex gap-6 lg:gap-8">

@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
+import Head from 'next/head';
 import {
   Search,
   ChevronDown,
@@ -98,6 +99,11 @@ const Products = ({ products }: { products: Product[] }) => {
 
   return (
     <Layout>
+      <Head>
+        <title>Wholesale Products Catalog | eTrue Mark</title>
+        <meta name="description" content="Browse 178+ wholesale products: fashion jewelry, bags, hair accessories, toys, garment accessories & home decor. Factory-direct pricing from Yiwu, China." />
+        <link rel="canonical" href="https://etruemart.vercel.app/products" />
+      </Head>
       {/* Breadcrumb */}
       <div className="bg-white border-b border-ink-100 shadow-sm">
         <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16 max-w-[1600px] mx-auto py-3.5">

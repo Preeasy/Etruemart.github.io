@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
+import Head from 'next/head';
 import { Package, Mail, Lock, User, Eye, EyeOff } from 'lucide-react';
 import Layout from '@/components/Layout';
 
@@ -41,6 +42,9 @@ const Register = () => {
 
   return (
     <Layout>
+      <Head>
+        <title>Register | eTrue Mark</title>
+      </Head>
       <div className="min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
         <div className="max-w-md w-full">
           <div className="text-center mb-8">

@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useRouter } from 'next/router';
 import { useSession } from 'next-auth/react';
 import Link from 'next/link';
+import Head from 'next/head';
 import Image from 'next/image';
 import {
   Star,
@@ -131,6 +132,36 @@ export default function ProductDetail({ product, relatedProducts }: { product: P
 
   return (
     <Layout>
+      <Head>
+        <title>{`${product.name} | Wholesale from Yiwu | eTrue Mark`}</title>
+        <meta name="description" content={`${product.description?.slice(0, 155) || product.name + ' - Wholesale from Yiwu, China'}`} />
+        <link rel="canonical" href={`https://etruemart.vercel.app/products/${product.id}`} />
+        <meta property="og:title" content={`${product.name} | eTrue Mark`} />
+        <meta property="og:description" content={product.description} />
+        <meta property="og:type" content="product" />
+        <meta property="og:image" content={product.image} />
+        <meta property="product:price:amount" content={String(product.priceMin || '')} />
+        <meta property="product:price:currency" content="USD" />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'Product',
+            name: product.name,
+            description: product.description,
+            image: product.image,
+            sku: product.sku,
+            brand: { '@type': 'Brand', name: 'eTrue Mark' },
+            offers: {
+              '@type': 'AggregateOffer',
+              priceCurrency: 'USD',
+              lowPrice: product.priceMin,
+              highPrice: product.priceMax,
+              availability: 'https://schema.org/InStock',
+              seller: { '@type': 'Organization', name: 'Yiwu Yeatru Trading Co., Ltd.' }
+            }
+          })
+        }} />
+      </Head>
       {/* Breadcrumb */}
       <div className="bg-white border-b border-ink-100">
         <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16 max-w-[1600px] mx-auto py-3.5">

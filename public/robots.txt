@@ -1,0 +1,13 @@
+User-agent: *
+Allow: /
+Disallow: /api/
+Disallow: /dashboard
+Disallow: /cart
+Disallow: /orders
+Disallow: /shipping-admin
+
+# Sitemap
+Sitemap: https://etruemart.vercel.app/sitemap.xml
+
+# Crawl delay for server友好
+Crawl-delay: 1
