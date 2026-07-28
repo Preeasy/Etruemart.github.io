@@ -184,36 +184,36 @@ export default function ProductDetail({ product, relatedProducts }: { product: P
       <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16 max-w-[1600px] mx-auto py-6">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 lg:gap-6">
           <div className="lg:col-span-6">
-            <div className="lg:sticky lg:top-20 space-y-2.5">
+            <div className="lg:sticky lg:top-20 space-y-3">
               {/* Main Image */}
-              <div className="relative bg-white rounded-2xl border border-ink-100 overflow-hidden shadow-sm group cursor-zoom-in" onClick={() => openLightbox(selectedImage)}>
+              <div className="relative bg-white rounded-xl border border-ink-200 overflow-hidden group cursor-zoom-in" onClick={() => openLightbox(selectedImage)}>
                 {discount > 0 && (
-                  <span className="absolute top-4 left-4 z-10 bg-accent-600 text-white text-[10px] font-bold px-2.5 py-1 rounded-md uppercase tracking-wider">
-                    Save {discount}%
+                  <span className="absolute top-3 left-3 z-10 bg-accent-500 text-white text-[10px] font-bold px-2 py-0.5 rounded-md uppercase tracking-wide">
+                    -{discount}%
                   </span>
                 )}
-                <div className="absolute top-4 right-4 z-10 flex gap-2">
-                  <button onClick={(e) => { e.stopPropagation(); setIsFavorite(!isFavorite); }} className={`w-9 h-9 rounded-full flex items-center justify-center transition-all shadow-sm ${isFavorite ? 'bg-red-500 text-white' : 'bg-white/90 text-ink-600 hover:text-red-500'}`}><Heart className={`w-4 h-4 ${isFavorite ? 'fill-white' : ''}`} /></button>
-                  <button className="w-9 h-9 rounded-full bg-white/90 text-ink-600 hover:text-accent-600 flex items-center justify-center shadow-sm transition-all" onClick={(e) => e.stopPropagation()}><Share2 className="w-4 h-4" /></button>
+                <div className="absolute top-3 right-3 z-10 flex gap-1.5">
+                  <button onClick={(e) => { e.stopPropagation(); setIsFavorite(!isFavorite); }} className={`w-8 h-8 rounded-full flex items-center justify-center transition-all border border-ink-200 bg-white ${isFavorite ? 'text-red-500' : 'text-ink-600 hover:text-red-500'}`}><Heart className={`w-3.5 h-3.5 ${isFavorite ? 'fill-red-500' : ''}`} /></button>
+                  <button className="w-8 h-8 rounded-full bg-white text-ink-600 hover:text-accent-600 flex items-center justify-center border border-ink-200 transition-all" onClick={(e) => e.stopPropagation()}><Share2 className="w-3.5 h-3.5" /></button>
                 </div>
-                <div className="relative aspect-[4/3] bg-ink-50">
-                  <Image src={images[selectedImage]} alt={product.name} fill className="object-contain p-6" quality={95} priority sizes="(max-width: 1024px) 100vw, 50vw" />
+                <div className="relative aspect-[4/3] bg-white">
+                  <Image src={images[selectedImage]} alt={product.name} fill className="object-contain p-5 md:p-8" quality={95} priority sizes="(max-width: 1024px) 100vw, 50vw" />
                 </div>
-                <div className="absolute bottom-3 right-3 bg-white/90 px-2.5 py-1 rounded-lg text-[10px] text-ink-500 font-medium flex items-center gap-1 shadow-sm border border-ink-100">
-                  <Search className="w-3 h-3" /> Click to zoom
+                <div className="absolute bottom-3 right-3 bg-white px-2 py-0.5 rounded-md text-[10px] text-ink-500 font-medium flex items-center gap-1 border border-ink-200">
+                  <Search className="w-2.5 h-2.5" /> Click to zoom
                 </div>
               </div>
 
               {/* Thumbnail strip */}
               {images.length > 1 && (
-                <div className="flex gap-2.5 overflow-x-auto pb-1">
+                <div className="flex gap-2 overflow-x-auto pb-0.5">
                   {images.map((img, i) => (
                     <button
                       key={i}
                       onClick={() => setSelectedImage(i)}
-                      className={`relative flex-shrink-0 w-20 h-20 rounded-xl overflow-hidden border-2 transition-all ${selectedImage === i ? 'border-accent-500' : 'border-ink-100 hover:border-accent-300'} bg-white`}
+                      className={`relative flex-shrink-0 w-16 h-16 md:w-20 md:h-20 rounded-lg overflow-hidden border transition-all ${selectedImage === i ? 'border-accent-500 ring-2 ring-accent-100' : 'border-ink-200 hover:border-navy-400'} bg-white`}
                     >
-                      <Image src={img} alt={`${product.name} - view ${i + 1}`} fill className="object-contain p-1.5" sizes="80px" />
+                      <Image src={img} alt={`${product.name} - view ${i + 1}`} fill className="object-contain p-1" sizes="80px" />
                     </button>
                   ))}
                 </div>
@@ -221,25 +221,27 @@ export default function ProductDetail({ product, relatedProducts }: { product: P
             </div>
           </div>
 
-          <div className="lg:col-span-6 space-y-4">
+          <div className="lg:col-span-6">
             {/* Category + SKU + Stock */}
-            <div className="flex items-center gap-3 flex-wrap">
+            <div className="flex items-center gap-2.5 flex-wrap mb-3">
               {product.category && (
-                <Link href={`/products?category=${product.category.slug}`} className="inline-flex items-center gap-1.5 bg-navy-50 text-navy-700 text-[11px] font-bold px-2.5 py-1 rounded-full border border-navy-200 hover:bg-navy-100 transition-colors">
+                <Link href={`/products?category=${product.category.slug}`} className="inline-flex items-center gap-1.5 text-[11px] font-semibold text-accent-600 hover:text-accent-700">
                   <Tag className="w-3 h-3" />{product.category.name}
                 </Link>
               )}
+              <span className="text-ink-300">·</span>
               {product.sku && <span className="text-[11px] text-ink-500 font-mono">SKU: {product.sku}</span>}
-              <span className="inline-flex items-center gap-1 text-[11px] text-success-600 font-bold">
-                <CheckCircle2 className="w-3.5 h-3.5" />In Stock ({stock.toLocaleString()})
+              <span className="text-ink-300">·</span>
+              <span className="inline-flex items-center gap-1 text-[11px] text-success-600 font-semibold">
+                <CheckCircle2 className="w-3.5 h-3.5" />In Stock
               </span>
             </div>
 
             {/* Title */}
-            <h1 className="text-2xl md:text-3xl font-bold text-navy-900 leading-tight">{product.name}</h1>
+            <h1 className="text-xl md:text-2xl font-bold text-navy-900 leading-tight mb-3">{product.name}</h1>
 
             {/* Rating & Sales */}
-            <div className="flex items-center gap-3 flex-wrap">
+            <div className="flex items-center gap-2.5 flex-wrap mb-4">
               <div className="flex items-center gap-1.5">
                 <div className="flex gap-0.5">
                   {[...Array(5)].map((_, i) => <Star key={i} className={`w-3.5 h-3.5 ${i < Math.floor(rating) ? 'text-accent-500 fill-accent-500' : 'text-ink-200'}`} />)}
@@ -247,115 +249,107 @@ export default function ProductDetail({ product, relatedProducts }: { product: P
                 <span className="text-sm font-bold text-navy-800">{rating.toFixed(1)}</span>
                 <Link href="#reviews" className="text-xs text-accent-600 font-semibold hover:underline">({reviewCount} reviews)</Link>
               </div>
-              <span className="text-ink-300">|</span>
+              <span className="text-ink-200">|</span>
               <div className="flex items-center gap-1 text-xs text-ink-500">
                 <Users className="w-3.5 h-3.5" />
                 <span><span className="font-bold text-navy-800">{salesCount.toLocaleString()}</span> sold</span>
               </div>
             </div>
 
-            {/* Price */}
-            <div className="bg-white border border-ink-100 rounded-xl p-4">
-              <div className="flex items-baseline gap-3 flex-wrap">
-                <span className="text-3xl font-extrabold text-navy-900">${price.toFixed(2)}</span>
-                {originalPrice && originalPrice > price && (
-                  <span className="text-base text-ink-400 line-through">${originalPrice.toFixed(2)}</span>
-                )}
-                {discount > 0 && (
-                  <span className="inline-flex items-center gap-1 bg-accent-50 text-accent-600 text-[10px] font-bold px-2 py-0.5 rounded">
-                    <Flame className="w-3 h-3" />SAVE {discount}%
-                  </span>
-                )}
-              </div>
-              <p className="text-xs text-ink-500 mt-1">Price varies by quantity & customization. Bulk discounts available.</p>
+            {/* Price — 核心转化区域 */}
+            <div className="flex items-baseline gap-3 flex-wrap pb-4 border-b border-ink-100">
+              <span className="text-3xl md:text-4xl font-extrabold text-navy-900 tracking-tight">${price.toFixed(2)}</span>
+              {originalPrice && originalPrice > price && (
+                <span className="text-sm text-ink-400 line-through">${originalPrice.toFixed(2)}</span>
+              )}
+              {discount > 0 && (
+                <span className="inline-flex items-center bg-accent-50 text-accent-600 text-[11px] font-bold px-2 py-0.5 rounded-md">
+                  -{discount}% OFF
+                </span>
+              )}
             </div>
+            <p className="text-xs text-ink-500 mt-2 mb-4">Price varies by quantity. Bulk discounts available. Contact us for custom orders.</p>
 
-            {/* Specs */}
-            <div className="grid grid-cols-3 gap-x-4 gap-y-2.5 py-3 border-y border-ink-100">
+            {/* Specs — 关键规格一览 */}
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-y-3 gap-x-4 py-4 border-b border-ink-100">
               {product.material && (
                 <div>
-                  <span className="text-[10px] text-ink-500 uppercase tracking-[0.08em] font-bold">Material</span>
-                  <p className="text-sm font-bold text-navy-800 mt-0.5">{product.material}</p>
+                  <span className="text-[10px] text-ink-400 uppercase tracking-[0.08em] font-semibold">Material</span>
+                  <p className="text-sm font-semibold text-navy-800 mt-0.5">{product.material}</p>
                 </div>
               )}
               {product.size && (
                 <div>
-                  <span className="text-[10px] text-ink-500 uppercase tracking-[0.08em] font-bold">Size</span>
-                  <p className="text-sm font-bold text-navy-800 mt-0.5">{product.size}</p>
+                  <span className="text-[10px] text-ink-400 uppercase tracking-[0.08em] font-semibold">Size</span>
+                  <p className="text-sm font-semibold text-navy-800 mt-0.5">{product.size}</p>
                 </div>
               )}
               <div>
-                <span className="text-[10px] text-ink-500 uppercase tracking-[0.08em] font-bold">MOQ</span>
-                <p className="text-sm font-bold text-navy-800 mt-0.5">{product.moq || 12} pcs</p>
+                <span className="text-[10px] text-ink-400 uppercase tracking-[0.08em] font-semibold">MOQ</span>
+                <p className="text-sm font-semibold text-navy-800 mt-0.5">{product.moq || 12} pcs</p>
               </div>
               {product.plating && (
                 <div>
-                  <span className="text-[10px] text-ink-500 uppercase tracking-[0.08em] font-bold">Finish</span>
-                  <p className="text-sm font-bold text-navy-800 mt-0.5">{product.plating}</p>
+                  <span className="text-[10px] text-ink-400 uppercase tracking-[0.08em] font-semibold">Finish</span>
+                  <p className="text-sm font-semibold text-navy-800 mt-0.5">{product.plating}</p>
                 </div>
               )}
               {product.color && (
                 <div>
-                  <span className="text-[10px] text-ink-500 uppercase tracking-[0.08em] font-bold">Color</span>
-                  <p className="text-sm font-bold text-navy-800 mt-0.5">{product.color}</p>
+                  <span className="text-[10px] text-ink-400 uppercase tracking-[0.08em] font-semibold">Color</span>
+                  <p className="text-sm font-semibold text-navy-800 mt-0.5">{product.color}</p>
                 </div>
               )}
               <div>
-                <span className="text-[10px] text-ink-500 uppercase tracking-[0.08em] font-bold">Pack</span>
-                <p className="text-sm font-bold text-navy-800 mt-0.5">{product.packSize || product.moq || 12} pcs</p>
+                <span className="text-[10px] text-ink-400 uppercase tracking-[0.08em] font-semibold">Pack Size</span>
+                <p className="text-sm font-semibold text-navy-800 mt-0.5">{product.packSize || product.moq || 12} pcs</p>
               </div>
             </div>
 
             {/* Description */}
-            <p className="text-sm text-ink-600 leading-relaxed">{product.description}</p>
+            <div className="py-4 border-b border-ink-100">
+              <p className="text-sm text-ink-600 leading-relaxed">{product.description}</p>
+            </div>
 
-            {/* Quantity + CTA */}
-            <div className="bg-white rounded-xl border border-ink-100 p-4 space-y-3.5">
-              <div>
-                <div className="flex items-center justify-between mb-2">
-                  <h3 className="text-sm font-bold text-navy-800">Order Quantity</h3>
+            {/* Quantity + CTA — 主操作区 */}
+            <div className="py-4 border-b border-ink-100">
+              <h3 className="text-sm font-bold text-navy-800 mb-2.5">Order Quantity</h3>
+              <div className="flex items-center gap-3 mb-4">
+                <div className="flex items-center border border-ink-200 rounded-lg bg-white overflow-hidden">
+                  <button onClick={() => setQuantity(Math.max(product.moq || 1, quantity - 12))} className="px-3 py-2 hover:bg-ink-50 transition-colors text-ink-600"><Minus className="w-4 h-4" /></button>
+                  <span className="px-4 font-bold text-navy-800 min-w-[70px] text-center">{quantity}</span>
+                  <button onClick={() => setQuantity(quantity + 12)} className="px-3 py-2 hover:bg-ink-50 transition-colors text-ink-600"><Plus className="w-4 h-4" /></button>
                 </div>
-                <div className="flex items-center gap-3">
-                  <div className="flex items-center border border-ink-200 rounded-lg bg-white overflow-hidden">
-                    <button onClick={() => setQuantity(Math.max(product.moq || 1, quantity - 12))} className="px-3 py-2 hover:bg-ink-50 transition-colors text-ink-600"><Minus className="w-4 h-4" /></button>
-                    <span className="px-4 font-bold text-navy-800 min-w-[60px] text-center">{quantity}</span>
-                    <button onClick={() => setQuantity(quantity + 12)} className="px-3 py-2 hover:bg-ink-50 transition-colors text-ink-600"><Plus className="w-4 h-4" /></button>
-                  </div>
-                  <span className="text-xs text-ink-500 font-medium">Step: 12 pcs</span>
-                </div>
+                <span className="text-xs text-ink-500 font-medium">Step: 12 pcs</span>
               </div>
               <div className="flex flex-col sm:flex-row gap-2.5">
-                <button onClick={handleAddToCart} className="flex-1 flex items-center justify-center gap-2 bg-accent-600 hover:bg-accent-700 text-white py-3 rounded-lg font-bold transition-colors">
-                  <MessageCircle className="w-5 h-5" />Contact Supplier
+                <button onClick={handleAddToCart} className="flex-1 flex items-center justify-center gap-2 bg-accent-600 hover:bg-accent-700 text-white py-2.5 rounded-lg font-bold text-sm transition-colors">
+                  <MessageCircle className="w-4 h-4" />Contact Supplier
                 </button>
-                <button onClick={handleAddToCart} className="flex-1 flex items-center justify-center gap-2 bg-navy-800 hover:bg-navy-900 text-white py-3 rounded-lg font-bold transition-colors">
-                  <ShoppingCart className="w-5 h-5" />Add to Inquiry
+                <button onClick={handleAddToCart} className="flex-1 flex items-center justify-center gap-2 bg-navy-800 hover:bg-navy-900 text-white py-2.5 rounded-lg font-bold text-sm transition-colors">
+                  <ShoppingCart className="w-4 h-4" />Add to Inquiry
                 </button>
               </div>
             </div>
 
-            {/* Purchase Protection */}
-            <div className="bg-white rounded-xl border border-ink-100 p-4">
-              <h3 className="text-sm font-bold text-navy-800 uppercase tracking-[0.08em] mb-2.5 flex items-center gap-2">
-                <Shield className="w-4 h-4 text-accent-500" />
-                Purchase Protection
-              </h3>
-              <div className="grid grid-cols-4 gap-2">
+            {/* Purchase Protection — 信任徽标 */}
+            <div className="py-4 border-b border-ink-100">
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
                 {[
                   { icon: Truck, label: 'Free Shipping', desc: 'Orders $50+' },
                   { icon: ShieldCheck, label: 'Secure Payment', desc: 'SSL encrypted' },
-                  { icon: RotateCcw, label: 'Easy Returns', desc: '30-day policy' },
+                  { icon: RotateCcw, label: '30-Day Returns', desc: 'Easy policy' },
                   { icon: Headphones, label: '24/7 Support', desc: 'Live chat' },
                 ].map((item, i) => {
                   const Icon = item.icon;
                   return (
-                    <div key={i} className="flex items-center gap-2 p-2 rounded-lg hover:bg-ink-50 transition-colors">
-                      <div className="w-7 h-7 rounded-lg bg-navy-50 flex items-center justify-center flex-shrink-0">
-                        <Icon className="w-3.5 h-3.5 text-navy-600" />
+                    <div key={i} className="flex items-center gap-2">
+                      <div className="w-8 h-8 rounded-md bg-ink-50 flex items-center justify-center flex-shrink-0">
+                        <Icon className="w-4 h-4 text-navy-600" />
                       </div>
                       <div className="min-w-0">
-                        <p className="text-[10px] font-bold text-navy-800 leading-tight">{item.label}</p>
-                        <p className="text-[9px] text-ink-500 leading-tight">{item.desc}</p>
+                        <p className="text-[11px] font-bold text-navy-800 leading-tight">{item.label}</p>
+                        <p className="text-[10px] text-ink-500 leading-tight">{item.desc}</p>
                       </div>
                     </div>
                   );
@@ -364,25 +358,27 @@ export default function ProductDetail({ product, relatedProducts }: { product: P
             </div>
 
             {/* Shipping Info */}
-            <ShippingSelector categorySlug={product.category?.slug} />
+            <div className="py-4 border-b border-ink-100">
+              <ShippingSelector categorySlug={product.category?.slug} />
+            </div>
 
             {/* Supplier Card */}
-            <Link href="/store/yiwu-premium-trading" className="block bg-white rounded-xl p-3 border border-ink-100 hover:border-accent-300 hover:shadow-sm transition-all group">
-              <div className="flex items-center gap-2.5">
-                <div className="w-10 h-10 rounded-lg bg-navy-800 flex items-center justify-center text-white font-bold text-base">
+            <Link href="/store/yiwu-premium-trading" className="block py-4 border-b border-ink-100 last:border-b-0 group">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-lg bg-navy-50 flex items-center justify-center text-navy-800 font-bold text-sm border border-ink-200">
                   YW
                 </div>
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2">
-                    <p className="text-xs font-bold text-navy-800 group-hover:text-accent-600 transition-colors">{product.seller || 'Yiwu Yeatru trading company'}</p>
-                    <CheckCircle2 className="w-3 h-3 text-success-500" />
+                    <p className="text-sm font-bold text-navy-800 group-hover:text-accent-600 transition-colors">{product.seller || 'Yiwu Yeatru Trading Co.'}</p>
+                    <CheckCircle2 className="w-3.5 h-3.5 text-success-500 flex-shrink-0" />
                   </div>
                   <div className="flex items-center gap-2 mt-0.5">
-                    <span className="text-[9px] bg-success-50 text-success-700 px-1.5 py-0.5 rounded font-bold border border-success-200">VERIFIED</span>
-                    <span className="text-[9px] text-ink-500 font-medium">8 yrs · 95% response</span>
+                    <span className="text-[10px] bg-success-50 text-success-700 px-1.5 py-0.5 rounded font-semibold border border-success-200">VERIFIED</span>
+                    <span className="text-[10px] text-ink-500 font-medium">8 yrs · 95% response rate</span>
                   </div>
                 </div>
-                <Store className="w-4 h-4 text-accent-500" />
+                <Store className="w-4 h-4 text-accent-500 flex-shrink-0" />
               </div>
             </Link>
           </div>
@@ -391,181 +387,176 @@ export default function ProductDetail({ product, relatedProducts }: { product: P
         {/* Tabs + Sidebar */}
         <div className="grid lg:grid-cols-12 gap-5 lg:gap-6 mt-8">
           <div className="lg:col-span-8">
-            <div className="bg-white rounded-2xl border border-ink-100 overflow-hidden">
-              {/* Tabs */}
-              <div className="border-b border-ink-100 px-6 bg-ink-50">
-                <div className="flex gap-1 overflow-x-auto">
-                  {[
-                    { key: 'description', label: 'Description', icon: FileCheck },
-                    { key: 'specs', label: 'Specifications', icon: Layers },
-                    { key: 'reviews', label: `Reviews (${reviewCount})`, icon: Star },
-                    { key: 'faq', label: 'FAQ', icon: MessageCircle },
-                  ].map((tab) => {
-                    const Icon = tab.icon;
-                    return (
-                      <button
-                        key={tab.key}
-                        onClick={() => setActiveTab(tab.key)}
-                        className={`flex items-center gap-2 py-4 px-4 font-bold text-sm border-b-2 transition-all whitespace-nowrap ${activeTab === tab.key ? 'border-accent-500 text-accent-600' : 'border-transparent text-ink-500 hover:text-navy-800'}`}
-                      >
-                        <Icon className="w-4 h-4" />{tab.label}
-                      </button>
-                    );
-                  })}
+            {/* Tabs Nav */}
+            <div className="border-b border-ink-200 mb-5">
+              <div className="flex gap-0.5 overflow-x-auto">
+                {[
+                  { key: 'description', label: 'Description', icon: FileCheck },
+                  { key: 'specs', label: 'Specifications', icon: Layers },
+                  { key: 'reviews', label: `Reviews (${reviewCount})`, icon: Star },
+                  { key: 'faq', label: 'FAQ', icon: MessageCircle },
+                ].map((tab) => {
+                  const Icon = tab.icon;
+                  return (
+                    <button
+                      key={tab.key}
+                      onClick={() => setActiveTab(tab.key)}
+                      id={tab.key === 'reviews' ? 'reviews' : undefined}
+                      className={`flex items-center gap-2 py-3 px-4 font-bold text-sm border-b-2 transition-all whitespace-nowrap -mb-px ${activeTab === tab.key ? 'border-accent-500 text-accent-600' : 'border-transparent text-ink-500 hover:text-navy-800 hover:border-ink-200'}`}
+                    >
+                      <Icon className="w-4 h-4" />{tab.label}
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+
+            <div className="py-1">
+              {activeTab === 'description' && (
+                <div className="space-y-5">
+                  <div>
+                    <h2 className="text-lg font-bold text-navy-900 mb-2.5">Product Overview</h2>
+                    <p className="text-sm text-ink-600 leading-relaxed">{product.description}</p>
+                  </div>
+                  <div>
+                    <h3 className="text-base font-bold text-navy-800 mb-3 flex items-center gap-2">
+                      <CheckCircle2 className="w-4 h-4 text-accent-500" />Key Features
+                    </h3>
+                    <div className="grid md:grid-cols-2 gap-2">
+                      {['Premium quality materials from certified suppliers','Rigorous 3-stage quality control','Low MOQ for small businesses','Custom branding & packaging available','Fast production: 7-15 days lead time','Worldwide shipping with DDP/DDU','Competitive factory-direct pricing','Dedicated account manager for bulk'].map((f, i) => (
+                        <div key={i} className="flex items-start gap-2 p-2.5 rounded-lg border border-ink-100 bg-white">
+                          <CheckCircle2 className="w-4 h-4 text-accent-500 flex-shrink-0 mt-0.5" />
+                          <span className="text-sm text-ink-700">{f}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                  <div>
+                    <h3 className="text-base font-bold text-navy-800 mb-3 flex items-center gap-2">
+                      <Users className="w-4 h-4 text-accent-500" />Perfect For
+                    </h3>
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-2.5">
+                      {['Boutique Stores','Online Retailers','Wholesale Distributors','Gift Shops'].map((u, i) => (
+                        <div key={i} className="border border-ink-100 rounded-lg p-3 text-center bg-white">
+                          <p className="text-xs font-bold text-navy-800">{u}</p>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
                 </div>
-              </div>
+              )}
 
-              <div className="p-6 md:p-8">
-                {activeTab === 'description' && (
-                  <div className="space-y-6">
-                    <div>
-                      <h2 className="text-xl font-bold text-navy-900 mb-3">Product Overview</h2>
-                      <p className="text-sm text-ink-600 leading-relaxed">{product.description}</p>
-                    </div>
-                    <div>
-                      <h3 className="text-lg font-bold text-navy-800 mb-3 flex items-center gap-2">
-                        <CheckCircle2 className="w-5 h-5 text-accent-500" />Key Features
-                      </h3>
-                      <div className="grid md:grid-cols-2 gap-2.5">
-                        {['Premium quality materials from certified suppliers','Rigorous 3-stage quality control','Low MOQ for small businesses','Custom branding & packaging available','Fast production: 7-15 days lead time','Worldwide shipping with DDP/DDU','Competitive factory-direct pricing','Dedicated account manager for bulk'].map((f, i) => (
-                          <div key={i} className="flex items-start gap-2.5 p-2.5 rounded-lg bg-ink-50">
-                            <CheckCircle2 className="w-4 h-4 text-accent-500 flex-shrink-0 mt-0.5" />
-                            <span className="text-sm text-ink-700">{f}</span>
-                          </div>
-                        ))}
+              {activeTab === 'specs' && (
+                <div>
+                  <h2 className="text-lg font-bold text-navy-900 mb-4">Product Specifications</h2>
+                  <div className="grid md:grid-cols-2 gap-0 border border-ink-200 rounded-xl overflow-hidden">
+                    {[
+                      { label: 'Product Name', value: product.name },
+                      { label: 'SKU', value: product.sku || 'N/A' },
+                      { label: 'Category', value: product.category?.name || 'N/A' },
+                      { label: 'Material', value: product.material || 'N/A' },
+                      { label: 'Plating', value: product.plating || 'N/A' },
+                      { label: 'Color', value: product.color || 'Multiple options' },
+                      { label: 'Size', value: product.size || 'Standard' },
+                      { label: 'MOQ', value: `${product.moq || 12} pieces` },
+                      { label: 'Pack Size', value: `${product.packSize || product.moq || 12} pcs/carton` },
+                      { label: 'Origin', value: product.origin || 'Yiwu, China' },
+                      { label: 'Lead Time', value: '7-15 days' },
+                      { label: 'Customization', value: 'OEM/ODM available' },
+                      { label: 'Sample', value: 'Yes' },
+                      { label: 'Shipping', value: 'DHL, FedEx, Sea, Air' },
+                    ].map((spec, i) => (
+                      <div key={i} className="flex justify-between items-center py-2.5 px-4 border-b border-r border-ink-100 last:border-b-0 even:border-r-0 md:even:border-r">
+                        <span className="text-sm text-ink-500 font-medium">{spec.label}</span>
+                        <span className="text-sm font-semibold text-navy-800 text-right max-w-[60%] truncate">{spec.value}</span>
                       </div>
-                    </div>
-                    <div>
-                      <h3 className="text-lg font-bold text-navy-800 mb-3 flex items-center gap-2">
-                        <Users className="w-5 h-5 text-accent-500" />Perfect For
-                      </h3>
-                      <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-                        {['Boutique Stores','Online Retailers','Wholesale Distributors','Gift Shops'].map((u, i) => (
-                          <div key={i} className="bg-ink-50 rounded-xl p-4 text-center">
-                            <p className="text-xs font-bold text-navy-800">{u}</p>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
+                    ))}
                   </div>
-                )}
+                </div>
+              )}
 
-                {activeTab === 'specs' && (
-                  <div>
-                    <h2 className="text-xl font-bold text-navy-900 mb-4">Product Specifications</h2>
-                    <div className="grid md:grid-cols-2 gap-x-8 bg-ink-50 rounded-2xl p-2">
-                      {[
-                        { label: 'Product Name', value: product.name },
-                        { label: 'SKU', value: product.sku || 'N/A' },
-                        { label: 'Category', value: product.category?.name || 'N/A' },
-                        { label: 'Material', value: product.material || 'N/A' },
-                        { label: 'Plating', value: product.plating || 'N/A' },
-                        { label: 'Color', value: product.color || 'Multiple options' },
-                        { label: 'Size', value: product.size || 'Standard' },
-                        { label: 'MOQ', value: `${product.moq || 12} pieces` },
-                        { label: 'Pack Size', value: `${product.packSize || product.moq || 12} pcs/carton` },
-                        { label: 'Origin', value: product.origin || 'Yiwu, China' },
-                        { label: 'Lead Time', value: '7-15 days' },
-                        { label: 'Customization', value: 'OEM/ODM available' },
-                        { label: 'Sample', value: 'Yes' },
-                        { label: 'Shipping', value: 'DHL, FedEx, Sea, Air' },
-                      ].map((spec, i) => (
-                        <div key={i} className="flex justify-between items-center py-3 px-3 border-b border-white last:border-0">
-                          <span className="text-sm text-ink-500 font-medium">{spec.label}</span>
-                          <span className="text-sm font-bold text-navy-800 text-right">{spec.value}</span>
+              {activeTab === 'reviews' && (
+                <div>
+                  <h2 className="text-lg font-bold text-navy-900 mb-4">Customer Reviews</h2>
+                  <div className="grid md:grid-cols-3 gap-4 mb-6 pb-5 border-b border-ink-200">
+                    <div className="text-center md:border-r md:border-ink-200">
+                      <div className="text-4xl font-bold text-navy-800 mb-1">{rating.toFixed(1)}</div>
+                      <div className="flex gap-0.5 justify-center mb-1">
+                        {[...Array(5)].map((_, i) => <Star key={i} className={`w-3.5 h-3.5 ${i < Math.floor(rating) ? 'text-accent-500 fill-accent-500' : 'text-ink-200'}`} />)}
+                      </div>
+                      <p className="text-xs text-ink-500 font-medium">Based on {reviewCount} reviews</p>
+                    </div>
+                    <div className="md:col-span-2 space-y-1.5">
+                      {[{ stars: 5, pct: 78 }, { stars: 4, pct: 15 }, { stars: 3, pct: 5 }, { stars: 2, pct: 1 }, { stars: 1, pct: 1 }].map((row) => (
+                        <div key={row.stars} className="flex items-center gap-2">
+                          <div className="flex gap-0.5 w-14 flex-shrink-0">
+                            {[...Array(5)].map((_, i) => <Star key={i} className={`w-3 h-3 ${i < row.stars ? 'text-accent-500 fill-accent-500' : 'text-ink-200'}`} />)}
+                          </div>
+                          <div className="flex-1 h-1.5 bg-ink-100 rounded-full overflow-hidden">
+                            <div className="h-full bg-accent-500 rounded-full" style={{ width: `${row.pct}%` }}></div>
+                          </div>
+                          <span className="text-xs text-ink-500 w-8 text-right font-semibold">{row.pct}%</span>
                         </div>
                       ))}
                     </div>
                   </div>
-                )}
-
-                {activeTab === 'reviews' && (
-                  <div>
-                    <div className="flex items-center gap-2 mb-5">
-                      <h2 className="text-xl font-bold text-navy-900">Customer Reviews</h2>
-                    </div>
-                    <div className="grid md:grid-cols-3 gap-6 mb-8 pb-6 border-b border-ink-100 bg-ink-50 rounded-2xl p-5">
-                      <div className="text-center md:border-r md:border-ink-200">
-                        <div className="text-5xl font-bold text-navy-800 mb-1">{rating.toFixed(1)}</div>
-                        <div className="flex gap-0.5 justify-center mb-1.5">
-                          {[...Array(5)].map((_, i) => <Star key={i} className={`w-4 h-4 ${i < Math.floor(rating) ? 'text-accent-500 fill-accent-500' : 'text-ink-300'}`} />)}
-                        </div>
-                        <p className="text-xs text-ink-500 font-medium">Based on {reviewCount} reviews</p>
-                      </div>
-                      <div className="md:col-span-2 space-y-2">
-                        {[{ stars: 5, pct: 78 }, { stars: 4, pct: 15 }, { stars: 3, pct: 5 }, { stars: 2, pct: 1 }, { stars: 1, pct: 1 }].map((row) => (
-                          <div key={row.stars} className="flex items-center gap-2">
-                            <div className="flex gap-0.5 w-16">
-                              {[...Array(5)].map((_, i) => <Star key={i} className={`w-3 h-3 ${i < row.stars ? 'text-accent-500 fill-accent-500' : 'text-ink-200'}`} />)}
-                            </div>
-                            <div className="flex-1 h-2 bg-ink-200 rounded-full overflow-hidden">
-                              <div className="h-full bg-accent-500 rounded-full" style={{ width: `${row.pct}%` }}></div>
-                            </div>
-                            <span className="text-xs text-ink-600 w-10 text-right font-bold">{row.pct}%</span>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                    <div className="space-y-5">
-                      {sampleReviews.map((review) => (
-                        <div key={review.id} className="pb-5 border-b border-ink-100 last:border-0">
-                          <div className="flex items-center gap-3 mb-2.5">
-                            <div className="w-10 h-10 rounded-full bg-navy-800 flex items-center justify-center text-white font-bold text-sm">{review.user?.name?.[0] || 'U'}</div>
-                            <div>
-                              <p className="text-sm font-bold text-navy-800">{review.user?.name || 'Anonymous'}</p>
-                              <div className="flex items-center gap-2">
-                                <div className="flex gap-0.5">
-                                  {[...Array(5)].map((_, i) => <Star key={i} className={`w-3 h-3 ${i < review.rating ? 'text-accent-500 fill-accent-500' : 'text-ink-200'}`} />)}
-                                </div>
-                                <span className="text-[10px] text-ink-500 font-medium">{new Date(review.createdAt).toLocaleDateString()}</span>
+                  <div className="space-y-4">
+                    {sampleReviews.map((review) => (
+                      <div key={review.id} className="pb-4 border-b border-ink-100 last:border-0">
+                        <div className="flex items-center gap-3 mb-2">
+                          <div className="w-9 h-9 rounded-full bg-navy-50 flex items-center justify-center text-navy-800 font-bold text-sm border border-ink-200">{review.user?.name?.[0] || 'U'}</div>
+                          <div>
+                            <p className="text-sm font-semibold text-navy-800">{review.user?.name || 'Anonymous'}</p>
+                            <div className="flex items-center gap-2">
+                              <div className="flex gap-0.5">
+                                {[...Array(5)].map((_, i) => <Star key={i} className={`w-3 h-3 ${i < review.rating ? 'text-accent-500 fill-accent-500' : 'text-ink-200'}`} />)}
                               </div>
+                              <span className="text-[10px] text-ink-500 font-medium">{new Date(review.createdAt).toLocaleDateString()}</span>
                             </div>
                           </div>
-                          <h4 className="text-sm font-bold text-navy-800 mb-1.5">{review.title}</h4>
-                          <p className="text-sm text-ink-600 leading-relaxed">{review.content}</p>
                         </div>
-                      ))}
-                    </div>
+                        <h4 className="text-sm font-semibold text-navy-800 mb-1">{review.title}</h4>
+                        <p className="text-sm text-ink-600 leading-relaxed">{review.content}</p>
+                      </div>
+                    ))}
                   </div>
-                )}
+                </div>
+              )}
 
-                {activeTab === 'faq' && (
-                  <div>
-                    <h2 className="text-xl font-bold text-navy-900 mb-4">Frequently Asked Questions</h2>
-                    <div className="space-y-3">
-                      {faqs.map((faq, i) => (
-                        <details key={i} className="group border border-ink-100 rounded-xl overflow-hidden hover:border-accent-300 transition-colors">
-                          <summary className="flex items-center justify-between p-4 cursor-pointer hover:bg-ink-50 transition-colors">
-                            <span className="text-sm font-bold text-navy-800 pr-4">{faq.q}</span>
-                            <div className="w-7 h-7 rounded-lg bg-ink-100 flex items-center justify-center flex-shrink-0 group-open:bg-accent-600 group-open:text-white transition-colors">
-                              <Plus className="w-3.5 h-3.5 text-ink-500 group-open:text-white transition-all group-open:rotate-45" />
-                            </div>
-                          </summary>
-                          <div className="px-4 pb-4 text-sm text-ink-600 leading-relaxed border-t border-ink-100 pt-3 bg-ink-50/50">{faq.a}</div>
-                        </details>
-                      ))}
-                    </div>
+              {activeTab === 'faq' && (
+                <div>
+                  <h2 className="text-lg font-bold text-navy-900 mb-4">Frequently Asked Questions</h2>
+                  <div className="space-y-2">
+                    {faqs.map((faq, i) => (
+                      <details key={i} className="group border border-ink-200 rounded-lg overflow-hidden">
+                        <summary className="flex items-center justify-between p-3.5 cursor-pointer hover:bg-ink-50 transition-colors list-none">
+                          <span className="text-sm font-semibold text-navy-800 pr-4">{faq.q}</span>
+                          <div className="w-6 h-6 rounded-md bg-ink-100 flex items-center justify-center flex-shrink-0 group-open:bg-accent-500 group-open:text-white transition-colors">
+                            <Plus className="w-3 h-3 text-ink-500 group-open:text-white transition-all group-open:rotate-45" />
+                          </div>
+                        </summary>
+                        <div className="px-4 pb-3.5 text-sm text-ink-600 leading-relaxed border-t border-ink-100 pt-3">{faq.a}</div>
+                      </details>
+                    ))}
                   </div>
-                )}
-              </div>
+                </div>
+              )}
             </div>
 
             {/* Related Products */}
             {relatedProducts && relatedProducts.length > 0 && (
-              <div className="mt-8">
-                <div className="flex items-center justify-between mb-5">
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-xl bg-accent-600 flex items-center justify-center">
-                      <TrendingUp className="w-5 h-5 text-white" />
-                    </div>
+              <div className="mt-8 pt-6 border-t border-ink-200">
+                <div className="flex items-center justify-between mb-4">
+                  <div className="flex items-center gap-2">
+                    <TrendingUp className="w-5 h-5 text-accent-500" />
                     <div>
-                      <h2 className="text-xl font-bold text-navy-900">Related Products</h2>
+                      <h2 className="text-lg font-bold text-navy-900">Related Products</h2>
                       <p className="text-xs text-ink-500">More from {product.category?.name || 'this category'}</p>
                     </div>
                   </div>
-                  <Link href={`/products?category=${product.category?.slug}`} className="inline-flex items-center gap-1 text-accent-600 hover:text-accent-700 text-sm font-bold">View All <ChevronRight className="w-4 h-4" /></Link>
+                  <Link href={`/products?category=${product.category?.slug}`} className="inline-flex items-center gap-0.5 text-accent-600 hover:text-accent-700 text-sm font-bold">View All <ChevronRight className="w-3.5 h-3.5" /></Link>
                 </div>
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
                   {relatedProducts.slice(0, 4).map((item) => <ProductCard key={item.id} product={item} />)}
                 </div>
               </div>
@@ -574,45 +565,52 @@ export default function ProductDetail({ product, relatedProducts }: { product: P
 
           {/* Right Sidebar */}
           <aside className="hidden lg:block lg:col-span-4">
-            <div className="sticky top-24 space-y-5">
-              <div className="bg-white rounded-2xl border border-ink-100 overflow-hidden">
-                <div className="bg-navy-800 px-5 py-3.5">
-                  <h3 className="text-sm font-bold text-white flex items-center gap-2"><Flame className="w-4 h-4 text-accent-400" />Hot Products</h3>
+            <div className="sticky top-24 space-y-4">
+              {/* Hot Products */}
+              <div className="bg-white rounded-xl border border-ink-200 overflow-hidden">
+                <div className="px-4 py-3 border-b border-ink-100">
+                  <h3 className="text-sm font-bold text-navy-800 flex items-center gap-2"><Flame className="w-4 h-4 text-accent-500" />Hot Products</h3>
                 </div>
-                <div className="p-3 space-y-2.5">
+                <div className="p-3 space-y-1.5">
                   {relatedProducts.slice(0, 5).map((item, i) => (
-                    <Link key={item.id} href={`/products/${item.id}`} className="flex gap-3 p-2.5 rounded-xl hover:bg-ink-50 transition-colors group">
-                      <div className="relative w-16 h-16 flex-shrink-0 bg-ink-50 rounded-lg overflow-hidden">
-                        <Image src={item.image} alt={item.name} fill className="object-contain p-1" sizes="64px" />
-                        <span className="absolute top-0.5 left-0.5 w-5 h-5 bg-accent-600 text-white text-[10px] font-bold rounded flex items-center justify-center">{i + 1}</span>
+                    <Link key={item.id} href={`/products/${item.id}`} className="flex gap-3 p-2 rounded-lg hover:bg-ink-50 transition-colors group">
+                      <div className="relative w-14 h-14 flex-shrink-0 bg-ink-50 rounded-md overflow-hidden border border-ink-100">
+                        <Image src={item.image} alt={item.name} fill className="object-contain p-1" sizes="56px" />
+                        <span className="absolute top-0 left-0 w-5 h-5 bg-accent-500 text-white text-[10px] font-bold rounded-br flex items-center justify-center">{i + 1}</span>
                       </div>
                       <div className="flex-1 min-w-0">
-                        <p className="text-xs font-bold text-navy-800 line-clamp-2 group-hover:text-accent-600 transition-colors leading-tight">{item.name}</p>
-                        <p className="text-sm font-bold text-accent-600 mt-1">${Number(item.priceMin).toFixed(2)}</p>
+                        <p className="text-xs font-semibold text-navy-800 line-clamp-2 group-hover:text-accent-600 transition-colors leading-tight">{item.name}</p>
+                        <p className="text-sm font-bold text-accent-600 mt-0.5">${Number(item.priceMin).toFixed(2)}</p>
                       </div>
                     </Link>
                   ))}
                 </div>
               </div>
 
-              <div className="bg-navy-800 rounded-2xl p-5 text-white">
-                <h3 className="text-base font-bold mb-1.5">Become a Seller</h3>
-                <p className="text-xs text-ink-300 mb-3.5 leading-relaxed">Join 10,000+ suppliers reaching buyers worldwide</p>
-                <Link href="/sell" className="inline-flex items-center gap-1 bg-accent-600 hover:bg-accent-700 text-white text-xs font-bold px-4 py-2.5 rounded-lg transition-colors w-full justify-center">Start Selling <ChevronRight className="w-3.5 h-3.5" /></Link>
+              {/* Become a Seller */}
+              <div className="bg-white rounded-xl border border-ink-200 overflow-hidden">
+                <div className="px-4 py-3 border-b border-ink-100">
+                  <h3 className="text-sm font-bold text-navy-800 flex items-center gap-2"><Award className="w-4 h-4 text-accent-500" />Become a Seller</h3>
+                </div>
+                <div className="p-4">
+                  <p className="text-xs text-ink-500 mb-3 leading-relaxed">Join 10,000+ suppliers reaching buyers worldwide</p>
+                  <Link href="/sell" className="inline-flex items-center justify-center gap-1 bg-navy-800 hover:bg-navy-900 text-white text-xs font-bold px-4 py-2 rounded-lg transition-colors w-full">Start Selling <ChevronRight className="w-3.5 h-3.5" /></Link>
+                </div>
               </div>
 
-              <div className="bg-white rounded-2xl border border-ink-100 p-5">
-                <h3 className="text-xs font-bold text-navy-800 uppercase tracking-[0.1em] mb-3.5 flex items-center gap-2">
-                  <TrendingUp className="w-4 h-4 text-accent-500" />Product Stats
-                </h3>
-                <div className="space-y-3">
+              {/* Product Stats */}
+              <div className="bg-white rounded-xl border border-ink-200 overflow-hidden">
+                <div className="px-4 py-3 border-b border-ink-100">
+                  <h3 className="text-sm font-bold text-navy-800 flex items-center gap-2"><TrendingUp className="w-4 h-4 text-accent-500" />Product Stats</h3>
+                </div>
+                <div className="p-3 space-y-1">
                   {[
                     { label: 'Total Sold', value: salesCount.toLocaleString(), color: 'text-accent-600' },
                     { label: 'Available Stock', value: stock.toLocaleString(), color: 'text-navy-800' },
                     { label: 'Avg. Lead Time', value: '7-15 days', color: 'text-navy-800' },
                     { label: 'Customer Rating', value: `${rating.toFixed(1)}/5`, color: 'text-accent-600' },
                   ].map((stat, i) => (
-                    <div key={i} className="flex items-center justify-between py-2 border-b border-ink-100 last:border-0">
+                    <div key={i} className="flex items-center justify-between py-2 px-1 border-b border-ink-100 last:border-0">
                       <span className="text-xs text-ink-500 font-medium">{stat.label}</span>
                       <span className={`text-sm font-bold ${stat.color}`}>{stat.value}</span>
                     </div>
