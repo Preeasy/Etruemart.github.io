@@ -2,16 +2,7 @@
 const nextConfig = {
   reactStrictMode: true,
   images: {
-    unoptimized: true,
-    remotePatterns: [
-      { protocol: 'https', hostname: 'images.unsplash.com' },
-      { protocol: 'https', hostname: 'cdn.jsdelivr.net' },
-      { protocol: 'https', hostname: 'trae-api-cn.mchost.guru' },
-      { protocol: 'https', hostname: 'loremflickr.com' },
-      { protocol: 'https', hostname: 'images.pexels.com' },
-      { protocol: 'https', hostname: 'picsum.photos' },
-      { protocol: 'https', hostname: 'raw.githubusercontent.com' },
-    ],
+    domains: ['images.unsplash.com', 'cdn.jsdelivr.net', 'trae-api-cn.mchost.guru', 'loremflickr.com', 'images.pexels.com', 'picsum.photos', 'raw.githubusercontent.com'],
   },
 }
 
