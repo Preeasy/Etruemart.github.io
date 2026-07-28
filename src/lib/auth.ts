@@ -1,7 +1,17 @@
 import { AuthOptions, Session } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
-import { prisma } from './prisma';
 import bcrypt from 'bcryptjs';
+
+const mockUsers = [
+  {
+    id: '1',
+    email: 'Yeatrusourcing',
+    passwordHash: '$2a$10$Rctbz.9F8blZNq8Yu8SzqunWgUt2Q495fRW6UTks7.VcfScHXIpnS',
+    name: 'Yeatrusourcing',
+    role: 'ADMIN',
+    allowedCategoryId: null,
+  },
+];
 
 export const authOptions: AuthOptions = {
   session: {
@@ -18,9 +28,7 @@ export const authOptions: AuthOptions = {
           return null;
         }
 
-        const user = await prisma.user.findUnique({
-          where: { email: credentials.email },
-        });
+        const user = mockUsers.find((u) => u.email === credentials.email);
 
         if (!user) {
           return null;

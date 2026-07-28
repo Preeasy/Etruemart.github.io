@@ -1,6 +1,15 @@
 import { getServerSession } from 'next-auth/next';
 import { authOptions } from './auth';
-import { prisma } from './prisma';
+
+const mockUsers = [
+  {
+    id: '1',
+    email: 'Yeatrusourcing',
+    name: 'Yeatrusourcing',
+    role: 'ADMIN',
+    avatar: null,
+  },
+];
 
 export async function getCurrentUser() {
   const session = await getServerSession(authOptions);
@@ -8,18 +17,8 @@ export async function getCurrentUser() {
     return null;
   }
 
-  const user = await prisma.user.findUnique({
-    where: { id: session.user.id },
-    select: {
-      id: true,
-      email: true,
-      name: true,
-      role: true,
-      avatar: true,
-    },
-  });
-
-  return user;
+  const user = mockUsers.find((u) => u.id === session.user.id);
+  return user || null;
 }
 
 export async function requireAuth() {
