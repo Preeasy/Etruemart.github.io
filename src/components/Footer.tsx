@@ -13,21 +13,21 @@ import {
 } from 'lucide-react';
 
 const productCategories = [
-  'Fashion Jewelry',
-  'Bags & Accessories',
-  'Hair Accessories',
-  'Garment Accessories',
-  'Toys & Gift',
-  'Home Decor & Crafts',
+  { label: 'Fashion Jewelry', href: '/products?category=fashion-jewelry' },
+  { label: 'Bags & Accessories', href: '/products?category=bags-accessories' },
+  { label: 'Hair Accessories', href: '/products?category=hair-accessories' },
+  { label: 'Garment Accessories', href: '/products?category=garment-accessories' },
+  { label: 'Toys & Gift', href: '/products?category=toys-gift' },
+  { label: 'Home Decor & Crafts', href: '/products?category=home-decor-crafts' },
 ];
 
 const companyLinks = [
-  { label: 'About Us', href: '/about' },
+  { label: 'About Us', href: '#' },
   { label: 'Seller Center', href: '/sell' },
-  { label: 'Contact Us', href: '/contact' },
-  { label: 'Quality Assurance', href: '/quality' },
-  { label: 'Shipping Policy', href: '/shipping' },
-  { label: 'Return Policy', href: '/returns' },
+  { label: 'Contact Us', href: '#' },
+  { label: 'Quality Assurance', href: '#' },
+  { label: 'Shipping Policy', href: '#' },
+  { label: 'Return Policy', href: '#' },
 ];
 
 const socials = [
@@ -85,13 +85,13 @@ const Footer = () => {
               Product Categories
             </h3>
             <nav className="flex flex-col">
-              {productCategories.map((label) => (
+              {productCategories.map((cat) => (
                 <Link
-                  key={label}
-                  href="/products"
+                  key={cat.label}
+                  href={cat.href}
                   className="text-xs text-ink-300 hover:text-accent-300 transition-colors py-1"
                 >
-                  {label}
+                  {cat.label}
                 </Link>
               ))}
             </nav>

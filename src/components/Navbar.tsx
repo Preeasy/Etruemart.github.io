@@ -15,7 +15,7 @@ const navLinks = [
   { label: 'Fashion Jewelry', href: '/products?category=fashion-jewelry' },
   { label: 'Bags & Accessories', href: '/products?category=bags-accessories' },
   { label: 'Toys & Gift', href: '/products?category=toys-gift' },
-  { label: 'Home Decor', href: '/products?category=home-decor' },
+  { label: 'Home Decor', href: '/products?category=home-decor-crafts' },
   { label: 'Seller Center', href: '/sell' },
 ];
 
@@ -110,13 +110,6 @@ const Navbar = () => {
                 >
                   Register
                 </Link>
-                <Link
-                  href="/quote"
-                  aria-label="Get Quote"
-                  className="px-3 py-2 text-xs bg-accent-500 hover:bg-accent-400 text-white rounded-md font-semibold transition-colors"
-                >
-                  Get Quote
-                </Link>
               </>
             )}
 
@@ -207,13 +200,6 @@ const Navbar = () => {
                   className="flex-1 text-center py-2 text-sm bg-accent-500 text-white rounded-md font-semibold"
                 >
                   Register
-                </Link>
-                <Link
-                  href="/quote"
-                  aria-label="Get Quote"
-                  className="flex-1 text-center py-2 text-sm bg-accent-500 text-white rounded-md font-semibold"
-                >
-                  Get Quote
                 </Link>
               </div>
             )}

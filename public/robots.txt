@@ -1,13 +1,19 @@
 User-agent: *
 Allow: /
+Allow: /products
+Allow: /products/
+Allow: /store/
 Disallow: /api/
 Disallow: /dashboard
 Disallow: /cart
 Disallow: /orders
 Disallow: /shipping-admin
+Disallow: /login
+Disallow: /register
+Disallow: /sell
 
 # Sitemap
 Sitemap: https://etruemart.vercel.app/sitemap.xml
 
-# Crawl delay for server友好
-Crawl-delay: 1
+# Host
+Host: https://etruemart.vercel.app

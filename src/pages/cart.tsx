@@ -30,9 +30,9 @@ const Cart = () => {
     return (
       <Layout>
         <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16 max-w-[1600px] mx-auto py-20 text-center">
-          <ShoppingCart className="w-20 h-20 text-gray-300 mx-auto mb-4" />
-          <h2 className="text-2xl font-bold text-gray-900 mb-2">Your cart is empty</h2>
-          <p className="text-gray-500 mb-6">Please sign in to view your cart</p>
+          <ShoppingCart className="w-20 h-20 text-ink-300 mx-auto mb-4" />
+          <h2 className="text-2xl font-bold text-navy-900 mb-2">Your cart is empty</h2>
+          <p className="text-ink-500 mb-6">Please sign in to view your cart</p>
           <Link href="/login" className="btn-primary">Sign In</Link>
         </div>
       </Layout>
@@ -80,8 +80,8 @@ const Cart = () => {
     <Layout>
       <div className="bg-white border-b">
         <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16 max-w-[1600px] mx-auto py-8">
-          <h1 className="text-3xl font-bold text-gray-900">Shopping Cart</h1>
-          <p className="text-gray-500 mt-1">{items.length} items in your cart</p>
+          <h1 className="text-3xl font-bold text-navy-900">Shopping Cart</h1>
+          <p className="text-ink-500 mt-1">{items.length} items in your cart</p>
         </div>
       </div>
 
@@ -91,7 +91,7 @@ const Cart = () => {
             {items.length > 0 ? (
               <div className="space-y-4">
                 {items.map((item) => (
-                  <div key={item.id} className="bg-white rounded-2xl shadow-sm p-6 flex gap-4">
+                  <div key={item.id} className="bg-white rounded-xl border border-ink-200 p-6 flex gap-4">
                     <img
                       src={item.product.image}
                       alt={item.product.name}
@@ -99,24 +99,24 @@ const Cart = () => {
                     />
                     <div className="flex-1">
                       <Link href={`/products/${item.product.id}`}>
-                        <h3 className="font-semibold text-gray-900 hover:text-gold-600">{item.product.name}</h3>
+                        <h3 className="font-semibold text-navy-900 hover:text-accent-600">{item.product.name}</h3>
                       </Link>
                       {item.variant && (
-                        <p className="text-sm text-gray-500 mt-1">
+                        <p className="text-sm text-ink-500 mt-1">
                           {item.variant.color} / {item.variant.size}
                         </p>
                       )}
                       <div className="flex items-center justify-between mt-4">
-                        <span className="text-xl font-bold text-gold-600">
+                        <span className="text-xl font-bold text-accent-600">
                           ${(item.variant?.price || item.product.price).toFixed(2)}
                         </span>
                         <div className="flex items-center gap-4">
                           <div className="flex items-center border rounded-lg">
-                            <button onClick={() => updateQuantity(item.id, item.quantity - 1)} className="p-2 hover:bg-gray-100 transition-colors">
+                            <button onClick={() => updateQuantity(item.id, item.quantity - 1)} className="p-2 hover:bg-ink-50 transition-colors">
                               <Minus className="w-4 h-4" />
                             </button>
                             <span className="px-4 font-semibold">{item.quantity}</span>
-                            <button onClick={() => updateQuantity(item.id, item.quantity + 1)} className="p-2 hover:bg-gray-100 transition-colors">
+                            <button onClick={() => updateQuantity(item.id, item.quantity + 1)} className="p-2 hover:bg-ink-50 transition-colors">
                               <Plus className="w-4 h-4" />
                             </button>
                           </div>
@@ -130,10 +130,10 @@ const Cart = () => {
                 ))}
               </div>
             ) : (
-              <div className="bg-white rounded-2xl shadow-sm p-16 text-center">
-                <ShoppingCart className="w-20 h-20 text-gray-300 mx-auto mb-4" />
-                <h2 className="text-xl font-bold text-gray-900 mb-2">Your cart is empty</h2>
-                <p className="text-gray-500 mb-6">Start shopping and add items to your cart</p>
+              <div className="bg-white rounded-xl border border-ink-200 p-16 text-center">
+                <ShoppingCart className="w-20 h-20 text-ink-300 mx-auto mb-4" />
+                <h2 className="text-xl font-bold text-navy-900 mb-2">Your cart is empty</h2>
+                <p className="text-ink-500 mb-6">Start shopping and add items to your cart</p>
                 <Link href="/products" className="btn-primary">
                   Continue Shopping
                 </Link>
@@ -142,35 +142,35 @@ const Cart = () => {
           </div>
 
           {items.length > 0 && (
-            <div className="bg-white rounded-2xl shadow-sm p-6">
-              <h2 className="text-xl font-bold text-gray-900 mb-6">Order Summary</h2>
+            <div className="bg-white rounded-xl border border-ink-200 p-6">
+              <h2 className="text-xl font-bold text-navy-900 mb-6">Order Summary</h2>
 
               <div className="space-y-4 mb-6">
                 <div className="flex justify-between">
-                  <span className="text-gray-500">Subtotal ({items.reduce((sum, i) => sum + i.quantity, 0)} items)</span>
+                  <span className="text-ink-500">Subtotal ({items.reduce((sum, i) => sum + i.quantity, 0)} items)</span>
                   <span className="font-semibold">${totalAmount.toFixed(2)}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-gray-500">Shipping</span>
+                  <span className="text-ink-500">Shipping</span>
                   <span className="font-semibold">{shippingCost === 0 ? 'Free' : `$${shippingCost.toFixed(2)}`}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-gray-500">Tax</span>
+                  <span className="text-ink-500">Tax</span>
                   <span className="font-semibold">${taxAmount.toFixed(2)}</span>
                 </div>
                 <div className="border-t pt-4 flex justify-between">
-                  <span className="font-semibold text-gray-900">Total</span>
-                  <span className="text-2xl font-bold text-gold-600">${grandTotal.toFixed(2)}</span>
+                  <span className="font-semibold text-navy-900">Total</span>
+                  <span className="text-2xl font-bold text-accent-600">${grandTotal.toFixed(2)}</span>
                 </div>
               </div>
 
               <div className="mb-6">
-                <label className="block text-sm font-medium text-gray-700 mb-2">Shipping Address</label>
+                <label className="block text-sm font-medium text-ink-700 mb-2">Shipping Address</label>
                 <textarea
                   value={shippingAddress}
                   onChange={(e) => setShippingAddress(e.target.value)}
                   rows={3}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gold-500"
+                  className="w-full px-4 py-3 border border-ink-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-accent-500"
                   placeholder="Enter your shipping address..."
                   required
                 />
@@ -178,15 +178,15 @@ const Cart = () => {
 
               <button
                 onClick={handleCheckout}
-                className="w-full flex items-center justify-center gap-2 bg-gold-500 hover:bg-gold-600 text-white py-4 rounded-xl font-semibold text-lg transition-colors"
+                className="w-full flex items-center justify-center gap-2 bg-accent-500 hover:bg-accent-600 text-white py-4 rounded-xl font-semibold text-lg transition-colors"
               >
                 <CreditCard className="w-5 h-5" />
                 Proceed to Checkout
               </button>
 
-              <div className="mt-6 p-4 bg-gray-50 rounded-lg">
-                <div className="flex items-center gap-3 text-sm text-gray-700">
-                  <Truck className="w-5 h-5 text-gold-600" />
+              <div className="mt-6 p-4 bg-ink-50 rounded-lg">
+                <div className="flex items-center gap-3 text-sm text-ink-700">
+                  <Truck className="w-5 h-5 text-accent-600" />
                   <span>Free shipping on orders over $50</span>
                 </div>
               </div>
