@@ -72,8 +72,9 @@ const categoryGuides = [
   { title: 'Toys & Gift', desc: 'Stress relief, fidget toys & gift sets', slug: 'toys-gift', badge: 'Trending', icon: Gift },
   { title: 'Fashion Jewelry', desc: 'Necklaces, earrings, rings & bracelets', slug: 'fashion-jewelry', badge: 'Best Seller', icon: Gem },
   { title: 'Bags & Accessories', desc: 'Handbags, backpacks & wallets', slug: 'bags-accessories', badge: 'Hot', icon: ShoppingBag },
+  { title: 'Hair Accessories', desc: 'Clips, headbands & hair accessories', slug: 'hair-accessories', badge: 'New', icon: Crown },
   { title: 'Garment Accessories', desc: 'Wallets, purses & card holders', slug: 'garment-accessories', badge: null, icon: Scissors },
-  { title: 'Home Decor & Crafts', desc: 'Decorative bags & craft supplies', slug: 'home-decor-crafts', badge: null, icon: HomeIcon },
+  { title: 'Home Decor & Crafts', desc: 'Decorative items & craft supplies', slug: 'home-decor-crafts', badge: null, icon: HomeIcon },
 ];
 
 const valueProps = [

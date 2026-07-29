@@ -41,6 +41,7 @@ const sidebarCategories = [
   { name: 'Toys & Gift', icon: Gift, slug: 'toys-gift' },
   { name: 'Fashion Jewelry', icon: Gem, slug: 'fashion-jewelry' },
   { name: 'Bags & Accessories', icon: ShoppingBag, slug: 'bags-accessories' },
+  { name: 'Hair Accessories', icon: Crown, slug: 'hair-accessories' },
   { name: 'Garment Accessories', icon: Scissors, slug: 'garment-accessories' },
   { name: 'Home Decor & Crafts', icon: HomeIcon, slug: 'home-decor-crafts' },
 ];
