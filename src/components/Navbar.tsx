@@ -53,7 +53,7 @@ const Navbar = () => {
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 aria-label="Search products"
-                className="flex-1 px-4 py-2 rounded-l-md bg-white border-0 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-accent-400 text-sm"
+                className="flex-1 px-4 py-2 rounded-l-md bg-white border-0 text-ink-900 placeholder-ink-400 focus:outline-none focus:ring-2 focus:ring-accent-400 text-sm"
               />
               <button
                 onClick={() => searchQuery && (window.location.href = `/products?q=${encodeURIComponent(searchQuery)}`)}
@@ -154,7 +154,7 @@ const Navbar = () => {
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 aria-label="Search products"
-                className="flex-1 px-4 py-2 rounded-l-md bg-white border-0 text-gray-900 placeholder-gray-400 focus:outline-none text-sm"
+                className="flex-1 px-4 py-2 rounded-l-md bg-white border-0 text-ink-900 placeholder-ink-400 focus:outline-none text-sm"
               />
               <button
                 onClick={() => searchQuery && (window.location.href = `/products?q=${encodeURIComponent(searchQuery)}`)}

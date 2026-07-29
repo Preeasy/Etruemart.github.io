@@ -82,7 +82,7 @@ export default function ProductDetail({ product, relatedProducts }: { product: P
     return (
       <Layout>
         <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16 max-w-[1600px] mx-auto py-20 text-center">
-          <div className="w-20 h-20 rounded-2xl bg-ink-100 flex items-center justify-center mx-auto mb-4">
+          <div className="w-20 h-20 rounded-xl bg-ink-100 flex items-center justify-center mx-auto mb-4">
             <Package className="w-10 h-10 text-ink-300" />
           </div>
           <p className="text-ink-500 text-lg">Product not found</p>
@@ -151,6 +151,13 @@ export default function ProductDetail({ product, relatedProducts }: { product: P
             image: product.image,
             sku: product.sku,
             brand: { '@type': 'Brand', name: 'eTrue Mark' },
+            aggregateRating: {
+              '@type': 'AggregateRating',
+              ratingValue: rating,
+              reviewCount: reviewCount,
+              bestRating: 5,
+              worstRating: 1
+            },
             offers: {
               '@type': 'AggregateOffer',
               priceCurrency: 'USD',

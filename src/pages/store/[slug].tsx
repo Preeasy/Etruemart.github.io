@@ -111,7 +111,7 @@ export default function StorePage({ products }: { products: Product[] }) {
         <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16 max-w-[1600px] mx-auto py-10 md:py-14 relative">
           <div className="flex flex-col md:flex-row gap-6 items-start">
             {/* Logo */}
-            <div className="w-20 h-20 md:w-24 md:h-24 rounded-2xl bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center text-white font-bold text-2xl md:text-3xl shadow-lg flex-shrink-0">
+            <div className="w-20 h-20 md:w-24 md:h-24 rounded-xl bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center text-white font-bold text-2xl md:text-3xl flex-shrink-0">
               {storeData.initials}
             </div>
             <div className="flex-1 min-w-0">
@@ -186,7 +186,7 @@ export default function StorePage({ products }: { products: Product[] }) {
           {/* ─── LEFT SIDEBAR ─── */}
           <aside className="lg:col-span-3 space-y-5">
             {/* About */}
-            <div className="bg-white rounded-2xl border border-ink-200 p-5 shadow-soft">
+            <div className="bg-white rounded-xl border border-ink-200 p-5 shadow-soft">
               <h3 className="text-sm font-bold text-navy-800 uppercase tracking-[0.08em] mb-3 flex items-center gap-2">
                 <Store className="w-4 h-4 text-accent-500" />About Store
               </h3>
@@ -194,7 +194,7 @@ export default function StorePage({ products }: { products: Product[] }) {
             </div>
 
             {/* Certifications */}
-            <div className="bg-white rounded-2xl border border-ink-200 p-5 shadow-soft">
+            <div className="bg-white rounded-xl border border-ink-200 p-5 shadow-soft">
               <h3 className="text-sm font-bold text-navy-800 uppercase tracking-[0.08em] mb-3 flex items-center gap-2">
                 <Award className="w-4 h-4 text-accent-500" />Certifications
               </h3>
@@ -208,7 +208,7 @@ export default function StorePage({ products }: { products: Product[] }) {
             </div>
 
             {/* Services */}
-            <div className="bg-white rounded-2xl border border-ink-200 p-5 shadow-soft">
+            <div className="bg-white rounded-xl border border-ink-200 p-5 shadow-soft">
               <h3 className="text-sm font-bold text-navy-800 uppercase tracking-[0.08em] mb-3 flex items-center gap-2">
                 <ThumbsUp className="w-4 h-4 text-accent-500" />Services
               </h3>
@@ -223,7 +223,7 @@ export default function StorePage({ products }: { products: Product[] }) {
             </div>
 
             {/* Main Markets */}
-            <div className="bg-white rounded-2xl border border-ink-200 p-5 shadow-soft">
+            <div className="bg-white rounded-xl border border-ink-200 p-5 shadow-soft">
               <h3 className="text-sm font-bold text-navy-800 uppercase tracking-[0.08em] mb-3 flex items-center gap-2">
                 <Globe className="w-4 h-4 text-accent-500" />Main Markets
               </h3>
@@ -235,7 +235,7 @@ export default function StorePage({ products }: { products: Product[] }) {
             </div>
 
             {/* Contact */}
-            <div className="bg-gradient-to-br from-navy-50 to-white rounded-2xl border border-navy-100 p-5 shadow-soft">
+            <div className="bg-gradient-to-br from-navy-50 to-white rounded-xl border border-navy-100 p-5 shadow-soft">
               <h3 className="text-sm font-bold text-navy-800 uppercase tracking-[0.08em] mb-3">Contact Info</h3>
               <div className="space-y-2.5">
                 <div className="flex items-center gap-2 text-xs text-ink-600">
@@ -254,7 +254,7 @@ export default function StorePage({ products }: { products: Product[] }) {
           {/* ─── RIGHT: PRODUCTS ─── */}
           <div className="lg:col-span-9">
             {/* Toolbar */}
-            <div className="bg-white rounded-2xl p-4 mb-5 border border-ink-200 shadow-soft flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div className="bg-white rounded-xl p-4 mb-5 border border-ink-200 shadow-soft flex flex-col sm:flex-row sm:items-center justify-between gap-4">
               <div className="flex items-center gap-3">
                 <div className="relative">
                   <input
@@ -306,8 +306,8 @@ export default function StorePage({ products }: { products: Product[] }) {
                 ))}
               </div>
             ) : (
-              <div className="text-center py-20 bg-white rounded-2xl border border-ink-200">
-                <div className="w-20 h-20 rounded-2xl bg-ink-100 flex items-center justify-center mx-auto mb-4">
+              <div className="text-center py-20 bg-white rounded-xl border border-ink-200">
+                <div className="w-20 h-20 rounded-xl bg-ink-100 flex items-center justify-center mx-auto mb-4">
                   <Search className="w-10 h-10 text-ink-300" />
                 </div>
                 <h3 className="text-xl font-bold text-navy-800 mb-2">No products found</h3>

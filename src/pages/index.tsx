@@ -227,7 +227,7 @@ const Home = ({ products }: { products: Product[] }) => {
                     <Link
                       key={cat.slug}
                       href={`/products?category=${cat.slug}`}
-                      className="group rounded-xl border border-ink-200 bg-white p-4 hover:border-navy-900 hover:shadow-sm transition-all"
+                      className="group rounded-xl border border-ink-200 bg-white p-4 hover:border-navy-900 transition-all"
                     >
                       <div className="flex items-center gap-2.5 mb-2">
                         <div className="w-8 h-8 rounded-lg bg-ink-50 flex items-center justify-center group-hover:bg-navy-900 transition-colors">

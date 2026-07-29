@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import Layout from '@/components/Layout';
 import {
   Truck,
@@ -185,7 +186,7 @@ export default function ShippingAdmin() {
             <p className="text-ink-400">Loading carriers...</p>
           </div>
         ) : carriers.length === 0 ? (
-          <div className="text-center py-20 bg-white rounded-2xl border border-ink-200">
+          <div className="text-center py-20 bg-white rounded-xl border border-ink-200">
             <Truck className="w-12 h-12 text-ink-300 mx-auto mb-3" />
             <p className="text-ink-500 mb-4">No carriers configured yet.</p>
             <button
@@ -202,13 +203,13 @@ export default function ShippingAdmin() {
         ) : (
           <div className="space-y-4">
             {carriers.map((carrier) => (
-              <div key={carrier.id} className="bg-white rounded-2xl border border-ink-200 shadow-soft overflow-hidden">
+              <div key={carrier.id} className="bg-white rounded-xl border border-ink-200 shadow-soft overflow-hidden">
                 <div className="p-5">
                   <div className="flex items-start justify-between gap-4">
                     <div className="flex items-center gap-4">
-                      <div className="w-14 h-14 rounded-xl bg-navy-800 bg-navy-gradient flex items-center justify-center text-white font-bold text-lg shadow-soft flex-shrink-0">
+                      <div className="w-14 h-14 rounded-xl bg-navy-800 bg-navy-gradient flex items-center justify-center text-white font-bold text-lg shadow-soft flex-shrink-0 relative overflow-hidden">
                         {carrier.logo ? (
-                          <img src={carrier.logo} alt={carrier.name} className="w-full h-full object-contain p-1.5" />
+                          <Image src={carrier.logo} alt={carrier.name} fill className="object-contain p-1.5" sizes="56px" />
                         ) : (
                           carrier.name.slice(0, 2).toUpperCase()
                         )}
@@ -317,7 +318,7 @@ export default function ShippingAdmin() {
 
       {showForm && editingCarrier && (
         <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-2xl shadow-2xl w-full max-w-3xl max-h-[90vh] overflow-y-auto border border-ink-200">
+          <div className="bg-white rounded-xl shadow-2xl w-full max-w-3xl max-h-[90vh] overflow-y-auto border border-ink-200">
             <div className="flex items-center justify-between p-5 border-b border-ink-100 sticky top-0 bg-white z-10">
               <h3 className="font-bold text-navy-800 text-lg">{editingCarrier.id && carriers.some((c) => c.id === editingCarrier.id) ? 'Edit Carrier' : 'New Carrier'}</h3>
               <button onClick={() => { setShowForm(false); setEditingCarrier(null); }} className="p-2 hover:bg-ink-50 rounded-lg text-ink-400">

@@ -105,7 +105,7 @@ const Products = ({ products }: { products: Product[] }) => {
         <link rel="canonical" href="https://etruemart.vercel.app/products" />
       </Head>
       {/* Breadcrumb */}
-      <div className="bg-white border-b border-ink-100 shadow-sm">
+      <div className="bg-white border-b border-ink-100">
         <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16 max-w-[1600px] mx-auto py-3.5">
           <nav className="flex items-center gap-2 text-sm">
             <Link href="/" className="hover:text-accent-600 transition-colors font-medium text-ink-600">Home</Link>
@@ -205,12 +205,12 @@ const Products = ({ products }: { products: Product[] }) => {
         <div className="lg:hidden mb-4 flex gap-3">
           <button
             onClick={() => setShowSidebar(!showSidebar)}
-            className="flex items-center gap-2 px-4 py-2.5 bg-white border border-ink-200 rounded-xl text-ink-700 hover:border-accent-500 transition-colors font-medium shadow-sm"
+            className="flex items-center gap-2 px-4 py-2.5 bg-white border border-ink-200 rounded-xl text-ink-700 hover:border-accent-500 transition-colors font-medium"
           >
             <SlidersHorizontal className="w-4 h-4" />
             Filters
           </button>
-          <div className="flex items-center border border-ink-200 rounded-xl overflow-hidden bg-white shadow-sm">
+          <div className="flex items-center border border-ink-200 rounded-xl overflow-hidden bg-white">
             <button
               onClick={() => setViewMode('grid')}
               className={`p-2.5 ${viewMode === 'grid' ? 'bg-accent-500 text-white' : 'text-ink-500 hover:text-accent-600'}`}
@@ -232,7 +232,7 @@ const Products = ({ products }: { products: Product[] }) => {
           <div className="flex-1 min-w-0">
             {/* Filters Side Panel (Desktop) */}
             <div className="hidden lg:block mb-6">
-              <div className="bg-white rounded-2xl border border-ink-100 shadow-sm p-6">
+              <div className="bg-white rounded-xl border border-ink-100 p-6">
                 <div className="flex items-center gap-2 mb-5">
                   <Filter className="w-5 h-5 text-accent-500" />
                   <h3 className="text-sm font-bold text-navy-800 uppercase tracking-[0.12em]">Refine Results</h3>
@@ -350,7 +350,7 @@ const Products = ({ products }: { products: Product[] }) => {
             </div>
 
             {/* Toolbar */}
-            <div className="bg-white rounded-2xl p-4 mb-6 border border-ink-100 flex flex-col sm:flex-row sm:items-center justify-between gap-4 shadow-sm">
+            <div className="bg-white rounded-xl p-4 mb-6 border border-ink-100 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
               <div className="flex items-center gap-3">
                 <div className="h-8 w-8 rounded-lg bg-accent-100 flex items-center justify-center">
                   <Filter className="w-4 h-4 text-accent-600" />
@@ -364,14 +364,14 @@ const Products = ({ products }: { products: Product[] }) => {
                 <div className="hidden lg:flex items-center border border-ink-200 rounded-xl overflow-hidden bg-ink-50">
                   <button
                     onClick={() => setViewMode('grid')}
-                    className={`p-2.5 ${viewMode === 'grid' ? 'bg-white shadow-sm text-accent-600' : 'text-ink-500 hover:text-accent-600'}`}
+                    className={`p-2.5 ${viewMode === 'grid' ? 'bg-white text-accent-600' : 'text-ink-500 hover:text-accent-600'}`}
                     aria-label="Grid view"
                   >
                     <Grid3X3 className="w-4 h-4" />
                   </button>
                   <button
                     onClick={() => setViewMode('list')}
-                    className={`p-2.5 ${viewMode === 'list' ? 'bg-white shadow-sm text-accent-600' : 'text-ink-500 hover:text-accent-600'}`}
+                    className={`p-2.5 ${viewMode === 'list' ? 'bg-white text-accent-600' : 'text-ink-500 hover:text-accent-600'}`}
                     aria-label="List view"
                   >
                     <List className="w-4 h-4" />
@@ -408,7 +408,7 @@ const Products = ({ products }: { products: Product[] }) => {
                     <Link
                       key={product.id}
                       href={`/products/${product.id}`}
-                      className="flex gap-5 bg-white rounded-2xl border border-ink-100 p-5 hover:border-accent-300 hover:shadow-md transition-all group"
+                      className="flex gap-5 bg-white rounded-xl border border-ink-100 p-5 hover:border-accent-300 hover:shadow-md transition-all group"
                     >
                       <div className="relative w-36 h-36 flex-shrink-0 bg-gradient-to-br from-ink-50 to-white rounded-xl overflow-hidden border border-ink-100">
                         <img
@@ -417,7 +417,7 @@ const Products = ({ products }: { products: Product[] }) => {
                           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                         />
                         {product.stockStatus === 'IN_STOCK' && (
-                          <span className="absolute top-2 right-2 bg-success-500 text-white text-[9px] font-bold px-2 py-1 rounded-md shadow-sm uppercase">
+                          <span className="absolute top-2 right-2 bg-success-500 text-white text-[9px] font-bold px-2 py-1 rounded-md uppercase">
                             In Stock
                           </span>
                         )}
@@ -467,8 +467,8 @@ const Products = ({ products }: { products: Product[] }) => {
                 </div>
               )
             ) : (
-              <div className="text-center py-20 bg-white rounded-2xl border border-ink-100">
-                <div className="w-24 h-24 rounded-2xl bg-gradient-to-br from-ink-100 to-ink-50 flex items-center justify-center mx-auto mb-6">
+              <div className="text-center py-20 bg-white rounded-xl border border-ink-100">
+                <div className="w-24 h-24 rounded-xl bg-gradient-to-br from-ink-100 to-ink-50 flex items-center justify-center mx-auto mb-6">
                   <Search className="w-12 h-12 text-ink-300" />
                 </div>
                 <h3 className="text-xl font-bold text-navy-800 mb-3">No products found</h3>
@@ -481,7 +481,7 @@ const Products = ({ products }: { products: Product[] }) => {
                     setSelectedPlating('');
                     setPriceRange([0, 999]);
                   }}
-                  className="inline-flex items-center gap-2 bg-navy-800 hover:bg-navy-900 text-white px-8 py-3 rounded-xl font-bold transition-colors shadow-lg"
+                  className="inline-flex items-center gap-2 bg-navy-800 hover:bg-navy-900 text-white px-8 py-3 rounded-xl font-bold transition-colors"
                 >
                   Clear All Filters
                 </button>

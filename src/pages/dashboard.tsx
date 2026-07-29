@@ -2,6 +2,7 @@ import { useEffect, useState, useCallback } from 'react';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
+import Image from 'next/image';
 import { Package, ShoppingCart, TrendingUp, DollarSign, Plus, Eye, EyeOff, Edit3, Trash2, Truck, Save, X, Upload, Download, FileJson, FileText, Loader2, CheckCircle, AlertCircle } from 'lucide-react';
 import Layout from '@/components/Layout';
 
@@ -200,7 +201,7 @@ const Dashboard = () => {
                     <tr key={product.id} className="border-b border-ink-200 hover:bg-ink-50">
                       <td className="py-3 px-4">
                         <div className="flex items-center gap-3">
-                          <img src={product.image} alt={product.name} className="w-12 h-12 object-cover rounded-lg" />
+                          <Image src={product.image} alt={product.name} width={48} height={48} className="w-12 h-12 object-cover rounded-lg" />
                           <div>
                             <p className="font-medium text-navy-900 text-sm line-clamp-1">{product.name}</p>
                             {product.sku && <p className="text-xs text-ink-500">{product.sku}</p>}
