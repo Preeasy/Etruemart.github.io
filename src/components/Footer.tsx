@@ -15,7 +15,6 @@ import {
 const productCategories = [
   { label: 'Fashion Jewelry', href: '/products?category=fashion-jewelry' },
   { label: 'Bags & Accessories', href: '/products?category=bags-accessories' },
-  { label: 'Hair Accessories', href: '/products?category=hair-accessories' },
   { label: 'Garment Accessories', href: '/products?category=garment-accessories' },
   { label: 'Toys & Gift', href: '/products?category=toys-gift' },
   { label: 'Home Decor & Crafts', href: '/products?category=home-decor-crafts' },

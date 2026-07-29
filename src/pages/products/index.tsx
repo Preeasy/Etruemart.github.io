@@ -41,7 +41,6 @@ interface Product {
 const categoryFilters = [
   { name: 'Toys & Gift', slug: 'toys-gift' },
   { name: 'Fashion Jewelry', slug: 'fashion-jewelry' },
-  { name: 'Hair Accessories', slug: 'hair-accessories' },
   { name: 'Bags & Accessories', slug: 'bags-accessories' },
   { name: 'Garment Accessories', slug: 'garment-accessories' },
   { name: 'Home Decor & Crafts', slug: 'home-decor-crafts' },

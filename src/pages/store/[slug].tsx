@@ -52,7 +52,7 @@ const storeData = {
   employees: '50-100',
   annualRevenue: '$5M - $10M',
   mainMarkets: ['USA', 'Europe', 'Middle East', 'Southeast Asia'],
-  categories: ['Toys & Gift', 'Fashion Jewelry', 'Hair Accessories', 'Bags & Accessories', 'Garment Accessories', 'Home Decor & Crafts'],
+  categories: ['Toys & Gift', 'Fashion Jewelry', 'Bags & Accessories', 'Garment Accessories', 'Home Decor & Crafts'],
   description: 'Yiwu Premium Trading Co. is a leading wholesale supplier based in Yiwu, China — the world\'s largest small commodity market. We specialize in fashion jewelry, hair accessories, toys, gift items, and home decor. With over 8 years of export experience, we serve 2,000+ retailers and distributors across 180+ countries. Our in-house design team and strict QC process ensure every product meets international standards.',
   stats: {
     products: 200,

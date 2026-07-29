@@ -71,10 +71,9 @@ const SUB_TO_PARENT: Record<string, string> = {
 const categoryGuides = [
   { title: 'Toys & Gift', desc: 'Stress relief, fidget toys & gift sets', slug: 'toys-gift', badge: 'Trending', icon: Gift },
   { title: 'Fashion Jewelry', desc: 'Necklaces, earrings, rings & bracelets', slug: 'fashion-jewelry', badge: 'Best Seller', icon: Gem },
-  { title: 'Hair Accessories', desc: 'Clips, headbands, scrunchies & pins', slug: 'hair-accessories', badge: 'New', icon: Crown },
-  { title: 'Bags & Accessories', desc: 'Bag charms, keychains & belt buckles', slug: 'bags-accessories', badge: 'Hot', icon: ShoppingBag },
-  { title: 'Garment Accessories', desc: 'Zippers, buttons, lace & patches', slug: 'garment-accessories', badge: null, icon: Scissors },
-  { title: 'Home Decor & Crafts', desc: 'Beads, rhinestones & craft supplies', slug: 'home-decor-crafts', badge: null, icon: HomeIcon },
+  { title: 'Bags & Accessories', desc: 'Handbags, backpacks & wallets', slug: 'bags-accessories', badge: 'Hot', icon: ShoppingBag },
+  { title: 'Garment Accessories', desc: 'Wallets, purses & card holders', slug: 'garment-accessories', badge: null, icon: Scissors },
+  { title: 'Home Decor & Crafts', desc: 'Decorative bags & craft supplies', slug: 'home-decor-crafts', badge: null, icon: HomeIcon },
 ];
 
 const valueProps = [
