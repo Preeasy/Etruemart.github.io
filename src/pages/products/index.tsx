@@ -121,33 +121,29 @@ const Products = ({ products }: { products: Product[] }) => {
         </div>
       </div>
 
-      {/* Page header with gradient background */}
-      <div className="relative overflow-hidden bg-gradient-to-br from-navy-900 via-navy-800 to-navy-900">
-        <div className="absolute inset-0 opacity-5">
-          <div className="absolute top-0 left-0 w-[600px] h-[600px] bg-accent-500 rounded-full blur-[100px]" />
-          <div className="absolute bottom-0 right-0 w-[400px] h-[400px] bg-amber-500 rounded-full blur-[80px]" />
-        </div>
-        <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16 max-w-[1600px] mx-auto py-10 lg:py-14 relative">
-          <div className="flex items-center gap-2 mb-3">
-            <Sparkles className="w-5 h-5 text-accent-400" />
-            <span className="text-xs font-bold text-accent-400 uppercase tracking-[0.2em]">Wholesale Catalog</span>
+      {/* Page header — clean white, no dark banner */}
+      <div className="bg-white border-b border-ink-200">
+        <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16 max-w-[1600px] mx-auto py-6 lg:py-8">
+          <div className="flex items-center gap-2 mb-2">
+            <Sparkles className="w-4 h-4 text-accent-500" />
+            <span className="text-[11px] font-bold text-accent-600 uppercase tracking-[0.15em]">Wholesale Catalog</span>
           </div>
-          <h1 className="font-display text-3xl md:text-4xl lg:text-5xl font-bold text-white tracking-tight mb-4">
+          <h1 className="font-display text-2xl md:text-3xl font-bold text-navy-900 tracking-tight mb-2">
             {currentCategoryName}
           </h1>
-          <p className="text-ink-300 text-sm md:text-base max-w-2xl leading-relaxed">
+          <p className="text-ink-500 text-sm max-w-2xl leading-relaxed mb-4">
             Wholesale jewelry & accessories — direct from Yiwu. Factory pricing, low MOQ, fast global shipping.
           </p>
-          <div className="mt-6 flex flex-wrap gap-3">
-            <div className="flex items-center gap-2 bg-white/5 backdrop-blur-sm border border-white/10 rounded-full px-4 py-2">
-              <div className="w-2 h-2 bg-success-400 rounded-full" />
-              <span className="text-xs text-ink-200 font-medium">{sortedProducts.length} Products Available</span>
+          <div className="flex flex-wrap gap-2">
+            <div className="flex items-center gap-1.5 bg-ink-50 border border-ink-200 rounded-full px-3 py-1.5">
+              <div className="w-1.5 h-1.5 bg-success-500 rounded-full" />
+              <span className="text-[11px] text-ink-600 font-medium">{sortedProducts.length} Products Available</span>
             </div>
-            <div className="flex items-center gap-2 bg-white/5 backdrop-blur-sm border border-white/10 rounded-full px-4 py-2">
-              <span className="text-xs text-ink-200 font-medium">MOQ Starting at 12 pcs</span>
+            <div className="flex items-center gap-1.5 bg-ink-50 border border-ink-200 rounded-full px-3 py-1.5">
+              <span className="text-[11px] text-ink-600 font-medium">MOQ Starting at 12 pcs</span>
             </div>
-            <div className="flex items-center gap-2 bg-white/5 backdrop-blur-sm border border-white/10 rounded-full px-4 py-2">
-              <span className="text-xs text-ink-200 font-medium">Factory Direct Pricing</span>
+            <div className="flex items-center gap-1.5 bg-ink-50 border border-ink-200 rounded-full px-3 py-1.5">
+              <span className="text-[11px] text-ink-600 font-medium">Factory Direct Pricing</span>
             </div>
           </div>
         </div>
