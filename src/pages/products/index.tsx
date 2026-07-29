@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import Head from 'next/head';
+import Image from 'next/image';
 import {
   Search,
   ChevronDown,
@@ -16,6 +17,7 @@ import {
 import ProductCard from '@/components/ProductCard';
 import Sidebar from '@/components/Sidebar';
 import Layout from '@/components/Layout';
+import { SITE_URL, SITE_OG_IMAGE } from '@/lib/site';
 import siteDataJson from '../../../site-data.json';
 
 interface Product {
@@ -102,7 +104,23 @@ const Products = ({ products }: { products: Product[] }) => {
       <Head>
         <title>Wholesale Products Catalog | eTrue Mark</title>
         <meta name="description" content="Browse 178+ wholesale products: fashion jewelry, bags, hair accessories, toys, garment accessories & home decor. Factory-direct pricing from Yiwu, China." />
-        <link rel="canonical" href="https://etruemart.vercel.app/products" />
+        <link rel="canonical" href={`${SITE_URL}/products`} />
+        <meta property="og:title" content="Wholesale Products Catalog | eTrue Mark" />
+        <meta property="og:description" content="Browse 178+ wholesale products direct from Yiwu. Factory pricing, low MOQ, global shipping." />
+        <meta property="og:type" content="website" />
+        <meta property="og:image" content={SITE_OG_IMAGE} />
+        <meta property="og:url" content={`${SITE_URL}/products`} />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'BreadcrumbList',
+            itemListElement: [
+              { '@type': 'ListItem', position: 1, name: 'Home', item: SITE_URL },
+              { '@type': 'ListItem', position: 2, name: 'Products', item: `${SITE_URL}/products` },
+              ...(selectedCategory !== 'all' && currentCat ? [{ '@type': 'ListItem', position: 3, name: currentCat.name, item: `${SITE_URL}/products?category=${selectedCategory}` }] : []),
+            ],
+          })
+        }} />
       </Head>
       {/* Breadcrumb */}
       <div className="bg-white border-b border-ink-100">
@@ -213,12 +231,14 @@ const Products = ({ products }: { products: Product[] }) => {
           <div className="flex items-center border border-ink-200 rounded-xl overflow-hidden bg-white">
             <button
               onClick={() => setViewMode('grid')}
+              aria-label="Grid view"
               className={`p-2.5 ${viewMode === 'grid' ? 'bg-accent-500 text-white' : 'text-ink-500 hover:text-accent-600'}`}
             >
               <Grid3X3 className="w-4 h-4" />
             </button>
             <button
               onClick={() => setViewMode('list')}
+              aria-label="List view"
               className={`p-2.5 ${viewMode === 'list' ? 'bg-accent-500 text-white' : 'text-ink-500 hover:text-accent-600'}`}
             >
               <List className="w-4 h-4" />
@@ -411,10 +431,12 @@ const Products = ({ products }: { products: Product[] }) => {
                       className="flex gap-5 bg-white rounded-xl border border-ink-100 p-5 hover:border-accent-300 hover:shadow-md transition-all group"
                     >
                       <div className="relative w-36 h-36 flex-shrink-0 bg-gradient-to-br from-ink-50 to-white rounded-xl overflow-hidden border border-ink-100">
-                        <img
+                        <Image
                           src={product.image}
                           alt={product.name}
-                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                          fill
+                          className="object-cover group-hover:scale-105 transition-transform duration-500"
+                          sizes="144px"
                         />
                         {product.stockStatus === 'IN_STOCK' && (
                           <span className="absolute top-2 right-2 bg-success-500 text-white text-[9px] font-bold px-2 py-1 rounded-md uppercase">

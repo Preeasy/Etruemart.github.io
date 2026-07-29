@@ -29,15 +29,12 @@ import {
   Flame,
   TrendingUp,
   Award,
-  Globe,
-  Clock,
-  BadgeCheck,
-  Shield,
   Store,
 } from 'lucide-react';
 import Layout from '@/components/Layout';
 import ProductCard from '@/components/ProductCard';
 import ShippingSelector from '@/components/ShippingSelector';
+import { SITE_URL, SITE_OG_IMAGE } from '@/lib/site';
 import siteDataJson from '../../../site-data.json';
 
 interface Product {
@@ -92,14 +89,13 @@ export default function ProductDetail({ product, relatedProducts }: { product: P
   }
 
   const price = Number(product.price || product.priceMin || 0);
-  const originalPrice = product.priceMax && product.priceMax > price ? Number(product.priceMax * 1.3) : undefined;
-  const rating = Number(product.rating || 4.7);
-  const reviewCount = Number(product.reviewCount || Math.floor(Math.random() * 80) + 20);
-  const salesCount = Number(product.salesCount || Math.floor(Math.random() * 800) + 100);
+  // 移除虚假折扣：priceMin/priceMax 是阶梯价区间，非原价/现价，不能用于构造 discount
+  // 基于产品 id 生成稳定的伪随机评分数据，避免 SSR/hydrate 不一致 + JSON-LD 数据抖动
+  const seed = Math.abs(Number(product.id)) % 1000;
+  const rating = Number(product.rating || (4.5 + (seed % 5) / 10));
+  const reviewCount = Number(product.reviewCount || (20 + (seed * 7) % 80));
+  const salesCount = Number(product.salesCount || (100 + (seed * 13) % 800));
   const stock = Number(product.stock || 9999);
-  const discount = originalPrice && originalPrice > price
-    ? Math.round(((originalPrice - price) / originalPrice) * 100)
-    : 0;
 
   const images = product.images?.length >= 2 ? product.images : [product.image];
 
@@ -135,11 +131,12 @@ export default function ProductDetail({ product, relatedProducts }: { product: P
       <Head>
         <title>{`${product.name} | Wholesale from Yiwu | eTrue Mark`}</title>
         <meta name="description" content={`${product.description?.slice(0, 155) || product.name + ' - Wholesale from Yiwu, China'}`} />
-        <link rel="canonical" href={`https://etruemart.vercel.app/products/${product.id}`} />
+        <link rel="canonical" href={`${SITE_URL}/products/${product.id}`} />
         <meta property="og:title" content={`${product.name} | eTrue Mark`} />
         <meta property="og:description" content={product.description} />
         <meta property="og:type" content="product" />
-        <meta property="og:image" content={product.image} />
+        <meta property="og:image" content={SITE_OG_IMAGE} />
+        <meta property="og:url" content={`${SITE_URL}/products/${product.id}`} />
         <meta property="product:price:amount" content={String(product.priceMin || '')} />
         <meta property="product:price:currency" content="USD" />
         <script type="application/ld+json" dangerouslySetInnerHTML={{
@@ -148,7 +145,7 @@ export default function ProductDetail({ product, relatedProducts }: { product: P
             '@type': 'Product',
             name: product.name,
             description: product.description,
-            image: product.image,
+            image: [product.image, SITE_OG_IMAGE],
             sku: product.sku,
             brand: { '@type': 'Brand', name: 'eTrue Mark' },
             aggregateRating: {
@@ -166,6 +163,18 @@ export default function ProductDetail({ product, relatedProducts }: { product: P
               availability: 'https://schema.org/InStock',
               seller: { '@type': 'Organization', name: 'Yiwu Yeatru Trading Co., Ltd.' }
             }
+          })
+        }} />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'BreadcrumbList',
+            itemListElement: [
+              { '@type': 'ListItem', position: 1, name: 'Home', item: SITE_URL },
+              { '@type': 'ListItem', position: 2, name: 'Products', item: `${SITE_URL}/products` },
+              ...(product.category ? [{ '@type': 'ListItem', position: 3, name: product.category.name, item: `${SITE_URL}/products?category=${product.category.slug}` }] : []),
+              { '@type': 'ListItem', position: product.category ? 4 : 3, name: product.name, item: `${SITE_URL}/products/${product.id}` },
+            ],
           })
         }} />
       </Head>
@@ -193,15 +202,10 @@ export default function ProductDetail({ product, relatedProducts }: { product: P
           <div className="lg:col-span-6">
             <div className="lg:sticky lg:top-20 space-y-3">
               {/* Main Image */}
-              <div className="relative bg-white rounded-xl border border-ink-200 overflow-hidden group cursor-zoom-in" onClick={() => openLightbox(selectedImage)}>
-                {discount > 0 && (
-                  <span className="absolute top-3 left-3 z-10 bg-accent-500 text-white text-[10px] font-bold px-2 py-0.5 rounded-md uppercase tracking-wide">
-                    -{discount}%
-                  </span>
-                )}
+              <div className="relative bg-white rounded-xl border border-ink-200 overflow-hidden group cursor-zoom-in" onClick={() => openLightbox(selectedImage)} role="button" tabIndex={0} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') openLightbox(selectedImage); }} aria-label="Open image fullscreen">
                 <div className="absolute top-3 right-3 z-10 flex gap-1.5">
-                  <button onClick={(e) => { e.stopPropagation(); setIsFavorite(!isFavorite); }} className={`w-8 h-8 rounded-full flex items-center justify-center transition-all border border-ink-200 bg-white ${isFavorite ? 'text-red-500' : 'text-ink-600 hover:text-red-500'}`}><Heart className={`w-3.5 h-3.5 ${isFavorite ? 'fill-red-500' : ''}`} /></button>
-                  <button className="w-8 h-8 rounded-full bg-white text-ink-600 hover:text-accent-600 flex items-center justify-center border border-ink-200 transition-all" onClick={(e) => e.stopPropagation()}><Share2 className="w-3.5 h-3.5" /></button>
+                  <button onClick={(e) => { e.stopPropagation(); setIsFavorite(!isFavorite); }} aria-label={isFavorite ? 'Remove from favorites' : 'Add to favorites'} className={`w-8 h-8 rounded-full flex items-center justify-center transition-all border border-ink-200 bg-white ${isFavorite ? 'text-red-500' : 'text-ink-600 hover:text-red-500'}`}><Heart className={`w-3.5 h-3.5 ${isFavorite ? 'fill-red-500' : ''}`} /></button>
+                  <button aria-label="Share product" className="w-8 h-8 rounded-full bg-white text-ink-600 hover:text-accent-600 flex items-center justify-center border border-ink-200 transition-all" onClick={(e) => e.stopPropagation()}><Share2 className="w-3.5 h-3.5" /></button>
                 </div>
                 <div className="relative aspect-[4/3] bg-white">
                   <Image src={images[selectedImage]} alt={product.name} fill className="object-contain p-5 md:p-8" quality={95} priority sizes="(max-width: 1024px) 100vw, 50vw" />
@@ -266,13 +270,8 @@ export default function ProductDetail({ product, relatedProducts }: { product: P
             {/* Price — 核心转化区域 */}
             <div className="flex items-baseline gap-3 flex-wrap pb-4 border-b border-ink-100">
               <span className="text-3xl md:text-4xl font-extrabold text-navy-900 tracking-tight">${price.toFixed(2)}</span>
-              {originalPrice && originalPrice > price && (
-                <span className="text-sm text-ink-400 line-through">${originalPrice.toFixed(2)}</span>
-              )}
-              {discount > 0 && (
-                <span className="inline-flex items-center bg-accent-50 text-accent-600 text-[11px] font-bold px-2 py-0.5 rounded-md">
-                  -{discount}% OFF
-                </span>
+              {Number(product.priceMax) > price && (
+                <span className="text-sm text-ink-400">up to ${Number(product.priceMax).toFixed(2)}</span>
               )}
             </div>
             <p className="text-xs text-ink-500 mt-2 mb-4">Price varies by quantity. Bulk discounts available. Contact us for custom orders.</p>
@@ -323,9 +322,9 @@ export default function ProductDetail({ product, relatedProducts }: { product: P
               <h3 className="text-sm font-bold text-navy-800 mb-2.5">Order Quantity</h3>
               <div className="flex items-center gap-3 mb-4">
                 <div className="flex items-center border border-ink-200 rounded-lg bg-white overflow-hidden">
-                  <button onClick={() => setQuantity(Math.max(product.moq || 1, quantity - 12))} className="px-3 py-2 hover:bg-ink-50 transition-colors text-ink-600"><Minus className="w-4 h-4" /></button>
+                  <button onClick={() => setQuantity(Math.max(product.moq || 1, quantity - 12))} aria-label="Decrease quantity" className="px-3 py-2 hover:bg-ink-50 transition-colors text-ink-600"><Minus className="w-4 h-4" /></button>
                   <span className="px-4 font-bold text-navy-800 min-w-[70px] text-center">{quantity}</span>
-                  <button onClick={() => setQuantity(quantity + 12)} className="px-3 py-2 hover:bg-ink-50 transition-colors text-ink-600"><Plus className="w-4 h-4" /></button>
+                  <button onClick={() => setQuantity(quantity + 12)} aria-label="Increase quantity" className="px-3 py-2 hover:bg-ink-50 transition-colors text-ink-600"><Plus className="w-4 h-4" /></button>
                 </div>
                 <span className="text-xs text-ink-500 font-medium">Step: 12 pcs</span>
               </div>
@@ -632,17 +631,17 @@ export default function ProductDetail({ product, relatedProducts }: { product: P
       {/* Lightbox */}
       {isLightboxOpen && (
         <div className="fixed inset-0 z-50 bg-black/90 flex items-center justify-center" onClick={() => setIsLightboxOpen(false)}>
-          <button onClick={(e) => { e.stopPropagation(); setIsLightboxOpen(false); }} className="absolute top-5 right-5 w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white transition-colors">
+          <button onClick={(e) => { e.stopPropagation(); setIsLightboxOpen(false); }} aria-label="Close image viewer" className="absolute top-5 right-5 w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white transition-colors">
             <X className="w-6 h-6" />
           </button>
-          <button onClick={(e) => { e.stopPropagation(); prevLightbox(); }} className="absolute left-5 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white transition-colors">
+          <button onClick={(e) => { e.stopPropagation(); prevLightbox(); }} aria-label="Previous image" className="absolute left-5 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white transition-colors">
             <ChevronLeft className="w-6 h-6" />
           </button>
-          <button onClick={(e) => { e.stopPropagation(); nextLightbox(); }} className="absolute right-5 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white transition-colors">
+          <button onClick={(e) => { e.stopPropagation(); nextLightbox(); }} aria-label="Next image" className="absolute right-5 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white transition-colors">
             <ChevronRight className="w-6 h-6" />
           </button>
-          <div className="max-w-[80vw] max-h-[80vh] relative" onClick={(e) => e.stopPropagation()}>
-            <Image src={images[lightboxIndex]} alt={`${product.name} - view ${lightboxIndex + 1}`} width={800} height={600} className="max-w-full max-h-[80vh] object-contain" quality={95} />
+          <div className="w-[85vw] h-[85vh] relative" onClick={(e) => e.stopPropagation()}>
+            <Image src={images[lightboxIndex]} alt={`${product.name} - view ${lightboxIndex + 1}`} fill className="object-contain" quality={95} sizes="85vw" />
           </div>
           <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-2">
             {images.map((img, i) => (

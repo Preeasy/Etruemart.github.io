@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
+import Head from 'next/head';
+import Image from 'next/image';
 import { FileText, Package, Truck, CheckCircle, Clock, ChevronRight } from 'lucide-react';
 import Layout from '@/components/Layout';
 
@@ -62,6 +64,10 @@ const Orders = () => {
 
   return (
     <Layout>
+      <Head>
+        <title>My Orders | eTrue Mark</title>
+        <meta name="robots" content="noindex, nofollow" />
+      </Head>
       <div className="bg-white border-b">
         <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16 max-w-[1600px] mx-auto py-8">
           <h1 className="text-3xl font-bold text-navy-900">My Orders</h1>
@@ -104,11 +110,15 @@ const Orders = () => {
                       {order.items.map((item, index) => (
                         <div key={index} className="flex-shrink-0">
                           <Link href={`/products/${item.product.id}`}>
-                            <img
-                              src={item.product.image}
-                              alt={item.product.name}
-                              className="w-20 h-20 object-cover rounded-xl"
-                            />
+                            <div className="relative w-20 h-20 overflow-hidden rounded-xl">
+                              <Image
+                                src={item.product.image}
+                                alt={item.product.name}
+                                fill
+                                className="object-cover"
+                                sizes="80px"
+                              />
+                            </div>
                           </Link>
                           <p className="text-sm font-medium text-navy-900 mt-2 max-w-[160px] truncate">
                             {item.product.name}

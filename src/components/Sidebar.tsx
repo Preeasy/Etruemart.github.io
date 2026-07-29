@@ -18,8 +18,6 @@ import {
   Headphones,
   Clock,
   Star,
-  Zap,
-  Percent,
   Package,
   Globe,
   Mail,

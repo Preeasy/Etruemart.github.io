@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
+import Head from 'next/head';
 import {
   ChevronRight,
   Star,
@@ -9,7 +9,6 @@ import {
   MapPin,
   Calendar,
   Users,
-  Package,
   ShieldCheck,
   Award,
   Globe,
@@ -20,15 +19,13 @@ import {
   ThumbsUp,
   TrendingUp,
   Search,
-  Filter,
   Grid3X3,
   List,
   ChevronDown,
-  Flame,
-  Tag,
 } from 'lucide-react';
 import Layout from '@/components/Layout';
 import ProductCard from '@/components/ProductCard';
+import { SITE_URL, SITE_OG_IMAGE, SITE_PHONE, SITE_EMAIL } from '@/lib/site';
 import siteDataJson from '../../../site-data.json';
 
 interface Product {
@@ -91,6 +88,50 @@ export default function StorePage({ products }: { products: Product[] }) {
 
   return (
     <Layout>
+      <Head>
+        <title>{`${storeData.name} | Verified Wholesale Supplier | eTrue Mark`}</title>
+        <meta name="description" content={`${storeData.description.slice(0, 155)}`} />
+        <link rel="canonical" href={`${SITE_URL}/store/${storeData.slug}`} />
+        <meta property="og:title" content={`${storeData.name} | eTrue Mark`} />
+        <meta property="og:description" content={storeData.description} />
+        <meta property="og:type" content="website" />
+        <meta property="og:image" content={SITE_OG_IMAGE} />
+        <meta property="og:url" content={`${SITE_URL}/store/${storeData.slug}`} />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'Store',
+            name: storeData.name,
+            description: storeData.description,
+            image: SITE_OG_IMAGE,
+            url: `${SITE_URL}/store/${storeData.slug}`,
+            telephone: SITE_PHONE,
+            email: SITE_EMAIL,
+            address: {
+              '@type': 'PostalAddress',
+              addressLocality: 'Yiwu',
+              addressRegion: 'Zhejiang',
+              addressCountry: 'CN',
+            },
+            aggregateRating: {
+              '@type': 'AggregateRating',
+              ratingValue: storeData.stats.rating,
+              reviewCount: storeData.stats.reviews,
+            },
+          })
+        }} />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'BreadcrumbList',
+            itemListElement: [
+              { '@type': 'ListItem', position: 1, name: 'Home', item: SITE_URL },
+              { '@type': 'ListItem', position: 2, name: 'Products', item: `${SITE_URL}/products` },
+              { '@type': 'ListItem', position: 3, name: storeData.name, item: `${SITE_URL}/store/${storeData.slug}` },
+            ],
+          })
+        }} />
+      </Head>
       {/* Breadcrumb */}
       <div className="bg-white border-b border-ink-200">
         <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16 max-w-[1600px] mx-auto py-3.5">
@@ -147,7 +188,7 @@ export default function StorePage({ products }: { products: Product[] }) {
                 <MessageCircle className="w-4 h-4" />Contact Now
               </button>
               <button className="inline-flex items-center justify-center gap-2 bg-white/10 hover:bg-white/15 text-white px-5 py-2.5 rounded-xl font-bold text-sm transition-colors backdrop-blur border border-white/10">
-                <Phone className="w-4 h-4" />+86 579-8555-8888
+                <Phone className="w-4 h-4" />{SITE_PHONE}
               </button>
             </div>
           </div>
@@ -239,10 +280,10 @@ export default function StorePage({ products }: { products: Product[] }) {
               <h3 className="text-sm font-bold text-navy-800 uppercase tracking-[0.08em] mb-3">Contact Info</h3>
               <div className="space-y-2.5">
                 <div className="flex items-center gap-2 text-xs text-ink-600">
-                  <Phone className="w-3.5 h-3.5 text-accent-500" />+86 579-8555-8888
+                  <Phone className="w-3.5 h-3.5 text-accent-500" />{SITE_PHONE}
                 </div>
                 <div className="flex items-center gap-2 text-xs text-ink-600">
-                  <Mail className="w-3.5 h-3.5 text-accent-500" />sales@yiwupremium.com
+                  <Mail className="w-3.5 h-3.5 text-accent-500" />{SITE_EMAIL}
                 </div>
                 <div className="flex items-center gap-2 text-xs text-ink-600">
                   <MapPin className="w-3.5 h-3.5 text-accent-500" />Yiwu, Zhejiang, China
@@ -282,8 +323,8 @@ export default function StorePage({ products }: { products: Product[] }) {
               </div>
               <div className="flex items-center gap-3">
                 <div className="flex items-center border border-ink-200 rounded-lg overflow-hidden">
-                  <button onClick={() => setViewMode('grid')} className={`p-2 ${viewMode === 'grid' ? 'bg-accent-500 text-white' : 'text-ink-500 hover:text-accent-600'}`}><Grid3X3 className="w-4 h-4" /></button>
-                  <button onClick={() => setViewMode('list')} className={`p-2 ${viewMode === 'list' ? 'bg-accent-500 text-white' : 'text-ink-500 hover:text-accent-600'}`}><List className="w-4 h-4" /></button>
+                  <button onClick={() => setViewMode('grid')} aria-label="Grid view" className={`p-2 ${viewMode === 'grid' ? 'bg-accent-500 text-white' : 'text-ink-500 hover:text-accent-600'}`}><Grid3X3 className="w-4 h-4" /></button>
+                  <button onClick={() => setViewMode('list')} aria-label="List view" className={`p-2 ${viewMode === 'list' ? 'bg-accent-500 text-white' : 'text-ink-500 hover:text-accent-600'}`}><List className="w-4 h-4" /></button>
                 </div>
                 <div className="relative">
                   <select value={sortBy} onChange={(e) => setSortBy(e.target.value)} className="appearance-none bg-ink-50 border border-ink-200 px-4 py-2 pr-9 rounded-xl text-sm text-ink-700 focus:outline-none focus:ring-2 focus:ring-accent-500/30 focus:border-accent-500 cursor-pointer font-medium">

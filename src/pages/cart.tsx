@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
+import Head from 'next/head';
+import Image from 'next/image';
 import { ShoppingCart, Plus, Minus, Trash2, CreditCard, Truck, ChevronRight } from 'lucide-react';
 import Layout from '@/components/Layout';
 
@@ -78,6 +80,10 @@ const Cart = () => {
 
   return (
     <Layout>
+      <Head>
+        <title>Shopping Cart | eTrue Mark</title>
+        <meta name="robots" content="noindex, nofollow" />
+      </Head>
       <div className="bg-white border-b">
         <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16 max-w-[1600px] mx-auto py-8">
           <h1 className="text-3xl font-bold text-navy-900">Shopping Cart</h1>
@@ -92,11 +98,15 @@ const Cart = () => {
               <div className="space-y-4">
                 {items.map((item) => (
                   <div key={item.id} className="bg-white rounded-xl border border-ink-200 p-6 flex gap-4">
-                    <img
-                      src={item.product.image}
-                      alt={item.product.name}
-                      className="w-24 h-24 object-cover rounded-xl"
-                    />
+                    <div className="relative w-24 h-24 flex-shrink-0 rounded-xl overflow-hidden">
+                      <Image
+                        src={item.product.image}
+                        alt={item.product.name}
+                        fill
+                        className="object-cover"
+                        sizes="96px"
+                      />
+                    </div>
                     <div className="flex-1">
                       <Link href={`/products/${item.product.id}`}>
                         <h3 className="font-semibold text-navy-900 hover:text-accent-600">{item.product.name}</h3>
@@ -112,15 +122,15 @@ const Cart = () => {
                         </span>
                         <div className="flex items-center gap-4">
                           <div className="flex items-center border rounded-lg">
-                            <button onClick={() => updateQuantity(item.id, item.quantity - 1)} className="p-2 hover:bg-ink-50 transition-colors">
+                            <button onClick={() => updateQuantity(item.id, item.quantity - 1)} aria-label="Decrease quantity" className="p-2 hover:bg-ink-50 transition-colors">
                               <Minus className="w-4 h-4" />
                             </button>
                             <span className="px-4 font-semibold">{item.quantity}</span>
-                            <button onClick={() => updateQuantity(item.id, item.quantity + 1)} className="p-2 hover:bg-ink-50 transition-colors">
+                            <button onClick={() => updateQuantity(item.id, item.quantity + 1)} aria-label="Increase quantity" className="p-2 hover:bg-ink-50 transition-colors">
                               <Plus className="w-4 h-4" />
                             </button>
                           </div>
-                          <button onClick={() => removeItem(item.id)} className="p-2 hover:bg-red-50 hover:text-red-600 transition-colors">
+                          <button onClick={() => removeItem(item.id)} aria-label="Remove item" className="p-2 hover:bg-red-50 hover:text-red-600 transition-colors">
                             <Trash2 className="w-5 h-5" />
                           </button>
                         </div>

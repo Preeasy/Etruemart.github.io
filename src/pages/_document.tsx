@@ -1,8 +1,5 @@
 import { Html, Head, Main, NextScript } from 'next/document';
-
-const SITE_URL = 'https://etruemart.vercel.app';
-const SITE_NAME = 'eTrue Mark';
-const SITE_DESCRIPTION = 'Wholesale jewelry, accessories & crafts direct from Yiwu factories. Low MOQ, factory-direct pricing, global shipping. Trusted B2B sourcing platform.';
+import { SITE_URL, SITE_NAME, SITE_DESCRIPTION, SITE_PHONE, SITE_COMPANY, SITE_OG_IMAGE } from '@/lib/site';
 
 export default function Document() {
   return (
@@ -31,7 +28,6 @@ export default function Document() {
 
         {/* hreflang Tags */}
         <link rel="alternate" hrefLang="en" href={SITE_URL} />
-        <link rel="alternate" hrefLang="zh-CN" href={`${SITE_URL}/zh-CN`} />
         <link rel="alternate" hrefLang="x-default" href={SITE_URL} />
 
         {/* Open Graph / Facebook */}
@@ -39,7 +35,7 @@ export default function Document() {
         <meta property="og:url" content={SITE_URL} />
         <meta property="og:title" content={`${SITE_NAME} | Wholesale Jewelry & Accessories from Yiwu`} />
         <meta property="og:description" content={SITE_DESCRIPTION} />
-        <meta property="og:image" content={`${SITE_URL}/og-image.jpg`} />
+        <meta property="og:image" content={SITE_OG_IMAGE} />
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />
         <meta property="og:site_name" content={SITE_NAME} />
@@ -51,10 +47,7 @@ export default function Document() {
         <meta name="twitter:url" content={SITE_URL} />
         <meta name="twitter:title" content={`${SITE_NAME} | Wholesale Jewelry & Accessories`} />
         <meta name="twitter:description" content={SITE_DESCRIPTION} />
-        <meta name="twitter:image" content={`${SITE_URL}/og-image.jpg`} />
-
-        {/* Canonical */}
-        <link rel="canonical" href={SITE_URL} />
+        <meta name="twitter:image" content={SITE_OG_IMAGE} />
 
         {/* Favicon */}
         <link rel="icon" href="/favicon.ico" />
@@ -75,8 +68,8 @@ export default function Document() {
             __html: JSON.stringify({
               '@context': 'https://schema.org',
               '@type': 'Organization',
-              name: 'eTrue Mark',
-              alternateName: 'Yiwu Yeatru Trading Co., Ltd.',
+              name: SITE_NAME,
+              alternateName: SITE_COMPANY,
               url: SITE_URL,
               logo: `${SITE_URL}/logo.png`,
               description: SITE_DESCRIPTION,
@@ -95,7 +88,7 @@ export default function Document() {
               },
               contactPoint: {
                 '@type': 'ContactPoint',
-                telephone: '+86-579-85000000',
+                telephone: SITE_PHONE,
                 contactType: 'sales',
                 availableLanguage: ['English', 'Chinese'],
               },
@@ -115,10 +108,10 @@ export default function Document() {
             __html: JSON.stringify({
               '@context': 'https://schema.org',
               '@type': 'WholesaleStore',
-              name: 'eTrue Mark - Wholesale Sourcing Platform',
-              image: `${SITE_URL}/og-image.jpg`,
+              name: `${SITE_NAME} - Wholesale Sourcing Platform`,
+              image: SITE_OG_IMAGE,
               url: SITE_URL,
-              telephone: '+86-579-85000000',
+              telephone: SITE_PHONE,
               priceRange: '$$',
               address: {
                 '@type': 'PostalAddress',
