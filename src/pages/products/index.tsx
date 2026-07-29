@@ -34,6 +34,8 @@ interface Product {
   packSize?: number;
   sku?: string;
   stockStatus?: string;
+  keywords?: string[];
+  bulletPoints?: string[];
 }
 
 const categoryFilters = [

@@ -63,6 +63,8 @@ interface Product {
   origin?: string;
   supplierCity?: string;
   seller?: string;
+  keywords?: string[];
+  bulletPoints?: string[];
 }
 
 export default function ProductDetail({ product, relatedProducts }: { product: Product; relatedProducts: Product[] }) {
@@ -148,6 +150,7 @@ export default function ProductDetail({ product, relatedProducts }: { product: P
             image: [product.image, SITE_OG_IMAGE],
             sku: product.sku,
             brand: { '@type': 'Brand', name: 'eTrue Mark' },
+            ...(product.keywords ? { keywords: product.keywords.join(', ') } : {}),
             aggregateRating: {
               '@type': 'AggregateRating',
               ratingValue: rating,
@@ -312,10 +315,20 @@ export default function ProductDetail({ product, relatedProducts }: { product: P
               </div>
             </div>
 
-            {/* Description */}
-            <div className="py-4 border-b border-ink-100">
-              <p className="text-sm text-ink-600 leading-relaxed">{product.description}</p>
-            </div>
+            {/* Key Features — bullet points */}
+            {product.bulletPoints && product.bulletPoints.length > 0 && (
+              <div className="py-4 border-b border-ink-100">
+                <h3 className="text-sm font-bold text-navy-800 mb-3">Key Features</h3>
+                <ul className="space-y-2">
+                  {product.bulletPoints.map((bp, i) => (
+                    <li key={i} className="flex items-start gap-2 text-sm text-ink-600 leading-relaxed">
+                      <CheckCircle2 className="w-4 h-4 text-accent-600 flex-shrink-0 mt-0.5" />
+                      <span>{bp}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
 
             {/* Quantity + CTA — 主操作区 */}
             <div className="py-4 border-b border-ink-100">
@@ -424,19 +437,35 @@ export default function ProductDetail({ product, relatedProducts }: { product: P
                     <h2 className="text-lg font-bold text-navy-900 mb-2.5">Product Overview</h2>
                     <p className="text-sm text-ink-600 leading-relaxed">{product.description}</p>
                   </div>
-                  <div>
-                    <h3 className="text-base font-bold text-navy-800 mb-3 flex items-center gap-2">
-                      <CheckCircle2 className="w-4 h-4 text-accent-500" />Key Features
-                    </h3>
-                    <div className="grid md:grid-cols-2 gap-2">
-                      {['Premium quality materials from certified suppliers','Rigorous 3-stage quality control','Low MOQ for small businesses','Custom branding & packaging available','Fast production: 7-15 days lead time','Worldwide shipping with DDP/DDU','Competitive factory-direct pricing','Dedicated account manager for bulk'].map((f, i) => (
-                        <div key={i} className="flex items-start gap-2 p-2.5 rounded-lg border border-ink-100 bg-white">
-                          <CheckCircle2 className="w-4 h-4 text-accent-500 flex-shrink-0 mt-0.5" />
-                          <span className="text-sm text-ink-700">{f}</span>
-                        </div>
-                      ))}
+                  {product.bulletPoints && product.bulletPoints.length > 0 && (
+                    <div>
+                      <h3 className="text-base font-bold text-navy-800 mb-3 flex items-center gap-2">
+                        <CheckCircle2 className="w-4 h-4 text-accent-500" />Key Features
+                      </h3>
+                      <div className="grid md:grid-cols-2 gap-2">
+                        {product.bulletPoints.map((bp, i) => (
+                          <div key={i} className="flex items-start gap-2 p-2.5 rounded-lg border border-ink-100 bg-white">
+                            <CheckCircle2 className="w-4 h-4 text-accent-500 flex-shrink-0 mt-0.5" />
+                            <span className="text-sm text-ink-700">{bp}</span>
+                          </div>
+                        ))}
+                      </div>
                     </div>
-                  </div>
+                  )}
+                  {product.keywords && product.keywords.length > 0 && (
+                    <div>
+                      <h3 className="text-base font-bold text-navy-800 mb-3 flex items-center gap-2">
+                        <Tag className="w-4 h-4 text-accent-500" />Search Keywords
+                      </h3>
+                      <div className="flex flex-wrap gap-2">
+                        {product.keywords.map((kw, i) => (
+                          <span key={i} className="text-xs font-semibold text-ink-600 bg-ink-50 border border-ink-200 rounded-full px-3 py-1.5">
+                            {kw}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  )}
                   <div>
                     <h3 className="text-base font-bold text-navy-800 mb-3 flex items-center gap-2">
                       <Users className="w-4 h-4 text-accent-500" />Perfect For

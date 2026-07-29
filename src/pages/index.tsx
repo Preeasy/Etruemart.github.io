@@ -37,6 +37,8 @@ interface Product {
   moq?: number;
   sku?: string;
   color?: string;
+  keywords?: string[];
+  bulletPoints?: string[];
 }
 
 const SUB_TO_PARENT: Record<string, string> = {
