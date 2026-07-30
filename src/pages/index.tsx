@@ -27,7 +27,7 @@ import Sidebar from '@/components/Sidebar';
 import siteDataJson from '../../site-data.json';
 
 interface Product {
-  id: number;
+  id: number | string;
   name: string;
   description: string;
   category: { name: string; slug: string };

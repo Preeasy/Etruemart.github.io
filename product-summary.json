@@ -1,0 +1,1082 @@
+{
+  "bags-accessories": [
+    {
+      "name": "Black Quilted Mini Chain Shoulder Bag",
+      "slug": "black-quilted-mini-chain-shoulder-bag",
+      "filename": "001.jpg",
+      "price": "$3.5-$4.55"
+    },
+    {
+      "name": "Snakeskin Pattern Shoulder Handbag",
+      "slug": "snakeskin-pattern-shoulder-handbag",
+      "filename": "002.jpg",
+      "price": "$9.0-$11.7"
+    },
+    {
+      "name": "Beige Quilted Lambskin Crossbody Bag",
+      "slug": "beige-quilted-lambskin-crossbody-bag",
+      "filename": "003.jpg",
+      "price": "$14.5-$18.85"
+    },
+    {
+      "name": "Classic Quilted Chain Flap Bag with Top Handle",
+      "slug": "classic-quilted-chain-flap-bag-with-top-handle",
+      "filename": "004.jpg",
+      "price": "$20.0-$26.0"
+    },
+    {
+      "name": "White Quilted Caviar Mini Flap Bag",
+      "slug": "white-quilted-caviar-mini-flap-bag",
+      "filename": "005.jpg",
+      "price": "$25.5-$33.15"
+    },
+    {
+      "name": "Black Quilted Caviar Crossbody Bag",
+      "slug": "black-quilted-caviar-crossbody-bag",
+      "filename": "006.jpg",
+      "price": "$31.0-$40.3"
+    },
+    {
+      "name": "Beige Vintage Camera Crossbody Bag",
+      "slug": "beige-vintage-camera-crossbody-bag",
+      "filename": "007.jpg",
+      "price": "$36.5-$47.45"
+    },
+    {
+      "name": "Brown Quilted Saddle Crossbody Bag",
+      "slug": "brown-quilted-saddle-crossbody-bag",
+      "filename": "008.jpg",
+      "price": "$3.5-$4.55"
+    },
+    {
+      "name": "White Quilted Top Handle Satchel",
+      "slug": "white-quilted-top-handle-satchel",
+      "filename": "009.jpg",
+      "price": "$9.0-$11.7"
+    },
+    {
+      "name": "Black Quilted Card Holder Wallet",
+      "slug": "black-quilted-card-holder-wallet",
+      "filename": "010.jpg",
+      "price": "$14.5-$18.85"
+    },
+    {
+      "name": "Black Quilted Zip Card Case",
+      "slug": "black-quilted-zip-card-case",
+      "filename": "011.jpg",
+      "price": "$20.0-$26.0"
+    },
+    {
+      "name": "Beige Quilted Mini Card Holder",
+      "slug": "beige-quilted-mini-card-holder",
+      "filename": "012.jpg",
+      "price": "$25.5-$33.15"
+    },
+    {
+      "name": "Black Quilted Bifold Wallet",
+      "slug": "black-quilted-bifold-wallet",
+      "filename": "013.jpg",
+      "price": "$31.0-$40.3"
+    },
+    {
+      "name": "Beige Quilted Trifold Wallet",
+      "slug": "beige-quilted-trifold-wallet",
+      "filename": "014.jpg",
+      "price": "$36.5-$47.45"
+    },
+    {
+      "name": "Black Quilted Long Wallet",
+      "slug": "black-quilted-long-wallet",
+      "filename": "015.jpg",
+      "price": "$3.5-$4.55"
+    },
+    {
+      "name": "Brown Quilted Continental Wallet",
+      "slug": "brown-quilted-continental-wallet",
+      "filename": "016.jpg",
+      "price": "$9.0-$11.7"
+    },
+    {
+      "name": "Beige Quilted Camera Crossbody Bag",
+      "slug": "beige-quilted-camera-crossbody-bag",
+      "filename": "017.jpg",
+      "price": "$14.5-$18.85"
+    },
+    {
+      "name": "Black Vintage Camera Crossbody Bag",
+      "slug": "black-vintage-camera-crossbody-bag",
+      "filename": "018.jpg",
+      "price": "$20.0-$26.0"
+    },
+    {
+      "name": "Black Quilted Vanity Cosmetic Case",
+      "slug": "black-quilted-vanity-cosmetic-case",
+      "filename": "019.jpg",
+      "price": "$25.5-$33.15"
+    },
+    {
+      "name": "Beige Quilted Mini Top Handle Bag",
+      "slug": "beige-quilted-mini-top-handle-bag",
+      "filename": "020.jpg",
+      "price": "$31.0-$40.3"
+    },
+    {
+      "name": "Black Quilted Mini Flap Bag with Chain",
+      "slug": "black-quilted-mini-flap-bag-with-chain",
+      "filename": "021.jpg",
+      "price": "$36.5-$47.45"
+    },
+    {
+      "name": "White Quilted Cosmetic Pouch Bag",
+      "slug": "white-quilted-cosmetic-pouch-bag",
+      "filename": "022.jpg",
+      "price": "$3.5-$4.55"
+    },
+    {
+      "name": "Mini Top-Handle Crossbody Bag Set - 4 Colors",
+      "slug": "mini-top-handle-crossbody-bag-set-4-colors",
+      "filename": "Bag%20accessories%20%281%29.jpg",
+      "price": "$9.0-$11.7"
+    },
+    {
+      "name": "Brown Leather RFID Pop-Up Card Holder",
+      "slug": "brown-leather-rfid-pop-up-card-holder",
+      "filename": "Bag%20accessories%20%2811%29.jpg",
+      "price": "$14.5-$18.85"
+    },
+    {
+      "name": "Brown Leather Trifold Wallet with Metal Discs",
+      "slug": "brown-leather-trifold-wallet-with-metal-discs",
+      "filename": "Bag%20accessories%20%2813%29.jpg",
+      "price": "$20.0-$26.0"
+    },
+    {
+      "name": "Brown Leather Trifold Wallet with Back Zipper",
+      "slug": "brown-leather-trifold-wallet-with-back-zipper",
+      "filename": "Bag%20accessories%20%2816%29.jpg",
+      "price": "$25.5-$33.15"
+    },
+    {
+      "name": "Black Pebbled Continental Wallet with Gold Logo",
+      "slug": "black-pebbled-continental-wallet-with-gold-logo",
+      "filename": "Bag%20accessories%20%2817%29.jpg",
+      "price": "$31.0-$40.3"
+    },
+    {
+      "name": "Quilted Wristlet Wallet Set - Black and Pink",
+      "slug": "quilted-wristlet-wallet-set-black-and-pink",
+      "filename": "Bag%20accessories%20%2818%29.jpg",
+      "price": "$36.5-$47.45"
+    },
+    {
+      "name": "Beige Multi-Pocket Travel Laptop Backpack",
+      "slug": "beige-multi-pocket-travel-laptop-backpack",
+      "filename": "Bag%20accessories%20%2819%29.jpg",
+      "price": "$3.5-$4.55"
+    },
+    {
+      "name": "Beige Snakeskin Print Tote Bag with Croc Top",
+      "slug": "beige-snakeskin-print-tote-bag-with-croc-top",
+      "filename": "Bag%20accessories%20%282%29.jpg",
+      "price": "$9.0-$11.7"
+    },
+    {
+      "name": "Black Business Travel Laptop Backpack",
+      "slug": "black-business-travel-laptop-backpack",
+      "filename": "Bag%20accessories%20%2820%29.jpg",
+      "price": "$14.5-$18.85"
+    },
+    {
+      "name": "Light Purple Drawstring Sport Backpack",
+      "slug": "light-purple-drawstring-sport-backpack",
+      "filename": "Bag%20accessories%20%2822%29.jpg",
+      "price": "$20.0-$26.0"
+    },
+    {
+      "name": "Black Anti-Theft Travel Laptop Backpack",
+      "slug": "black-anti-theft-travel-laptop-backpack",
+      "filename": "Bag%20accessories%20%2823%29.jpg",
+      "price": "$25.5-$33.15"
+    },
+    {
+      "name": "Mini Top-Handle Crossbody Bag Set - 4 Colors",
+      "slug": "mini-top-handle-crossbody-bag-set-4-colors-1",
+      "filename": "Bag%20accessories%20%2824%29.jpg",
+      "price": "$31.0-$40.3"
+    },
+    {
+      "name": "Beige Structured Leather Tote Bag",
+      "slug": "beige-structured-leather-tote-bag",
+      "filename": "Bag%20accessories%20%283%29.jpg",
+      "price": "$36.5-$47.45"
+    },
+    {
+      "name": "Red Leather Tote Bag with Gold Hardware",
+      "slug": "red-leather-tote-bag-with-gold-hardware",
+      "filename": "Bag%20accessories%20%284%29.jpg",
+      "price": "$3.5-$4.55"
+    },
+    {
+      "name": "Pink Crocodile-Embossed Satchel with Lion Lock",
+      "slug": "pink-crocodile-embossed-satchel-with-lion-lock",
+      "filename": "Bag%20accessories%20%285%29.jpg",
+      "price": "$9.0-$11.7"
+    },
+    {
+      "name": "Black Pebbled Leather Handbag with Tassel",
+      "slug": "black-pebbled-leather-handbag-with-tassel",
+      "filename": "Bag%20accessories%20%286%29.jpg",
+      "price": "$14.5-$18.85"
+    },
+    {
+      "name": "White Canvas Tote with Brown Leather Accents",
+      "slug": "white-canvas-tote-with-brown-leather-accents",
+      "filename": "Bag%20accessories%20%287%29.jpg",
+      "price": "$20.0-$26.0"
+    },
+    {
+      "name": "White Structured Handbag with Floral Charm",
+      "slug": "white-structured-handbag-with-floral-charm",
+      "filename": "Bag%20accessories%20%288%29.jpg",
+      "price": "$25.5-$33.15"
+    },
+    {
+      "name": "Beige Structured Crossbody Bag with Square Handle",
+      "slug": "beige-structured-crossbody-bag-with-square-handle",
+      "filename": "Bag%20accessories%20%289%29.jpg",
+      "price": "$31.0-$40.3"
+    }
+  ],
+  "fashion-jewelry": [
+    {
+      "name": "Sterling Silver Chain Necklace Set - 5 Styles",
+      "slug": "sterling-silver-chain-necklace-set-5-styles",
+      "filename": "Fashion%20Jewelry%281%29.jpg",
+      "price": "$1.5-$1.95"
+    },
+    {
+      "name": "Silver Crystal Heart Pendant Necklace with Halo",
+      "slug": "silver-crystal-heart-pendant-necklace-with-halo",
+      "filename": "Fashion%20Jewelry%2810%29.jpg",
+      "price": "$3.86-$5.01"
+    },
+    {
+      "name": "White Pearl Drop Earrings with Crystal and Baguette Accent",
+      "slug": "white-pearl-drop-earrings-with-crystal-and-baguette-accent",
+      "filename": "Fashion%20Jewelry%2811%29.jpg",
+      "price": "$6.21-$8.08"
+    },
+    {
+      "name": "Silver Oval Frosted Cabochon Stud Earrings",
+      "slug": "silver-oval-frosted-cabochon-stud-earrings",
+      "filename": "Fashion%20Jewelry%2812%29.jpg",
+      "price": "$8.57-$11.14"
+    },
+    {
+      "name": "Silver Crystal Baguette Cluster White Pearl Drop Earrings",
+      "slug": "silver-crystal-baguette-cluster-white-pearl-drop-earrings",
+      "filename": "Fashion%20Jewelry%2813%29.jpg",
+      "price": "$10.93-$14.21"
+    },
+    {
+      "name": "Two-Tone Crystal Flower and White Pearl Drop Earrings",
+      "slug": "two-tone-crystal-flower-and-white-pearl-drop-earrings",
+      "filename": "Fashion%20Jewelry%2814%29.jpg",
+      "price": "$13.29-$17.27"
+    },
+    {
+      "name": "Gold Crystal Baguette Cluster White Pearl Drop Earrings",
+      "slug": "gold-crystal-baguette-cluster-white-pearl-drop-earrings",
+      "filename": "Fashion%20Jewelry%2815%29.jpg",
+      "price": "$15.64-$20.34"
+    },
+    {
+      "name": "Gold Heart, Star and Moon Charm Hoop Earring Set (3 Pairs)",
+      "slug": "gold-heart-star-and-moon-charm-hoop-earring-set-3-pairs",
+      "filename": "Fashion%20Jewelry%2816%29.jpg",
+      "price": "$1.5-$1.95"
+    },
+    {
+      "name": "Silver Square Crystal Stud Earrings",
+      "slug": "silver-square-crystal-stud-earrings",
+      "filename": "Fashion%20Jewelry%2817%29.jpg",
+      "price": "$3.86-$5.01"
+    },
+    {
+      "name": "Gold Square Crystal Cluster and Mother-of-Pearl Drop Earrings",
+      "slug": "gold-square-crystal-cluster-and-mother-of-pearl-drop-earring",
+      "filename": "Fashion%20Jewelry%2818%29.jpg",
+      "price": "$6.21-$8.08"
+    },
+    {
+      "name": "Gold Shell Fluted Teardrop Stud Earrings",
+      "slug": "gold-shell-fluted-teardrop-stud-earrings",
+      "filename": "Fashion%20Jewelry%2819%29.jpg",
+      "price": "$8.57-$11.14"
+    },
+    {
+      "name": "Gold Heart Pendant Necklace",
+      "slug": "gold-heart-pendant-necklace",
+      "filename": "Fashion%20Jewelry%282%29.jpg",
+      "price": "$10.93-$14.21"
+    },
+    {
+      "name": "Silver Double Circle Drop Dangle Earrings",
+      "slug": "silver-double-circle-drop-dangle-earrings",
+      "filename": "Fashion%20Jewelry%2820%29.jpg",
+      "price": "$13.29-$17.27"
+    },
+    {
+      "name": "Gold and Silver Chunky Huggie Hoop Earring Set",
+      "slug": "gold-and-silver-chunky-huggie-hoop-earring-set",
+      "filename": "Fashion%20Jewelry%2821%29.jpg",
+      "price": "$15.64-$20.34"
+    },
+    {
+      "name": "Gold Hoop with White Pearl Drop Earrings",
+      "slug": "gold-hoop-with-white-pearl-drop-earrings",
+      "filename": "Fashion%20Jewelry%2822%29.jpg",
+      "price": "$1.5-$1.95"
+    },
+    {
+      "name": "Gold Plain Polished Dome Band Ring",
+      "slug": "gold-plain-polished-dome-band-ring",
+      "filename": "Fashion%20Jewelry%2823%29.jpg",
+      "price": "$3.86-$5.01"
+    },
+    {
+      "name": "Silver Crystal Solitaire Engagement Ring with Pave Band",
+      "slug": "silver-crystal-solitaire-engagement-ring-with-pave-band",
+      "filename": "Fashion%20Jewelry%2824%29.jpg",
+      "price": "$6.21-$8.08"
+    },
+    {
+      "name": "Rose Gold Crystal Halo Cushion Cut Ring Set (Teal and Peach)",
+      "slug": "rose-gold-crystal-halo-cushion-cut-ring-set-teal-and-peach",
+      "filename": "Fashion%20Jewelry%2825%29.jpg",
+      "price": "$8.57-$11.14"
+    },
+    {
+      "name": "Sterling Silver 925 Crystal Halo Engagement Ring with Pave Band",
+      "slug": "sterling-silver-925-crystal-halo-engagement-ring-with-pave-b",
+      "filename": "Fashion%20Jewelry%2826%29.jpg",
+      "price": "$10.93-$14.21"
+    },
+    {
+      "name": "Silver Pink Rose Quartz Oval Cabochon Ring",
+      "slug": "silver-pink-rose-quartz-oval-cabochon-ring",
+      "filename": "Fashion%20Jewelry%2827%29.jpg",
+      "price": "$13.29-$17.27"
+    },
+    {
+      "name": "Silver Clear Crystal Prong Twisted Setting Ring",
+      "slug": "silver-clear-crystal-prong-twisted-setting-ring",
+      "filename": "Fashion%20Jewelry%2828%29.jpg",
+      "price": "$15.64-$20.34"
+    },
+    {
+      "name": "Silver Open Crystal Wrap Ring",
+      "slug": "silver-open-crystal-wrap-ring",
+      "filename": "Fashion%20Jewelry%2829%29.jpg",
+      "price": "$1.5-$1.95"
+    },
+    {
+      "name": "Silver Chunky Cable Link Chain Necklace",
+      "slug": "silver-chunky-cable-link-chain-necklace",
+      "filename": "Fashion%20Jewelry%283%29.jpg",
+      "price": "$3.86-$5.01"
+    },
+    {
+      "name": "Silver Adjustable Crystal Wrap Ring with Open Swirl",
+      "slug": "silver-adjustable-crystal-wrap-ring-with-open-swirl",
+      "filename": "Fashion%20Jewelry%2830%29.jpg",
+      "price": "$6.21-$8.08"
+    },
+    {
+      "name": "Silver Engraved Textured Band Ring Set with Blue Crystal Accent",
+      "slug": "silver-engraved-textured-band-ring-set-with-blue-crystal-acc",
+      "filename": "Fashion%20Jewelry%2831%29.jpg",
+      "price": "$8.57-$11.14"
+    },
+    {
+      "name": "Silver Three-Stone Crystal Ring",
+      "slug": "silver-three-stone-crystal-ring",
+      "filename": "Fashion%20Jewelry%2832%29.jpg",
+      "price": "$10.93-$14.21"
+    },
+    {
+      "name": "Sterling Silver 925 Plain Dome Band Ring",
+      "slug": "sterling-silver-925-plain-dome-band-ring",
+      "filename": "Fashion%20Jewelry%2833%29.jpg",
+      "price": "$13.29-$17.27"
+    },
+    {
+      "name": "Gold Beaded Eternity Band Ring",
+      "slug": "gold-beaded-eternity-band-ring",
+      "filename": "Fashion%20Jewelry%2834%29.jpg",
+      "price": "$15.64-$20.34"
+    },
+    {
+      "name": "Gold Mother-of-Pearl Four-Leaf Clover Bracelet (Van Cleef Style)",
+      "slug": "gold-mother-of-pearl-four-leaf-clover-bracelet-van-cleef-sty",
+      "filename": "Fashion%20Jewelry%2835%29.jpg",
+      "price": "$1.5-$1.95"
+    },
+    {
+      "name": "Silver Crystal Pave Oval Link Chain Bracelet",
+      "slug": "silver-crystal-pave-oval-link-chain-bracelet",
+      "filename": "Fashion%20Jewelry%2836%29.jpg",
+      "price": "$3.86-$5.01"
+    },
+    {
+      "name": "Gold Green Malachite Four-Leaf Clover Bracelet (Van Cleef Style)",
+      "slug": "gold-green-malachite-four-leaf-clover-bracelet-van-cleef-sty",
+      "filename": "Fashion%20Jewelry%2837%29.jpg",
+      "price": "$6.21-$8.08"
+    },
+    {
+      "name": "Clear Crystal Quartz Bead Bracelet with Gold Chain",
+      "slug": "clear-crystal-quartz-bead-bracelet-with-gold-chain",
+      "filename": "Fashion%20Jewelry%2838%29.jpg",
+      "price": "$8.57-$11.14"
+    },
+    {
+      "name": "Silver Crystal Tennis Bracelet with Emerald and Round Cuts",
+      "slug": "silver-crystal-tennis-bracelet-with-emerald-and-round-cuts",
+      "filename": "Fashion%20Jewelry%2839%29.jpg",
+      "price": "$10.93-$14.21"
+    },
+    {
+      "name": "Blue Sapphire and Crystal Starburst Statement Necklace",
+      "slug": "blue-sapphire-and-crystal-starburst-statement-necklace",
+      "filename": "Fashion%20Jewelry%284%29.jpg",
+      "price": "$13.29-$17.27"
+    },
+    {
+      "name": "White Pearl and Gold Textured Bead Bracelet",
+      "slug": "white-pearl-and-gold-textured-bead-bracelet",
+      "filename": "Fashion%20Jewelry%2840%29.jpg",
+      "price": "$15.64-$20.34"
+    },
+    {
+      "name": "Silver Three-Row Crystal Tennis Bracelet",
+      "slug": "silver-three-row-crystal-tennis-bracelet",
+      "filename": "Fashion%20Jewelry%2841%29.jpg",
+      "price": "$1.5-$1.95"
+    },
+    {
+      "name": "Gold Seashell, Starfish and Pearl Charm Bracelet",
+      "slug": "gold-seashell-starfish-and-pearl-charm-bracelet",
+      "filename": "Fashion%20Jewelry%2842%29.jpg",
+      "price": "$3.86-$5.01"
+    },
+    {
+      "name": "Gold Heart Pendant Paperclip Chain Star Charm Bracelet",
+      "slug": "gold-heart-pendant-paperclip-chain-star-charm-bracelet",
+      "filename": "Fashion%20Jewelry%2843%29.jpg",
+      "price": "$6.21-$8.08"
+    },
+    {
+      "name": "Gold Beaded Tennis Bracelet with Single Crystal Charm",
+      "slug": "gold-beaded-tennis-bracelet-with-single-crystal-charm",
+      "filename": "Fashion%20Jewelry%2844%29.jpg",
+      "price": "$8.57-$11.14"
+    },
+    {
+      "name": "Rose Gold Mother-of-Pearl Clover Bracelet in Van Cleef & Arpels Box",
+      "slug": "rose-gold-mother-of-pearl-clover-bracelet-in-van-cleef-arpel",
+      "filename": "Fashion%20Jewelry%2845%29.jpg",
+      "price": "$10.93-$14.21"
+    },
+    {
+      "name": "Gold Crystal and Geometric Charm Stackable Bracelet Set",
+      "slug": "gold-crystal-and-geometric-charm-stackable-bracelet-set",
+      "filename": "Fashion%20Jewelry%2846%29.jpg",
+      "price": "$13.29-$17.27"
+    },
+    {
+      "name": "Gold Multi-Strand Tassel Necklace and Earring Set with Green Stones",
+      "slug": "gold-multi-strand-tassel-necklace-and-earring-set-with-green",
+      "filename": "Fashion%20Jewelry%2847%29.jpg",
+      "price": "$15.64-$20.34"
+    },
+    {
+      "name": "Silver Pearl Crystal Halo Jewelry Set (Necklace, Earrings, Ring)",
+      "slug": "silver-pearl-crystal-halo-jewelry-set-necklace-earrings-ring",
+      "filename": "Fashion%20Jewelry%2848%29.jpg",
+      "price": "$1.5-$1.95"
+    },
+    {
+      "name": "Silver Crystal Jewelry Set (Y-Drop Necklace, Earrings, Tennis Bracelet)",
+      "slug": "silver-crystal-jewelry-set-y-drop-necklace-earrings-tennis-b",
+      "filename": "Fashion%20Jewelry%2849%29.jpg",
+      "price": "$3.86-$5.01"
+    },
+    {
+      "name": "Gold Crystal Pendant Necklace and Drop Earring Set",
+      "slug": "gold-crystal-pendant-necklace-and-drop-earring-set",
+      "filename": "Fashion%20Jewelry%285%29.jpg",
+      "price": "$6.21-$8.08"
+    },
+    {
+      "name": "Gold Heart Evil Eye Crystal Pendant Necklace and Huggie Earring Set",
+      "slug": "gold-heart-evil-eye-crystal-pendant-necklace-and-huggie-earr",
+      "filename": "Fashion%20Jewelry%2850%29.jpg",
+      "price": "$8.57-$11.14"
+    },
+    {
+      "name": "Gold Multi-Color Crystal Statement Necklace and Drop Earring Set",
+      "slug": "gold-multi-color-crystal-statement-necklace-and-drop-earring",
+      "filename": "Fashion%20Jewelry%2851%29.jpg",
+      "price": "$10.93-$14.21"
+    },
+    {
+      "name": "Gold Golden South Sea Pearl Crystal Teardrop Pendant and Earring Set",
+      "slug": "gold-golden-south-sea-pearl-crystal-teardrop-pendant-and-ear",
+      "filename": "Fashion%20Jewelry%2852%29.jpg",
+      "price": "$13.29-$17.27"
+    },
+    {
+      "name": "Gold Crystal Pavé Rose Flower Ring",
+      "slug": "gold-crystal-pav-rose-flower-ring",
+      "filename": "Fashion%20Jewelry%2853%29.jpg",
+      "price": "$15.64-$20.34"
+    },
+    {
+      "name": "Silver Cubic Zirconia Circle Pendant Necklace",
+      "slug": "silver-cubic-zirconia-circle-pendant-necklace",
+      "filename": "Fashion%20Jewelry%286%29.jpg",
+      "price": "$1.5-$1.95"
+    },
+    {
+      "name": "Gold Chunky Chain Padlock Pendant Necklace",
+      "slug": "gold-chunky-chain-padlock-pendant-necklace",
+      "filename": "Fashion%20Jewelry%287%29.jpg",
+      "price": "$3.86-$5.01"
+    },
+    {
+      "name": "Gold Heart Crown with Black Evil Eye Crystal Pendant Necklace",
+      "slug": "gold-heart-crown-with-black-evil-eye-crystal-pendant-necklac",
+      "filename": "Fashion%20Jewelry%288%29.jpg",
+      "price": "$6.21-$8.08"
+    },
+    {
+      "name": "Silver Moonstone Teardrop Pendant Necklace",
+      "slug": "silver-moonstone-teardrop-pendant-necklace",
+      "filename": "Fashion%20Jewelry%289%29.jpg",
+      "price": "$8.57-$11.14"
+    }
+  ],
+  "garment-accessories": [
+    {
+      "name": "Small Pastel Resin Buttons on Hand Display",
+      "slug": "small-pastel-resin-buttons-on-hand-display",
+      "filename": "Garment%20Accessories%20%2810%29.jpg",
+      "price": "$0.8-$1.04"
+    },
+    {
+      "name": "Black Metal Zippers with Ring Pull",
+      "slug": "black-metal-zippers-with-ring-pull",
+      "filename": "Garment%20Accessories%20%2811%29.jpg",
+      "price": "$1.61-$2.1"
+    },
+    {
+      "name": "White Nylon/Plastic Zipper",
+      "slug": "white-nylonplastic-zipper",
+      "filename": "Garment%20Accessories%20%2812%29.jpg",
+      "price": "$2.43-$3.16"
+    },
+    {
+      "name": "White Open-End Metal Zipper (Y-Type)",
+      "slug": "white-open-end-metal-zipper-y-type",
+      "filename": "Garment%20Accessories%20%2813%29.jpg",
+      "price": "$3.24-$4.22"
+    },
+    {
+      "name": "Grey and Green Plastic Open-End Zippers",
+      "slug": "grey-and-green-plastic-open-end-zippers",
+      "filename": "Garment%20Accessories%20%2814%29.jpg",
+      "price": "$4.06-$5.27"
+    },
+    {
+      "name": "Black Metal Two-Way Separating Zipper",
+      "slug": "black-metal-two-way-separating-zipper",
+      "filename": "Garment%20Accessories%20%2815%29.jpg",
+      "price": "$4.87-$6.33"
+    },
+    {
+      "name": "Multi-Color Metal Zippers Collection",
+      "slug": "multi-color-metal-zippers-collection",
+      "filename": "Garment%20Accessories%20%2816%29.jpg",
+      "price": "$5.69-$7.39"
+    },
+    {
+      "name": "Black Metal Auto-Lock Zippers",
+      "slug": "black-metal-auto-lock-zippers",
+      "filename": "Garment%20Accessories%20%2817%29.jpg",
+      "price": "$0.8-$1.04"
+    },
+    {
+      "name": "Black Metal Zippers with Chrome Sliders",
+      "slug": "black-metal-zippers-with-chrome-sliders",
+      "filename": "Garment%20Accessories%20%2818%29.jpg",
+      "price": "$1.61-$2.1"
+    },
+    {
+      "name": "Pink Floral Fabric Collage Applique Art",
+      "slug": "pink-floral-fabric-collage-applique-art",
+      "filename": "Garment%20Accessories%20%2819%29.jpg",
+      "price": "$2.43-$3.16"
+    },
+    {
+      "name": "Black and White Marbled Resin Buttons",
+      "slug": "black-and-white-marbled-resin-buttons",
+      "filename": "Garment%20Accessories%20%283%29.jpg",
+      "price": "$3.24-$4.22"
+    },
+    {
+      "name": "Colorful Resin Sewing Buttons Set in Organizer Box",
+      "slug": "colorful-resin-sewing-buttons-set-in-organizer-box",
+      "filename": "Garment%20Accessories%20%284%29.jpg",
+      "price": "$4.06-$5.27"
+    },
+    {
+      "name": "Rhinestone Crystal Buttons with Pearl Center",
+      "slug": "rhinestone-crystal-buttons-with-pearl-center",
+      "filename": "Garment%20Accessories%20%285%29.jpg",
+      "price": "$4.87-$6.33"
+    },
+    {
+      "name": "Navy Blue and White Matte Resin Buttons",
+      "slug": "navy-blue-and-white-matte-resin-buttons",
+      "filename": "Garment%20Accessories%20%286%29.jpg",
+      "price": "$5.69-$7.39"
+    },
+    {
+      "name": "Assorted Colorful Resin Shank Buttons",
+      "slug": "assorted-colorful-resin-shank-buttons",
+      "filename": "Garment%20Accessories%20%287%29.jpg",
+      "price": "$0.8-$1.04"
+    },
+    {
+      "name": "Large Glossy Round Resin Buttons in Multiple Colors",
+      "slug": "large-glossy-round-resin-buttons-in-multiple-colors",
+      "filename": "Garment%20Accessories%20%288%29.jpg",
+      "price": "$1.61-$2.1"
+    },
+    {
+      "name": "Brown Horn-Effect Marbled Resin Buttons",
+      "slug": "brown-horn-effect-marbled-resin-buttons",
+      "filename": "Garment%20Accessories%20%289%29.jpg",
+      "price": "$2.43-$3.16"
+    }
+  ],
+  "hair-accessories": [
+    {
+      "name": "Matte Snap Hair Clips Set (Earth Tone Oval and Star Shapes)",
+      "slug": "matte-snap-hair-clips-set-earth-tone-oval-and-star-shapes",
+      "filename": "Hair%20Accessories%20%281%29.jpg",
+      "price": "$0.6-$0.78"
+    },
+    {
+      "name": "Pink Handmade Snap Barrette Clips (2-Pack)",
+      "slug": "pink-handmade-snap-barrette-clips-2-pack",
+      "filename": "Hair%20Accessories%20%282%29.jpg",
+      "price": "$1.23-$1.6"
+    },
+    {
+      "name": "Pink Decorative Hair Clip Set with Bow, Flower, Heart, Smiley and Star Charms",
+      "slug": "pink-decorative-hair-clip-set-with-bow-flower-heart-smiley-a",
+      "filename": "Hair%20Accessories%20%283%29.jpg",
+      "price": "$1.86-$2.41"
+    },
+    {
+      "name": "Light Gray Fold-Over Snap Hair Clips (2-Pack)",
+      "slug": "light-gray-fold-over-snap-hair-clips-2-pack",
+      "filename": "Hair%20Accessories%20%284%29.jpg",
+      "price": "$2.49-$3.23"
+    },
+    {
+      "name": "Cream Floral Hair Claw Clip with Pearl Center",
+      "slug": "cream-floral-hair-claw-clip-with-pearl-center",
+      "filename": "Hair%20Accessories%20%285%29.jpg",
+      "price": "$3.11-$4.05"
+    },
+    {
+      "name": "White Rhinestone Decorative Hair Claw Clip",
+      "slug": "white-rhinestone-decorative-hair-claw-clip",
+      "filename": "Hair%20Accessories%20%286%29.jpg",
+      "price": "$3.74-$4.87"
+    },
+    {
+      "name": "Rhinestone X-Shaped Crossing Hair Claw Clips Set (Brown, Black and Crystal)",
+      "slug": "rhinestone-x-shaped-crossing-hair-claw-clips-set-brown-black",
+      "filename": "Hair%20Accessories%20%287%29.jpg",
+      "price": "$4.37-$5.68"
+    }
+  ],
+  "home-decor-crafts": [
+    {
+      "name": "Celadon Ceramic Bird Figurine Pair",
+      "slug": "celadon-ceramic-bird-figurine-pair",
+      "filename": "Home_Decor_Crafts%281%29.jpg",
+      "price": "$4.5-$5.85"
+    },
+    {
+      "name": "Gold Metallic Twisted Ceramic Vase Set of Three",
+      "slug": "gold-metallic-twisted-ceramic-vase-set-of-three",
+      "filename": "Home_Decor_Crafts%2810%29.jpg",
+      "price": "$8.43-$10.96"
+    },
+    {
+      "name": "White and Gold Ceramic Deer Head Wall Sculpture",
+      "slug": "white-and-gold-ceramic-deer-head-wall-sculpture",
+      "filename": "Home_Decor_Crafts%2811%29.jpg",
+      "price": "$12.36-$16.06"
+    },
+    {
+      "name": "White Textured Ceramic Vase Collection (Set of Nine)",
+      "slug": "white-textured-ceramic-vase-collection-set-of-nine",
+      "filename": "Home_Decor_Crafts%2812%29.jpg",
+      "price": "$16.29-$21.17"
+    },
+    {
+      "name": "Terracotta Circular Ring-Shaped Ceramic Vase Set",
+      "slug": "terracotta-circular-ring-shaped-ceramic-vase-set",
+      "filename": "Home_Decor_Crafts%2813%29.jpg",
+      "price": "$20.21-$26.28"
+    },
+    {
+      "name": "White Ceramic Nautilus Shell Sculpture",
+      "slug": "white-ceramic-nautilus-shell-sculpture",
+      "filename": "Home_Decor_Crafts%2814%29.jpg",
+      "price": "$24.14-$31.39"
+    },
+    {
+      "name": "White Crackle-Glaze Ceramic Vase on Wooden Stand",
+      "slug": "white-crackle-glaze-ceramic-vase-on-wooden-stand",
+      "filename": "Home_Decor_Crafts%2815%29.jpg",
+      "price": "$28.07-$36.49"
+    },
+    {
+      "name": "White Ribbed Ceramic Vase Set with White Lilies",
+      "slug": "white-ribbed-ceramic-vase-set-with-white-lilies",
+      "filename": "Home_Decor_Crafts%2816%29.jpg",
+      "price": "$4.5-$5.85"
+    },
+    {
+      "name": "Ivory Ceramic Vase Set with Scalloped Rims and Ribbed Body",
+      "slug": "ivory-ceramic-vase-set-with-scalloped-rims-and-ribbed-body",
+      "filename": "Home_Decor_Crafts%2817%29.jpg",
+      "price": "$8.43-$10.96"
+    },
+    {
+      "name": "White Ceramic Vase with 3D Pink Peony Floral Relief",
+      "slug": "white-ceramic-vase-with-3d-pink-peony-floral-relief",
+      "filename": "Home_Decor_Crafts%2818%29.jpg",
+      "price": "$12.36-$16.06"
+    },
+    {
+      "name": "White Textured Ceramic Bottle Vase Collection (Set of Five)",
+      "slug": "white-textured-ceramic-bottle-vase-collection-set-of-five",
+      "filename": "Home_Decor_Crafts%2819%29.jpg",
+      "price": "$16.29-$21.17"
+    },
+    {
+      "name": "White Ceramic Swan Figurine Set with Gold Accents",
+      "slug": "white-ceramic-swan-figurine-set-with-gold-accents",
+      "filename": "Home_Decor_Crafts%282%29.jpg",
+      "price": "$20.21-$26.28"
+    },
+    {
+      "name": "White Ribbed Ceramic Vase with Handles and Floral Arrangement",
+      "slug": "white-ribbed-ceramic-vase-with-handles-and-floral-arrangemen",
+      "filename": "Home_Decor_Crafts%2820%29.jpg",
+      "price": "$24.14-$31.39"
+    },
+    {
+      "name": "Small White Glazed Ceramic Bud Vase",
+      "slug": "small-white-glazed-ceramic-bud-vase",
+      "filename": "Home_Decor_Crafts%2821%29.jpg",
+      "price": "$28.07-$36.49"
+    },
+    {
+      "name": "Cream Ribbed Ceramic Vase Trio with Peony Arrangement",
+      "slug": "cream-ribbed-ceramic-vase-trio-with-peony-arrangement",
+      "filename": "Home_Decor_Crafts%2822%29.jpg",
+      "price": "$4.5-$5.85"
+    },
+    {
+      "name": "Black Matte Ceramic Vase Set with Lotus-Bud Texture",
+      "slug": "black-matte-ceramic-vase-set-with-lotus-bud-texture",
+      "filename": "Home_Decor_Crafts%2823%29.jpg",
+      "price": "$8.43-$10.96"
+    },
+    {
+      "name": "White Ceramic Swan Figurine Set with Gold Accents",
+      "slug": "white-ceramic-swan-figurine-set-with-gold-accents-1",
+      "filename": "Home_Decor_Crafts%2824%29.jpg",
+      "price": "$12.36-$16.06"
+    },
+    {
+      "name": "White Ceramic Vase Trio of Varying Heights",
+      "slug": "white-ceramic-vase-trio-of-varying-heights",
+      "filename": "Home_Decor_Crafts%283%29.jpg",
+      "price": "$16.29-$21.17"
+    },
+    {
+      "name": "White Ceramic Bird Figurine with Gold Beak",
+      "slug": "white-ceramic-bird-figurine-with-gold-beak",
+      "filename": "Home_Decor_Crafts%284%29.jpg",
+      "price": "$20.21-$26.28"
+    },
+    {
+      "name": "White Ribbed Ceramic Vase with Dried Bunny Tail Grass",
+      "slug": "white-ribbed-ceramic-vase-with-dried-bunny-tail-grass",
+      "filename": "Home_Decor_Crafts%285%29.jpg",
+      "price": "$24.14-$31.39"
+    },
+    {
+      "name": "Beige Ribbed Ceramic Vase Set on Wooden Table",
+      "slug": "beige-ribbed-ceramic-vase-set-on-wooden-table",
+      "filename": "Home_Decor_Crafts%286%29.jpg",
+      "price": "$28.07-$36.49"
+    },
+    {
+      "name": "White Glazed Ceramic Bottle Vase (Yuhuchunping Style)",
+      "slug": "white-glazed-ceramic-bottle-vase-yuhuchunping-style",
+      "filename": "Home_Decor_Crafts%287%29.jpg",
+      "price": "$4.5-$5.85"
+    },
+    {
+      "name": "Floral-Patterned Ceramic Lidded Jar on Ornate Gold Base",
+      "slug": "floral-patterned-ceramic-lidded-jar-on-ornate-gold-base",
+      "filename": "Home_Decor_Crafts%288%29.jpg",
+      "price": "$8.43-$10.96"
+    },
+    {
+      "name": "White Ribbed Ceramic Vase Set of Three",
+      "slug": "white-ribbed-ceramic-vase-set-of-three",
+      "filename": "Home_Decor_Crafts%289%29.jpg",
+      "price": "$12.36-$16.06"
+    }
+  ],
+  "toys-gift": [
+    {
+      "name": "Plush Teddy Bear with Santa Hat and Striped Scarf",
+      "slug": "plush-teddy-bear-with-santa-hat-and-striped-scarf",
+      "filename": "Toys_Gift%281%29.jpg",
+      "price": "$2.5-$3.25"
+    },
+    {
+      "name": "White Fluffy Plush Dog Stuffed Animal",
+      "slug": "white-fluffy-plush-dog-stuffed-animal",
+      "filename": "Toys_Gift%2810%29.jpg",
+      "price": "$6.14-$7.99"
+    },
+    {
+      "name": "White Ceramic Swan Figurine Decorative Set",
+      "slug": "white-ceramic-swan-figurine-decorative-set",
+      "filename": "Toys_Gift%2811%29.jpg",
+      "price": "$9.79-$12.72"
+    },
+    {
+      "name": "Small White Gift Box with Pink Ribbon and Sheep Design",
+      "slug": "small-white-gift-box-with-pink-ribbon-and-sheep-design",
+      "filename": "Toys_Gift%2812%29.jpg",
+      "price": "$13.43-$17.46"
+    },
+    {
+      "name": "Red Gift Box with Large Gold Ribbon Bow",
+      "slug": "red-gift-box-with-large-gold-ribbon-bow",
+      "filename": "Toys_Gift%2813%29.jpg",
+      "price": "$17.07-$22.19"
+    },
+    {
+      "name": "White Gift Box with Silver Ribbon Bow",
+      "slug": "white-gift-box-with-silver-ribbon-bow",
+      "filename": "Toys_Gift%2814%29.jpg",
+      "price": "$20.71-$26.93"
+    },
+    {
+      "name": "Red Glossy Gift Box with Red Satin Ribbon Bow",
+      "slug": "red-glossy-gift-box-with-red-satin-ribbon-bow",
+      "filename": "Toys_Gift%2815%29.jpg",
+      "price": "$24.36-$31.66"
+    },
+    {
+      "name": "Stacked Champagne Gold Gift Boxes with Copper Ribbon Bows",
+      "slug": "stacked-champagne-gold-gift-boxes-with-copper-ribbon-bows",
+      "filename": "Toys_Gift%2816%29.jpg",
+      "price": "$2.5-$3.25"
+    },
+    {
+      "name": "Yellow Gift Box with Sheer Red Ribbon Bow",
+      "slug": "yellow-gift-box-with-sheer-red-ribbon-bow",
+      "filename": "Toys_Gift%2817%29.jpg",
+      "price": "$6.14-$7.99"
+    },
+    {
+      "name": "Brown Kraft Gift Box with Striped Ribbon",
+      "slug": "brown-kraft-gift-box-with-striped-ribbon",
+      "filename": "Toys_Gift%2818%29.jpg",
+      "price": "$9.79-$12.72"
+    },
+    {
+      "name": "Red Gift Box Wrapped with Bird-Patterned Paper",
+      "slug": "red-gift-box-wrapped-with-bird-patterned-paper",
+      "filename": "Toys_Gift%2819%29.jpg",
+      "price": "$13.43-$17.46"
+    },
+    {
+      "name": "Gray Plush Cat Stuffed Animal",
+      "slug": "gray-plush-cat-stuffed-animal",
+      "filename": "Toys_Gift%282%29.jpg",
+      "price": "$17.07-$22.19"
+    },
+    {
+      "name": "Red Gift Box with Gold Orange Satin Ribbon Bow",
+      "slug": "red-gift-box-with-gold-orange-satin-ribbon-bow",
+      "filename": "Toys_Gift%2820%29.jpg",
+      "price": "$20.71-$26.93"
+    },
+    {
+      "name": "Beige Gift Bag with Love is Eternal Text and Wooden Handle",
+      "slug": "beige-gift-bag-with-love-is-eternal-text-and-wooden-handle",
+      "filename": "Toys_Gift%2821%29.jpg",
+      "price": "$24.36-$31.66"
+    },
+    {
+      "name": "Beige Skincare Whitening Essence Gift Box Set",
+      "slug": "beige-skincare-whitening-essence-gift-box-set",
+      "filename": "Toys_Gift%2822%29.jpg",
+      "price": "$2.5-$3.25"
+    },
+    {
+      "name": "Gold Embossed Cosmetic Gift Box with Arc Pattern",
+      "slug": "gold-embossed-cosmetic-gift-box-with-arc-pattern",
+      "filename": "Toys_Gift%2823%29.jpg",
+      "price": "$6.14-$7.99"
+    },
+    {
+      "name": "Gold Cream Cosmetic Gift Box with Skincare Products",
+      "slug": "gold-cream-cosmetic-gift-box-with-skincare-products",
+      "filename": "Toys_Gift%2824%29.jpg",
+      "price": "$9.79-$12.72"
+    },
+    {
+      "name": "Green Chinese Pop-Up Gift Box with Mountain Design",
+      "slug": "green-chinese-pop-up-gift-box-with-mountain-design",
+      "filename": "Toys_Gift%2825%29.jpg",
+      "price": "$13.43-$17.46"
+    },
+    {
+      "name": "Orange Gift Box with Blue Knit Scarf and Matching Gift Bag",
+      "slug": "orange-gift-box-with-blue-knit-scarf-and-matching-gift-bag",
+      "filename": "Toys_Gift%2826%29.jpg",
+      "price": "$17.07-$22.19"
+    },
+    {
+      "name": "Red Skincare Gift Set with Multiple Bottles",
+      "slug": "red-skincare-gift-set-with-multiple-bottles",
+      "filename": "Toys_Gift%2827%29.jpg",
+      "price": "$20.71-$26.93"
+    },
+    {
+      "name": "Pink Cosmetic Gift Set with Makeup Brushes",
+      "slug": "pink-cosmetic-gift-set-with-makeup-brushes",
+      "filename": "Toys_Gift%2828%29.jpg",
+      "price": "$24.36-$31.66"
+    },
+    {
+      "name": "Dark Green and Gold Multi-Tiered Chinese-Style Makeup Gift Box",
+      "slug": "dark-green-and-gold-multi-tiered-chinese-style-makeup-gift-b",
+      "filename": "Toys_Gift%2829%29.jpg",
+      "price": "$2.5-$3.25"
+    },
+    {
+      "name": "Brown Plush Teddy Bear with Red Vest",
+      "slug": "brown-plush-teddy-bear-with-red-vest",
+      "filename": "Toys_Gift%283%29.jpg",
+      "price": "$6.14-$7.99"
+    },
+    {
+      "name": "Red Tea Set Gift Box with Teapot and Tea Accessories",
+      "slug": "red-tea-set-gift-box-with-teapot-and-tea-accessories",
+      "filename": "Toys_Gift%2830%29.jpg",
+      "price": "$9.79-$12.72"
+    },
+    {
+      "name": "Pink Cosmetics Makeup Gift Set with Mirror",
+      "slug": "pink-cosmetics-makeup-gift-set-with-mirror",
+      "filename": "Toys_Gift%2831%29.jpg",
+      "price": "$13.43-$17.46"
+    },
+    {
+      "name": "Red Skincare Gift Set with Bottles and Jars",
+      "slug": "red-skincare-gift-set-with-bottles-and-jars",
+      "filename": "Toys_Gift%2832%29.jpg",
+      "price": "$17.07-$22.19"
+    },
+    {
+      "name": "Wooden Dog Pilot Race Car Toy Blue with Cream Wheels",
+      "slug": "wooden-dog-pilot-race-car-toy-blue-with-cream-wheels",
+      "filename": "Toys_Gift%2833%29.jpg",
+      "price": "$20.71-$26.93"
+    },
+    {
+      "name": "Green Cartoon Style Toy Car with Eyes and Yellow Wheels",
+      "slug": "green-cartoon-style-toy-car-with-eyes-and-yellow-wheels",
+      "filename": "Toys_Gift%2834%29.jpg",
+      "price": "$24.36-$31.66"
+    },
+    {
+      "name": "Yellow Green Corn Character Toy with Curly Legs",
+      "slug": "yellow-green-corn-character-toy-with-curly-legs",
+      "filename": "Toys_Gift%2835%29.jpg",
+      "price": "$2.5-$3.25"
+    },
+    {
+      "name": "Orange Gift Box with Blue Knit Scarf and Matching Gift Bag",
+      "slug": "orange-gift-box-with-blue-knit-scarf-and-matching-gift-bag-1",
+      "filename": "Toys_Gift%2836%29.jpg",
+      "price": "$6.14-$7.99"
+    },
+    {
+      "name": "White Plush Teddy Bear Sitting and Waving",
+      "slug": "white-plush-teddy-bear-sitting-and-waving",
+      "filename": "Toys_Gift%284%29.jpg",
+      "price": "$9.79-$12.72"
+    },
+    {
+      "name": "Purple Plush Mouse with Green Bow",
+      "slug": "purple-plush-mouse-with-green-bow",
+      "filename": "Toys_Gift%285%29.jpg",
+      "price": "$13.43-$17.46"
+    },
+    {
+      "name": "Brown Plush Teddy Bear in Knitted Sweater",
+      "slug": "brown-plush-teddy-bear-in-knitted-sweater",
+      "filename": "Toys_Gift%286%29.jpg",
+      "price": "$17.07-$22.19"
+    },
+    {
+      "name": "Brown and White Plush Bunny Rabbit",
+      "slug": "brown-and-white-plush-bunny-rabbit",
+      "filename": "Toys_Gift%287%29.jpg",
+      "price": "$20.71-$26.93"
+    },
+    {
+      "name": "White Plush Teddy Bear with Green Ribbon Bow",
+      "slug": "white-plush-teddy-bear-with-green-ribbon-bow",
+      "filename": "Toys_Gift%288%29.jpg",
+      "price": "$24.36-$31.66"
+    },
+    {
+      "name": "White Knitted Crochet Bunny Plush",
+      "slug": "white-knitted-crochet-bunny-plush",
+      "filename": "Toys_Gift%289%29.jpg",
+      "price": "$2.5-$3.25"
+    }
+  ]
+}

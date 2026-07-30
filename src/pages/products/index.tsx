@@ -21,7 +21,7 @@ import { SITE_URL, SITE_OG_IMAGE } from '@/lib/site';
 import siteDataJson from '../../../site-data.json';
 
 interface Product {
-  id: number;
+  id: number | string;
   name: string;
   description: string;
   category: { name: string; slug: string };
