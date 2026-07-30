@@ -86,11 +86,17 @@ const valueProps = [
 
 const Home = ({ products }: { products: Product[] }) => {
   const [showMobileCats, setShowMobileCats] = useState(false);
-  const topDeals = [...products].sort((a, b) => {
-    const aPrice = Number(a.priceMin || 999);
-    const bPrice = Number(b.priceMin || 999);
-    return aPrice - bPrice;
-  }).slice(0, 6);
+  const topDeals = [...products]
+    .filter((p) => {
+      const price = Number(p.priceMin || 0);
+      return price >= 0.3;
+    })
+    .sort((a, b) => {
+      const aScore = Number(a.priceMin || 999) * (a.moq || 1);
+      const bScore = Number(b.priceMin || 999) * (b.moq || 1);
+      return aScore - bScore;
+    })
+    .slice(0, 6);
 
   return (
     <Layout>
