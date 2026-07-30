@@ -1,22 +1,48 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, Component, ReactNode } from 'react';
 import { useSession } from 'next-auth/react';
-import { useRouter } from 'next/router';
 import Link from 'next/link';
-import Image from 'next/image';
 import { Package, ShoppingCart, TrendingUp, DollarSign, Plus, Eye, EyeOff, Edit3, Trash2, Truck, Save, X, Upload, Download, FileJson, FileText, Loader2, CheckCircle, AlertCircle } from 'lucide-react';
 import Layout from '@/components/Layout';
+
+// ---- Error Boundary ----
+interface EBState { hasError: boolean; error?: string; }
+class DashboardEB extends Component<{ children: ReactNode }, EBState> {
+  state: EBState = { hasError: false };
+  static getDerivedStateFromError(err: Error): EBState {
+    return { hasError: true, error: err?.message || String(err) };
+  }
+  componentDidCatch(err: Error) { console.error('[DashboardEB]', err); }
+  render() {
+    if (this.state.hasError) {
+      return (
+        <Layout>
+          <div className="max-w-xl mx-auto mt-16 p-8 bg-red-500/10 border border-red-500/30 rounded-2xl">
+            <h2 className="text-xl font-bold text-red-500 mb-2">Dashboard Error</h2>
+            <p className="text-sm text-red-400 font-mono whitespace-pre-wrap break-all mb-4">
+              {this.state.error}
+            </p>
+            <Link href="/" className="inline-flex items-center px-4 py-2 bg-accent-500 text-white rounded-lg hover:bg-accent-600">
+              ← Back to Home
+            </Link>
+          </div>
+        </Layout>
+      );
+    }
+    return this.props.children;
+  }
+}
 
 interface ProductItem {
   id: string;
   name: string;
-  price: number;
+  price: number | string;
   image: string;
   stock: number;
   salesCount: number;
   isPublished: boolean;
   categoryId: string;
   category?: { id: string; name: string; slug: string };
-  shippingCost: number;
+  shippingCost: number | string;
   shippingMethod: string;
   sku: string | null;
   material: string | null;
@@ -25,9 +51,8 @@ interface ProductItem {
   stockStatus: string;
 }
 
-const Dashboard = () => {
-  const { data: session } = useSession();
-  const router = useRouter();
+const DashboardInner = () => {
+  const { data: session, status } = useSession();
   const [products, setProducts] = useState<ProductItem[]>([]);
   const [orders, setOrders] = useState<any[]>([]);
   const [editingProduct, setEditingProduct] = useState<string | null>(null);
@@ -37,13 +62,17 @@ const Dashboard = () => {
   const [importProgress, setImportProgress] = useState(0);
   const [importLoading, setImportLoading] = useState(false);
   const [importResult, setImportResult] = useState<{ success: boolean; message: string; data?: any } | null>(null);
+  const [loading, setLoading] = useState(false);
+  const [errorMsg, setErrorMsg] = useState<string>('');
 
-  if (!session) {
+  // Loading state
+  if (status === 'loading' || !session) {
     return (
       <Layout>
         <div className="flex items-center justify-center min-h-[60vh]">
           <div className="text-center">
-            <p className="text-ink-600 mb-4">Loading or please sign in to access this page.</p>
+            <Loader2 className="w-10 h-10 text-accent-500 animate-spin mx-auto mb-4" />
+            <p className="text-ink-600 mb-4">{status === 'loading' ? 'Loading session...' : 'Please sign in to access this page.'}</p>
             <Link href="/login" className="inline-flex items-center px-4 py-2 bg-accent-500 text-white rounded-lg hover:bg-accent-600">
               Sign In
             </Link>
@@ -54,71 +83,105 @@ const Dashboard = () => {
   }
 
   useEffect(() => {
-    if (session?.user?.id) {
-      const role = (session.user as any).role || '';
-      const isAdminOrSeller = role === 'ADMIN' || role === 'OFFICIAL_SELLER';
-      const url = isAdminOrSeller
-        ? '/api/products?all=true'
-        : `/api/products?authorId=${session.user.id}`;
-      fetch(url)
-        .then(res => {
-          if (!res.ok) throw new Error('Failed to load');
-          return res.json();
-        })
-        .then(data => setProducts(data))
-        .catch(err => console.error('Failed to load products:', err));
-      fetch('/api/orders')
-        .then(res => res.json())
-        .then(data => setOrders(data))
-        .catch(() => {});
-    }
-  }, [session?.user?.id]);
+    let cancelled = false;
+    const uid = session?.user?.id;
+    if (!uid) return;
+
+    (async () => {
+      setLoading(true);
+      setErrorMsg('');
+      try {
+        const role = (session.user as any).role || '';
+        const isAdminOrSeller = role === 'ADMIN' || role === 'OFFICIAL_SELLER';
+        const url = isAdminOrSeller
+          ? '/api/products?all=true'
+          : `/api/products?authorId=${encodeURIComponent(uid)}`;
+
+        const [pRes, oRes] = await Promise.all([
+          fetch(url),
+          fetch('/api/orders').catch(() => ({ ok: true, json: () => [] } as any)),
+        ]);
+
+        if (!pRes.ok) throw new Error('Products API failed: ' + pRes.status);
+        const pData = await pRes.json();
+        const oData = Array.isArray(oRes) ? oRes : await (oRes.json().catch(() => []));
+
+        if (cancelled) return;
+        setProducts(Array.isArray(pData) ? pData : []);
+        setOrders(Array.isArray(oData) ? oData : []);
+      } catch (e: any) {
+        if (!cancelled) setErrorMsg(e?.message || 'Failed to load');
+      } finally {
+        if (!cancelled) setLoading(false);
+      }
+    })();
+
+    return () => { cancelled = true; };
+  }, [session?.user?.id, session?.user]);
 
   const togglePublish = async (productId: string, currentStatus: boolean) => {
-    const res = await fetch(`/api/products/${productId}`, {
-      method: 'PUT',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ isPublished: !currentStatus }),
-    });
-    if (res.ok) {
-      setProducts(products.map(p => p.id === productId ? { ...p, isPublished: !currentStatus } : p));
-    }
+    try {
+      const res = await fetch(`/api/products/${productId}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ isPublished: !currentStatus }),
+      });
+      if (res.ok) {
+        setProducts(products.map(p => p.id === productId ? { ...p, isPublished: !currentStatus } : p));
+      } else {
+        alert('Failed: ' + (await res.text()).slice(0, 200));
+      }
+    } catch (e: any) { alert('Error: ' + e.message); }
   };
 
   const deleteProduct = async (productId: string) => {
-    if (!confirm('Are you sure you want to delete this product?')) return;
-    const res = await fetch(`/api/products/${productId}`, { method: 'DELETE' });
-    if (res.ok) {
-      setProducts(products.filter(p => p.id !== productId));
-    }
+    if (!confirm('Delete this product?')) return;
+    try {
+      const res = await fetch(`/api/products/${productId}`, { method: 'DELETE' });
+      if (res.ok) {
+        setProducts(products.filter(p => p.id !== productId));
+      } else {
+        alert('Delete failed: ' + res.status);
+      }
+    } catch (e: any) { alert('Error: ' + e.message); }
   };
 
   const startEdit = (product: ProductItem) => {
     setEditingProduct(product.id);
     setEditForm({
-      shippingCost: String(Number(product.shippingCost)),
-      shippingMethod: product.shippingMethod || '',
-      stock: String(product.stock),
-      moq: String(product.moq),
+      shippingCost: String(Number(product.shippingCost) || 0),
+      shippingMethod: product.shippingMethod || 'Standard Shipping',
+      stock: String(product.stock ?? 0),
+      moq: String(product.moq ?? 1),
     });
   };
 
   const saveEdit = async (productId: string) => {
-    const res = await fetch(`/api/products/${productId}`, {
-      method: 'PUT',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        shippingCost: editForm.shippingCost,
-        shippingMethod: editForm.shippingMethod,
-        stock: editForm.stock,
-        moq: editForm.moq,
-      }),
-    });
-    if (res.ok) {
-      const updated = await res.json();
-      setProducts(products.map(p => p.id === productId ? { ...p, shippingCost: Number(updated.shippingCost), shippingMethod: updated.shippingMethod, stock: updated.stock, moq: updated.moq } : p));
-      setEditingProduct(null);
-    }
+    try {
+      const res = await fetch(`/api/products/${productId}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          shippingCost: parseFloat(editForm.shippingCost),
+          shippingMethod: editForm.shippingMethod,
+          stock: parseInt(editForm.stock),
+          moq: parseInt(editForm.moq),
+        }),
+      });
+      if (res.ok) {
+        const updated = await res.json();
+        setProducts(products.map(p => p.id === productId ? {
+          ...p,
+          shippingCost: Number(updated.shippingCost),
+          shippingMethod: updated.shippingMethod,
+          stock: updated.stock,
+          moq: updated.moq,
+        } : p));
+        setEditingProduct(null);
+      } else {
+        alert('Save failed: ' + (await res.text()).slice(0, 200));
+      }
+    } catch (e: any) { alert('Error: ' + e.message); }
   };
 
   const stats = [
@@ -149,7 +212,7 @@ const Dashboard = () => {
           <div className="flex items-center justify-between">
             <div>
               <h1 className="text-3xl font-bold text-navy-900">Seller Dashboard</h1>
-              <p className="text-ink-500 mt-1">Welcome back, {session.user.name}</p>
+              <p className="text-ink-500 mt-1">Welcome back, {session?.user?.name || 'User'} {session?.user?.role ? `(${session.user.role})` : ''}</p>
             </div>
             <Link href="/sell" className="flex items-center gap-2 bg-accent-500 hover:bg-accent-400 text-white px-6 py-3 rounded-lg font-bold transition-colors">
               <Plus className="w-5 h-5" />
@@ -160,6 +223,12 @@ const Dashboard = () => {
       </div>
 
       <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16 max-w-[1600px] mx-auto py-8">
+        {errorMsg && (
+          <div className="mb-6 p-4 bg-red-500/10 border border-red-500/30 rounded-xl text-red-500 text-sm">
+            {errorMsg}
+          </div>
+        )}
+
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
           {stats.map((stat, index) => (
             <div key={index} className="bg-ink-50 rounded-xl p-6 border border-ink-200/20">
@@ -186,7 +255,12 @@ const Dashboard = () => {
             </div>
           </div>
 
-          {products.length > 0 ? (
+          {loading ? (
+            <div className="text-center py-12">
+              <Loader2 className="w-10 h-10 text-accent-500 animate-spin mx-auto mb-3" />
+              <p className="text-ink-500">Loading products...</p>
+            </div>
+          ) : products.length > 0 ? (
             <div className="overflow-x-auto">
               <table className="w-full">
                 <thead>
@@ -209,30 +283,37 @@ const Dashboard = () => {
                     <tr key={product.id} className="border-b border-ink-200 hover:bg-ink-50">
                       <td className="py-3 px-4">
                         <div className="flex items-center gap-3">
-                          <img src={product.image} alt={product.name} width={48} height={48} className="w-12 h-12 object-cover rounded-lg" />
-                          <div>
+                          <img
+                            src={product.image}
+                            alt={product.name}
+                            width={48}
+                            height={48}
+                            className="w-12 h-12 object-cover rounded-lg flex-shrink-0"
+                            onError={(e) => { (e.currentTarget as HTMLImageElement).style.visibility = 'hidden'; }}
+                          />
+                          <div className="min-w-0">
                             <p className="font-medium text-navy-900 text-sm line-clamp-1">{product.name}</p>
                             {product.sku && <p className="text-xs text-ink-500">{product.sku}</p>}
                           </div>
                         </div>
                       </td>
                       <td className="py-3 px-4 text-sm text-ink-500">{product.category?.name ?? '-'}</td>
-                      <td className="py-3 px-4 text-sm font-medium text-accent-600">${Number(product.price).toFixed(2)}</td>
+                      <td className="py-3 px-4 text-sm font-medium text-accent-600">${Number(product.price || 0).toFixed(2)}</td>
                       <td className="py-3 px-4 text-sm text-ink-500">
                         {editingProduct === product.id ? (
                           <input type="number" value={editForm.stock} onChange={e => setEditForm({...editForm, stock: e.target.value})} className="w-20 px-2 py-1 bg-ink-100 border border-ink-200/30 rounded text-sm text-navy-900" />
-                        ) : product.stock}
+                        ) : (product.stock ?? 0)}
                       </td>
                       <td className="py-3 px-4 text-sm text-ink-500">
                         {editingProduct === product.id ? (
                           <input type="number" value={editForm.moq} onChange={e => setEditForm({...editForm, moq: e.target.value})} className="w-20 px-2 py-1 bg-ink-100 border border-ink-200/30 rounded text-sm text-navy-900" />
-                        ) : product.moq}
+                        ) : (product.moq ?? 1)}
                       </td>
-                      <td className="py-3 px-4 text-sm text-ink-500">{product.packSize}</td>
+                      <td className="py-3 px-4 text-sm text-ink-500">{product.packSize ?? 1}</td>
                       <td className="py-3 px-4 text-sm text-ink-500">{product.material ?? '-'}</td>
                       <td className="py-3 px-4">
                         <span className={`inline-flex items-center px-2 py-1 rounded-full text-xs font-medium ${stockStatusColor[product.stockStatus] || 'bg-ink-100 text-ink-500 border border-ink-200/30'}`}>
-                          {stockStatusLabel[product.stockStatus] || product.stockStatus}
+                          {stockStatusLabel[product.stockStatus] || product.stockStatus || '-'}
                         </span>
                       </td>
                       <td className="py-3 px-4 text-sm text-ink-500">
@@ -249,7 +330,7 @@ const Dashboard = () => {
                           </div>
                         ) : (
                           <div>
-                            <p>${Number(product.shippingCost).toFixed(2)}</p>
+                            <p>${Number(product.shippingCost || 0).toFixed(2)}</p>
                             <p className="text-xs text-ink-500">{product.shippingMethod || 'Standard'}</p>
                           </div>
                         )}
@@ -293,8 +374,8 @@ const Dashboard = () => {
           ) : (
             <div className="text-center py-12">
               <Package className="w-16 h-16 text-ink-500 mx-auto mb-4" />
-              <p className="text-ink-500 mb-4">You haven&apos;t listed any products yet.</p>
-              <Link href="/sell" className="btn-primary">
+              <p className="text-ink-500 mb-4">No products found.</p>
+              <Link href="/sell" className="inline-flex items-center px-4 py-2 bg-accent-500 text-white rounded-lg hover:bg-accent-600">
                 List Your First Product
               </Link>
             </div>
@@ -309,14 +390,14 @@ const Dashboard = () => {
                 {orders.slice(0, 5).map((order) => (
                   <div key={order.id} className="p-4 bg-ink-100/50 rounded-xl border border-ink-200/20">
                     <div className="flex items-center justify-between mb-2">
-                      <span className="text-sm font-medium text-navy-900">Order #{order.id.slice(-8)}</span>
+                      <span className="text-sm font-medium text-navy-900">Order #{String(order.id).slice(-8)}</span>
                       <span className={`text-xs font-medium px-2 py-1 rounded-full ${order.status === 'PAID' ? 'bg-accent-100 text-accent-600 border border-accent-200' : 'bg-yellow-500/10 text-yellow-500 border border-yellow-500/30'}`}>
-                        {order.status}
+                        {order.status || 'PENDING'}
                       </span>
                     </div>
                     <div className="flex items-center justify-between">
                       <span className="text-sm text-ink-500">{order.items?.length || 0} items</span>
-                      <span className="font-semibold text-accent-600">${order.totalAmount}</span>
+                      <span className="font-semibold text-accent-600">${Number(order.totalAmount || 0).toFixed(2)}</span>
                     </div>
                   </div>
                 ))}
@@ -359,7 +440,7 @@ const Dashboard = () => {
               </button>
             </div>
 
-            <div className="p-6">
+            <div className="p-6 max-h-[70vh] overflow-y-auto">
               <div className="space-y-6">
                 <div className="bg-ink-100/50 rounded-xl p-6 border border-ink-200/20">
                   <div className="flex items-center gap-3 mb-4">
@@ -377,16 +458,12 @@ const Dashboard = () => {
       "priceMin": 0.5,
       "priceMax": 2.0,
       "image": "https://...",
-      "images": ["img1", "img2", "..."],
+      "images": ["img1", "img2"],
       "categorySlug": "necklaces",
       "material": "Zinc Alloy",
       "plating": "Gold Plated",
       "color": "Gold",
       "packSize": 12,
-      "pkgLength": 30,
-      "pkgWidth": 20,
-      "pkgHeight": 5,
-      "pkgWeight": 0.2,
       "moq": 10,
       "stockStatus": "IN_STOCK",
       "keywords": ["wholesale", "yiwu"]
@@ -429,7 +506,7 @@ const Dashboard = () => {
                   </div>
                 </div>
 
-                <div className="border border-dashed border-ink-200/30 rounded-xl p-8 text-center hover:border-accent-500/30 transition-colors cursor-pointer" onClick={() => document.getElementById('import-file')?.click()} onDragOver={(e) => { e.preventDefault(); }} onDrop={(e) => { e.preventDefault(); const file = e.dataTransfer.files[0]; if (file && file.type === 'application/json') setImportFile(file); }}>
+                <div className="border border-dashed border-ink-200/30 rounded-xl p-8 text-center hover:border-accent-500/30 transition-colors cursor-pointer" onClick={() => document.getElementById('import-file')?.click()} onDragOver={(e) => { e.preventDefault(); }} onDrop={(e) => { e.preventDefault(); const file = e.dataTransfer.files?.[0]; if (file && file.type === 'application/json') setImportFile(file); }}>
                   <input id="import-file" type="file" accept=".json" className="hidden" onChange={(e) => { const file = e.target.files?.[0]; if (file) setImportFile(file); }} />
                   <Upload className="w-12 h-12 text-ink-500 mx-auto mb-4" />
                   {importFile ? (
@@ -465,13 +542,6 @@ const Dashboard = () => {
                         <p className="text-ink-500">Total: {importResult.data.total}</p>
                         <p className="text-green-500">Success: {importResult.data.success}</p>
                         <p className="text-red-500">Failed: {importResult.data.failed}</p>
-                        {importResult.data.errors && importResult.data.errors.length > 0 && (
-                          <div className="mt-3 max-h-32 overflow-y-auto">
-                            {importResult.data.errors.slice(0, 5).map((err: string, i: number) => (
-                              <p key={i} className="text-xs text-ink-500">{err}</p>
-                            ))}
-                          </div>
-                        )}
                       </div>
                     )}
                   </div>
@@ -492,29 +562,22 @@ const Dashboard = () => {
                     setImportLoading(true);
                     setImportProgress(0);
                     setImportResult(null);
-
                     try {
                       const text = await importFile.text();
                       const json = JSON.parse(text);
                       const productsData = json.products || json;
-
                       setImportProgress(20);
-
                       const res = await fetch('/api/products/batch', {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({ data: productsData }),
                       });
-
                       setImportProgress(100);
-
                       const result = await res.json();
-
                       if (res.ok) {
                         setImportResult({ success: true, message: 'Import completed successfully!', data: result });
-                        fetch(`/api/products?authorId=${session?.user?.id}`)
-                          .then(res => res.json())
-                          .then(data => setProducts(data));
+                        setProducts([]);
+                        setTimeout(() => window.location.reload(), 1500);
                       } else {
                         setImportResult({ success: false, message: result.error || 'Import failed' });
                       }
@@ -536,5 +599,11 @@ const Dashboard = () => {
     </Layout>
   );
 };
+
+const Dashboard = () => (
+  <DashboardEB>
+    <DashboardInner />
+  </DashboardEB>
+);
 
 export default Dashboard;
