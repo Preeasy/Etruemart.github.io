@@ -22,13 +22,13 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const siteDataPath = path.join(process.cwd(), 'site-data.json');
     const siteData = JSON.parse(fs.readFileSync(siteDataPath, 'utf-8'));
 
-    const adminEmail = 'Yeatrusourcing';
+    const adminEmail = 'yeatrusourcing@gmail.com';
     const admin = await prisma.user.upsert({
       where: { email: adminEmail },
       update: {},
       create: {
         email: adminEmail,
-        passwordHash: '$2a$10$Rctbz.9F8blZNq8Yu8SzqunWgUt2Q495fRW6UTks7.VcfScHXIpnS',
+        passwordHash: '$2a$10$9i467HfbtB2j8rbircOUbepP1s/eP08tr.V.A5VYU4KbAPile41cm',
         name: 'Yeatrusourcing',
         role: 'ADMIN',
       },
