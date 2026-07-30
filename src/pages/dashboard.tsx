@@ -1,4 +1,4 @@
-import { useEffect, useState, useCallback } from 'react';
+import { useEffect, useState } from 'react';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
@@ -43,7 +43,7 @@ const Dashboard = () => {
       <Layout>
         <div className="flex items-center justify-center min-h-[60vh]">
           <div className="text-center">
-            <p className="text-ink-600 mb-4">Please sign in to access this page.</p>
+            <p className="text-ink-600 mb-4">Loading or please sign in to access this page.</p>
             <Link href="/login" className="inline-flex items-center px-4 py-2 bg-accent-500 text-white rounded-lg hover:bg-accent-600">
               Sign In
             </Link>
@@ -55,14 +55,18 @@ const Dashboard = () => {
 
   useEffect(() => {
     if (session?.user?.id) {
-      const role = (session.user as any).role;
+      const role = (session.user as any).role || '';
       const isAdminOrSeller = role === 'ADMIN' || role === 'OFFICIAL_SELLER';
       const url = isAdminOrSeller
         ? '/api/products?all=true'
         : `/api/products?authorId=${session.user.id}`;
       fetch(url)
-        .then(res => res.json())
-        .then(data => setProducts(data));
+        .then(res => {
+          if (!res.ok) throw new Error('Failed to load');
+          return res.json();
+        })
+        .then(data => setProducts(data))
+        .catch(err => console.error('Failed to load products:', err));
       fetch('/api/orders')
         .then(res => res.json())
         .then(data => setOrders(data))
@@ -205,7 +209,7 @@ const Dashboard = () => {
                     <tr key={product.id} className="border-b border-ink-200 hover:bg-ink-50">
                       <td className="py-3 px-4">
                         <div className="flex items-center gap-3">
-                          <Image src={product.image} alt={product.name} width={48} height={48} className="w-12 h-12 object-cover rounded-lg" />
+                          <img src={product.image} alt={product.name} width={48} height={48} className="w-12 h-12 object-cover rounded-lg" />
                           <div>
                             <p className="font-medium text-navy-900 text-sm line-clamp-1">{product.name}</p>
                             {product.sku && <p className="text-xs text-ink-500">{product.sku}</p>}
