@@ -55,8 +55,12 @@ const Dashboard = () => {
 
   useEffect(() => {
     if (session?.user?.id) {
-      // Always fetch only the current user's products
-      fetch(`/api/products?authorId=${session.user.id}`)
+      const role = (session.user as any).role;
+      const isAdminOrSeller = role === 'ADMIN' || role === 'OFFICIAL_SELLER';
+      const url = isAdminOrSeller
+        ? '/api/products?all=true'
+        : `/api/products?authorId=${session.user.id}`;
+      fetch(url)
         .then(res => res.json())
         .then(data => setProducts(data));
       fetch('/api/orders')

@@ -248,12 +248,17 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     // Don't run seed on every GET - it's too slow for 200 products
     // Seed manually via /api/seed or on first deploy
 
-    const { authorId, categoryId, category, material, plating, color, priceMin, priceMax } = req.query;
+    const { authorId, categoryId, category, material, plating, color, priceMin, priceMax, all } = req.query;
 
-    const where: any = { isPublished: true };
+    const where: any = {};
 
-    if (authorId) {
+    // When all=true (admin/seller dashboard), show all products regardless of author
+    if (all === 'true') {
+      // Show all products including drafts for management
+    } else if (authorId) {
       where.authorId = authorId as string;
+    } else {
+      where.isPublished = true;
     }
 
     if (categoryId && categoryId !== 'All') {
@@ -322,8 +327,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       stockStatus, moq,
     } = req.body;
 
-    // Seller permission: non-ADMIN can only create products in their allowedCategoryId
-    if (session.user.role !== 'ADMIN' && session.user.allowedCategoryId) {
+    // Seller permission: non-ADMIN/OFFICIAL_SELLER can only create products in their allowedCategoryId
+    const canManage = session.user.role === 'ADMIN' || session.user.role === 'OFFICIAL_SELLER';
+    if (!canManage && session.user.allowedCategoryId) {
       if (categoryId !== session.user.allowedCategoryId) {
         return res.status(403).json({ error: 'You can only create products in your allowed category' });
       }

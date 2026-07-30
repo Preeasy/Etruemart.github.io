@@ -58,13 +58,14 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       return res.status(404).json({ error: 'Product not found' });
     }
 
-    // Permission check: ADMIN can edit anything; others must be the author
-    if (product.authorId !== session.user.id && session.user.role !== 'ADMIN') {
+    // Permission check: ADMIN and OFFICIAL_SELLER can edit anything; others must be the author
+    const canManage = session.user.role === 'ADMIN' || session.user.role === 'OFFICIAL_SELLER';
+    if (product.authorId !== session.user.id && !canManage) {
       return res.status(403).json({ error: 'Forbidden' });
     }
 
-    // Seller permission: non-ADMIN cannot change categoryId to a category outside their allowedCategoryId
-    if (session.user.role !== 'ADMIN' && session.user.allowedCategoryId) {
+    // Seller permission: non-ADMIN/OFFICIAL_SELLER cannot change categoryId outside their allowedCategoryId
+    if (!canManage && session.user.allowedCategoryId) {
       // If updating categoryId, must match allowedCategoryId
       const newCategoryId = req.body.categoryId;
       if (newCategoryId && newCategoryId !== session.user.allowedCategoryId) {
@@ -120,7 +121,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
   if (req.method === 'DELETE') {
     const product = await prisma.product.findUnique({ where: { id: id as string } });
-    if (!product || (product.authorId !== session.user.id && session.user.role !== 'ADMIN')) {
+    const canManage = session.user.role === 'ADMIN' || session.user.role === 'OFFICIAL_SELLER';
+    if (!product || (product.authorId !== session.user.id && !canManage)) {
       return res.status(403).json({ error: 'Forbidden' });
     }
 
