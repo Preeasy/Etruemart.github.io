@@ -93,7 +93,8 @@ export default function ProductDetail({ product, relatedProducts }: { product: P
   const price = Number(product.price || product.priceMin || 0);
   // 移除虚假折扣：priceMin/priceMax 是阶梯价区间，非原价/现价，不能用于构造 discount
   // 基于产品 id 生成稳定的伪随机评分数据，避免 SSR/hydrate 不一致 + JSON-LD 数据抖动
-  const seed = Math.abs(Number(product.id)) % 1000;
+  const strSeed = typeof product.id === 'string' ? product.id : String(product.id);
+  const seed = strSeed.split('').reduce((acc, ch) => acc + ch.charCodeAt(0), 0) % 1000;
   const rating = Number(product.rating || (4.5 + (seed % 5) / 10));
   const reviewCount = Number(product.reviewCount || (20 + (seed * 7) % 80));
   const salesCount = Number(product.salesCount || (100 + (seed * 13) % 800));

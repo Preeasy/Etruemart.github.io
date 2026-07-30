@@ -35,7 +35,15 @@ def slugify(name):
     s = re.sub(r'-+', '-', s)
     return s[:60]
 
+# Filename-based category overrides (mislabeled files)
+CATEGORY_OVERRIDES = {
+    'Toys_Gift(11).jpg': 'home-decor-crafts',
+}
+
 def categorize(filename):
+    """Determine category from filename, with manual overrides for mislabeled files."""
+    if filename in CATEGORY_OVERRIDES:
+        return CATEGORY_OVERRIDES[filename]
     lower = filename.lower()
     if lower.startswith('0') and lower[2] == '.':
         return 'bags-accessories'
