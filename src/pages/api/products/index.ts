@@ -34,15 +34,29 @@ async function seedIfEmpty() {
   const siteDataPath = path.join(process.cwd(), 'site-data.json');
   const siteData = JSON.parse(fs.readFileSync(siteDataPath, 'utf-8'));
 
-  const adminEmail = 'Yeatrusourcing';
+  // 1. Admin account
+  const adminEmail = 'yeatrusourcing@gmail.com';
   const admin = await prisma.user.upsert({
     where: { email: adminEmail },
     update: {},
     create: {
       email: adminEmail,
-      passwordHash: '$2a$10$Rctbz.9F8blZNq8Yu8SzqunWgUt2Q495fRW6UTks7.VcfScHXIpnS',
+      passwordHash: '$2a$10$rpC.Td0.EzAAHn9ZvsMDOezPiWZXXwXGvN9yQyB0rhPe4KFeM02vG',
       name: 'Yeatrusourcing',
       role: 'ADMIN',
+    },
+  });
+
+  // 2. Official seller account — all existing products belong to this seller
+  const officialSellerEmail = 'neil6corrot@gmail.com';
+  const officialSeller = await prisma.user.upsert({
+    where: { email: officialSellerEmail },
+    update: {},
+    create: {
+      email: officialSellerEmail,
+      passwordHash: '$2a$10$rpC.Td0.EzAAHn9ZvsMDOezPiWZXXwXGvN9yQyB0rhPe4KFeM02vG',
+      name: 'Official Seller',
+      role: 'OFFICIAL_SELLER',
     },
   });
 
@@ -211,7 +225,7 @@ async function seedIfEmpty() {
           shippingCost: 0,
           aplus: productData.aplus ? JSON.stringify(productData.aplus) : null,
           shippingMethod: 'Standard Shipping',
-          authorId: admin.id,
+          authorId: officialSeller.id,
           variants: {
             create: variantData.length > 0 ? variantData.map(v => ({ color: v.color, size: v.size, price: toNumber(v.price), stock: v.stock })) : [{ color: 'Default', size: 'One Size', price: toNumber(productData.priceMin), stock: 100 }],
           },
