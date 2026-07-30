@@ -13,3 +13,4 @@ prisma/*.db-journal
 vercel
 __pycache__/
 .vercel
+.env*
