@@ -1,7 +1,20 @@
 import { AuthOptions, Session } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
-import { prisma } from './prisma';
-import bcrypt from 'bcryptjs';
+
+// Hardcoded demo accounts (no DB required)
+// Set these via Vercel env vars or edit directly
+const ACCOUNTS: Record<string, { password: string; name: string; role: string }> = {
+  'yeatrusourcing@gmail.com': {
+    password: process.env.ADMIN_PASSWORD || 'ldz52385109',
+    name: 'Yeatrusourcing',
+    role: 'ADMIN',
+  },
+  'neil6corrot@gmail.com': {
+    password: process.env.SELLER_PASSWORD || 'ldz52385109',
+    name: 'Official Seller',
+    role: 'OFFICIAL_SELLER',
+  },
+};
 
 export const authOptions: AuthOptions = {
   session: {
@@ -18,29 +31,21 @@ export const authOptions: AuthOptions = {
           return null;
         }
 
-        const user = await prisma.user.findUnique({
-          where: { email: credentials.email },
-        });
-
-        if (!user) {
+        const account = ACCOUNTS[credentials.email.toLowerCase()];
+        if (!account) {
           return null;
         }
 
-        const isPasswordValid = await bcrypt.compare(
-          credentials.password,
-          user.passwordHash
-        );
-
-        if (!isPasswordValid) {
+        if (account.password !== credentials.password) {
           return null;
         }
 
         return {
-          id: user.id,
-          email: user.email,
-          name: user.name,
-          role: user.role,
-          allowedCategoryId: user.allowedCategoryId,
+          id: credentials.email,
+          email: credentials.email,
+          name: account.name,
+          role: account.role,
+          allowedCategoryId: null,
         };
       },
     }),
