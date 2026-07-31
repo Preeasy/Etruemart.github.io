@@ -1,5 +1,4 @@
 import Link from 'next/link';
-import Image from 'next/image';
 import { Edit3 } from 'lucide-react';
 
 interface ProductCardProps {
@@ -31,6 +30,8 @@ const ProductCard = ({ product, editUrl, isOwner }: ProductCardProps) => {
         ? product.category
         : '';
 
+  const fallbackSvg = `data:image/svg+xml;charset=UTF-8,${encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#f3f4f6"/><stop offset="100%" stop-color="#e5e7eb"/></linearGradient></defs><rect fill="url(#g)" width="200" height="200"/><rect x="30" y="50" width="140" height="100" rx="8" fill="white" stroke="#d1d5db" stroke-width="2"/><circle cx="70" cy="80" r="10" fill="#fcd34d"/><path d="M50 140 L80 105 L100 125 L125 95 L160 140 Z" fill="#d1d5db"/></svg>`)}`;
+
   return (
     <div className="group bg-white rounded-xl overflow-hidden border border-ink-200 hover:border-accent-300 hover:shadow-medium transition-all duration-300 relative">
       {editUrl && (
@@ -45,13 +46,15 @@ const ProductCard = ({ product, editUrl, isOwner }: ProductCardProps) => {
       )}
       <Link href={`/products/${product.id}`} className="block">
         <div className="relative aspect-square overflow-hidden bg-ink-50">
-          <Image
+          <img
             src={product.image}
             alt={product.name}
-            fill
-            className="object-cover group-hover:scale-105 transition-transform duration-500"
-            quality={90}
-            sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
+            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+            loading="lazy"
+            onError={(e) => {
+              const el = e.currentTarget as HTMLImageElement;
+              if (el.src !== fallbackSvg) el.src = fallbackSvg;
+            }}
           />
           <div className="absolute inset-0 bg-gradient-to-t from-navy-900/0 group-hover:from-navy-900/5 transition-all pointer-events-none" />
           {product.stockStatus === 'IN_STOCK' && (

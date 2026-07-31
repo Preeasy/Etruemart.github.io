@@ -146,12 +146,15 @@ const Home = ({ products }: { products: Product[] }) => {
                   </div>
                   <div className="hidden md:block flex-shrink-0">
                     <div className="relative w-64 h-44 rounded-xl overflow-hidden border border-ink-200 bg-ink-50">
-                      <Image
+                      <img
                         src={products[58]?.image || topDeals[0]?.image || ''}
                         alt="Wholesale Products"
-                        fill
-                        priority
-                        className="object-cover opacity-95"
+                        className="w-full h-full object-cover opacity-95"
+                        onError={(e) => {
+                          const el = e.currentTarget as HTMLImageElement;
+                          const svg = `data:image/svg+xml;charset=UTF-8,${encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 176"><defs><linearGradient id="gh" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#eef2ff"/><stop offset="100%" stop-color="#f5f3ff"/></linearGradient></defs><rect fill="url(#gh)" width="256" height="176"/><text x="128" y="96" text-anchor="middle" font-family="sans-serif" font-size="14" fill="#4338ca" font-weight="bold">Wholesale Products</text></svg>`)}`;
+                          el.src = svg;
+                        }}
                       />
                     </div>
                   </div>
@@ -243,12 +246,19 @@ const Home = ({ products }: { products: Product[] }) => {
                     {topDeals.map((p) => (
                       <Link key={p.id} href={`/products/${p.id}`} className="group bg-white p-3.5 hover:bg-ink-50 transition-colors">
                         <div className="relative aspect-square bg-white rounded-lg overflow-hidden mb-2.5 border border-ink-100 group-hover:border-navy-900 transition-colors">
-                          <Image
+                          <img
                             src={p.image}
                             alt={p.name}
-                            fill
                             loading="lazy"
-                            className="object-cover group-hover:scale-105 transition-transform duration-500"
+                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                            onError={(e) => {
+                              const el = e.currentTarget as HTMLImageElement;
+                              if (!el.dataset.fallback) {
+                                el.dataset.fallback = '1';
+                                const svg = `data:image/svg+xml;charset=UTF-8,${encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#f3f4f6"/><stop offset="100%" stop-color="#e5e7eb"/></linearGradient></defs><rect fill="url(#g)" width="200" height="200"/><rect x="30" y="50" width="140" height="100" rx="8" fill="white" stroke="#d1d5db" stroke-width="2"/><circle cx="70" cy="80" r="10" fill="#fcd34d"/><path d="M50 140 L80 105 L100 125 L125 95 L160 140 Z" fill="#d1d5db"/><text x="100" y="178" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#9ca3af">${p.name.slice(0,18)}</text></svg>`)}`;
+                                el.src = svg;
+                              }
+                            }}
                           />
                         </div>
                         <p className="text-[12px] text-ink-600 line-clamp-2 leading-snug min-h-[2.1em] font-medium group-hover:text-navy-900 transition-colors">
@@ -305,12 +315,19 @@ const Home = ({ products }: { products: Product[] }) => {
                           {catProducts.map((p) => (
                             <Link key={p.id} href={`/products/${p.id}`} className="group bg-white p-3 hover:bg-ink-50 transition-colors">
                               <div className="relative aspect-square bg-white rounded-lg overflow-hidden mb-2 border border-ink-100 group-hover:border-navy-900 transition-colors">
-                                <Image
+                                <img
                                   src={p.image}
                                   alt={p.name}
-                                  fill
                                   loading="lazy"
-                                  className="object-cover group-hover:scale-105 transition-transform duration-500"
+                                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                                  onError={(e) => {
+                                    const el = e.currentTarget as HTMLImageElement;
+                                    if (!el.dataset.fallback) {
+                                      el.dataset.fallback = '1';
+                                      const svg = `data:image/svg+xml;charset=UTF-8,${encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#f3f4f6"/><stop offset="100%" stop-color="#e5e7eb"/></linearGradient></defs><rect fill="url(#g)" width="200" height="200"/><rect x="30" y="50" width="140" height="100" rx="8" fill="white" stroke="#d1d5db" stroke-width="2"/><circle cx="70" cy="80" r="10" fill="#fcd34d"/><path d="M50 140 L80 105 L100 125 L125 95 L160 140 Z" fill="#d1d5db"/><text x="100" y="178" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#9ca3af">${p.name.slice(0,18)}</text></svg>`)}`;
+                                      el.src = svg;
+                                    }
+                                  }}
                                 />
                               </div>
                               <p className="text-[12px] text-ink-600 line-clamp-2 leading-snug min-h-[2.1em] group-hover:text-navy-900 transition-colors">
