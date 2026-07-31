@@ -11,12 +11,14 @@ function safeJsonParse<T>(str: string, fallback: T): T {
   }
 }
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-  const { id } = req.query;
+function isValidCuid(str: string): boolean {
+  return /^c[a-z0-9]{20,}$/.test(str);
+}
 
-  if (req.method === 'GET') {
-    const product = await prisma.product.findUnique({
-      where: { id: id as string },
+async function findProduct(idOrSlug: string) {
+  if (isValidCuid(idOrSlug)) {
+    return prisma.product.findUnique({
+      where: { id: idOrSlug },
       include: {
         author: { select: { id: true, name: true, avatar: true } },
         variants: true,
@@ -27,6 +29,34 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         },
       },
     });
+  }
+  return prisma.product.findUnique({
+    where: { slug: idOrSlug },
+    include: {
+      author: { select: { id: true, name: true, avatar: true } },
+      variants: true,
+      category: { select: { id: true, name: true, slug: true } },
+      reviews: {
+        include: { user: { select: { id: true, name: true, avatar: true } } },
+        orderBy: { createdAt: 'desc' },
+      },
+    },
+  });
+}
+
+async function findProductForEdit(idOrSlug: string) {
+  if (isValidCuid(idOrSlug)) {
+    return prisma.product.findUnique({ where: { id: idOrSlug } });
+  }
+  return prisma.product.findUnique({ where: { slug: idOrSlug } });
+}
+
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+  const { id } = req.query;
+  const idStr = id as string;
+
+  if (req.method === 'GET') {
+    const product = await findProduct(idStr);
 
     if (!product) {
       return res.status(404).json({ error: 'Product not found' });
@@ -53,7 +83,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   }
 
   if (req.method === 'PUT') {
-    const product = await prisma.product.findUnique({ where: { id: id as string } });
+    const product = await findProductForEdit(idStr);
     if (!product) {
       return res.status(404).json({ error: 'Product not found' });
     }
@@ -82,7 +112,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       isPublished, shippingCost, shippingMethod, sku, material, moq,
       plating, process, color, size, packSize,
       pkgLength, pkgWidth, pkgHeight, pkgWeight,
-      keywords, stockStatus,
+      keywords, stockStatus, aplus,
     } = req.body;
     const data: any = {};
     if (name !== undefined) data.name = name;
@@ -110,9 +140,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     if (pkgWeight !== undefined) data.pkgWeight = pkgWeight ? parseFloat(pkgWeight) : null;
     if (keywords !== undefined) data.keywords = keywords;
     if (stockStatus !== undefined) data.stockStatus = stockStatus;
+    if (aplus !== undefined) data.aplus = aplus;
 
     const updatedProduct = await prisma.product.update({
-      where: { id: id as string },
+      where: { id: product.id },
       data,
     });
 
@@ -120,13 +151,13 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   }
 
   if (req.method === 'DELETE') {
-    const product = await prisma.product.findUnique({ where: { id: id as string } });
+    const product = await findProductForEdit(idStr);
     const canManage = session.user.role === 'ADMIN' || session.user.role === 'OFFICIAL_SELLER';
     if (!product || (product.authorId !== session.user.id && !canManage)) {
       return res.status(403).json({ error: 'Forbidden' });
     }
 
-    await prisma.product.delete({ where: { id: id as string } });
+    await prisma.product.delete({ where: { id: product.id } });
     return res.status(204).end();
   }
 

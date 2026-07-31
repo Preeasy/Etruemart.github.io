@@ -297,16 +297,38 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       orderBy: { createdAt: 'desc' },
     });
 
-    // 序列化所有响应数据
+    // Return clean, flat data without nested arrays/objects that could cause React rendering issues
     const serialized = products.map(p => ({
-      ...p,
-      images: safeJsonParse(p.images as any, []),
-      keywords: safeJsonParse(p.keywords as any, []),
-      aplus: safeJsonParse(p.aplus as any, null),
+      id: p.id,
+      name: p.name,
+      slug: p.slug,
+      description: p.description,
       price: Number(p.price),
+      priceMax: p.priceMax ? Number(p.priceMax) : null,
       originalPrice: p.originalPrice ? Number(p.originalPrice) : null,
+      image: p.image,
+      categoryId: p.categoryId,
+      categoryName: p.category?.name || '',
+      categorySlug: p.category?.slug || '',
+      stock: p.stock,
       rating: Number(p.rating),
-      variants: p.variants?.map(v => ({ ...v, price: Number(v.price) })) || [],
+      reviewCount: p.reviewCount,
+      salesCount: p.salesCount,
+      isPublished: p.isPublished,
+      shippingCost: Number(p.shippingCost),
+      shippingMethod: p.shippingMethod || 'Standard Shipping',
+      sku: p.sku,
+      material: p.material,
+      plating: p.plating,
+      process: p.process,
+      color: p.color,
+      size: p.size,
+      packSize: p.packSize,
+      moq: p.moq,
+      stockStatus: p.stockStatus,
+      authorId: p.authorId,
+      createdAt: p.createdAt,
+      updatedAt: p.updatedAt,
     }));
 
     return res.json(serialized);

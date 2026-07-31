@@ -3,6 +3,25 @@ const fs = require('fs');
 const path = require('path');
 const bcrypt = require('bcryptjs');
 
+// Load .env.local
+const envPath = path.join(__dirname, '..', '.env.local');
+if (fs.existsSync(envPath)) {
+  const envContent = fs.readFileSync(envPath, 'utf-8');
+  envContent.split('\n').forEach(line => {
+    const match = line.match(/^(\w+)=(.*)$/);
+    if (match) {
+      const key = match[1];
+      let value = match[2];
+      if ((value.startsWith('"') && value.endsWith('"')) || (value.startsWith("'") && value.endsWith("'"))) {
+        value = value.slice(1, -1);
+      }
+      if (!(key in process.env)) {
+        process.env[key] = value;
+      }
+    }
+  });
+}
+
 const categoriesDataPath = path.join(__dirname, '..', 'categories-data.json');
 const productsDataPath = path.join(__dirname, '..', 'site-data.json');
 
@@ -105,19 +124,24 @@ async function main() {
       const imagesArray = Array.isArray(productData.images) ? productData.images : [productData.image];
       const keywordsStr = Array.isArray(productData.keywords) ? JSON.stringify(productData.keywords) : JSON.stringify([productData.slug]);
       const bulletPointsStr = Array.isArray(productData.bulletPoints) ? JSON.stringify(productData.bulletPoints) : '[]';
+      const aplusStr = productData.aplus ? JSON.stringify(productData.aplus) : null;
+
+      const priceVal = productData.priceMin || productData.price || 0;
+      const originalPriceVal = productData.priceMax || productData.originalPrice || priceVal * 1.3;
 
       await prisma.product.create({
         data: {
           name: productData.name,
           slug: productData.slug,
           description: productData.description || '',
-          price: productData.priceMin || 0,
-          originalPrice: productData.priceMax || (productData.priceMin || 0) * 1.3,
+          price: priceVal,
+          originalPrice: originalPriceVal,
+          priceMax: productData.priceMax || null,
           image: productData.image,
           images: JSON.stringify(imagesArray),
           categoryId,
-          stock: 100,
-          isPublished: true,
+          stock: productData.stock || 100,
+          isPublished: productData.isPublished !== false,
           sku: productData.sku || null,
           material: productData.material || null,
           plating: productData.plating || null,
@@ -125,16 +149,21 @@ async function main() {
           color: productData.color || null,
           size: productData.size || null,
           packSize: productData.packSize || 1,
+          pkgLength: productData.pkgLength || null,
+          pkgWidth: productData.pkgWidth || null,
+          pkgHeight: productData.pkgHeight || null,
+          pkgWeight: productData.pkgWeight || null,
           keywords: keywordsStr,
           origin: productData.origin || null,
           supplierCity: productData.supplierCity || null,
           stockStatus: productData.stockStatus || 'IN_STOCK',
           moq: productData.moq || 1,
-          shippingCost: 0,
-          shippingMethod: 'Standard Shipping',
+          shippingCost: productData.shippingCost ?? 0,
+          shippingMethod: productData.shippingMethod || 'Standard Shipping',
+          aplus: aplusStr,
           authorId: seller.id,
           variants: {
-            create: [{ color: 'Default', size: 'One Size', price: productData.priceMin || 0, stock: 100 }],
+            create: [{ color: productData.color || 'Default', size: productData.size || 'One Size', price: priceVal, stock: productData.stock || 100 }],
           },
         },
       });

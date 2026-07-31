@@ -1,5 +1,6 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
+import { useSession } from 'next-auth/react';
 import Link from 'next/link';
 import Head from 'next/head';
 import Image from 'next/image';
@@ -13,6 +14,9 @@ import {
   Filter,
   Sparkles,
   X,
+  Settings,
+  Edit3,
+  Package,
 } from 'lucide-react';
 import ProductCard from '@/components/ProductCard';
 import Sidebar from '@/components/Sidebar';
@@ -26,7 +30,7 @@ interface Product {
   description: string;
   category: { name: string; slug: string };
   priceMin: number;
-  priceMax: number;
+  priceMax?: number;
   image: string;
   moq?: number;
   material?: string;
@@ -50,10 +54,12 @@ const categoryFilters = [
 const materialOptions = ['Alloy', 'Stainless Steel', 'Brass', 'Acrylic', 'Crystal', 'Pearl', 'Resin', 'Fabric', 'Rhinestone'];
 const platingOptions = ['Gold Plated', 'Silver Plated', 'Rose Gold Plated', 'Rhodium Plated', 'Gunmetal', 'Antique Bronze'];
 
-const Products = ({ products }: { products: Product[] }) => {
+const Products = ({ products: initialProducts }: { products: Product[] }) => {
   const router = useRouter();
+  const { data: session } = useSession();
   const { category: queryCategory } = router.query;
 
+  const [products, setProducts] = useState<Product[]>(initialProducts);
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState(
     typeof queryCategory === 'string' ? queryCategory : 'all'
@@ -64,6 +70,49 @@ const Products = ({ products }: { products: Product[] }) => {
   const [sortBy, setSortBy] = useState('newest');
   const [showSidebar, setShowSidebar] = useState(false);
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
+  const [sellerProducts, setSellerProducts] = useState<{ id: string; slug: string; name: string }[]>([]);
+
+  useEffect(() => {
+    fetch('/api/products')
+      .then(r => r.ok ? r.json() : null)
+      .then(data => {
+        if (Array.isArray(data) && data.length > 0) {
+          const dbProducts: Product[] = data.map((p: any) => ({
+            id: p.id,
+            name: p.name,
+            description: p.description || '',
+            category: { name: p.categoryName || '', slug: p.categorySlug || '' },
+            priceMin: Number(p.price) || 0,
+            priceMax: p.priceMax ? Number(p.priceMax) : undefined,
+            image: p.image,
+            moq: p.moq,
+            material: p.material || undefined,
+            plating: p.plating || undefined,
+            packSize: p.packSize,
+            sku: p.sku || undefined,
+            stockStatus: p.stockStatus,
+            keywords: Array.isArray(p.keywords) ? p.keywords : [],
+            bulletPoints: Array.isArray(p.bulletPoints) ? p.bulletPoints : [],
+          }));
+          const slugSet = new Set(dbProducts.map(p => p.id));
+          const merged = [...dbProducts, ...initialProducts.filter(p => !slugSet.has(String(p.id)))];
+          setProducts(merged);
+        }
+      })
+      .catch(() => {});
+  }, []);
+
+  useEffect(() => {
+    if (session?.user && (session.user.role === 'OFFICIAL_SELLER' || session.user.role === 'ADMIN')) {
+      fetch('/api/products/my-products')
+        .then(r => r.ok ? r.json() : null)
+        .then(data => { if (data?.products) setSellerProducts(data.products); })
+        .catch(() => {});
+    }
+  }, [session]);
+
+  const sellerProductMap = new Map(sellerProducts.map(p => [p.slug || p.id, p]));
+  const sellerProductByNameMap = new Map(sellerProducts.map(p => [p.name?.toLowerCase() || '', p]));
 
   const filteredProducts = products.filter((product) => {
     const matchesSearch =
@@ -144,16 +193,38 @@ const Products = ({ products }: { products: Product[] }) => {
       {/* Page header — clean white, no dark banner */}
       <div className="bg-white border-b border-ink-200">
         <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16 max-w-[1600px] mx-auto py-6 lg:py-8">
-          <div className="flex items-center gap-2 mb-2">
-            <Sparkles className="w-4 h-4 text-accent-500" />
-            <span className="text-[11px] font-bold text-accent-600 uppercase tracking-[0.15em]">Wholesale Catalog</span>
+          <div className="flex items-center justify-between gap-4 flex-wrap">
+            <div>
+              <div className="flex items-center gap-2 mb-2">
+                <Sparkles className="w-4 h-4 text-accent-500" />
+                <span className="text-[11px] font-bold text-accent-600 uppercase tracking-[0.15em]">Wholesale Catalog</span>
+              </div>
+              <h1 className="font-display text-2xl md:text-3xl font-bold text-navy-900 tracking-tight mb-2">
+                {currentCategoryName}
+              </h1>
+              <p className="text-ink-500 text-sm max-w-2xl leading-relaxed mb-4">
+                Wholesale jewelry & accessories — direct from Yiwu. Factory pricing, low MOQ, fast global shipping.
+              </p>
+            </div>
+            {session?.user && (session.user.role === 'OFFICIAL_SELLER' || session.user.role === 'ADMIN') && (
+              <div className="flex items-center gap-2 flex-shrink-0">
+                <Link
+                  href="/dashboard"
+                  className="inline-flex items-center gap-2 px-4 py-2 bg-white border border-ink-200 text-ink-700 text-sm font-semibold rounded-lg hover:bg-ink-50 transition-colors"
+                >
+                  <Package className="w-4 h-4" />
+                  Seller Center
+                </Link>
+                <Link
+                  href="/dashboard"
+                  className="inline-flex items-center gap-2 px-4 py-2 bg-accent-500 hover:bg-accent-600 text-white text-sm font-semibold rounded-lg transition-colors"
+                >
+                  <Edit3 className="w-4 h-4" />
+                  My Products
+                </Link>
+              </div>
+            )}
           </div>
-          <h1 className="font-display text-2xl md:text-3xl font-bold text-navy-900 tracking-tight mb-2">
-            {currentCategoryName}
-          </h1>
-          <p className="text-ink-500 text-sm max-w-2xl leading-relaxed mb-4">
-            Wholesale jewelry & accessories — direct from Yiwu. Factory pricing, low MOQ, fast global shipping.
-          </p>
           <div className="flex flex-wrap gap-2">
             <div className="flex items-center gap-1.5 bg-ink-50 border border-ink-200 rounded-full px-3 py-1.5">
               <div className="w-1.5 h-1.5 bg-success-500 rounded-full" />
@@ -420,9 +491,17 @@ const Products = ({ products }: { products: Product[] }) => {
             {sortedProducts.length > 0 ? (
               viewMode === 'grid' ? (
                 <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
-                  {sortedProducts.map((product) => (
-                    <ProductCard key={product.id} product={product} />
-                  ))}
+                  {sortedProducts.map((product) => {
+                    const sellerMatch = sellerProductMap.get(String(product.id)) || sellerProductByNameMap.get(product.name?.toLowerCase());
+                    return (
+                      <ProductCard
+                        key={product.id}
+                        product={product}
+                        editUrl={sellerMatch ? `/sell/${sellerMatch.id}` : undefined}
+                        isOwner={!!sellerMatch}
+                      />
+                    );
+                  })}
                 </div>
               ) : (
                 <div className="space-y-4">

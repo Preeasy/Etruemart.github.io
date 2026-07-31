@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { useSession } from 'next-auth/react';
 import Link from 'next/link';
@@ -30,6 +30,8 @@ import {
   TrendingUp,
   Award,
   Store,
+  Edit3,
+  Settings,
 } from 'lucide-react';
 import Layout from '@/components/Layout';
 import ProductCard from '@/components/ProductCard';
@@ -65,17 +67,67 @@ interface Product {
   seller?: string;
   keywords?: string[];
   bulletPoints?: string[];
+  aplus?: {
+    description?: string;
+    bulletPoints?: string[];
+    blocks?: { id?: string; type: string; content: string; caption?: string }[];
+  } | null;
 }
 
-export default function ProductDetail({ product, relatedProducts }: { product: Product; relatedProducts: Product[] }) {
+export default function ProductDetail({ product: initialProduct, relatedProducts: initialRelated }: { product: Product; relatedProducts: Product[] }) {
   const router = useRouter();
-  const { data: session } = useSession();
+  const { data: session, status: sessionStatus } = useSession();
+  const [product, setProduct] = useState<Product>(initialProduct);
+  const [relatedProducts, setRelatedProducts] = useState<Product[]>(initialRelated);
   const [selectedImage, setSelectedImage] = useState(0);
   const [isLightboxOpen, setIsLightboxOpen] = useState(false);
   const [lightboxIndex, setLightboxIndex] = useState(0);
-  const [quantity, setQuantity] = useState(product.moq || 12);
+  const [quantity, setQuantity] = useState(initialProduct.moq || 12);
   const [activeTab, setActiveTab] = useState('description');
   const [isFavorite, setIsFavorite] = useState(false);
+  const [ownership, setOwnership] = useState<{ isOwner: boolean; canManage: boolean; productId: string | null } | null>(null);
+
+  useEffect(() => {
+    const fetchProduct = async () => {
+      try {
+        const res = await fetch(`/api/products/${initialProduct.id}`, { cache: 'no-store' });
+        if (res.ok) {
+          const data = await res.json();
+          if (data) {
+            setProduct({
+              id: data.id,
+              name: data.name,
+              description: data.description || '',
+              price: Number(data.price) || 0,
+              priceMin: data.priceMin ? Number(data.priceMin) : undefined,
+              priceMax: data.priceMax ? Number(data.priceMax) : undefined,
+              originalPrice: data.originalPrice ? Number(data.originalPrice) : undefined,
+              image: data.image,
+              images: Array.isArray(data.images) ? data.images : [],
+              category: data.category ? { name: data.category.name, slug: data.category.slug } : undefined,
+              stock: data.stock,
+              rating: data.rating,
+              reviewCount: data.reviewCount,
+              salesCount: data.salesCount,
+              material: data.material,
+              plating: data.plating,
+              process: data.process,
+              color: data.color,
+              size: data.size,
+              packSize: data.packSize,
+              moq: data.moq,
+              sku: data.sku,
+              keywords: Array.isArray(data.keywords) ? data.keywords : [],
+              bulletPoints: Array.isArray(data.bulletPoints) ? data.bulletPoints : [],
+              aplus: data.aplus || null,
+            });
+            setQuantity(data.moq || initialProduct.moq || 12);
+          }
+        }
+      } catch {}
+    };
+    fetchProduct();
+  }, [initialProduct.id]);
 
   if (!product) {
     return (
@@ -128,6 +180,21 @@ export default function ProductDetail({ product, relatedProducts }: { product: P
     if (!session) { router.push('/login'); return; }
     fetch('/api/cart', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ productId: product.id, quantity }) }).then(() => alert('Added to inquiry list!'));
   };
+
+  useEffect(() => {
+    const checkOwnership = async () => {
+      if (sessionStatus === 'authenticated' && session?.user && product.id) {
+        try {
+          const res = await fetch(`/api/products/ownership?id=${product.id}`, { cache: 'no-store' });
+          if (res.ok) {
+            const data = await res.json();
+            setOwnership(data);
+          }
+        } catch {}
+      }
+    };
+    checkOwnership();
+  }, [session, sessionStatus, product.id]);
 
   return (
     <Layout>
@@ -200,6 +267,58 @@ export default function ProductDetail({ product, relatedProducts }: { product: P
           </nav>
         </div>
       </div>
+
+      {/* Seller Edit Bar */}
+      {ownership && ownership.canManage && ownership.productId && (
+        <div className="bg-gradient-to-r from-accent-500/10 to-navy-500/10 border-b border-accent-200/30">
+          <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16 max-w-[1600px] mx-auto py-3">
+            <div className="flex items-center justify-between gap-4 flex-wrap">
+              <div className="flex items-center gap-3">
+                <div className="w-9 h-9 rounded-lg bg-accent-500 text-white flex items-center justify-center">
+                  <Settings className="w-4 h-4" />
+                </div>
+                <div>
+                  <p className="text-sm font-bold text-navy-900">
+                    {ownership.isOwner ? 'Your Product' : 'Manage Product'}
+                  </p>
+                  <p className="text-xs text-ink-500">Edit listing, images, description, and A+ content</p>
+                </div>
+              </div>
+              <div className="flex items-center gap-2">
+                <Link
+                  href={`/sell/${ownership.productId}`}
+                  className="inline-flex items-center gap-2 px-4 py-2 bg-accent-500 hover:bg-accent-600 text-white text-sm font-semibold rounded-lg transition-colors"
+                >
+                  <Edit3 className="w-4 h-4" />
+                  Edit Product
+                </Link>
+                <Link
+                  href="/dashboard"
+                  className="inline-flex items-center gap-2 px-4 py-2 bg-white border border-ink-200 text-ink-700 text-sm font-semibold rounded-lg hover:bg-ink-50 transition-colors"
+                >
+                  <Package className="w-4 h-4" />
+                  Seller Center
+                </Link>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+      {ownership && !ownership.canManage && session?.user?.role === 'USER' && (
+        <div className="bg-ink-50 border-b border-ink-200/30">
+          <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16 max-w-[1600px] mx-auto py-3">
+            <div className="flex items-center justify-between gap-4 flex-wrap">
+              <p className="text-sm text-ink-600">Are you the seller of this product?</p>
+              <Link
+                href="/dashboard"
+                className="text-sm font-semibold text-accent-600 hover:text-accent-700"
+              >
+                Apply for seller account →
+              </Link>
+            </div>
+          </div>
+        </div>
+      )}
 
       <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16 max-w-[1600px] mx-auto py-6">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 lg:gap-6">
@@ -467,6 +586,42 @@ export default function ProductDetail({ product, relatedProducts }: { product: P
                       </div>
                     </div>
                   )}
+                  {product.aplus && (product.aplus.description || (product.aplus.blocks && product.aplus.blocks.length > 0) || (product.aplus.bulletPoints && product.aplus.bulletPoints.length > 0)) && (
+                    <div className="mt-6 p-5 bg-gradient-to-br from-accent-500/5 to-navy-500/5 rounded-xl border border-accent-200/20">
+                      <h3 className="text-base font-bold text-navy-800 mb-4 flex items-center gap-2">
+                        <Layers className="w-4 h-4 text-accent-500" />A+ Premium Content
+                      </h3>
+                      {product.aplus.description && (
+                        <p className="text-sm text-ink-700 leading-relaxed mb-4">{product.aplus.description}</p>
+                      )}
+                      {product.aplus.bulletPoints && product.aplus.bulletPoints.length > 0 && (
+                        <div className="grid md:grid-cols-2 gap-2 mb-4">
+                          {product.aplus.bulletPoints.map((bp: string, i: number) => (
+                            <div key={i} className="flex items-start gap-2 p-2.5 rounded-lg bg-white/50 border border-ink-100">
+                              <CheckCircle2 className="w-4 h-4 text-accent-500 flex-shrink-0 mt-0.5" />
+                              <span className="text-sm text-ink-700">{bp}</span>
+                            </div>
+                          ))}
+                        </div>
+                      )}
+                      {product.aplus.blocks && product.aplus.blocks.length > 0 && (
+                        <div className="space-y-3">
+                          {product.aplus.blocks.map((block: any, i: number) => (
+                            <div key={block.id || i} className="p-3 bg-white rounded-lg border border-ink-100">
+                              {block.type === 'image' ? (
+                                <img src={block.content} alt={block.caption || ''} className="w-full max-h-64 object-cover rounded-lg" />
+                              ) : (
+                                <p className="text-sm text-ink-700">{block.content}</p>
+                              )}
+                              {block.caption && (
+                                <p className="text-xs text-ink-500 mt-2 text-center italic">{block.caption}</p>
+                              )}
+                            </div>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                  )}
                   <div>
                     <h3 className="text-base font-bold text-navy-800 mb-3 flex items-center gap-2">
                       <Users className="w-4 h-4 text-accent-500" />Perfect For
@@ -688,7 +843,7 @@ export async function getStaticPaths() {
   const products = (siteDataJson as any).products || [];
   return {
     paths: products.map((p: { id: number | string }) => ({ params: { id: String(p.id) } })),
-    fallback: false,
+    fallback: 'blocking',
   };
 }
 

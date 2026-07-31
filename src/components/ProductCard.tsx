@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import Image from 'next/image';
+import { Edit3 } from 'lucide-react';
 
 interface ProductCardProps {
   product: {
@@ -15,9 +16,11 @@ interface ProductCardProps {
     sku?: string | null;
     stockStatus?: string;
   };
+  editUrl?: string;
+  isOwner?: boolean;
 }
 
-const ProductCard = ({ product }: ProductCardProps) => {
+const ProductCard = ({ product, editUrl, isOwner }: ProductCardProps) => {
   const price = Number(product.price || product.priceMin || 0);
   const moq = product.moq || 1;
 
@@ -29,7 +32,17 @@ const ProductCard = ({ product }: ProductCardProps) => {
         : '';
 
   return (
-    <div className="group bg-white rounded-xl overflow-hidden border border-ink-200 hover:border-accent-300 hover:shadow-medium transition-all duration-300">
+    <div className="group bg-white rounded-xl overflow-hidden border border-ink-200 hover:border-accent-300 hover:shadow-medium transition-all duration-300 relative">
+      {editUrl && (
+        <Link
+          href={editUrl}
+          className="absolute top-2 left-2 z-10 inline-flex items-center gap-1 px-2 py-1 bg-accent-500 hover:bg-accent-600 text-white text-[10px] font-bold rounded-md shadow-sm transition-colors"
+          onClick={(e) => e.stopPropagation()}
+        >
+          <Edit3 className="w-3 h-3" />
+          编辑
+        </Link>
+      )}
       <Link href={`/products/${product.id}`} className="block">
         <div className="relative aspect-square overflow-hidden bg-ink-50">
           <Image

@@ -14,13 +14,16 @@ export const authOptions: AuthOptions = {
         password: { label: 'Password', type: 'password' },
       },
       async authorize(credentials) {
+        console.log('[AUTH] authorize called with:', credentials?.email);
         if (!credentials?.email || !credentials?.password) {
+          console.log('[AUTH] missing credentials');
           return null;
         }
 
         const user = await prisma.user.findUnique({
           where: { email: credentials.email },
         });
+        console.log('[AUTH] user found:', user ? user.email : 'NOT FOUND');
 
         if (!user) {
           return null;
@@ -30,18 +33,21 @@ export const authOptions: AuthOptions = {
           credentials.password,
           user.passwordHash
         );
+        console.log('[AUTH] password valid:', isPasswordValid);
 
         if (!isPasswordValid) {
           return null;
         }
 
-        return {
+        const result = {
           id: user.id,
           email: user.email,
           name: user.name,
           role: user.role,
           allowedCategoryId: user.allowedCategoryId,
         };
+        console.log('[AUTH] login success:', result.email, 'role:', result.role);
+        return result;
       },
     }),
   ],

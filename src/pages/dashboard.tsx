@@ -35,20 +35,23 @@ class DashboardEB extends Component<{ children: ReactNode }, EBState> {
 interface ProductItem {
   id: string;
   name: string;
-  price: number | string;
+  price: number;
+  priceMax: number | null;
   image: string;
   stock: number;
   salesCount: number;
   isPublished: boolean;
-  categoryId: string;
-  category?: { id: string; name: string; slug: string };
-  shippingCost: number | string;
+  categoryId: string | null;
+  categoryName: string;
+  categorySlug: string;
+  shippingCost: number;
   shippingMethod: string;
   sku: string | null;
   material: string | null;
   moq: number;
   packSize: number;
   stockStatus: string;
+  authorId: string;
 }
 
 const DashboardInner = () => {
@@ -64,23 +67,6 @@ const DashboardInner = () => {
   const [importResult, setImportResult] = useState<{ success: boolean; message: string; data?: any } | null>(null);
   const [loading, setLoading] = useState(false);
   const [errorMsg, setErrorMsg] = useState<string>('');
-
-  // Loading state
-  if (status === 'loading' || !session) {
-    return (
-      <Layout>
-        <div className="flex items-center justify-center min-h-[60vh]">
-          <div className="text-center">
-            <Loader2 className="w-10 h-10 text-accent-500 animate-spin mx-auto mb-4" />
-            <p className="text-ink-600 mb-4">{status === 'loading' ? 'Loading session...' : 'Please sign in to access this page.'}</p>
-            <Link href="/login" className="inline-flex items-center px-4 py-2 bg-accent-500 text-white rounded-lg hover:bg-accent-600">
-              Sign In
-            </Link>
-          </div>
-        </div>
-      </Layout>
-    );
-  }
 
   useEffect(() => {
     let cancelled = false;
@@ -205,6 +191,24 @@ const DashboardInner = () => {
     PRE_ORDER: 'bg-blue-500/10 text-blue-500 border border-blue-500/30',
   };
 
+  if (status === 'loading' || !session) {
+    return (
+      <Layout>
+        <div className="flex items-center justify-center min-h-[60vh]">
+          <div className="text-center">
+            <Loader2 className="w-10 h-10 text-accent-500 animate-spin mx-auto mb-4" />
+            <p className="text-ink-600 mb-4">{status === 'loading' ? 'Loading session...' : 'Please sign in to access this page.'}</p>
+            {!session && (
+              <Link href="/login" className="inline-flex items-center px-4 py-2 bg-accent-500 text-white rounded-lg hover:bg-accent-600">
+                Sign In
+              </Link>
+            )}
+          </div>
+        </div>
+      </Layout>
+    );
+  }
+
   return (
     <Layout>
       <div className="bg-ink-50 border-b border-ink-200/30">
@@ -214,9 +218,9 @@ const DashboardInner = () => {
               <h1 className="text-3xl font-bold text-navy-900">Seller Dashboard</h1>
               <p className="text-ink-500 mt-1">Welcome back, {session?.user?.name || 'User'} {session?.user?.role ? `(${session.user.role})` : ''}</p>
             </div>
-            <Link href="/sell" className="flex items-center gap-2 bg-accent-500 hover:bg-accent-400 text-white px-6 py-3 rounded-lg font-bold transition-colors">
+            <Link href="/sell/new" className="flex items-center gap-2 bg-accent-500 hover:bg-accent-400 text-white px-6 py-3 rounded-lg font-bold transition-colors">
               <Plus className="w-5 h-5" />
-              List Product
+              List New Product
             </Link>
           </div>
         </div>
@@ -249,7 +253,7 @@ const DashboardInner = () => {
                 <Upload className="w-4 h-4" />
                 Batch Import
               </button>
-              <Link href="/sell" className="text-accent-600 hover:text-accent-600 font-medium text-sm">
+              <Link href="/sell/new" className="text-accent-600 hover:text-accent-600 font-medium text-sm">
                 + Add New
               </Link>
             </div>
@@ -297,8 +301,8 @@ const DashboardInner = () => {
                           </div>
                         </div>
                       </td>
-                      <td className="py-3 px-4 text-sm text-ink-500">{product.category?.name ?? '-'}</td>
-                      <td className="py-3 px-4 text-sm font-medium text-accent-600">${Number(product.price || 0).toFixed(2)}</td>
+                      <td className="py-3 px-4 text-sm text-ink-500">{product.categoryName || '-'}</td>
+                      <td className="py-3 px-4 text-sm font-medium text-accent-600">${product.price.toFixed(2)}{product.priceMax ? ` - $${product.priceMax.toFixed(2)}` : ''}</td>
                       <td className="py-3 px-4 text-sm text-ink-500">
                         {editingProduct === product.id ? (
                           <input type="number" value={editForm.stock} onChange={e => setEditForm({...editForm, stock: e.target.value})} className="w-20 px-2 py-1 bg-ink-100 border border-ink-200/30 rounded text-sm text-navy-900" />
@@ -330,7 +334,7 @@ const DashboardInner = () => {
                           </div>
                         ) : (
                           <div>
-                            <p>${Number(product.shippingCost || 0).toFixed(2)}</p>
+                            <p>${(product.shippingCost || 0).toFixed(2)}</p>
                             <p className="text-xs text-ink-500">{product.shippingMethod || 'Standard'}</p>
                           </div>
                         )}
@@ -353,11 +357,15 @@ const DashboardInner = () => {
                             </>
                           ) : (
                             <>
+                              <Link href={`/sell/${product.id}`} className="inline-flex items-center gap-1 px-2.5 py-1.5 text-xs font-medium text-white bg-accent-500 hover:bg-accent-600 rounded-md transition-colors" title="编辑产品">
+                                <Edit3 className="w-3.5 h-3.5" />
+                                编辑
+                              </Link>
                               <button onClick={() => togglePublish(product.id, product.isPublished)} className={`p-1.5 rounded ${product.isPublished ? 'text-orange-500 hover:bg-orange-500/10' : 'text-green-500 hover:bg-green-500/10'}`} title={product.isPublished ? 'Unpublish' : 'Publish'}>
                                 {product.isPublished ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                               </button>
-                              <button onClick={() => startEdit(product)} className="p-1.5 text-accent-600 hover:bg-accent-500/10 rounded" title="Edit shipping & stock">
-                                <Edit3 className="w-4 h-4" />
+                              <button onClick={() => startEdit(product)} className="p-1.5 text-ink-500 hover:bg-ink-50 rounded" title="Quick edit shipping & stock">
+                                <Save className="w-4 h-4" />
                               </button>
                               <button onClick={() => deleteProduct(product.id)} className="p-1.5 text-red-500 hover:bg-red-500/10 rounded" title="Delete">
                                 <Trash2 className="w-4 h-4" />
@@ -375,7 +383,7 @@ const DashboardInner = () => {
             <div className="text-center py-12">
               <Package className="w-16 h-16 text-ink-500 mx-auto mb-4" />
               <p className="text-ink-500 mb-4">No products found.</p>
-              <Link href="/sell" className="inline-flex items-center px-4 py-2 bg-accent-500 text-white rounded-lg hover:bg-accent-600">
+              <Link href="/sell/new" className="inline-flex items-center px-4 py-2 bg-accent-500 text-white rounded-lg hover:bg-accent-600">
                 List Your First Product
               </Link>
             </div>
