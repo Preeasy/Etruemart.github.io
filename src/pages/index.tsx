@@ -145,17 +145,17 @@ const Home = ({ products }: { products: Product[] }) => {
                       </Link>
                     </div>
                   </div>
-                  <div className="hidden md:block flex-shrink-0">
-                    <div className="relative w-96 h-72 rounded-xl overflow-hidden border border-ink-200 bg-ink-50 shadow-lg">
+                  <div className="w-full lg:w-[28rem] flex-shrink-0">
+                    <div className="relative w-full aspect-[4/3] rounded-xl overflow-hidden border border-ink-200 bg-gradient-to-br from-indigo-50 to-purple-50 shadow-lg">
                       <img
-                        src={products[58]?.image || topDeals[0]?.image || ''}
+                        src={topDeals[0]?.image || products[0]?.image || ''}
                         alt="Wholesale Products"
-                        className="w-full h-full object-cover opacity-95"
+                        className="w-full h-full object-cover"
                         onError={(e) => {
                           const el = e.currentTarget as HTMLImageElement;
                           if (!el.dataset.fallback) {
                             el.dataset.fallback = '1';
-                            const svg = `data:image/svg+xml;charset=UTF-8,${encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 288"><defs><linearGradient id="gh" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#eef2ff"/><stop offset="100%" stop-color="#f5f3ff"/></linearGradient></defs><rect fill="url(#gh)" width="384" height="288"/><rect x="40" y="50" width="304" height="190" rx="12" fill="white" stroke="#c7d2fe" stroke-width="2"/><circle cx="110" cy="100" r="18" fill="#fcd34d"/><path d="M70 200 L120 140 L160 175 L210 120 L260 165 L320 100 L360 200 Z" fill="#e5e7eb"/><text x="192" y="265" text-anchor="middle" font-family="sans-serif" font-size="16" fill="#4338ca" font-weight="bold">Wholesale Products</text></svg>`)}`;
+                            const svg = `data:image/svg+xml;charset=UTF-8,${encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300"><defs><linearGradient id="gh" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#eef2ff"/><stop offset="100%" stop-color="#f5f3ff"/></linearGradient></defs><rect fill="url(#gh)" width="400" height="300"/><rect x="30" y="40" width="340" height="220" rx="12" fill="white" stroke="#c7d2fe" stroke-width="2"/><circle cx="120" cy="100" r="24" fill="#fcd34d"/><path d="M60 220 L130 140 L180 180 L240 110 L300 170 L360 100 L390 220 Z" fill="#e5e7eb"/><text x="200" y="280" text-anchor="middle" font-family="sans-serif" font-size="18" fill="#4338ca" font-weight="bold">Wholesale Products from Yiwu</text></svg>`)}`;
                             el.src = svg;
                           }
                         }}
