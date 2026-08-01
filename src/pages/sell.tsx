@@ -13,9 +13,11 @@ interface CategoryOption {
 }
 
 const Sell = () => {
-  const { data: session } = useSession();
+  const { data: session, status } = useSession();
   const router = useRouter();
   const [categories, setCategories] = useState<CategoryOption[]>([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
 
   const [formData, setFormData] = useState({
     name: '',
@@ -61,6 +63,16 @@ const Sell = () => {
     }
   }, [session?.user]);
 
+  if (status === 'loading') {
+    return (
+      <Layout>
+        <div className="min-h-[60vh] flex items-center justify-center">
+          <div className="animate-spin w-10 h-10 border-4 border-accent-500 border-t-transparent rounded-full" />
+        </div>
+      </Layout>
+    );
+  }
+
   if (!session) {
     return (
       <Layout>
@@ -78,24 +90,37 @@ const Sell = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const payload = {
-      ...formData,
-      keywords: formData.keywords ? formData.keywords.split(',').map(k => k.trim()).filter(Boolean) : [],
-      packSize: formData.packSize ? parseInt(formData.packSize) : undefined,
-      moq: formData.moq ? parseInt(formData.moq) : undefined,
-      pkgLength: formData.pkgLength ? parseFloat(formData.pkgLength) : undefined,
-      pkgWidth: formData.pkgWidth ? parseFloat(formData.pkgWidth) : undefined,
-      pkgHeight: formData.pkgHeight ? parseFloat(formData.pkgHeight) : undefined,
-      pkgWeight: formData.pkgWeight ? parseFloat(formData.pkgWeight) : undefined,
-    };
-    const response = await fetch('/api/products', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload),
-    });
+    if (loading) return;
+    setError('');
+    setLoading(true);
 
-    if (response.ok) {
-      router.push('/dashboard');
+    try {
+      const payload = {
+        ...formData,
+        keywords: formData.keywords ? formData.keywords.split(',').map(k => k.trim()).filter(Boolean) : [],
+        packSize: formData.packSize ? parseInt(formData.packSize) : undefined,
+        moq: formData.moq ? parseInt(formData.moq) : undefined,
+        pkgLength: formData.pkgLength ? parseFloat(formData.pkgLength) : undefined,
+        pkgWidth: formData.pkgWidth ? parseFloat(formData.pkgWidth) : undefined,
+        pkgHeight: formData.pkgHeight ? parseFloat(formData.pkgHeight) : undefined,
+        pkgWeight: formData.pkgWeight ? parseFloat(formData.pkgWeight) : undefined,
+      };
+      const response = await fetch('/api/products', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+
+      if (response.ok) {
+        router.push('/dashboard');
+      } else {
+        const data = await response.json().catch(() => ({}));
+        setError(data.error || 'Failed to create product');
+        setLoading(false);
+      }
+    } catch {
+      setError('Network error. Please try again.');
+      setLoading(false);
     }
   };
 
@@ -436,12 +461,25 @@ const Sell = () => {
                 </button>
               </div>
 
+              {error && (
+                <div className="p-3 bg-red-50 border border-red-200 rounded-lg text-sm text-red-700">
+                  {error}
+                </div>
+              )}
               <div className="flex gap-4 pt-4">
                 <button
                   type="submit"
-                  className="flex-1 bg-accent-500 hover:bg-accent-400 text-white font-bold py-3 rounded-lg transition-colors"
+                  disabled={loading}
+                  className="flex-1 flex items-center justify-center gap-2 bg-accent-500 hover:bg-accent-400 disabled:opacity-50 disabled:cursor-not-allowed text-white font-bold py-3 rounded-lg transition-colors"
                 >
-                  Publish Product
+                  {loading ? (
+                    <>
+                      <div className="animate-spin w-5 h-5 border-2 border-white border-t-transparent rounded-full" />
+                      Publishing...
+                    </>
+                  ) : (
+                    'Publish Product'
+                  )}
                 </button>
                 <button
                   type="button"

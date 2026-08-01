@@ -1,5 +1,6 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
+import { useSession } from 'next-auth/react';
 import Link from 'next/link';
 import Head from 'next/head';
 import { Package, Mail, Lock, User, Eye, EyeOff } from 'lucide-react';
@@ -7,6 +8,7 @@ import Layout from '@/components/Layout';
 
 const Register = () => {
   const router = useRouter();
+  const { data: session, status } = useSession();
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -14,9 +16,21 @@ const Register = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    if (session) {
+      router.push('/');
+    }
+  }, [session, router]);
+
+  if (status === 'loading' || session) {
+    return <div className="text-center py-20 text-ink-500">Loading...</div>;
+  }
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (loading) return;
     setError('');
 
     if (password !== confirmPassword) {
@@ -24,20 +38,27 @@ const Register = () => {
       return;
     }
 
-    const response = await fetch('/api/auth/register', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ name, email, password }),
-    });
+    setLoading(true);
+    try {
+      const response = await fetch('/api/auth/register', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, email, password }),
+      });
 
-    const data = await response.json();
+      const data = await response.json();
 
-    if (!response.ok) {
-      setError(data.error || 'Registration failed');
-      return;
+      if (!response.ok) {
+        setError(data.error || 'Registration failed');
+        setLoading(false);
+        return;
+      }
+
+      router.push('/login?registered=1');
+    } catch {
+      setError('Network error. Please try again.');
+      setLoading(false);
     }
-
-    router.push('/login');
   };
 
   return (
@@ -160,17 +181,25 @@ const Register = () => {
               />
               <label htmlFor="terms" className="ml-2 text-sm text-ink-500">
                 I agree to the{' '}
-                <a href="#" className="text-accent-600 hover:text-accent-600">Terms of Service</a>{' '}
+                <Link href="/about" className="text-accent-600 hover:text-accent-600">Terms of Service</Link>{' '}
                 and{' '}
-                <a href="#" className="text-accent-600 hover:text-accent-600">Privacy Policy</a>
+                <Link href="/about" className="text-accent-600 hover:text-accent-600">Privacy Policy</Link>
               </label>
             </div>
 
             <button
               type="submit"
-              className="w-full flex items-center justify-center px-4 py-3 bg-accent-500 hover:bg-accent-400 text-white font-bold rounded-lg transition-colors"
+              disabled={loading}
+              className="w-full flex items-center justify-center px-4 py-3 bg-accent-500 hover:bg-accent-400 disabled:opacity-50 disabled:cursor-not-allowed text-white font-bold rounded-lg transition-colors"
             >
-              Create account
+              {loading ? (
+                <>
+                  <div className="animate-spin w-5 h-5 border-2 border-white border-t-transparent rounded-full mr-2" />
+                  Creating account...
+                </>
+              ) : (
+                'Create account'
+              )}
             </button>
           </form>
 

@@ -91,36 +91,57 @@ export default function ShippingAdmin() {
   const [editingRate, setEditingRate] = useState<{ carrierId: string; rate: ShippingRate; index: number } | null>(null);
 
   useEffect(() => {
+    if (status !== 'authenticated') return;
     fetch('/api/shipping')
-      .then((r) => r.json())
+      .then((r) => {
+        if (!r.ok) throw new Error('Failed to fetch');
+        return r.json();
+      })
       .then((data) => {
         setCarriers(data.carriers || []);
         setLoading(false);
+      })
+      .catch(() => {
+        setCarriers([]);
+        setLoading(false);
       });
-  }, []);
+  }, [status]);
 
   const saveCarrier = async () => {
     if (!editingCarrier) return;
-    const method = editingCarrier.id && carriers.some((c) => c.id === editingCarrier.id) ? 'PUT' : 'POST';
-    const res = await fetch('/api/shipping', {
-      method,
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(editingCarrier),
-    });
-    if (res.ok) {
-      const saved = await res.json();
-      setCarriers((prev) =>
-        method === 'PUT' ? prev.map((c) => (c.id === saved.id ? saved : c)) : [...prev, saved]
-      );
-      setShowForm(false);
-      setEditingCarrier(null);
+    try {
+      const method = editingCarrier.id && carriers.some((c) => c.id === editingCarrier.id) ? 'PUT' : 'POST';
+      const res = await fetch('/api/shipping', {
+        method,
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(editingCarrier),
+      });
+      if (!res.ok) {
+        alert('Failed to save carrier');
+        return;
+      }
+      if (res.ok) {
+        const saved = await res.json();
+        setCarriers((prev) =>
+          method === 'PUT' ? prev.map((c) => (c.id === saved.id ? saved : c)) : [...prev, saved]
+        );
+        setShowForm(false);
+        setEditingCarrier(null);
+      }
+    } catch {
+      alert('Network error. Please try again.');
     }
   };
 
   const deleteCarrier = async (id: string) => {
     if (!confirm('Delete this carrier?')) return;
-    const res = await fetch(`/api/shipping?id=${id}`, { method: 'DELETE' });
-    if (res.ok) setCarriers((prev) => prev.filter((c) => c.id !== id));
+    try {
+      const res = await fetch(`/api/shipping?id=${id}`, { method: 'DELETE' });
+      if (res.ok) setCarriers((prev) => prev.filter((c) => c.id !== id));
+      else alert('Failed to delete carrier');
+    } catch {
+      alert('Network error. Please try again.');
+    }
   };
 
   const addRate = () => {

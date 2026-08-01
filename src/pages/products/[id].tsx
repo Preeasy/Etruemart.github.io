@@ -86,6 +86,8 @@ export default function ProductDetail({ product: initialProduct, relatedProducts
   const [quantity, setQuantity] = useState(initialProduct.moq || 12);
   const [activeTab, setActiveTab] = useState('description');
   const [isFavorite, setIsFavorite] = useState(false);
+  const [addingToCart, setAddingToCart] = useState(false);
+  const [cartNotice, setCartNotice] = useState<{ type: 'success' | 'error'; message: string } | null>(null);
   const [ownership, setOwnership] = useState<{ isOwner: boolean; canManage: boolean; productId: string | null } | null>(null);
 
   useEffect(() => {
@@ -179,9 +181,28 @@ export default function ProductDetail({ product: initialProduct, relatedProducts
   const prevLightbox = () => setLightboxIndex((i) => (i - 1 + images.length) % images.length);
   const nextLightbox = () => setLightboxIndex((i) => (i + 1) % images.length);
 
-  const handleAddToCart = () => {
+  const handleAddToCart = async () => {
     if (!session) { router.push('/login'); return; }
-    fetch('/api/cart', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ productId: product.id, quantity }) }).then(() => alert('Added to inquiry list!'));
+    if (addingToCart) return;
+    setAddingToCart(true);
+    setCartNotice(null);
+    try {
+      const response = await fetch('/api/cart', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ productId: product.id, quantity }),
+      });
+      if (response.ok) {
+        setCartNotice({ type: 'success', message: 'Added to inquiry list!' });
+      } else {
+        const data = await response.json().catch(() => ({}));
+        setCartNotice({ type: 'error', message: data.error || 'Failed to add to cart' });
+      }
+    } catch {
+      setCartNotice({ type: 'error', message: 'Network error. Please try again.' });
+    } finally {
+      setAddingToCart(false);
+    }
   };
 
   useEffect(() => {
@@ -475,12 +496,17 @@ export default function ProductDetail({ product: initialProduct, relatedProducts
                 </div>
                 <span className="text-xs text-ink-500 font-medium">Step: 12 pcs</span>
               </div>
+              {cartNotice && (
+                <div className={`mt-2.5 px-3 py-2 rounded-lg text-xs font-medium ${cartNotice.type === 'success' ? 'bg-success-50 text-success-700 border border-success-200' : 'bg-red-50 text-red-700 border border-red-200'}`}>
+                  {cartNotice.message}
+                </div>
+              )}
               <div className="flex flex-col sm:flex-row gap-2.5">
-                <button onClick={handleAddToCart} className="flex-1 flex items-center justify-center gap-2 bg-accent-600 hover:bg-accent-700 text-white py-2.5 rounded-lg font-bold text-sm transition-colors">
+                <button onClick={handleAddToCart} disabled={addingToCart} className="flex-1 flex items-center justify-center gap-2 bg-accent-600 hover:bg-accent-700 disabled:opacity-50 disabled:cursor-not-allowed text-white py-2.5 rounded-lg font-bold text-sm transition-colors">
                   <MessageCircle className="w-4 h-4" />Contact Supplier
                 </button>
-                <button onClick={handleAddToCart} className="flex-1 flex items-center justify-center gap-2 bg-navy-800 hover:bg-navy-900 text-white py-2.5 rounded-lg font-bold text-sm transition-colors">
-                  <ShoppingCart className="w-4 h-4" />Add to Inquiry
+                <button onClick={handleAddToCart} disabled={addingToCart} className="flex-1 flex items-center justify-center gap-2 bg-navy-800 hover:bg-navy-900 disabled:opacity-50 disabled:cursor-not-allowed text-white py-2.5 rounded-lg font-bold text-sm transition-colors">
+                  {addingToCart ? <><div className="animate-spin w-4 h-4 border-2 border-white border-t-transparent rounded-full" />Adding...</> : <><ShoppingCart className="w-4 h-4" />Add to Inquiry</>}
                 </button>
               </div>
             </div>

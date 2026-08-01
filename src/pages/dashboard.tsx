@@ -67,6 +67,7 @@ const DashboardInner = () => {
   const [importResult, setImportResult] = useState<{ success: boolean; message: string; data?: any } | null>(null);
   const [loading, setLoading] = useState(false);
   const [errorMsg, setErrorMsg] = useState<string>('');
+  const [notice, setNotice] = useState<{ type: 'success' | 'error'; message: string } | null>(null);
 
   useEffect(() => {
     let cancelled = false;
@@ -114,10 +115,12 @@ const DashboardInner = () => {
       });
       if (res.ok) {
         setProducts(products.map(p => p.id === productId ? { ...p, isPublished: !currentStatus } : p));
+        setNotice({ type: 'success', message: currentStatus ? 'Product unpublished' : 'Product published' });
       } else {
-        alert('Failed: ' + (await res.text()).slice(0, 200));
+        const txt = await res.text().catch(() => '');
+        setNotice({ type: 'error', message: 'Failed: ' + txt.slice(0, 200) });
       }
-    } catch (e: any) { alert('Error: ' + e.message); }
+    } catch (e: any) { setNotice({ type: 'error', message: 'Error: ' + e.message }); }
   };
 
   const deleteProduct = async (productId: string) => {
@@ -126,10 +129,11 @@ const DashboardInner = () => {
       const res = await fetch(`/api/products/${productId}`, { method: 'DELETE' });
       if (res.ok) {
         setProducts(products.filter(p => p.id !== productId));
+        setNotice({ type: 'success', message: 'Product deleted' });
       } else {
-        alert('Delete failed: ' + res.status);
+        setNotice({ type: 'error', message: 'Delete failed: ' + res.status });
       }
-    } catch (e: any) { alert('Error: ' + e.message); }
+    } catch (e: any) { setNotice({ type: 'error', message: 'Error: ' + e.message }); }
   };
 
   const startEdit = (product: ProductItem) => {
@@ -164,10 +168,12 @@ const DashboardInner = () => {
           moq: updated.moq,
         } : p));
         setEditingProduct(null);
+        setNotice({ type: 'success', message: 'Product updated' });
       } else {
-        alert('Save failed: ' + (await res.text()).slice(0, 200));
+        const txt = await res.text().catch(() => '');
+        setNotice({ type: 'error', message: 'Save failed: ' + txt.slice(0, 200) });
       }
-    } catch (e: any) { alert('Error: ' + e.message); }
+    } catch (e: any) { setNotice({ type: 'error', message: 'Error: ' + e.message }); }
   };
 
   const stats = [
@@ -230,6 +236,15 @@ const DashboardInner = () => {
         {errorMsg && (
           <div className="mb-6 p-4 bg-red-500/10 border border-red-500/30 rounded-xl text-red-500 text-sm">
             {errorMsg}
+          </div>
+        )}
+        {notice && (
+          <div className={`mb-6 p-4 rounded-xl text-sm flex items-start gap-3 border ${notice.type === 'success' ? 'bg-success-50 border-success-200 text-success-700' : 'bg-red-50 border-red-200 text-red-700'}`}>
+            {notice.type === 'success' ? <CheckCircle className="w-5 h-5 flex-shrink-0 mt-0.5" /> : <AlertCircle className="w-5 h-5 flex-shrink-0 mt-0.5" />}
+            <span className="flex-1">{notice.message}</span>
+            <button onClick={() => setNotice(null)} className="text-current opacity-60 hover:opacity-100" aria-label="Dismiss">
+              <X className="w-4 h-4" />
+            </button>
           </div>
         )}
 

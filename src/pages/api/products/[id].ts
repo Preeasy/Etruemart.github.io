@@ -211,7 +211,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     if (price !== undefined) data.price = parseFloat(price);
     if (originalPrice !== undefined) data.originalPrice = originalPrice ? parseFloat(originalPrice) : null;
     if (image !== undefined) data.image = image;
-    if (images !== undefined) data.images = images;
+    if (images !== undefined) data.images = typeof images === 'string' ? images : JSON.stringify(images || []);
     if (categoryId !== undefined) data.categoryId = categoryId;
     if (stock !== undefined) data.stock = parseInt(stock);
     if (isPublished !== undefined) data.isPublished = isPublished;
@@ -229,9 +229,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     if (pkgWidth !== undefined) data.pkgWidth = pkgWidth ? parseFloat(pkgWidth) : null;
     if (pkgHeight !== undefined) data.pkgHeight = pkgHeight ? parseFloat(pkgHeight) : null;
     if (pkgWeight !== undefined) data.pkgWeight = pkgWeight ? parseFloat(pkgWeight) : null;
-    if (keywords !== undefined) data.keywords = keywords;
+    if (keywords !== undefined) data.keywords = typeof keywords === 'string' ? keywords : JSON.stringify(keywords || []);
     if (stockStatus !== undefined) data.stockStatus = stockStatus;
-    if (aplus !== undefined) data.aplus = aplus;
+    if (aplus !== undefined) data.aplus = aplus === null ? null : (typeof aplus === 'string' ? aplus : JSON.stringify(aplus));
 
     const updatedProduct = await prisma.product.update({
       where: { id: product.id },

@@ -286,7 +286,7 @@ const ProductEditPage = () => {
         price: product.price,
         originalPrice: product.originalPrice,
         image: product.image,
-        images: JSON.stringify(product.images),
+        images: product.images,
         categoryId: product.categoryId,
         stock: product.stock,
         isPublished: product.isPublished,
@@ -304,9 +304,9 @@ const ProductEditPage = () => {
         pkgWidth: product.pkgWidth,
         pkgHeight: product.pkgHeight,
         pkgWeight: product.pkgWeight,
-        keywords: JSON.stringify(product.keywords),
+        keywords: product.keywords,
         stockStatus: product.stockStatus,
-        aplus: JSON.stringify(product.aplus),
+        aplus: product.aplus,
       };
 
       const res = await fetch(`/api/products/${id}`, {
