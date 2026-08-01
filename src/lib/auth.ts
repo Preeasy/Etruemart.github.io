@@ -3,9 +3,13 @@ import CredentialsProvider from 'next-auth/providers/credentials';
 import { prisma } from './prisma';
 import bcrypt from 'bcryptjs';
 
+const MAX_LOGIN_ATTEMPTS = 5;
+const loginAttempts = new Map<string, { count: number; lockedUntil: number }>();
+
 export const authOptions: AuthOptions = {
   session: {
     strategy: 'jwt',
+    maxAge: 60 * 60 * 24 * 30,
   },
   providers: [
     CredentialsProvider({
@@ -14,54 +18,78 @@ export const authOptions: AuthOptions = {
         password: { label: 'Password', type: 'password' },
       },
       async authorize(credentials) {
-        console.log('[AUTH] authorize called with:', credentials?.email);
         if (!credentials?.email || !credentials?.password) {
-          console.log('[AUTH] missing credentials');
           return null;
+        }
+
+        const email = credentials.email.toLowerCase().trim();
+
+        // Rate limiting
+        const attempt = loginAttempts.get(email);
+        if (attempt) {
+          if (attempt.lockedUntil > Date.now()) {
+            return null;
+          }
+          if (attempt.count >= MAX_LOGIN_ATTEMPTS) {
+            loginAttempts.delete(email);
+          }
         }
 
         const user = await prisma.user.findUnique({
-          where: { email: credentials.email },
+          where: { email },
         });
-        console.log('[AUTH] user found:', user ? user.email : 'NOT FOUND');
 
         if (!user) {
+          // Track failed attempts
+          const current = loginAttempts.get(email) || { count: 0, lockedUntil: 0 };
+          current.count++;
+          if (current.count >= 3) {
+            current.lockedUntil = Date.now() + 60_000;
+          }
+          loginAttempts.set(email, current);
           return null;
         }
 
-        const isPasswordValid = await bcrypt.compare(
+        // Use sync bcrypt for speed (no need for async salt generation)
+        const isPasswordValid = bcrypt.compareSync(
           credentials.password,
           user.passwordHash
         );
-        console.log('[AUTH] password valid:', isPasswordValid);
 
         if (!isPasswordValid) {
+          const current = loginAttempts.get(email) || { count: 0, lockedUntil: 0 };
+          current.count++;
+          if (current.count >= 3) {
+            current.lockedUntil = Date.now() + 60_000;
+          }
+          loginAttempts.set(email, current);
           return null;
         }
 
-        const result = {
+        // Clear attempts on success
+        loginAttempts.delete(email);
+
+        return {
           id: user.id,
           email: user.email,
           name: user.name,
           role: user.role,
           allowedCategoryId: user.allowedCategoryId,
         };
-        console.log('[AUTH] login success:', result.email, 'role:', result.role);
-        return result;
       },
     }),
   ],
   callbacks: {
     async session({ session, token }) {
-      return {
-        ...session,
-        user: {
+      if (token?.id) {
+        session.user = {
           ...session.user,
           id: token.id as string,
-          role: token.role as string,
-          allowedCategoryId: token.allowedCategoryId as string | null,
-        },
-      };
+          role: (token as { role?: string }).role as string,
+          allowedCategoryId: (token as { allowedCategoryId?: string | null }).allowedCategoryId as string | null,
+        };
+      }
+      return session;
     },
     async jwt({ token, user }) {
       if (user) {
@@ -75,6 +103,7 @@ export const authOptions: AuthOptions = {
   pages: {
     signIn: '/login',
   },
+  secret: process.env.NEXTAUTH_SECRET || 'etruemart-secret',
 };
 
 declare module 'next-auth' {

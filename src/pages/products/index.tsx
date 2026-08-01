@@ -508,7 +508,7 @@ const Products = ({ products: initialProducts }: { products: Product[] }) => {
                   {sortedProducts.map((product) => (
                     <Link
                       key={product.id}
-                      href={`/products/${product.id}`}
+                      href={`/products/${product.slug || product.id}`}
                       className="flex gap-5 bg-white rounded-xl border border-ink-100 p-5 hover:border-accent-300 hover:shadow-md transition-all group"
                     >
                       <div className="relative w-36 h-36 flex-shrink-0 bg-gradient-to-br from-ink-50 to-white rounded-xl overflow-hidden border border-ink-100">

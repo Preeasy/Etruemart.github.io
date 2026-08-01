@@ -41,6 +41,7 @@ import siteDataJson from '../../../site-data.json';
 
 interface Product {
   id: number | string;
+  slug?: string;
   name: string;
   description: string;
   price?: number;
@@ -90,12 +91,14 @@ export default function ProductDetail({ product: initialProduct, relatedProducts
   useEffect(() => {
     const fetchProduct = async () => {
       try {
-        const res = await fetch(`/api/products/${initialProduct.id}`, { cache: 'no-store' });
+        const slug = initialProduct.slug || String(initialProduct.id);
+        const res = await fetch(`/api/products/${slug}`, { cache: 'no-store' });
         if (res.ok) {
           const data = await res.json();
           if (data) {
             setProduct({
               id: data.id,
+              slug: data.slug || slug,
               name: data.name,
               description: data.description || '',
               price: Number(data.price) || 0,
@@ -103,7 +106,7 @@ export default function ProductDetail({ product: initialProduct, relatedProducts
               priceMax: data.priceMax ? Number(data.priceMax) : undefined,
               originalPrice: data.originalPrice ? Number(data.originalPrice) : undefined,
               image: data.image,
-              images: Array.isArray(data.images) ? data.images : [],
+              images: Array.isArray(data.images) ? data.images : (data.image ? [data.image] : []),
               category: data.category ? { name: data.category.name, slug: data.category.slug } : undefined,
               stock: data.stock,
               rating: data.rating,
@@ -127,7 +130,7 @@ export default function ProductDetail({ product: initialProduct, relatedProducts
       } catch {}
     };
     fetchProduct();
-  }, [initialProduct.id]);
+  }, [initialProduct.slug, initialProduct.id]);
 
   if (!product) {
     return (
@@ -331,7 +334,18 @@ export default function ProductDetail({ product: initialProduct, relatedProducts
                   <button aria-label="Share product" className="w-8 h-8 rounded-full bg-white text-ink-600 hover:text-accent-600 flex items-center justify-center border border-ink-200 transition-all" onClick={(e) => e.stopPropagation()}><Share2 className="w-3.5 h-3.5" /></button>
                 </div>
                 <div className="relative aspect-[4/3] bg-white">
-                  <Image src={images[selectedImage]} alt={product.name} fill className="object-contain p-5 md:p-8" quality={95} priority sizes="(max-width: 1024px) 100vw, 50vw" />
+                  <img
+                    src={images[selectedImage]}
+                    alt={product.name}
+                    className="absolute inset-0 w-full h-full object-contain p-5 md:p-8"
+                    onError={(e) => {
+                      const el = e.currentTarget as HTMLImageElement;
+                      if (!el.dataset.fallback) {
+                        el.dataset.fallback = '1';
+                        el.src = `data:image/svg+xml;charset=UTF-8,${encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300"><rect fill="#f3f4f6" width="400" height="300"/><text x="200" y="150" text-anchor="middle" font-family="sans-serif" font-size="14" fill="#9ca3af">${product.name}</text></svg>`)}`;
+                      }
+                    }}
+                  />
                 </div>
                 <div className="absolute bottom-3 right-3 bg-white px-2 py-0.5 rounded-md text-[10px] text-ink-500 font-medium flex items-center gap-1 border border-ink-200">
                   <Search className="w-2.5 h-2.5" /> Click to zoom
@@ -841,8 +855,11 @@ export default function ProductDetail({ product: initialProduct, relatedProducts
 
 export async function getStaticPaths() {
   const products = (siteDataJson as any).products || [];
+  const paths = products
+    .filter((p: any) => p.slug)
+    .map((p: any) => ({ params: { id: String(p.slug) } }));
   return {
-    paths: products.map((p: { id: number | string }) => ({ params: { id: String(p.id) } })),
+    paths,
     fallback: 'blocking',
   };
 }
@@ -850,8 +867,35 @@ export async function getStaticPaths() {
 export const getStaticProps = async (context: { params: { id: string } }) => {
   const { id } = context.params;
   const products = (siteDataJson as any).products || [];
-  const product = products.find((p: { id: number | string }) => String(p.id) === String(id));
-  if (!product) return { notFound: true };
-  const relatedProducts = products.filter((p: { id: number | string; category: { slug: string } }) => String(p.id) !== String(id) && (!product.category || !p.category || p.category.slug === product.category.slug)).slice(0, 8);
+  // Try to find by slug first, then by id
+  const product =
+    products.find((p: { slug?: string }) => String(p.slug) === String(id)) ||
+    products.find((p: { id: number | string }) => String(p.id) === String(id));
+
+  if (!product) {
+    // If not found in static data, return placeholder that will be filled by client-side API
+    const placeholderProduct = {
+      id,
+      slug: id,
+      name: 'Loading...',
+      description: '',
+      price: 0,
+      image: '',
+      images: [],
+      moq: 12,
+      category: undefined,
+    };
+    const relatedProducts = products.slice(0, 8);
+    return { props: { product: placeholderProduct, relatedProducts } };
+  }
+
+  const relatedProducts = products
+    .filter((p: { id: number | string; category: { slug: string } }) => {
+      if (String(p.id) === String(product.id)) return false;
+      if (!product.category || !p.category) return true;
+      return p.category.slug === product.category.slug;
+    })
+    .slice(0, 8);
+
   return { props: { product, relatedProducts } };
 };

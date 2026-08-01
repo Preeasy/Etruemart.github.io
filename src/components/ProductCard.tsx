@@ -4,6 +4,7 @@ import { Edit3 } from 'lucide-react';
 interface ProductCardProps {
   product: {
     id: number | string;
+    slug?: string;
     name: string;
     category?: { name: string; slug: string } | string;
     price?: number;
@@ -44,7 +45,7 @@ const ProductCard = ({ product, editUrl, isOwner }: ProductCardProps) => {
           编辑
         </Link>
       )}
-      <Link href={`/products/${product.id}`} className="block">
+      <Link href={`/products/${product.slug || product.id}`} className="block">
         <div className="relative aspect-square overflow-hidden bg-ink-50">
           <img
             src={product.image}

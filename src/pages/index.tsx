@@ -247,7 +247,7 @@ const Home = ({ products }: { products: Product[] }) => {
                   </div>
                   <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-px bg-ink-100">
                     {topDeals.map((p) => (
-                      <Link key={p.id} href={`/products/${p.id}`} className="group bg-white p-3.5 hover:bg-ink-50 transition-colors">
+                      <Link key={p.id} href={`/products/${p.slug || p.id}`} className="group bg-white p-3.5 hover:bg-ink-50 transition-colors">
                         <div className="relative aspect-square bg-white rounded-lg overflow-hidden mb-2.5 border border-ink-100 group-hover:border-navy-900 transition-colors">
                           <img
                             src={p.image}
@@ -316,7 +316,7 @@ const Home = ({ products }: { products: Product[] }) => {
                       {catProducts.length > 0 ? (
                         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-px bg-ink-100">
                           {catProducts.map((p) => (
-                            <Link key={p.id} href={`/products/${p.id}`} className="group bg-white p-3 hover:bg-ink-50 transition-colors">
+                            <Link key={p.id} href={`/products/${p.slug || p.id}`} className="group bg-white p-3 hover:bg-ink-50 transition-colors">
                               <div className="relative aspect-square bg-white rounded-lg overflow-hidden mb-2 border border-ink-100 group-hover:border-navy-900 transition-colors">
                                 <img
                                   src={p.image}

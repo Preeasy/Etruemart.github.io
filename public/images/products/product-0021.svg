@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">
+    <defs><linearGradient id="bg2" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#fce7f3"/><stop offset="100%" stop-color="#fbcfe8"/></linearGradient></defs>
+    <rect fill="url(#bg2)" width="400" height="400"/>
+    <rect x="120" y="120" width="160" height="140" rx="12" fill="none" stroke="#be185d" stroke-width="3"/>
+    <rect x="135" y="140" width="130" height="100" rx="8" fill="#fce7f3" stroke="#be185d" stroke-width="1.5"/>
+    <path d="M160 120 Q160 90 200 90 Q240 90 240 120" fill="none" stroke="#be185d" stroke-width="3"/>
+    <circle cx="200" cy="190" r="15" fill="#be185d" opacity="0.3"/>
+    <circle cx="200" cy="190" r="8" fill="#be185d"/>
+    <rect x="195" y="115" width="10" height="25" fill="#be185d"/>
+    <text x="200" y="340" text-anchor="middle" font-family="Georgia, serif" font-size="16" fill="#9d174d">Black Quilted Mini Flap </text>
+  </svg>
