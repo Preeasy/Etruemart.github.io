@@ -17,17 +17,36 @@ interface Order {
 }
 
 const Orders = () => {
-  const { data: session } = useSession();
+  const { data: session, status } = useSession();
   const router = useRouter();
   const [orders, setOrders] = useState<Order[]>([]);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     if (session) {
+      setLoading(true);
       fetch('/api/orders')
         .then(res => res.json())
-        .then(data => setOrders(data));
+        .then(data => {
+          setOrders(Array.isArray(data) ? data : []);
+          setLoading(false);
+        })
+        .catch(() => {
+          setOrders([]);
+          setLoading(false);
+        });
     }
   }, [session]);
+
+  if (status === 'loading') {
+    return (
+      <Layout>
+        <div className="min-h-[60vh] flex items-center justify-center">
+          <div className="animate-spin w-10 h-10 border-4 border-accent-500 border-t-transparent rounded-full" />
+        </div>
+      </Layout>
+    );
+  }
 
   if (!session) {
     return (
@@ -76,7 +95,11 @@ const Orders = () => {
       </div>
 
       <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16 max-w-[1600px] mx-auto py-8">
-        {orders.length > 0 ? (
+        {loading ? (
+          <div className="flex items-center justify-center py-20">
+            <div className="animate-spin w-10 h-10 border-4 border-accent-500 border-t-transparent rounded-full" />
+          </div>
+        ) : orders.length > 0 ? (
           <div className="space-y-6">
             {orders.map((order) => {
               const statusConfig = getStatusIcon(order.status);

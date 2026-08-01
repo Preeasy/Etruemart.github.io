@@ -1,5 +1,6 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { signOut, useSession } from 'next-auth/react';
+import { useRouter } from 'next/router';
 import Link from 'next/link';
 import {
   Search,
@@ -23,6 +24,7 @@ const Navbar = () => {
   const { data: session } = useSession();
   const [isOpen, setIsOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
+  const router = useRouter();
 
   return (
     <nav className="sticky top-0 z-50 bg-navy-900 shadow-md">
@@ -56,7 +58,7 @@ const Navbar = () => {
                 className="flex-1 px-4 py-2 rounded-l-md bg-white border-0 text-ink-900 placeholder-ink-400 focus:outline-none focus:ring-2 focus:ring-accent-400 text-sm"
               />
               <button
-                onClick={() => searchQuery && (window.location.href = `/products?q=${encodeURIComponent(searchQuery)}`)}
+                onClick={() => searchQuery && router.push(`/products?q=${encodeURIComponent(searchQuery)}`)}
                 aria-label="Search"
                 className="bg-accent-500 hover:bg-accent-400 text-white px-5 py-2 rounded-r-md text-sm font-semibold transition-colors"
               >
@@ -157,7 +159,7 @@ const Navbar = () => {
                 className="flex-1 px-4 py-2 rounded-l-md bg-white border-0 text-ink-900 placeholder-ink-400 focus:outline-none text-sm"
               />
               <button
-                onClick={() => searchQuery && (window.location.href = `/products?q=${encodeURIComponent(searchQuery)}`)}
+                onClick={() => searchQuery && router.push(`/products?q=${encodeURIComponent(searchQuery)}`)}
                 aria-label="Search"
                 className="bg-accent-500 text-white px-4 py-2 rounded-r-md"
               >

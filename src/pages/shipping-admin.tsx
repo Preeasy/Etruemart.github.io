@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { useSession } from 'next-auth/react';
 import Layout from '@/components/Layout';
 import {
   Truck,
@@ -81,6 +82,7 @@ const emptyRate: ShippingRate = {
 };
 
 export default function ShippingAdmin() {
+  const { data: session, status } = useSession();
   const [carriers, setCarriers] = useState<Carrier[]>([]);
   const [loading, setLoading] = useState(true);
   const [editingCarrier, setEditingCarrier] = useState<Carrier | null>(null);
@@ -149,6 +151,31 @@ export default function ShippingAdmin() {
       setCarriers((prev) => prev.map((c) => (c.id === updated.id ? updated : c)));
     }
   };
+
+  if (status === 'loading') {
+    return (
+      <Layout>
+        <div className="min-h-[60vh] flex items-center justify-center">
+          <div className="animate-spin w-10 h-10 border-4 border-accent-500 border-t-transparent rounded-full" />
+        </div>
+      </Layout>
+    );
+  }
+
+  if (!session || (session.user.role !== 'ADMIN' && session.user.role !== 'OFFICIAL_SELLER')) {
+    return (
+      <Layout>
+        <div className="min-h-[60vh] flex items-center justify-center">
+          <div className="text-center">
+            <p className="text-ink-600 mb-4">Admin access required.</p>
+            <Link href="/login" className="inline-flex items-center px-4 py-2 bg-accent-500 text-white rounded-lg hover:bg-accent-600">
+              Sign In
+            </Link>
+          </div>
+        </div>
+      </Layout>
+    );
+  }
 
   return (
     <Layout>

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { signIn, useSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
@@ -18,8 +18,13 @@ const Login = () => {
     return <div className="text-center py-20 text-ink-500">Loading...</div>;
   }
 
+  useEffect(() => {
+    if (session) {
+      router.push('/');
+    }
+  }, [session, router]);
+
   if (session) {
-    router.push('/');
     return null;
   }
 
