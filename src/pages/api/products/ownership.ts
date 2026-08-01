@@ -2,6 +2,8 @@ import { NextApiRequest, NextApiResponse } from 'next';
 import { getServerSession } from 'next-auth/next';
 import { authOptions } from '@/lib/auth';
 import { prisma } from '@/lib/prisma';
+import fs from 'fs';
+import path from 'path';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate');
@@ -21,7 +23,26 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   }
 
   const where = slug ? { slug } : { id };
-  const product = await prisma.product.findUnique({ where });
+  let product = null;
+
+  try {
+    product = await prisma.product.findUnique({ where });
+  } catch {}
+
+  // Fallback to site-data.json
+  if (!product) {
+    const siteDataPath = path.join(process.cwd(), 'site-data.json');
+    if (fs.existsSync(siteDataPath)) {
+      const siteData = JSON.parse(fs.readFileSync(siteDataPath, 'utf-8'));
+      const products = siteData.products || [];
+      const lookupId = slug || id;
+      product = products.find((p: any) => String(p.slug) === String(lookupId)) ||
+                 products.find((p: any) => String(p.id) === String(lookupId));
+      if (product) {
+        product = { ...product, id: product.slug || product.id, authorId: 'seed-system' };
+      }
+    }
+  }
 
   if (!product) {
     return res.json({ isOwner: false, canManage: false, productId: null });
@@ -37,14 +58,20 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     try { return JSON.parse(str); } catch { return null; }
   };
 
+  const aplus = product.aplus
+    ? (typeof product.aplus === 'string' ? safeJsonParse(product.aplus) : product.aplus)
+    : null;
+  const images = Array.isArray(product.images) ? product.images : (product.image ? [product.image] : []);
+  const keywords = Array.isArray(product.keywords) ? product.keywords : [];
+
   return res.json({
     isOwner,
     canManage,
     productId: product.id,
     slug: product.slug,
     name: product.name,
-    aplus: safeJsonParse(product.aplus),
-    images: safeJsonParse(product.images) || [],
-    keywords: safeJsonParse(product.keywords) || [],
+    aplus,
+    images,
+    keywords,
   });
 }

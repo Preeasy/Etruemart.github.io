@@ -243,95 +243,180 @@ async function seedIfEmpty() {
   }
 }
 
+async function getProductsFromFallback(req: NextApiRequest, res: NextApiResponse) {
+  const siteDataPath = path.join(process.cwd(), 'site-data.json');
+  if (!fs.existsSync(siteDataPath)) {
+    return res.json([]);
+  }
+
+  const siteData = JSON.parse(fs.readFileSync(siteDataPath, 'utf-8'));
+  let products: any[] = siteData.products || [];
+
+  const { category, material, plating, color, priceMin, priceMax } = req.query;
+
+  if (category && category !== 'all') {
+    products = products.filter((p: any) => {
+      const catSlug = p.category?.slug || p.categorySlug;
+      const catName = typeof p.category === 'object' ? p.category.name : p.category;
+      return catSlug === category || catName === category;
+    });
+  }
+
+  if (material) {
+    const m = String(material).toLowerCase();
+    products = products.filter((p: any) => (p.material || '').toLowerCase().includes(m));
+  }
+
+  if (plating) {
+    const pl = String(plating).toLowerCase();
+    products = products.filter((p: any) => (p.plating || '').toLowerCase().includes(pl));
+  }
+
+  if (color) {
+    const c = String(color).toLowerCase();
+    products = products.filter((p: any) => (p.color || '').toLowerCase().includes(c));
+  }
+
+  if (priceMin) {
+    const min = parseFloat(priceMin as string);
+    products = products.filter((p: any) => (p.priceMin || p.price || 0) >= min);
+  }
+
+  if (priceMax) {
+    const max = parseFloat(priceMax as string);
+    products = products.filter((p: any) => (p.priceMax || p.price || 0) <= max);
+  }
+
+  const serialized = products.map((p: any) => ({
+    id: p.slug || p.id,
+    name: p.name,
+    slug: p.slug,
+    description: p.description,
+    price: Number(p.priceMin || p.price || 0),
+    priceMax: p.priceMax ? Number(p.priceMax) : null,
+    originalPrice: p.originalPrice ? Number(p.originalPrice) : null,
+    image: p.image,
+    categoryId: '',
+    categoryName: typeof p.category === 'object' ? p.category.name : (p.category || ''),
+    categorySlug: p.category?.slug || '',
+    stock: p.stock || 100,
+    rating: 0,
+    reviewCount: 0,
+    salesCount: 0,
+    isPublished: p.isPublished !== false,
+    shippingCost: 0,
+    shippingMethod: 'Standard Shipping',
+    sku: p.sku,
+    material: p.material,
+    plating: p.plating,
+    process: p.process,
+    color: p.color,
+    size: p.size,
+    packSize: p.packSize || 1,
+    moq: p.moq || 1,
+    stockStatus: p.stockStatus || 'IN_STOCK',
+    authorId: 'seed-system',
+    createdAt: new Date(),
+    updatedAt: new Date(),
+  }));
+
+  return res.json(serialized);
+}
+
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === 'GET') {
-    // Don't run seed on every GET - it's too slow for 200 products
-    // Seed manually via /api/seed or on first deploy
-
     const { authorId, categoryId, category, material, plating, color, priceMin, priceMax, all } = req.query;
 
-    const where: any = {};
-
-    // When all=true (admin/seller dashboard), show all products regardless of author
-    if (all === 'true') {
-      // Show all products including drafts for management
-    } else if (authorId) {
-      where.authorId = authorId as string;
-    } else {
-      where.isPublished = true;
-    }
-
-    if (categoryId && categoryId !== 'All') {
-      where.categoryId = categoryId as string;
-    }
-
-    if (category && category !== 'all') {
-      const cat = await prisma.category.findUnique({ where: { slug: category as string } });
-      if (cat) {
-        const allChildIds = await getAllCategoryIds(cat.id);
-        where.categoryId = { in: allChildIds };
+    try {
+      // Check if database has products
+      const dbCount = await prisma.product.count();
+      if (dbCount === 0) {
+        return getProductsFromFallback(req, res);
       }
+
+      const where: any = {};
+
+      if (all === 'true') {
+        // Show all products including drafts for management
+      } else if (authorId) {
+        where.authorId = authorId as string;
+      } else {
+        where.isPublished = true;
+      }
+
+      if (categoryId && categoryId !== 'All') {
+        where.categoryId = categoryId as string;
+      }
+
+      if (category && category !== 'all') {
+        const cat = await prisma.category.findUnique({ where: { slug: category as string } });
+        if (cat) {
+          const allChildIds = await getAllCategoryIds(cat.id);
+          where.categoryId = { in: allChildIds };
+        }
+      }
+
+      if (material) {
+        where.material = { contains: material as string, mode: 'insensitive' };
+      }
+
+      if (plating) {
+        where.plating = { contains: plating as string, mode: 'insensitive' };
+      }
+
+      if (color) {
+        where.color = { contains: color as string, mode: 'insensitive' };
+      }
+
+      if (priceMin || priceMax) {
+        where.price = {};
+        if (priceMin) where.price.gte = parseFloat(priceMin as string);
+        if (priceMax) where.price.lte = parseFloat(priceMax as string);
+      }
+
+      const products = await prisma.product.findMany({
+        where,
+        include: { variants: true, category: { select: { id: true, name: true, slug: true } } },
+        orderBy: { createdAt: 'desc' },
+      });
+
+      const serialized = products.map(p => ({
+        id: p.id,
+        name: p.name,
+        slug: p.slug,
+        description: p.description,
+        price: Number(p.price),
+        priceMax: p.priceMax ? Number(p.priceMax) : null,
+        originalPrice: p.originalPrice ? Number(p.originalPrice) : null,
+        image: p.image,
+        categoryId: p.categoryId,
+        categoryName: p.category?.name || '',
+        categorySlug: p.category?.slug || '',
+        stock: p.stock,
+        rating: Number(p.rating),
+        reviewCount: p.reviewCount,
+        salesCount: p.salesCount,
+        isPublished: p.isPublished,
+        shippingCost: Number(p.shippingCost),
+        shippingMethod: p.shippingMethod || 'Standard Shipping',
+        sku: p.sku,
+        material: p.material,
+        plating: p.plating,
+        process: p.process,
+        color: p.color,
+        size: p.size,
+        packSize: p.packSize,
+        moq: p.moq,
+        stockStatus: p.stockStatus,
+        authorId: p.authorId,
+        createdAt: p.createdAt,
+        updatedAt: p.updatedAt,
+      }));
+
+      return res.json(serialized);
+    } catch {
+      return getProductsFromFallback(req, res);
     }
-
-    if (material) {
-      where.material = { contains: material as string, mode: 'insensitive' };
-    }
-
-    if (plating) {
-      where.plating = { contains: plating as string, mode: 'insensitive' };
-    }
-
-    if (color) {
-      where.color = { contains: color as string, mode: 'insensitive' };
-    }
-
-    if (priceMin || priceMax) {
-      where.price = {};
-      if (priceMin) where.price.gte = parseFloat(priceMin as string);
-      if (priceMax) where.price.lte = parseFloat(priceMax as string);
-    }
-
-    const products = await prisma.product.findMany({
-      where,
-      include: { variants: true, category: { select: { id: true, name: true, slug: true } } },
-      orderBy: { createdAt: 'desc' },
-    });
-
-    // Return clean, flat data without nested arrays/objects that could cause React rendering issues
-    const serialized = products.map(p => ({
-      id: p.id,
-      name: p.name,
-      slug: p.slug,
-      description: p.description,
-      price: Number(p.price),
-      priceMax: p.priceMax ? Number(p.priceMax) : null,
-      originalPrice: p.originalPrice ? Number(p.originalPrice) : null,
-      image: p.image,
-      categoryId: p.categoryId,
-      categoryName: p.category?.name || '',
-      categorySlug: p.category?.slug || '',
-      stock: p.stock,
-      rating: Number(p.rating),
-      reviewCount: p.reviewCount,
-      salesCount: p.salesCount,
-      isPublished: p.isPublished,
-      shippingCost: Number(p.shippingCost),
-      shippingMethod: p.shippingMethod || 'Standard Shipping',
-      sku: p.sku,
-      material: p.material,
-      plating: p.plating,
-      process: p.process,
-      color: p.color,
-      size: p.size,
-      packSize: p.packSize,
-      moq: p.moq,
-      stockStatus: p.stockStatus,
-      authorId: p.authorId,
-      createdAt: p.createdAt,
-      updatedAt: p.updatedAt,
-    }));
-
-    return res.json(serialized);
   }
 
   const session = await getServerSession(req, res, authOptions);

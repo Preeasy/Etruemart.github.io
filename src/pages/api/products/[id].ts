@@ -2,6 +2,8 @@ import { NextApiRequest, NextApiResponse } from 'next';
 import { getServerSession } from 'next-auth/next';
 import { authOptions } from '@/lib/auth';
 import { prisma } from '@/lib/prisma';
+import fs from 'fs';
+import path from 'path';
 
 function safeJsonParse<T>(str: string, fallback: T): T {
   try {
@@ -51,27 +53,116 @@ async function findProductForEdit(idOrSlug: string) {
   return prisma.product.findUnique({ where: { slug: idOrSlug } });
 }
 
+async function getProductFromFallback(idStr: string) {
+  const siteDataPath = path.join(process.cwd(), 'site-data.json');
+  if (!fs.existsSync(siteDataPath)) {
+    return null;
+  }
+
+  const siteData = JSON.parse(fs.readFileSync(siteDataPath, 'utf-8'));
+  const products = siteData.products || [];
+
+  // Try to find by slug first, then by id
+  const product =
+    products.find((p: any) => String(p.slug) === String(idStr)) ||
+    products.find((p: any) => String(p.id) === String(idStr));
+
+  if (!product) return null;
+
+  const images = Array.isArray(product.images) ? product.images : [product.image];
+  const keywords = Array.isArray(product.keywords) ? product.keywords : [];
+  const aplus = product.aplus || null;
+
+  return {
+    id: product.slug || product.id,
+    name: product.name,
+    slug: product.slug,
+    description: product.description,
+    price: Number(product.priceMin || product.price || 0),
+    priceMax: product.priceMax ? Number(product.priceMax) : null,
+    originalPrice: product.originalPrice ? Number(product.originalPrice) : null,
+    image: product.image,
+    images,
+    category: {
+      id: '',
+      name: typeof product.category === 'object' ? product.category.name : (product.category || ''),
+      slug: product.category?.slug || '',
+    },
+    material: product.material || null,
+    plating: product.plating || null,
+    process: product.process || null,
+    color: product.color || null,
+    size: product.size || null,
+    packSize: product.packSize || 1,
+    moq: product.moq || 1,
+    sku: product.sku || null,
+    keywords,
+    aplus,
+    rating: 0,
+    reviewCount: 0,
+    salesCount: 0,
+    stock: product.stock || 100,
+    stockStatus: product.stockStatus || 'IN_STOCK',
+    shippingCost: 0,
+    shippingMethod: product.shippingMethod || 'Standard Shipping',
+    authorId: 'seed-system',
+    variants: [{
+      id: 'fallback-variant-1',
+      productId: product.slug || product.id,
+      color: product.color || 'Default',
+      size: product.size || 'One Size',
+      price: Number(product.priceMin || product.price || 0),
+      stock: product.stock || 100,
+    }],
+    reviews: [],
+  };
+}
+
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   const { id } = req.query;
   const idStr = id as string;
 
   if (req.method === 'GET') {
-    const product = await findProduct(idStr);
+    let product = null;
+
+    try {
+      product = await findProduct(idStr);
+    } catch {}
+
+    // Fallback to site-data.json
+    if (!product) {
+      product = await getProductFromFallback(idStr);
+    }
 
     if (!product) {
       return res.status(404).json({ error: 'Product not found' });
     }
 
-    // 解析 JSON 字段
+    // If from fallback, return directly
+    if (!('images' in product) || typeof (product as any).images === 'string') {
+      const serialized = {
+        ...product,
+        images: Array.isArray((product as any).images) ? (product as any).images : [(product as any).image],
+        keywords: Array.isArray((product as any).keywords) ? (product as any).keywords : [],
+        aplus: (product as any).aplus || null,
+        price: Number((product as any).price),
+        originalPrice: (product as any).originalPrice ? Number((product as any).originalPrice) : null,
+        rating: Number((product as any).rating || 0),
+      };
+      return res.json(serialized);
+    }
+
+    // Database product: parse JSON fields
+    const p = product as any;
     const serialized = {
-      ...product,
-      images: typeof product.images === 'string' ? safeJsonParse(product.images, []) : product.images,
-      keywords: typeof product.keywords === 'string' ? safeJsonParse(product.keywords, []) : product.keywords,
-      aplus: typeof product.aplus === 'string' ? safeJsonParse(product.aplus, null) : product.aplus,
-      price: Number(product.price),
-      originalPrice: product.originalPrice ? Number(product.originalPrice) : null,
-      rating: Number(product.rating),
-      variants: product.variants?.map(v => ({ ...v, price: Number(v.price) })) || [],
+      ...p,
+      images: typeof p.images === 'string' ? safeJsonParse(p.images, []) : p.images,
+      keywords: typeof p.keywords === 'string' ? safeJsonParse(p.keywords, []) : p.keywords,
+      aplus: typeof p.aplus === 'string' ? safeJsonParse(p.aplus, null) : p.aplus,
+      price: Number(p.price),
+      originalPrice: p.originalPrice ? Number(p.originalPrice) : null,
+      rating: Number(p.rating),
+      variants: p.variants?.map((v: any) => ({ ...v, price: Number(v.price) })) || [],
     };
 
     return res.json(serialized);
