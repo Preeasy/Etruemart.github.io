@@ -327,6 +327,13 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   if (req.method === 'GET') {
     const { authorId, categoryId, category, material, plating, color, priceMin, priceMax, all } = req.query;
 
+    if (all === 'true') {
+      const session = await getServerSession(req, res, authOptions);
+      if (!session?.user) {
+        return res.status(401).json({ error: 'Authentication required' });
+      }
+    }
+
     try {
       // Check if database has products
       const dbCount = await prisma.product.count();
@@ -423,6 +430,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
   if (!session?.user) {
     return res.status(401).json({ error: 'Unauthorized' });
+  }
+
+  // Only sellers and admins can create products
+  if (session.user.role !== 'ADMIN' && session.user.role !== 'OFFICIAL_SELLER') {
+    return res.status(403).json({ error: 'Only sellers can create products' });
   }
 
   if (req.method === 'POST') {

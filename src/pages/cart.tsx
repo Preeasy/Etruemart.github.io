@@ -15,18 +15,41 @@ interface CartItem {
 }
 
 const Cart = () => {
-  const { data: session } = useSession();
+  const { data: session, status } = useSession();
   const router = useRouter();
   const [items, setItems] = useState<CartItem[]>([]);
   const [shippingAddress, setShippingAddress] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
+  const [cartLoading, setCartLoading] = useState(true);
 
   useEffect(() => {
     if (session) {
+      setCartLoading(true);
       fetch('/api/cart')
         .then(res => res.json())
-        .then(data => setItems(data));
+        .then(data => {
+          setItems(Array.isArray(data) ? data : []);
+          setCartLoading(false);
+        })
+        .catch(() => {
+          setItems([]);
+          setCartLoading(false);
+        });
+    } else {
+      setCartLoading(false);
     }
   }, [session]);
+
+  if (status === 'loading') {
+    return (
+      <Layout>
+        <div className="min-h-[60vh] flex items-center justify-center">
+          <div className="animate-spin w-10 h-10 border-4 border-accent-500 border-t-transparent rounded-full" />
+        </div>
+      </Layout>
+    );
+  }
 
   if (!session) {
     return (
@@ -42,22 +65,30 @@ const Cart = () => {
   }
 
   const updateQuantity = async (id: string, quantity: number) => {
-    if (quantity <= 0) {
-      await fetch(`/api/cart/${id}`, { method: 'DELETE' });
-      setItems(items.filter(item => item.id !== id));
-    } else {
-      await fetch(`/api/cart/${id}`, {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ quantity }),
-      });
-      setItems(items.map(item => item.id === id ? { ...item, quantity } : item));
-    }
+    try {
+      if (quantity <= 0) {
+        await fetch(`/api/cart/${id}`, { method: 'DELETE' });
+        setItems(items.filter(item => item.id !== id));
+      } else {
+        const res = await fetch(`/api/cart/${id}`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ quantity }),
+        });
+        if (res.ok) {
+          setItems(items.map(item => item.id === id ? { ...item, quantity } : item));
+        }
+      }
+    } catch {}
   };
 
   const removeItem = async (id: string) => {
-    await fetch(`/api/cart/${id}`, { method: 'DELETE' });
-    setItems(items.filter(item => item.id !== id));
+    try {
+      const res = await fetch(`/api/cart/${id}`, { method: 'DELETE' });
+      if (res.ok) {
+        setItems(items.filter(item => item.id !== id));
+      }
+    } catch {}
   };
 
   const totalAmount = items.reduce((sum, item) => {
@@ -70,12 +101,32 @@ const Cart = () => {
   const grandTotal = totalAmount + shippingCost + taxAmount;
 
   const handleCheckout = async () => {
-    await fetch('/api/orders', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ shippingAddress, paymentMethod: 'stripe' }),
-    });
-    router.push('/orders');
+    if (!shippingAddress.trim()) {
+      setError('Please enter a shipping address');
+      return;
+    }
+    if (loading) return;
+
+    setLoading(true);
+    setError('');
+    try {
+      const res = await fetch('/api/orders', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ shippingAddress, paymentMethod: 'stripe' }),
+      });
+      if (res.ok) {
+        setItems([]);
+        router.push('/orders');
+      } else {
+        const data = await res.json().catch(() => ({}));
+        setError(data.error || 'Checkout failed. Please try again.');
+      }
+    } catch {
+      setError('Network error. Please try again.');
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -186,12 +237,28 @@ const Cart = () => {
                 />
               </div>
 
+              {error && (
+                <div className="mb-4 p-3 bg-red-50 border border-red-200 rounded-lg text-sm text-red-700">
+                  {error}
+                </div>
+              )}
+
               <button
                 onClick={handleCheckout}
-                className="w-full flex items-center justify-center gap-2 bg-accent-500 hover:bg-accent-600 text-white py-4 rounded-xl font-semibold text-lg transition-colors"
+                disabled={loading || cartLoading}
+                className="w-full flex items-center justify-center gap-2 bg-accent-500 hover:bg-accent-600 disabled:opacity-50 disabled:cursor-not-allowed text-white py-4 rounded-xl font-semibold text-lg transition-colors"
               >
-                <CreditCard className="w-5 h-5" />
-                Proceed to Checkout
+                {loading ? (
+                  <>
+                    <div className="animate-spin w-5 h-5 border-2 border-white border-t-transparent rounded-full" />
+                    Processing...
+                  </>
+                ) : (
+                  <>
+                    <CreditCard className="w-5 h-5" />
+                    Proceed to Checkout
+                  </>
+                )}
               </button>
 
               <div className="mt-6 p-4 bg-ink-50 rounded-lg">

@@ -22,6 +22,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
   if (req.method === 'POST') {
     const { rating, title, content } = req.body;
+    const ratingNum = Number(rating);
+    if (isNaN(ratingNum) || ratingNum < 1 || ratingNum > 5) {
+      return res.status(400).json({ error: 'Rating must be between 1 and 5' });
+    }
 
     const hasPurchased = await prisma.orderItem.findFirst({
       where: {
@@ -46,7 +50,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       data: {
         userId: session.user.id,
         productId: productId as string,
-        rating,
+        rating: ratingNum,
         title,
         content,
       },

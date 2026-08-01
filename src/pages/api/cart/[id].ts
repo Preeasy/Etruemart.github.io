@@ -13,20 +13,24 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
   if (req.method === 'PUT') {
     const { quantity } = req.body;
+    const qty = parseInt(String(quantity));
+    if (isNaN(qty)) {
+      return res.status(400).json({ error: 'Invalid quantity' });
+    }
     const item = await prisma.cartItem.findUnique({ where: { id: id as string } });
     
     if (!item || item.userId !== session.user.id) {
       return res.status(403).json({ error: 'Forbidden' });
     }
 
-    if (quantity <= 0) {
+    if (qty <= 0) {
       await prisma.cartItem.delete({ where: { id: id as string } });
       return res.status(204).end();
     }
 
     const updatedItem = await prisma.cartItem.update({
       where: { id: id as string },
-      data: { quantity },
+      data: { quantity: qty },
     });
 
     return res.json(updatedItem);

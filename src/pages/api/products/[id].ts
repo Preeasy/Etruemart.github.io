@@ -180,13 +180,13 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     }
 
     // Permission check: ADMIN and OFFICIAL_SELLER can edit anything; others must be the author
-    const canManage = session.user.role === 'ADMIN' || session.user.role === 'OFFICIAL_SELLER';
-    if (product.authorId !== session.user.id && !canManage) {
+    const isAdmin = session.user.role === 'ADMIN';
+    if (product.authorId !== session.user.id && !isAdmin) {
       return res.status(403).json({ error: 'Forbidden' });
     }
 
     // Seller permission: non-ADMIN/OFFICIAL_SELLER cannot change categoryId outside their allowedCategoryId
-    if (!canManage && session.user.allowedCategoryId) {
+    if (!isAdmin && session.user.allowedCategoryId) {
       // If updating categoryId, must match allowedCategoryId
       const newCategoryId = req.body.categoryId;
       if (newCategoryId && newCategoryId !== session.user.allowedCategoryId) {
@@ -243,8 +243,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
   if (req.method === 'DELETE') {
     const product = await findProductForEdit(idStr);
-    const canManage = session.user.role === 'ADMIN' || session.user.role === 'OFFICIAL_SELLER';
-    if (!product || (product.authorId !== session.user.id && !canManage)) {
+    const isAdmin = session.user.role === 'ADMIN';
+    if (!product || (product.authorId !== session.user.id && !isAdmin)) {
       return res.status(403).json({ error: 'Forbidden' });
     }
 

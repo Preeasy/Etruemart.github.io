@@ -23,6 +23,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
   if (req.method === 'POST') {
     const { productId, variantId, quantity } = req.body;
+    const qty = parseInt(String(quantity || 1));
+    if (isNaN(qty) || qty < 1) {
+      return res.status(400).json({ error: 'Invalid quantity' });
+    }
 
     const existingItem = await prisma.cartItem.findUnique({
       where: {
@@ -37,7 +41,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     if (existingItem) {
       const updatedItem = await prisma.cartItem.update({
         where: { id: existingItem.id },
-        data: { quantity: existingItem.quantity + (quantity || 1) },
+        data: { quantity: existingItem.quantity + qty },
       });
       return res.json(updatedItem);
     }
@@ -47,7 +51,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         userId: session.user.id,
         productId,
         variantId: variantId || undefined,
-        quantity: quantity || 1,
+        quantity: qty,
       },
     });
 
