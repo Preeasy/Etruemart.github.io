@@ -9,19 +9,22 @@ const InitPage = () => {
 
   useEffect(() => {
     const token = router.query.token as string;
-    if (token === 'init-etruemart-2025') {
-      initialize();
+    if (token) {
+      initialize(token);
     }
   }, [router.query.token]);
 
-  const initialize = async () => {
+  const initialize = async (token?: string) => {
     setStatus('loading');
     setMessage('Initializing database...');
 
     try {
       const res = await fetch('/api/init', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+          ...(token ? { 'x-init-token': token } : {}),
+        },
       });
 
       const data = await res.json();
@@ -55,7 +58,7 @@ const InitPage = () => {
                 Click the button below to initialize the database with default accounts and products.
               </p>
               <button
-                onClick={initialize}
+                onClick={() => initialize()}
                 className="w-full bg-accent-500 hover:bg-accent-400 text-white font-bold py-3 rounded-lg transition-colors"
               >
                 Initialize Database
@@ -82,7 +85,7 @@ const InitPage = () => {
                 <p className="font-bold text-navy-900 mb-2">Login Accounts:</p>
                 <p className="text-ink-700">📧 yeatrusourcing@gmail.com (Admin)</p>
                 <p className="text-ink-700">📧 neil6corrot@gmail.com (Seller)</p>
-                <p className="text-ink-700">🔑 Password: ldz52385109</p>
+                <p className="text-ink-400 text-xs mt-1">Use the password configured in your environment.</p>
               </div>
               <button
                 onClick={() => router.push('/login')}
@@ -102,7 +105,7 @@ const InitPage = () => {
               </div>
               <p className="text-red-700 text-center mb-4">{message}</p>
               <button
-                onClick={initialize}
+                onClick={() => initialize()}
                 className="w-full bg-accent-500 hover:bg-accent-400 text-white font-bold py-3 rounded-lg transition-colors"
               >
                 Retry

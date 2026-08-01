@@ -1,5 +1,7 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import { PrismaClient } from '@prisma/client';
+import { getServerSession } from 'next-auth/next';
+import { authOptions } from '@/lib/auth';
+import { prisma } from '@/lib/prisma';
 import bcrypt from 'bcryptjs';
 import fs from 'fs';
 import path from 'path';
@@ -9,17 +11,24 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
-  try {
-    const prisma = new PrismaClient();
+  // Require ADMIN session or valid init token from env
+  const initToken = process.env.INIT_TOKEN;
+  const requestToken = req.headers['x-init-token'] || req.body?.token;
+  const session = await getServerSession(req, res, authOptions);
+  const isAdmin = session?.user?.role === 'ADMIN';
 
+  if (!isAdmin && (!initToken || requestToken !== initToken)) {
+    return res.status(403).json({ error: 'Unauthorized' });
+  }
+
+  try {
     // Check if already initialized
     const existingCount = await prisma.user.count();
     if (existingCount >= 2) {
-      await prisma.$disconnect();
       return res.json({ success: true, alreadyInitialized: true, users: existingCount });
     }
 
-    const password = 'ldz52385109';
+    const password = process.env.SEED_PASSWORD || 'ldz52385109';
     const passwordHash = await bcrypt.hash(password, 12);
 
     const adminEmail = 'yeatrusourcing@gmail.com';
@@ -145,18 +154,12 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       }
     }
 
-    await prisma.$disconnect();
-
     res.json({
       success: true,
       message: 'Database initialized',
       users: 2,
       categories: categoryCount,
       products: productCount,
-      accounts: [
-        { email: admin.email, role: admin.role, password },
-        { email: seller.email, role: seller.role, password },
-      ],
     });
   } catch (error) {
     console.error('Init error:', error);

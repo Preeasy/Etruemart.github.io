@@ -1,21 +1,19 @@
 import { NextApiRequest, NextApiResponse } from 'next';
+import { getServerSession } from 'next-auth/next';
+import { authOptions } from '@/lib/auth';
 import { prisma } from '@/lib/prisma';
 import fs from 'fs';
 import path from 'path';
 
-function safeJsonParse<T = any>(value: any, fallback: T): T {
-  if (value === null || value === undefined) return fallback;
-  if (typeof value !== 'string') return value as T;
-  try {
-    return JSON.parse(value) as T;
-  } catch {
-    return fallback;
-  }
-}
-
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method not allowed' });
+  }
+
+  // Require ADMIN session
+  const session = await getServerSession(req, res, authOptions);
+  if (!session?.user || session.user.role !== 'ADMIN') {
+    return res.status(403).json({ error: 'Admin access required' });
   }
 
   try {

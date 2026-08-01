@@ -1,4 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
+import { getServerSession } from 'next-auth/next';
+import { authOptions } from '@/lib/auth';
 import fs from 'fs';
 import path from 'path';
 
@@ -17,11 +19,23 @@ const writeShippingData = (data: any) => {
   fs.writeFileSync(SHIPPING_DATA_PATH, JSON.stringify(data, null, 2), 'utf-8');
 };
 
-export default function handler(req: NextApiRequest, res: NextApiResponse) {
+async function requireAdmin(req: NextApiRequest, res: NextApiResponse) {
+  const session = await getServerSession(req, res, authOptions);
+  if (!session?.user || (session.user.role !== 'ADMIN' && session.user.role !== 'OFFICIAL_SELLER')) {
+    res.status(403).json({ error: 'Admin access required' });
+    return false;
+  }
+  return true;
+}
+
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === 'GET') {
     const data = readShippingData();
     return res.status(200).json(data);
   }
+
+  // All mutations require auth
+  if (!await requireAdmin(req, res)) return;
 
   if (req.method === 'POST') {
     const data = readShippingData();

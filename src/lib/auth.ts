@@ -6,35 +6,23 @@ import fs from 'fs';
 import path from 'path';
 
 const MAX_LOGIN_ATTEMPTS = 5;
+const LOCKOUT_DURATION = 60_000; // 1 minute
 const loginAttempts = new Map<string, { count: number; lockedUntil: number }>();
 
-// Fallback users when database is empty/unavailable
-const FALLBACK_USERS = [
-  {
-    id: 'admin-fallback-001',
-    email: 'yeatrusourcing@gmail.com',
-    password: 'ldz52385109',
-    name: 'Yeatrusourcing',
-    role: 'ADMIN',
-    allowedCategoryId: null as string | null,
-  },
-  {
-    id: 'seller-fallback-001',
-    email: 'neil6corrot@gmail.com',
-    password: 'ldz52385109',
-    name: 'Official Seller',
-    role: 'OFFICIAL_SELLER',
-    allowedCategoryId: null as string | null,
-  },
-];
+// Seed password from env, fallback only in development
+const SEED_PASSWORD = process.env.SEED_PASSWORD || (process.env.NODE_ENV === 'production' ? null : 'ldz52385109');
 
 async function ensureDbInitialized() {
   try {
     const count = await prisma.user.count();
     if (count >= 2) return;
 
-    const password = 'ldz52385109';
-    const passwordHash = bcrypt.hashSync(password, 12);
+    if (!SEED_PASSWORD) {
+      console.warn('SEED_PASSWORD not set, skipping DB initialization');
+      return;
+    }
+
+    const passwordHash = bcrypt.hashSync(SEED_PASSWORD, 12);
 
     await prisma.user.upsert({
       where: { email: 'yeatrusourcing@gmail.com' },
@@ -48,7 +36,7 @@ async function ensureDbInitialized() {
       create: { email: 'neil6corrot@gmail.com', passwordHash, name: 'Official Seller', role: 'OFFICIAL_SELLER' },
     });
 
-    // Import categories and products from site-data.json if available
+    // Import categories from categories-data.json
     try {
       const catDataPath = path.join(process.cwd(), 'categories-data.json');
       if (fs.existsSync(catDataPath)) {
@@ -78,6 +66,7 @@ async function ensureDbInitialized() {
         }
       }
 
+      // Import products from site-data.json
       const siteDataPath = path.join(process.cwd(), 'site-data.json');
       if (fs.existsSync(siteDataPath)) {
         const siteData = JSON.parse(fs.readFileSync(siteDataPath, 'utf-8'));
@@ -134,7 +123,7 @@ async function ensureDbInitialized() {
                 shippingCost: p.shippingCost ?? 0,
                 shippingMethod: p.shippingMethod || 'Standard Shipping',
                 aplus: p.aplus ? JSON.stringify(p.aplus) : null,
-                authorId: seller?.id || 'seller-fallback-001',
+                authorId: seller?.id || '',
                 variants: {
                   create: [{ color: p.color || 'Default', size: p.size || 'One Size', price: priceMin, stock: p.stock || 100 }],
                 },
@@ -150,7 +139,7 @@ async function ensureDbInitialized() {
 export const authOptions: AuthOptions = {
   session: {
     strategy: 'jwt',
-    maxAge: 60 * 60 * 24 * 30,
+    maxAge: 60 * 60 * 24 * 7, // 7 days (reduced from 30)
   },
   providers: [
     CredentialsProvider({
@@ -166,18 +155,13 @@ export const authOptions: AuthOptions = {
         const email = credentials.email.toLowerCase().trim();
         const password = credentials.password;
 
-        // Rate limiting
+        // Rate limiting: check if locked
         const attempt = loginAttempts.get(email);
-        if (attempt) {
-          if (attempt.lockedUntil > Date.now()) {
-            return null;
-          }
-          if (attempt.count >= MAX_LOGIN_ATTEMPTS) {
-            loginAttempts.delete(email);
-          }
+        if (attempt && attempt.lockedUntil > Date.now()) {
+          return null;
         }
 
-        // Try database first
+        // Try database
         try {
           await ensureDbInitialized();
 
@@ -200,24 +184,11 @@ export const authOptions: AuthOptions = {
           }
         } catch {}
 
-        // Fallback to hardcoded users
-        const fallbackUser = FALLBACK_USERS.find(u => u.email === email && u.password === password);
-        if (fallbackUser) {
-          loginAttempts.delete(email);
-          return {
-            id: fallbackUser.id,
-            email: fallbackUser.email,
-            name: fallbackUser.name,
-            role: fallbackUser.role,
-            allowedCategoryId: fallbackUser.allowedCategoryId,
-          };
-        }
-
         // Track failed attempts
         const current = loginAttempts.get(email) || { count: 0, lockedUntil: 0 };
         current.count++;
-        if (current.count >= 3) {
-          current.lockedUntil = Date.now() + 60_000;
+        if (current.count >= MAX_LOGIN_ATTEMPTS) {
+          current.lockedUntil = Date.now() + LOCKOUT_DURATION;
         }
         loginAttempts.set(email, current);
         return null;
@@ -248,7 +219,18 @@ export const authOptions: AuthOptions = {
   pages: {
     signIn: '/login',
   },
-  secret: process.env.NEXTAUTH_SECRET || 'etruemart-secret',
+  secret: process.env.NEXTAUTH_SECRET,
+  cookies: {
+    sessionToken: {
+      name: `next-auth.session-token`,
+      options: {
+        httpOnly: true,
+        sameSite: 'lax',
+        path: '/',
+        secure: process.env.NODE_ENV === 'production',
+      },
+    },
+  },
 };
 
 declare module 'next-auth' {
