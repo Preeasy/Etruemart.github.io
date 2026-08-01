@@ -500,7 +500,6 @@ const Products = ({ products: initialProducts }: { products: Product[] }) => {
                         key={product.id}
                         product={product}
                         editUrl={sellerMatch ? `/sell/${sellerMatch.id}` : undefined}
-                        isOwner={!!sellerMatch}
                       />
                     );
                   })}

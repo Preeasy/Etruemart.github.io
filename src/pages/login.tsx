@@ -13,6 +13,7 @@ const Login = () => {
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
 
   if (status === 'loading') {
     return <div className="text-center py-20 text-ink-500">Loading...</div>;
@@ -30,18 +31,26 @@ const Login = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (loading) return;
     setError('');
-    
-    const result = await signIn('credentials', {
-      email,
-      password,
-      redirect: false,
-    });
+    setLoading(true);
 
-    if (result?.error) {
-      setError('Invalid email or password');
-    } else {
-      router.push('/');
+    try {
+      const result = await signIn('credentials', {
+        email,
+        password,
+        redirect: false,
+      });
+
+      if (result?.error) {
+        setError('Invalid email or password');
+        setLoading(false);
+      } else {
+        router.push('/');
+      }
+    } catch {
+      setError('Network error. Please try again.');
+      setLoading(false);
     }
   };
 
@@ -123,9 +132,17 @@ const Login = () => {
 
             <button
               type="submit"
-              className="w-full flex items-center justify-center px-4 py-3 bg-accent-500 hover:bg-accent-400 text-white font-bold rounded-lg transition-colors"
+              disabled={loading}
+              className="w-full flex items-center justify-center px-4 py-3 bg-accent-500 hover:bg-accent-400 disabled:opacity-50 disabled:cursor-not-allowed text-white font-bold rounded-lg transition-colors"
             >
-              Sign in
+              {loading ? (
+                <>
+                  <div className="animate-spin w-5 h-5 border-2 border-white border-t-transparent rounded-full mr-2" />
+                  Signing in...
+                </>
+              ) : (
+                'Sign in'
+              )}
             </button>
           </form>
 

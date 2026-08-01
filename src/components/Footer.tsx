@@ -22,12 +22,12 @@ const productCategories = [
 ];
 
 const companyLinks = [
-  { label: 'About Us', href: '#' },
+  { label: 'About Us', href: '/about' },
   { label: 'Seller Center', href: '/sell' },
-  { label: 'Contact Us', href: '#' },
-  { label: 'Quality Assurance', href: '#' },
-  { label: 'Shipping Policy', href: '#' },
-  { label: 'Return Policy', href: '#' },
+  { label: 'Contact Us', href: 'mailto:sales@etruemark.com' },
+  { label: 'Quality Assurance', href: '/about' },
+  { label: 'Shipping Policy', href: '/about' },
+  { label: 'Return Policy', href: '/about' },
 ];
 
 const socials = [
@@ -166,10 +166,10 @@ const Footer = () => {
             &copy; {year} eTrue Mark. Yiwu Yeatru Trading Co., Ltd. All rights reserved.
           </p>
           <div className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-xs text-ink-400">
-            <a href="#" className="hover:text-accent-300 transition-colors">Privacy Policy</a>
-            <a href="#" className="hover:text-accent-300 transition-colors">Terms of Service</a>
-            <a href="#" className="hover:text-accent-300 transition-colors">Cookie Policy</a>
-            <a href="#" className="hover:text-accent-300 transition-colors">Sitemap</a>
+            <Link href="/about" className="hover:text-accent-300 transition-colors">Privacy Policy</Link>
+            <Link href="/about" className="hover:text-accent-300 transition-colors">Terms of Service</Link>
+            <Link href="/about" className="hover:text-accent-300 transition-colors">Cookie Policy</Link>
+            <Link href="/sitemap.xml" className="hover:text-accent-300 transition-colors">Sitemap</Link>
           </div>
         </div>
       </div>

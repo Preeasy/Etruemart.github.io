@@ -1,3 +1,4 @@
+import { useMemo } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import {
@@ -54,9 +55,9 @@ const trustItems = [
 ];
 
 export default function Sidebar({ products, currentCategory }: SidebarProps) {
-  const topDeals = products.slice(0, 4);
-  const newArrivals = products.slice(4, 8);
-  const bestSellers = products.slice(8, 12);
+  const topDeals = useMemo(() => products.slice(0, 4), [products]);
+  const newArrivals = useMemo(() => products.slice(4, 8), [products]);
+  const bestSellers = useMemo(() => products.slice(8, 12), [products]);
 
   return (
     <aside className="hidden lg:block w-72 shrink-0">
