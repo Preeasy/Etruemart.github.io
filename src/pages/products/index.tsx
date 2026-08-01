@@ -26,6 +26,7 @@ import siteDataJson from '../../../site-data.json';
 
 interface Product {
   id: number | string;
+  slug?: string;
   name: string;
   description: string;
   category: { name: string; slug: string };
@@ -79,6 +80,7 @@ const Products = ({ products: initialProducts }: { products: Product[] }) => {
         if (Array.isArray(data) && data.length > 0) {
           const dbProducts: Product[] = data.map((p: any) => ({
             id: p.id,
+            slug: p.slug || undefined,
             name: p.name,
             description: p.description || '',
             category: { name: p.categoryName || '', slug: p.categorySlug || '' },

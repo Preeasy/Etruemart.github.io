@@ -28,6 +28,7 @@ import siteDataJson from '../../site-data.json';
 
 interface Product {
   id: number | string;
+  slug?: string;
   name: string;
   description: string;
   category: { name: string; slug: string };
