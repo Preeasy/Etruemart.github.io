@@ -3,7 +3,6 @@ import { useRouter } from 'next/router';
 import { useSession } from 'next-auth/react';
 import Link from 'next/link';
 import Head from 'next/head';
-import Image from 'next/image';
 import {
   Search,
   ChevronDown,
@@ -513,12 +512,11 @@ const Products = ({ products: initialProducts }: { products: Product[] }) => {
                       className="flex gap-5 bg-white rounded-xl border border-ink-100 p-5 hover:border-accent-300 hover:shadow-md transition-all group"
                     >
                       <div className="relative w-36 h-36 flex-shrink-0 bg-gradient-to-br from-ink-50 to-white rounded-xl overflow-hidden border border-ink-100">
-                        <Image
+                        <img
                           src={product.image}
                           alt={product.name}
-                          fill
-                          className="object-cover group-hover:scale-105 transition-transform duration-500"
-                          sizes="144px"
+                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                          loading="lazy"
                         />
                         {product.stockStatus === 'IN_STOCK' && (
                           <span className="absolute top-2 right-2 bg-success-500 text-white text-[9px] font-bold px-2 py-1 rounded-md uppercase">

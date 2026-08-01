@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
 import { useSession } from 'next-auth/react';
 import Layout from '@/components/Layout';
 import {
@@ -257,7 +256,7 @@ export default function ShippingAdmin() {
                     <div className="flex items-center gap-4">
                       <div className="w-14 h-14 rounded-xl bg-navy-800 bg-navy-gradient flex items-center justify-center text-white font-bold text-lg shadow-soft flex-shrink-0 relative overflow-hidden">
                         {carrier.logo ? (
-                          <Image src={carrier.logo} alt={carrier.name} fill className="object-contain p-1.5" sizes="56px" />
+                          <img src={carrier.logo} alt={carrier.name} className="w-full h-full object-contain p-1.5" />
                         ) : (
                           carrier.name.slice(0, 2).toUpperCase()
                         )}

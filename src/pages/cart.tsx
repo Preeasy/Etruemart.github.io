@@ -3,7 +3,6 @@ import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import Head from 'next/head';
-import Image from 'next/image';
 import { ShoppingCart, Plus, Minus, Trash2, CreditCard, Truck, ChevronRight } from 'lucide-react';
 import Layout from '@/components/Layout';
 
@@ -150,12 +149,11 @@ const Cart = () => {
                 {items.map((item) => (
                   <div key={item.id} className="bg-white rounded-xl border border-ink-200 p-6 flex gap-4">
                     <div className="relative w-24 h-24 flex-shrink-0 rounded-xl overflow-hidden">
-                      <Image
+                      <img
                         src={item.product.image}
                         alt={item.product.name}
-                        fill
-                        className="object-cover"
-                        sizes="96px"
+                        className="w-full h-full object-cover"
+                        loading="lazy"
                       />
                     </div>
                     <div className="flex-1">

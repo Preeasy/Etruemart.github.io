@@ -3,7 +3,6 @@ import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import Head from 'next/head';
-import Image from 'next/image';
 import { FileText, Package, Truck, CheckCircle, Clock, ChevronRight } from 'lucide-react';
 import Layout from '@/components/Layout';
 
@@ -134,12 +133,11 @@ const Orders = () => {
                         <div key={index} className="flex-shrink-0">
                           <Link href={`/products/${item.product.id}`}>
                             <div className="relative w-20 h-20 overflow-hidden rounded-xl">
-                              <Image
+                              <img
                                 src={item.product.image}
                                 alt={item.product.name}
-                                fill
-                                className="object-cover"
-                                sizes="80px"
+                                className="w-full h-full object-cover"
+                                loading="lazy"
                               />
                             </div>
                           </Link>

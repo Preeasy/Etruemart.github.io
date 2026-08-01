@@ -3,7 +3,6 @@ import { useRouter } from 'next/router';
 import { useSession } from 'next-auth/react';
 import Link from 'next/link';
 import Head from 'next/head';
-import Image from 'next/image';
 import {
   Star,
   ShoppingCart,
@@ -382,7 +381,7 @@ export default function ProductDetail({ product: initialProduct, relatedProducts
                       onClick={() => setSelectedImage(i)}
                       className={`relative flex-shrink-0 w-16 h-16 md:w-20 md:h-20 rounded-lg overflow-hidden border transition-all ${selectedImage === i ? 'border-accent-500 ring-2 ring-accent-100' : 'border-ink-200 hover:border-navy-400'} bg-white`}
                     >
-                      <Image src={img} alt={`${product.name} - view ${i + 1}`} fill className="object-contain p-1" sizes="80px" />
+                      <img src={img} alt={`${product.name} - view ${i + 1}`} className="w-full h-full object-contain p-1" loading="lazy" />
                     </button>
                   ))}
                 </div>
@@ -806,7 +805,7 @@ export default function ProductDetail({ product: initialProduct, relatedProducts
                   {relatedProducts.slice(0, 5).map((item, i) => (
                     <Link key={item.id} href={`/products/${item.id}`} className="flex gap-3 p-2 rounded-lg hover:bg-ink-50 transition-colors group">
                       <div className="relative w-14 h-14 flex-shrink-0 bg-ink-50 rounded-md overflow-hidden border border-ink-100">
-                        <Image src={item.image} alt={item.name} fill className="object-contain p-1" sizes="56px" />
+                        <img src={item.image} alt={item.name} className="w-full h-full object-contain p-1" loading="lazy" />
                         <span className="absolute top-0 left-0 w-5 h-5 bg-accent-500 text-white text-[10px] font-bold rounded-br flex items-center justify-center">{i + 1}</span>
                       </div>
                       <div className="flex-1 min-w-0">
@@ -866,7 +865,7 @@ export default function ProductDetail({ product: initialProduct, relatedProducts
             <ChevronRight className="w-6 h-6" />
           </button>
           <div className="w-[85vw] h-[85vh] relative" onClick={(e) => e.stopPropagation()}>
-            <Image src={images[lightboxIndex]} alt={`${product.name} - view ${lightboxIndex + 1}`} fill className="object-contain" quality={95} sizes="85vw" />
+            <img src={images[lightboxIndex]} alt={`${product.name} - view ${lightboxIndex + 1}`} className="w-full h-full object-contain" />
           </div>
           <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-2">
             {images.map((img, i) => (
