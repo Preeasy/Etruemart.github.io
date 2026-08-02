@@ -343,6 +343,29 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         } catch (_e) {
           return getProductsFromFallback(req, res);
         }
+      } else {
+        // Auto-detect stale data: compare DB image with site-data.json for first product
+        // If mismatched, do a full resync automatically (no token needed)
+        try {
+          const siteDataPath = path.join(process.cwd(), 'site-data.json');
+          const siteData = JSON.parse(fs.readFileSync(siteDataPath, 'utf-8'));
+          const siteProducts = siteData.products || [];
+          const firstSiteProduct = siteProducts[0];
+          if (firstSiteProduct) {
+            const dbProduct = await prisma.product.findFirst({
+              where: { name: firstSiteProduct.name },
+              select: { image: true },
+            });
+            // If product exists but image doesn't match site-data.json → stale DB
+            if (dbProduct && dbProduct.image !== firstSiteProduct.image) {
+              await prisma.productVariant.deleteMany({});
+              await prisma.product.deleteMany({});
+              await seedIfEmpty();
+            }
+          }
+        } catch (_syncErr) {
+          // sync check failed, continue with DB data
+        }
       }
 
       // Force full resync via INIT_TOKEN: GET /api/products?resync=true + X-Init-Token header
