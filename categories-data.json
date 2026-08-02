@@ -17,38 +17,45 @@
       "seoDesc": "Source wholesale garment accessories from Yiwu at factory prices. Bulk zippers, buttons, lace, embroidery patches and sewing supplies for clothing manufacturers and importers worldwide."
     },
     {
-      "name": "Hair Accessories",
-      "slug": "hair-accessories",
+      "name": "Accessories",
+      "slug": "accessories",
       "parentId": null,
       "sortOrder": 3,
-      "seoTitle": "Hair Accessories Wholesale – Clips, Headbands & Ties in Bulk",
-      "seoDesc": "Buy wholesale hair accessories from Yiwu. Bulk hair clips, headbands, hair ties and hair pins at competitive prices for beauty supply stores and distributors globally."
+      "seoTitle": "Wholesale Accessories – Hair Clips, Bag Charms, Beads & Craft Supplies",
+      "seoDesc": "Buy wholesale accessories from Yiwu. Bulk hair clips, headbands, hair ties, bag charms, keychains, belt buckles, beads, rhinestones and craft supplies for accessory retailers and distributors globally."
     },
     {
-      "name": "Bags & Accessories",
-      "slug": "bags-accessories",
+      "name": "Bags",
+      "slug": "bags",
       "parentId": null,
       "sortOrder": 4,
-      "seoTitle": "Bag Accessories Wholesale – Charms, Keychains & Belt Buckles in Bulk",
-      "seoDesc": "Wholesale bag accessories and hardware from Yiwu. Bulk bag charms, keychains and belt buckles for accessory brands, gift shops and importers in US, Europe, Middle East and Africa."
+      "seoTitle": "Wholesale Bags – Handbags, Wallets, Backpacks & Totes in Bulk",
+      "seoDesc": "Source wholesale bags from Yiwu at factory prices. Bulk handbags, crossbody bags, wallets, backpacks, tote bags and clutches for bag retailers and distributors worldwide."
     },
     {
       "name": "Home Decor & Crafts",
       "slug": "home-decor-crafts",
       "parentId": null,
       "sortOrder": 5,
-      "seoTitle": "Home Decor & Craft Supplies Wholesale from Yiwu",
-      "seoDesc": "Wholesale beads, rhinestones and craft supplies direct from Yiwu. Bulk pricing for craft retailers, DIY brands and home decor importers across global markets."
+      "seoTitle": "Home Decor & Crafts Wholesale – Vases, Figurines & Tea Sets from Yiwu",
+      "seoDesc": "Wholesale home decor and crafts from Yiwu. Bulk ceramic vases, figurines, tea sets, sculptures and table decor for home decor retailers and importers across global markets."
     },
     {
-      "name": "Toys & Gift",
-      "slug": "toys-gift",
+      "name": "Toys",
+      "slug": "toys",
       "parentId": null,
       "sortOrder": 6,
-      "seoTitle": "Wholesale Toys & Gift – Stress Relief Toys, Fidget Toys & Gift Sets in Bulk",
-      "seoDesc": "Source wholesale toys and gifts from Yiwu at factory prices. Bulk stress relief toys, squishy toys, fidget spinners, educational toys and gift sets for toy retailers and distributors worldwide."
+      "seoTitle": "Wholesale Toys – Plush, Fidget, Educational & Stress Relief Toys in Bulk",
+      "seoDesc": "Source wholesale toys from Yiwu at factory prices. Bulk plush toys, fidget toys, educational toys, stress relief toys and puzzle sets for toy retailers and distributors worldwide."
     },
-
+    {
+      "name": "Gift",
+      "slug": "gift",
+      "parentId": null,
+      "sortOrder": 7,
+      "seoTitle": "Wholesale Gift Sets & Gift Boxes – Holiday, Birthday & Festival Gifts in Bulk",
+      "seoDesc": "Buy wholesale gift sets and gift boxes from Yiwu. Bulk holiday gift bundles, birthday gift sets, festival gift packs and party favor sets for gift shops and distributors globally."
+    },
     {
       "name": "Necklaces",
       "slug": "necklaces",
@@ -97,7 +104,6 @@
       "seoTitle": "Wholesale Jewelry Sets – Matching Necklace & Earring Sets in Bulk",
       "seoDesc": "Buy wholesale jewelry sets from Yiwu. Matching necklace and earring sets, 3-piece sets and gift sets in bulk for jewelry retailers and online sellers globally."
     },
-
     {
       "name": "Zippers",
       "slug": "zippers",
@@ -146,11 +152,10 @@
       "seoTitle": "Wholesale Thread & Yarn – Sewing Thread & Knitting Yarn in Bulk",
       "seoDesc": "Buy wholesale thread and yarn from Yiwu at factory prices. Bulk sewing thread, embroidery floss and knitting yarn for garment manufacturers and craft supply distributors."
     },
-
     {
       "name": "Hair Clips",
       "slug": "hair-clips",
-      "parentId": "hair-accessories",
+      "parentId": "accessories",
       "sortOrder": 1,
       "seoTitle": "Wholesale Hair Clips – Fashion Hair Clips in Bulk from Yiwu",
       "seoDesc": "Shop wholesale hair clips from Yiwu. Bulk fashion hair clips, claw clips and snap clips for beauty supply stores and hair accessory retailers worldwide."
@@ -158,7 +163,7 @@
     {
       "name": "Headbands",
       "slug": "headbands",
-      "parentId": "hair-accessories",
+      "parentId": "accessories",
       "sortOrder": 2,
       "seoTitle": "Wholesale Headbands – Fashion & Sports Headbands in Bulk",
       "seoDesc": "Buy wholesale headbands from Yiwu. Bulk fashion headbands, sports headbands and bridal headbands for beauty retailers and sports accessory distributors globally."
@@ -166,7 +171,7 @@
     {
       "name": "Hair Ties",
       "slug": "hair-ties",
-      "parentId": "hair-accessories",
+      "parentId": "accessories",
       "sortOrder": 3,
       "seoTitle": "Wholesale Hair Ties – Scrunchies & Elastic Bands in Bulk",
       "seoDesc": "Source wholesale hair ties from Yiwu. Bulk scrunchies, elastic hair bands and spiral ties for beauty supply shops and hair accessory importers worldwide."
@@ -174,16 +179,15 @@
     {
       "name": "Hair Pins",
       "slug": "hair-pins",
-      "parentId": "hair-accessories",
+      "parentId": "accessories",
       "sortOrder": 4,
       "seoTitle": "Wholesale Hair Pins – Bobby Pins & Hair Grips in Bulk",
       "seoDesc": "Buy wholesale hair pins from Yiwu. Bulk bobby pins, U-pins and decorative hair grips for beauty supply stores and salon distributors across global markets."
     },
-
     {
       "name": "Bag Charms",
       "slug": "bag-charms",
-      "parentId": "bags-accessories",
+      "parentId": "accessories",
       "sortOrder": 1,
       "seoTitle": "Wholesale Bag Charms – Handbag Charms & Pendants in Bulk",
       "seoDesc": "Shop wholesale bag charms from Yiwu. Bulk handbag charms, purse pendants and luggage tags for accessory brands and gift retailers across US, Europe, Middle East and Africa."
@@ -191,7 +195,7 @@
     {
       "name": "Keychains",
       "slug": "keychains",
-      "parentId": "bags-accessories",
+      "parentId": "accessories",
       "sortOrder": 2,
       "seoTitle": "Wholesale Keychains – Promotional & Fashion Keychains in Bulk",
       "seoDesc": "Buy wholesale keychains from Yiwu at factory prices. Bulk promotional keychains, novelty key rings and car key covers for gift shops and promotional product distributors."
@@ -199,16 +203,15 @@
     {
       "name": "Belt Buckles",
       "slug": "belt-buckles",
-      "parentId": "bags-accessories",
+      "parentId": "accessories",
       "sortOrder": 3,
       "seoTitle": "Wholesale Belt Buckles – Fashion & Western Buckles in Bulk",
       "seoDesc": "Source wholesale belt buckles from Yiwu. Bulk fashion buckles, western buckles and automatic buckles for belt manufacturers and accessory wholesalers globally."
     },
-
     {
       "name": "Beads & Charms",
       "slug": "beads-charms",
-      "parentId": "home-decor-crafts",
+      "parentId": "accessories",
       "sortOrder": 1,
       "seoTitle": "Wholesale Beads & Charms – Jewelry Making Beads in Bulk from Yiwu",
       "seoDesc": "Shop wholesale beads and charms from Yiwu. Bulk glass beads, metal charms, acrylic beads and spacer beads for jewelry makers and craft supply retailers worldwide."
@@ -216,7 +219,7 @@
     {
       "name": "Rhinestones",
       "slug": "rhinestones",
-      "parentId": "home-decor-crafts",
+      "parentId": "accessories",
       "sortOrder": 2,
       "seoTitle": "Wholesale Rhinestones – Loose Crystals & Flatback Stones in Bulk",
       "seoDesc": "Buy wholesale rhinestones from Yiwu. Bulk loose rhinestones, flatback crystals and hot-fix stones for nail art, garment embellishment and craft businesses globally."
@@ -224,16 +227,15 @@
     {
       "name": "Craft Supplies",
       "slug": "craft-supplies",
-      "parentId": "home-decor-crafts",
+      "parentId": "accessories",
       "sortOrder": 3,
       "seoTitle": "Wholesale Craft Supplies – DIY Materials & Tools in Bulk",
       "seoDesc": "Source wholesale craft supplies from Yiwu. Bulk DIY materials, jewelry findings, glue tools and craft accessories for hobby stores and craft retailers across global markets."
     },
-
     {
       "name": "Stress Relief Toys",
       "slug": "stress-relief-toys",
-      "parentId": "toys-gift",
+      "parentId": "toys",
       "sortOrder": 1,
       "seoTitle": "Wholesale Stress Relief Toys – Squishy & Fidget Toys in Bulk",
       "seoDesc": "Buy wholesale stress relief toys from Yiwu. Bulk squishy toys, butter bars,捏捏乐 and stress balls for toy retailers and online sellers worldwide."
@@ -241,7 +243,7 @@
     {
       "name": "Fidget Toys",
       "slug": "fidget-toys",
-      "parentId": "toys-gift",
+      "parentId": "toys",
       "sortOrder": 2,
       "seoTitle": "Wholesale Fidget Toys – Spinners, Cubes & Pop-its in Bulk",
       "seoDesc": "Shop wholesale fidget toys from Yiwu. Bulk fidget spinners, fidget cubes, pop-it boards and sensory toys for toy stores and online retailers globally."
@@ -249,7 +251,7 @@
     {
       "name": "Educational Toys",
       "slug": "educational-toys",
-      "parentId": "toys-gift",
+      "parentId": "toys",
       "sortOrder": 3,
       "seoTitle": "Wholesale Educational Toys – STEM & Learning Toys in Bulk",
       "seoDesc": "Buy wholesale educational toys from Yiwu. Bulk STEM toys, building blocks, puzzle toys and learning kits for toy retailers and educational suppliers worldwide."
@@ -257,12 +259,11 @@
     {
       "name": "Gift Sets",
       "slug": "gift-sets",
-      "parentId": "toys-gift",
+      "parentId": "gift",
       "sortOrder": 4,
       "seoTitle": "Wholesale Gift Sets – Toy Gift Sets & Party Favors in Bulk",
       "seoDesc": "Source wholesale toy gift sets from Yiwu. Bulk party favor sets, novelty gift sets and toy bundles for gift shops and party supply distributors globally."
     },
-
     {
       "name": "Choker Necklaces",
       "slug": "choker-necklaces",
@@ -295,7 +296,6 @@
       "seoTitle": "Wholesale Statement Necklaces – Bold & Oversized Necklaces in Bulk",
       "seoDesc": "Source wholesale statement necklaces from Yiwu. Bulk bold, oversized and crystal-encrusted statement necklaces for bridal and fashion jewelry retailers across global markets."
     },
-
     {
       "name": "Stud Earrings",
       "slug": "stud-earrings",
@@ -328,7 +328,6 @@
       "seoTitle": "Wholesale Clip-on Earrings – Non-Pierced Earrings in Bulk",
       "seoDesc": "Source wholesale clip-on earrings from Yiwu. Bulk non-pierced, clip-on and magnetic earrings for mature and non-pierced market segments across global markets."
     },
-
     {
       "name": "Chain Bracelets",
       "slug": "chain-bracelets",
@@ -361,7 +360,6 @@
       "seoTitle": "Wholesale Stretch Bracelets – Elastic Beaded Bracelets in Bulk",
       "seoDesc": "Source wholesale stretch bracelets from Yiwu. Bulk elastic beaded, stone and glass stretch bracelets for gift shops and jewelry retailers across US, Europe and Africa."
     },
-
     {
       "name": "Metal Zippers",
       "slug": "metal-zippers",
@@ -394,7 +392,6 @@
       "seoTitle": "Wholesale Decorative Zippers – Fashion & Novelty Zippers in Bulk",
       "seoDesc": "Source wholesale decorative zippers from Yiwu. Bulk colored, patterned and novelty fashion zippers for designer brands and garment embellishment businesses worldwide."
     },
-
     {
       "name": "Hot Fix Rhinestones",
       "slug": "hot-fix-rhinestones",
@@ -427,7 +424,6 @@
       "seoTitle": "Wholesale Decorative Chains – Garment & Bag Chains in Bulk",
       "seoDesc": "Source wholesale decorative chains from Yiwu. Bulk ball chain, link chain and drawstring chains for garment, bag and home decor manufacturers across global markets."
     },
-
     {
       "name": "Cartoon Patches",
       "slug": "cartoon-patches",

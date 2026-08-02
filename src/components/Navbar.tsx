@@ -14,8 +14,9 @@ import {
 const navLinks = [
   { label: 'All Products', href: '/products' },
   { label: 'Fashion Jewelry', href: '/products?category=fashion-jewelry' },
-  { label: 'Bags & Accessories', href: '/products?category=bags-accessories' },
-  { label: 'Toys & Gift', href: '/products?category=toys-gift' },
+  { label: 'Bags', href: '/products?category=bags' },
+  { label: 'Accessories', href: '/products?category=accessories' },
+  { label: 'Toys', href: '/products?category=toys' },
   { label: 'Home Decor', href: '/products?category=home-decor-crafts' },
   { label: 'Seller Center', href: '/sell' },
 ];

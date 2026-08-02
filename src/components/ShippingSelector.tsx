@@ -50,10 +50,11 @@ interface ShippingSelectorProps {
 }
 
 const categoryDefaults: Record<string, { weight: number; volume: number }> = {
-  'toys-gift': { weight: 0.3, volume: 0.002 },
+  'toys': { weight: 0.3, volume: 0.002 },
+  'gift': { weight: 0.3, volume: 0.002 },
   'fashion-jewelry': { weight: 0.05, volume: 0.0001 },
-  'hair-accessories': { weight: 0.08, volume: 0.0002 },
-  'bags-accessories': { weight: 0.25, volume: 0.0015 },
+  'accessories': { weight: 0.08, volume: 0.0002 },
+  'bags': { weight: 0.25, volume: 0.0015 },
   'garment-accessories': { weight: 0.1, volume: 0.0003 },
   'home-decor-crafts': { weight: 0.2, volume: 0.001 },
 };

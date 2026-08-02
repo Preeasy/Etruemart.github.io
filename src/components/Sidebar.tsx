@@ -11,6 +11,7 @@ import {
   ShoppingBag,
   Scissors,
   Home as HomeIcon,
+  Gamepad2,
   Shield,
   Truck,
   Award,
@@ -38,12 +39,13 @@ interface SidebarProps {
 }
 
 const sidebarCategories = [
-  { name: 'Toys & Gift', icon: Gift, slug: 'toys-gift' },
   { name: 'Fashion Jewelry', icon: Gem, slug: 'fashion-jewelry' },
-  { name: 'Bags & Accessories', icon: ShoppingBag, slug: 'bags-accessories' },
-  { name: 'Hair Accessories', icon: Crown, slug: 'hair-accessories' },
   { name: 'Garment Accessories', icon: Scissors, slug: 'garment-accessories' },
+  { name: 'Accessories', icon: Sparkles, slug: 'accessories' },
+  { name: 'Bags', icon: ShoppingBag, slug: 'bags' },
   { name: 'Home Decor & Crafts', icon: HomeIcon, slug: 'home-decor-crafts' },
+  { name: 'Toys', icon: Gamepad2, slug: 'toys' },
+  { name: 'Gift', icon: Gift, slug: 'gift' },
 ];
 
 const trustItems = [

@@ -43,12 +43,13 @@ interface Product {
 }
 
 const categoryFilters = [
-  { name: 'Toys & Gift', slug: 'toys-gift' },
   { name: 'Fashion Jewelry', slug: 'fashion-jewelry' },
-  { name: 'Bags & Accessories', slug: 'bags-accessories' },
-  { name: 'Hair Accessories', slug: 'hair-accessories' },
   { name: 'Garment Accessories', slug: 'garment-accessories' },
+  { name: 'Accessories', slug: 'accessories' },
+  { name: 'Bags', slug: 'bags' },
   { name: 'Home Decor & Crafts', slug: 'home-decor-crafts' },
+  { name: 'Toys', slug: 'toys' },
+  { name: 'Gift', slug: 'gift' },
 ];
 
 const materialOptions = ['Alloy', 'Stainless Steel', 'Brass', 'Acrylic', 'Crystal', 'Pearl', 'Resin', 'Fabric', 'Rhinestone'];
@@ -95,8 +96,12 @@ const Products = ({ products: initialProducts }: { products: Product[] }) => {
             keywords: Array.isArray(p.keywords) ? p.keywords : [],
             bulletPoints: Array.isArray(p.bulletPoints) ? p.bulletPoints : [],
           }));
-          const slugSet = new Set(dbProducts.map(p => p.id));
-          const merged = [...dbProducts, ...initialProducts.filter(p => !slugSet.has(String(p.id)))];
+          const dbSlugSet = new Set(dbProducts.map(p => p.slug || p.id).filter(Boolean));
+          const dbIdSet = new Set(dbProducts.map(p => p.id));
+          const merged = [...dbProducts, ...initialProducts.filter(p => {
+            const slug = p.slug || p.id;
+            return !dbSlugSet.has(slug) && !dbIdSet.has(String(p.id));
+          })];
           setProducts(merged);
         }
       })
