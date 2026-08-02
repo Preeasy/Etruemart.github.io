@@ -335,10 +335,23 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     }
 
     try {
-      // Check if database has products
+      // Check if database has products; if empty, seed first then query DB
       const dbCount = await prisma.product.count();
       if (dbCount === 0) {
-        return getProductsFromFallback(req, res);
+        try {
+          await seedIfEmpty();
+        } catch (_e) {
+          return getProductsFromFallback(req, res);
+        }
+      }
+
+      // Force full resync via INIT_TOKEN: GET /api/products?resync=true + X-Init-Token header
+      const initToken = process.env.INIT_TOKEN;
+      const requestToken = req.headers['x-init-token'] || (req.query.token as string);
+      if (req.query.resync === 'true' && initToken && requestToken === initToken) {
+        await prisma.productVariant.deleteMany({});
+        await prisma.product.deleteMany({});
+        await seedIfEmpty();
       }
 
       const where: any = {};
