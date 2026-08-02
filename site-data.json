@@ -3295,9 +3295,9 @@
     },
     {
       "id": "gold-crystal-pav-rose-flower-ring",
-      "name": "Gold Crystal Pavé Rose Flower Ring",
+      "name": "Gold Crystal Pav\u00e9 Rose Flower Ring",
       "slug": "gold-crystal-pav-rose-flower-ring",
-      "description": "Premium gold crystal pavé rose flower ring wholesale from Yiwu. Fashion Jewelry for retailers, boutiques, and online sellers. Factory direct pricing, low MOQ, reliable quality. Bulk orders welcome.",
+      "description": "Premium gold crystal pav\u00e9 rose flower ring wholesale from Yiwu. Fashion Jewelry for retailers, boutiques, and online sellers. Factory direct pricing, low MOQ, reliable quality. Bulk orders welcome.",
       "priceMin": 15.64,
       "priceMax": 20.34,
       "image": "/images/products/github_Fashion_Jewelry_53_.jpg",
@@ -3322,7 +3322,7 @@
         "factory direct"
       ],
       "bulletPoints": [
-        "Premium quality Gold Crystal Pavé Rose Flower Ring sourced from verified Yiwu factories",
+        "Premium quality Gold Crystal Pav\u00e9 Rose Flower Ring sourced from verified Yiwu factories",
         "Low MOQ starting from 48 pieces",
         "Factory-direct wholesale pricing with volume discounts",
         "Rigorous QC ensures consistent quality every batch",
@@ -6592,7 +6592,7 @@
       "description": "Premium Black Elegant Necklace Set wholesale from Yiwu. Fashion Jewelry for retailers, boutiques, and online sellers. Factory direct pricing, low MOQ, reliable quality. Bulk orders welcome.",
       "priceMin": 0.75,
       "priceMax": 1.01,
-      "image": "/images/products/v3_lace_003_layered-gold-necklace.jpg",
+      "image": "/images/products/v2_minimalist-choker.jpg",
       "images": [
         "/images/products/product-0378.svg",
         "/images/products/product-0378.svg",
@@ -6675,7 +6675,7 @@
       "description": "Premium White Elegant Earrings wholesale from Yiwu. Fashion Jewelry for retailers, boutiques, and online sellers. Factory direct pricing, low MOQ, reliable quality. Bulk orders welcome.",
       "priceMin": 1.13,
       "priceMax": 1.53,
-      "image": "/images/products/v3_earrings_004_leaf-dangle-earrings.jpg",
+      "image": "/images/products/v2_leaf-dangle-earrings.jpg",
       "images": [
         "/images/products/product-0378.svg",
         "/images/products/product-0378.svg",
@@ -6758,7 +6758,7 @@
       "description": "Premium Red Elegant Bracelet wholesale from Yiwu. Fashion Jewelry for retailers, boutiques, and online sellers. Factory direct pricing, low MOQ, reliable quality. Bulk orders welcome.",
       "priceMin": 1.5,
       "priceMax": 2.03,
-      "image": "/images/products/v3_bracelet_005_cuff-bangle.jpg",
+      "image": "/images/products/v2_cuff-bangle.jpg",
       "images": [
         "/images/products/product-0378.svg",
         "/images/products/product-0378.svg",
@@ -6841,7 +6841,7 @@
       "description": "Premium Pink Elegant Ring Set wholesale from Yiwu. Fashion Jewelry for retailers, boutiques, and online sellers. Factory direct pricing, low MOQ, reliable quality. Bulk orders welcome.",
       "priceMin": 1.88,
       "priceMax": 2.54,
-      "image": "/images/products/v3_ring_006_fidget-ring-spinner.jpg",
+      "image": "/images/products/v2_gold-stackable-ring-set.jpg",
       "images": [
         "/images/products/product-0378.svg",
         "/images/products/product-0378.svg",
@@ -6924,7 +6924,7 @@
       "description": "Premium Blue Elegant Choker wholesale from Yiwu. Fashion Jewelry for retailers, boutiques, and online sellers. Factory direct pricing, low MOQ, reliable quality. Bulk orders welcome.",
       "priceMin": 2.25,
       "priceMax": 3.04,
-      "image": "/images/products/v3_necklace_007_minimalist-choker.jpg",
+      "image": "/images/products/v2_heart-locket-pendant.jpg",
       "images": [
         "/images/products/product-0378.svg",
         "/images/products/product-0378.svg",
@@ -7007,7 +7007,7 @@
       "description": "Premium Green Elegant Pendant wholesale from Yiwu. Fashion Jewelry for retailers, boutiques, and online sellers. Factory direct pricing, low MOQ, reliable quality. Bulk orders welcome.",
       "priceMin": 2.63,
       "priceMax": 3.55,
-      "image": "/images/products/v3_necklace_008_pendant-charm-pack.jpg",
+      "image": "/images/products/v2_heart-locket-pendant.jpg",
       "images": [
         "/images/products/product-0378.svg",
         "/images/products/product-0378.svg",
@@ -7090,7 +7090,7 @@
       "description": "Premium Gold Elegant Necklace Set wholesale from Yiwu. Fashion Jewelry for retailers, boutiques, and online sellers. Factory direct pricing, low MOQ, reliable quality. Bulk orders welcome.",
       "priceMin": 3,
       "priceMax": 4.05,
-      "image": "/images/products/v3_lace_009_coin-pendant-necklace.jpg",
+      "image": "/images/products/v2_layered-gold-necklace.jpg",
       "images": [
         "/images/products/product-0378.svg",
         "/images/products/product-0378.svg",
@@ -7173,7 +7173,7 @@
       "description": "Premium Silver Elegant Earrings wholesale from Yiwu. Fashion Jewelry for retailers, boutiques, and online sellers. Factory direct pricing, low MOQ, reliable quality. Bulk orders welcome.",
       "priceMin": 0.75,
       "priceMax": 1.01,
-      "image": "/images/products/v3_earrings_010_gold-hoop-earrings.jpg",
+      "image": "/images/products/v2_gold-hoop-earrings.jpg",
       "images": [
         "/images/products/product-0378.svg",
         "/images/products/product-0378.svg",
@@ -7256,7 +7256,7 @@
       "description": "Premium Rose Elegant Bracelet wholesale from Yiwu. Fashion Jewelry for retailers, boutiques, and online sellers. Factory direct pricing, low MOQ, reliable quality. Bulk orders welcome.",
       "priceMin": 1.13,
       "priceMax": 1.53,
-      "image": "/images/products/v3_bracelet_011_beaded-stretch-bracelet.jpg",
+      "image": "/images/products/v2_beaded-stretch-bracelet.jpg",
       "images": [
         "/images/products/product-0378.svg",
         "/images/products/product-0378.svg",
@@ -7339,7 +7339,7 @@
       "description": "Premium Beige Elegant Ring Set wholesale from Yiwu. Fashion Jewelry for retailers, boutiques, and online sellers. Factory direct pricing, low MOQ, reliable quality. Bulk orders welcome.",
       "priceMin": 1.5,
       "priceMax": 2.03,
-      "image": "/images/products/v3_ring_012_gold-stackable-ring-set.jpg",
+      "image": "/images/products/v2_leaf-wrap-ring.jpg",
       "images": [
         "/images/products/product-0378.svg",
         "/images/products/product-0378.svg",
@@ -7422,7 +7422,7 @@
       "description": "Premium Brown Elegant Choker wholesale from Yiwu. Fashion Jewelry for retailers, boutiques, and online sellers. Factory direct pricing, low MOQ, reliable quality. Bulk orders welcome.",
       "priceMin": 1.88,
       "priceMax": 2.54,
-      "image": "/images/products/v3_necklace_013_heart-locket-pendant.jpg",
+      "image": "/images/products/v2_coin-pendant-necklace.jpg",
       "images": [
         "/images/products/product-0378.svg",
         "/images/products/product-0378.svg",
@@ -7505,7 +7505,7 @@
       "description": "Premium Purple Elegant Pendant wholesale from Yiwu. Fashion Jewelry for retailers, boutiques, and online sellers. Factory direct pricing, low MOQ, reliable quality. Bulk orders welcome.",
       "priceMin": 2.25,
       "priceMax": 3.04,
-      "image": "/images/products/v3_necklace_014_crystal-pendant-chain.jpg",
+      "image": "/images/products/v2_pendant-charm-pack.jpg",
       "images": [
         "/images/products/product-0378.svg",
         "/images/products/product-0378.svg",
@@ -7588,7 +7588,7 @@
       "description": "Premium Black Charming Necklace Set wholesale from Yiwu. Fashion Jewelry for retailers, boutiques, and online sellers. Factory direct pricing, low MOQ, reliable quality. Bulk orders welcome.",
       "priceMin": 2.63,
       "priceMax": 3.55,
-      "image": "/images/products/v3_lace_015_sequined-lace-trim.jpg",
+      "image": "/images/products/v2_crystal-pendant-chain.jpg",
       "images": [
         "/images/products/product-0378.svg",
         "/images/products/product-0378.svg",
@@ -7671,7 +7671,7 @@
       "description": "Premium White Charming Earrings wholesale from Yiwu. Fashion Jewelry for retailers, boutiques, and online sellers. Factory direct pricing, low MOQ, reliable quality. Bulk orders welcome.",
       "priceMin": 3,
       "priceMax": 4.05,
-      "image": "/images/products/v3_earrings_016_geometric-drop-earrings.jpg",
+      "image": "/images/products/v2_geometric-drop-earrings.jpg",
       "images": [
         "/images/products/product-0378.svg",
         "/images/products/product-0378.svg",
@@ -7754,7 +7754,7 @@
       "description": "Premium Red Charming Bracelet wholesale from Yiwu. Fashion Jewelry for retailers, boutiques, and online sellers. Factory direct pricing, low MOQ, reliable quality. Bulk orders welcome.",
       "priceMin": 0.75,
       "priceMax": 1.01,
-      "image": "/images/products/v3_bracelet_017_tennis-bracelet.jpg",
+      "image": "/images/products/v2_tennis-bracelet.jpg",
       "images": [
         "/images/products/product-0378.svg",
         "/images/products/product-0378.svg",
@@ -7837,7 +7837,7 @@
       "description": "Premium Pink Charming Ring Set wholesale from Yiwu. Fashion Jewelry for retailers, boutiques, and online sellers. Factory direct pricing, low MOQ, reliable quality. Bulk orders welcome.",
       "priceMin": 1.13,
       "priceMax": 1.53,
-      "image": "/images/products/v3_ring_018_leaf-wrap-ring.jpg",
+      "image": "/images/products/v2_twisted-wire-ring.jpg",
       "images": [
         "/images/products/product-0378.svg",
         "/images/products/product-0378.svg",
@@ -7920,7 +7920,7 @@
       "description": "Premium Blue Charming Choker wholesale from Yiwu. Fashion Jewelry for retailers, boutiques, and online sellers. Factory direct pricing, low MOQ, reliable quality. Bulk orders welcome.",
       "priceMin": 1.5,
       "priceMax": 2.03,
-      "image": "/images/products/v3_necklace_019_vintage-jewelry-set.jpg",
+      "image": "/images/products/v2_birthstone-necklace.jpg",
       "images": [
         "/images/products/product-0378.svg",
         "/images/products/product-0378.svg",
@@ -8003,7 +8003,7 @@
       "description": "Premium Green Charming Pendant wholesale from Yiwu. Fashion Jewelry for retailers, boutiques, and online sellers. Factory direct pricing, low MOQ, reliable quality. Bulk orders welcome.",
       "priceMin": 1.88,
       "priceMax": 2.54,
-      "image": "/images/products/v3_necklace_020_bridal-jewelry-set.jpg",
+      "image": "/images/products/v2_crystal-pendant-chain.jpg",
       "images": [
         "/images/products/product-0378.svg",
         "/images/products/product-0378.svg",
@@ -8086,7 +8086,7 @@
       "description": "Premium Gold Charming Necklace Set wholesale from Yiwu. Fashion Jewelry for retailers, boutiques, and online sellers. Factory direct pricing, low MOQ, reliable quality. Bulk orders welcome.",
       "priceMin": 2.25,
       "priceMax": 3.04,
-      "image": "/images/products/v3_lace_021_floral-lace-trim.jpg",
+      "image": "/images/products/v2_pearl-pendant-necklace.jpg",
       "images": [
         "/images/products/product-0378.svg",
         "/images/products/product-0378.svg",
@@ -8169,7 +8169,7 @@
       "description": "Premium Silver Charming Earrings wholesale from Yiwu. Fashion Jewelry for retailers, boutiques, and online sellers. Factory direct pricing, low MOQ, reliable quality. Bulk orders welcome.",
       "priceMin": 2.63,
       "priceMax": 3.55,
-      "image": "/images/products/v3_earrings_022_huggie-hoop-earrings.jpg",
+      "image": "/images/products/v2_huggie-hoop-earrings.jpg",
       "images": [
         "/images/products/product-0378.svg",
         "/images/products/product-0378.svg",
@@ -8252,7 +8252,7 @@
       "description": "Premium Rose Charming Bracelet wholesale from Yiwu. Fashion Jewelry for retailers, boutiques, and online sellers. Factory direct pricing, low MOQ, reliable quality. Bulk orders welcome.",
       "priceMin": 3,
       "priceMax": 4.05,
-      "image": "/images/products/v3_bracelet_023_gold-chain-bracelet.jpg",
+      "image": "/images/products/v2_gold-chain-bracelet.jpg",
       "images": [
         "/images/products/product-0378.svg",
         "/images/products/product-0378.svg",
@@ -8335,7 +8335,7 @@
       "description": "Premium Beige Charming Ring Set wholesale from Yiwu. Fashion Jewelry for retailers, boutiques, and online sellers. Factory direct pricing, low MOQ, reliable quality. Bulk orders welcome.",
       "priceMin": 0.75,
       "priceMax": 1.01,
-      "image": "/images/products/v3_ring_024_twisted-wire-ring.jpg",
+      "image": "/images/products/v2_birthstone-ring.jpg",
       "images": [
         "/images/products/product-0378.svg",
         "/images/products/product-0378.svg",
@@ -8418,7 +8418,7 @@
       "description": "Premium Brown Charming Choker wholesale from Yiwu. Fashion Jewelry for retailers, boutiques, and online sellers. Factory direct pricing, low MOQ, reliable quality. Bulk orders welcome.",
       "priceMin": 1.13,
       "priceMax": 1.53,
-      "image": "/images/products/v3_necklace_025_pearl-jewelry-set.jpg",
+      "image": "/images/products/v2_gold-plated-chain-necklace.jpg",
       "images": [
         "/images/products/product-0378.svg",
         "/images/products/product-0378.svg",
@@ -8501,7 +8501,7 @@
       "description": "Premium Purple Charming Pendant wholesale from Yiwu. Fashion Jewelry for retailers, boutiques, and online sellers. Factory direct pricing, low MOQ, reliable quality. Bulk orders welcome.",
       "priceMin": 1.5,
       "priceMax": 2.03,
-      "image": "/images/products/v3_necklace_026_boho-jewelry-set.jpg",
+      "image": "/images/products/v2_coin-pendant-necklace.jpg",
       "images": [
         "/images/products/product-0378.svg",
         "/images/products/product-0378.svg",
@@ -8584,7 +8584,7 @@
       "description": "Premium Black Classic Necklace Set wholesale from Yiwu. Fashion Jewelry for retailers, boutiques, and online sellers. Factory direct pricing, low MOQ, reliable quality. Bulk orders welcome.",
       "priceMin": 1.88,
       "priceMax": 2.54,
-      "image": "/images/products/v3_lace_027_necklace-earrings-set.jpg",
+      "image": "/images/products/v2_tassel-layered-necklace.jpg",
       "images": [
         "/images/products/product-0378.svg",
         "/images/products/product-0378.svg",
@@ -8667,7 +8667,7 @@
       "description": "Premium White Classic Earrings wholesale from Yiwu. Fashion Jewelry for retailers, boutiques, and online sellers. Factory direct pricing, low MOQ, reliable quality. Bulk orders welcome.",
       "priceMin": 2.25,
       "priceMax": 3.04,
-      "image": "/images/products/v3_earrings_028_tassel-drop-earrings.jpg",
+      "image": "/images/products/v2_tassel-drop-earrings.jpg",
       "images": [
         "/images/products/product-0378.svg",
         "/images/products/product-0378.svg",
@@ -8750,7 +8750,7 @@
       "description": "Premium Red Classic Bracelet wholesale from Yiwu. Fashion Jewelry for retailers, boutiques, and online sellers. Factory direct pricing, low MOQ, reliable quality. Bulk orders welcome.",
       "priceMin": 2.63,
       "priceMax": 3.55,
-      "image": "/images/products/v3_bracelet_029_bangle-stack-set.jpg",
+      "image": "/images/products/v2_bangle-stack-set.jpg",
       "images": [
         "/images/products/product-0378.svg",
         "/images/products/product-0378.svg",
@@ -8833,7 +8833,7 @@
       "description": "Premium Pink Classic Ring Set wholesale from Yiwu. Fashion Jewelry for retailers, boutiques, and online sellers. Factory direct pricing, low MOQ, reliable quality. Bulk orders welcome.",
       "priceMin": 3,
       "priceMax": 4.05,
-      "image": "/images/products/v3_ring_030_birthstone-ring.jpg",
+      "image": "/images/products/v2_gemstone-adjustable-ring.jpg",
       "images": [
         "/images/products/product-0378.svg",
         "/images/products/product-0378.svg",
@@ -8916,7 +8916,7 @@
       "description": "Premium Blue Classic Choker wholesale from Yiwu. Fashion Jewelry for retailers, boutiques, and online sellers. Factory direct pricing, low MOQ, reliable quality. Bulk orders welcome.",
       "priceMin": 0.75,
       "priceMax": 1.01,
-      "image": "/images/products/v3_necklace_031_gold-plated-set.jpg",
+      "image": "/images/products/v2_pendant-charm-pack.jpg",
       "images": [
         "/images/products/product-0378.svg",
         "/images/products/product-0378.svg",
@@ -8999,7 +8999,7 @@
       "description": "Premium Green Classic Pendant wholesale from Yiwu. Fashion Jewelry for retailers, boutiques, and online sellers. Factory direct pricing, low MOQ, reliable quality. Bulk orders welcome.",
       "priceMin": 1.13,
       "priceMax": 1.53,
-      "image": "/images/products/v3_necklace_032_acrylic-rhinestone-mix.jpg",
+      "image": "/images/products/v2_tassel-layered-necklace.jpg",
       "images": [
         "/images/products/product-0378.svg",
         "/images/products/product-0378.svg",
@@ -9082,7 +9082,7 @@
       "description": "Premium Gold Classic Necklace Set wholesale from Yiwu. Fashion Jewelry for retailers, boutiques, and online sellers. Factory direct pricing, low MOQ, reliable quality. Bulk orders welcome.",
       "priceMin": 1.5,
       "priceMax": 2.03,
-      "image": "/images/products/v3_lace_033_tassel-layered-necklace.jpg",
+      "image": "/images/products/v2_vintage-jewelry-set.jpg",
       "images": [
         "/images/products/product-0378.svg",
         "/images/products/product-0378.svg",
@@ -9165,7 +9165,7 @@
       "description": "Premium Silver Classic Earrings wholesale from Yiwu. Fashion Jewelry for retailers, boutiques, and online sellers. Factory direct pricing, low MOQ, reliable quality. Bulk orders welcome.",
       "priceMin": 1.88,
       "priceMax": 2.54,
-      "image": "/images/products/v3_earrings_034_pearl-stud-earrings.jpg",
+      "image": "/images/products/v2_pearl-stud-earrings.jpg",
       "images": [
         "/images/products/product-0378.svg",
         "/images/products/product-0378.svg",
@@ -9248,7 +9248,7 @@
       "description": "Premium Rose Classic Bracelet wholesale from Yiwu. Fashion Jewelry for retailers, boutiques, and online sellers. Factory direct pricing, low MOQ, reliable quality. Bulk orders welcome.",
       "priceMin": 2.25,
       "priceMax": 3.04,
-      "image": "/images/products/v3_bracelet_035_leather-wrap-bracelet.jpg",
+      "image": "/images/products/v2_leather-wrap-bracelet.jpg",
       "images": [
         "/images/products/product-0378.svg",
         "/images/products/product-0378.svg",
@@ -9331,7 +9331,7 @@
       "description": "Premium Beige Classic Ring Set wholesale from Yiwu. Fashion Jewelry for retailers, boutiques, and online sellers. Factory direct pricing, low MOQ, reliable quality. Bulk orders welcome.",
       "priceMin": 2.63,
       "priceMax": 3.55,
-      "image": "/images/products/v3_ring_036_gemstone-adjustable-ring.jpg",
+      "image": "/images/products/v2_fidget-ring-spinner.jpg",
       "images": [
         "/images/products/product-0378.svg",
         "/images/products/product-0378.svg",
@@ -9414,7 +9414,7 @@
       "description": "Premium Brown Classic Choker wholesale from Yiwu. Fashion Jewelry for retailers, boutiques, and online sellers. Factory direct pricing, low MOQ, reliable quality. Bulk orders welcome.",
       "priceMin": 3,
       "priceMax": 4.05,
-      "image": "/images/products/v3_necklace_037_crystal-rhinestone-set.jpg",
+      "image": "/images/products/v2_bridal-jewelry-set.jpg",
       "images": [
         "/images/products/product-0378.svg",
         "/images/products/product-0378.svg",
@@ -9497,7 +9497,7 @@
       "description": "Premium Black Elegant Shoulder Bag wholesale from Yiwu. Bags & Accessories for retailers, boutiques, and online sellers. Factory direct pricing, low MOQ, reliable quality. Bulk orders welcome.",
       "priceMin": 4.25,
       "priceMax": 5.74,
-      "image": "/images/products/v3_bag_038_003.jpg",
+      "image": "/images/products/v2_leather-handbag-gold.jpg",
       "images": [
         "/images/products/product-0378.svg",
         "/images/products/product-0378.svg",
@@ -9580,7 +9580,7 @@
       "description": "Premium White Elegant Crossbody Bag wholesale from Yiwu. Bags & Accessories for retailers, boutiques, and online sellers. Factory direct pricing, low MOQ, reliable quality. Bulk orders welcome.",
       "priceMin": 6.38,
       "priceMax": 8.61,
-      "image": "/images/products/v3_bag_039_013.jpg",
+      "image": "/images/products/v2_beaded-bag-charm.jpg",
       "images": [
         "/images/products/product-0378.svg",
         "/images/products/product-0378.svg",
@@ -9663,7 +9663,7 @@
       "description": "Premium Red Elegant Handbag wholesale from Yiwu. Bags & Accessories for retailers, boutiques, and online sellers. Factory direct pricing, low MOQ, reliable quality. Bulk orders welcome.",
       "priceMin": 8.5,
       "priceMax": 11.48,
-      "image": "/images/products/v3_bag_040_014.jpg",
+      "image": "/images/products/v2_heart-bag-charm.jpg",
       "images": [
         "/images/products/product-0378.svg",
         "/images/products/product-0378.svg",
@@ -9746,7 +9746,7 @@
       "description": "Premium Pink Elegant Tote Bag wholesale from Yiwu. Bags & Accessories for retailers, boutiques, and online sellers. Factory direct pricing, low MOQ, reliable quality. Bulk orders welcome.",
       "priceMin": 10.63,
       "priceMax": 14.35,
-      "image": "/images/products/v3_brooch_041_bowtie-brooch.jpg",
+      "image": "/images/products/v2_pearl-bag-charm.jpg",
       "images": [
         "/images/products/product-0378.svg",
         "/images/products/product-0378.svg",
@@ -9829,7 +9829,7 @@
       "description": "Premium Blue Elegant Clutch wholesale from Yiwu. Bags & Accessories for retailers, boutiques, and online sellers. Factory direct pricing, low MOQ, reliable quality. Bulk orders welcome.",
       "priceMin": 12.75,
       "priceMax": 17.21,
-      "image": "/images/products/v3_bag_042_110.jpg",
+      "image": "/images/products/v2_star-bag-charm.jpg",
       "images": [
         "/images/products/product-0378.svg",
         "/images/products/product-0378.svg",
@@ -9912,7 +9912,7 @@
       "description": "Premium Green Elegant Wallet wholesale from Yiwu. Bags & Accessories for retailers, boutiques, and online sellers. Factory direct pricing, low MOQ, reliable quality. Bulk orders welcome.",
       "priceMin": 14.88,
       "priceMax": 20.09,
-      "image": "/images/products/v3_wallet_043_002.jpg",
+      "image": "/images/products/v2_tassel-bag-charm.jpg",
       "images": [
         "/images/products/product-0378.svg",
         "/images/products/product-0378.svg",
@@ -9995,7 +9995,7 @@
       "description": "Premium Gold Elegant Shoulder Bag wholesale from Yiwu. Bags & Accessories for retailers, boutiques, and online sellers. Factory direct pricing, low MOQ, reliable quality. Bulk orders welcome.",
       "priceMin": 17,
       "priceMax": 22.95,
-      "image": "/images/products/v3_bag_044_004.jpg",
+      "image": "/images/products/v2_crystal-bag-charm.jpg",
       "images": [
         "/images/products/product-0378.svg",
         "/images/products/product-0378.svg",
@@ -10078,7 +10078,7 @@
       "description": "Premium Silver Elegant Crossbody Bag wholesale from Yiwu. Bags & Accessories for retailers, boutiques, and online sellers. Factory direct pricing, low MOQ, reliable quality. Bulk orders welcome.",
       "priceMin": 4.25,
       "priceMax": 5.74,
-      "image": "/images/products/v3_bag_045_150.jpg",
+      "image": "/images/products/v2_pom-pom-bag-charm.jpg",
       "images": [
         "/images/products/product-0378.svg",
         "/images/products/product-0378.svg",
@@ -10161,7 +10161,7 @@
       "description": "Premium Rose Elegant Handbag wholesale from Yiwu. Bags & Accessories for retailers, boutiques, and online sellers. Factory direct pricing, low MOQ, reliable quality. Bulk orders welcome.",
       "priceMin": 6.38,
       "priceMax": 8.61,
-      "image": "/images/products/v3_bag_046_120.jpg",
+      "image": "/images/products/v2_fluffy-bag-charm.jpg",
       "images": [
         "/images/products/product-0378.svg",
         "/images/products/product-0378.svg",
@@ -10244,7 +10244,7 @@
       "description": "Premium Beige Elegant Tote Bag wholesale from Yiwu. Bags & Accessories for retailers, boutiques, and online sellers. Factory direct pricing, low MOQ, reliable quality. Bulk orders welcome.",
       "priceMin": 8.5,
       "priceMax": 11.48,
-      "image": "/images/products/v3_bag_047_018.jpg",
+      "image": "/images/products/v2_acrylic-keychain.jpg",
       "images": [
         "/images/products/product-0378.svg",
         "/images/products/product-0378.svg",
@@ -10327,7 +10327,7 @@
       "description": "Premium Brown Elegant Clutch wholesale from Yiwu. Bags & Accessories for retailers, boutiques, and online sellers. Factory direct pricing, low MOQ, reliable quality. Bulk orders welcome.",
       "priceMin": 10.63,
       "priceMax": 14.35,
-      "image": "/images/products/v3_bag_048_016.jpg",
+      "image": "/images/products/v2_beaded-keychain.jpg",
       "images": [
         "/images/products/product-0378.svg",
         "/images/products/product-0378.svg",
@@ -10410,7 +10410,7 @@
       "description": "Premium Purple Elegant Wallet wholesale from Yiwu. Bags & Accessories for retailers, boutiques, and online sellers. Factory direct pricing, low MOQ, reliable quality. Bulk orders welcome.",
       "priceMin": 12.75,
       "priceMax": 17.21,
-      "image": "/images/products/v3_wallet_049_007.jpg",
+      "image": "/images/products/v2_leather-keychain.jpg",
       "images": [
         "/images/products/product-0378.svg",
         "/images/products/product-0378.svg",
@@ -10493,7 +10493,7 @@
       "description": "Premium Black Charming Shoulder Bag wholesale from Yiwu. Bags & Accessories for retailers, boutiques, and online sellers. Factory direct pricing, low MOQ, reliable quality. Bulk orders welcome.",
       "priceMin": 14.88,
       "priceMax": 20.09,
-      "image": "/images/products/v3_bag_050_011.jpg",
+      "image": "/images/products/v2_letter-keychain.jpg",
       "images": [
         "/images/products/product-0378.svg",
         "/images/products/product-0378.svg",
@@ -10576,7 +10576,7 @@
       "description": "Premium White Charming Crossbody Bag wholesale from Yiwu. Bags & Accessories for retailers, boutiques, and online sellers. Factory direct pricing, low MOQ, reliable quality. Bulk orders welcome.",
       "priceMin": 17,
       "priceMax": 22.95,
-      "image": "/images/products/v3_bag_051_060.jpg",
+      "image": "/images/products/v2_metal-keychain.jpg",
       "images": [
         "/images/products/product-0378.svg",
         "/images/products/product-0378.svg",
@@ -10659,7 +10659,7 @@
       "description": "Premium Red Charming Handbag wholesale from Yiwu. Bags & Accessories for retailers, boutiques, and online sellers. Factory direct pricing, low MOQ, reliable quality. Bulk orders welcome.",
       "priceMin": 4.25,
       "priceMax": 5.74,
-      "image": "/images/products/v3_bag_052_019.jpg",
+      "image": "/images/products/v2_pom-pom-keychain.jpg",
       "images": [
         "/images/products/product-0378.svg",
         "/images/products/product-0378.svg",
@@ -10742,7 +10742,7 @@
       "description": "Premium Pink Charming Tote Bag wholesale from Yiwu. Bags & Accessories for retailers, boutiques, and online sellers. Factory direct pricing, low MOQ, reliable quality. Bulk orders welcome.",
       "priceMin": 6.38,
       "priceMax": 8.61,
-      "image": "/images/products/v3_brooch_053_vintage-flower-brooch.jpg",
+      "image": "/images/products/v2_tassel-keychain.jpg",
       "images": [
         "/images/products/product-0378.svg",
         "/images/products/product-0378.svg",
@@ -10825,7 +10825,7 @@
       "description": "Premium Blue Charming Clutch wholesale from Yiwu. Bags & Accessories for retailers, boutiques, and online sellers. Factory direct pricing, low MOQ, reliable quality. Bulk orders welcome.",
       "priceMin": 8.5,
       "priceMax": 11.48,
-      "image": "/images/products/v3_bag_054_080.jpg",
+      "image": "/images/products/v2_crystal-keychain.jpg",
       "images": [
         "/images/products/product-0378.svg",
         "/images/products/product-0378.svg",
@@ -10908,7 +10908,7 @@
       "description": "Premium Green Charming Wallet wholesale from Yiwu. Bags & Accessories for retailers, boutiques, and online sellers. Factory direct pricing, low MOQ, reliable quality. Bulk orders welcome.",
       "priceMin": 10.63,
       "priceMax": 14.35,
-      "image": "/images/products/v3_wallet_055_160.jpg",
+      "image": "/images/products/v2_alloy-charm-set.jpg",
       "images": [
         "/images/products/product-0378.svg",
         "/images/products/product-0378.svg",
@@ -10991,7 +10991,7 @@
       "description": "Premium Gold Charming Shoulder Bag wholesale from Yiwu. Bags & Accessories for retailers, boutiques, and online sellers. Factory direct pricing, low MOQ, reliable quality. Bulk orders welcome.",
       "priceMin": 12.75,
       "priceMax": 17.21,
-      "image": "/images/products/v3_bag_056_021.jpg",
+      "image": "/images/products/v2_leather-handbag-gold.jpg",
       "images": [
         "/images/products/product-0378.svg",
         "/images/products/product-0378.svg",
@@ -11074,7 +11074,7 @@
       "description": "Premium Silver Charming Crossbody Bag wholesale from Yiwu. Bags & Accessories for retailers, boutiques, and online sellers. Factory direct pricing, low MOQ, reliable quality. Bulk orders welcome.",
       "priceMin": 14.88,
       "priceMax": 20.09,
-      "image": "/images/products/v3_bag_057_012.jpg",
+      "image": "/images/products/v2_beaded-bag-charm.jpg",
       "images": [
         "/images/products/product-0378.svg",
         "/images/products/product-0378.svg",
@@ -11157,7 +11157,7 @@
       "description": "Premium Rose Charming Handbag wholesale from Yiwu. Bags & Accessories for retailers, boutiques, and online sellers. Factory direct pricing, low MOQ, reliable quality. Bulk orders welcome.",
       "priceMin": 17,
       "priceMax": 22.95,
-      "image": "/images/products/v3_bag_058_070.jpg",
+      "image": "/images/products/v2_heart-bag-charm.jpg",
       "images": [
         "/images/products/product-0378.svg",
         "/images/products/product-0378.svg",
@@ -11240,7 +11240,7 @@
       "description": "Premium Beige Charming Tote Bag wholesale from Yiwu. Bags & Accessories for retailers, boutiques, and online sellers. Factory direct pricing, low MOQ, reliable quality. Bulk orders welcome.",
       "priceMin": 4.25,
       "priceMax": 5.74,
-      "image": "/images/products/v3_bag_059_005.jpg",
+      "image": "/images/products/v2_pearl-bag-charm.jpg",
       "images": [
         "/images/products/product-0378.svg",
         "/images/products/product-0378.svg",
@@ -11323,7 +11323,7 @@
       "description": "Premium Brown Charming Clutch wholesale from Yiwu. Bags & Accessories for retailers, boutiques, and online sellers. Factory direct pricing, low MOQ, reliable quality. Bulk orders welcome.",
       "priceMin": 6.38,
       "priceMax": 8.61,
-      "image": "/images/products/v3_bag_060_180.jpg",
+      "image": "/images/products/v2_star-bag-charm.jpg",
       "images": [
         "/images/products/product-0378.svg",
         "/images/products/product-0378.svg",
@@ -11406,7 +11406,7 @@
       "description": "Premium Purple Charming Wallet wholesale from Yiwu. Bags & Accessories for retailers, boutiques, and online sellers. Factory direct pricing, low MOQ, reliable quality. Bulk orders welcome.",
       "priceMin": 8.5,
       "priceMax": 11.48,
-      "image": "/images/products/v3_wallet_061_022.jpg",
+      "image": "/images/products/v2_tassel-bag-charm.jpg",
       "images": [
         "/images/products/product-0378.svg",
         "/images/products/product-0378.svg",
@@ -11489,7 +11489,7 @@
       "description": "Premium Black Classic Shoulder Bag wholesale from Yiwu. Bags & Accessories for retailers, boutiques, and online sellers. Factory direct pricing, low MOQ, reliable quality. Bulk orders welcome.",
       "priceMin": 10.63,
       "priceMax": 14.35,
-      "image": "/images/products/v3_bag_062_017.jpg",
+      "image": "/images/products/v2_crystal-bag-charm.jpg",
       "images": [
         "/images/products/product-0378.svg",
         "/images/products/product-0378.svg",
@@ -11572,7 +11572,7 @@
       "description": "Premium White Classic Crossbody Bag wholesale from Yiwu. Bags & Accessories for retailers, boutiques, and online sellers. Factory direct pricing, low MOQ, reliable quality. Bulk orders welcome.",
       "priceMin": 12.75,
       "priceMax": 17.21,
-      "image": "/images/products/v3_bag_063_100.jpg",
+      "image": "/images/products/v2_pom-pom-bag-charm.jpg",
       "images": [
         "/images/products/product-0378.svg",
         "/images/products/product-0378.svg",
@@ -11655,7 +11655,7 @@
       "description": "Premium Red Classic Handbag wholesale from Yiwu. Bags & Accessories for retailers, boutiques, and online sellers. Factory direct pricing, low MOQ, reliable quality. Bulk orders welcome.",
       "priceMin": 14.88,
       "priceMax": 20.09,
-      "image": "/images/products/v3_bag_064_040.jpg",
+      "image": "/images/products/v2_fluffy-bag-charm.jpg",
       "images": [
         "/images/products/product-0378.svg",
         "/images/products/product-0378.svg",
@@ -11738,7 +11738,7 @@
       "description": "Premium Pink Classic Tote Bag wholesale from Yiwu. Bags & Accessories for retailers, boutiques, and online sellers. Factory direct pricing, low MOQ, reliable quality. Bulk orders welcome.",
       "priceMin": 17,
       "priceMax": 22.95,
-      "image": "/images/products/v3_brooch_065_retro-cameo-pin.jpg",
+      "image": "/images/products/v2_acrylic-keychain.jpg",
       "images": [
         "/images/products/product-0378.svg",
         "/images/products/product-0378.svg",
@@ -11821,7 +11821,7 @@
       "description": "Premium Blue Classic Clutch wholesale from Yiwu. Bags & Accessories for retailers, boutiques, and online sellers. Factory direct pricing, low MOQ, reliable quality. Bulk orders welcome.",
       "priceMin": 4.25,
       "priceMax": 5.74,
-      "image": "/images/products/v3_bag_066_190.jpg",
+      "image": "/images/products/v2_beaded-keychain.jpg",
       "images": [
         "/images/products/product-0378.svg",
         "/images/products/product-0378.svg",
@@ -11904,7 +11904,7 @@
       "description": "Premium Green Classic Wallet wholesale from Yiwu. Bags & Accessories for retailers, boutiques, and online sellers. Factory direct pricing, low MOQ, reliable quality. Bulk orders welcome.",
       "priceMin": 6.38,
       "priceMax": 8.61,
-      "image": "/images/products/v3_wallet_067_015.jpg",
+      "image": "/images/products/v2_leather-keychain.jpg",
       "images": [
         "/images/products/product-0378.svg",
         "/images/products/product-0378.svg",
@@ -11987,7 +11987,7 @@
       "description": "Premium Gold Classic Shoulder Bag wholesale from Yiwu. Bags & Accessories for retailers, boutiques, and online sellers. Factory direct pricing, low MOQ, reliable quality. Bulk orders welcome.",
       "priceMin": 8.5,
       "priceMax": 11.48,
-      "image": "/images/products/v3_bag_068_050.jpg",
+      "image": "/images/products/v2_letter-keychain.jpg",
       "images": [
         "/images/products/product-0378.svg",
         "/images/products/product-0378.svg",
@@ -12070,7 +12070,7 @@
       "description": "Premium Silver Classic Crossbody Bag wholesale from Yiwu. Bags & Accessories for retailers, boutiques, and online sellers. Factory direct pricing, low MOQ, reliable quality. Bulk orders welcome.",
       "priceMin": 10.63,
       "priceMax": 14.35,
-      "image": "/images/products/v3_bag_069_008.jpg",
+      "image": "/images/products/v2_metal-keychain.jpg",
       "images": [
         "/images/products/product-0378.svg",
         "/images/products/product-0378.svg",
@@ -12153,7 +12153,7 @@
       "description": "Premium Rose Classic Handbag wholesale from Yiwu. Bags & Accessories for retailers, boutiques, and online sellers. Factory direct pricing, low MOQ, reliable quality. Bulk orders welcome.",
       "priceMin": 12.75,
       "priceMax": 17.21,
-      "image": "/images/products/v3_bag_070_009.jpg",
+      "image": "/images/products/v2_pom-pom-keychain.jpg",
       "images": [
         "/images/products/product-0378.svg",
         "/images/products/product-0378.svg",
@@ -12236,7 +12236,7 @@
       "description": "Premium Beige Classic Tote Bag wholesale from Yiwu. Bags & Accessories for retailers, boutiques, and online sellers. Factory direct pricing, low MOQ, reliable quality. Bulk orders welcome.",
       "priceMin": 14.88,
       "priceMax": 20.09,
-      "image": "/images/products/v3_bag_071_010.jpg",
+      "image": "/images/products/v2_tassel-keychain.jpg",
       "images": [
         "/images/products/product-0378.svg",
         "/images/products/product-0378.svg",
@@ -12319,7 +12319,7 @@
       "description": "Premium Brown Classic Clutch wholesale from Yiwu. Bags & Accessories for retailers, boutiques, and online sellers. Factory direct pricing, low MOQ, reliable quality. Bulk orders welcome.",
       "priceMin": 17,
       "priceMax": 22.95,
-      "image": "/images/products/v3_bag_072_001.jpg",
+      "image": "/images/products/v2_crystal-keychain.jpg",
       "images": [
         "/images/products/product-0378.svg",
         "/images/products/product-0378.svg",
@@ -12402,7 +12402,7 @@
       "description": "Premium Black Elegant Hair Clip Set wholesale from Yiwu. Hair Accessories for retailers, boutiques, and online sellers. Factory direct pricing, low MOQ, reliable quality. Bulk orders welcome.",
       "priceMin": 0.4,
       "priceMax": 0.54,
-      "image": "/images/products/v3_hair-clip_073_matte-hair-claw.jpg",
+      "image": "/images/products/v2_matte-hair-claw.jpg",
       "images": [
         "/images/products/product-0378.svg",
         "/images/products/product-0378.svg",
@@ -12484,7 +12484,7 @@
       "description": "Premium White Elegant Hair Bow wholesale from Yiwu. Hair Accessories for retailers, boutiques, and online sellers. Factory direct pricing, low MOQ, reliable quality. Bulk orders welcome.",
       "priceMin": 0.6,
       "priceMax": 0.81,
-      "image": "/images/products/v3_hair-bow_074_tortoise-hair-claw.jpg",
+      "image": "/images/products/v2_silk-hair-tie-set.jpg",
       "images": [
         "/images/products/product-0378.svg",
         "/images/products/product-0378.svg",
@@ -12566,7 +12566,7 @@
       "description": "Premium Red Elegant Headband wholesale from Yiwu. Hair Accessories for retailers, boutiques, and online sellers. Factory direct pricing, low MOQ, reliable quality. Bulk orders welcome.",
       "priceMin": 0.8,
       "priceMax": 1.08,
-      "image": "/images/products/v3_headband_075_pearl-headband.jpg",
+      "image": "/images/products/v2_pearl-headband.jpg",
       "images": [
         "/images/products/product-0378.svg",
         "/images/products/product-0378.svg",
@@ -12648,7 +12648,7 @@
       "description": "Premium Pink Elegant Scrunchie wholesale from Yiwu. Hair Accessories for retailers, boutiques, and online sellers. Factory direct pricing, low MOQ, reliable quality. Bulk orders welcome.",
       "priceMin": 1,
       "priceMax": 1.35,
-      "image": "/images/products/v3_brooch_076_rhinestone-pin-badge.jpg",
+      "image": "/images/products/v2_velvet-scrunchie-pack.jpg",
       "images": [
         "/images/products/product-0378.svg",
         "/images/products/product-0378.svg",
@@ -12730,7 +12730,7 @@
       "description": "Premium Blue Elegant Hair Pin Set wholesale from Yiwu. Hair Accessories for retailers, boutiques, and online sellers. Factory direct pricing, low MOQ, reliable quality. Bulk orders welcome.",
       "priceMin": 1.2,
       "priceMax": 1.62,
-      "image": "/images/products/v3_hair-pin_077_bobby-pin-set.jpg",
+      "image": "/images/products/v2_bobby-pin-set.jpg",
       "images": [
         "/images/products/product-0378.svg",
         "/images/products/product-0378.svg",
@@ -12812,7 +12812,7 @@
       "description": "Premium Green Elegant Hair Comb wholesale from Yiwu. Hair Accessories for retailers, boutiques, and online sellers. Factory direct pricing, low MOQ, reliable quality. Bulk orders welcome.",
       "priceMin": 1.4,
       "priceMax": 1.89,
-      "image": "/images/products/v3_hair-comb_078_crystal-hair-pin.jpg",
+      "image": "/images/products/v2_bobby-pin-set.jpg",
       "images": [
         "/images/products/product-0378.svg",
         "/images/products/product-0378.svg",
@@ -12894,7 +12894,7 @@
       "description": "Premium Gold Elegant Hair Clip Set wholesale from Yiwu. Hair Accessories for retailers, boutiques, and online sellers. Factory direct pricing, low MOQ, reliable quality. Bulk orders welcome.",
       "priceMin": 1.6,
       "priceMax": 2.16,
-      "image": "/images/products/v3_hair-clip_079_pearl-hair-clip.jpg",
+      "image": "/images/products/v2_pearl-hair-clip.jpg",
       "images": [
         "/images/products/product-0378.svg",
         "/images/products/product-0378.svg",
@@ -12976,7 +12976,7 @@
       "description": "Premium Silver Elegant Hair Bow wholesale from Yiwu. Hair Accessories for retailers, boutiques, and online sellers. Factory direct pricing, low MOQ, reliable quality. Bulk orders welcome.",
       "priceMin": 0.4,
       "priceMax": 0.54,
-      "image": "/images/products/v3_hair-bow_080_gold-barrette.jpg",
+      "image": "/images/products/v2_satin-scrunchie-pack.jpg",
       "images": [
         "/images/products/product-0378.svg",
         "/images/products/product-0378.svg",
@@ -13058,7 +13058,7 @@
       "description": "Premium Rose Elegant Headband wholesale from Yiwu. Hair Accessories for retailers, boutiques, and online sellers. Factory direct pricing, low MOQ, reliable quality. Bulk orders welcome.",
       "priceMin": 0.6,
       "priceMax": 0.81,
-      "image": "/images/products/v3_headband_081_padded-headband.jpg",
+      "image": "/images/products/v2_padded-headband.jpg",
       "images": [
         "/images/products/product-0378.svg",
         "/images/products/product-0378.svg",
@@ -13140,7 +13140,7 @@
       "description": "Premium Beige Elegant Scrunchie wholesale from Yiwu. Hair Accessories for retailers, boutiques, and online sellers. Factory direct pricing, low MOQ, reliable quality. Bulk orders welcome.",
       "priceMin": 0.8,
       "priceMax": 1.08,
-      "image": "/images/products/v3_hair-tie_082_velvet-scrunchie-pack.jpg",
+      "image": "/images/products/v2_elastic-hair-tie-pack.jpg",
       "images": [
         "/images/products/product-0378.svg",
         "/images/products/product-0378.svg",
@@ -13222,7 +13222,7 @@
       "description": "Premium Brown Elegant Hair Pin Set wholesale from Yiwu. Hair Accessories for retailers, boutiques, and online sellers. Factory direct pricing, low MOQ, reliable quality. Bulk orders welcome.",
       "priceMin": 1,
       "priceMax": 1.35,
-      "image": "/images/products/v3_hair-pin_083_pearl-hair-pin-pack.jpg",
+      "image": "/images/products/v2_pearl-hair-pin-pack.jpg",
       "images": [
         "/images/products/product-0378.svg",
         "/images/products/product-0378.svg",
@@ -13304,7 +13304,7 @@
       "description": "Premium Purple Elegant Hair Comb wholesale from Yiwu. Hair Accessories for retailers, boutiques, and online sellers. Factory direct pricing, low MOQ, reliable quality. Bulk orders welcome.",
       "priceMin": 1.2,
       "priceMax": 1.62,
-      "image": "/images/products/v3_hair-comb_084_rhinestone-hair-pin.jpg",
+      "image": "/images/products/v2_pearl-hair-pin-pack.jpg",
       "images": [
         "/images/products/product-0378.svg",
         "/images/products/product-0378.svg",
@@ -13386,7 +13386,7 @@
       "description": "Premium Black Charming Hair Clip Set wholesale from Yiwu. Hair Accessories for retailers, boutiques, and online sellers. Factory direct pricing, low MOQ, reliable quality. Bulk orders welcome.",
       "priceMin": 1.4,
       "priceMax": 1.89,
-      "image": "/images/products/v3_hair-clip_085_geometric-hair-claw.jpg",
+      "image": "/images/products/v2_geometric-hair-claw.jpg",
       "images": [
         "/images/products/product-0378.svg",
         "/images/products/product-0378.svg",
@@ -13468,7 +13468,7 @@
       "description": "Premium White Charming Hair Bow wholesale from Yiwu. Hair Accessories for retailers, boutiques, and online sellers. Factory direct pricing, low MOQ, reliable quality. Bulk orders welcome.",
       "priceMin": 1.6,
       "priceMax": 2.16,
-      "image": "/images/products/v3_hair-bow_086_floral-hair-clip.jpg",
+      "image": "/images/products/v2_sequin-scrunchie-set.jpg",
       "images": [
         "/images/products/product-0378.svg",
         "/images/products/product-0378.svg",
@@ -13550,7 +13550,7 @@
       "description": "Premium Red Charming Headband wholesale from Yiwu. Hair Accessories for retailers, boutiques, and online sellers. Factory direct pricing, low MOQ, reliable quality. Bulk orders welcome.",
       "priceMin": 0.4,
       "priceMax": 0.54,
-      "image": "/images/products/v3_headband_087_turban-style-headband.jpg",
+      "image": "/images/products/v2_turban-style-headband.jpg",
       "images": [
         "/images/products/product-0378.svg",
         "/images/products/product-0378.svg",
@@ -13632,7 +13632,7 @@
       "description": "Premium Pink Charming Scrunchie wholesale from Yiwu. Hair Accessories for retailers, boutiques, and online sellers. Factory direct pricing, low MOQ, reliable quality. Bulk orders welcome.",
       "priceMin": 0.6,
       "priceMax": 0.81,
-      "image": "/images/products/v3_brooch_088_crystal-butterfly-brooch.jpg",
+      "image": "/images/products/v2_ribbon-scrunchie.jpg",
       "images": [
         "/images/products/product-0378.svg",
         "/images/products/product-0378.svg",
@@ -13714,7 +13714,7 @@
       "description": "Premium Blue Charming Hair Pin Set wholesale from Yiwu. Hair Accessories for retailers, boutiques, and online sellers. Factory direct pricing, low MOQ, reliable quality. Bulk orders welcome.",
       "priceMin": 0.8,
       "priceMax": 1.08,
-      "image": "/images/products/v3_hair-pin_089_u-shape-hair-pin.jpg",
+      "image": "/images/products/v2_u-shape-hair-pin.jpg",
       "images": [
         "/images/products/product-0378.svg",
         "/images/products/product-0378.svg",
@@ -13796,7 +13796,7 @@
       "description": "Premium Green Charming Hair Comb wholesale from Yiwu. Hair Accessories for retailers, boutiques, and online sellers. Factory direct pricing, low MOQ, reliable quality. Bulk orders welcome.",
       "priceMin": 1,
       "priceMax": 1.35,
-      "image": "/images/products/v3_hair-comb_090_gold-hair-pin-pack.jpg",
+      "image": "/images/products/v2_u-shape-hair-pin.jpg",
       "images": [
         "/images/products/product-0378.svg",
         "/images/products/product-0378.svg",
@@ -13878,7 +13878,7 @@
       "description": "Premium Gold Charming Hair Clip Set wholesale from Yiwu. Hair Accessories for retailers, boutiques, and online sellers. Factory direct pricing, low MOQ, reliable quality. Bulk orders welcome.",
       "priceMin": 1.2,
       "priceMax": 1.62,
-      "image": "/images/products/v3_hair-clip_091_floral-hair-pin.jpg",
+      "image": "/images/products/v2_floral-hair-clip.jpg",
       "images": [
         "/images/products/product-0378.svg",
         "/images/products/product-0378.svg",
@@ -13960,7 +13960,7 @@
       "description": "Premium Silver Charming Hair Bow wholesale from Yiwu. Hair Accessories for retailers, boutiques, and online sellers. Factory direct pricing, low MOQ, reliable quality. Bulk orders welcome.",
       "priceMin": 1.4,
       "priceMax": 1.89,
-      "image": "/images/products/v3_hair-bow_092_silk-hair-tie-set.jpg",
+      "image": "/images/products/v2_chunky-hair-tie-pack.jpg",
       "images": [
         "/images/products/product-0378.svg",
         "/images/products/product-0378.svg",
@@ -14042,7 +14042,7 @@
       "description": "Premium Rose Charming Headband wholesale from Yiwu. Hair Accessories for retailers, boutiques, and online sellers. Factory direct pricing, low MOQ, reliable quality. Bulk orders welcome.",
       "priceMin": 1.6,
       "priceMax": 2.16,
-      "image": "/images/products/v3_headband_093_boho-headband.jpg",
+      "image": "/images/products/v2_boho-headband.jpg",
       "images": [
         "/images/products/product-0378.svg",
         "/images/products/product-0378.svg",
@@ -14124,7 +14124,7 @@
       "description": "Premium Beige Charming Scrunchie wholesale from Yiwu. Hair Accessories for retailers, boutiques, and online sellers. Factory direct pricing, low MOQ, reliable quality. Bulk orders welcome.",
       "priceMin": 0.4,
       "priceMax": 0.54,
-      "image": "/images/products/v3_hair-tie_094_satin-scrunchie-pack.jpg",
+      "image": "/images/products/v2_scrunchie-set-6pc.jpg",
       "images": [
         "/images/products/product-0378.svg",
         "/images/products/product-0378.svg",
@@ -14206,7 +14206,7 @@
       "description": "Premium Brown Charming Hair Pin Set wholesale from Yiwu. Hair Accessories for retailers, boutiques, and online sellers. Factory direct pricing, low MOQ, reliable quality. Bulk orders welcome.",
       "priceMin": 0.6,
       "priceMax": 0.81,
-      "image": "/images/products/v3_hair-pin_095_star-hair-pin-pack.jpg",
+      "image": "/images/products/v2_star-hair-pin-pack.jpg",
       "images": [
         "/images/products/product-0378.svg",
         "/images/products/product-0378.svg",
@@ -14288,7 +14288,7 @@
       "description": "Premium Purple Charming Hair Comb wholesale from Yiwu. Hair Accessories for retailers, boutiques, and online sellers. Factory direct pricing, low MOQ, reliable quality. Bulk orders welcome.",
       "priceMin": 0.8,
       "priceMax": 1.08,
-      "image": "/images/products/v3_hair-comb_096_velvet-headband-set.jpg",
+      "image": "/images/products/v2_star-hair-pin-pack.jpg",
       "images": [
         "/images/products/product-0378.svg",
         "/images/products/product-0378.svg",
@@ -14370,7 +14370,7 @@
       "description": "Premium Black Classic Hair Clip Set wholesale from Yiwu. Hair Accessories for retailers, boutiques, and online sellers. Factory direct pricing, low MOQ, reliable quality. Bulk orders welcome.",
       "priceMin": 1,
       "priceMax": 1.35,
-      "image": "/images/products/v3_hair-clip_097_acrylic-bead-pack.jpg",
+      "image": "/images/products/v2_gold-barrette.jpg",
       "images": [
         "/images/products/product-0378.svg",
         "/images/products/product-0378.svg",
@@ -14452,7 +14452,7 @@
       "description": "Premium White Classic Hair Bow wholesale from Yiwu. Hair Accessories for retailers, boutiques, and online sellers. Factory direct pricing, low MOQ, reliable quality. Bulk orders welcome.",
       "priceMin": 1.2,
       "priceMax": 1.62,
-      "image": "/images/products/v3_hair-bow_098_elastic-hair-tie-pack.jpg",
+      "image": "/images/products/v2_silk-hair-tie-set.jpg",
       "images": [
         "/images/products/product-0378.svg",
         "/images/products/product-0378.svg",
@@ -14534,7 +14534,7 @@
       "description": "Premium Red Classic Headband wholesale from Yiwu. Hair Accessories for retailers, boutiques, and online sellers. Factory direct pricing, low MOQ, reliable quality. Bulk orders welcome.",
       "priceMin": 1.4,
       "priceMax": 1.89,
-      "image": "/images/products/v3_headband_099_wire-headband.jpg",
+      "image": "/images/products/v2_wire-headband.jpg",
       "images": [
         "/images/products/product-0378.svg",
         "/images/products/product-0378.svg",
@@ -14616,7 +14616,7 @@
       "description": "Premium Pink Classic Scrunchie wholesale from Yiwu. Hair Accessories for retailers, boutiques, and online sellers. Factory direct pricing, low MOQ, reliable quality. Bulk orders welcome.",
       "priceMin": 1.6,
       "priceMax": 2.16,
-      "image": "/images/products/v3_brooch_100_statement-brooch.jpg",
+      "image": "/images/products/v2_velvet-scrunchie-pack.jpg",
       "images": [
         "/images/products/product-0378.svg",
         "/images/products/product-0378.svg",
@@ -14698,7 +14698,7 @@
       "description": "Premium Blue Classic Hair Pin Set wholesale from Yiwu. Hair Accessories for retailers, boutiques, and online sellers. Factory direct pricing, low MOQ, reliable quality. Bulk orders welcome.",
       "priceMin": 0.4,
       "priceMax": 0.54,
-      "image": "/images/products/v3_hair-pin_101_floral-headband.jpg",
+      "image": "/images/products/v2_crystal-hair-pin.jpg",
       "images": [
         "/images/products/product-0378.svg",
         "/images/products/product-0378.svg",
@@ -14780,7 +14780,7 @@
       "description": "Premium Green Classic Hair Comb wholesale from Yiwu. Hair Accessories for retailers, boutiques, and online sellers. Factory direct pricing, low MOQ, reliable quality. Bulk orders welcome.",
       "priceMin": 0.6,
       "priceMax": 0.81,
-      "image": "/images/products/v3_hair-comb_102_knotted-headband.jpg",
+      "image": "/images/products/v2_crystal-hair-pin.jpg",
       "images": [
         "/images/products/product-0378.svg",
         "/images/products/product-0378.svg",
@@ -14862,7 +14862,7 @@
       "description": "Premium Black Elegant Button Set wholesale from Yiwu. Garment Accessories for retailers, boutiques, and online sellers. Factory direct pricing, low MOQ, reliable quality. Bulk orders welcome.",
       "priceMin": 0.3,
       "priceMax": 0.41,
-      "image": "/images/products/v3_button_103_shell-button-pack.jpg",
+      "image": "/images/products/v2_shell-button-pack.jpg",
       "images": [
         "/images/products/product-0378.svg",
         "/images/products/product-0378.svg",
@@ -14945,7 +14945,7 @@
       "description": "Premium White Elegant Zipper Pull wholesale from Yiwu. Garment Accessories for retailers, boutiques, and online sellers. Factory direct pricing, low MOQ, reliable quality. Bulk orders welcome.",
       "priceMin": 0.45,
       "priceMax": 0.61,
-      "image": "/images/products/v3_zipper_104_metal-zipper-5.jpg",
+      "image": "/images/products/v2_metal-zipper-5.jpg",
       "images": [
         "/images/products/product-0378.svg",
         "/images/products/product-0378.svg",
@@ -15028,7 +15028,7 @@
       "description": "Premium Red Elegant Iron-On Patch wholesale from Yiwu. Garment Accessories for retailers, boutiques, and online sellers. Factory direct pricing, low MOQ, reliable quality. Bulk orders welcome.",
       "priceMin": 0.6,
       "priceMax": 0.81,
-      "image": "/images/products/v3_patch_105_flag-embroidery-patch.jpg",
+      "image": "/images/products/v2_flag-embroidery-patch.jpg",
       "images": [
         "/images/products/product-0378.svg",
         "/images/products/product-0378.svg",
@@ -15111,7 +15111,7 @@
       "description": "Premium Pink Elegant Lace Trim wholesale from Yiwu. Garment Accessories for retailers, boutiques, and online sellers. Factory direct pricing, low MOQ, reliable quality. Bulk orders welcome.",
       "priceMin": 0.75,
       "priceMax": 1.01,
-      "image": "/images/products/v3_lace_106_venice-lace-trim.jpg",
+      "image": "/images/products/v2_sequined-lace-trim.jpg",
       "images": [
         "/images/products/product-0378.svg",
         "/images/products/product-0378.svg",
@@ -15194,7 +15194,7 @@
       "description": "Premium Blue Elegant Ribbon Bow wholesale from Yiwu. Garment Accessories for retailers, boutiques, and online sellers. Factory direct pricing, low MOQ, reliable quality. Bulk orders welcome.",
       "priceMin": 0.9,
       "priceMax": 1.22,
-      "image": "/images/products/v3_ribbon_107_ribbon-scrunchie.jpg",
+      "image": "/images/products/v2_ribbon-scrunchie.jpg",
       "images": [
         "/images/products/product-0378.svg",
         "/images/products/product-0378.svg",
@@ -15277,7 +15277,7 @@
       "description": "Premium Green Elegant Snap Fastener wholesale from Yiwu. Garment Accessories for retailers, boutiques, and online sellers. Factory direct pricing, low MOQ, reliable quality. Bulk orders welcome.",
       "priceMin": 1.05,
       "priceMax": 1.42,
-      "image": "/images/products/v3_snap_108_metal-buckle-set.jpg",
+      "image": "/images/products/v2_metal-buckle-set.jpg",
       "images": [
         "/images/products/product-0378.svg",
         "/images/products/product-0378.svg",
@@ -15360,7 +15360,7 @@
       "description": "Premium Gold Elegant Button Set wholesale from Yiwu. Garment Accessories for retailers, boutiques, and online sellers. Factory direct pricing, low MOQ, reliable quality. Bulk orders welcome.",
       "priceMin": 1.2,
       "priceMax": 1.62,
-      "image": "/images/products/v3_button_109_coat-button-pack.jpg",
+      "image": "/images/products/v2_coat-button-pack.jpg",
       "images": [
         "/images/products/product-0378.svg",
         "/images/products/product-0378.svg",
@@ -15443,7 +15443,7 @@
       "description": "Premium Silver Elegant Zipper Pull wholesale from Yiwu. Garment Accessories for retailers, boutiques, and online sellers. Factory direct pricing, low MOQ, reliable quality. Bulk orders welcome.",
       "priceMin": 0.3,
       "priceMax": 0.41,
-      "image": "/images/products/v3_zipper_110_plastic-zipper-5.jpg",
+      "image": "/images/products/v2_plastic-zipper-5.jpg",
       "images": [
         "/images/products/product-0378.svg",
         "/images/products/product-0378.svg",
@@ -15526,7 +15526,7 @@
       "description": "Premium Rose Elegant Iron-On Patch wholesale from Yiwu. Garment Accessories for retailers, boutiques, and online sellers. Factory direct pricing, low MOQ, reliable quality. Bulk orders welcome.",
       "priceMin": 0.45,
       "priceMax": 0.61,
-      "image": "/images/products/v3_patch_111_lace-applique-pack.jpg",
+      "image": "/images/products/v2_lace-applique-pack.jpg",
       "images": [
         "/images/products/product-0378.svg",
         "/images/products/product-0378.svg",
@@ -15609,7 +15609,7 @@
       "description": "Premium Beige Elegant Lace Trim wholesale from Yiwu. Garment Accessories for retailers, boutiques, and online sellers. Factory direct pricing, low MOQ, reliable quality. Bulk orders welcome.",
       "priceMin": 0.6,
       "priceMax": 0.81,
-      "image": "/images/products/v3_lace_112_birthstone-necklace.jpg",
+      "image": "/images/products/v2_floral-lace-trim.jpg",
       "images": [
         "/images/products/product-0378.svg",
         "/images/products/product-0378.svg",
@@ -15692,7 +15692,7 @@
       "description": "Premium Brown Elegant Ribbon Bow wholesale from Yiwu. Garment Accessories for retailers, boutiques, and online sellers. Factory direct pricing, low MOQ, reliable quality. Bulk orders welcome.",
       "priceMin": 0.75,
       "priceMax": 1.01,
-      "image": "/images/products/v3_ribbon_113_ribbon-pack-set.jpg",
+      "image": "/images/products/v2_ribbon-pack-set.jpg",
       "images": [
         "/images/products/product-0378.svg",
         "/images/products/product-0378.svg",
@@ -15775,7 +15775,7 @@
       "description": "Premium Purple Elegant Snap Fastener wholesale from Yiwu. Garment Accessories for retailers, boutiques, and online sellers. Factory direct pricing, low MOQ, reliable quality. Bulk orders welcome.",
       "priceMin": 0.9,
       "priceMax": 1.22,
-      "image": "/images/products/v3_snap_114_crystal-buckle.jpg",
+      "image": "/images/products/v2_crystal-buckle.jpg",
       "images": [
         "/images/products/product-0378.svg",
         "/images/products/product-0378.svg",
@@ -15858,7 +15858,7 @@
       "description": "Premium Black Charming Button Set wholesale from Yiwu. Garment Accessories for retailers, boutiques, and online sellers. Factory direct pricing, low MOQ, reliable quality. Bulk orders welcome.",
       "priceMin": 1.05,
       "priceMax": 1.42,
-      "image": "/images/products/v3_button_115_wooden-button-pack.jpg",
+      "image": "/images/products/v2_wooden-button-pack.jpg",
       "images": [
         "/images/products/product-0378.svg",
         "/images/products/product-0378.svg",
@@ -15941,7 +15941,7 @@
       "description": "Premium White Charming Zipper Pull wholesale from Yiwu. Garment Accessories for retailers, boutiques, and online sellers. Factory direct pricing, low MOQ, reliable quality. Bulk orders welcome.",
       "priceMin": 1.2,
       "priceMax": 1.62,
-      "image": "/images/products/v3_zipper_116_decorative-zipper.jpg",
+      "image": "/images/products/v2_decorative-zipper.jpg",
       "images": [
         "/images/products/product-0378.svg",
         "/images/products/product-0378.svg",
@@ -16024,7 +16024,7 @@
       "description": "Premium Red Charming Iron-On Patch wholesale from Yiwu. Garment Accessories for retailers, boutiques, and online sellers. Factory direct pricing, low MOQ, reliable quality. Bulk orders welcome.",
       "priceMin": 0.3,
       "priceMax": 0.41,
-      "image": "/images/products/v3_patch_117_animal-patch-set.jpg",
+      "image": "/images/products/v2_animal-patch-set.jpg",
       "images": [
         "/images/products/product-0378.svg",
         "/images/products/product-0378.svg",
@@ -16107,7 +16107,7 @@
       "description": "Premium Pink Charming Lace Trim wholesale from Yiwu. Garment Accessories for retailers, boutiques, and online sellers. Factory direct pricing, low MOQ, reliable quality. Bulk orders welcome.",
       "priceMin": 0.45,
       "priceMax": 0.61,
-      "image": "/images/products/v3_lace_118_pearl-pendant-necklace.jpg",
+      "image": "/images/products/v2_cotton-lace-trim.jpg",
       "images": [
         "/images/products/product-0378.svg",
         "/images/products/product-0378.svg",
@@ -16190,7 +16190,7 @@
       "description": "Premium Blue Charming Ribbon Bow wholesale from Yiwu. Garment Accessories for retailers, boutiques, and online sellers. Factory direct pricing, low MOQ, reliable quality. Bulk orders welcome.",
       "priceMin": 0.6,
       "priceMax": 0.81,
-      "image": "/images/products/v3_ribbon_119_gold-plated-chain-necklace.jpg",
+      "image": "/images/products/v2_feather-trim-pack.jpg",
       "images": [
         "/images/products/product-0378.svg",
         "/images/products/product-0378.svg",
@@ -16273,7 +16273,7 @@
       "description": "Premium Green Charming Snap Fastener wholesale from Yiwu. Garment Accessories for retailers, boutiques, and online sellers. Factory direct pricing, low MOQ, reliable quality. Bulk orders welcome.",
       "priceMin": 0.75,
       "priceMax": 1.01,
-      "image": "/images/products/v3_snap_120_western-belt-buckle.jpg",
+      "image": "/images/products/v2_western-belt-buckle.jpg",
       "images": [
         "/images/products/product-0378.svg",
         "/images/products/product-0378.svg",
@@ -16356,7 +16356,7 @@
       "description": "Premium Gold Charming Button Set wholesale from Yiwu. Garment Accessories for retailers, boutiques, and online sellers. Factory direct pricing, low MOQ, reliable quality. Bulk orders welcome.",
       "priceMin": 0.9,
       "priceMax": 1.22,
-      "image": "/images/products/v3_button_121_jeans-button-set.jpg",
+      "image": "/images/products/v2_jeans-button-set.jpg",
       "images": [
         "/images/products/product-0378.svg",
         "/images/products/product-0378.svg",
@@ -16439,7 +16439,7 @@
       "description": "Premium Silver Charming Zipper Pull wholesale from Yiwu. Garment Accessories for retailers, boutiques, and online sellers. Factory direct pricing, low MOQ, reliable quality. Bulk orders welcome.",
       "priceMin": 1.05,
       "priceMax": 1.42,
-      "image": "/images/products/v3_zipper_122_long-chain-zipper.jpg",
+      "image": "/images/products/v2_long-chain-zipper.jpg",
       "images": [
         "/images/products/product-0378.svg",
         "/images/products/product-0378.svg",
@@ -16522,7 +16522,7 @@
       "description": "Premium Rose Charming Iron-On Patch wholesale from Yiwu. Garment Accessories for retailers, boutiques, and online sellers. Factory direct pricing, low MOQ, reliable quality. Bulk orders welcome.",
       "priceMin": 1.2,
       "priceMax": 1.62,
-      "image": "/images/products/v3_patch_123_floral-patch.jpg",
+      "image": "/images/products/v2_floral-patch.jpg",
       "images": [
         "/images/products/product-0378.svg",
         "/images/products/product-0378.svg",
@@ -16605,7 +16605,7 @@
       "description": "Premium Beige Charming Lace Trim wholesale from Yiwu. Garment Accessories for retailers, boutiques, and online sellers. Factory direct pricing, low MOQ, reliable quality. Bulk orders welcome.",
       "priceMin": 0.3,
       "priceMax": 0.41,
-      "image": "/images/products/v3_lace_124_stretch-lace-trim.jpg",
+      "image": "/images/products/v2_venice-lace-trim.jpg",
       "images": [
         "/images/products/product-0378.svg",
         "/images/products/product-0378.svg",
@@ -16688,7 +16688,7 @@
       "description": "Premium Brown Charming Ribbon Bow wholesale from Yiwu. Garment Accessories for retailers, boutiques, and online sellers. Factory direct pricing, low MOQ, reliable quality. Bulk orders welcome.",
       "priceMin": 0.45,
       "priceMax": 0.61,
-      "image": "/images/products/v3_ribbon_125_chantilly-lace-trim.jpg",
+      "image": "/images/products/v2_fringe-trim-roll.jpg",
       "images": [
         "/images/products/product-0378.svg",
         "/images/products/product-0378.svg",
@@ -16771,7 +16771,7 @@
       "description": "Premium Purple Charming Snap Fastener wholesale from Yiwu. Garment Accessories for retailers, boutiques, and online sellers. Factory direct pricing, low MOQ, reliable quality. Bulk orders welcome.",
       "priceMin": 0.6,
       "priceMax": 0.81,
-      "image": "/images/products/v3_snap_126_decorative-buckle.jpg",
+      "image": "/images/products/v2_decorative-buckle.jpg",
       "images": [
         "/images/products/product-0378.svg",
         "/images/products/product-0378.svg",
@@ -16854,7 +16854,7 @@
       "description": "Premium Black Classic Button Set wholesale from Yiwu. Garment Accessories for retailers, boutiques, and online sellers. Factory direct pricing, low MOQ, reliable quality. Bulk orders welcome.",
       "priceMin": 0.75,
       "priceMax": 1.01,
-      "image": "/images/products/v3_button_127_plastic-button-set.jpg",
+      "image": "/images/products/v2_plastic-button-set.jpg",
       "images": [
         "/images/products/product-0378.svg",
         "/images/products/product-0378.svg",
@@ -16937,7 +16937,7 @@
       "description": "Premium White Classic Zipper Pull wholesale from Yiwu. Garment Accessories for retailers, boutiques, and online sellers. Factory direct pricing, low MOQ, reliable quality. Bulk orders welcome.",
       "priceMin": 0.9,
       "priceMax": 1.22,
-      "image": "/images/products/v3_zipper_128_two-way-zipper.jpg",
+      "image": "/images/products/v2_two-way-zipper.jpg",
       "images": [
         "/images/products/product-0378.svg",
         "/images/products/product-0378.svg",
@@ -17020,7 +17020,7 @@
       "description": "Premium Red Classic Iron-On Patch wholesale from Yiwu. Garment Accessories for retailers, boutiques, and online sellers. Factory direct pricing, low MOQ, reliable quality. Bulk orders welcome.",
       "priceMin": 1.05,
       "priceMax": 1.42,
-      "image": "/images/products/v3_patch_129_letter-patch.jpg",
+      "image": "/images/products/v2_letter-patch.jpg",
       "images": [
         "/images/products/product-0378.svg",
         "/images/products/product-0378.svg",
@@ -17103,7 +17103,7 @@
       "description": "Premium Pink Classic Lace Trim wholesale from Yiwu. Garment Accessories for retailers, boutiques, and online sellers. Factory direct pricing, low MOQ, reliable quality. Bulk orders welcome.",
       "priceMin": 1.2,
       "priceMax": 1.62,
-      "image": "/images/products/v3_lace_130_cotton-lace-trim.jpg",
+      "image": "/images/products/v2_venice-lace-trim.jpg",
       "images": [
         "/images/products/product-0378.svg",
         "/images/products/product-0378.svg",
@@ -17186,7 +17186,7 @@
       "description": "Premium Blue Classic Ribbon Bow wholesale from Yiwu. Garment Accessories for retailers, boutiques, and online sellers. Factory direct pricing, low MOQ, reliable quality. Bulk orders welcome.",
       "priceMin": 0.3,
       "priceMax": 0.41,
-      "image": "/images/products/v3_ribbon_131_fringe-trim-roll.jpg",
+      "image": "/images/products/v2_ribbon-scrunchie.jpg",
       "images": [
         "/images/products/product-0378.svg",
         "/images/products/product-0378.svg",
@@ -17269,7 +17269,7 @@
       "description": "Premium Green Classic Snap Fastener wholesale from Yiwu. Garment Accessories for retailers, boutiques, and online sellers. Factory direct pricing, low MOQ, reliable quality. Bulk orders welcome.",
       "priceMin": 0.45,
       "priceMax": 0.61,
-      "image": "/images/products/v3_snap_132_rhinestone-buckle.jpg",
+      "image": "/images/products/v2_rhinestone-buckle.jpg",
       "images": [
         "/images/products/product-0378.svg",
         "/images/products/product-0378.svg",
@@ -17352,7 +17352,7 @@
       "description": "Premium Black Elegant Ceramic Vase wholesale from Yiwu. Home Decor & Crafts for retailers, boutiques, and online sellers. Factory direct pricing, low MOQ, reliable quality. Bulk orders welcome.",
       "priceMin": 2.75,
       "priceMax": 3.71,
-      "image": "/images/products/v3_vase_133_glass-sculptural-vase.jpg",
+      "image": "/images/products/v2_glass-sculptural-vase.jpg",
       "images": [
         "/images/products/product-0378.svg",
         "/images/products/product-0378.svg",
@@ -17435,7 +17435,7 @@
       "description": "Premium White Elegant Figurine Set wholesale from Yiwu. Home Decor & Crafts for retailers, boutiques, and online sellers. Factory direct pricing, low MOQ, reliable quality. Bulk orders welcome.",
       "priceMin": 4.13,
       "priceMax": 5.58,
-      "image": "/images/products/v3_figurine_134_polyresin-ornament-gold.jpg",
+      "image": "/images/products/v2_resin-figurine-set.jpg",
       "images": [
         "/images/products/product-0378.svg",
         "/images/products/product-0378.svg",
@@ -17518,7 +17518,7 @@
       "description": "Premium Red Elegant Tea Set wholesale from Yiwu. Home Decor & Crafts for retailers, boutiques, and online sellers. Factory direct pricing, low MOQ, reliable quality. Bulk orders welcome.",
       "priceMin": 5.5,
       "priceMax": 7.43,
-      "image": "/images/products/v3_tea-set_135_ceramic-tea-set.jpg",
+      "image": "/images/products/v2_ceramic-tea-set.jpg",
       "images": [
         "/images/products/product-0378.svg",
         "/images/products/product-0378.svg",
@@ -17601,7 +17601,7 @@
       "description": "Premium Pink Elegant Wall Art wholesale from Yiwu. Home Decor & Crafts for retailers, boutiques, and online sellers. Factory direct pricing, low MOQ, reliable quality. Bulk orders welcome.",
       "priceMin": 6.88,
       "priceMax": 9.29,
-      "image": "/images/products/v3_brooch_136_animal-enamel-pin.jpg",
+      "image": "/images/products/v2_resin-figurine-set.jpg",
       "images": [
         "/images/products/product-0378.svg",
         "/images/products/product-0378.svg",
@@ -17684,7 +17684,7 @@
       "description": "Premium Blue Elegant Table Decor wholesale from Yiwu. Home Decor & Crafts for retailers, boutiques, and online sellers. Factory direct pricing, low MOQ, reliable quality. Bulk orders welcome.",
       "priceMin": 8.25,
       "priceMax": 11.14,
-      "image": "/images/products/v3_table-decor_137_Home_Decor_Crafts(13).jpg",
+      "image": "/images/products/v2_polyresin-ornament-gold.jpg",
       "images": [
         "/images/products/product-0378.svg",
         "/images/products/product-0378.svg",
@@ -17767,7 +17767,7 @@
       "description": "Premium Green Elegant Sculpture wholesale from Yiwu. Home Decor & Crafts for retailers, boutiques, and online sellers. Factory direct pricing, low MOQ, reliable quality. Bulk orders welcome.",
       "priceMin": 9.63,
       "priceMax": 13,
-      "image": "/images/products/v3_sculpture_138_Home_Decor_Crafts(7).jpg",
+      "image": "/images/products/v2_polyresin-ornament-gold.jpg",
       "images": [
         "/images/products/product-0378.svg",
         "/images/products/product-0378.svg",
@@ -17850,7 +17850,7 @@
       "description": "Premium Gold Elegant Ceramic Vase wholesale from Yiwu. Home Decor & Crafts for retailers, boutiques, and online sellers. Factory direct pricing, low MOQ, reliable quality. Bulk orders welcome.",
       "priceMin": 11,
       "priceMax": 14.85,
-      "image": "/images/products/v3_vase_139_ceramic-vase-elegant.jpg",
+      "image": "/images/products/v2_ceramic-vase-elegant.jpg",
       "images": [
         "/images/products/product-0378.svg",
         "/images/products/product-0378.svg",
@@ -17933,7 +17933,7 @@
       "description": "Premium Silver Elegant Figurine Set wholesale from Yiwu. Home Decor & Crafts for retailers, boutiques, and online sellers. Factory direct pricing, low MOQ, reliable quality. Bulk orders welcome.",
       "priceMin": 2.75,
       "priceMax": 3.71,
-      "image": "/images/products/v3_figurine_140_Home_Decor_Crafts(19).jpg",
+      "image": "/images/products/v2_wooden-candle-holder.jpg",
       "images": [
         "/images/products/product-0378.svg",
         "/images/products/product-0378.svg",
@@ -18016,7 +18016,7 @@
       "description": "Premium Rose Elegant Tea Set wholesale from Yiwu. Home Decor & Crafts for retailers, boutiques, and online sellers. Factory direct pricing, low MOQ, reliable quality. Bulk orders welcome.",
       "priceMin": 4.13,
       "priceMax": 5.58,
-      "image": "/images/products/v3_tea-set_141_Home_Decor_Crafts(11).jpg",
+      "image": "/images/products/v2_ceramic-vase-elegant.jpg",
       "images": [
         "/images/products/product-0378.svg",
         "/images/products/product-0378.svg",
@@ -18099,7 +18099,7 @@
       "description": "Premium Beige Elegant Wall Art wholesale from Yiwu. Home Decor & Crafts for retailers, boutiques, and online sellers. Factory direct pricing, low MOQ, reliable quality. Bulk orders welcome.",
       "priceMin": 5.5,
       "priceMax": 7.43,
-      "image": "/images/products/v3_wall-art_142_Home_Decor_Crafts(8).jpg",
+      "image": "/images/products/v2_wooden-candle-holder.jpg",
       "images": [
         "/images/products/product-0378.svg",
         "/images/products/product-0378.svg",
@@ -18182,7 +18182,7 @@
       "description": "Premium Brown Elegant Table Decor wholesale from Yiwu. Home Decor & Crafts for retailers, boutiques, and online sellers. Factory direct pricing, low MOQ, reliable quality. Bulk orders welcome.",
       "priceMin": 6.88,
       "priceMax": 9.29,
-      "image": "/images/products/v3_table-decor_143_Home_Decor_Crafts(22).jpg",
+      "image": "/images/products/v2_glass-sculptural-vase.jpg",
       "images": [
         "/images/products/product-0378.svg",
         "/images/products/product-0378.svg",
@@ -18265,7 +18265,7 @@
       "description": "Premium Purple Elegant Sculpture wholesale from Yiwu. Home Decor & Crafts for retailers, boutiques, and online sellers. Factory direct pricing, low MOQ, reliable quality. Bulk orders welcome.",
       "priceMin": 8.25,
       "priceMax": 11.14,
-      "image": "/images/products/v3_sculpture_144_Home_Decor_Crafts(24).jpg",
+      "image": "/images/products/v2_glass-sculptural-vase.jpg",
       "images": [
         "/images/products/product-0378.svg",
         "/images/products/product-0378.svg",
@@ -18348,7 +18348,7 @@
       "description": "Premium Black Charming Ceramic Vase wholesale from Yiwu. Home Decor & Crafts for retailers, boutiques, and online sellers. Factory direct pricing, low MOQ, reliable quality. Bulk orders welcome.",
       "priceMin": 9.63,
       "priceMax": 13,
-      "image": "/images/products/v3_vase_145_Home_Decor_Crafts(17).jpg",
+      "image": "/images/products/v2_wooden-candle-holder.jpg",
       "images": [
         "/images/products/product-0378.svg",
         "/images/products/product-0378.svg",
@@ -18431,7 +18431,7 @@
       "description": "Premium White Charming Figurine Set wholesale from Yiwu. Home Decor & Crafts for retailers, boutiques, and online sellers. Factory direct pricing, low MOQ, reliable quality. Bulk orders welcome.",
       "priceMin": 11,
       "priceMax": 14.85,
-      "image": "/images/products/v3_figurine_146_Home_Decor_Crafts(10).jpg",
+      "image": "/images/products/v2_ceramic-vase-elegant.jpg",
       "images": [
         "/images/products/product-0378.svg",
         "/images/products/product-0378.svg",
@@ -18514,7 +18514,7 @@
       "description": "Premium Red Charming Tea Set wholesale from Yiwu. Home Decor & Crafts for retailers, boutiques, and online sellers. Factory direct pricing, low MOQ, reliable quality. Bulk orders welcome.",
       "priceMin": 2.75,
       "priceMax": 3.71,
-      "image": "/images/products/v3_tea-set_147_Home_Decor_Crafts(23).jpg",
+      "image": "/images/products/v2_glass-sculptural-vase.jpg",
       "images": [
         "/images/products/product-0378.svg",
         "/images/products/product-0378.svg",
@@ -18597,7 +18597,7 @@
       "description": "Premium Pink Charming Wall Art wholesale from Yiwu. Home Decor & Crafts for retailers, boutiques, and online sellers. Factory direct pricing, low MOQ, reliable quality. Bulk orders welcome.",
       "priceMin": 4.13,
       "priceMax": 5.58,
-      "image": "/images/products/v3_brooch_148_leaf-lapel-pin.jpg",
+      "image": "/images/products/v2_ceramic-vase-elegant.jpg",
       "images": [
         "/images/products/product-0378.svg",
         "/images/products/product-0378.svg",
@@ -18680,7 +18680,7 @@
       "description": "Premium Blue Charming Table Decor wholesale from Yiwu. Home Decor & Crafts for retailers, boutiques, and online sellers. Factory direct pricing, low MOQ, reliable quality. Bulk orders welcome.",
       "priceMin": 5.5,
       "priceMax": 7.43,
-      "image": "/images/products/v3_table-decor_149_Home_Decor_Crafts(4).jpg",
+      "image": "/images/products/v2_crystal-jewelry-set.jpg",
       "images": [
         "/images/products/product-0378.svg",
         "/images/products/product-0378.svg",
@@ -18763,7 +18763,7 @@
       "description": "Premium Green Charming Sculpture wholesale from Yiwu. Home Decor & Crafts for retailers, boutiques, and online sellers. Factory direct pricing, low MOQ, reliable quality. Bulk orders welcome.",
       "priceMin": 6.88,
       "priceMax": 9.29,
-      "image": "/images/products/v3_sculpture_150_Home_Decor_Crafts(3).jpg",
+      "image": "/images/products/v2_resin-figurine-set.jpg",
       "images": [
         "/images/products/product-0378.svg",
         "/images/products/product-0378.svg",
@@ -18846,7 +18846,7 @@
       "description": "Premium Gold Charming Ceramic Vase wholesale from Yiwu. Home Decor & Crafts for retailers, boutiques, and online sellers. Factory direct pricing, low MOQ, reliable quality. Bulk orders welcome.",
       "priceMin": 8.25,
       "priceMax": 11.14,
-      "image": "/images/products/v3_vase_151_Home_Decor_Crafts(12).jpg",
+      "image": "/images/products/v2_polyresin-ornament-gold.jpg",
       "images": [
         "/images/products/product-0378.svg",
         "/images/products/product-0378.svg",
@@ -18929,7 +18929,7 @@
       "description": "Premium Silver Charming Figurine Set wholesale from Yiwu. Home Decor & Crafts for retailers, boutiques, and online sellers. Factory direct pricing, low MOQ, reliable quality. Bulk orders welcome.",
       "priceMin": 9.63,
       "priceMax": 13,
-      "image": "/images/products/v3_figurine_152_Home_Decor_Crafts(5).jpg",
+      "image": "/images/products/v2_polyresin-ornament-gold.jpg",
       "images": [
         "/images/products/product-0378.svg",
         "/images/products/product-0378.svg",
@@ -19012,7 +19012,7 @@
       "description": "Premium Rose Charming Tea Set wholesale from Yiwu. Home Decor & Crafts for retailers, boutiques, and online sellers. Factory direct pricing, low MOQ, reliable quality. Bulk orders welcome.",
       "priceMin": 11,
       "priceMax": 14.85,
-      "image": "/images/products/v3_tea-set_153_Home_Decor_Crafts(15).jpg",
+      "image": "/images/products/v2_ceramic-tea-set.jpg",
       "images": [
         "/images/products/product-0378.svg",
         "/images/products/product-0378.svg",
@@ -19095,7 +19095,7 @@
       "description": "Premium Beige Charming Wall Art wholesale from Yiwu. Home Decor & Crafts for retailers, boutiques, and online sellers. Factory direct pricing, low MOQ, reliable quality. Bulk orders welcome.",
       "priceMin": 2.75,
       "priceMax": 3.71,
-      "image": "/images/products/v3_wall-art_154_Home_Decor_Crafts(1).jpg",
+      "image": "/images/products/v2_crystal-rhinestone-set.jpg",
       "images": [
         "/images/products/product-0378.svg",
         "/images/products/product-0378.svg",
@@ -19178,7 +19178,7 @@
       "description": "Premium Brown Charming Table Decor wholesale from Yiwu. Home Decor & Crafts for retailers, boutiques, and online sellers. Factory direct pricing, low MOQ, reliable quality. Bulk orders welcome.",
       "priceMin": 4.13,
       "priceMax": 5.58,
-      "image": "/images/products/v3_table-decor_155_Home_Decor_Crafts(6).jpg",
+      "image": "/images/products/v2_bridal-jewelry-set.jpg",
       "images": [
         "/images/products/product-0378.svg",
         "/images/products/product-0378.svg",
@@ -19261,7 +19261,7 @@
       "description": "Premium Purple Charming Sculpture wholesale from Yiwu. Home Decor & Crafts for retailers, boutiques, and online sellers. Factory direct pricing, low MOQ, reliable quality. Bulk orders welcome.",
       "priceMin": 5.5,
       "priceMax": 7.43,
-      "image": "/images/products/v3_sculpture_156_Home_Decor_Crafts(18).jpg",
+      "image": "/images/products/v2_wooden-candle-holder.jpg",
       "images": [
         "/images/products/product-0378.svg",
         "/images/products/product-0378.svg",
@@ -19344,7 +19344,7 @@
       "description": "Premium Black Classic Ceramic Vase wholesale from Yiwu. Home Decor & Crafts for retailers, boutiques, and online sellers. Factory direct pricing, low MOQ, reliable quality. Bulk orders welcome.",
       "priceMin": 6.88,
       "priceMax": 9.29,
-      "image": "/images/products/v3_vase_157_Home_Decor_Crafts(9).jpg",
+      "image": "/images/products/v2_resin-figurine-set.jpg",
       "images": [
         "/images/products/product-0378.svg",
         "/images/products/product-0378.svg",
@@ -19427,7 +19427,7 @@
       "description": "Premium White Classic Figurine Set wholesale from Yiwu. Home Decor & Crafts for retailers, boutiques, and online sellers. Factory direct pricing, low MOQ, reliable quality. Bulk orders welcome.",
       "priceMin": 8.25,
       "priceMax": 11.14,
-      "image": "/images/products/v3_figurine_158_Home_Decor_Crafts(14).jpg",
+      "image": "/images/products/v2_glass-sculptural-vase.jpg",
       "images": [
         "/images/products/product-0378.svg",
         "/images/products/product-0378.svg",
@@ -19510,7 +19510,7 @@
       "description": "Premium Red Classic Tea Set wholesale from Yiwu. Home Decor & Crafts for retailers, boutiques, and online sellers. Factory direct pricing, low MOQ, reliable quality. Bulk orders welcome.",
       "priceMin": 9.63,
       "priceMax": 13,
-      "image": "/images/products/v3_tea-set_159_Home_Decor_Crafts(20).jpg",
+      "image": "/images/products/v2_ceramic-vase-elegant.jpg",
       "images": [
         "/images/products/product-0378.svg",
         "/images/products/product-0378.svg",
@@ -19593,7 +19593,7 @@
       "description": "Premium Pink Classic Wall Art wholesale from Yiwu. Home Decor & Crafts for retailers, boutiques, and online sellers. Factory direct pricing, low MOQ, reliable quality. Bulk orders welcome.",
       "priceMin": 11,
       "priceMax": 14.85,
-      "image": "/images/products/v3_brooch_160_minimalist-stud-earrings.jpg",
+      "image": "/images/products/v2_pearl-jewelry-set.jpg",
       "images": [
         "/images/products/product-0378.svg",
         "/images/products/product-0378.svg",
@@ -19676,7 +19676,7 @@
       "description": "Premium Blue Classic Table Decor wholesale from Yiwu. Home Decor & Crafts for retailers, boutiques, and online sellers. Factory direct pricing, low MOQ, reliable quality. Bulk orders welcome.",
       "priceMin": 2.75,
       "priceMax": 3.71,
-      "image": "/images/products/v3_table-decor_161_Home_Decor_Crafts(16).jpg",
+      "image": "/images/products/v2_vintage-jewelry-set.jpg",
       "images": [
         "/images/products/product-0378.svg",
         "/images/products/product-0378.svg",
@@ -19759,7 +19759,7 @@
       "description": "Premium Green Classic Sculpture wholesale from Yiwu. Home Decor & Crafts for retailers, boutiques, and online sellers. Factory direct pricing, low MOQ, reliable quality. Bulk orders welcome.",
       "priceMin": 4.13,
       "priceMax": 5.58,
-      "image": "/images/products/v3_sculpture_162_Home_Decor_Crafts(21).jpg",
+      "image": "/images/products/v2_ceramic-vase-elegant.jpg",
       "images": [
         "/images/products/product-0378.svg",
         "/images/products/product-0378.svg",
@@ -19842,7 +19842,7 @@
       "description": "Premium Gold Classic Ceramic Vase wholesale from Yiwu. Home Decor & Crafts for retailers, boutiques, and online sellers. Factory direct pricing, low MOQ, reliable quality. Bulk orders welcome.",
       "priceMin": 5.5,
       "priceMax": 7.43,
-      "image": "/images/products/v3_vase_163_Home_Decor_Crafts(2).jpg",
+      "image": "/images/products/v2_glass-sculptural-vase.jpg",
       "images": [
         "/images/products/product-0378.svg",
         "/images/products/product-0378.svg",
@@ -19925,7 +19925,7 @@
       "description": "Premium Silver Classic Figurine Set wholesale from Yiwu. Home Decor & Crafts for retailers, boutiques, and online sellers. Factory direct pricing, low MOQ, reliable quality. Bulk orders welcome.",
       "priceMin": 6.88,
       "priceMax": 9.29,
-      "image": "/images/products/v3_figurine_164_wooden-candle-holder.jpg",
+      "image": "/images/products/v2_resin-figurine-set.jpg",
       "images": [
         "/images/products/product-0378.svg",
         "/images/products/product-0378.svg",
@@ -20008,7 +20008,7 @@
       "description": "Premium Rose Classic Tea Set wholesale from Yiwu. Home Decor & Crafts for retailers, boutiques, and online sellers. Factory direct pricing, low MOQ, reliable quality. Bulk orders welcome.",
       "priceMin": 8.25,
       "priceMax": 11.14,
-      "image": "/images/products/v3_tea-set_165_bead-mix-pack.jpg",
+      "image": "/images/products/v2_glass-sculptural-vase.jpg",
       "images": [
         "/images/products/product-0378.svg",
         "/images/products/product-0378.svg",
@@ -20091,7 +20091,7 @@
       "description": "Premium Beige Classic Wall Art wholesale from Yiwu. Home Decor & Crafts for retailers, boutiques, and online sellers. Factory direct pricing, low MOQ, reliable quality. Bulk orders welcome.",
       "priceMin": 9.63,
       "priceMax": 13,
-      "image": "/images/products/v3_wall-art_166_crystal-jewelry-set.jpg",
+      "image": "/images/products/v2_resin-figurine-set.jpg",
       "images": [
         "/images/products/product-0378.svg",
         "/images/products/product-0378.svg",
@@ -20174,7 +20174,7 @@
       "description": "Premium Brown Classic Table Decor wholesale from Yiwu. Home Decor & Crafts for retailers, boutiques, and online sellers. Factory direct pricing, low MOQ, reliable quality. Bulk orders welcome.",
       "priceMin": 11,
       "priceMax": 14.85,
-      "image": "/images/products/v3_table-decor_167_crystal-diamond-pack.jpg",
+      "image": "/images/products/v2_polyresin-ornament-gold.jpg",
       "images": [
         "/images/products/product-0378.svg",
         "/images/products/product-0378.svg",
@@ -20257,7 +20257,7 @@
       "description": "Premium Black Elegant Plush Toy wholesale from Yiwu. Toys & Gift for retailers, boutiques, and online sellers. Factory direct pricing, low MOQ, reliable quality. Bulk orders welcome.",
       "priceMin": 1.75,
       "priceMax": 2.36,
-      "image": "/images/products/v3_plush_168_mochi-squishy-toy.jpg",
+      "image": "/images/products/v2_mochi-squishy-toy.jpg",
       "images": [
         "/images/products/product-0378.svg",
         "/images/products/product-0378.svg",
@@ -20339,7 +20339,7 @@
       "description": "Premium White Elegant Stuffed Animal wholesale from Yiwu. Toys & Gift for retailers, boutiques, and online sellers. Factory direct pricing, low MOQ, reliable quality. Bulk orders welcome.",
       "priceMin": 2.63,
       "priceMax": 3.55,
-      "image": "/images/products/v3_plush_169_kawaii-squishy-toy.jpg",
+      "image": "/images/products/v2_kawaii-squishy-toy.jpg",
       "images": [
         "/images/products/product-0378.svg",
         "/images/products/product-0378.svg",
@@ -20421,7 +20421,7 @@
       "description": "Premium Red Elegant Gift Box Set wholesale from Yiwu. Toys & Gift for retailers, boutiques, and online sellers. Factory direct pricing, low MOQ, reliable quality. Bulk orders welcome.",
       "priceMin": 3.5,
       "priceMax": 4.73,
-      "image": "/images/products/v3_gift-box_170_holiday-gift-box-set.jpg",
+      "image": "/images/products/v2_birthday-gift-bundle.jpg",
       "images": [
         "/images/products/product-0378.svg",
         "/images/products/product-0378.svg",
@@ -20503,7 +20503,7 @@
       "description": "Premium Pink Elegant Educational Toy wholesale from Yiwu. Toys & Gift for retailers, boutiques, and online sellers. Factory direct pricing, low MOQ, reliable quality. Bulk orders welcome.",
       "priceMin": 4.38,
       "priceMax": 5.91,
-      "image": "/images/products/v3_brooch_171_crystal-stud-set.jpg",
+      "image": "/images/products/v2_alphabet-learning-toy.jpg",
       "images": [
         "/images/products/product-0378.svg",
         "/images/products/product-0378.svg",
@@ -20585,7 +20585,7 @@
       "description": "Premium Blue Elegant Board Game wholesale from Yiwu. Toys & Gift for retailers, boutiques, and online sellers. Factory direct pricing, low MOQ, reliable quality. Bulk orders welcome.",
       "priceMin": 5.25,
       "priceMax": 7.09,
-      "image": "/images/products/v3_puzzle_172_pop-it-phone-case.jpg",
+      "image": "/images/products/v2_color-matching-game.jpg",
       "images": [
         "/images/products/product-0378.svg",
         "/images/products/product-0378.svg",
@@ -20667,7 +20667,7 @@
       "description": "Premium Green Elegant Puzzle Set wholesale from Yiwu. Toys & Gift for retailers, boutiques, and online sellers. Factory direct pricing, low MOQ, reliable quality. Bulk orders welcome.",
       "priceMin": 6.13,
       "priceMax": 8.28,
-      "image": "/images/products/v3_puzzle_173_color-matching-game.jpg",
+      "image": "/images/products/v2_pop-it-fidget-square.jpg",
       "images": [
         "/images/products/product-0378.svg",
         "/images/products/product-0378.svg",
@@ -20749,7 +20749,7 @@
       "description": "Premium Gold Elegant Plush Toy wholesale from Yiwu. Toys & Gift for retailers, boutiques, and online sellers. Factory direct pricing, low MOQ, reliable quality. Bulk orders welcome.",
       "priceMin": 7,
       "priceMax": 9.45,
-      "image": "/images/products/v3_plush_174_slow-rise-squishy-dessert.jpg",
+      "image": "/images/products/v2_slow-rise-squishy-dessert.jpg",
       "images": [
         "/images/products/product-0378.svg",
         "/images/products/product-0378.svg",
@@ -20831,7 +20831,7 @@
       "description": "Premium Silver Elegant Stuffed Animal wholesale from Yiwu. Toys & Gift for retailers, boutiques, and online sellers. Factory direct pricing, low MOQ, reliable quality. Bulk orders welcome.",
       "priceMin": 1.75,
       "priceMax": 2.36,
-      "image": "/images/products/v3_plush_175_jumbo-butter-squishy.jpg",
+      "image": "/images/products/v2_jumbo-butter-squishy.jpg",
       "images": [
         "/images/products/product-0378.svg",
         "/images/products/product-0378.svg",
@@ -20913,7 +20913,7 @@
       "description": "Premium Rose Elegant Gift Box Set wholesale from Yiwu. Toys & Gift for retailers, boutiques, and online sellers. Factory direct pricing, low MOQ, reliable quality. Bulk orders welcome.",
       "priceMin": 2.63,
       "priceMax": 3.55,
-      "image": "/images/products/v3_gift-box_176_birthday-gift-bundle.jpg",
+      "image": "/images/products/v2_easter-gift-bundle.jpg",
       "images": [
         "/images/products/product-0378.svg",
         "/images/products/product-0378.svg",
@@ -20995,7 +20995,7 @@
       "description": "Premium Beige Elegant Educational Toy wholesale from Yiwu. Toys & Gift for retailers, boutiques, and online sellers. Factory direct pricing, low MOQ, reliable quality. Bulk orders welcome.",
       "priceMin": 3.5,
       "priceMax": 4.73,
-      "image": "/images/products/v3_educational_177_wooden-building-blocks.jpg",
+      "image": "/images/products/v2_number-counting-sticks.jpg",
       "images": [
         "/images/products/product-0378.svg",
         "/images/products/product-0378.svg",
@@ -21077,7 +21077,7 @@
       "description": "Premium Brown Elegant Board Game wholesale from Yiwu. Toys & Gift for retailers, boutiques, and online sellers. Factory direct pricing, low MOQ, reliable quality. Bulk orders welcome.",
       "priceMin": 4.38,
       "priceMax": 5.91,
-      "image": "/images/products/v3_puzzle_178_pop-it-fidget-square.jpg",
+      "image": "/images/products/v2_rainbow-pop-it.jpg",
       "images": [
         "/images/products/product-0378.svg",
         "/images/products/product-0378.svg",
@@ -21159,7 +21159,7 @@
       "description": "Premium Purple Elegant Puzzle Set wholesale from Yiwu. Toys & Gift for retailers, boutiques, and online sellers. Factory direct pricing, low MOQ, reliable quality. Bulk orders welcome.",
       "priceMin": 5.25,
       "priceMax": 7.09,
-      "image": "/images/products/v3_puzzle_179_rainbow-pop-it.jpg",
+      "image": "/images/products/v2_fidget-spinner-metal.jpg",
       "images": [
         "/images/products/product-0378.svg",
         "/images/products/product-0378.svg",
@@ -21241,7 +21241,7 @@
       "description": "Premium Black Charming Plush Toy wholesale from Yiwu. Toys & Gift for retailers, boutiques, and online sellers. Factory direct pricing, low MOQ, reliable quality. Bulk orders welcome.",
       "priceMin": 6.13,
       "priceMax": 8.28,
-      "image": "/images/products/v3_plush_180_mini-squishy-animal.jpg",
+      "image": "/images/products/v2_mini-squishy-animal.jpg",
       "images": [
         "/images/products/product-0378.svg",
         "/images/products/product-0378.svg",
@@ -21323,7 +21323,7 @@
       "description": "Premium White Charming Stuffed Animal wholesale from Yiwu. Toys & Gift for retailers, boutiques, and online sellers. Factory direct pricing, low MOQ, reliable quality. Bulk orders welcome.",
       "priceMin": 7,
       "priceMax": 9.45,
-      "image": "/images/products/v3_plush_181_scented-squishy-set.jpg",
+      "image": "/images/products/v2_scented-squishy-set.jpg",
       "images": [
         "/images/products/product-0378.svg",
         "/images/products/product-0378.svg",
@@ -21405,7 +21405,7 @@
       "description": "Premium Red Charming Gift Box Set wholesale from Yiwu. Toys & Gift for retailers, boutiques, and online sellers. Factory direct pricing, low MOQ, reliable quality. Bulk orders welcome.",
       "priceMin": 1.75,
       "priceMax": 2.36,
-      "image": "/images/products/v3_gift-box_182_festival-gift-pack.jpg",
+      "image": "/images/products/v2_holiday-gift-box-set.jpg",
       "images": [
         "/images/products/product-0378.svg",
         "/images/products/product-0378.svg",
@@ -21487,7 +21487,7 @@
       "description": "Premium Pink Charming Educational Toy wholesale from Yiwu. Toys & Gift for retailers, boutiques, and online sellers. Factory direct pricing, low MOQ, reliable quality. Bulk orders welcome.",
       "priceMin": 2.63,
       "priceMax": 3.55,
-      "image": "/images/products/v3_brooch_183_chandelier-earrings.jpg",
+      "image": "/images/products/v2_wooden-building-blocks.jpg",
       "images": [
         "/images/products/product-0378.svg",
         "/images/products/product-0378.svg",
@@ -21569,7 +21569,7 @@
       "description": "Premium Blue Charming Board Game wholesale from Yiwu. Toys & Gift for retailers, boutiques, and online sellers. Factory direct pricing, low MOQ, reliable quality. Bulk orders welcome.",
       "priceMin": 3.5,
       "priceMax": 4.73,
-      "image": "/images/products/v3_puzzle_184_fidget-spinner-metal.jpg",
+      "image": "/images/products/v2_fidget-dice-cube.jpg",
       "images": [
         "/images/products/product-0378.svg",
         "/images/products/product-0378.svg",
@@ -21651,7 +21651,7 @@
       "description": "Premium Green Charming Puzzle Set wholesale from Yiwu. Toys & Gift for retailers, boutiques, and online sellers. Factory direct pricing, low MOQ, reliable quality. Bulk orders welcome.",
       "priceMin": 4.38,
       "priceMax": 5.91,
-      "image": "/images/products/v3_puzzle_185_wire-craft-pack.jpg",
+      "image": "/images/products/v2_pop-fidget-ball.jpg",
       "images": [
         "/images/products/product-0378.svg",
         "/images/products/product-0378.svg",
@@ -21733,7 +21733,7 @@
       "description": "Premium Gold Charming Plush Toy wholesale from Yiwu. Toys & Gift for retailers, boutiques, and online sellers. Factory direct pricing, low MOQ, reliable quality. Bulk orders welcome.",
       "priceMin": 5.25,
       "priceMax": 7.09,
-      "image": "/images/products/v3_plush_186_squishy-cloud-pillow.jpg",
+      "image": "/images/products/v2_squishy-cloud-pillow.jpg",
       "images": [
         "/images/products/product-0378.svg",
         "/images/products/product-0378.svg",
@@ -21815,7 +21815,7 @@
       "description": "Premium Silver Charming Stuffed Animal wholesale from Yiwu. Toys & Gift for retailers, boutiques, and online sellers. Factory direct pricing, low MOQ, reliable quality. Bulk orders welcome.",
       "priceMin": 6.13,
       "priceMax": 8.28,
-      "image": "/images/products/v3_plush_187_stress-relief-ball.jpg",
+      "image": "/images/products/v2_stress-relief-ball.jpg",
       "images": [
         "/images/products/product-0378.svg",
         "/images/products/product-0378.svg",
@@ -21897,7 +21897,7 @@
       "description": "Premium Rose Charming Gift Box Set wholesale from Yiwu. Toys & Gift for retailers, boutiques, and online sellers. Factory direct pricing, low MOQ, reliable quality. Bulk orders welcome.",
       "priceMin": 7,
       "priceMax": 9.45,
-      "image": "/images/products/v3_gift-box_188_valentine-gift-set.jpg",
+      "image": "/images/products/v2_festival-gift-pack.jpg",
       "images": [
         "/images/products/product-0378.svg",
         "/images/products/product-0378.svg",
@@ -21979,7 +21979,7 @@
       "description": "Premium Beige Charming Educational Toy wholesale from Yiwu. Toys & Gift for retailers, boutiques, and online sellers. Factory direct pricing, low MOQ, reliable quality. Bulk orders welcome.",
       "priceMin": 1.75,
       "priceMax": 2.36,
-      "image": "/images/products/v3_educational_189_number-counting-sticks.jpg",
+      "image": "/images/products/v2_wooden-abacus-toy.jpg",
       "images": [
         "/images/products/product-0378.svg",
         "/images/products/product-0378.svg",
@@ -22061,7 +22061,7 @@
       "description": "Premium Brown Charming Board Game wholesale from Yiwu. Toys & Gift for retailers, boutiques, and online sellers. Factory direct pricing, low MOQ, reliable quality. Bulk orders welcome.",
       "priceMin": 2.63,
       "priceMax": 3.55,
-      "image": "/images/products/v3_puzzle_190_fidget-dice-cube.jpg",
+      "image": "/images/products/v2_magnetic-fidget-balls.jpg",
       "images": [
         "/images/products/product-0378.svg",
         "/images/products/product-0378.svg",
@@ -22143,7 +22143,7 @@
       "description": "Premium Purple Charming Puzzle Set wholesale from Yiwu. Toys & Gift for retailers, boutiques, and online sellers. Factory direct pricing, low MOQ, reliable quality. Bulk orders welcome.",
       "priceMin": 3.5,
       "priceMax": 4.73,
-      "image": "/images/products/v3_puzzle_191_pop-fidget-ball.jpg",
+      "image": "/images/products/v2_infinity-cube-fidget.jpg",
       "images": [
         "/images/products/product-0378.svg",
         "/images/products/product-0378.svg",
@@ -22225,7 +22225,7 @@
       "description": "Premium Black Classic Plush Toy wholesale from Yiwu. Toys & Gift for retailers, boutiques, and online sellers. Factory direct pricing, low MOQ, reliable quality. Bulk orders welcome.",
       "priceMin": 4.38,
       "priceMax": 5.91,
-      "image": "/images/products/v3_plush_192_Toys_Gift(32).jpg",
+      "image": "/images/products/v2_mochi-squishy-toy.jpg",
       "images": [
         "/images/products/product-0378.svg",
         "/images/products/product-0378.svg",
@@ -22307,7 +22307,7 @@
       "description": "Premium White Classic Stuffed Animal wholesale from Yiwu. Toys & Gift for retailers, boutiques, and online sellers. Factory direct pricing, low MOQ, reliable quality. Bulk orders welcome.",
       "priceMin": 5.25,
       "priceMax": 7.09,
-      "image": "/images/products/v3_plush_193_Toys_Gift(22).jpg",
+      "image": "/images/products/v2_kawaii-squishy-toy.jpg",
       "images": [
         "/images/products/product-0378.svg",
         "/images/products/product-0378.svg",
@@ -22389,7 +22389,7 @@
       "description": "Premium Red Classic Gift Box Set wholesale from Yiwu. Toys & Gift for retailers, boutiques, and online sellers. Factory direct pricing, low MOQ, reliable quality. Bulk orders welcome.",
       "priceMin": 6.13,
       "priceMax": 8.28,
-      "image": "/images/products/v3_gift-box_194_new-year-gift-pack.jpg",
+      "image": "/images/products/v2_valentine-gift-set.jpg",
       "images": [
         "/images/products/product-0378.svg",
         "/images/products/product-0378.svg",
@@ -22471,7 +22471,7 @@
       "description": "Premium Pink Classic Educational Toy wholesale from Yiwu. Toys & Gift for retailers, boutiques, and online sellers. Factory direct pricing, low MOQ, reliable quality. Bulk orders welcome.",
       "priceMin": 7,
       "priceMax": 9.45,
-      "image": "/images/products/v3_brooch_195_gemstone-bead-strand.jpg",
+      "image": "/images/products/v2_montessori-puzzle-set.jpg",
       "images": [
         "/images/products/product-0378.svg",
         "/images/products/product-0378.svg",
@@ -22553,7 +22553,7 @@
       "description": "Premium Blue Classic Board Game wholesale from Yiwu. Toys & Gift for retailers, boutiques, and online sellers. Factory direct pricing, low MOQ, reliable quality. Bulk orders welcome.",
       "priceMin": 1.75,
       "priceMax": 2.36,
-      "image": "/images/products/v3_puzzle_196_magnetic-fidget-balls.jpg",
+      "image": "/images/products/v2_magnetic-tiles-set.jpg",
       "images": [
         "/images/products/product-0378.svg",
         "/images/products/product-0378.svg",
@@ -22635,7 +22635,7 @@
       "description": "Premium Green Classic Puzzle Set wholesale from Yiwu. Toys & Gift for retailers, boutiques, and online sellers. Factory direct pricing, low MOQ, reliable quality. Bulk orders welcome.",
       "priceMin": 2.63,
       "priceMax": 3.55,
-      "image": "/images/products/v3_puzzle_197_infinity-cube-fidget.jpg",
+      "image": "/images/products/v2_pop-it-phone-case.jpg",
       "images": [
         "/images/products/product-0378.svg",
         "/images/products/product-0378.svg",
@@ -22717,7 +22717,7 @@
       "description": "Premium Gold Classic Plush Toy wholesale from Yiwu. Toys & Gift for retailers, boutiques, and online sellers. Factory direct pricing, low MOQ, reliable quality. Bulk orders welcome.",
       "priceMin": 3.5,
       "priceMax": 4.73,
-      "image": "/images/products/v3_plush_198_Toys_Gift(33).jpg",
+      "image": "/images/products/v2_slow-rise-squishy-dessert.jpg",
       "images": [
         "/images/products/product-0378.svg",
         "/images/products/product-0378.svg",
@@ -22799,7 +22799,7 @@
       "description": "Premium Silver Classic Stuffed Animal wholesale from Yiwu. Toys & Gift for retailers, boutiques, and online sellers. Factory direct pricing, low MOQ, reliable quality. Bulk orders welcome.",
       "priceMin": 4.38,
       "priceMax": 5.91,
-      "image": "/images/products/v3_plush_199_Toys_Gift(6).jpg",
+      "image": "/images/products/v2_jumbo-butter-squishy.jpg",
       "images": [
         "/images/products/product-0378.svg",
         "/images/products/product-0378.svg",
@@ -22881,7 +22881,7 @@
       "description": "Premium Rose Classic Gift Box Set wholesale from Yiwu. Toys & Gift for retailers, boutiques, and online sellers. Factory direct pricing, low MOQ, reliable quality. Bulk orders welcome.",
       "priceMin": 5.25,
       "priceMax": 7.09,
-      "image": "/images/products/v3_gift-box_200_thank-you-gift-set.jpg",
+      "image": "/images/products/v2_new-year-gift-pack.jpg",
       "images": [
         "/images/products/product-0378.svg",
         "/images/products/product-0378.svg",
@@ -22963,7 +22963,7 @@
       "description": "Premium Beige Classic Educational Toy wholesale from Yiwu. Toys & Gift for retailers, boutiques, and online sellers. Factory direct pricing, low MOQ, reliable quality. Bulk orders welcome.",
       "priceMin": 6.13,
       "priceMax": 8.28,
-      "image": "/images/products/v3_educational_201_wooden-abacus-toy.jpg",
+      "image": "/images/products/v2_shape-sorter-cube.jpg",
       "images": [
         "/images/products/product-0378.svg",
         "/images/products/product-0378.svg",
@@ -23045,7 +23045,7 @@
       "description": "Premium Brown Classic Board Game wholesale from Yiwu. Toys & Gift for retailers, boutiques, and online sellers. Factory direct pricing, low MOQ, reliable quality. Bulk orders welcome.",
       "priceMin": 7,
       "priceMax": 9.45,
-      "image": "/images/products/v3_puzzle_202_magnetic-tiles-set.jpg",
+      "image": "/images/products/v2_snake-cube-puzzle.jpg",
       "images": [
         "/images/products/product-0378.svg",
         "/images/products/product-0378.svg",
