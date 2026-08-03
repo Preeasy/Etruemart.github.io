@@ -88,19 +88,20 @@ const valueProps = [
   { icon: Star, label: 'Top Rated', desc: '4.8/5 customer rating' },
 ];
 
+const TOP_DEAL_SLUGS = [
+  'white-charming-hair-bow',
+  'black-elegant-shoulder-bag',
+  'gold-square-crystal-cluster-and-mother-of-pearl-drop-earring',
+  'pink-floral-fabric-collage-applique-art',
+  'dark-green-and-gold-multi-tiered-chinese-style-makeup-gift-b',
+  'red-elegant-tea-set',
+  'white-plush-teddy-bear-with-green-ribbon-bow',
+];
+
 const Home = ({ products }: { products: Product[] }) => {
   const [showMobileCats, setShowMobileCats] = useState(false);
-  const topDeals = [...products]
-    .filter((p) => {
-      const price = Number(p.priceMin || 0);
-      return price >= 0.3;
-    })
-    .sort((a, b) => {
-      const aScore = Number(a.priceMin || 999) * (a.moq || 1);
-      const bScore = Number(b.priceMin || 999) * (b.moq || 1);
-      return aScore - bScore;
-    })
-    .slice(0, 6);
+  const slugToProduct = new Map(products.map((p) => [p.slug, p]));
+  const topDeals = TOP_DEAL_SLUGS.map((slug) => slugToProduct.get(slug)).filter(Boolean) as Product[];
 
   return (
     <Layout>
@@ -243,13 +244,13 @@ const Home = ({ products }: { products: Product[] }) => {
                     <div className="flex items-center gap-2">
                       <Flame className="w-4 h-4 text-accent-500" />
                       <h2 className="font-bold text-base text-navy-800 tracking-tight">Top Deals</h2>
-                      <span className="text-[11px] text-ink-400">Best sellers · Lowest prices</span>
+                      <span className="text-[11px] text-ink-400">Featured · Best quality</span>
                     </div>
                     <Link href="/products" className="inline-flex items-center gap-0.5 text-navy-800 hover:text-accent-600 font-semibold text-xs">
                       View All <ChevronRight className="w-3.5 h-3.5" />
                     </Link>
                   </div>
-                  <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-px bg-ink-100">
+                  <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-7 gap-px bg-ink-100">
                     {topDeals.map((p) => (
                       <Link key={p.id} href={`/products/${p.slug || p.id}`} className="group bg-white p-3.5 hover:bg-ink-50 transition-colors">
                         <div className="relative aspect-square bg-white rounded-lg overflow-hidden mb-2.5 border border-ink-100 group-hover:border-navy-900 transition-colors">
