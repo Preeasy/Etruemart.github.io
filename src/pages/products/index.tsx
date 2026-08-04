@@ -18,6 +18,34 @@ import {
 } from 'lucide-react';
 import ProductCard from '@/components/ProductCard';
 import Sidebar from '@/components/Sidebar';
+
+// Default categories - will be updated from API
+const defaultCategoryFilters = [
+  { name: 'Fashion Jewelry', slug: 'fashion-jewelry' },
+  { name: 'Garment Accessories', slug: 'garment-accessories' },
+  { name: 'Hair Accessories', slug: 'hair-accessories' },
+  { name: 'Accessories', slug: 'accessories' },
+  { name: 'Bags', slug: 'bags' },
+  { name: 'Home Decor & Crafts', slug: 'home-decor-crafts' },
+  { name: 'Toys', slug: 'toys' },
+  { name: 'Gift', slug: 'gift' },
+  { name: 'Phone Accessories', slug: 'phone-accessories' },
+  { name: 'Kitchen Supplies', slug: 'kitchen-supplies' },
+  { name: 'Apparel & Shoes', slug: 'apparel-shoes' },
+  { name: 'Electronics', slug: 'electronics' },
+  { name: 'Home & Living', slug: 'home-living' },
+  { name: 'Hardware & Home', slug: 'hardware-home' },
+  { name: 'Stationery & Office', slug: 'stationery-office' },
+  { name: 'Beauty & Personal Care', slug: 'beauty-personal-care' },
+  { name: 'Auto & Tools', slug: 'auto-tools' },
+  { name: 'Sports & Outdoor', slug: 'sports-outdoor' },
+  { name: 'Mother, Baby & Toys', slug: 'mother-baby-toys' },
+  { name: 'Home Appliances', slug: 'home-appliances' },
+  { name: 'Musical Instruments', slug: 'musical-instruments' },
+  { name: 'Pet Supplies', slug: 'pet-supplies' },
+];
+
+type CategoryFilter = { name: string; slug: string };
 import Layout from '@/components/Layout';
 import { SITE_URL, SITE_OG_IMAGE } from '@/lib/site';
 
@@ -40,16 +68,6 @@ interface Product {
   bulletPoints?: string[];
 }
 
-const categoryFilters = [
-  { name: 'Fashion Jewelry', slug: 'fashion-jewelry' },
-  { name: 'Garment Accessories', slug: 'garment-accessories' },
-  { name: 'Accessories', slug: 'accessories' },
-  { name: 'Bags', slug: 'bags' },
-  { name: 'Home Decor & Crafts', slug: 'home-decor-crafts' },
-  { name: 'Toys', slug: 'toys' },
-  { name: 'Gift', slug: 'gift' },
-];
-
 const materialOptions = ['Alloy', 'Stainless Steel', 'Brass', 'Acrylic', 'Crystal', 'Pearl', 'Resin', 'Fabric', 'Rhinestone'];
 const platingOptions = ['Gold Plated', 'Silver Plated', 'Rose Gold Plated', 'Rhodium Plated', 'Gunmetal', 'Antique Bronze'];
 
@@ -60,6 +78,7 @@ const Products = () => {
 
   const [products, setProducts] = useState<Product[]>([]);
   const [totalCount, setTotalCount] = useState<number>(0);
+  const [categoryFilters, setCategoryFilters] = useState<CategoryFilter[]>(defaultCategoryFilters);
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState(
     typeof queryCategory === 'string' ? queryCategory : 'all'
@@ -70,6 +89,18 @@ const Products = () => {
   const [sortBy, setSortBy] = useState('newest');
   const [showSidebar, setShowSidebar] = useState(false);
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
+
+  // Load categories from API
+  useEffect(() => {
+    fetch('/api/categories')
+      .then(r => r.ok ? r.json() : null)
+      .then(data => {
+        if (Array.isArray(data) && data.length > 0) {
+          setCategoryFilters(data.map((c: any) => ({ name: c.name, slug: c.slug })));
+        }
+      })
+      .catch(() => {});
+  }, []);
 
   useEffect(() => {
     fetch('/api/products')

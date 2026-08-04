@@ -49,13 +49,42 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     let imagesFixed = 0;
     let imagesFailed = 0;
     
-    // First, ensure all categories exist
+    // First, ensure all categories exist - build mapping from seed ID -> DB ID
+    // seedIdToDbId maps old seed IDs to new DB IDs
+    const seedIdToDbId = new Map<string, string>();
+    
+    // Sort categories: root first, then children
     const rootCats = seedCategories.filter((c: any) => !c.parentId);
     const childCats = seedCategories.filter((c: any) => c.parentId);
+    const sortedCats = [...rootCats, ...childCats];
     
-    for (const cat of [...rootCats, ...childCats]) {
-      if (!catSlugToId.has(cat.slug)) {
-        const parentId = cat.parentId ? catSlugToId.get(cat.parentId) || null : null;
+    for (const cat of sortedCats) {
+      const seedCatId = String(cat.id);
+      
+      // Check if this category already exists in DB by slug
+      let dbCatId: string | null = null;
+      if (catSlugToId.has(cat.slug)) {
+        dbCatId = catSlugToId.get(cat.slug)!;
+      }
+      
+      if (!dbCatId) {
+        // Need to create this category
+        // Resolve parentId: it might reference a seed ID, need to convert to DB ID
+        let parentId: string | null = null;
+        if (cat.parentId) {
+          const seedParentId = String(cat.parentId);
+          // Check if we've already created the parent
+          if (seedIdToDbId.has(seedParentId)) {
+            parentId = seedIdToDbId.get(seedParentId)!;
+          } else {
+            // Parent might already exist in DB - look it up by slug
+            const parentSeedCat = seedCategories.find((c: any) => c.id === seedParentId);
+            if (parentSeedCat && catSlugToId.has(parentSeedCat.slug)) {
+              parentId = catSlugToId.get(parentSeedCat.slug)!;
+            }
+          }
+        }
+        
         try {
           const created = await prisma.category.create({
             data: {
@@ -65,13 +94,30 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
               parentId,
             },
           });
+          dbCatId = created.id;
           catSlugToId.set(cat.slug, created.id);
           catCreated++;
-        } catch (e) {
-          // Skip if already exists
+          console.log(`[fix-product-data] Created category: ${cat.slug} (id: ${created.id}, parent: ${parentId || 'none'})`);
+        } catch (e: any) {
+          // If slug is unique constraint violation, it already exists
+          const existing = await prisma.category.findFirst({ where: { slug: cat.slug } });
+          if (existing) {
+            dbCatId = existing.id;
+            catSlugToId.set(cat.slug, existing.id);
+          } else {
+            console.error(`[fix-product-data] Error creating category ${cat.slug}:`, e?.message?.substring(0, 100));
+            continue;
+          }
         }
       }
+      
+      // Map seed ID to DB ID
+      if (dbCatId) {
+        seedIdToDbId.set(seedCatId, dbCatId);
+      }
     }
+    
+    console.log(`[fix-product-data] Categories: ${catCreated} created, ${catSlugToId.size} total in DB`);
     
     // Get all products from DB
     const products = await prisma.product.findMany();
@@ -130,15 +176,28 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
           }
         }
         
-        // Fix category mapping
+        // Fix category mapping - use the seedIdToDbId mapping directly
         if (seedProduct && seedProduct.categoryId) {
           const seedCatId = String(seedProduct.categoryId);
-          const seedCatSlug = seedOldIdToSlug.get(seedCatId);
-          if (seedCatSlug && catSlugToId.has(seedCatSlug)) {
-            const correctCatId = catSlugToId.get(seedCatSlug)!;
+          
+          // Method 1: Direct mapping from seed ID to DB ID
+          if (seedIdToDbId.has(seedCatId)) {
+            const correctCatId = seedIdToDbId.get(seedCatId)!;
             if (product.categoryId !== correctCatId) {
               updates.categoryId = correctCatId;
               needsUpdate = true;
+            }
+          }
+          
+          // Method 2: Fallback via slug lookup
+          if (!updates.categoryId) {
+            const seedCatSlug = seedOldIdToSlug.get(seedCatId);
+            if (seedCatSlug && catSlugToId.has(seedCatSlug)) {
+              const correctCatId = catSlugToId.get(seedCatSlug)!;
+              if (product.categoryId !== correctCatId) {
+                updates.categoryId = correctCatId;
+                needsUpdate = true;
+              }
             }
           }
         }

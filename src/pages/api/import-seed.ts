@@ -155,7 +155,22 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
       for (const cat of [...rootCats, ...childCats]) {
         if (!slugToId.has(cat.slug)) {
-          const parentId = cat.parentId ? slugToId.get(cat.parentId) || null : null;
+          // Resolve parentId: parentId in seed data is a seed ID, need to convert to DB ID
+          let parentId: string | null = null;
+          if (cat.parentId) {
+            const seedParentId = String(cat.parentId);
+            // Check if parent was already created (via oldIdToNewId)
+            if (oldIdToNewId.has(seedParentId)) {
+              parentId = oldIdToNewId.get(seedParentId)!;
+            } else {
+              // Try to find parent by slug in existing DB categories
+              const parentSeedCat = categories.find((c: any) => c.id === seedParentId);
+              if (parentSeedCat && slugToId.has(parentSeedCat.slug)) {
+                parentId = slugToId.get(parentSeedCat.slug)!;
+              }
+            }
+          }
+          
           const created = await prisma.category.create({
             data: {
               slug: cat.slug,
