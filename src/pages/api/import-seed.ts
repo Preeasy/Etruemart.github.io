@@ -1,9 +1,7 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import { PrismaClient } from '@prisma/client';
+import { prisma } from '@/lib/prisma';
 import fs from 'fs';
 import path from 'path';
-
-const prisma = new PrismaClient();
 
 function toBool(v: any): boolean {
   if (v === null || v === undefined) return true;
@@ -190,7 +188,5 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   } catch (error) {
     console.error('[import-seed] Error:', error);
     res.status(500).json({ success: false, error: (error as Error).message });
-  } finally {
-    await prisma.$disconnect();
   }
 }
