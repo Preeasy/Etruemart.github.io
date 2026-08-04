@@ -2,76 +2,7 @@ import { NextApiRequest, NextApiResponse } from 'next';
 import { prisma } from '@/lib/prisma';
 import fs from 'fs';
 import path from 'path';
-
-const GITHUB_RAW_BASE = 'https://raw.githubusercontent.com/Preeasy/images/main';
-
-// Known image mappings for YCS products (from GitHub repository)
-const KNOWN_IMAGE_MAPPINGS: Record<string, string> = {
-  // Add specific mappings here if needed
-};
-
-function convertImageUrl(localPath: string, sku?: string): string {
-  if (!localPath || localPath.startsWith('http')) {
-    return localPath || '/images/product-placeholder.svg';
-  }
-  
-  // Extract filename from local path
-  const filename = localPath.split('/').pop() || '';
-  
-  // Remove extension for matching
-  const nameWithoutExt = filename.replace(/\.(jpg|jpeg|png|gif|webp)$/i, '');
-  
-  // If it's an item-list image, convert to GitHub URL directly
-  if (localPath.includes('/images/item-list/')) {
-    // The filename in the path should match the GitHub file
-    return `${GITHUB_RAW_BASE}/Images/${filename}`;
-  }
-  
-  // If it's a products image, try to match by SKU
-  if (localPath.includes('/images/products/')) {
-    // First check if we have a known mapping
-    if (sku && KNOWN_IMAGE_MAPPINGS[sku]) {
-      return KNOWN_IMAGE_MAPPINGS[sku];
-    }
-    
-    // Try to match by SKU (YCS products)
-    if (sku && sku.startsWith('YCS')) {
-      // Try common extensions
-      return `${GITHUB_RAW_BASE}/Images/${sku}.png`;
-    }
-    
-    // For products images, try using the filename directly
-    return `${GITHUB_RAW_BASE}/Images/${filename}`;
-  }
-  
-  // Default conversion
-  const cleanPath = localPath.replace(/^\//, '');
-  return `${GITHUB_RAW_BASE}/${cleanPath}`;
-}
-
-function convertImagesArray(images: any, sku?: string): string {
-  if (!images) return '[]';
-  let arr: string[];
-  if (typeof images === 'string') {
-    try {
-      arr = JSON.parse(images);
-    } catch {
-      arr = [];
-    }
-  } else {
-    arr = images;
-  }
-  if (Array.isArray(arr)) {
-    const converted = arr.map(img => {
-      if (typeof img === 'string' && !img.startsWith('http')) {
-        return convertImageUrl(img, sku);
-      }
-      return img;
-    });
-    return JSON.stringify(converted);
-  }
-  return '[]';
-}
+import { buildGitHubLookup, findGitHubImage } from '@/lib/image-utils';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   const secret = req.query.secret || req.headers['x-secret'];
@@ -80,6 +11,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   }
 
   try {
+    // Build GitHub lookup
+    const lookup = await buildGitHubLookup();
+    
     // Load seed data for reference
     const seedFile = path.join(process.cwd(), 'prisma', 'seed-data.json');
     if (!fs.existsSync(seedFile)) {
@@ -102,13 +36,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       if (c.id) seedOldIdToSlug.set(String(c.id), c.slug);
     });
     
-    const seedSlugToCatId = new Map<string, string>();
-    seedProducts.forEach((p: any) => {
-      if (p.slug && p.categoryId) {
-        seedSlugToCatId.set(p.slug, String(p.categoryId));
-      }
-    });
-    
     // Get existing categories in DB
     const dbCategories = await prisma.category.findMany({ select: { id: true, slug: true } });
     const catSlugToId = new Map<string, string>();
@@ -119,6 +46,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     let updated = 0;
     let errors = 0;
     let catCreated = 0;
+    let imagesFixed = 0;
+    let imagesFailed = 0;
     
     // First, ensure all categories exist
     const rootCats = seedCategories.filter((c: any) => !c.parentId);
@@ -159,10 +88,23 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         // Fix image URL
         const currentImage = product.image;
         if (currentImage && !currentImage.startsWith('http')) {
-          const newImage = convertImageUrl(currentImage, sku);
+          const newImage = findGitHubImage(currentImage, lookup);
           if (newImage !== currentImage) {
             updates.image = newImage;
             needsUpdate = true;
+            if (newImage.includes('raw.githubusercontent.com')) {
+              imagesFixed++;
+            } else {
+              imagesFailed++;
+            }
+          }
+        } else if (currentImage && !currentImage.includes('raw.githubusercontent.com')) {
+          // Image already has some URL but might still be wrong
+          const newImage = findGitHubImage(currentImage, lookup);
+          if (newImage !== currentImage) {
+            updates.image = newImage;
+            needsUpdate = true;
+            imagesFixed++;
           }
         }
         
@@ -177,7 +119,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
           if (Array.isArray(images)) {
             const newImages = images.map(img => {
               if (typeof img === 'string' && !img.startsWith('http')) {
-                return convertImageUrl(img, sku);
+                return findGitHubImage(img, lookup);
               }
               return img;
             });
@@ -216,12 +158,17 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       }
     }
     
-    console.log(`[fix-product-data] Updated ${updated} products, ${errors} errors, ${catCreated} new categories`);
+    console.log(`[fix-product-data] Updated ${updated} products, ${errors} errors`);
+    console.log(`  Images fixed: ${imagesFixed}`);
+    console.log(`  Images failed: ${imagesFailed}`);
+    console.log(`  Categories created: ${catCreated}`);
     
     res.json({
       success: true,
       updated,
       errors,
+      imagesFixed,
+      imagesFailed,
       categoriesCreated: catCreated,
       totalProducts: products.length,
     });

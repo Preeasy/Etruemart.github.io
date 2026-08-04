@@ -2,8 +2,7 @@ import { NextApiRequest, NextApiResponse } from 'next';
 import { prisma } from '@/lib/prisma';
 import fs from 'fs';
 import path from 'path';
-
-const GITHUB_RAW_BASE = 'https://raw.githubusercontent.com/Preeasy/images/main';
+import { buildGitHubLookup, findGitHubImage } from '@/lib/image-utils';
 
 function toBool(v: any): boolean {
   if (v === null || v === undefined) return true;
@@ -29,32 +28,30 @@ function toJsonString(v: any): string | null {
   return JSON.stringify(v);
 }
 
+// Will be set during import
+let _githubLookup: Map<string, string> | null = null;
+
 function convertImageUrl(localPath: string, sku?: string): string {
-  if (!localPath || localPath.startsWith('http')) {
-    return localPath || '/images/product-placeholder.svg';
-  }
-  
-  // Extract filename from local path
-  const filename = localPath.split('/').pop() || '';
-  
-  // If it's an item-list image, convert to GitHub URL directly
-  if (localPath.includes('/images/item-list/')) {
-    return `${GITHUB_RAW_BASE}/Images/${filename}`;
-  }
-  
-  // If it's a products image, try to match by SKU
-  if (localPath.includes('/images/products/')) {
-    // Try to match by SKU (YCS products)
-    if (sku && sku.startsWith('YCS')) {
-      return `${GITHUB_RAW_BASE}/Images/${sku}.png`;
+  if (!_githubLookup) {
+    // Fallback to basic conversion
+    if (!localPath || localPath.startsWith('http')) {
+      return localPath || '/images/product-placeholder.svg';
     }
-    // For products images, try using the filename directly
-    return `${GITHUB_RAW_BASE}/Images/${filename}`;
+    const filename = localPath.split('/').pop() || '';
+    if (localPath.includes('/images/item-list/')) {
+      return `https://raw.githubusercontent.com/Preeasy/images/main/Images/${filename}`;
+    }
+    if (localPath.includes('/images/products/')) {
+      if (sku && sku.startsWith('YCS')) {
+        return `https://raw.githubusercontent.com/Preeasy/images/main/Images/${sku}.png`;
+      }
+      return `https://raw.githubusercontent.com/Preeasy/images/main/Images/${filename}`;
+    }
+    const cleanPath = localPath.replace(/^\//, '');
+    return `https://raw.githubusercontent.com/Preeasy/images/main/${cleanPath}`;
   }
   
-  // Default conversion
-  const cleanPath = localPath.replace(/^\//, '');
-  return `${GITHUB_RAW_BASE}/${cleanPath}`;
+  return findGitHubImage(localPath, _githubLookup);
 }
 
 function convertImagesArray(images: any, sku?: string): string {
@@ -93,6 +90,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   }
 
   try {
+    // Build GitHub lookup for better image matching
+    _githubLookup = await buildGitHubLookup();
+    
     const batch = parseInt((req.query.batch as string) || '0');
     const isFirstBatch = batch === 0;
     
