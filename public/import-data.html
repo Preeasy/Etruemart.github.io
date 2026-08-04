@@ -29,16 +29,16 @@
   
   <div class="card">
     <h2>当前状态</h2>
-    <div id="status" class="status">⏳ 等待部署完成...</div>
+    <div id="status" class="status">⏳ 等待检查...</div>
     <div class="progress"><div id="progressBar" class="progress-bar"></div></div>
-    <div id="progressText">检查Vercel部署状态...</div>
+    <div id="progressText">点击"检查部署状态"开始</div>
   </div>
 
   <div class="card">
     <h2>导入选项</h2>
     <button id="checkDeploy" class="btn" onclick="checkDeployment()">🔍 检查部署状态</button>
-    <button id="importAll" class="btn" onclick="importAll()" disabled>📥 一键导入全部1153个产品</button>
-    <button id="importBatches" class="btn" onclick="importBatches()" disabled>📑 分批导入（12批）</button>
+    <button id="importAll" class="btn" onclick="importAll()">📥 一键导入全部1153个产品</button>
+    <button id="importBatches" class="btn" onclick="importBatches()">📑 分批导入（12批）</button>
   </div>
 
   <div class="card">
@@ -49,7 +49,6 @@
   <script>
     const SECRET = 'Etruemart-2026-Secret-Key';
     const TOTAL_BATCHES = 12;
-    let deploymentReady = false;
 
     function log(msg, type = 'info') {
       const logEl = document.getElementById('log');
@@ -66,41 +65,35 @@
     async function checkDeployment() {
       log('正在检查API可用性...', 'info');
       try {
-        // Try the existing API first
         const res = await fetch('/api/products');
         if (res.ok) {
           const data = await res.json();
           const count = Array.isArray(data) ? data.length : 'unknown';
-          log(`✓ API正常，当前数据库产品数: ${count}`, 'success');
+          log(`✓ 产品API正常，当前数据库产品数: ${count}`, 'success');
           
-          // Check if new import endpoints are available
+          // Check import endpoint with POST
           try {
-            const importRes = await fetch(`/api/import-all?secret=${SECRET}`);
-            if (importRes.status === 405 || importRes.status === 403) {
-              // 403 means secret check works, 405 means old code
-              if (importRes.status === 403) {
-                log('✓ 新导入端点已部署（返回403表示密钥验证正常）', 'success');
-                deploymentReady = true;
-              } else {
-                log('⚠️ 新导入端点尚未部署（返回405），需要等待重新部署', 'error');
-                log('请在Vercel上点击"Redeploy"触发重新部署', 'warning');
-                deploymentReady = false;
-              }
-            } else if (importRes.ok) {
+            const importRes = await fetch(`/api/import-all?secret=${SECRET}`, { method: 'POST' });
+            if (importRes.ok || importRes.status === 400) {
+              // 400 means the endpoint works but needs valid request
               log('✓ 新导入端点已部署', 'success');
-              deploymentReady = true;
+              updateProgress(100, '✓ 准备就绪，可以开始导入');
+              document.getElementById('status').textContent = '✓ 可以导入';
+              document.getElementById('status').className = 'status ready';
+            } else {
+              log('⚠️ 导入端点可能未就绪，但按钮仍可尝试', 'warning');
+              updateProgress(100, '⚠️ 端点可能未就绪');
+              document.getElementById('status').textContent = '⚠️ 可能需要等待';
+              document.getElementById('status').className = 'status warning';
             }
           } catch (e) {
-            log('⚠️ 无法检查新端点状态', 'warning');
+            log('⚠️ 无法检查导入端点，但仍可尝试导入', 'warning');
+            updateProgress(100, '⚠️ 无法检查');
+            document.getElementById('status').textContent = '⚠️ 未知状态';
+            document.getElementById('status').className = 'status warning';
           }
-          
-          updateProgress(100, deploymentReady ? '✓ 准备就绪，可以开始导入' : '⚠️ 需要等待新部署');
-          document.getElementById('status').textContent = deploymentReady ? '✓ 可以导入' : '⚠️ 需要等待部署';
-          document.getElementById('status').className = deploymentReady ? 'status ready' : 'status warning';
-          document.getElementById('importAll').disabled = !deploymentReady;
-          document.getElementById('importBatches').disabled = !deploymentReady;
         } else {
-          log('❌ API请求失败', 'error');
+          log('❌ 产品API请求失败', 'error');
         }
       } catch (e) {
         log('❌ 网络错误: ' + e.message, 'error');
@@ -114,7 +107,7 @@
       updateProgress(10, '正在导入...');
       
       try {
-        const res = await fetch(`/api/import-all?secret=${SECRET}`);
+        const res = await fetch(`/api/import-all?secret=${SECRET}`, { method: 'POST' });
         const data = await res.json();
         
         if (data.success) {
@@ -144,7 +137,7 @@
         updateProgress(Math.round((i / TOTAL_BATCHES) * 100), `正在导入第 ${i + 1} 批...`);
         
         try {
-          const res = await fetch(`/api/import-seed?secret=${SECRET}&batch=${i}`);
+          const res = await fetch(`/api/import-seed?secret=${SECRET}&batch=${i}`, { method: 'POST' });
           const data = await res.json();
           
           if (data.success) {
@@ -159,7 +152,6 @@
           break;
         }
         
-        // Small delay
         await new Promise(r => setTimeout(r, 500));
       }
       
@@ -168,11 +160,6 @@
       document.getElementById('status').textContent = `✓ 导入完成！共 ${totalCreated} 个产品`;
       document.getElementById('status').className = 'status ready';
     }
-
-    // Auto-check on load
-    window.addEventListener('load', () => {
-      setTimeout(checkDeployment, 1000);
-    });
   </script>
 </body>
 </html>
