@@ -1,9 +1,16 @@
-import { NextApiRequest, NextApiResponse } from 'next';
-import { prisma } from '@/lib/prisma';
-import fs from 'fs';
-import path from 'path';
+const fs = require('fs');
+const path = require('path');
 
-function toBool(v: any): boolean {
+// First, set the environment variable so Prisma picks up the right schema
+process.env.DATABASE_URL = process.env.DATABASE_URL || '';
+
+// Use the PostgreSQL schema explicitly
+const { PrismaClient } = require('@prisma/client');
+
+// This script connects directly to Vercel PostgreSQL and imports data
+// Usage: DATABASE_URL="postgresql://..." node scripts/import-to-vercel.cjs
+
+function toBool(v) {
   if (v === null || v === undefined) return true;
   if (typeof v === 'boolean') return v;
   if (typeof v === 'number') return v !== 0;
@@ -11,37 +18,52 @@ function toBool(v: any): boolean {
   return true;
 }
 
-function toFloat(v: any): number | null {
+function toFloat(v) {
   if (v === null || v === undefined || v === '') return null;
   return Number(v);
 }
 
-function toInt(v: any): number | null {
+function toInt(v) {
   if (v === null || v === undefined || v === '') return null;
   return Math.round(Number(v));
 }
 
-function toJsonString(v: any): string | null {
+function toJsonString(v) {
   if (v === null || v === undefined) return null;
   if (typeof v === 'string') return v;
   return JSON.stringify(v);
 }
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-  const secret = req.query.secret || req.headers['x-secret'];
-  if (secret !== process.env.SEED_SECRET) {
-    return res.status(403).json({ error: 'Invalid or missing secret key' });
+async function main() {
+  const dbUrl = process.env.DATABASE_URL;
+  if (!dbUrl) {
+    console.error('Please set DATABASE_URL environment variable');
+    console.error('Example: DATABASE_URL="postgresql://user:pass@host:port/db" node scripts/import-to-vercel.cjs');
+    process.exit(1);
   }
 
-  // Accept both GET and POST for easy browser access
-  if (req.method !== 'GET' && req.method !== 'POST') {
-    return res.status(405).json({ error: 'Method not allowed. Use GET or POST.' });
-  }
+  const prisma = new PrismaClient({
+    datasourceUrl: dbUrl,
+  });
 
+  console.log('Connecting to database...');
+  
   try {
-    console.log('[import-all] Starting full import...');
+    // Test connection
+    await prisma.$connect();
+    console.log('Connected successfully!');
 
-    // 1. Ensure admin account exists
+    // Load seed data
+    const seedPath = path.join(__dirname, '..', 'prisma', 'seed-data.json');
+    if (!fs.existsSync(seedPath)) {
+      console.error('seed-data.json not found');
+      process.exit(1);
+    }
+
+    const seedData = JSON.parse(fs.readFileSync(seedPath, 'utf-8'));
+    console.log(`Loaded: ${seedData.categories.length} categories, ${seedData.products.length} products`);
+
+    // 1. Create admin account
     const adminEmail = 'yeatrusourcing@gmail.com';
     const admin = await prisma.user.upsert({
       where: { email: adminEmail },
@@ -53,30 +75,20 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         role: 'ADMIN',
       },
     });
-    console.log('[import-all] Admin account ensured');
+    console.log('Admin account ensured:', admin.email);
 
-    // 2. Load seed-data.json for categories
-    const fullDataPath = path.join(process.cwd(), 'prisma', 'seed-data.json');
-    if (!fs.existsSync(fullDataPath)) {
-      return res.status(404).json({ error: 'seed-data.json not found' });
-    }
-    const fullData = JSON.parse(fs.readFileSync(fullDataPath, 'utf-8'));
-    const categories = fullData.categories || [];
-
-    // 3. Create categories
-    const slugToId = new Map<string, string>();
-    const oldIdToNewId = new Map<string, string>();
+    // 2. Create categories
+    const categories = seedData.categories || [];
+    const slugToId = new Map();
     
     const existingCats = await prisma.category.findMany({ select: { id: true, slug: true } });
     existingCats.forEach(c => {
-      if (c.slug) {
-        slugToId.set(c.slug, c.id);
-      }
+      if (c.slug) slugToId.set(c.slug, c.id);
     });
 
     let catCreated = 0;
-    const rootCats = categories.filter((c: any) => !c.parentId);
-    const childCats = categories.filter((c: any) => c.parentId);
+    const rootCats = categories.filter(c => !c.parentId);
+    const childCats = categories.filter(c => c.parentId);
 
     for (const cat of [...rootCats, ...childCats]) {
       if (!slugToId.has(cat.slug)) {
@@ -92,43 +104,28 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         slugToId.set(cat.slug, created.id);
         catCreated++;
       }
-      // Build mapping
+    }
+    console.log(`Created ${catCreated} categories`);
+
+    // 3. Map old IDs
+    const oldIdToNewId = new Map();
+    for (const cat of categories) {
       if (slugToId.has(cat.slug)) {
-        oldIdToNewId.set(String(cat.id), slugToId.get(cat.slug)!);
+        oldIdToNewId.set(String(cat.id), slugToId.get(cat.slug));
       }
     }
-    console.log(`[import-all] Created ${catCreated} categories`);
 
-    // 4. Delete ALL existing products (only if force=true)
-    const forceImport = req.query.force === 'true';
-    if (forceImport) {
-      const deleted = await prisma.product.deleteMany({});
-      console.log(`[import-all] Force import: Deleted ${deleted.count} products`);
-    }
+    // 4. Delete ALL existing products
+    const deleted = await prisma.product.deleteMany({});
+    console.log(`Deleted ${deleted.count} existing products`);
 
-    // 5. Import ALL products from full data (skip existing unless force)
-    const products = fullData.products || [];
+    // 5. Import products
+    const products = seedData.products || [];
     let created = 0;
-    let skipped = 0;
     let errors = 0;
-
-    // Get existing product slugs for deduplication
-    const existingSlugs = new Set<string>();
-    if (!forceImport) {
-      const existingProducts = await prisma.product.findMany({ select: { slug: true } });
-      existingProducts.forEach(p => { if (p.slug) existingSlugs.add(p.slug); });
-    }
 
     for (const product of products) {
       try {
-        const productSlug = product.slug || `product-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
-        
-        // Skip if already exists (non-force mode)
-        if (!forceImport && existingSlugs.has(productSlug)) {
-          skipped++;
-          continue;
-        }
-
         const categoryId = product.categoryId 
           ? oldIdToNewId.get(String(product.categoryId)) || null 
           : null;
@@ -136,7 +133,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         const createdProduct = await prisma.product.create({
           data: {
             name: product.name || 'Unnamed Product',
-            slug: productSlug,
+            slug: product.slug || `product-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
             description: product.description || '',
             price: toFloat(product.price) ?? 0,
             priceMax: toFloat(product.priceMax),
@@ -184,32 +181,25 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         });
 
         created++;
-
-        if (created % 200 === 0) {
-          console.log(`[import-all] Progress: ${created}/${products.length}`);
+        if (created % 100 === 0) {
+          console.log(`Progress: ${created}/${products.length}`);
         }
-      } catch (err: any) {
+      } catch (err) {
         errors++;
-        if (errors <= 10) {
-          console.error(`[import-all] Error "${product.name}":`, err.message?.substring(0, 200));
+        if (errors <= 5) {
+          console.error(`Error "${product.name}":`, err.message?.substring(0, 150));
         }
       }
     }
 
     const total = await prisma.product.count();
-    console.log(`[import-all] Complete: ${created} created, ${skipped} skipped, ${errors} errors. Total: ${total}`);
-
-    res.json({ 
-      success: true, 
-      created, 
-      skipped,
-      errors,
-      total: products.length,
-      dbTotal: total,
-      categoriesCreated: catCreated
-    });
+    console.log(`\nDone! Created: ${created}, Errors: ${errors}, Total in DB: ${total}`);
+    
   } catch (error) {
-    console.error('[import-all] Error:', error);
-    res.status(500).json({ success: false, error: (error as Error).message });
+    console.error('Error:', error.message);
+  } finally {
+    await prisma.$disconnect();
   }
 }
+
+main();

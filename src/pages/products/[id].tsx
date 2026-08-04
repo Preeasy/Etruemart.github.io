@@ -38,7 +38,7 @@ import ShippingSelector from '@/components/ShippingSelector';
 import ReviewsSection from '@/components/ReviewsSection';
 import { useCart } from '@/components/CartContext';
 import { SITE_URL, SITE_OG_IMAGE } from '@/lib/site';
-import siteDataJson from '../../../site-data.json';
+import { prisma } from '@/lib/prisma';
 
 interface Product {
   id: number | string;
@@ -785,49 +785,142 @@ export default function ProductDetail({ product: initialProduct, relatedProducts
   );
 }
 
-export async function getStaticPaths() {
-  const products = (siteDataJson as any).products || [];
-  const paths = products
-    .filter((p: any) => p.slug)
-    .map((p: any) => ({ params: { id: String(p.slug) } }));
-  return {
-    paths,
-    fallback: 'blocking',
-  };
-}
-
-export const getStaticProps = async (context: { params: { id: string } }) => {
+export async function getServerSideProps(context: { params: { id: string } }) {
   const { id } = context.params;
-  const products = (siteDataJson as any).products || [];
-  // Try to find by slug first, then by id
-  const product =
-    products.find((p: { slug?: string }) => String(p.slug) === String(id)) ||
-    products.find((p: { id: number | string }) => String(p.id) === String(id));
 
-  if (!product) {
-    // If not found in static data, return placeholder that will be filled by client-side API
-    const placeholderProduct = {
-      id,
-      slug: id,
-      name: 'Loading...',
-      description: '',
-      price: 0,
-      image: '',
-      images: [],
-      moq: 12,
-      category: undefined,
+  try {
+    // Try to find product by slug or id in database
+    const product = await prisma.product.findFirst({
+      where: {
+        OR: [
+          { slug: String(id) },
+          { id: String(id) },
+        ],
+      },
+      include: {
+        category: { select: { id: true, name: true, slug: true } },
+      },
+    });
+
+    if (!product) {
+      return {
+        notFound: true,
+      };
+    }
+
+    // Get related products
+    const relatedProducts = product.categoryId
+      ? await prisma.product.findMany({
+          where: {
+            categoryId: product.categoryId,
+            id: { not: product.id },
+          },
+          take: 8,
+          include: { category: { select: { id: true, name: true, slug: true } } },
+        })
+      : [];
+
+    // Parse images
+    let images: string[] = [];
+    try {
+      const parsedImages = typeof product.images === 'string' 
+        ? JSON.parse(product.images) 
+        : product.images;
+      if (Array.isArray(parsedImages)) {
+        images = parsedImages.filter((img: string) => typeof img === 'string');
+      }
+    } catch {
+      images = [];
+    }
+
+    // Parse keywords
+    let keywords: string[] = [];
+    try {
+      const parsedKeywords = typeof product.keywords === 'string'
+        ? JSON.parse(product.keywords)
+        : product.keywords;
+      if (Array.isArray(parsedKeywords)) {
+        keywords = parsedKeywords.filter((kw: string) => typeof kw === 'string');
+      }
+    } catch {
+      keywords = [];
+    }
+
+    // Parse aplus
+    let aplus = null;
+    if (product.aplus) {
+      try {
+        aplus = typeof product.aplus === 'string'
+          ? JSON.parse(product.aplus)
+          : product.aplus;
+      } catch {
+        aplus = null;
+      }
+    }
+
+    // Extract bullet points from aplus
+    let bulletPoints: string[] = [];
+    if (aplus?.bulletPoints && Array.isArray(aplus.bulletPoints)) {
+      bulletPoints = aplus.bulletPoints;
+    }
+
+    const serializedProduct = {
+      id: product.id,
+      slug: product.slug,
+      name: product.name,
+      description: product.description || '',
+      price: Number(product.price),
+      priceMax: product.priceMax ? Number(product.priceMax) : undefined,
+      originalPrice: product.originalPrice ? Number(product.originalPrice) : undefined,
+      image: product.image || '/images/product-placeholder.svg',
+      images: images.length > 0 ? images : [product.image || '/images/product-placeholder.svg'],
+      category: product.category ? { name: product.category.name, slug: product.category.slug } : undefined,
+      stock: product.stock || 0,
+      rating: Number(product.rating) || 0,
+      reviewCount: product.reviewCount || 0,
+      salesCount: product.salesCount || 0,
+      material: product.material || undefined,
+      plating: product.plating || undefined,
+      process: product.process || undefined,
+      color: product.color || undefined,
+      size: product.size || undefined,
+      packSize: product.packSize || 1,
+      moq: product.moq || 1,
+      sku: product.sku || undefined,
+      origin: product.origin || undefined,
+      supplierCity: product.supplierCity || undefined,
+      keywords,
+      bulletPoints,
+      aplus,
+      stockStatus: product.stockStatus || 'IN_STOCK',
     };
-    const relatedProducts = products.slice(0, 8);
-    return { props: { product: placeholderProduct, relatedProducts } };
+
+    const serializedRelated = relatedProducts.map((rp: any) => ({
+      id: rp.id,
+      slug: rp.slug,
+      name: rp.name,
+      description: rp.description || '',
+      price: Number(rp.price),
+      priceMax: rp.priceMax ? Number(rp.priceMax) : undefined,
+      image: rp.image || '/images/product-placeholder.svg',
+      category: rp.category ? { name: rp.category.name, slug: rp.category.slug } : undefined,
+      moq: rp.moq || 1,
+      sku: rp.sku || undefined,
+      rating: Number(rp.rating) || 0,
+      reviewCount: rp.reviewCount || 0,
+      salesCount: rp.salesCount || 0,
+    }));
+
+    return {
+      props: {
+        product: serializedProduct,
+        relatedProducts: serializedRelated,
+      },
+    };
+  } catch (error) {
+    console.error('Error fetching product:', error);
+    return {
+      notFound: true,
+    };
   }
-
-  const relatedProducts = products
-    .filter((p: { id: number | string; category: { slug: string } }) => {
-      if (String(p.id) === String(product.id)) return false;
-      if (!product.category || !p.category) return true;
-      return p.category.slug === product.category.slug;
-    })
-    .slice(0, 8);
-
-  return { props: { product, relatedProducts } };
-};
+}

@@ -222,12 +222,8 @@ async function seedIfEmpty() {
     }
   }
 
-  // Clean up products that are no longer in site-data.json
-  const siteProductNames = new Set((products as any[]).map((p: any) => p.name));
-  const toDelete = existingProducts.filter(p => !siteProductNames.has(p.name)).map(p => p.id);
-  if (toDelete.length > 0) {
-    await prisma.product.deleteMany({ where: { id: { in: toDelete } } });
-  }
+  // NOTE: Do NOT delete products automatically - this caused data loss before
+  // Products are managed manually via admin panel or import endpoints
 }
 
 async function getProductsFromFallback(req: NextApiRequest, res: NextApiResponse) {
@@ -343,26 +339,23 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
               where: { name: firstSiteProduct.name },
               select: { image: true },
             });
-            // If product exists but image doesn't match site-data.json → stale DB
-            if (dbProduct && dbProduct.image !== firstSiteProduct.image) {
-              await prisma.productVariant.deleteMany({});
-              await prisma.product.deleteMany({});
-              await seedIfEmpty();
-            }
+            // NOTE: Do NOT auto-delete products when image doesn't match
+            // This caused data loss. Just use DB data as-is.
           }
         } catch (_syncErr) {
           // sync check failed, continue with DB data
         }
       }
 
-      // Force full resync via INIT_TOKEN: GET /api/products?resync=true + X-Init-Token header
-      const initToken = process.env.INIT_TOKEN;
-      const requestToken = req.headers['x-init-token'] || (req.query.token as string);
-      if (req.query.resync === 'true' && initToken && requestToken === initToken) {
-        await prisma.productVariant.deleteMany({});
-        await prisma.product.deleteMany({});
-        await seedIfEmpty();
-      }
+      // NOTE: Force resync disabled - caused data loss
+      // To reset products, use the dedicated import endpoints instead
+      // const initToken = process.env.INIT_TOKEN;
+      // const requestToken = req.headers['x-init-token'] || (req.query.token as string);
+      // if (req.query.resync === 'true' && initToken && requestToken === initToken) {
+      //   await prisma.productVariant.deleteMany({});
+      //   await prisma.product.deleteMany({});
+      //   await seedIfEmpty();
+      // }
 
       const where: any = {};
 

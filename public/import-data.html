@@ -27,6 +27,16 @@
   <h1>📦 产品数据导入工具</h1>
   <p>此页面用于将1153个产品从seed-data.json导入到Vercel生产环境数据库。</p>
   
+  <div class="card" style="background: #fff3cd; border: 1px solid #ffc107;">
+    <h2 style="margin-top: 0; color: #856404;">⚠️ 安全说明</h2>
+    <p style="color: #856404;"><strong>默认模式（安全）：</strong>不会删除现有产品，只会添加不存在的产品（按slug去重）。</p>
+    <p style="color: #856404;"><strong>强制模式（危险）：</strong>会删除所有现有产品后重新导入。仅在需要完全重置时使用！</p>
+    <label style="display: flex; align-items: center; gap: 8px; color: #856404; margin-top: 12px;">
+      <input type="checkbox" id="forceMode" style="width: 18px; height: 18px;">
+      <span>启用强制模式（会清空所有产品）</span>
+    </label>
+  </div>
+
   <div class="card">
     <h2>当前状态</h2>
     <div id="status" class="status">⏳ 等待检查...</div>
@@ -39,6 +49,7 @@
     <button id="checkDeploy" class="btn" onclick="checkDeployment()">🔍 检查部署状态</button>
     <button id="importAll" class="btn" onclick="importAll()">📥 一键导入全部1153个产品</button>
     <button id="importBatches" class="btn" onclick="importBatches()">📑 分批导入（12批）</button>
+    <p style="color: #666; font-size: 13px; margin-top: 12px;">💡 建议使用分批导入（更稳定，不易超时）</p>
   </div>
 
   <div class="card">
@@ -101,17 +112,22 @@
     }
 
     async function importAll() {
-      if (!confirm('确定要导入全部1153个产品吗？这将清空现有产品数据！')) return;
+      const force = document.getElementById('forceMode').checked;
+      const confirmMsg = force 
+        ? '⚠️ 强制模式：将删除所有现有产品后重新导入！确定继续吗？'
+        : '📥 安全模式：将导入不存在的产品（不会删除现有产品）。确定继续吗？';
+      if (!confirm(confirmMsg)) return;
       
-      log('开始一键导入...', 'info');
+      const forceParam = force ? '&force=true' : '';
+      log(`开始一键导入... ${force ? '（强制模式）' : '（安全模式）'}`, 'info');
       updateProgress(10, '正在导入...');
       
       try {
-        const res = await fetch(`/api/import-all?secret=${SECRET}`, { method: 'POST' });
+        const res = await fetch(`/api/import-all?secret=${SECRET}${forceParam}`, { method: 'POST' });
         const data = await res.json();
         
         if (data.success) {
-          log(`✓ 导入成功！创建了 ${data.created} 个产品`, 'success');
+          log(`✓ 导入成功！创建了 ${data.created} 个产品，跳过 ${data.skipped} 个已存在`, 'success');
           log(`总产品数: ${data.dbTotal}`, 'success');
           updateProgress(100, `✓ 完成！共 ${data.dbTotal} 个产品`);
           document.getElementById('status').textContent = '✓ 导入完成！';
@@ -126,10 +142,16 @@
     }
 
     async function importBatches() {
-      if (!confirm('确定要分批导入吗？需要依次调用12次API。')) return;
+      const force = document.getElementById('forceMode').checked;
+      const confirmMsg = force 
+        ? '⚠️ 强制模式：将删除所有现有产品后重新导入！确定继续吗？'
+        : '📥 安全模式：将导入不存在的产品（不会删除现有产品）。确定继续吗？';
+      if (!confirm(confirmMsg)) return;
       
-      log('开始分批导入...', 'info');
+      const forceParam = force ? '&force=true' : '';
+      log(`开始分批导入... ${force ? '（强制模式）' : '（安全模式）'}`, 'info');
       let totalCreated = 0;
+      let totalSkipped = 0;
       let totalErrors = 0;
 
       for (let i = 0; i < TOTAL_BATCHES; i++) {
@@ -137,13 +159,14 @@
         updateProgress(Math.round((i / TOTAL_BATCHES) * 100), `正在导入第 ${i + 1} 批...`);
         
         try {
-          const res = await fetch(`/api/import-seed?secret=${SECRET}&batch=${i}`, { method: 'POST' });
+          const res = await fetch(`/api/import-seed?secret=${SECRET}&batch=${i}${forceParam}`, { method: 'POST' });
           const data = await res.json();
           
           if (data.success) {
             totalCreated += data.created || 0;
+            totalSkipped += data.skipped || 0;
             totalErrors += data.errors || 0;
-            log(`  ✓ 第 ${i + 1} 批: 创建 ${data.created} 个产品，数据库总计 ${data.dbTotal}`, 'success');
+            log(`  ✓ 第 ${i + 1} 批: 创建 ${data.created} 个，跳过 ${data.skipped} 个，数据库总计 ${data.dbTotal}`, 'success');
           } else {
             log(`  ❌ 第 ${i + 1} 批失败: ${data.error}`, 'error');
           }
@@ -155,9 +178,9 @@
         await new Promise(r => setTimeout(r, 500));
       }
       
-      log(`\n完成！总计创建 ${totalCreated} 个产品，错误 ${totalErrors} 个`, 'success');
-      updateProgress(100, `✓ 完成！共导入 ${totalCreated} 个产品`);
-      document.getElementById('status').textContent = `✓ 导入完成！共 ${totalCreated} 个产品`;
+      log(`\n完成！总计创建 ${totalCreated} 个，跳过 ${totalSkipped} 个，错误 ${totalErrors} 个`, 'success');
+      updateProgress(100, `✓ 完成！共创建 ${totalCreated} 个新产品`);
+      document.getElementById('status').textContent = `✓ 导入完成！创建 ${totalCreated} 个，跳过 ${totalSkipped} 个`;
       document.getElementById('status').className = 'status ready';
     }
   </script>

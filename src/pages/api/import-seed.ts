@@ -3,6 +3,8 @@ import { prisma } from '@/lib/prisma';
 import fs from 'fs';
 import path from 'path';
 
+const GITHUB_RAW_BASE = 'https://raw.githubusercontent.com/Preeasy/images/main';
+
 function toBool(v: any): boolean {
   if (v === null || v === undefined) return true;
   if (typeof v === 'boolean') return v;
@@ -25,6 +27,58 @@ function toJsonString(v: any): string | null {
   if (v === null || v === undefined) return null;
   if (typeof v === 'string') return v;
   return JSON.stringify(v);
+}
+
+function convertImageUrl(localPath: string, sku?: string): string {
+  if (!localPath || localPath.startsWith('http')) {
+    return localPath || '/images/product-placeholder.svg';
+  }
+  
+  // Extract filename from local path
+  const filename = localPath.split('/').pop() || '';
+  
+  // If it's an item-list image, convert to GitHub URL directly
+  if (localPath.includes('/images/item-list/')) {
+    return `${GITHUB_RAW_BASE}/Images/${filename}`;
+  }
+  
+  // If it's a products image, try to match by SKU
+  if (localPath.includes('/images/products/')) {
+    // Try to match by SKU (YCS products)
+    if (sku && sku.startsWith('YCS')) {
+      return `${GITHUB_RAW_BASE}/Images/${sku}.png`;
+    }
+    // For products images, try using the filename directly
+    return `${GITHUB_RAW_BASE}/Images/${filename}`;
+  }
+  
+  // Default conversion
+  const cleanPath = localPath.replace(/^\//, '');
+  return `${GITHUB_RAW_BASE}/${cleanPath}`;
+}
+
+function convertImagesArray(images: any, sku?: string): string {
+  if (!images) return '[]';
+  let arr: string[];
+  if (typeof images === 'string') {
+    try {
+      arr = JSON.parse(images);
+    } catch {
+      arr = [];
+    }
+  } else {
+    arr = images;
+  }
+  if (Array.isArray(arr)) {
+    const converted = arr.map(img => {
+      if (typeof img === 'string' && !img.startsWith('http')) {
+        return convertImageUrl(img, sku);
+      }
+      return img;
+    });
+    return JSON.stringify(converted);
+  }
+  return '[]';
 }
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
@@ -129,19 +183,36 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       }
     }
 
-    // 3. Delete existing products on first batch only
-    if (isFirstBatch) {
+    // 3. Delete existing products on first batch ONLY if force=true
+    const forceImport = req.query.force === 'true';
+    if (isFirstBatch && forceImport) {
       const deleted = await prisma.product.deleteMany({});
-      console.log(`[import-seed] Deleted ${deleted.count} existing products`);
+      console.log(`[import-seed] Force import: Deleted ${deleted.count} existing products`);
     }
 
-    // 4. Import products from this batch
+    // 4. Import products from this batch (skip existing ones unless force)
     const products = seedData.products || [];
     let created = 0;
+    let skipped = 0;
     let errors = 0;
+
+    // Get existing product slugs for deduplication
+    const existingSlugs = new Set<string>();
+    if (!forceImport) {
+      const existingProducts = await prisma.product.findMany({ select: { slug: true } });
+      existingProducts.forEach(p => { if (p.slug) existingSlugs.add(p.slug); });
+    }
 
     for (const product of products) {
       try {
+        const productSlug = product.slug || `product-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
+        
+        // Skip if already exists (non-force mode)
+        if (!forceImport && existingSlugs.has(productSlug)) {
+          skipped++;
+          continue;
+        }
+
         // Map old category ID to new category ID
         const categoryId = product.categoryId 
           ? oldIdToNewId.get(String(product.categoryId)) || null 
@@ -150,13 +221,13 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         const createdProduct = await prisma.product.create({
           data: {
             name: product.name || 'Unnamed Product',
-            slug: product.slug || `product-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
+            slug: productSlug,
             description: product.description || '',
             price: toFloat(product.price) ?? 0,
             priceMax: toFloat(product.priceMax),
             originalPrice: toFloat(product.originalPrice),
-            image: product.image || '/images/product-placeholder.svg',
-            images: toJsonString(product.images) || '[]',
+            image: convertImageUrl(product.image, product.sku) || '/images/product-placeholder.svg',
+            images: convertImagesArray(product.images, product.sku),
             categoryId,
             stock: toInt(product.stock) ?? 100,
             rating: toFloat(product.rating) ?? 0,
@@ -208,13 +279,14 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     const total = await prisma.product.count();
     const totalBatches = seedData.totalBatches || 1;
-    console.log(`[import-seed] Batch ${batch}: ${created} created, ${errors} errors. Total in DB: ${total}`);
+    console.log(`[import-seed] Batch ${batch}: ${created} created, ${skipped} skipped, ${errors} errors. Total in DB: ${total}`);
 
     res.json({ 
       success: true, 
       batch,
       totalBatches,
       created, 
+      skipped,
       errors,
       source,
       dbTotal: total,
