@@ -28,7 +28,6 @@ function toJsonString(v: any): string | null {
 }
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-  // Check for secret key (passed via query or header)
   const secret = req.query.secret || req.headers['x-secret'];
   if (secret !== process.env.SEED_SECRET) {
     return res.status(403).json({ error: 'Invalid or missing secret key' });
@@ -39,7 +38,27 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   }
 
   try {
-    console.log('[import-seed] Starting seed import...');
+    const batch = parseInt((req.query.batch as string) || '0');
+    const isFirstBatch = batch === 0;
+    
+    // Try batch file first, fall back to full file
+    const batchFile = path.join(process.cwd(), 'prisma', `seed-batch-${String(batch).padStart(2, '0')}.json`);
+    const fullFile = path.join(process.cwd(), 'prisma', 'seed-data.json');
+    
+    let seedData: any;
+    let source: string;
+    
+    if (fs.existsSync(batchFile)) {
+      seedData = JSON.parse(fs.readFileSync(batchFile, 'utf-8'));
+      source = `seed-batch-${String(batch).padStart(2, '0')}.json`;
+    } else if (fs.existsSync(fullFile)) {
+      seedData = JSON.parse(fs.readFileSync(fullFile, 'utf-8'));
+      source = 'seed-data.json';
+    } else {
+      return res.status(404).json({ error: 'No seed data file found' });
+    }
+
+    console.log(`[import-seed] Loading from ${source}: ${seedData.products?.length || 0} products`);
 
     // 1. Ensure admin account exists
     const adminEmail = 'yeatrusourcing@gmail.com';
@@ -53,63 +72,74 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         role: 'ADMIN',
       },
     });
-    console.log('[import-seed] Admin account ensured:', admin.email);
 
-    // 2. Load seed-data.json
-    const seedDataPath = path.join(process.cwd(), 'prisma', 'seed-data.json');
-    if (!fs.existsSync(seedDataPath)) {
-      return res.status(404).json({ error: 'seed-data.json not found' });
-    }
-
-    const seedData = JSON.parse(fs.readFileSync(seedDataPath, 'utf-8'));
-    console.log(`[import-seed] Loaded: ${seedData.categories?.length || 0} categories, ${seedData.products?.length || 0} products`);
-
-    // 3. Create categories
+    // 2. Create categories (only on first batch)
     const categories = seedData.categories || [];
     const slugToId = new Map<string, string>();
+    const oldIdToNewId = new Map<string, string>();
     
     const existingCats = await prisma.category.findMany({ select: { id: true, slug: true } });
     existingCats.forEach(c => slugToId.set(c.slug, c.id));
+    existingCats.forEach(c => {
+      // Also map the old ID to new ID for any matching slugs
+      const seedCat = categories.find((cat: any) => cat.slug === c.slug);
+      if (seedCat) {
+        oldIdToNewId.set(String(seedCat.id), c.id);
+      }
+    });
 
     let catCreated = 0;
-    const rootCats = categories.filter((c: any) => !c.parentId);
-    const childCats = categories.filter((c: any) => c.parentId);
+    if (isFirstBatch) {
+      const rootCats = categories.filter((c: any) => !c.parentId);
+      const childCats = categories.filter((c: any) => c.parentId);
 
-    for (const cat of [...rootCats, ...childCats]) {
-      if (!slugToId.has(cat.slug)) {
-        const parentId = cat.parentId ? slugToId.get(cat.parentId) || null : null;
-        const created = await prisma.category.create({
-          data: {
-            slug: cat.slug,
-            name: cat.name || cat.slug,
-            description: cat.description || '',
-            parentId,
-          },
-        });
-        slugToId.set(cat.slug, created.id);
-        catCreated++;
+      for (const cat of [...rootCats, ...childCats]) {
+        if (!slugToId.has(cat.slug)) {
+          const parentId = cat.parentId ? slugToId.get(cat.parentId) || null : null;
+          const created = await prisma.category.create({
+            data: {
+              slug: cat.slug,
+              name: cat.name || cat.slug,
+              description: cat.description || '',
+              parentId,
+            },
+          });
+          slugToId.set(cat.slug, created.id);
+          oldIdToNewId.set(String(cat.id), created.id);
+          catCreated++;
+        } else {
+          // Already exists, update the mapping
+          const existingId = slugToId.get(cat.slug)!;
+          oldIdToNewId.set(String(cat.id), existingId);
+        }
+      }
+      console.log(`[import-seed] Created ${catCreated} new categories`);
+    } else {
+      // For non-first batches, just build the oldIdToNewId map
+      for (const cat of categories) {
+        if (slugToId.has(cat.slug)) {
+          oldIdToNewId.set(String(cat.id), slugToId.get(cat.slug)!);
+        }
       }
     }
-    console.log(`[import-seed] Created ${catCreated} new categories`);
 
-    // 4. Map old category IDs
-    const oldIdToNewId = new Map<string, string>();
-    for (const cat of categories) {
-      oldIdToNewId.set(cat.id, slugToId.get(cat.slug));
+    // 3. Delete existing products on first batch only
+    if (isFirstBatch) {
+      const deleted = await prisma.product.deleteMany({});
+      console.log(`[import-seed] Deleted ${deleted.count} existing products`);
     }
 
-    // 5. Wipe ALL products
-    const deleted = await prisma.product.deleteMany({});
-    console.log(`[import-seed] Deleted ${deleted.count} existing products`);
-
-    // 6. Import products
+    // 4. Import products from this batch
     const products = seedData.products || [];
     let created = 0;
     let errors = 0;
 
     for (const product of products) {
       try {
-        const categoryId = oldIdToNewId.get(product.categoryId) || null;
+        // Map old category ID to new category ID
+        const categoryId = product.categoryId 
+          ? oldIdToNewId.get(String(product.categoryId)) || null 
+          : null;
 
         const createdProduct = await prisma.product.create({
           data: {
@@ -162,28 +192,28 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         });
 
         created++;
-
-        if (created % 100 === 0) {
-          console.log(`[import-seed] Progress: ${created}/${products.length}`);
-        }
       } catch (err: any) {
         errors++;
-        if (errors <= 10) {
-          console.error(`[import-seed] Error "${product.name}":`, err.message?.substring(0, 200));
+        if (errors <= 5) {
+          console.error(`[import-seed] Error "${product.name}":`, err.message?.substring(0, 150));
         }
       }
     }
 
     const total = await prisma.product.count();
-    console.log(`[import-seed] Complete: ${created} created, ${errors} errors. Total in DB: ${total}`);
+    const totalBatches = seedData.totalBatches || 1;
+    console.log(`[import-seed] Batch ${batch}: ${created} created, ${errors} errors. Total in DB: ${total}`);
 
     res.json({ 
       success: true, 
+      batch,
+      totalBatches,
       created, 
       errors,
-      total: products.length,
+      source,
       dbTotal: total,
-      categoriesCreated: catCreated
+      categoriesCreated: catCreated,
+      nextBatch: batch + 1 < totalBatches ? batch + 1 : null
     });
   } catch (error) {
     console.error('[import-seed] Error:', error);
