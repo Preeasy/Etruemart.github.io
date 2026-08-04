@@ -125,7 +125,9 @@ export default function ProductDetail({ product: initialProduct, relatedProducts
               moq: data.moq,
               sku: data.sku,
               keywords: Array.isArray(data.keywords) ? data.keywords : [],
-              bulletPoints: Array.isArray(data.bulletPoints) ? data.bulletPoints : [],
+              bulletPoints: Array.isArray(data.bulletPoints) && data.bulletPoints.length > 0
+                ? data.bulletPoints
+                : (data.aplus?.bulletPoints || []),
               aplus: data.aplus || null,
             });
             setQuantity(data.moq || initialProduct.moq || 12);

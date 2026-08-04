@@ -154,11 +154,15 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     // Database product: parse JSON fields
     const p = product as any;
+    const parsedAplus = typeof p.aplus === 'string' ? safeJsonParse(p.aplus, null) : p.aplus;
     const serialized = {
       ...p,
       images: typeof p.images === 'string' ? safeJsonParse(p.images, []) : p.images,
       keywords: typeof p.keywords === 'string' ? safeJsonParse(p.keywords, []) : p.keywords,
-      aplus: typeof p.aplus === 'string' ? safeJsonParse(p.aplus, null) : p.aplus,
+      aplus: parsedAplus,
+      bulletPoints: Array.isArray(p.bulletPoints) && p.bulletPoints.length > 0
+        ? p.bulletPoints
+        : (parsedAplus?.bulletPoints || []),
       price: Number(p.price),
       originalPrice: p.originalPrice ? Number(p.originalPrice) : null,
       rating: Number(p.rating),
