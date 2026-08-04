@@ -91,7 +91,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const { imageMap, allImages } = loadImageData();
 
     // 获取分类（带容错机制）
-    let categories: { id: string; slug: string }[] = [];
+    let categories: { id: string; slug: string | null }[] = [];
     let dbError = false;
     try {
       categories = await prisma.category.findMany({
