@@ -20,7 +20,6 @@ import ProductCard from '@/components/ProductCard';
 import Sidebar from '@/components/Sidebar';
 import Layout from '@/components/Layout';
 import { SITE_URL, SITE_OG_IMAGE } from '@/lib/site';
-import siteDataJson from '../../../site-data.json';
 
 interface Product {
   id: number | string;
@@ -54,12 +53,13 @@ const categoryFilters = [
 const materialOptions = ['Alloy', 'Stainless Steel', 'Brass', 'Acrylic', 'Crystal', 'Pearl', 'Resin', 'Fabric', 'Rhinestone'];
 const platingOptions = ['Gold Plated', 'Silver Plated', 'Rose Gold Plated', 'Rhodium Plated', 'Gunmetal', 'Antique Bronze'];
 
-const Products = ({ products: initialProducts }: { products: Product[] }) => {
+const Products = () => {
   const router = useRouter();
   const { data: session } = useSession();
   const { category: queryCategory } = router.query;
 
-  const [products, setProducts] = useState<Product[]>(initialProducts);
+  const [products, setProducts] = useState<Product[]>([]);
+  const [totalCount, setTotalCount] = useState<number>(0);
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState(
     typeof queryCategory === 'string' ? queryCategory : 'all'
@@ -94,13 +94,8 @@ const Products = ({ products: initialProducts }: { products: Product[] }) => {
             keywords: Array.isArray(p.keywords) ? p.keywords : [],
             bulletPoints: Array.isArray(p.bulletPoints) ? p.bulletPoints : [],
           }));
-          const dbSlugSet = new Set(dbProducts.map(p => p.slug || p.id).filter(Boolean));
-          const dbIdSet = new Set(dbProducts.map(p => p.id));
-          const merged = [...dbProducts, ...initialProducts.filter(p => {
-            const slug = p.slug || p.id;
-            return !dbSlugSet.has(slug) && !dbIdSet.has(String(p.id));
-          })];
-          setProducts(merged);
+          setTotalCount(data.length);
+          setProducts(dbProducts);
         }
       })
       .catch(() => {});
@@ -213,7 +208,7 @@ const Products = ({ products: initialProducts }: { products: Product[] }) => {
           <div className="flex flex-wrap gap-2">
             <div className="flex items-center gap-1.5 bg-ink-50 border border-ink-200 rounded-full px-3 py-1.5">
               <div className="w-1.5 h-1.5 bg-success-500 rounded-full" />
-              <span className="text-[11px] text-ink-600 font-medium">{sortedProducts.length} Products Available</span>
+              <span className="text-[11px] text-ink-600 font-medium">{totalCount > 0 ? totalCount : sortedProducts.length} Products Available</span>
             </div>
             <div className="flex items-center gap-1.5 bg-ink-50 border border-ink-200 rounded-full px-3 py-1.5">
               <span className="text-[11px] text-ink-600 font-medium">MOQ Starting at 12 pcs</span>
@@ -581,8 +576,3 @@ const Products = ({ products: initialProducts }: { products: Product[] }) => {
 };
 
 export default Products;
-
-export const getStaticProps = async () => {
-  const products = (siteDataJson as any).products || [];
-  return { props: { products } };
-};
