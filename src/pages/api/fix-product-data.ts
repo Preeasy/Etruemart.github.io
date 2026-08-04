@@ -153,7 +153,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         let needsUpdate = false;
         
         // Look up seed product by slug
-        const seedProduct = seedSlugToProduct.get(product.slug);
+        const seedProduct = product.slug ? seedSlugToProduct.get(product.slug) : undefined;
         const sku = seedProduct?.sku || product.sku || undefined;
         
         // Fix image URL
