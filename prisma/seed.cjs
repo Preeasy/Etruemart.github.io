@@ -1,164 +1,187 @@
-const { PrismaClient } = require('@prisma/client');
 const fs = require('fs');
 const path = require('path');
-const bcrypt = require('bcryptjs');
+const { PrismaClient } = require('@prisma/client');
 
-// Load .env.local
-const envPath = path.join(__dirname, '..', '.env.local');
-if (fs.existsSync(envPath)) {
-  const envContent = fs.readFileSync(envPath, 'utf-8');
-  envContent.split('\n').forEach(line => {
-    const match = line.match(/^(\w+)=(.*)$/);
-    if (match) {
-      const key = match[1];
-      let value = match[2];
-      if ((value.startsWith('"') && value.endsWith('"')) || (value.startsWith("'") && value.endsWith("'"))) {
-        value = value.slice(1, -1);
-      }
-      if (!(key in process.env)) {
-        process.env[key] = value;
-      }
-    }
-  });
+function toBool(v) {
+  if (v === null || v === undefined) return true;
+  if (typeof v === 'boolean') return v;
+  if (typeof v === 'number') return v !== 0;
+  if (typeof v === 'string') return v === 'true' || v === '1';
+  return true;
 }
 
-const categoriesDataPath = path.join(__dirname, '..', 'categories-data.json');
-const productsDataPath = path.join(__dirname, '..', 'site-data.json');
+function toFloat(v) {
+  if (v === null || v === undefined || v === '') return null;
+  return Number(v);
+}
 
-const categoriesData = JSON.parse(fs.readFileSync(categoriesDataPath, 'utf-8'));
-const productsData = JSON.parse(fs.readFileSync(productsDataPath, 'utf-8'));
+function toInt(v) {
+  if (v === null || v === undefined || v === '') return null;
+  return Math.round(Number(v));
+}
 
-const prisma = new PrismaClient();
+function toJsonString(v) {
+  if (v === null || v === undefined) return null;
+  if (typeof v === 'string') return v;
+  return JSON.stringify(v);
+}
 
 async function main() {
-  console.log('Starting seed...');
+  const prisma = new PrismaClient();
 
-  const adminEmail = 'yeatrusourcing@gmail.com';
-  const password = process.env.SEED_PASSWORD || 'ldz52385109';
-  const passwordHash = bcrypt.hashSync(password, 12);
+  const seedPath = path.join(__dirname, 'seed-data.json');
+  if (!fs.existsSync(seedPath)) {
+    console.log('[seed] No seed-data.json found, skipping product import');
+    await prisma.$disconnect();
+    return;
+  }
 
-  // 1. Create admin account (the only account that manages products)
-  const admin = await prisma.user.upsert({
-    where: { email: adminEmail },
-    update: {},
-    create: {
-      email: adminEmail,
-      passwordHash,
-      name: 'Yeatrusourcing',
-      role: 'ADMIN',
-    },
-  });
-  console.log('Admin ready:', admin.email);
+  const seedData = JSON.parse(fs.readFileSync(seedPath, 'utf-8'));
+  console.log(`[seed] Loading ${seedData.categories.length} categories and ${seedData.products.length} products`);
 
-  // 2. Categories
-  const categoryDefinitions = categoriesData.categories || [];
-  const slugToId = {};
-
-  const sortedCategories = [...categoryDefinitions].sort((a, b) => {
-    if (!a.parentId && b.parentId) return -1;
-    if (a.parentId && !b.parentId) return 1;
-    return 0;
-  });
-
-  const rootCats = sortedCategories.filter(c => !c.parentId);
-  const childCats = sortedCategories.filter(c => c.parentId);
-
-  for (const cat of rootCats) {
-    const record = await prisma.category.upsert({
-      where: { slug: cat.slug },
-      update: { name: cat.name, sortOrder: cat.sortOrder || 0, seoTitle: cat.seoTitle || null, seoDesc: cat.seoDesc || null },
-      create: { name: cat.name, slug: cat.slug, sortOrder: cat.sortOrder || 0, seoTitle: cat.seoTitle || null, seoDesc: cat.seoDesc || null },
+  // 1. Create admin user
+  let adminId = null;
+  if (seedData.admin) {
+    const admin = await prisma.user.upsert({
+      where: { email: seedData.admin.email },
+      update: { name: seedData.admin.name || 'Admin', role: 'ADMIN' },
+      create: {
+        email: seedData.admin.email,
+        name: seedData.admin.name || 'Admin',
+        passwordHash: '$2b$10$placeholder',
+        role: 'ADMIN',
+      },
     });
-    slugToId[cat.slug] = record.id;
+    adminId = admin.id;
+    console.log('[seed] Admin user ensured:', admin.email);
   }
-  console.log(`Root categories: ${rootCats.length}`);
 
-  let remaining = [...childCats];
-  let pass = 0;
-  while (remaining.length > 0 && pass < 10) {
-    pass++;
-    const nextRemaining = [];
-    for (const cat of remaining) {
-      const parentDbId = slugToId[cat.parentId];
-      if (!parentDbId) { nextRemaining.push(cat); continue; }
-      const record = await prisma.category.upsert({
-        where: { slug: cat.slug },
-        update: { name: cat.name, parentId: parentDbId, sortOrder: cat.sortOrder || 0, seoTitle: cat.seoTitle || null, seoDesc: cat.seoDesc || null },
-        create: { name: cat.name, slug: cat.slug, parentId: parentDbId, sortOrder: cat.sortOrder || 0, seoTitle: cat.seoTitle || null, seoDesc: cat.seoDesc || null },
+  // 2. Create categories (upsert by slug)
+  const slugToId = new Map();
+  const existingCats = await prisma.category.findMany({ select: { id: true, slug: true } });
+  existingCats.forEach(c => slugToId.set(c.slug, c.id));
+
+  let catCreated = 0;
+  // Create root categories first (those with null parentId)
+  const rootCats = seedData.categories.filter(c => !c.parentId);
+  const childCats = seedData.categories.filter(c => c.parentId);
+
+  for (const cat of [...rootCats, ...childCats]) {
+    if (!slugToId.has(cat.slug)) {
+      const parentId = cat.parentId ? slugToId.get(cat.parentId) || null : null;
+      const created = await prisma.category.create({
+        data: {
+          slug: cat.slug,
+          name: cat.name || cat.slug,
+          description: cat.description || '',
+          parentId,
+        },
       });
-      slugToId[cat.slug] = record.id;
+      slugToId.set(cat.slug, created.id);
+      catCreated++;
     }
-    remaining = nextRemaining;
   }
-  console.log(`Child categories: ${childCats.length}`);
+  console.log(`[seed] Created ${catCreated} new categories`);
 
-  // 4. Products
-  await prisma.product.deleteMany({});
-  const products = productsData.products || [];
-  console.log(`Products: ${products.length}`);
+  // 3. Map old category IDs to new ones
+  const oldIdToNewId = new Map();
+  for (const cat of seedData.categories) {
+    oldIdToNewId.set(cat.id, slugToId.get(cat.slug));
+  }
+
+  // 4. Import products (skip by slug to avoid duplicates)
+  const existingSlugs = new Set(
+    (await prisma.product.findMany({ select: { slug: true } })).map(p => p.slug)
+  );
 
   let created = 0;
-  for (const productData of products) {
+  let skipped = 0;
+  let batch = 0;
+  let errors = 0;
+
+  for (const product of seedData.products) {
     try {
-      const categorySlug = productData.category?.slug || productData.categorySlug;
-      const categoryId = slugToId[categorySlug];
-      if (!categoryId) {
-        console.warn(`Skip (no category): ${productData.name}`);
+      if (product.slug && existingSlugs.has(product.slug)) {
+        skipped++;
         continue;
       }
 
-      const imagesArray = Array.isArray(productData.images) ? productData.images : [productData.image];
-      const keywordsStr = Array.isArray(productData.keywords) ? JSON.stringify(productData.keywords) : JSON.stringify([productData.slug]);
-      const bulletPointsStr = Array.isArray(productData.bulletPoints) ? JSON.stringify(productData.bulletPoints) : '[]';
-      const aplusStr = productData.aplus ? JSON.stringify(productData.aplus) : null;
+      const categoryId = oldIdToNewId.get(product.categoryId) || null;
 
-      const priceVal = productData.priceMin || productData.price || 0;
-      const originalPriceVal = productData.priceMax || productData.originalPrice || priceVal * 1.3;
+      const productData = {
+        name: product.name || 'Unnamed Product',
+        slug: product.slug || `product-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
+        description: product.description || '',
+        price: toFloat(product.price) ?? 0,
+        priceMax: toFloat(product.priceMax),
+        originalPrice: toFloat(product.originalPrice),
+        image: product.image || '/images/product-placeholder.svg',
+        images: toJsonString(product.images) || '[]',
+        categoryId,
+        stock: toInt(product.stock) ?? 100,
+        rating: toFloat(product.rating) ?? 0,
+        reviewCount: toInt(product.reviewCount) ?? 0,
+        salesCount: toInt(product.salesCount) ?? 0,
+        isPublished: toBool(product.isPublished),
+        shippingCost: toFloat(product.shippingCost) ?? 0,
+        shippingMethod: product.shippingMethod || 'Standard Shipping',
+        sku: product.sku || null,
+        material: product.material || null,
+        plating: product.plating || null,
+        process: product.process || null,
+        color: product.color || null,
+        size: product.size || null,
+        packSize: toInt(product.packSize) ?? 1,
+        pkgLength: toFloat(product.pkgLength),
+        pkgWidth: toFloat(product.pkgWidth),
+        pkgHeight: toFloat(product.pkgHeight),
+        pkgWeight: toFloat(product.pkgWeight),
+        keywords: toJsonString(product.keywords) || '[]',
+        origin: product.origin || null,
+        supplierCity: product.supplierCity || null,
+        stockStatus: product.stockStatus || 'IN_STOCK',
+        moq: toInt(product.moq) ?? 1,
+        aplus: toJsonString(product.aplus),
+        authorId: adminId,
+      };
 
-      await prisma.product.create({
+      const createdProduct = await prisma.product.create({ data: productData });
+
+      // Create default variant
+      await prisma.productVariant.create({
         data: {
-          name: productData.name,
-          slug: productData.slug,
-          description: productData.description || '',
-          price: priceVal,
-          originalPrice: originalPriceVal,
-          priceMax: productData.priceMax || null,
-          image: productData.image,
-          images: JSON.stringify(imagesArray),
-          categoryId,
-          stock: productData.stock || 100,
-          isPublished: productData.isPublished !== false,
-          sku: productData.sku || null,
-          material: productData.material || null,
-          plating: productData.plating || null,
-          process: productData.process || null,
-          color: productData.color || null,
-          size: productData.size || null,
-          packSize: productData.packSize || 1,
-          pkgLength: productData.pkgLength || null,
-          pkgWidth: productData.pkgWidth || null,
-          pkgHeight: productData.pkgHeight || null,
-          pkgWeight: productData.pkgWeight || null,
-          keywords: keywordsStr,
-          origin: productData.origin || null,
-          supplierCity: productData.supplierCity || null,
-          stockStatus: productData.stockStatus || 'IN_STOCK',
-          moq: productData.moq || 1,
-          shippingCost: productData.shippingCost ?? 0,
-          shippingMethod: productData.shippingMethod || 'Standard Shipping',
-          aplus: aplusStr,
-          authorId: admin.id,
-          variants: {
-            create: [{ color: productData.color || 'Default', size: productData.size || 'One Size', price: priceVal, stock: productData.stock || 100 }],
-          },
+          productId: createdProduct.id,
+          color: product.color || 'Default',
+          size: product.size || 'One Size',
+          price: toFloat(product.price) ?? 0,
+          stock: toInt(product.stock) ?? 100,
         },
       });
+
+      existingSlugs.add(productData.slug);
       created++;
+      batch++;
+
+      if (batch % 100 === 0) {
+        console.log(`[seed] Progress: ${batch}/${seedData.products.length} (errors: ${errors})`);
+      }
     } catch (err) {
-      console.error(`Failed: ${productData.name}`, err.message);
+      errors++;
+      if (errors <= 5) {
+        console.error(`[seed] Error "${product.name}":`, err.message?.substring(0, 150));
+      }
     }
   }
-  console.log(`Seed done: ${created}/${products.length}`);
+
+  console.log(`[seed] Complete: ${created} created, ${skipped} skipped, ${errors} errors`);
+
+  const total = await prisma.product.count();
+  console.log(`[seed] Total products in database: ${total}`);
+
+  await prisma.$disconnect();
 }
 
-main().catch(e => { console.error('Seed failed:', e); process.exit(0); }).finally(async () => { await prisma.$disconnect(); });
+main().catch(e => {
+  console.error('[seed] Failed:', e);
+  process.exit(1);
+});

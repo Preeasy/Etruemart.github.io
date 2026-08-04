@@ -5,6 +5,30 @@ import { prisma } from '@/lib/prisma';
 import fs from 'fs';
 import path from 'path';
 
+function toBool(v: any): boolean {
+  if (v === null || v === undefined) return true;
+  if (typeof v === 'boolean') return v;
+  if (typeof v === 'number') return v !== 0;
+  if (typeof v === 'string') return v === 'true' || v === '1';
+  return true;
+}
+
+function toFloat(v: any): number | null {
+  if (v === null || v === undefined || v === '') return null;
+  return Number(v);
+}
+
+function toInt(v: any): number | null {
+  if (v === null || v === undefined || v === '') return null;
+  return Math.round(Number(v));
+}
+
+function toJsonString(v: any): string | null {
+  if (v === null || v === undefined) return null;
+  if (typeof v === 'string') return v;
+  return JSON.stringify(v);
+}
+
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method not allowed' });
@@ -17,14 +41,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   }
 
   try {
-    const siteDataPath = path.join(process.cwd(), 'site-data.json');
-    const siteData = JSON.parse(fs.readFileSync(siteDataPath, 'utf-8'));
-
-    // 1. Admin account (the only account that manages products)
+    // 1. Admin account
     const adminEmail = 'yeatrusourcing@gmail.com';
     const admin = await prisma.user.upsert({
       where: { email: adminEmail },
-      update: {},
+      update: { name: 'Yeatrusourcing', role: 'ADMIN' },
       create: {
         email: adminEmail,
         passwordHash: '$2a$10$rpC.Td0.EzAAHn9ZvsMDOezPiWZXXwXGvN9yQyB0rhPe4KFeM02vG',
@@ -33,135 +54,155 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       },
     });
 
-    // Seed categories from categories-data.json
-    const catDataPath = path.join(process.cwd(), 'categories-data.json');
-    if (fs.existsSync(catDataPath)) {
-      const catData = JSON.parse(fs.readFileSync(catDataPath, 'utf-8'));
-      const catItems = catData.categories || [];
-      // First pass: create/update categories without parentId (root categories)
-      for (const cat of catItems) {
-        if (!cat.parentId) {
-          await prisma.category.upsert({
-            where: { slug: cat.slug },
-            update: {},
-            create: {
-              name: cat.name,
-              slug: cat.slug,
-              sortOrder: cat.sortOrder || 0,
-              seoTitle: cat.seoTitle || null,
-              seoDesc: cat.seoDesc || null,
-            },
-          });
-        }
-      }
-      // Second pass: create/update child categories with parentId
-      for (const cat of catItems) {
-        if (cat.parentId) {
-          const parent = await prisma.category.findUnique({ where: { slug: cat.parentId } });
-          if (parent) {
-            await prisma.category.upsert({
-              where: { slug: cat.slug },
-              update: {},
-              create: {
-                name: cat.name,
-                slug: cat.slug,
-                parentId: parent.id,
-                sortOrder: cat.sortOrder || 0,
-                seoTitle: cat.seoTitle || null,
-                seoDesc: cat.seoDesc || null,
-              },
-            });
-          }
-        }
-      }
-    } else {
-      // Fallback: use categories from site-data.json
-      const categories = siteData.categories || [];
-      for (const catName of categories) {
-        const slug = catName.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
-        await prisma.category.upsert({
-          where: { slug },
-          update: {},
-          create: { name: catName, slug },
-        });
+    // 2. Try to load seed-data.json first (contains 1153 products)
+    const seedDataPath = path.join(process.cwd(), 'prisma', 'seed-data.json');
+    let seedData: any = null;
+    let useSeedData = false;
+
+    if (fs.existsSync(seedDataPath)) {
+      seedData = JSON.parse(fs.readFileSync(seedDataPath, 'utf-8'));
+      if (seedData.products && seedData.products.length > 0) {
+        useSeedData = true;
+        console.log(`[seed] Using seed-data.json: ${seedData.categories?.length || 0} categories, ${seedData.products.length} products`);
       }
     }
 
-    const products = siteData.products || [];
-    // Wipe ALL products to avoid duplicates, then re-import
-    const deleted = await prisma.product.deleteMany({});
-    if (deleted.count > 0) {
-      // Prisma will cascade delete variants, orderItems, cartItems, reviews
+    if (!useSeedData) {
+      // Fallback: use site-data.json
+      const siteDataPath = path.join(process.cwd(), 'site-data.json');
+      const siteData = JSON.parse(fs.readFileSync(siteDataPath, 'utf-8'));
+      seedData = {
+        categories: [],
+        products: siteData.products || [],
+      };
+      console.log(`[seed] Using site-data.json: ${seedData.products.length} products`);
     }
 
-    let created = 0;
-    for (const productData of products) {
-      const variations = productData.variations || [];
-      const variantData: { color: string; size: string; price: number; stock: number }[] = variations.map((v: any) => ({
-        color: v.color || '',
-        size: v.size || '',
-        price: parseFloat(String(v.price || productData.priceMin || 0)),
-        stock: 100,
-      }));
+    // 3. Create categories
+    const categories = seedData.categories || [];
+    const slugToId = new Map<string, string>();
+    
+    // Get existing categories
+    const existingCats = await prisma.category.findMany({ select: { id: true, slug: true } });
+    existingCats.forEach(c => slugToId.set(c.slug, c.id));
 
-      const images: string[] = [productData.image];
-      if (productData.aplus) {
-        for (const section of productData.aplus) {
-          if (section.image) {
-            images.push(section.image);
-          }
-        }
-      }
-      const uniqueImages = [...new Set(images)];
+    let catCreated = 0;
+    // Create root categories first
+    const rootCats = categories.filter((c: any) => !c.parentId);
+    const childCats = categories.filter((c: any) => c.parentId);
 
-      // Find category by name from productData.category object
-      const catName = typeof productData.category === 'object' ? productData.category.name : (productData.category || 'Other');
-      const catRecord = await prisma.category.findFirst({ where: { name: catName } });
-      const fallbackCat = await prisma.category.findFirst();
-      const categoryId = catRecord?.id || fallbackCat?.id || '';
-
-      const priceMin = parseFloat(String(productData.priceMin || 0));
-      const priceMax = parseFloat(String(productData.priceMax || 0));
-      const originalPrice = priceMax && priceMax > priceMin ? priceMax * 1.5 : priceMin * 1.3;
-
-      await prisma.product.create({
-        data: {
-          name: productData.name,
-          slug: productData.slug || productData.name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/-+$/, '') + '-' + Date.now().toString(36),
-          description: productData.description || '',
-          price: priceMin,
-          originalPrice,
-          image: productData.image,
-          images: JSON.stringify(uniqueImages),
-          categoryId,
-          stock: 100,
-          isPublished: true,
-          sku: productData.sku || null,
-          material: productData.material || null,
-          plating: productData.plating || null,
-          process: productData.process || null,
-          color: productData.color || null,
-          size: productData.size || null,
-          packSize: productData.packSize || 1,
-          moq: productData.moq || 1,
-          keywords: JSON.stringify(productData.keywords || []),
-          stockStatus: productData.stockStatus || 'IN_STOCK',
-          shippingCost: 0,
-          shippingMethod: 'Standard Shipping',
-          aplus: productData.aplus ? JSON.stringify(productData.aplus) : null,
-          authorId: admin.id,
-          variants: {
-            create: variantData.length > 0
-              ? variantData.map(v => ({ ...v, price: parseFloat(String(v.price)) }))
-              : [{ color: 'Default', size: 'One Size', price: priceMin, stock: 100 }],
+    for (const cat of [...rootCats, ...childCats]) {
+      if (!slugToId.has(cat.slug)) {
+        const parentId = cat.parentId ? slugToId.get(cat.parentId) || null : null;
+        const created = await prisma.category.create({
+          data: {
+            slug: cat.slug,
+            name: cat.name || cat.slug,
+            description: cat.description || '',
+            parentId,
           },
-        },
-      });
-      created++;
+        });
+        slugToId.set(cat.slug, created.id);
+        catCreated++;
+      }
+    }
+    console.log(`[seed] Created ${catCreated} new categories`);
+
+    // 4. Map old category IDs to new ones
+    const oldIdToNewId = new Map<string, string>();
+    for (const cat of categories) {
+      oldIdToNewId.set(cat.id, slugToId.get(cat.slug));
     }
 
-    res.json({ success: true, created, total: products.length });
+    // 5. Wipe ALL products to avoid duplicates, then re-import
+    const deleted = await prisma.product.deleteMany({});
+    console.log(`[seed] Deleted ${deleted.count} existing products`);
+
+    // 6. Import products
+    const products = seedData.products || [];
+    let created = 0;
+    let errors = 0;
+
+    for (const product of products) {
+      try {
+        const categoryId = oldIdToNewId.get(product.categoryId) || null;
+
+        const createdProduct = await prisma.product.create({
+          data: {
+            name: product.name || 'Unnamed Product',
+            slug: product.slug || `product-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
+            description: product.description || '',
+            price: toFloat(product.price) ?? 0,
+            priceMax: toFloat(product.priceMax),
+            originalPrice: toFloat(product.originalPrice),
+            image: product.image || '/images/product-placeholder.svg',
+            images: toJsonString(product.images) || '[]',
+            categoryId,
+            stock: toInt(product.stock) ?? 100,
+            rating: toFloat(product.rating) ?? 0,
+            reviewCount: toInt(product.reviewCount) ?? 0,
+            salesCount: toInt(product.salesCount) ?? 0,
+            isPublished: toBool(product.isPublished),
+            shippingCost: toFloat(product.shippingCost) ?? 0,
+            shippingMethod: product.shippingMethod || 'Standard Shipping',
+            sku: product.sku || null,
+            material: product.material || null,
+            plating: product.plating || null,
+            process: product.process || null,
+            color: product.color || null,
+            size: product.size || null,
+            packSize: toInt(product.packSize) ?? 1,
+            pkgLength: toFloat(product.pkgLength),
+            pkgWidth: toFloat(product.pkgWidth),
+            pkgHeight: toFloat(product.pkgHeight),
+            pkgWeight: toFloat(product.pkgWeight),
+            keywords: toJsonString(product.keywords) || '[]',
+            origin: product.origin || null,
+            supplierCity: product.supplierCity || null,
+            stockStatus: product.stockStatus || 'IN_STOCK',
+            moq: toInt(product.moq) ?? 1,
+            aplus: toJsonString(product.aplus),
+            authorId: admin.id,
+          },
+        });
+
+        // Create default variant
+        await prisma.productVariant.create({
+          data: {
+            productId: createdProduct.id,
+            color: product.color || 'Default',
+            size: product.size || 'One Size',
+            price: toFloat(product.price) ?? 0,
+            stock: toInt(product.stock) ?? 100,
+          },
+        });
+
+        created++;
+
+        if (created % 100 === 0) {
+          console.log(`[seed] Progress: ${created}/${products.length}`);
+        }
+      } catch (err: any) {
+        errors++;
+        if (errors <= 5) {
+          console.error(`[seed] Error "${product.name}":`, err.message?.substring(0, 150));
+        }
+      }
+    }
+
+    const total = await prisma.product.count();
+    console.log(`[seed] Complete: ${created} created, ${errors} errors. Total in DB: ${total}`);
+
+    res.json({ 
+      success: true, 
+      created, 
+      errors,
+      total: products.length,
+      dbTotal: total,
+      source: useSeedData ? 'seed-data.json' : 'site-data.json'
+    });
   } catch (error) {
+    console.error('[seed] Error:', error);
     res.status(500).json({ success: false, error: (error as Error).message });
   }
 }
