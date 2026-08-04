@@ -84,7 +84,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     
     // Get existing categories
     const existingCats = await prisma.category.findMany({ select: { id: true, slug: true } });
-    existingCats.forEach(c => slugToId.set(c.slug, c.id));
+    existingCats.forEach(c => {
+      if (c.slug) {
+        slugToId.set(c.slug, c.id);
+      }
+    });
 
     let catCreated = 0;
     // Create root categories first
@@ -111,7 +115,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     // 4. Map old category IDs to new ones
     const oldIdToNewId = new Map<string, string>();
     for (const cat of categories) {
-      oldIdToNewId.set(cat.id, slugToId.get(cat.slug));
+      const newId = slugToId.get(cat.slug);
+      if (newId) {
+        oldIdToNewId.set(cat.id, newId);
+      }
     }
 
     // 5. Wipe ALL products to avoid duplicates, then re-import

@@ -79,8 +79,13 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const oldIdToNewId = new Map<string, string>();
     
     const existingCats = await prisma.category.findMany({ select: { id: true, slug: true } });
-    existingCats.forEach(c => slugToId.set(c.slug, c.id));
     existingCats.forEach(c => {
+      if (c.slug) {
+        slugToId.set(c.slug, c.id);
+      }
+    });
+    existingCats.forEach(c => {
+      if (!c.slug) return;
       // Also map the old ID to new ID for any matching slugs
       const seedCat = categories.find((cat: any) => cat.slug === c.slug);
       if (seedCat) {
