@@ -47,19 +47,6 @@ async function seedIfEmpty() {
     },
   });
 
-  // 2. Official seller account — all existing products belong to this seller
-  const officialSellerEmail = 'neil6corrot@gmail.com';
-  const officialSeller = await prisma.user.upsert({
-    where: { email: officialSellerEmail },
-    update: {},
-    create: {
-      email: officialSellerEmail,
-      passwordHash: '$2a$10$rpC.Td0.EzAAHn9ZvsMDOezPiWZXXwXGvN9yQyB0rhPe4KFeM02vG',
-      name: 'Official Seller',
-      role: 'OFFICIAL_SELLER',
-    },
-  });
-
   // Seed categories from categories-data.json
   const catDataPath = path.join(process.cwd(), 'categories-data.json');
   if (fs.existsSync(catDataPath)) {
@@ -225,7 +212,7 @@ async function seedIfEmpty() {
           shippingCost: 0,
           aplus: productData.aplus ? JSON.stringify(productData.aplus) : null,
           shippingMethod: 'Standard Shipping',
-          authorId: officialSeller.id,
+          authorId: admin.id,
           variants: {
             create: variantData.length > 0 ? variantData.map(v => ({ color: v.color, size: v.size, price: toNumber(v.price), stock: v.stock })) : [{ color: 'Default', size: 'One Size', price: toNumber(productData.priceMin), stock: 100 }],
           },
@@ -468,9 +455,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     return res.status(401).json({ error: 'Unauthorized' });
   }
 
-  // Only sellers and admins can create products
-  if (session.user.role !== 'ADMIN' && session.user.role !== 'OFFICIAL_SELLER') {
-    return res.status(403).json({ error: 'Only sellers can create products' });
+  // Only admins can create products (site policy: admin-managed catalog)
+  if (session.user.role !== 'ADMIN') {
+    return res.status(403).json({ error: 'Only administrators can create products' });
   }
 
   if (req.method === 'POST') {
@@ -481,14 +468,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       pkgLength, pkgWidth, pkgHeight, pkgWeight, keywords,
       stockStatus, moq,
     } = req.body;
-
-    // Seller permission: non-ADMIN/OFFICIAL_SELLER can only create products in their allowedCategoryId
-    const canManage = session.user.role === 'ADMIN' || session.user.role === 'OFFICIAL_SELLER';
-    if (!canManage && session.user.allowedCategoryId) {
-      if (categoryId !== session.user.allowedCategoryId) {
-        return res.status(403).json({ error: 'You can only create products in your allowed category' });
-      }
-    }
 
     const product = await prisma.product.create({
       data: {

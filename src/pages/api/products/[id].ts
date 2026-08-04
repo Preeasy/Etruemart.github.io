@@ -174,28 +174,14 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   }
 
   if (req.method === 'PUT') {
+    // Only admins can edit products (site policy: admin-managed catalog)
+    if (session.user.role !== 'ADMIN') {
+      return res.status(403).json({ error: 'Only administrators can edit products' });
+    }
+
     const product = await findProductForEdit(idStr);
     if (!product) {
       return res.status(404).json({ error: 'Product not found' });
-    }
-
-    // Permission check: ADMIN and OFFICIAL_SELLER can edit anything; others must be the author
-    const isAdmin = session.user.role === 'ADMIN';
-    if (product.authorId !== session.user.id && !isAdmin) {
-      return res.status(403).json({ error: 'Forbidden' });
-    }
-
-    // Seller permission: non-ADMIN/OFFICIAL_SELLER cannot change categoryId outside their allowedCategoryId
-    if (!isAdmin && session.user.allowedCategoryId) {
-      // If updating categoryId, must match allowedCategoryId
-      const newCategoryId = req.body.categoryId;
-      if (newCategoryId && newCategoryId !== session.user.allowedCategoryId) {
-        return res.status(403).json({ error: 'You can only assign products to your allowed category' });
-      }
-      // If not updating categoryId, existing product must already be in allowedCategoryId
-      if (!newCategoryId && product.categoryId !== session.user.allowedCategoryId) {
-        return res.status(403).json({ error: 'You can only edit products in your allowed category' });
-      }
     }
 
     const {
@@ -242,10 +228,14 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   }
 
   if (req.method === 'DELETE') {
+    // Only admins can delete products (site policy: admin-managed catalog)
+    if (session.user.role !== 'ADMIN') {
+      return res.status(403).json({ error: 'Only administrators can delete products' });
+    }
+
     const product = await findProductForEdit(idStr);
-    const isAdmin = session.user.role === 'ADMIN';
-    if (!product || (product.authorId !== session.user.id && !isAdmin)) {
-      return res.status(403).json({ error: 'Forbidden' });
+    if (!product) {
+      return res.status(404).json({ error: 'Product not found' });
     }
 
     await prisma.product.delete({ where: { id: product.id } });

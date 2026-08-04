@@ -20,7 +20,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const siteDataPath = path.join(process.cwd(), 'site-data.json');
     const siteData = JSON.parse(fs.readFileSync(siteDataPath, 'utf-8'));
 
-    // 1. Admin account
+    // 1. Admin account (the only account that manages products)
     const adminEmail = 'yeatrusourcing@gmail.com';
     const admin = await prisma.user.upsert({
       where: { email: adminEmail },
@@ -30,19 +30,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         passwordHash: '$2a$10$rpC.Td0.EzAAHn9ZvsMDOezPiWZXXwXGvN9yQyB0rhPe4KFeM02vG',
         name: 'Yeatrusourcing',
         role: 'ADMIN',
-      },
-    });
-
-    // 2. Official seller account — all existing products belong to this seller
-    const officialSellerEmail = 'neil6corrot@gmail.com';
-    const officialSeller = await prisma.user.upsert({
-      where: { email: officialSellerEmail },
-      update: {},
-      create: {
-        email: officialSellerEmail,
-        passwordHash: '$2a$10$rpC.Td0.EzAAHn9ZvsMDOezPiWZXXwXGvN9yQyB0rhPe4KFeM02vG',
-        name: 'Official Seller',
-        role: 'OFFICIAL_SELLER',
       },
     });
 
@@ -162,7 +149,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
           shippingCost: 0,
           shippingMethod: 'Standard Shipping',
           aplus: productData.aplus ? JSON.stringify(productData.aplus) : null,
-          authorId: officialSeller.id,
+          authorId: admin.id,
           variants: {
             create: variantData.length > 0
               ? variantData.map(v => ({ ...v, price: parseFloat(String(v.price)) }))

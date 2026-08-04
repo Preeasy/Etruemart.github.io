@@ -142,10 +142,10 @@ const Home = ({ products }: { products: Product[] }) => {
                         Browse All Products <ArrowRight className="w-4 h-4" />
                       </Link>
                       <Link
-                        href="/sell/new"
+                        href="/register"
                         className="inline-flex items-center justify-center gap-2 border border-ink-200 hover:border-navy-900 hover:text-navy-900 text-ink-600 px-6 py-3 rounded-lg font-bold text-sm transition-colors"
                       >
-                        Become a Seller
+                        Create Account
                       </Link>
                     </div>
                   </div>
@@ -361,10 +361,10 @@ const Home = ({ products }: { products: Product[] }) => {
                 <div className="flex flex-col md:flex-row items-center justify-between gap-5">
                   <div className="text-center md:text-left">
                     <h2 className="font-bold text-lg md:text-xl text-navy-800 mb-1 tracking-tight">
-                      Ready to Start Sourcing?
+                      Ready to Start Shopping?
                     </h2>
                     <p className="text-ink-500 text-sm max-w-lg">
-                      Join thousands of retailers worldwide. Low MOQ, factory-direct pricing, verified suppliers.
+                      Create a free account to track orders, save addresses, and check out faster.
                     </p>
                   </div>
                   <div className="flex gap-3 flex-shrink-0">
@@ -375,10 +375,10 @@ const Home = ({ products }: { products: Product[] }) => {
                       Create Account <ArrowRight className="w-4 h-4" />
                     </Link>
                     <Link
-                      href="/sell"
+                      href="/products"
                       className="inline-flex items-center gap-2 border border-ink-200 hover:border-navy-900 hover:text-navy-900 text-ink-600 px-5 py-2.5 rounded-lg font-bold text-sm transition-colors"
                     >
-                      Sell on eTrue Mark
+                      Browse Products
                     </Link>
                   </div>
                 </div>

@@ -51,7 +51,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   const userId = session.user.id;
   const role = (session.user as any).role || '';
   const isOwner = product.authorId === userId;
-  const canManage = role === 'ADMIN' || role === 'OFFICIAL_SELLER' || isOwner;
+  // Only admins can manage (edit/upload) products per site policy
+  const canManage = role === 'ADMIN';
 
   const safeJsonParse = (str: string | null | undefined) => {
     if (!str) return null;

@@ -24,7 +24,6 @@ const productCategories = [
 
 const companyLinks = [
   { label: 'About Us', href: '/about' },
-  { label: 'Seller Center', href: '/sell' },
   { label: 'Contact Us', href: 'mailto:sales@etruemark.com' },
   { label: 'Quality Assurance', href: '/about' },
   { label: 'Shipping Policy', href: '/about' },

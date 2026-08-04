@@ -14,6 +14,7 @@ import {
   Plus,
   Loader2,
   Edit3,
+  ShieldAlert,
 } from 'lucide-react';
 import Layout from '@/components/Layout';
 
@@ -94,9 +95,9 @@ const ProductEditPage = () => {
         if (!res.ok) throw new Error('Product not found');
         const data = await res.json();
 
-        const canManage = role === 'ADMIN' || role === 'OFFICIAL_SELLER';
+        const canManage = role === 'ADMIN';
         if (data.authorId !== uid && !canManage) {
-          throw new Error('Forbidden: You can only edit your own products');
+          throw new Error('Forbidden: Only administrators can edit products');
         }
 
         const parsed: ProductData = {
@@ -163,6 +164,19 @@ const ProductEditPage = () => {
     );
   }
 
+  // Only admins can edit products (site policy)
+  if ((session.user as any).role !== 'ADMIN') {
+    return (
+      <Layout>
+        <div className="flex flex-col items-center justify-center min-h-[60vh] text-center px-4">
+          <ShieldAlert className="w-12 h-12 text-ink-300 mb-3" />
+          <p className="text-lg font-bold text-navy-800 mb-1">Admin access required</p>
+          <p className="text-sm text-ink-500">Only administrators can edit products. Contact an admin if you need access.</p>
+        </div>
+      </Layout>
+    );
+  }
+
   if (loading) {
     return (
       <Layout>
@@ -182,8 +196,8 @@ const ProductEditPage = () => {
         <div className="flex items-center justify-center min-h-[60vh]">
           <div className="text-center">
             <p className="text-red-500 mb-4">{errorMsg || 'Product not found'}</p>
-            <Link href="/dashboard" className="inline-flex items-center px-4 py-2 bg-accent-500 text-white rounded-lg hover:bg-accent-600">
-              ← Back to Dashboard
+            <Link href="/products" className="inline-flex items-center px-4 py-2 bg-accent-500 text-white rounded-lg hover:bg-accent-600">
+              ← Back to Products
             </Link>
           </div>
         </div>
@@ -320,7 +334,7 @@ const ProductEditPage = () => {
         throw new Error(err.error || 'Failed to save product');
       }
 
-      router.push('/dashboard');
+      router.push('/products');
     } catch (err: any) {
       setErrorMsg(err.message || 'Failed to save');
     } finally {
@@ -355,7 +369,7 @@ const ProductEditPage = () => {
               <p className="text-ink-500 mt-1">{product.name}</p>
             </div>
             <Link
-              href="/dashboard"
+              href="/products"
               className="px-4 py-2 border border-ink-200/30 text-ink-700 font-semibold rounded-lg hover:bg-ink-50 transition-colors"
             >
               ← Back
@@ -1096,7 +1110,7 @@ const ProductEditPage = () => {
                 </button>
                 <button
                   type="button"
-                  onClick={() => router.push('/dashboard')}
+                  onClick={() => router.push('/products')}
                   className="px-6 py-3 border border-ink-200/30 text-ink-700 font-semibold rounded-lg hover:bg-ink-50 transition-colors"
                 >
                   Cancel

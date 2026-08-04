@@ -74,7 +74,7 @@ const Register = () => {
               <span className="text-2xl font-bold text-accent-600 group-hover:text-accent-400 transition-colors">eTrue Mark</span>
             </Link>
             <h2 className="text-3xl font-bold text-navy-900">Create your account</h2>
-            <p className="mt-2 text-ink-500">Join us and start shopping or selling today!</p>
+            <p className="mt-2 text-ink-500">Join us and start shopping today!</p>
           </div>
 
           <form onSubmit={handleSubmit} className="bg-ink-50 rounded-xl p-8 space-y-6 border border-ink-200/20">

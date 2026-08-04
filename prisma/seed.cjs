@@ -34,11 +34,10 @@ async function main() {
   console.log('Starting seed...');
 
   const adminEmail = 'yeatrusourcing@gmail.com';
-  const officialSellerEmail = 'neil6corrot@gmail.com';
   const password = process.env.SEED_PASSWORD || 'ldz52385109';
   const passwordHash = bcrypt.hashSync(password, 12);
 
-  // 1. Create admin account
+  // 1. Create admin account (the only account that manages products)
   const admin = await prisma.user.upsert({
     where: { email: adminEmail },
     update: {},
@@ -51,20 +50,7 @@ async function main() {
   });
   console.log('Admin ready:', admin.email);
 
-  // 2. Create official seller account
-  const seller = await prisma.user.upsert({
-    where: { email: officialSellerEmail },
-    update: {},
-    create: {
-      email: officialSellerEmail,
-      passwordHash,
-      name: 'Official Seller',
-      role: 'OFFICIAL_SELLER',
-    },
-  });
-  console.log('Seller ready:', seller.email);
-
-  // 3. Categories
+  // 2. Categories
   const categoryDefinitions = categoriesData.categories || [];
   const slugToId = {};
 
@@ -161,7 +147,7 @@ async function main() {
           shippingCost: productData.shippingCost ?? 0,
           shippingMethod: productData.shippingMethod || 'Standard Shipping',
           aplus: aplusStr,
-          authorId: seller.id,
+          authorId: admin.id,
           variants: {
             create: [{ color: productData.color || 'Default', size: productData.size || 'One Size', price: priceVal, stock: productData.stock || 100 }],
           },

@@ -2,6 +2,7 @@ import { SessionProvider } from 'next-auth/react';
 import type { AppProps } from 'next/app';
 import { Component, ReactNode, ErrorInfo } from 'react';
 import Link from 'next/link';
+import { CartProvider } from '@/components/CartContext';
 import '../styles/globals.css';
 
 interface ErrorBoundaryState {
@@ -57,9 +58,11 @@ class GlobalErrorBoundary extends Component<{ children: ReactNode }, ErrorBounda
 function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
   return (
     <SessionProvider session={session}>
-      <GlobalErrorBoundary>
-        <Component {...pageProps} />
-      </GlobalErrorBoundary>
+      <CartProvider>
+        <GlobalErrorBoundary>
+          <Component {...pageProps} />
+        </GlobalErrorBoundary>
+      </CartProvider>
     </SessionProvider>
   );
 }

@@ -182,7 +182,7 @@ export default function ShippingAdmin() {
     );
   }
 
-  if (!session || (session.user.role !== 'ADMIN' && session.user.role !== 'OFFICIAL_SELLER')) {
+  if (!session || session.user.role !== 'ADMIN') {
     return (
       <Layout>
         <div className="min-h-[60vh] flex items-center justify-center">

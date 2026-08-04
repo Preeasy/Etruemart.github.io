@@ -21,7 +21,7 @@ const writeShippingData = (data: any) => {
 
 async function requireAdmin(req: NextApiRequest, res: NextApiResponse) {
   const session = await getServerSession(req, res, authOptions);
-  if (!session?.user || (session.user.role !== 'ADMIN' && session.user.role !== 'OFFICIAL_SELLER')) {
+  if (!session?.user || session.user.role !== 'ADMIN') {
     res.status(403).json({ error: 'Admin access required' });
     return false;
   }

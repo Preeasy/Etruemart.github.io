@@ -14,7 +14,6 @@ import {
   Sparkles,
   X,
   Settings,
-  Edit3,
   Package,
 } from 'lucide-react';
 import ProductCard from '@/components/ProductCard';
@@ -71,7 +70,6 @@ const Products = ({ products: initialProducts }: { products: Product[] }) => {
   const [sortBy, setSortBy] = useState('newest');
   const [showSidebar, setShowSidebar] = useState(false);
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
-  const [sellerProducts, setSellerProducts] = useState<{ id: string; slug: string; name: string }[]>([]);
 
   useEffect(() => {
     fetch('/api/products')
@@ -107,18 +105,6 @@ const Products = ({ products: initialProducts }: { products: Product[] }) => {
       })
       .catch(() => {});
   }, []);
-
-  useEffect(() => {
-    if (session?.user && (session.user.role === 'OFFICIAL_SELLER' || session.user.role === 'ADMIN')) {
-      fetch('/api/products/my-products')
-        .then(r => r.ok ? r.json() : null)
-        .then(data => { if (data?.products) setSellerProducts(data.products); })
-        .catch(() => {});
-    }
-  }, [session]);
-
-  const sellerProductMap = new Map(sellerProducts.map(p => [p.slug || p.id, p]));
-  const sellerProductByNameMap = new Map(sellerProducts.map(p => [p.name?.toLowerCase() || '', p]));
 
   const filteredProducts = products.filter((product) => {
     const matchesSearch =
@@ -212,21 +198,14 @@ const Products = ({ products: initialProducts }: { products: Product[] }) => {
                 Wholesale jewelry & accessories — direct from Yiwu. Factory pricing, low MOQ, fast global shipping.
               </p>
             </div>
-            {session?.user && (session.user.role === 'OFFICIAL_SELLER' || session.user.role === 'ADMIN') && (
+            {session?.user?.role === 'ADMIN' && (
               <div className="flex items-center gap-2 flex-shrink-0">
                 <Link
-                  href="/dashboard"
-                  className="inline-flex items-center gap-2 px-4 py-2 bg-white border border-ink-200 text-ink-700 text-sm font-semibold rounded-lg hover:bg-ink-50 transition-colors"
-                >
-                  <Package className="w-4 h-4" />
-                  Seller Center
-                </Link>
-                <Link
-                  href="/dashboard"
+                  href="/sell/new"
                   className="inline-flex items-center gap-2 px-4 py-2 bg-accent-500 hover:bg-accent-600 text-white text-sm font-semibold rounded-lg transition-colors"
                 >
-                  <Edit3 className="w-4 h-4" />
-                  My Products
+                  <Package className="w-4 h-4" />
+                  Add Product
                 </Link>
               </div>
             )}
@@ -498,12 +477,12 @@ const Products = ({ products: initialProducts }: { products: Product[] }) => {
               viewMode === 'grid' ? (
                 <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
                   {sortedProducts.map((product) => {
-                    const sellerMatch = sellerProductMap.get(String(product.id)) || sellerProductByNameMap.get(product.name?.toLowerCase());
+                    const isAdmin = session?.user?.role === 'ADMIN';
                     return (
                       <ProductCard
                         key={product.id}
                         product={product}
-                        editUrl={sellerMatch ? `/sell/${sellerMatch.id}` : undefined}
+                        editUrl={isAdmin && product.id ? `/sell/${product.id}` : undefined}
                       />
                     );
                   })}

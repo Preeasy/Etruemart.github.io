@@ -27,14 +27,16 @@ import {
   Users,
   Flame,
   TrendingUp,
-  Award,
   Store,
   Edit3,
   Settings,
+  CreditCard,
 } from 'lucide-react';
 import Layout from '@/components/Layout';
 import ProductCard from '@/components/ProductCard';
 import ShippingSelector from '@/components/ShippingSelector';
+import ReviewsSection from '@/components/ReviewsSection';
+import { useCart } from '@/components/CartContext';
 import { SITE_URL, SITE_OG_IMAGE } from '@/lib/site';
 import siteDataJson from '../../../site-data.json';
 
@@ -77,6 +79,7 @@ interface Product {
 export default function ProductDetail({ product: initialProduct, relatedProducts: initialRelated }: { product: Product; relatedProducts: Product[] }) {
   const router = useRouter();
   const { data: session, status: sessionStatus } = useSession();
+  const { addToCart } = useCart();
   const [product, setProduct] = useState<Product>(initialProduct);
   const [relatedProducts, setRelatedProducts] = useState<Product[]>(initialRelated);
   const [selectedImage, setSelectedImage] = useState(0);
@@ -158,12 +161,6 @@ export default function ProductDetail({ product: initialProduct, relatedProducts
 
   const images = product.images?.length >= 2 ? product.images : [product.image];
 
-  const sampleReviews = [
-    { id: '1', user: { name: 'Sarah M.' }, rating: 5, title: 'Excellent quality!', content: 'The product exceeded my expectations. Material feels premium and the craftsmanship is top-notch. Will definitely reorder for my boutique.', createdAt: '2026-07-15T00:00:00Z' },
-    { id: '2', user: { name: 'James K.' }, rating: 5, title: 'Fast shipping', content: 'Order arrived in just 12 days. The product matches the description perfectly. My customers love it. Already placing a second order!', createdAt: '2026-07-10T00:00:00Z' },
-    { id: '3', user: { name: 'Emma L.' }, rating: 4, title: 'Great value for money', content: 'Quality is much better than expected at this price point. The packaging was also very professional. Highly recommend for small retailers.', createdAt: '2026-07-05T00:00:00Z' },
-  ];
-
   const faqs = [
     { q: 'What is the minimum order quantity?', a: `The MOQ for this product is ${product.moq || 12} pieces. We accept smaller trial orders for new customers to help you test the market.` },
     { q: 'Can I get a sample before placing a bulk order?', a: 'Yes, we offer samples at a slightly higher unit price. Sample fees can be fully refunded upon bulk order confirmation.' },
@@ -186,16 +183,11 @@ export default function ProductDetail({ product: initialProduct, relatedProducts
     setAddingToCart(true);
     setCartNotice(null);
     try {
-      const response = await fetch('/api/cart', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ productId: product.id, quantity }),
-      });
-      if (response.ok) {
-        setCartNotice({ type: 'success', message: 'Added to inquiry list!' });
+      const ok = await addToCart(String(product.id), quantity);
+      if (ok) {
+        setCartNotice({ type: 'success', message: 'Added to cart!' });
       } else {
-        const data = await response.json().catch(() => ({}));
-        setCartNotice({ type: 'error', message: data.error || 'Failed to add to cart' });
+        setCartNotice({ type: 'error', message: 'Failed to add to cart' });
       }
     } catch {
       setCartNotice({ type: 'error', message: 'Network error. Please try again.' });
@@ -316,28 +308,13 @@ export default function ProductDetail({ product: initialProduct, relatedProducts
                   Edit Product
                 </Link>
                 <Link
-                  href="/dashboard"
+                  href="/sell/new"
                   className="inline-flex items-center gap-2 px-4 py-2 bg-white border border-ink-200 text-ink-700 text-sm font-semibold rounded-lg hover:bg-ink-50 transition-colors"
                 >
                   <Package className="w-4 h-4" />
-                  Seller Center
+                  Add Product
                 </Link>
               </div>
-            </div>
-          </div>
-        </div>
-      )}
-      {ownership && !ownership.canManage && session?.user?.role === 'USER' && (
-        <div className="bg-ink-50 border-b border-ink-200/30">
-          <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16 max-w-[1600px] mx-auto py-3">
-            <div className="flex items-center justify-between gap-4 flex-wrap">
-              <p className="text-sm text-ink-600">Are you the seller of this product?</p>
-              <Link
-                href="/dashboard"
-                className="text-sm font-semibold text-accent-600 hover:text-accent-700"
-              >
-                Apply for seller account →
-              </Link>
             </div>
           </div>
         </div>
@@ -502,10 +479,10 @@ export default function ProductDetail({ product: initialProduct, relatedProducts
               )}
               <div className="flex flex-col sm:flex-row gap-2.5">
                 <button onClick={handleAddToCart} disabled={addingToCart} className="flex-1 flex items-center justify-center gap-2 bg-accent-600 hover:bg-accent-700 disabled:opacity-50 disabled:cursor-not-allowed text-white py-2.5 rounded-lg font-bold text-sm transition-colors">
-                  <MessageCircle className="w-4 h-4" />Contact Supplier
+                  {addingToCart ? <><div className="animate-spin w-4 h-4 border-2 border-white border-t-transparent rounded-full" />Adding...</> : <><ShoppingCart className="w-4 h-4" />Add to Cart</>}
                 </button>
-                <button onClick={handleAddToCart} disabled={addingToCart} className="flex-1 flex items-center justify-center gap-2 bg-navy-800 hover:bg-navy-900 disabled:opacity-50 disabled:cursor-not-allowed text-white py-2.5 rounded-lg font-bold text-sm transition-colors">
-                  {addingToCart ? <><div className="animate-spin w-4 h-4 border-2 border-white border-t-transparent rounded-full" />Adding...</> : <><ShoppingCart className="w-4 h-4" />Add to Inquiry</>}
+                <button onClick={async () => { await handleAddToCart(); if (session) router.push('/checkout'); }} disabled={addingToCart} className="flex-1 flex items-center justify-center gap-2 bg-navy-800 hover:bg-navy-900 disabled:opacity-50 disabled:cursor-not-allowed text-white py-2.5 rounded-lg font-bold text-sm transition-colors">
+                  <CreditCard className="w-4 h-4" />Buy Now
                 </button>
               </div>
             </div>
@@ -539,26 +516,6 @@ export default function ProductDetail({ product: initialProduct, relatedProducts
             <div className="py-4 border-b border-ink-100">
               <ShippingSelector categorySlug={product.category?.slug} />
             </div>
-
-            {/* Supplier Card */}
-            <Link href="/store/yiwu-premium-trading" className="block py-4 border-b border-ink-100 last:border-b-0 group">
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-lg bg-navy-50 flex items-center justify-center text-navy-800 font-bold text-sm border border-ink-200">
-                  YW
-                </div>
-                <div className="flex-1 min-w-0">
-                  <div className="flex items-center gap-2">
-                    <p className="text-sm font-bold text-navy-800 group-hover:text-accent-600 transition-colors">{product.seller || 'Yiwu Yeatru Trading Co.'}</p>
-                    <CheckCircle2 className="w-3.5 h-3.5 text-success-500 flex-shrink-0" />
-                  </div>
-                  <div className="flex items-center gap-2 mt-0.5">
-                    <span className="text-[10px] bg-success-50 text-success-700 px-1.5 py-0.5 rounded font-semibold border border-success-200">VERIFIED</span>
-                    <span className="text-[10px] text-ink-500 font-medium">8 yrs · 95% response rate</span>
-                  </div>
-                </div>
-                <Store className="w-4 h-4 text-accent-500 flex-shrink-0" />
-              </div>
-            </Link>
           </div>
         </div>
 
@@ -690,7 +647,6 @@ export default function ProductDetail({ product: initialProduct, relatedProducts
                       { label: 'Size', value: product.size || 'Standard' },
                       { label: 'MOQ', value: `${product.moq || 12} pieces` },
                       { label: 'Pack Size', value: `${product.packSize || product.moq || 12} pcs/carton` },
-                      { label: 'Origin', value: product.origin || 'Yiwu, China' },
                       { label: 'Lead Time', value: '7-15 days' },
                       { label: 'Customization', value: 'OEM/ODM available' },
                       { label: 'Sample', value: 'Yes' },
@@ -706,51 +662,11 @@ export default function ProductDetail({ product: initialProduct, relatedProducts
               )}
 
               {activeTab === 'reviews' && (
-                <div>
-                  <h2 className="text-lg font-bold text-navy-900 mb-4">Customer Reviews</h2>
-                  <div className="grid md:grid-cols-3 gap-4 mb-6 pb-5 border-b border-ink-200">
-                    <div className="text-center md:border-r md:border-ink-200">
-                      <div className="text-4xl font-bold text-navy-800 mb-1">{rating.toFixed(1)}</div>
-                      <div className="flex gap-0.5 justify-center mb-1">
-                        {[...Array(5)].map((_, i) => <Star key={i} className={`w-3.5 h-3.5 ${i < Math.floor(rating) ? 'text-accent-500 fill-accent-500' : 'text-ink-200'}`} />)}
-                      </div>
-                      <p className="text-xs text-ink-500 font-medium">Based on {reviewCount} reviews</p>
-                    </div>
-                    <div className="md:col-span-2 space-y-1.5">
-                      {[{ stars: 5, pct: 78 }, { stars: 4, pct: 15 }, { stars: 3, pct: 5 }, { stars: 2, pct: 1 }, { stars: 1, pct: 1 }].map((row) => (
-                        <div key={row.stars} className="flex items-center gap-2">
-                          <div className="flex gap-0.5 w-14 flex-shrink-0">
-                            {[...Array(5)].map((_, i) => <Star key={i} className={`w-3 h-3 ${i < row.stars ? 'text-accent-500 fill-accent-500' : 'text-ink-200'}`} />)}
-                          </div>
-                          <div className="flex-1 h-1.5 bg-ink-100 rounded-full overflow-hidden">
-                            <div className="h-full bg-accent-500 rounded-full" style={{ width: `${row.pct}%` }}></div>
-                          </div>
-                          <span className="text-xs text-ink-500 w-8 text-right font-semibold">{row.pct}%</span>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                  <div className="space-y-4">
-                    {sampleReviews.map((review) => (
-                      <div key={review.id} className="pb-4 border-b border-ink-100 last:border-0">
-                        <div className="flex items-center gap-3 mb-2">
-                          <div className="w-9 h-9 rounded-full bg-navy-50 flex items-center justify-center text-navy-800 font-bold text-sm border border-ink-200">{review.user?.name?.[0] || 'U'}</div>
-                          <div>
-                            <p className="text-sm font-semibold text-navy-800">{review.user?.name || 'Anonymous'}</p>
-                            <div className="flex items-center gap-2">
-                              <div className="flex gap-0.5">
-                                {[...Array(5)].map((_, i) => <Star key={i} className={`w-3 h-3 ${i < review.rating ? 'text-accent-500 fill-accent-500' : 'text-ink-200'}`} />)}
-                              </div>
-                              <span className="text-[10px] text-ink-500 font-medium">{new Date(review.createdAt).toLocaleDateString()}</span>
-                            </div>
-                          </div>
-                        </div>
-                        <h4 className="text-sm font-semibold text-navy-800 mb-1">{review.title}</h4>
-                        <p className="text-sm text-ink-600 leading-relaxed">{review.content}</p>
-                      </div>
-                    ))}
-                  </div>
-                </div>
+                <ReviewsSection
+                  productId={String(product.id)}
+                  fallbackRating={rating}
+                  fallbackReviewCount={reviewCount}
+                />
               )}
 
               {activeTab === 'faq' && (
@@ -814,17 +730,6 @@ export default function ProductDetail({ product: initialProduct, relatedProducts
                       </div>
                     </Link>
                   ))}
-                </div>
-              </div>
-
-              {/* Become a Seller */}
-              <div className="bg-white rounded-xl border border-ink-200 overflow-hidden">
-                <div className="px-4 py-3 border-b border-ink-100">
-                  <h3 className="text-sm font-bold text-navy-800 flex items-center gap-2"><Award className="w-4 h-4 text-accent-500" />Become a Seller</h3>
-                </div>
-                <div className="p-4">
-                  <p className="text-xs text-ink-500 mb-3 leading-relaxed">Join 10,000+ suppliers reaching buyers worldwide</p>
-                  <Link href="/sell" className="inline-flex items-center justify-center gap-1 bg-navy-800 hover:bg-navy-900 text-white text-xs font-bold px-4 py-2 rounded-lg transition-colors w-full">Start Selling <ChevronRight className="w-3.5 h-3.5" /></Link>
                 </div>
               </div>
 

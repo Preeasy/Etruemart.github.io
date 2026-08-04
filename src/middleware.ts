@@ -7,18 +7,13 @@ export default withAuth(
     const path = req.nextUrl.pathname;
     const role = token?.role as string | undefined;
 
-    // Admin-only routes
-    const adminPaths = ['/shipping-admin', '/api/init', '/api/seed', '/api/products/batch'];
+    // Admin-only routes — product upload/edit & shipping management restricted to admins
+    const adminPaths = ['/shipping-admin', '/sell', '/api/init', '/api/seed', '/api/products/batch', '/api/products/excel-import'];
     if (adminPaths.some(p => path.startsWith(p))) {
       if (role !== 'ADMIN') {
-        return NextResponse.json({ error: 'Admin access required' }, { status: 403 });
-      }
-    }
-
-    // Seller+ routes (ADMIN or OFFICIAL_SELLER)
-    const sellerPaths = ['/sell', '/dashboard'];
-    if (sellerPaths.some(p => path.startsWith(p))) {
-      if (role !== 'ADMIN' && role !== 'OFFICIAL_SELLER') {
+        if (path.startsWith('/api/')) {
+          return NextResponse.json({ error: 'Admin access required' }, { status: 403 });
+        }
         return NextResponse.redirect(new URL('/login', req.url));
       }
     }
@@ -52,13 +47,13 @@ export default withAuth(
 
 export const config = {
   matcher: [
-    '/dashboard/:path*',
     '/sell/:path*',
     '/orders/:path*',
     '/shipping-admin/:path*',
     '/api/init',
     '/api/seed',
     '/api/products/batch',
+    '/api/products/excel-import',
     '/api/shipping/:path*',
   ],
 };

@@ -9,7 +9,9 @@ import {
   X,
   Gem,
   Store,
+  ShoppingCart,
 } from 'lucide-react';
+import { useCart } from '@/components/CartContext';
 
 const navLinks = [
   { label: 'All Products', href: '/products' },
@@ -18,11 +20,11 @@ const navLinks = [
   { label: 'Accessories', href: '/products?category=accessories' },
   { label: 'Toys', href: '/products?category=toys' },
   { label: 'Home Decor', href: '/products?category=home-decor-crafts' },
-  { label: 'Seller Center', href: '/sell' },
 ];
 
 const Navbar = () => {
   const { data: session } = useSession();
+  const { count } = useCart();
   const [isOpen, setIsOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const router = useRouter();
@@ -68,26 +70,36 @@ const Navbar = () => {
             </div>
           </div>
 
-          {/* Right actions — minimal: Sign In / Seller / Dashboard / Logout */}
+          {/* Right actions — Cart / Sign In / Admin Manage / Logout */}
           <div className="flex items-center gap-1 shrink-0">
             <Link
-              href="/sell"
-              aria-label="Seller Center"
-              className="hidden sm:flex items-center gap-1.5 px-3 py-2 text-xs text-ink-200 hover:text-accent-300 transition-colors font-medium"
+              href="/cart"
+              aria-label="Shopping cart"
+              className="relative flex items-center gap-1.5 px-3 py-2 text-xs text-ink-200 hover:text-accent-300 transition-colors font-medium"
             >
-              <Store className="w-4 h-4" />
-              Seller Center
+              <div className="relative">
+                <ShoppingCart className="w-4 h-4" />
+                {count > 0 && (
+                  <span className="absolute -top-2 -right-2 min-w-[16px] h-4 px-1 bg-accent-500 text-white text-[10px] font-bold rounded-full flex items-center justify-center leading-none">
+                    {count > 99 ? '99+' : count}
+                  </span>
+                )}
+              </div>
+              <span className="hidden sm:inline">Cart</span>
             </Link>
             <div className="hidden sm:block w-px h-5 bg-navy-600" />
             {session ? (
               <>
-                <Link
-                  href="/dashboard"
-                  aria-label="Dashboard"
-                  className="px-3 py-2 text-xs text-ink-200 hover:text-accent-300 transition-colors font-medium"
-                >
-                  Dashboard
-                </Link>
+                {session.user.role === 'ADMIN' && (
+                  <Link
+                    href="/sell/new"
+                    aria-label="Manage products"
+                    className="hidden sm:flex items-center gap-1.5 px-3 py-2 text-xs text-ink-200 hover:text-accent-300 transition-colors font-medium"
+                  >
+                    <Store className="w-4 h-4" />
+                    Manage
+                  </Link>
+                )}
                 <button
                   onClick={() => signOut()}
                   aria-label="Logout"
@@ -169,17 +181,27 @@ const Navbar = () => {
             </div>
 
             <Link
-              href="/sell"
-              aria-label="Seller Center"
-              className="block py-2 text-sm text-ink-200 hover:text-accent-300 font-medium"
+              href="/cart"
+              aria-label="Shopping cart"
+              className="flex items-center justify-between py-2 text-sm text-ink-200 hover:text-accent-300 font-medium"
             >
-              Seller Center
+              <span className="flex items-center gap-2">
+                <ShoppingCart className="w-4 h-4" />
+                Cart
+              </span>
+              {count > 0 && (
+                <span className="min-w-[18px] h-[18px] px-1 bg-accent-500 text-white text-[10px] font-bold rounded-full flex items-center justify-center">
+                  {count > 99 ? '99+' : count}
+                </span>
+              )}
             </Link>
             {session ? (
               <>
-                <Link href="/dashboard" aria-label="Dashboard" className="block py-2 text-sm text-ink-200 hover:text-accent-300 font-medium">
-                  Dashboard
-                </Link>
+                {session.user.role === 'ADMIN' && (
+                  <Link href="/sell/new" aria-label="Manage products" className="block py-2 text-sm text-ink-200 hover:text-accent-300 font-medium">
+                    Manage Products
+                  </Link>
+                )}
                 <button
                   onClick={() => signOut()}
                   aria-label="Logout"

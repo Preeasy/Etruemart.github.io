@@ -14,6 +14,8 @@ import {
   Loader2,
   Edit3,
   ChevronRight,
+  ShieldAlert,
+  FileSpreadsheet,
 } from 'lucide-react';
 import Layout from '@/components/Layout';
 
@@ -132,6 +134,19 @@ const NewProductPage = () => {
       <Layout>
         <div className="flex items-center justify-center min-h-[60vh]">
           <Loader2 className="w-10 h-10 text-accent-500 animate-spin" />
+        </div>
+      </Layout>
+    );
+  }
+
+  // Only admins can upload products (site policy)
+  if (session.user.role !== 'ADMIN') {
+    return (
+      <Layout>
+        <div className="flex flex-col items-center justify-center min-h-[60vh] text-center px-4">
+          <ShieldAlert className="w-12 h-12 text-ink-300 mb-3" />
+          <p className="text-lg font-bold text-navy-800 mb-1">Admin access required</p>
+          <p className="text-sm text-ink-500">Only administrators can upload products. Contact an admin if you need access.</p>
         </div>
       </Layout>
     );
@@ -323,12 +338,21 @@ const NewProductPage = () => {
               </h1>
               <p className="text-ink-500 mt-1">Create a new product listing for your store</p>
             </div>
-            <Link
-              href="/dashboard"
-              className="px-4 py-2 border border-ink-200/30 text-ink-700 font-semibold rounded-lg hover:bg-ink-50 transition-colors"
-            >
-              ← Back
-            </Link>
+            <div className="flex items-center gap-3">
+              <Link
+                href="/sell/excel-import"
+                className="inline-flex items-center gap-2 px-4 py-2 bg-accent-500 text-white font-semibold rounded-lg hover:bg-accent-600 transition-colors"
+              >
+                <FileSpreadsheet className="w-4 h-4" />
+                Excel Import
+              </Link>
+              <Link
+                href="/products"
+                className="px-4 py-2 border border-ink-200/30 text-ink-700 font-semibold rounded-lg hover:bg-ink-50 transition-colors"
+              >
+                ← Back
+              </Link>
+            </div>
           </div>
         </div>
       </div>
@@ -1067,7 +1091,7 @@ const NewProductPage = () => {
                 </button>
                 <button
                   type="button"
-                  onClick={() => router.push('/dashboard')}
+                  onClick={() => router.push('/products')}
                   className="px-6 py-3 border border-ink-200/30 text-ink-700 font-semibold rounded-lg hover:bg-ink-50 transition-colors"
                 >
                   Cancel

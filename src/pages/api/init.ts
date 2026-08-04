@@ -2,6 +2,7 @@ import { NextApiRequest, NextApiResponse } from 'next';
 import { getServerSession } from 'next-auth/next';
 import { authOptions } from '@/lib/auth';
 import { prisma } from '@/lib/prisma';
+import { seedShippingTemplatesIfEmpty } from '@/lib/shipping';
 import bcrypt from 'bcryptjs';
 import fs from 'fs';
 import path from 'path';
@@ -22,28 +23,20 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   }
 
   try {
-    // Check if already initialized
+    // Seed the single admin account once. Product/category/shipping sync below
+    // is idempotent (upsert) and always runs so all site-data.json products
+    // are guaranteed to be present in the database.
     const existingCount = await prisma.user.count();
-    if (existingCount >= 2) {
-      return res.json({ success: true, alreadyInitialized: true, users: existingCount });
-    }
 
     const password = process.env.SEED_PASSWORD || 'ldz52385109';
     const passwordHash = await bcrypt.hash(password, 12);
 
     const adminEmail = 'yeatrusourcing@gmail.com';
-    const sellerEmail = 'neil6corrot@gmail.com';
 
     const admin = await prisma.user.upsert({
       where: { email: adminEmail },
       update: { passwordHash, name: 'Yeatrusourcing', role: 'ADMIN' },
       create: { email: adminEmail, passwordHash, name: 'Yeatrusourcing', role: 'ADMIN' },
-    });
-
-    const seller = await prisma.user.upsert({
-      where: { email: sellerEmail },
-      update: { passwordHash, name: 'Official Seller', role: 'OFFICIAL_SELLER' },
-      create: { email: sellerEmail, passwordHash, name: 'Official Seller', role: 'OFFICIAL_SELLER' },
     });
 
     // Import categories
@@ -81,7 +74,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       }
     }
 
-    // Import products from site-data.json
+    // Import products from site-data.json (idempotent via upsert by slug)
     let productCount = 0;
     const siteDataPath = path.join(process.cwd(), 'site-data.json');
     if (fs.existsSync(siteDataPath)) {
@@ -90,6 +83,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
       for (const p of products) {
         try {
+          if (!p.slug) continue;
           const catSlug = p.category?.slug || p.categorySlug;
           let categoryId = '';
 
@@ -115,8 +109,35 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
           const priceMin = p.priceMin || p.price || 0;
           const priceMax = p.priceMax || null;
 
-          await prisma.product.create({
-            data: {
+          // upsert by slug so re-running init is safe and keeps all 378 products in sync
+          const upserted = await prisma.product.upsert({
+            where: { slug: p.slug },
+            update: {
+              name: p.name,
+              description: p.description || '',
+              price: priceMin,
+              priceMax,
+              originalPrice: priceMax || priceMin * 1.3,
+              image: p.image,
+              images: JSON.stringify(imagesArr),
+              categoryId,
+              stock: p.stock || 100,
+              isPublished: p.isPublished !== false,
+              sku: p.sku || null,
+              material: p.material || null,
+              plating: p.plating || null,
+              process: p.process || null,
+              color: p.color || null,
+              size: p.size || null,
+              packSize: p.packSize || 1,
+              moq: p.moq || 1,
+              keywords: keywordsStr,
+              stockStatus: p.stockStatus || 'IN_STOCK',
+              shippingCost: p.shippingCost ?? 0,
+              shippingMethod: p.shippingMethod || 'Standard Shipping',
+              aplus: p.aplus ? JSON.stringify(p.aplus) : null,
+            },
+            create: {
               name: p.name,
               slug: p.slug,
               description: p.description || '',
@@ -141,25 +162,51 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
               shippingCost: p.shippingCost ?? 0,
               shippingMethod: p.shippingMethod || 'Standard Shipping',
               aplus: p.aplus ? JSON.stringify(p.aplus) : null,
-              authorId: seller.id,
+              authorId: admin.id,
               variants: {
                 create: [{ color: p.color || 'Default', size: p.size || 'One Size', price: priceMin, stock: p.stock || 100 }],
               },
             },
           });
+
+          // Ensure a default variant exists for products that were updated (created earlier without one)
+          if (upserted) {
+            const variantCount = await prisma.productVariant.count({ where: { productId: upserted.id } });
+            if (variantCount === 0) {
+              await prisma.productVariant.create({
+                data: {
+                  productId: upserted.id,
+                  color: p.color || 'Default',
+                  size: p.size || 'One Size',
+                  price: priceMin,
+                  stock: p.stock || 100,
+                },
+              });
+            }
+          }
           productCount++;
         } catch (err) {
-          // skip
+          // skip individual product errors but continue importing the rest
         }
       }
+    }
+
+    // Seed default shipping templates (AI-analyzed reasonable rates)
+    let shippingTemplates = 0;
+    try {
+      await seedShippingTemplatesIfEmpty();
+      shippingTemplates = await prisma.shippingTemplate.count();
+    } catch (err) {
+      // skip shipping template seed errors
     }
 
     res.json({
       success: true,
       message: 'Database initialized',
-      users: 2,
+      users: 1,
       categories: categoryCount,
       products: productCount,
+      shippingTemplates,
     });
   } catch (error) {
     console.error('Init error:', error);

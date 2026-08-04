@@ -3,6 +3,9 @@ import { getServerSession } from 'next-auth/next';
 import { authOptions } from '@/lib/auth';
 import { prisma } from '@/lib/prisma';
 
+const VALID_STATUSES = ['PENDING', 'PAID', 'PROCESSING', 'SHIPPED', 'DELIVERED', 'CANCELLED', 'REFUNDED'];
+const VALID_PAYMENT_STATUSES = ['UNPAID', 'PENDING', 'PAID', 'FAILED', 'REFUNDED'];
+
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   const { id } = req.query;
 
@@ -11,13 +14,22 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     return res.status(401).json({ error: 'Unauthorized' });
   }
 
+  const isAdmin = session.user.role === 'ADMIN';
+
   if (req.method === 'GET') {
     const order = await prisma.order.findUnique({
       where: { id: id as string },
-      include: { items: { include: { product: true, variant: true } } },
+      include: {
+        items: { include: { product: true, variant: true } },
+        address: true,
+      },
     });
 
-    if (!order || order.userId !== session.user.id) {
+    if (!order) {
+      return res.status(404).json({ error: 'Order not found' });
+    }
+    // Admin can view any order; users only their own
+    if (order.userId !== session.user.id && !isAdmin) {
       return res.status(403).json({ error: 'Forbidden' });
     }
 
@@ -25,20 +37,51 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   }
 
   if (req.method === 'PUT') {
-    const { status } = req.body;
-    const VALID_STATUSES = ['PENDING', 'PAID', 'PROCESSING', 'SHIPPED', 'DELIVERED', 'CANCELLED', 'REFUNDED'];
-    if (!VALID_STATUSES.includes(status)) {
-      return res.status(400).json({ error: 'Invalid status value' });
-    }
+    const { status, paymentStatus, paymentId, paymentMethod, notes, trackingNumber } = req.body;
+
     const order = await prisma.order.findUnique({ where: { id: id as string } });
-    
-    if (!order || order.userId !== session.user.id) {
+    if (!order) {
+      return res.status(404).json({ error: 'Order not found' });
+    }
+
+    // Only the order owner can cancel their own unpaid order; status/payment
+    // transitions otherwise require admin.
+    const isOwner = order.userId === session.user.id;
+    if (!isAdmin && !isOwner) {
       return res.status(403).json({ error: 'Forbidden' });
     }
 
+    const data: any = {};
+    if (status !== undefined) {
+      if (!VALID_STATUSES.includes(status)) {
+        return res.status(400).json({ error: 'Invalid status value' });
+      }
+      // Non-admins may only cancel their own unpaid orders
+      if (!isAdmin && status !== 'CANCELLED') {
+        return res.status(403).json({ error: 'Only administrators can change order status' });
+      }
+      if (!isAdmin && order.paymentStatus !== 'UNPAID') {
+        return res.status(403).json({ error: 'Cannot cancel a paid order' });
+      }
+      data.status = status;
+    }
+    if (paymentStatus !== undefined) {
+      if (!VALID_PAYMENT_STATUSES.includes(paymentStatus)) {
+        return res.status(400).json({ error: 'Invalid payment status value' });
+      }
+      if (!isAdmin) {
+        return res.status(403).json({ error: 'Only administrators can change payment status' });
+      }
+      data.paymentStatus = paymentStatus;
+    }
+    if (paymentId !== undefined && isAdmin) data.paymentId = paymentId;
+    if (paymentMethod !== undefined && isAdmin) data.paymentMethod = paymentMethod;
+    if (notes !== undefined) data.notes = notes;
+
     const updatedOrder = await prisma.order.update({
       where: { id: id as string },
-      data: { status },
+      data,
+      include: { items: { include: { product: true } } },
     });
 
     return res.json(updatedOrder);

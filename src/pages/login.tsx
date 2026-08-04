@@ -15,15 +15,15 @@ const Login = () => {
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
-  if (status === 'loading') {
-    return <div className="text-center py-20 text-ink-500">Loading...</div>;
-  }
-
   useEffect(() => {
     if (session) {
       router.push('/');
     }
   }, [session, router]);
+
+  if (status === 'loading') {
+    return <div className="text-center py-20 text-ink-500">Loading...</div>;
+  }
 
   if (session) {
     return null;

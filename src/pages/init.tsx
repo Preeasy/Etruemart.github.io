@@ -82,9 +82,8 @@ const InitPage = () => {
               </div>
               <p className="text-green-700 text-center mb-4">{message}</p>
               <div className="bg-ink-50 rounded-lg p-4 text-sm">
-                <p className="font-bold text-navy-900 mb-2">Login Accounts:</p>
+                <p className="font-bold text-navy-900 mb-2">Login Account:</p>
                 <p className="text-ink-700">📧 yeatrusourcing@gmail.com (Admin)</p>
-                <p className="text-ink-700">📧 neil6corrot@gmail.com (Seller)</p>
                 <p className="text-ink-400 text-xs mt-1">Use the password configured in your environment.</p>
               </div>
               <button

@@ -15,7 +15,7 @@ const SEED_PASSWORD = process.env.SEED_PASSWORD || (process.env.NODE_ENV === 'pr
 async function ensureDbInitialized() {
   try {
     const count = await prisma.user.count();
-    if (count >= 2) return;
+    if (count >= 1) return;
 
     if (!SEED_PASSWORD) {
       console.warn('SEED_PASSWORD not set, skipping DB initialization');
@@ -24,16 +24,11 @@ async function ensureDbInitialized() {
 
     const passwordHash = bcrypt.hashSync(SEED_PASSWORD, 12);
 
-    await prisma.user.upsert({
+    // Single admin account — the only account that can upload/edit products
+    const admin = await prisma.user.upsert({
       where: { email: 'yeatrusourcing@gmail.com' },
       update: { passwordHash, name: 'Yeatrusourcing', role: 'ADMIN' },
       create: { email: 'yeatrusourcing@gmail.com', passwordHash, name: 'Yeatrusourcing', role: 'ADMIN' },
-    });
-
-    await prisma.user.upsert({
-      where: { email: 'neil6corrot@gmail.com' },
-      update: { passwordHash, name: 'Official Seller', role: 'OFFICIAL_SELLER' },
-      create: { email: 'neil6corrot@gmail.com', passwordHash, name: 'Official Seller', role: 'OFFICIAL_SELLER' },
     });
 
     // Import categories from categories-data.json
@@ -66,12 +61,11 @@ async function ensureDbInitialized() {
         }
       }
 
-      // Import products from site-data.json
+      // Import products from site-data.json — all owned by the admin account
       const siteDataPath = path.join(process.cwd(), 'site-data.json');
       if (fs.existsSync(siteDataPath)) {
         const siteData = JSON.parse(fs.readFileSync(siteDataPath, 'utf-8'));
         const products = siteData.products || [];
-        const seller = await prisma.user.findUnique({ where: { email: 'neil6corrot@gmail.com' } });
 
         for (const p of products) {
           try {
@@ -123,7 +117,7 @@ async function ensureDbInitialized() {
                 shippingCost: p.shippingCost ?? 0,
                 shippingMethod: p.shippingMethod || 'Standard Shipping',
                 aplus: p.aplus ? JSON.stringify(p.aplus) : null,
-                authorId: seller?.id || '',
+                authorId: admin.id,
                 variants: {
                   create: [{ color: p.color || 'Default', size: p.size || 'One Size', price: priceMin, stock: p.stock || 100 }],
                 },
