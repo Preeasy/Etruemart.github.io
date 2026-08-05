@@ -16,3 +16,4 @@ __pycache__/
 .env*
 .image-cache
 public/images/item-list/
+prisma/github-files.json
