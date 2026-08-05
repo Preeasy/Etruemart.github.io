@@ -33,7 +33,7 @@ const schemaFile = isPostgres ? 'prisma/schema.postgres.prisma' : 'prisma/schema
 console.log(`[setup-schema] Database URL type: ${isPostgres ? 'PostgreSQL' : 'SQLite'}`);
 console.log(`[setup-schema] Using schema: ${schemaFile}`);
 
-// Generate Prisma client from the correct schema
+// Always generate Prisma client (must succeed)
 try {
   execSync(`node node_modules/prisma/build/index.js generate --schema=./${schemaFile}`, {
     stdio: 'inherit',
@@ -45,6 +45,18 @@ try {
   process.exit(1);
 }
 
+// Skip database operations during Vercel build (connecting to external DB may fail)
+// Database schema push and data import will be done via /api/init-db after deployment
+const isVercel = process.env.VERCEL === '1';
+if (isVercel) {
+  console.log('[setup-schema] Running on Vercel - skipping database operations');
+  console.log('[setup-schema] Database setup will be done via /api/init-db after deployment');
+  process.exit(0);
+}
+
+// For local development, run database operations
+console.log('[setup-schema] Running locally - setting up database...');
+
 // Run database push
 try {
   execSync(`node node_modules/prisma/build/index.js db push --schema=./${schemaFile} --accept-data-loss`, {
@@ -55,7 +67,6 @@ try {
   console.log('[setup-schema] Database schema pushed successfully');
 } catch (err) {
   console.error('[setup-schema] Database push failed (might be OK):', err.message);
-  // Don't exit - the build might still succeed
 }
 
 // If using PostgreSQL and sqlite-export.json exists, import data automatically
@@ -68,14 +79,12 @@ if (isPostgres) {
         stdio: 'inherit',
         cwd: path.join(__dirname, '..'),
         env: { ...process.env, DATABASE_URL: databaseUrl },
-        timeout: 120000, // 2 minutes timeout
+        timeout: 120000,
       });
       console.log('[setup-schema] Data import completed successfully');
     } catch (err) {
       console.error('[setup-schema] Data import failed:', err.message);
       console.error('[setup-schema] You can manually import data later');
     }
-  } else {
-    console.log('[setup-schema] No sqlite-export.json found, skipping data import');
   }
 }
