@@ -33,6 +33,9 @@ import {
   Edit3,
   Settings,
   CreditCard,
+  Gem,
+  Gift,
+  Sparkles,
 } from 'lucide-react';
 import Layout from '@/components/Layout';
 import ProductCard from '@/components/ProductCard';
@@ -458,18 +461,36 @@ export default function ProductDetail({ product: initialProduct, relatedProducts
               </div>
             </div>
 
-            {/* Key Features — bullet points */}
+            {/* Key Features — enhanced with category-specific icons */}
             {product.bulletPoints && product.bulletPoints.length > 0 && (
               <div className="py-4 border-b border-ink-100">
-                <h3 className="text-sm font-bold text-navy-800 mb-3">Key Features</h3>
-                <ul className="space-y-2">
-                  {product.bulletPoints.map((bp, i) => (
-                    <li key={i} className="flex items-start gap-2 text-sm text-ink-600 leading-relaxed">
-                      <CheckCircle2 className="w-4 h-4 text-accent-600 flex-shrink-0 mt-0.5" />
-                      <span>{bp}</span>
-                    </li>
-                  ))}
-                </ul>
+                <h3 className="text-sm font-bold text-navy-800 mb-3 flex items-center gap-2">
+                  <Star className="w-4 h-4 text-accent-500" />
+                  Key Features
+                </h3>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                  {product.bulletPoints.map((bp, i) => {
+                    const bpLower = bp.toLowerCase();
+                    let BpIcon = CheckCircle2;
+                    let iconColor = 'text-accent-500';
+                    if (bpLower.includes('material') || bpLower.includes('premium') || bpLower.includes('quality')) { BpIcon = Gem; iconColor = 'text-purple-500'; }
+                    else if (bpLower.includes('moq') || bpLower.includes('minimum')) { BpIcon = Package; iconColor = 'text-blue-500'; }
+                    else if (bpLower.includes('shipping') || bpLower.includes('delivery') || bpLower.includes('worldwide')) { BpIcon = Truck; iconColor = 'text-green-500'; }
+                    else if (bpLower.includes('pricing') || bpLower.includes('factory-direct') || bpLower.includes('cost')) { BpIcon = Tag; iconColor = 'text-amber-500'; }
+                    else if (bpLower.includes('packaging') || bpLower.includes('labeling')) { BpIcon = Gift; iconColor = 'text-pink-500'; }
+                    else if (bpLower.includes('plating') || bpLower.includes('finish') || bpLower.includes('shine')) { BpIcon = Sparkles; iconColor = 'text-yellow-500'; }
+                    else if (bpLower.includes('custom')) { BpIcon = Settings; iconColor = 'text-indigo-500'; }
+                    else if (bpLower.includes('certif') || bpLower.includes('quality') || bpLower.includes('verify')) { BpIcon = ShieldCheck; iconColor = 'text-emerald-500'; }
+                    return (
+                      <div key={i} className="flex items-start gap-2.5 p-2.5 rounded-lg border border-ink-100 bg-gradient-to-r from-white to-ink-50/50 hover:border-accent-200 hover:from-accent-50/30 transition-colors">
+                        <div className="w-6 h-6 rounded-md bg-white border border-ink-100 flex items-center justify-center flex-shrink-0">
+                          <BpIcon className={`w-3.5 h-3.5 ${iconColor}`} />
+                        </div>
+                        <span className="text-sm text-ink-700 leading-snug">{bp}</span>
+                      </div>
+                    );
+                  })}
+                </div>
               </div>
             )}
 
@@ -594,23 +615,13 @@ export default function ProductDetail({ product: initialProduct, relatedProducts
                       </div>
                     </div>
                   )}
-                  {product.aplus && (product.aplus.description || (product.aplus.blocks && product.aplus.blocks.length > 0) || (product.aplus.bulletPoints && product.aplus.bulletPoints.length > 0)) && (
+                  {product.aplus && (product.aplus.description || (product.aplus.blocks && product.aplus.blocks.length > 0)) && (
                     <div className="mt-6 p-5 bg-gradient-to-br from-accent-500/5 to-navy-500/5 rounded-xl border border-accent-200/20">
                       <h3 className="text-base font-bold text-navy-800 mb-4 flex items-center gap-2">
                         <Layers className="w-4 h-4 text-accent-500" />A+ Premium Content
                       </h3>
                       {product.aplus.description && (
                         <p className="text-sm text-ink-700 leading-relaxed mb-4">{product.aplus.description}</p>
-                      )}
-                      {product.aplus.bulletPoints && product.aplus.bulletPoints.length > 0 && (
-                        <div className="grid md:grid-cols-2 gap-2 mb-4">
-                          {product.aplus.bulletPoints.map((bp: string, i: number) => (
-                            <div key={i} className="flex items-start gap-2 p-2.5 rounded-lg bg-white/50 border border-ink-100">
-                              <CheckCircle2 className="w-4 h-4 text-accent-500 flex-shrink-0 mt-0.5" />
-                              <span className="text-sm text-ink-700">{bp}</span>
-                            </div>
-                          ))}
-                        </div>
                       )}
                       {product.aplus.blocks && product.aplus.blocks.length > 0 && (
                         <div className="space-y-3">
@@ -919,10 +930,78 @@ function findProductFromSeed(productId: string) {
     }
   }
 
-  // Extract bullet points
+  // Smart key features extraction
   let bulletPoints: string[] = [];
+
+  const genericRegexes = [
+    /^premium quality .+ for retail and wholesale$/i,
+    /^competitive factory-direct pricing from yiwu$/i,
+    /^multiple options available$/i,
+    /^high-quality construction$/i,
+    /^custom packaging and labeling available on request$/i,
+    /^custom packaging and labeling available$/i,
+    /^custom packaging & labeling available$/i,
+    /^fast worldwide shipping with tracking$/i,
+    /^moq: \d+ \| lead time: \d+.*$/i,
+    /^moq: \d+ pcs$/i,
+    /^lead time: \d+.*$/i,
+    /^worldwide shipping supported$/i,
+    /^premium quality construction$/i,
+    /^factory-direct wholesale pricing$/i,
+  ];
+
+  const isGeneric = (text: string) => {
+    const t = text.trim();
+    return genericRegexes.some(re => re.test(t));
+  };
+
+  const blockFeatures: string[] = [];
+  if (aplus?.blocks && Array.isArray(aplus.blocks)) {
+    for (const block of aplus.blocks) {
+      if (block.type === 'text' && block.content) {
+        const liMatches = String(block.content).match(/<li>([^<]*)<\/li>/g);
+        if (liMatches) {
+          for (const match of liMatches) {
+            const text = match.replace(/<[^>]*>/g, '').trim();
+            if (text && !isGeneric(text)) blockFeatures.push(text);
+          }
+        }
+      }
+    }
+  }
+
+  const specialFeatures: string[] = [];
   if (aplus?.bulletPoints && Array.isArray(aplus.bulletPoints)) {
-    bulletPoints = aplus.bulletPoints;
+    for (const bp of aplus.bulletPoints) {
+      const text = String(bp).trim();
+      if (/^material:/i.test(text) && !isGeneric(text)) specialFeatures.push(text);
+    }
+  }
+
+  const allFeatures: string[] = [];
+  if (product.material) allFeatures.push(`Crafted from ${product.material}`);
+  for (const f of specialFeatures) allFeatures.push(f);
+  if (product.moq) {
+    const m = Number(product.moq);
+    if (m <= 10) allFeatures.push(`Low MOQ: ${m} pcs — start small, scale as needed`);
+    else if (m <= 50) allFeatures.push(`Flexible MOQ: ${m} pcs for growing businesses`);
+    else allFeatures.push(`Wholesale MOQ: ${m} pcs | Volume pricing`);
+  }
+  allFeatures.push('Factory-direct pricing from Yiwu, China');
+  allFeatures.push('Global shipping to 180+ countries');
+  allFeatures.push('Custom packaging & private label available');
+  allFeatures.push('Trade assurance with quality guarantee');
+  for (const f of blockFeatures) allFeatures.push(f);
+
+  // Deduplicate and cap at 6
+  const seen = new Set<string>();
+  for (const f of allFeatures) {
+    const key = f.toLowerCase().trim();
+    if (!seen.has(key)) {
+      seen.add(key);
+      bulletPoints.push(f.trim());
+    }
+    if (bulletPoints.length >= 6) break;
   }
 
   return {
@@ -1054,10 +1133,77 @@ export async function getServerSideProps(context: { params: { id: string } }) {
       }
     }
 
-    // Extract bullet points from aplus
+    // Smart key features extraction
     let bulletPoints: string[] = [];
+
+    const genericRegexes = [
+      /^premium quality .+ for retail and wholesale$/i,
+      /^competitive factory-direct pricing from yiwu$/i,
+      /^multiple options available$/i,
+      /^high-quality construction$/i,
+      /^custom packaging and labeling available on request$/i,
+      /^custom packaging and labeling available$/i,
+      /^custom packaging & labeling available$/i,
+      /^fast worldwide shipping with tracking$/i,
+      /^moq: \d+ \| lead time: \d+.*$/i,
+      /^moq: \d+ pcs$/i,
+      /^lead time: \d+.*$/i,
+      /^worldwide shipping supported$/i,
+      /^premium quality construction$/i,
+      /^factory-direct wholesale pricing$/i,
+    ];
+
+    const isGeneric = (text: string) => {
+      const t = text.trim();
+      return genericRegexes.some(re => re.test(t));
+    };
+
+    const blockFeatures: string[] = [];
+    if (aplus?.blocks && Array.isArray(aplus.blocks)) {
+      for (const block of aplus.blocks) {
+        if (block.type === 'text' && block.content) {
+          const liMatches = String(block.content).match(/<li>([^<]*)<\/li>/g);
+          if (liMatches) {
+            for (const match of liMatches) {
+              const text = match.replace(/<[^>]*>/g, '').trim();
+              if (text && !isGeneric(text)) blockFeatures.push(text);
+            }
+          }
+        }
+      }
+    }
+
+    const specialFeatures: string[] = [];
     if (aplus?.bulletPoints && Array.isArray(aplus.bulletPoints)) {
-      bulletPoints = aplus.bulletPoints;
+      for (const bp of aplus.bulletPoints) {
+        const text = String(bp).trim();
+        if (/^material:/i.test(text) && !isGeneric(text)) specialFeatures.push(text);
+      }
+    }
+
+    const allFeatures: string[] = [];
+    if (product.material) allFeatures.push(`Crafted from ${product.material}`);
+    for (const f of specialFeatures) allFeatures.push(f);
+    if (product.moq) {
+      const m = Number(product.moq);
+      if (m <= 10) allFeatures.push(`Low MOQ: ${m} pcs — start small, scale as needed`);
+      else if (m <= 50) allFeatures.push(`Flexible MOQ: ${m} pcs for growing businesses`);
+      else allFeatures.push(`Wholesale MOQ: ${m} pcs | Volume pricing`);
+    }
+    allFeatures.push('Factory-direct pricing from Yiwu, China');
+    allFeatures.push('Global shipping to 180+ countries');
+    allFeatures.push('Custom packaging & private label available');
+    allFeatures.push('Trade assurance with quality guarantee');
+    for (const f of blockFeatures) allFeatures.push(f);
+
+    const seen = new Set<string>();
+    for (const f of allFeatures) {
+      const key = f.toLowerCase().trim();
+      if (!seen.has(key)) {
+        seen.add(key);
+        bulletPoints.push(f.trim());
+      }
+      if (bulletPoints.length >= 6) break;
     }
 
     const serializedProduct = {

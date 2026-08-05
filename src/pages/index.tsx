@@ -8,7 +8,6 @@ import {
   ArrowRight,
   Gem,
   Scissors,
-  Crown,
   ShoppingBag,
   Home as HomeIcon,
   Gift,
@@ -46,9 +45,10 @@ interface Product {
   priceMin: number;
   priceMax: number;
   image: string;
+  material?: string | null;
   moq?: number;
-  sku?: string;
-  color?: string;
+  sku?: string | null;
+  color?: string | null;
   keywords?: string[];
   bulletPoints?: string[];
 }
@@ -87,31 +87,6 @@ const categoryIconMap: Record<string, any> = {
   'pet-supplies': Gamepad2,
 };
 
-const categoryBadgeMap: Record<string, string | null> = {
-  'home-living': 'Best Seller',
-  'mother-baby-toys': 'Popular',
-  'apparel-shoes': 'Trending',
-  'electronics': 'Hot',
-  'phone-accessories': 'New',
-  'kitchen-supplies': 'Top Rated',
-  'bags': 'Best Seller',
-  'beauty-personal-care': 'New',
-  'sports-outdoor': 'Trending',
-  'auto-tools': null,
-  'other': null,
-  'hardware-home': null,
-  'stationery-office': null,
-  'home-appliances': null,
-  'musical-instruments': null,
-  'pet-supplies': null,
-  'fashion-jewelry': 'Best Seller',
-  'garment-accessories': null,
-  'accessories': 'New',
-  'home-decor-crafts': null,
-  'toys': 'Trending',
-  'gift': null,
-};
-
 const valueProps = [
   { icon: Truck, label: 'Free Shipping', desc: 'On orders $50+' },
   { icon: ShieldCheck, label: 'Secure Payment', desc: '100% protected' },
@@ -119,20 +94,19 @@ const valueProps = [
   { icon: Star, label: 'Top Rated', desc: '4.8/5 customer rating' },
 ];
 
-const TOP_DEAL_SLUGS = [
-  'white-charming-hair-bow',
-  'black-elegant-shoulder-bag',
-  'gold-square-crystal-cluster-and-mother-of-pearl-drop-earring',
-  'pink-floral-fabric-collage-applique-art',
-  'dark-green-and-gold-multi-tiered-chinese-style-makeup-gift-b',
-  'red-elegant-tea-set',
-  'white-plush-teddy-bear-with-green-ribbon-bow',
-];
+function getDynamicBadge(slug: string, index: number, count: number): string | null {
+  if (index === 0) return 'Best Seller';
+  if (index === 1) return 'Popular';
+  if (index === 2) return 'Trending';
+  if (count >= 50) return 'Top Rated';
+  if (count >= 20) return 'New';
+  return null;
+}
 
 const Home = ({ products, categories, categoryProductsMap }: { products: Product[]; categories: CategoryInfo[]; categoryProductsMap: Record<string, Product[]> }) => {
   const [showMobileCats, setShowMobileCats] = useState(false);
   const slugToProduct = new Map(products.map((p) => [p.slug, p]));
-  const topDeals = TOP_DEAL_SLUGS.map((slug) => slugToProduct.get(slug)).filter(Boolean) as Product[];
+  const topDeals = products.slice(0, 7);
 
   return (
     <Layout>
@@ -319,9 +293,9 @@ const Home = ({ products, categories, categoryProductsMap }: { products: Product
                   <h2 className="font-bold text-lg text-navy-800 tracking-tight">Shop by Category</h2>
                 </div>
 
-                {categories.slice(0, 10).map((cat) => {
+                {categories.slice(0, 10).map((cat, catIndex) => {
                   const Icon = categoryIconMap[cat.slug] || Package;
-                  const badge = categoryBadgeMap[cat.slug] || null;
+                  const badge = getDynamicBadge(cat.slug, catIndex, cat.productCount);
                   const catProducts = categoryProductsMap[cat.slug] || [];
 
                   return (
@@ -543,7 +517,6 @@ export const getServerSideProps = async () => {
           priceMin: Number(p.price) || 0,
           priceMax: p.priceMax ? Number(p.priceMax) : Number(p.price) || 0,
           image,
-          images,
           category: rootCat
             ? { name: rootCat.name, slug: rootCat.slug }
             : directCat
@@ -654,7 +627,6 @@ export const getServerSideProps = async () => {
         priceMin: Number(p.price),
         priceMax: p.priceMax ? Number(p.priceMax) : Number(p.price),
         image,
-        images,
         category: rootCat
           ? { name: rootCat.name, slug: rootCat.slug }
           : directCat
