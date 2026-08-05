@@ -46,19 +46,46 @@ function getCategoriesFromSeedData(level?: string) {
     }
   }
 
+  // Build category lookup for descendant computation (shared by both level=1 and tree)
+  const slugToCat = new Map<string, any>();
+  const idToSlug = new Map<string, string>();
+  for (const cat of categories) {
+    slugToCat.set(cat.slug, cat);
+    idToSlug.set(cat.id, cat.slug);
+  }
+
+  // Compute all descendant slugs for each category
+  const getDescendantSlugs = (catSlug: string): string[] => {
+    const result = [catSlug];
+    const cat = slugToCat.get(catSlug);
+    if (!cat) return result;
+    const children = categories.filter(c => c.parentId === cat.id);
+    for (const child of children) {
+      result.push(...getDescendantSlugs(child.slug));
+    }
+    return result;
+  };
+
   if (level === '1') {
     const rootCats = categories
       .filter((c: any) => !c.parentId)
       .sort((a: any, b: any) => (a.sortOrder || 0) - (b.sortOrder || 0))
-      .map((c: any) => ({
-        id: c.id,
-        name: c.name,
-        slug: c.slug,
-        description: c.description || null,
-        image: c.image || null,
-        sortOrder: c.sortOrder || 0,
-        productCount: productCountBySlug.get(c.slug) || 0,
-      }));
+      .map((c: any) => {
+        const descendants = getDescendantSlugs(c.slug);
+        let count = 0;
+        for (const slug of descendants) {
+          count += productCountBySlug.get(slug) || 0;
+        }
+        return {
+          id: c.id,
+          name: c.name,
+          slug: c.slug,
+          description: c.description || null,
+          image: c.image || null,
+          sortOrder: c.sortOrder || 0,
+          productCount: count,
+        };
+      });
 
     // Sort by product count descending, then sort order
     rootCats.sort((a, b) => {
@@ -68,29 +95,6 @@ function getCategoriesFromSeedData(level?: string) {
 
     return rootCats;
   }
-
-  // Build tree structure
-  const slugToCat = new Map<string, any>();
-  const idToCat = new Map<string, any>();
-
-  for (const cat of categories) {
-    slugToCat.set(cat.slug, cat);
-    idToCat.set(cat.id, cat);
-  }
-
-  // Compute all descendant slugs for each category
-  const getDescendantSlugs = (catSlug: string): string[] => {
-    const result = [catSlug];
-    const cat = slugToCat.get(catSlug);
-    if (!cat) return result;
-
-    const catId = cat.id;
-    const children = categories.filter(c => c.parentId === catId);
-    for (const child of children) {
-      result.push(...getDescendantSlugs(child.slug));
-    }
-    return result;
-  };
 
   // Compute product count including descendants
   const getTotalProductCount = (catSlug: string): number => {

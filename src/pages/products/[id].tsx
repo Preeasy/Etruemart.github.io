@@ -3,6 +3,8 @@ import { useRouter } from 'next/router';
 import { useSession } from 'next-auth/react';
 import Link from 'next/link';
 import Head from 'next/head';
+import fs from 'fs';
+import path from 'path';
 import {
   Star,
   ShoppingCart,
@@ -798,12 +800,196 @@ export default function ProductDetail({ product: initialProduct, relatedProducts
   );
 }
 
-export async function getServerSideProps(context: { params: { id: string } }) {
-  const { id } = context.params;
+// Seed data cache for server-side rendering
+let seedDataCache: { categories: any[]; products: any[] } | null = null;
+
+function loadSeedData(): { categories: any[]; products: any[] } | null {
+  if (seedDataCache) return seedDataCache;
+
+  const seedPath = path.join(process.cwd(), 'prisma', 'seed-data.json');
+  if (!fs.existsSync(seedPath)) {
+    return null;
+  }
 
   try {
-    const productId = String(id);
-    
+    const raw = JSON.parse(fs.readFileSync(seedPath, 'utf-8'));
+    seedDataCache = {
+      categories: raw.categories || [],
+      products: raw.products || [],
+    };
+    return seedDataCache;
+  } catch (e) {
+    return null;
+  }
+}
+
+function findProductFromSeed(productId: string) {
+  const seedData = loadSeedData();
+  if (!seedData) return null;
+
+  const { products, categories } = seedData;
+
+  // Build category lookup with root resolution
+  const slugToCat = new Map();
+  const idToCat = new Map();
+  for (const cat of categories) {
+    slugToCat.set(cat.slug, cat);
+    idToCat.set(cat.id, cat);
+  }
+
+  // Resolve a category slug to its root category
+  const getRootCat = (catSlug: string) => {
+    let current = slugToCat.get(catSlug);
+    while (current && current.parentId) {
+      const parent = idToCat.get(current.parentId);
+      if (!parent) break;
+      current = parent;
+    }
+    return current;
+  };
+
+  // Find product by slug, then by id, then by sku
+  const product =
+    products.find((p: any) => String(p.slug) === String(productId)) ||
+    products.find((p: any) => String(p.id) === String(productId)) ||
+    products.find((p: any) => String(p.sku) === String(productId));
+
+  if (!product) return null;
+
+  // Get category - use root category for breadcrumb and navigation
+  const catSlug = product.categoryId || '';
+  const rootCat = getRootCat(catSlug);
+  const directCat = slugToCat.get(catSlug);
+  const category = rootCat || directCat || null;
+
+  // Find related products - same root category (including sub-categories)
+  const rootSlug = rootCat ? rootCat.slug : catSlug;
+  // Get all descendant slugs for the root category
+  const getDescendantSlugs = (cs: string): string[] => {
+    const result = [cs];
+    const cat = slugToCat.get(cs);
+    if (!cat) return result;
+    const children = categories.filter(c => c.parentId === cat.id);
+    for (const child of children) {
+      result.push(...getDescendantSlugs(child.slug));
+    }
+    return result;
+  };
+  const validSlugs = new Set(getDescendantSlugs(rootSlug));
+  const relatedProducts = products
+    .filter((p: any) => validSlugs.has(p.categoryId) && p.id !== product.id)
+    .slice(0, 8);
+
+  // Parse images
+  let images: string[] = [];
+  if (product.images) {
+    let parsed = product.images;
+    if (typeof parsed === 'string') {
+      try { parsed = JSON.parse(parsed); } catch { parsed = []; }
+    }
+    if (Array.isArray(parsed)) {
+      images = parsed.filter((img: string) => typeof img === 'string');
+    }
+  }
+  if (product.image && !images.includes(product.image)) {
+    images = [product.image, ...images];
+  }
+
+  // Parse keywords
+  let keywords: string[] = [];
+  if (product.keywords) {
+    let parsed = product.keywords;
+    if (typeof parsed === 'string') {
+      try { parsed = JSON.parse(parsed); } catch { parsed = []; }
+    }
+    if (Array.isArray(parsed)) {
+      keywords = parsed.filter((kw: string) => typeof kw === 'string');
+    }
+  }
+
+  // Parse aplus
+  let aplus = null;
+  if (product.aplus) {
+    try {
+      aplus = typeof product.aplus === 'string'
+        ? JSON.parse(product.aplus)
+        : product.aplus;
+    } catch {
+      aplus = null;
+    }
+  }
+
+  // Extract bullet points
+  let bulletPoints: string[] = [];
+  if (aplus?.bulletPoints && Array.isArray(aplus.bulletPoints)) {
+    bulletPoints = aplus.bulletPoints;
+  }
+
+  return {
+    product: {
+      id: product.id,
+      slug: product.slug,
+      name: product.name,
+      description: product.description || '',
+      price: Number(product.price) || 0,
+      priceMax: product.priceMax ? Number(product.priceMax) : null,
+      originalPrice: product.originalPrice ? Number(product.originalPrice) : null,
+      image: product.image || '/images/product-placeholder.svg',
+      images: images.length > 0 ? images : [product.image || '/images/product-placeholder.svg'],
+      category: category ? { name: category.name, slug: category.slug } : null,
+      stock: Number(product.stock) || 0,
+      rating: Number(product.rating) || 0,
+      reviewCount: Number(product.reviewCount) || 0,
+      salesCount: Number(product.salesCount) || 0,
+      material: product.material || null,
+      plating: product.plating || null,
+      process: product.process || null,
+      color: product.color || null,
+      size: product.size || null,
+      packSize: Number(product.packSize) || 1,
+      moq: Number(product.moq) || 1,
+      sku: product.sku || null,
+      origin: product.origin || null,
+      supplierCity: product.supplierCity || null,
+      keywords,
+      bulletPoints,
+      aplus,
+      stockStatus: product.stockStatus || 'IN_STOCK',
+    },
+    relatedProducts: relatedProducts.map((rp: any) => ({
+      id: rp.id,
+      slug: rp.slug,
+      name: rp.name,
+      description: rp.description || '',
+      price: Number(rp.price) || 0,
+      priceMax: rp.priceMax ? Number(rp.priceMax) : null,
+      image: rp.image || '/images/product-placeholder.svg',
+      category: category ? { name: category.name, slug: category.slug } : null,
+      moq: Number(rp.moq) || 1,
+      sku: rp.sku || null,
+      rating: Number(rp.rating) || 0,
+      reviewCount: Number(rp.reviewCount) || 0,
+      salesCount: Number(rp.salesCount) || 0,
+    })),
+  };
+}
+
+export async function getServerSideProps(context: { params: { id: string } }) {
+  const { id } = context.params;
+  const productId = String(id);
+
+  // On Vercel (or when SQLite has no matching product), use seed-data.json
+  const isVercel = process.env.VERCEL === '1';
+
+  if (isVercel) {
+    const result = findProductFromSeed(productId);
+    if (!result) {
+      return { notFound: true };
+    }
+    return { props: result };
+  }
+
+  try {
     // Find product by slug (most common for URLs), then by id
     let product = getProductBySlug(productId);
     if (!product) {
@@ -811,9 +997,12 @@ export async function getServerSideProps(context: { params: { id: string } }) {
     }
 
     if (!product) {
-      return {
-        notFound: true,
-      };
+      // Fallback to seed-data.json on local dev too
+      const result = findProductFromSeed(productId);
+      if (!result) {
+        return { notFound: true };
+      }
+      return { props: result };
     }
     
     // Get category
@@ -926,6 +1115,13 @@ export async function getServerSideProps(context: { params: { id: string } }) {
     };
   } catch (error) {
     console.error('Error fetching product:', error);
+    
+    // Last resort: try seed-data.json
+    const result = findProductFromSeed(productId);
+    if (result) {
+      return { props: result };
+    }
+    
     return {
       notFound: true,
     };

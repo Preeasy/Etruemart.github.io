@@ -85,11 +85,24 @@ async function getProductFromSeedData(idStr: string) {
 
   const { categories, products } = seedData;
 
-  // Build category lookup
+  // Build category lookup with root resolution
   const slugToCat = new Map<string, any>();
+  const idToCat = new Map<string, any>();
   for (const cat of categories) {
     slugToCat.set(cat.slug, cat);
+    idToCat.set(cat.id, cat);
   }
+
+  // Resolve to root category
+  const getRootCat = (catSlug: string) => {
+    let current = slugToCat.get(catSlug);
+    while (current && current.parentId) {
+      const parent = idToCat.get(current.parentId);
+      if (!parent) break;
+      current = parent;
+    }
+    return current;
+  };
 
   // Try to find by slug first, then by id
   const product =
@@ -122,9 +135,11 @@ async function getProductFromSeedData(idStr: string) {
     try { aplus = JSON.parse(aplus); } catch { aplus = null; }
   }
 
-  // Get category info
+  // Get category info - use root category
   const catSlug = product.categoryId || '';
-  const cat = slugToCat.get(catSlug);
+  const rootCat = getRootCat(catSlug);
+  const directCat = slugToCat.get(catSlug);
+  const resolvedCat = rootCat || directCat;
 
   return {
     id: product.id,
@@ -137,9 +152,9 @@ async function getProductFromSeedData(idStr: string) {
     image: product.image || '',
     images,
     category: {
-      id: cat?.id || '',
-      name: cat?.name || '',
-      slug: cat?.slug || catSlug,
+      id: resolvedCat?.id || '',
+      name: resolvedCat?.name || '',
+      slug: resolvedCat?.slug || catSlug,
     },
     material: product.material || null,
     plating: product.plating || null,

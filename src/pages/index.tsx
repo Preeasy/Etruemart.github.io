@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import Head from 'next/head';
+import fs from 'fs';
+import path from 'path';
 import {
   ChevronRight,
   ArrowRight,
@@ -393,7 +395,114 @@ const Home = ({ products }: { products: Product[] }) => {
 
 export default Home;
 
+// Seed data cache
+let homeSeedCache: { categories: any[]; products: any[] } | null = null;
+
+function loadHomeSeedData() {
+  if (homeSeedCache) return homeSeedCache;
+  const seedPath = path.join(process.cwd(), 'prisma', 'seed-data.json');
+  if (!fs.existsSync(seedPath)) return null;
+  try {
+    const raw = JSON.parse(fs.readFileSync(seedPath, 'utf-8'));
+    homeSeedCache = { categories: raw.categories || [], products: raw.products || [] };
+    return homeSeedCache;
+  } catch {
+    return null;
+  }
+}
+
+function proxyImageUrlDirect(url: string): string {
+  if (!url) return '';
+  if (url.startsWith('http')) return url;
+  if (url.startsWith('/')) return url;
+  if (url.startsWith('Images/')) {
+    return `https://cdn.jsdelivr.net/gh/Preeasy/Images@main/${url}`;
+  }
+  return url;
+}
+
 export const getServerSideProps = async () => {
+  const isVercel = process.env.VERCEL === '1';
+
+  if (isVercel) {
+    const seedData = loadHomeSeedData();
+    if (seedData) {
+      const { products: rawProducts, categories } = seedData;
+
+      // Sort by salesCount descending (or by id as fallback) and take top 50
+      const sorted = [...rawProducts]
+        .sort((a, b) => (b.salesCount || 0) - (a.salesCount || 0))
+        .slice(0, 50);
+
+      // Build category lookup with root resolution
+      const slugToCat = new Map();
+      const idToCat = new Map();
+      for (const cat of categories) {
+        slugToCat.set(cat.slug, cat);
+        idToCat.set(cat.id, cat);
+      }
+
+      // Resolve a category slug to its root category
+      const getRootCat = (catSlug: string) => {
+        let current = slugToCat.get(catSlug);
+        while (current && current.parentId) {
+          const parent = idToCat.get(current.parentId);
+          if (!parent) break;
+          current = parent;
+        }
+        return current;
+      };
+
+      const products = sorted.map((p) => {
+        const image = proxyImageUrlDirect(p.image || '');
+
+        let images: string[] = [];
+        if (p.images) {
+          let parsed = p.images;
+          if (typeof parsed === 'string') {
+            try { parsed = JSON.parse(parsed); } catch { parsed = []; }
+          }
+          if (Array.isArray(parsed)) {
+            images = parsed
+              .filter((img: string) => typeof img === 'string' && img.length > 0)
+              .map(proxyImageUrlDirect);
+          }
+        }
+        if (images.length === 0 && image) images = [image];
+
+        const catSlug = p.categoryId || '';
+        const rootCat = getRootCat(catSlug);
+        const directCat = slugToCat.get(catSlug);
+
+        return {
+          id: p.slug || p.id,
+          slug: p.slug,
+          name: p.name,
+          description: p.description || '',
+          priceMin: Number(p.price) || 0,
+          priceMax: p.priceMax ? Number(p.priceMax) : Number(p.price) || 0,
+          image,
+          images,
+          // Use ROOT category so homepage filtering by parent category works
+          category: rootCat
+            ? { name: rootCat.name, slug: rootCat.slug }
+            : directCat
+              ? { name: directCat.name, slug: directCat.slug }
+              : { name: 'Other', slug: 'other' },
+          material: p.material || null,
+          moq: Number(p.moq) || 1,
+          sku: p.sku || null,
+          color: p.color || null,
+          keywords: [],
+          bulletPoints: [],
+        };
+      });
+
+      return { props: { products } };
+    }
+  }
+
+  // Local dev: use SQLite
   try {
     const { getDatabase } = await import('@/lib/db');
     const { proxyImageUrl } = await import('@/lib/image-utils');
