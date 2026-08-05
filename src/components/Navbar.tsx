@@ -14,17 +14,51 @@ import {
   Package,
   Settings,
   ClipboardList,
+  ChevronDown,
+  ChevronRight,
+  Home,
+  Sparkles,
+  Tag,
 } from 'lucide-react';
 import { useCart } from '@/components/CartContext';
+import navCategories from '@/lib/nav-categories';
 
-const navLinks = [
-  { label: 'All Products', href: '/products' },
-  { label: 'Fashion Jewelry', href: '/products?category=fashion-jewelry' },
-  { label: 'Bags', href: '/products?category=bags' },
-  { label: 'Accessories', href: '/products?category=accessories' },
-  { label: 'Toys', href: '/products?category=toys' },
-  { label: 'Home Decor', href: '/products?category=home-decor-crafts' },
-];
+const categoryIcons: Record<string, any> = {
+  'fashion-jewelry': Gem,
+  'garment-accessories': Scissors,
+  'accessories': Sparkles,
+  'bags': ShoppingCart,
+  'apparel-shoes': Tag,
+  'auto-tools': Settings,
+  'beauty-personal-care': Sparkles,
+  'electronics': Package,
+  'gift': Sparkles,
+  'hardware-home': Settings,
+  'home-decor-crafts': Sparkles,
+  'home-living': Home,
+  'home-appliances': Package,
+  'kitchen-supplies': Package,
+  'mother-baby-toys': Sparkles,
+  'musical-instruments': Sparkles,
+  'other': Sparkles,
+  'pet-supplies': Package,
+  'phone-accessories': Package,
+  'sports-outdoor': Sparkles,
+  'stationery-office': FileText,
+  'toys': Sparkles,
+};
+
+function Scissors({ className }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <circle cx="6" cy="6" r="3" />
+      <circle cx="6" cy="18" r="3" />
+      <line x1="20" y1="4" x2="8.12" y2="15.88" />
+      <line x1="14.47" y1="14.48" x2="20" y2="20" />
+      <line x1="8.12" y1="8.12" x2="12" y2="12" />
+    </svg>
+  );
+}
 
 const Navbar = () => {
   const { data: session } = useSession();
@@ -32,11 +66,12 @@ const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [showAdminPanel, setShowAdminPanel] = useState(false);
+  const [openDropdown, setOpenDropdown] = useState<string | null>(null);
+  const [mobileExpanded, setMobileExpanded] = useState<string | null>(null);
   const router = useRouter();
   const logoClickCount = useRef(0);
   const logoClickTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  // Hidden admin access: Ctrl+Shift+A toggles admin panel
   const handleKeyDown = useCallback((e: KeyboardEvent) => {
     if (e.ctrlKey && e.shiftKey && e.key === 'A') {
       e.preventDefault();
@@ -51,7 +86,6 @@ const Navbar = () => {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [handleKeyDown]);
 
-  // Click logo 3 times to toggle admin panel (desktop only)
   const handleLogoClick = (e: React.MouseEvent) => {
     if (session?.user?.role === 'ADMIN') {
       logoClickCount.current++;
@@ -73,45 +107,66 @@ const Navbar = () => {
     { href: '/init', label: 'Site Init', icon: Settings },
   ];
 
+  const isActive = (href: string) => {
+    if (href === '/products') return router.pathname === '/products' && !router.query.category;
+    if (href.startsWith('/products?category=')) {
+      const cat = href.split('category=')[1];
+      return router.pathname === '/products' && router.query.category === cat;
+    }
+    return false;
+  };
+
+  const handleSearch = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (searchQuery.trim()) {
+      router.push(`/products?q=${encodeURIComponent(searchQuery.trim())}`);
+    }
+  };
+
   return (
-    <nav className="sticky top-0 z-50 bg-navy-900 shadow-md">
+    <nav className="sticky top-0 z-50 bg-navy-900 shadow-lg border-b border-navy-800">
       <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-10 max-w-[1600px] mx-auto">
         {/* Main bar */}
-        <div className="flex items-center justify-between h-14">
+        <div className="flex items-center justify-between h-16 gap-4">
           {/* Logo */}
-          <Link href="/" aria-label="eTrue Mark home" className="flex items-center gap-2 group shrink-0" onClick={handleLogoClick}>
-            <div className="w-9 h-9 rounded-md bg-accent-500 flex items-center justify-center">
-              <Gem className="w-4 h-4 text-white" />
+          <Link
+            href="/"
+            aria-label="eTrue Mark home"
+            className="flex items-center gap-2 group shrink-0"
+            onClick={handleLogoClick}
+          >
+            <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-accent-500 to-accent-600 flex items-center justify-center shadow-md group-hover:shadow-accent-500/20 transition-shadow">
+              <Gem className="w-5 h-5 text-white" />
             </div>
             <div className="flex flex-col">
-              <span className="text-base font-display font-bold tracking-wide text-white group-hover:text-accent-300 transition-colors leading-tight">
+              <span className="text-lg font-display font-bold tracking-wide text-white group-hover:text-accent-300 transition-colors leading-tight">
                 eTrue Mark
               </span>
-              <span className="text-[9px] tracking-[0.25em] text-ink-400 uppercase leading-tight">
+              <span className="text-[10px] tracking-[0.2em] text-accent-400 uppercase leading-tight font-medium">
                 Wholesale Source
               </span>
             </div>
           </Link>
 
           {/* Search bar */}
-          <div className="hidden md:flex flex-1 max-w-2xl mx-6">
-            <div className="relative w-full flex">
+          <div className="hidden md:flex flex-1 max-w-xl">
+            <form onSubmit={handleSearch} className="relative w-full flex">
               <input
                 type="text"
                 placeholder="Search products, categories..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 aria-label="Search products"
-                className="flex-1 px-4 py-2 rounded-l-md bg-white border-0 text-ink-900 placeholder-ink-400 focus:outline-none focus:ring-2 focus:ring-accent-400 text-sm"
+                className="flex-1 px-4 py-2.5 rounded-l-lg bg-navy-800 border border-navy-700 text-white placeholder-navy-400 focus:outline-none focus:ring-2 focus:ring-accent-400 focus:border-accent-500 text-sm transition-colors"
               />
               <button
-                onClick={() => searchQuery && router.push(`/products?q=${encodeURIComponent(searchQuery)}`)}
+                type="submit"
                 aria-label="Search"
-                className="bg-accent-500 hover:bg-accent-400 text-white px-5 py-2 rounded-r-md text-sm font-semibold transition-colors"
+                className="bg-accent-500 hover:bg-accent-400 text-white px-5 py-2.5 rounded-r-lg text-sm font-semibold transition-colors flex items-center gap-1"
               >
                 <Search className="w-4 h-4" />
               </button>
-            </div>
+            </form>
           </div>
 
           {/* Right actions */}
@@ -119,25 +174,27 @@ const Navbar = () => {
             <Link
               href="/cart"
               aria-label="Shopping cart"
-              className="relative flex items-center gap-1.5 px-3 py-2 text-xs text-ink-200 hover:text-accent-300 transition-colors font-medium"
+              className="relative flex items-center gap-1.5 px-3 py-2 text-sm text-navy-300 hover:text-accent-400 hover:bg-navy-800 rounded-lg transition-colors font-medium"
             >
               <div className="relative">
                 <ShoppingCart className="w-4 h-4" />
                 {count > 0 && (
-                  <span className="absolute -top-2 -right-2 min-w-[16px] h-4 px-1 bg-accent-500 text-white text-[10px] font-bold rounded-full flex items-center justify-center leading-none">
+                  <span className="absolute -top-2 -right-2 min-w-[16px] h-4 px-1 bg-accent-500 text-white text-[10px] font-bold rounded-full flex items-center justify-center leading-none ring-2 ring-navy-900">
                     {count > 99 ? '99+' : count}
                   </span>
                 )}
               </div>
               <span className="hidden sm:inline">Cart</span>
             </Link>
-            <div className="hidden sm:block w-px h-5 bg-navy-600" />
+
+            <div className="hidden sm:block w-px h-5 bg-navy-700" />
+
             {session ? (
               <>
                 <Link
                   href="/orders"
                   aria-label="My orders"
-                  className="hidden sm:flex items-center gap-1.5 px-3 py-2 text-xs text-ink-200 hover:text-accent-300 transition-colors font-medium"
+                  className="hidden sm:flex items-center gap-1.5 px-3 py-2 text-sm text-navy-300 hover:text-accent-400 hover:bg-navy-800 rounded-lg transition-colors font-medium"
                 >
                   <Package className="w-4 h-4" />
                   Orders
@@ -145,10 +202,10 @@ const Navbar = () => {
                 <button
                   onClick={() => signOut()}
                   aria-label="Logout"
-                  className="flex items-center gap-1 px-3 py-2 text-xs text-ink-200 hover:text-accent-300 transition-colors font-medium"
+                  className="flex items-center gap-1 px-3 py-2 text-sm text-navy-300 hover:text-accent-400 hover:bg-navy-800 rounded-lg transition-colors font-medium"
                 >
-                  <User className="w-3.5 h-3.5" />
-                  Logout
+                  <User className="w-4 h-4" />
+                  <span className="hidden sm:inline">Logout</span>
                 </button>
               </>
             ) : (
@@ -156,14 +213,14 @@ const Navbar = () => {
                 <Link
                   href="/login"
                   aria-label="Sign In"
-                  className="px-3 py-2 text-xs text-ink-200 hover:text-accent-300 transition-colors font-medium"
+                  className="px-3 py-2 text-sm text-navy-300 hover:text-accent-400 hover:bg-navy-800 rounded-lg transition-colors font-medium"
                 >
                   Sign In
                 </Link>
                 <Link
                   href="/register"
                   aria-label="Register"
-                  className="px-3 py-2 text-xs bg-accent-500 hover:bg-accent-400 text-white rounded-md font-semibold transition-colors"
+                  className="px-4 py-2 text-sm bg-accent-500 hover:bg-accent-400 text-white rounded-lg font-semibold transition-colors shadow-sm"
                 >
                   Register
                 </Link>
@@ -173,11 +230,90 @@ const Navbar = () => {
             {/* Mobile menu button */}
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className="md:hidden text-white ml-1"
+              className="md:hidden text-white ml-1 p-2 rounded-lg hover:bg-navy-800 transition-colors"
               aria-label="Toggle menu"
             >
               {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
             </button>
+          </div>
+        </div>
+
+        {/* Navigation links row */}
+        <div className="hidden md:block border-t border-navy-800">
+          <div className="h-11 flex items-center gap-0.5">
+            <Link
+              href="/"
+              className={`flex items-center gap-1.5 px-3 py-2 text-sm font-medium rounded-md transition-colors ${
+                router.pathname === '/'
+                  ? 'text-accent-400 bg-navy-800'
+                  : 'text-navy-300 hover:text-white hover:bg-navy-800'
+              }`}
+            >
+              <Home className="w-4 h-4" />
+              Home
+            </Link>
+            <Link
+              href="/products"
+              className={`flex items-center gap-1.5 px-3 py-2 text-sm font-medium rounded-md transition-colors ${
+                isActive('/products')
+                  ? 'text-accent-400 bg-navy-800'
+                  : 'text-navy-300 hover:text-white hover:bg-navy-800'
+              }`}
+            >
+              <Package className="w-4 h-4" />
+              All Products
+            </Link>
+
+            {/* Category dropdowns */}
+            {navCategories.slice(0, 8).map((cat) => {
+              const CatIcon = categoryIcons[cat.slug] || Sparkles;
+              const hasChildren = cat.children.length > 0;
+              const isOpen = openDropdown === cat.slug;
+              const isCatActive = router.query.category === cat.slug;
+
+              return (
+                <div
+                  key={cat.slug}
+                  className="relative"
+                  onMouseEnter={() => hasChildren && setOpenDropdown(cat.slug)}
+                  onMouseLeave={() => setOpenDropdown(null)}
+                >
+                  <button
+                    onClick={() => router.push(`/products?category=${cat.slug}`)}
+                    className={`flex items-center gap-1.5 px-3 py-2 text-sm font-medium rounded-md transition-colors ${
+                      isCatActive
+                        ? 'text-accent-400 bg-navy-800'
+                        : 'text-navy-300 hover:text-white hover:bg-navy-800'
+                    }`}
+                  >
+                    <CatIcon className="w-4 h-4" />
+                    {cat.name}
+                    {hasChildren && (
+                      <ChevronDown className={`w-3.5 h-3.5 transition-transform ${isOpen ? 'rotate-180' : ''}`} />
+                    )}
+                  </button>
+
+                  {/* Dropdown menu */}
+                  {hasChildren && isOpen && (
+                    <div className="absolute top-full left-0 mt-1 w-64 bg-white rounded-lg shadow-xl border border-navy-100 py-2 z-50">
+                      <div className="px-3 py-1.5 text-xs font-bold text-navy-900 uppercase tracking-wider border-b border-navy-100 mb-1">
+                        {cat.name} Subcategories
+                      </div>
+                      {cat.children.map(child => (
+                        <Link
+                          key={child.slug}
+                          href={`/products?category=${child.slug}`}
+                          className="flex items-center gap-2 px-3 py-2 text-sm text-navy-700 hover:bg-navy-50 hover:text-accent-600 rounded-md transition-colors"
+                        >
+                          <ChevronRight className="w-3 h-3 text-navy-400" />
+                          {child.name}
+                        </Link>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              );
+            })}
           </div>
         </div>
 
@@ -190,7 +326,7 @@ const Navbar = () => {
                 <Link
                   key={link.href}
                   href={link.href}
-                  className="flex items-center gap-1.5 px-2 py-1 text-xs text-ink-200 hover:text-accent-300 transition-colors rounded hover:bg-navy-700"
+                  className="flex items-center gap-1.5 px-2 py-1 text-xs text-navy-300 hover:text-accent-400 transition-colors rounded hover:bg-navy-700"
                 >
                   <link.icon className="w-3.5 h-3.5" />
                   {link.label}
@@ -198,7 +334,7 @@ const Navbar = () => {
               ))}
               <button
                 onClick={() => setShowAdminPanel(false)}
-                className="ml-auto text-ink-400 hover:text-white p-1"
+                className="ml-auto text-navy-400 hover:text-white p-1"
                 aria-label="Close admin panel"
               >
                 <X className="w-4 h-4" />
@@ -208,97 +344,145 @@ const Navbar = () => {
         )}
       </div>
 
-      {/* Second row: navigation menu (desktop only) */}
-      <div className="hidden md:block bg-navy-950">
-        <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-10 max-w-[1600px] mx-auto">
-          <div className="h-10 flex items-center gap-1">
-            {navLinks.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                aria-label={link.label}
-                className="text-sm text-ink-300 hover:text-accent-400 px-3 py-2 transition-colors"
-              >
-                {link.label}
-              </Link>
-            ))}
-          </div>
-        </div>
-      </div>
-
       {/* Mobile menu */}
       {isOpen && (
-        <div className="md:hidden bg-navy-900 border-t border-navy-700 max-h-[80vh] overflow-y-auto">
-          <div className="px-4 py-3 space-y-3">
-            <div className="flex">
+        <div className="md:hidden bg-navy-900 border-t border-navy-800 max-h-[85vh] overflow-y-auto">
+          <div className="px-4 py-4 space-y-4">
+            {/* Search */}
+            <form onSubmit={handleSearch} className="flex">
               <input
                 type="text"
                 placeholder="Search products..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 aria-label="Search products"
-                className="flex-1 px-4 py-2 rounded-l-md bg-white border-0 text-ink-900 placeholder-ink-400 focus:outline-none text-sm"
+                className="flex-1 px-4 py-2.5 rounded-l-lg bg-navy-800 border border-navy-700 text-white placeholder-navy-400 focus:outline-none focus:ring-2 focus:ring-accent-400 text-sm"
               />
               <button
-                onClick={() => searchQuery && router.push(`/products?q=${encodeURIComponent(searchQuery)}`)}
+                type="submit"
                 aria-label="Search"
-                className="bg-accent-500 text-white px-4 py-2 rounded-r-md"
+                className="bg-accent-500 text-white px-4 py-2.5 rounded-r-lg"
               >
                 <Search className="w-4 h-4" />
               </button>
+            </form>
+
+            {/* Quick links */}
+            <div className="grid grid-cols-2 gap-2">
+              <Link
+                href="/cart"
+                className="flex items-center justify-between py-2.5 px-3 text-sm text-navy-200 hover:bg-navy-800 hover:text-accent-400 rounded-lg transition-colors font-medium border border-navy-800"
+              >
+                <span className="flex items-center gap-2">
+                  <ShoppingCart className="w-4 h-4" />
+                  Cart
+                </span>
+                {count > 0 && (
+                  <span className="min-w-[18px] h-[18px] px-1 bg-accent-500 text-white text-[10px] font-bold rounded-full flex items-center justify-center">
+                    {count > 99 ? '99+' : count}
+                  </span>
+                )}
+              </Link>
+              {session ? (
+                <>
+                  <Link
+                    href="/orders"
+                    className="flex items-center gap-2 py-2.5 px-3 text-sm text-navy-200 hover:bg-navy-800 hover:text-accent-400 rounded-lg transition-colors font-medium border border-navy-800"
+                  >
+                    <Package className="w-4 h-4" />
+                    My Orders
+                  </Link>
+                  <button
+                    onClick={() => signOut()}
+                    className="flex items-center gap-2 py-2.5 px-3 text-sm text-navy-200 hover:bg-navy-800 hover:text-accent-400 rounded-lg transition-colors font-medium border border-navy-800 col-span-2"
+                  >
+                    <User className="w-4 h-4" />
+                    Logout
+                  </button>
+                </>
+              ) : (
+                <div className="col-span-2 flex gap-2">
+                  <Link
+                    href="/login"
+                    className="flex-1 text-center py-2.5 text-sm text-navy-200 border border-navy-700 rounded-lg font-medium hover:bg-navy-800 transition-colors"
+                  >
+                    Sign In
+                  </Link>
+                  <Link
+                    href="/register"
+                    className="flex-1 text-center py-2.5 text-sm bg-accent-500 text-white rounded-lg font-semibold hover:bg-accent-400 transition-colors"
+                  >
+                    Register
+                  </Link>
+                </div>
+              )}
             </div>
 
-            <Link
-              href="/cart"
-              aria-label="Shopping cart"
-              className="flex items-center justify-between py-2 text-sm text-ink-200 hover:text-accent-300 font-medium"
-            >
-              <span className="flex items-center gap-2">
-                <ShoppingCart className="w-4 h-4" />
-                Cart
-              </span>
-              {count > 0 && (
-                <span className="min-w-[18px] h-[18px] px-1 bg-accent-500 text-white text-[10px] font-bold rounded-full flex items-center justify-center">
-                  {count > 99 ? '99+' : count}
-                </span>
-              )}
-            </Link>
-            {session ? (
-              <>
-                <Link
-                  href="/orders"
-                  aria-label="My orders"
-                  className="flex items-center gap-2 py-2 text-sm text-ink-200 hover:text-accent-300 font-medium"
-                >
-                  <Package className="w-4 h-4" />
-                  My Orders
-                </Link>
-                <button
-                  onClick={() => signOut()}
-                  aria-label="Logout"
-                  className="w-full text-left py-2 text-sm text-ink-200 hover:text-accent-300 font-medium"
-                >
-                  Logout
-                </button>
-              </>
-            ) : (
-              <div className="flex gap-2 pt-2 border-t border-navy-700">
-                <Link
-                  href="/login"
-                  aria-label="Sign In"
-                  className="flex-1 text-center py-2 text-sm text-ink-200 border border-navy-600 rounded-md font-medium"
-                >
-                  Sign In
-                </Link>
-                <Link
-                  href="/register"
-                  aria-label="Register"
-                  className="flex-1 text-center py-2 text-sm bg-accent-500 text-white rounded-md font-semibold"
-                >
-                  Register
-                </Link>
+            {/* Category navigation */}
+            <div className="pt-2 border-t border-navy-800">
+              <div className="text-[11px] font-bold text-navy-400 uppercase tracking-wider px-3 mb-2">
+                Categories
               </div>
-            )}
+              <Link
+                href="/products"
+                className="flex items-center gap-2 px-3 py-2.5 text-sm text-navy-200 hover:bg-navy-800 hover:text-accent-400 rounded-lg transition-colors font-medium"
+              >
+                <Home className="w-4 h-4" />
+                All Products
+              </Link>
+              {navCategories.slice(0, 12).map((cat) => {
+                const CatIcon = categoryIcons[cat.slug] || Sparkles;
+                const isExpanded = mobileExpanded === cat.slug;
+                const hasChildren = cat.children.length > 0;
+
+                return (
+                  <div key={cat.slug}>
+                    <div className="flex items-center">
+                      <Link
+                        href={`/products?category=${cat.slug}`}
+                        className={`flex-1 flex items-center gap-2 px-3 py-2.5 text-sm rounded-lg transition-colors font-medium ${
+                          router.query.category === cat.slug
+                            ? 'text-accent-400 bg-navy-800'
+                            : 'text-navy-200 hover:bg-navy-800 hover:text-accent-400'
+                        }`}
+                      >
+                        <CatIcon className="w-4 h-4" />
+                        {cat.name}
+                        {cat.productCount > 0 && (
+                          <span className="ml-auto text-[10px] text-navy-500 bg-navy-800 px-1.5 py-0.5 rounded-full">
+                            {cat.productCount}
+                          </span>
+                        )}
+                      </Link>
+                      {hasChildren && (
+                        <button
+                          onClick={() => setMobileExpanded(isExpanded ? null : cat.slug)}
+                          className="p-2 text-navy-400 hover:text-accent-400 transition-colors"
+                          aria-label={isExpanded ? 'Collapse' : 'Expand'}
+                        >
+                          <ChevronDown className={`w-4 h-4 transition-transform ${isExpanded ? 'rotate-180' : ''}`} />
+                        </button>
+                      )}
+                    </div>
+                    {/* Subcategories (mobile expandable) */}
+                    {hasChildren && isExpanded && (
+                      <div className="ml-4 border-l border-navy-800 pl-2 py-1 space-y-0.5">
+                        {cat.children.map(child => (
+                          <Link
+                            key={child.slug}
+                            href={`/products?category=${child.slug}`}
+                            className="flex items-center gap-2 px-3 py-2 text-xs text-navy-400 hover:text-accent-400 hover:bg-navy-800/50 rounded-md transition-colors"
+                          >
+                            <ChevronRight className="w-3 h-3" />
+                            {child.name}
+                          </Link>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                );
+              })}
+            </div>
           </div>
         </div>
       )}

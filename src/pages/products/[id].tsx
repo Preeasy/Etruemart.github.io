@@ -868,13 +868,13 @@ function findProductFromSeed(productId: string) {
   if (!product) return null;
 
   // Get category - use root category for breadcrumb and navigation
-  const catSlug = product.categoryId || '';
-  const rootCat = getRootCat(catSlug);
-  const directCat = slugToCat.get(catSlug);
+  const breadcrumbCatSlug = product.categoryId || '';
+  const rootCat = getRootCat(breadcrumbCatSlug);
+  const directCat = slugToCat.get(breadcrumbCatSlug);
   const category = rootCat || directCat || null;
 
   // Find related products - same root category (including sub-categories)
-  const rootSlug = rootCat ? rootCat.slug : catSlug;
+  const rootSlug = rootCat ? rootCat.slug : breadcrumbCatSlug;
   // Get all descendant slugs for the root category
   const getDescendantSlugs = (cs: string): string[] => {
     const result = [cs];
@@ -930,68 +930,106 @@ function findProductFromSeed(productId: string) {
     }
   }
 
-  // Smart key features extraction
+  // Smart key features extraction — generates meaningful features from product data
   let bulletPoints: string[] = [];
 
-  const genericRegexes = [
-    /^premium quality .+ for retail and wholesale$/i,
-    /^competitive factory-direct pricing from yiwu$/i,
-    /^multiple options available$/i,
-    /^high-quality construction$/i,
-    /^custom packaging and labeling available on request$/i,
-    /^custom packaging and labeling available$/i,
-    /^custom packaging & labeling available$/i,
-    /^fast worldwide shipping with tracking$/i,
-    /^moq: \d+ \| lead time: \d+.*$/i,
-    /^moq: \d+ pcs$/i,
-    /^lead time: \d+.*$/i,
-    /^worldwide shipping supported$/i,
-    /^premium quality construction$/i,
-    /^factory-direct wholesale pricing$/i,
-  ];
-
-  const isGeneric = (text: string) => {
-    const t = text.trim();
-    return genericRegexes.some(re => re.test(t));
+  const allFeatures: string[] = [];
+  const addFeature = (f: string) => {
+    const clean = f.trim();
+    if (clean && clean.length > 3) allFeatures.push(clean);
   };
 
-  const blockFeatures: string[] = [];
+  // Extract useful data from specs block
+  let specsMaterial: string | null = null;
+  let specsPackaging: string | null = null;
+  let specsMoq: number | null = null;
+
   if (aplus?.blocks && Array.isArray(aplus.blocks)) {
     for (const block of aplus.blocks) {
-      if (block.type === 'text' && block.content) {
-        const liMatches = String(block.content).match(/<li>([^<]*)<\/li>/g);
-        if (liMatches) {
-          for (const match of liMatches) {
-            const text = match.replace(/<[^>]*>/g, '').trim();
-            if (text && !isGeneric(text)) blockFeatures.push(text);
-          }
-        }
+      if (block.type === 'specs' && block.content) {
+        const html = String(block.content);
+        const matMatch = html.match(/<strong>Material:<\/strong>\s*([^<]+)/i);
+        if (matMatch) specsMaterial = matMatch[1].trim();
+        const packMatch = html.match(/<strong>Packaging:<\/strong>\s*([^<]+)/i);
+        if (packMatch) specsPackaging = packMatch[1].trim();
+        const moqMatch = html.match(/<strong>MOQ:<\/strong>\s*(\d+)/i);
+        if (moqMatch) specsMoq = parseInt(moqMatch[1]);
       }
     }
   }
 
-  const specialFeatures: string[] = [];
-  if (aplus?.bulletPoints && Array.isArray(aplus.bulletPoints)) {
-    for (const bp of aplus.bulletPoints) {
-      const text = String(bp).trim();
-      if (/^material:/i.test(text) && !isGeneric(text)) specialFeatures.push(text);
+  // 1. Material feature (from product or specs)
+  const material = product.material || specsMaterial;
+  if (material) {
+    addFeature(`Crafted from ${material}`);
+  }
+
+  // 2. Product name analysis — extract set size, color, key product type
+  const name = product.name || '';
+  const setMatch = name.match(/(\d+)[-\s]?(?:piece|pc|pack|pcs|count|set)/i);
+  if (setMatch) {
+    addFeature(`Set of ${setMatch[1]} pieces`);
+  }
+  const colorMatch = name.match(/^(Black|White|Blue|Red|Pink|Gold|Silver|Green|Purple|Orange|Yellow|Brown|Gray|Grey)\s/i);
+  if (colorMatch) {
+    addFeature(`Color: ${colorMatch[1]}`);
+  }
+
+  // 3. MOQ feature (use product.moq or specs.moq)
+  const moq = Number(product.moq) || specsMoq || 1;
+  if (moq <= 10) addFeature(`Low MOQ: ${moq} pcs — start small, scale as needed`);
+  else if (moq <= 50) addFeature(`Flexible MOQ: ${moq} pcs for growing businesses`);
+  else addFeature(`Wholesale MOQ: ${moq} pcs | Volume pricing available`);
+
+  // 4. Packaging info (from specs)
+  if (specsPackaging) {
+    const weightMatch = specsPackaging.match(/G\.W\.\s*([\d.]+)\s*kg/i);
+    const qtyMatch = specsPackaging.match(/(\d+)\s*pcs?\/ctn/i);
+    if (weightMatch && qtyMatch) {
+      addFeature(`${qtyMatch[1]} pcs per carton | G.W. ${weightMatch[1]} kg`);
+    } else if (weightMatch) {
+      addFeature(`Packaging: G.W. ${weightMatch[1]} kg per carton`);
     }
   }
 
-  const allFeatures: string[] = [];
-  if (product.material) allFeatures.push(`Crafted from ${product.material}`);
-  for (const f of specialFeatures) allFeatures.push(f);
-  if (product.moq) {
-    const m = Number(product.moq);
-    if (m <= 10) allFeatures.push(`Low MOQ: ${m} pcs — start small, scale as needed`);
-    else if (m <= 50) allFeatures.push(`Flexible MOQ: ${m} pcs for growing businesses`);
-    else allFeatures.push(`Wholesale MOQ: ${m} pcs | Volume pricing`);
+  // 5. Category-specific features
+  const catSlug = product.categoryId || '';
+  const categoryFeatureMap: Record<string, string[]> = {
+    'fashion-jewelry': ['Hypoallergenic materials', 'Elegant design for any occasion'],
+    'bags': ['Stylish and functional design', 'Multiple compartments for organization'],
+    'electronics': ['Reliable performance with quality components', 'Tested and certified for safety'],
+    'beauty-personal-care': ['Gentle formula suitable for daily use', 'Quality ingredients for effective results'],
+    'home-living': ['Durable construction for everyday use', 'Modern design to complement any decor'],
+    'home-decor-crafts': ['Handcrafted quality with attention to detail', 'Unique piece to enhance your space'],
+    'toys': ['Safe and durable materials for kids', 'Educational and fun for all ages'],
+    'sports-outdoor': ['Built for performance and durability', 'Weather-resistant for outdoor use'],
+    'accessories': ['Versatile accessory for any outfit', 'Premium finish and construction'],
+    'auto-tools': ['Professional-grade quality tools', 'Heat-treated steel for durability'],
+    'garment-accessories': ['Sewing-grade quality materials', 'Perfect for garments and crafts'],
+    'gift': ['Beautifully packaged, ready to gift', 'Premium quality for special occasions'],
+    'pet-supplies': ['Pet-safe, non-toxic materials', 'Durable construction for daily use'],
+    'kitchen-supplies': ['Food-safe, BPA-free materials', 'Heat-resistant and durable'],
+    'hardware-home': ['Heavy-duty steel construction', 'Corrosion-resistant finish'],
+    'apparel-shoes': ['Comfortable fit for all-day wear', 'Breathable and durable materials'],
+    'phone-accessories': ['Precision-engineered for perfect fit', 'Durable build quality'],
+    'stationery-office': ['Premium quality for professional use', 'Eco-friendly materials'],
+    'mother-baby-toys': ['Non-toxic, baby-safe materials', 'Educational and developmental'],
+    'musical-instruments': ['Tuned and ready to play', 'Quality craftsmanship'],
+    'home-appliances': ['Energy-efficient operation', 'Built to last with quality components'],
+    'other': ['Premium quality materials', 'Factory-direct pricing'],
+  };
+
+  const catFeatures = categoryFeatureMap[catSlug];
+  if (catFeatures && catFeatures.length > 0) {
+    addFeature(catFeatures[0]);
+    if (catFeatures[1]) addFeature(catFeatures[1]);
   }
-  allFeatures.push('Factory-direct pricing from Yiwu, China');
-  allFeatures.push('Global shipping to 180+ countries');
-  allFeatures.push('Custom packaging & private label available');
-  allFeatures.push('Trade assurance with quality guarantee');
-  for (const f of blockFeatures) allFeatures.push(f);
+
+  // 6. Universal value props
+  addFeature('Factory-direct pricing from Yiwu, China');
+  addFeature('Global shipping to 180+ countries');
+  addFeature('Custom packaging & private label available');
+  addFeature('Trade assurance with quality guarantee');
 
   // Deduplicate and cap at 6
   const seen = new Set<string>();
@@ -1002,6 +1040,25 @@ function findProductFromSeed(productId: string) {
       bulletPoints.push(f.trim());
     }
     if (bulletPoints.length >= 6) break;
+  }
+
+  // Ensure at least 4 features
+  if (bulletPoints.length < 4) {
+    const fallbacks = [
+      'Premium quality materials and construction',
+      'Factory-direct pricing from Yiwu, China',
+      'Global shipping to 180+ countries',
+      'Custom packaging & private label available',
+      'Trade assurance with quality guarantee',
+      'Flexible MOQ for businesses of all sizes',
+    ];
+    for (const fb of fallbacks) {
+      if (bulletPoints.length >= 6) break;
+      if (!seen.has(fb.toLowerCase())) {
+        seen.add(fb.toLowerCase());
+        bulletPoints.push(fb);
+      }
+    }
   }
 
   return {
@@ -1133,69 +1190,108 @@ export async function getServerSideProps(context: { params: { id: string } }) {
       }
     }
 
-    // Smart key features extraction
+    // Smart key features extraction — generates meaningful features from product data
     let bulletPoints: string[] = [];
 
-    const genericRegexes = [
-      /^premium quality .+ for retail and wholesale$/i,
-      /^competitive factory-direct pricing from yiwu$/i,
-      /^multiple options available$/i,
-      /^high-quality construction$/i,
-      /^custom packaging and labeling available on request$/i,
-      /^custom packaging and labeling available$/i,
-      /^custom packaging & labeling available$/i,
-      /^fast worldwide shipping with tracking$/i,
-      /^moq: \d+ \| lead time: \d+.*$/i,
-      /^moq: \d+ pcs$/i,
-      /^lead time: \d+.*$/i,
-      /^worldwide shipping supported$/i,
-      /^premium quality construction$/i,
-      /^factory-direct wholesale pricing$/i,
-    ];
-
-    const isGeneric = (text: string) => {
-      const t = text.trim();
-      return genericRegexes.some(re => re.test(t));
+    const allFeatures: string[] = [];
+    const addFeature = (f: string) => {
+      const clean = f.trim();
+      if (clean && clean.length > 3) allFeatures.push(clean);
     };
 
-    const blockFeatures: string[] = [];
+    // Extract useful data from specs block
+    let specsMaterial: string | null = null;
+    let specsPackaging: string | null = null;
+    let specsMoq: number | null = null;
+
     if (aplus?.blocks && Array.isArray(aplus.blocks)) {
       for (const block of aplus.blocks) {
-        if (block.type === 'text' && block.content) {
-          const liMatches = String(block.content).match(/<li>([^<]*)<\/li>/g);
-          if (liMatches) {
-            for (const match of liMatches) {
-              const text = match.replace(/<[^>]*>/g, '').trim();
-              if (text && !isGeneric(text)) blockFeatures.push(text);
-            }
-          }
+        if (block.type === 'specs' && block.content) {
+          const html = String(block.content);
+          const matMatch = html.match(/<strong>Material:<\/strong>\s*([^<]+)/i);
+          if (matMatch) specsMaterial = matMatch[1].trim();
+          const packMatch = html.match(/<strong>Packaging:<\/strong>\s*([^<]+)/i);
+          if (packMatch) specsPackaging = packMatch[1].trim();
+          const moqMatch = html.match(/<strong>MOQ:<\/strong>\s*(\d+)/i);
+          if (moqMatch) specsMoq = parseInt(moqMatch[1]);
         }
       }
     }
 
-    const specialFeatures: string[] = [];
-    if (aplus?.bulletPoints && Array.isArray(aplus.bulletPoints)) {
-      for (const bp of aplus.bulletPoints) {
-        const text = String(bp).trim();
-        if (/^material:/i.test(text) && !isGeneric(text)) specialFeatures.push(text);
+    // 1. Material feature (from product or specs)
+    const material = product.material || specsMaterial;
+    if (material) {
+      addFeature(`Crafted from ${material}`);
+    }
+
+    // 2. Product name analysis
+    const name = product.name || '';
+    const setMatch = name.match(/(\d+)[-\s]?(?:piece|pc|pack|pcs|count|set)/i);
+    if (setMatch) {
+      addFeature(`Set of ${setMatch[1]} pieces`);
+    }
+    const colorMatch = name.match(/^(Black|White|Blue|Red|Pink|Gold|Silver|Green|Purple|Orange|Yellow|Brown|Gray|Grey)\s/i);
+    if (colorMatch) {
+      addFeature(`Color: ${colorMatch[1]}`);
+    }
+
+    // 3. MOQ feature
+    const moq = Number(product.moq) || specsMoq || 1;
+    if (moq <= 10) addFeature(`Low MOQ: ${moq} pcs — start small, scale as needed`);
+    else if (moq <= 50) addFeature(`Flexible MOQ: ${moq} pcs for growing businesses`);
+    else addFeature(`Wholesale MOQ: ${moq} pcs | Volume pricing available`);
+
+    // 4. Packaging info
+    if (specsPackaging) {
+      const weightMatch = specsPackaging.match(/G\.W\.\s*([\d.]+)\s*kg/i);
+      const qtyMatch = specsPackaging.match(/(\d+)\s*pcs?\/ctn/i);
+      if (weightMatch && qtyMatch) {
+        addFeature(`${qtyMatch[1]} pcs per carton | G.W. ${weightMatch[1]} kg`);
+      } else if (weightMatch) {
+        addFeature(`Packaging: G.W. ${weightMatch[1]} kg per carton`);
       }
     }
 
-    const allFeatures: string[] = [];
-    if (product.material) allFeatures.push(`Crafted from ${product.material}`);
-    for (const f of specialFeatures) allFeatures.push(f);
-    if (product.moq) {
-      const m = Number(product.moq);
-      if (m <= 10) allFeatures.push(`Low MOQ: ${m} pcs — start small, scale as needed`);
-      else if (m <= 50) allFeatures.push(`Flexible MOQ: ${m} pcs for growing businesses`);
-      else allFeatures.push(`Wholesale MOQ: ${m} pcs | Volume pricing`);
-    }
-    allFeatures.push('Factory-direct pricing from Yiwu, China');
-    allFeatures.push('Global shipping to 180+ countries');
-    allFeatures.push('Custom packaging & private label available');
-    allFeatures.push('Trade assurance with quality guarantee');
-    for (const f of blockFeatures) allFeatures.push(f);
+    // 5. Category-specific features
+    const catSlug = product.categoryId || '';
+    const categoryFeatureMap: Record<string, string[]> = {
+      'fashion-jewelry': ['Hypoallergenic materials', 'Elegant design for any occasion'],
+      'bags': ['Stylish and functional design', 'Multiple compartments for organization'],
+      'electronics': ['Reliable performance with quality components', 'Tested and certified for safety'],
+      'beauty-personal-care': ['Gentle formula suitable for daily use', 'Quality ingredients for effective results'],
+      'home-living': ['Durable construction for everyday use', 'Modern design to complement any decor'],
+      'home-decor-crafts': ['Handcrafted quality with attention to detail', 'Unique piece to enhance your space'],
+      'toys': ['Safe and durable materials for kids', 'Educational and fun for all ages'],
+      'sports-outdoor': ['Built for performance and durability', 'Weather-resistant for outdoor use'],
+      'accessories': ['Versatile accessory for any outfit', 'Premium finish and construction'],
+      'auto-tools': ['Professional-grade quality tools', 'Heat-treated steel for durability'],
+      'garment-accessories': ['Sewing-grade quality materials', 'Perfect for garments and crafts'],
+      'gift': ['Beautifully packaged, ready to gift', 'Premium quality for special occasions'],
+      'pet-supplies': ['Pet-safe, non-toxic materials', 'Durable construction for daily use'],
+      'kitchen-supplies': ['Food-safe, BPA-free materials', 'Heat-resistant and durable'],
+      'hardware-home': ['Heavy-duty steel construction', 'Corrosion-resistant finish'],
+      'apparel-shoes': ['Comfortable fit for all-day wear', 'Breathable and durable materials'],
+      'phone-accessories': ['Precision-engineered for perfect fit', 'Durable build quality'],
+      'stationery-office': ['Premium quality for professional use', 'Eco-friendly materials'],
+      'mother-baby-toys': ['Non-toxic, baby-safe materials', 'Educational and developmental'],
+      'musical-instruments': ['Tuned and ready to play', 'Quality craftsmanship'],
+      'home-appliances': ['Energy-efficient operation', 'Built to last with quality components'],
+      'other': ['Premium quality materials', 'Factory-direct pricing'],
+    };
 
+    const catFeatures = categoryFeatureMap[catSlug];
+    if (catFeatures && catFeatures.length > 0) {
+      addFeature(catFeatures[0]);
+      if (catFeatures[1]) addFeature(catFeatures[1]);
+    }
+
+    // 6. Universal value props
+    addFeature('Factory-direct pricing from Yiwu, China');
+    addFeature('Global shipping to 180+ countries');
+    addFeature('Custom packaging & private label available');
+    addFeature('Trade assurance with quality guarantee');
+
+    // Deduplicate and cap at 6
     const seen = new Set<string>();
     for (const f of allFeatures) {
       const key = f.toLowerCase().trim();
@@ -1204,6 +1300,25 @@ export async function getServerSideProps(context: { params: { id: string } }) {
         bulletPoints.push(f.trim());
       }
       if (bulletPoints.length >= 6) break;
+    }
+
+    // Ensure at least 4 features
+    if (bulletPoints.length < 4) {
+      const fallbacks = [
+        'Premium quality materials and construction',
+        'Factory-direct pricing from Yiwu, China',
+        'Global shipping to 180+ countries',
+        'Custom packaging & private label available',
+        'Trade assurance with quality guarantee',
+        'Flexible MOQ for businesses of all sizes',
+      ];
+      for (const fb of fallbacks) {
+        if (bulletPoints.length >= 6) break;
+        if (!seen.has(fb.toLowerCase())) {
+          seen.add(fb.toLowerCase());
+          bulletPoints.push(fb);
+        }
+      }
     }
 
     const serializedProduct = {
