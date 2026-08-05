@@ -129,7 +129,7 @@ const TOP_DEAL_SLUGS = [
   'white-plush-teddy-bear-with-green-ribbon-bow',
 ];
 
-const Home = ({ products, categories }: { products: Product[]; categories: CategoryInfo[] }) => {
+const Home = ({ products, categories, categoryProductsMap }: { products: Product[]; categories: CategoryInfo[]; categoryProductsMap: Record<string, Product[]> }) => {
   const [showMobileCats, setShowMobileCats] = useState(false);
   const slugToProduct = new Map(products.map((p) => [p.slug, p]));
   const topDeals = TOP_DEAL_SLUGS.map((slug) => slugToProduct.get(slug)).filter(Boolean) as Product[];
@@ -322,9 +322,7 @@ const Home = ({ products, categories }: { products: Product[]; categories: Categ
                 {categories.slice(0, 10).map((cat) => {
                   const Icon = categoryIconMap[cat.slug] || Package;
                   const badge = categoryBadgeMap[cat.slug] || null;
-                  const catProducts = products
-                    .filter(p => p.category.slug === cat.slug)
-                    .slice(0, 5);
+                  const catProducts = categoryProductsMap[cat.slug] || [];
 
                   return (
                     <div
@@ -516,7 +514,7 @@ export const getServerSideProps = async () => {
         .filter((c: CategoryInfo) => c.productCount > 0)
         .sort((a, b) => b.productCount - a.productCount);
 
-      const products = sorted.map((p) => {
+      const formatProduct = (p: any): Product => {
         const image = proxyImageUrlDirect(p.image || '');
 
         let images: string[] = [];
@@ -546,7 +544,6 @@ export const getServerSideProps = async () => {
           priceMax: p.priceMax ? Number(p.priceMax) : Number(p.price) || 0,
           image,
           images,
-          // Use ROOT category so homepage filtering by parent category works
           category: rootCat
             ? { name: rootCat.name, slug: rootCat.slug }
             : directCat
@@ -559,9 +556,26 @@ export const getServerSideProps = async () => {
           keywords: [],
           bulletPoints: [],
         };
-      });
+      };
 
-      return { props: { products, categories: rootCategories } };
+      // Top 50 products for hero/trending
+      const products = sorted.map(formatProduct);
+
+      // Top 5 products per root category (for "Shop by Category" blocks)
+      const sortedAll = [...rawProducts].sort((a, b) => (b.salesCount || 0) - (a.salesCount || 0));
+      const categoryProductsMap: Record<string, Product[]> = {};
+      for (const rootCat of rootCategories) {
+        const catProducts = sortedAll
+          .filter((p: any) => {
+            const rc = getRootCat(p.categoryId || '');
+            return rc && rc.slug === rootCat.slug;
+          })
+          .slice(0, 5)
+          .map(formatProduct);
+        categoryProductsMap[rootCat.slug] = catProducts;
+      }
+
+      return { props: { products, categories: rootCategories, categoryProductsMap } };
     }
   }
 
@@ -613,7 +627,10 @@ export const getServerSideProps = async () => {
       .filter((c: CategoryInfo) => c.productCount > 0)
       .sort((a, b) => b.productCount - a.productCount);
 
-    const products = rawProducts.map((p) => {
+    // For local dev, load all products for category blocks
+    const allRawProducts = database.prepare('SELECT * FROM products WHERE isPublished = 1 ORDER BY salesCount DESC').all() as any[];
+
+    const formatProductLocal = (p: any): Product => {
       const image = proxyImageUrl(p.image || '');
       
       let images: string[] = [];
@@ -650,11 +667,26 @@ export const getServerSideProps = async () => {
         keywords: [],
         bulletPoints: [],
       };
-    });
+    };
+
+    const products = rawProducts.map(formatProductLocal);
+
+    // Top 5 products per root category
+    const categoryProductsMap: Record<string, Product[]> = {};
+    for (const rootCat of rootCategories) {
+      const catProducts = allRawProducts
+        .filter((p: any) => {
+          const rc = getRootCat(p.categoryId || '');
+          return rc && rc.slug === rootCat.slug;
+        })
+        .slice(0, 5)
+        .map(formatProductLocal);
+      categoryProductsMap[rootCat.slug] = catProducts;
+    }
     
-    return { props: { products, categories: rootCategories } };
+    return { props: { products, categories: rootCategories, categoryProductsMap } };
   } catch (error) {
     console.error('Error loading products:', error);
-    return { props: { products: [], categories: [] } };
+    return { props: { products: [], categories: [], categoryProductsMap: {} } };
   }
 };
