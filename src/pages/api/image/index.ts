@@ -1,12 +1,30 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import https from 'https';
 import http from 'http';
+import fs from 'fs';
+import path from 'path';
+import crypto from 'crypto';
 import { HttpsProxyAgent } from 'https-proxy-agent';
 
 const ALLOWED_HOSTS = ['cdn.jsdelivr.net', 'raw.githubusercontent.com'];
 
 const proxyUrl = process.env.HTTPS_PROXY || process.env.HTTP_PROXY || process.env.https_proxy || process.env.http_proxy;
 const proxyAgent = proxyUrl ? new HttpsProxyAgent(proxyUrl) : undefined;
+
+const CACHE_DIR = path.join(process.cwd(), '.image-cache');
+
+// Ensure cache directory exists
+try {
+  if (!fs.existsSync(CACHE_DIR)) {
+    fs.mkdirSync(CACHE_DIR, { recursive: true });
+  }
+} catch {}
+
+function getCachePath(url: string): string {
+  const hash = crypto.createHash('md5').update(url).digest('hex');
+  const ext = url.match(/\.(png|jpg|jpeg|gif|webp)$/i)?.[1] || 'png';
+  return path.join(CACHE_DIR, `${hash}.${ext}`);
+}
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   const { url } = req.query;
@@ -24,6 +42,16 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   
   if (!ALLOWED_HOSTS.includes(parsedUrl.hostname)) {
     return res.status(403).json({ error: 'Host not allowed' });
+  }
+  
+  // Check cache first
+  const cachePath = getCachePath(url);
+  if (fs.existsSync(cachePath)) {
+    const cached = fs.readFileSync(cachePath);
+    const ext = path.extname(cachePath).slice(1);
+    res.setHeader('Content-Type', `image/${ext}`);
+    res.setHeader('Cache-Control', 'public, max-age=86400');
+    return res.send(cached);
   }
   
   const client = parsedUrl.protocol === 'https:' ? https : http;
@@ -51,7 +79,19 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     res.setHeader('Content-Type', contentType);
     res.setHeader('Cache-Control', 'public, max-age=86400');
     
-    response.pipe(res);
+    // Collect data and cache
+    const chunks: Buffer[] = [];
+    response.on('data', (chunk: Buffer) => {
+      chunks.push(chunk);
+    });
+    response.on('end', () => {
+      const buffer = Buffer.concat(chunks);
+      // Save to cache
+      try {
+        fs.writeFileSync(cachePath, buffer);
+      } catch {}
+      res.send(buffer);
+    });
   } catch (error) {
     console.error('Image proxy error:', error);
     res.status(502).json({ error: 'Failed to fetch image' });

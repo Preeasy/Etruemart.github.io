@@ -89,23 +89,37 @@ async function main() {
     oldIdToNewId.set(cat.id, slugToId.get(cat.slug));
   }
 
-  // 4. Import products (skip by slug to avoid duplicates)
-  const existingSlugs = new Set(
-    (await prisma.product.findMany({ select: { slug: true } })).map(p => p.slug)
-  );
+  // 4. Import products - upsert by slug, delete products no longer in seed data
+  const seedSlugs = new Set(seedData.products.map(p => p.slug).filter(Boolean));
+  const existingProducts = await prisma.product.findMany({ select: { id: true, slug: true } });
+  const existingSlugs = new Set(existingProducts.map(p => p.slug));
+
+  // Delete products that exist in DB but not in seed data
+  const toDelete = existingProducts.filter(p => p.slug && !seedSlugs.has(p.slug));
+  if (toDelete.length > 0) {
+    console.log(`[seed] Deleting ${toDelete.length} products not in seed data`);
+    // Delete variants first (foreign key), then products
+    const deleteIds = toDelete.map(p => p.id);
+    // Batch delete to avoid query size limits
+    const BATCH = 200;
+    for (let i = 0; i < deleteIds.length; i += BATCH) {
+      const batch = deleteIds.slice(i, i + BATCH);
+      try {
+        await prisma.productVariant.deleteMany({ where: { productId: { in: batch } } });
+      } catch {}
+      await prisma.product.deleteMany({ where: { id: { in: batch } } });
+    }
+    console.log(`[seed] Deleted ${toDelete.length} obsolete products`);
+  }
 
   let created = 0;
+  let updated = 0;
   let skipped = 0;
   let batch = 0;
   let errors = 0;
 
   for (const product of seedData.products) {
     try {
-      if (product.slug && existingSlugs.has(product.slug)) {
-        skipped++;
-        continue;
-      }
-
       const categoryId = oldIdToNewId.get(product.categoryId) || null;
 
       const productData = {
@@ -145,21 +159,33 @@ async function main() {
         authorId: adminId,
       };
 
-      const createdProduct = await prisma.product.create({ data: productData });
+      if (product.slug && existingSlugs.has(product.slug)) {
+        // Update existing product
+        await prisma.product.update({
+          where: { slug: product.slug },
+          data: productData,
+        });
+        updated++;
+      } else {
+        // Create new product
+        const createdProduct = await prisma.product.create({ data: productData });
 
-      // Create default variant
-      await prisma.productVariant.create({
-        data: {
-          productId: createdProduct.id,
-          color: product.color || 'Default',
-          size: product.size || 'One Size',
-          price: toFloat(product.price) ?? 0,
-          stock: toInt(product.stock) ?? 100,
-        },
-      });
+        // Create default variant
+        try {
+          await prisma.productVariant.create({
+            data: {
+              productId: createdProduct.id,
+              color: product.color || 'Default',
+              size: product.size || 'One Size',
+              price: toFloat(product.price) ?? 0,
+              stock: toInt(product.stock) ?? 100,
+            },
+          });
+        } catch {}
+        existingSlugs.add(productData.slug);
+        created++;
+      }
 
-      existingSlugs.add(productData.slug);
-      created++;
       batch++;
 
       if (batch % 100 === 0) {
@@ -173,7 +199,7 @@ async function main() {
     }
   }
 
-  console.log(`[seed] Complete: ${created} created, ${skipped} skipped, ${errors} errors`);
+  console.log(`[seed] Complete: ${created} created, ${updated} updated, ${errors} errors`);
 
   const total = await prisma.product.count();
   console.log(`[seed] Total products in database: ${total}`);
