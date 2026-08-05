@@ -36,6 +36,7 @@ const ProductCard = ({ product, editUrl }: ProductCardProps) => {
 
   const imageUrl = product.image;
   const isRemote = imageUrl && (imageUrl.startsWith('http://') || imageUrl.startsWith('https://'));
+  const isDataUrl = imageUrl && imageUrl.startsWith('data:');
 
   return (
     <div className="group bg-white rounded-xl overflow-hidden border border-ink-200 hover:border-accent-300 hover:shadow-medium transition-all duration-300 relative">
@@ -52,18 +53,25 @@ const ProductCard = ({ product, editUrl }: ProductCardProps) => {
       <Link href={`/products/${product.slug || product.id}`} className="block">
         <div className="relative aspect-square overflow-hidden bg-ink-50">
           {isRemote ? (
-            <Image
+            // eslint-disable-next-line @next/next/no-img-element
+            <img
               src={imageUrl}
               alt={product.name}
-              fill
-              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
-              className="object-cover group-hover:scale-105 transition-transform duration-500"
+              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+              loading="lazy"
               onError={(e) => {
                 const el = e.currentTarget as HTMLImageElement;
                 if (el.dataset.fallback) return;
                 el.dataset.fallback = '1';
                 el.src = FALLBACK_SVG;
               }}
+            />
+          ) : isDataUrl ? (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img
+              src={imageUrl}
+              alt={product.name}
+              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
             />
           ) : (
             // eslint-disable-next-line @next/next/no-img-element
