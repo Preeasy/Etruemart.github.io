@@ -303,14 +303,29 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     // If from fallback, return directly
     if (!('images' in product) || typeof (product as any).images === 'string') {
+      const p = product as any;
+      const parsedAplus = typeof p.aplus === 'string' ? safeJsonParse(p.aplus, null) : p.aplus;
+
+      // Compute bulletPoints
+      const bulletPoints = computeBulletPoints({
+        name: p.name,
+        material: p.material || null,
+        moq: Number(p.moq) || 1,
+        categoryId: p.categoryId || '',
+        aplus: parsedAplus,
+      });
+
       const serialized = {
-        ...product,
-        images: Array.isArray((product as any).images) ? (product as any).images : [(product as any).image],
-        keywords: Array.isArray((product as any).keywords) ? (product as any).keywords : [],
-        aplus: (product as any).aplus || null,
-        price: Number((product as any).price),
-        originalPrice: (product as any).originalPrice ? Number((product as any).originalPrice) : null,
-        rating: Number((product as any).rating || 0),
+        ...p,
+        images: typeof p.images === 'string'
+          ? safeJsonParse(p.images, p.image ? [p.image] : [])
+          : (Array.isArray(p.images) ? p.images : [p.image].filter(Boolean)),
+        keywords: typeof p.keywords === 'string' ? safeJsonParse(p.keywords, []) : (Array.isArray(p.keywords) ? p.keywords : []),
+        aplus: parsedAplus,
+        bulletPoints,
+        price: Number(p.price),
+        originalPrice: p.originalPrice ? Number(p.originalPrice) : null,
+        rating: Number(p.rating || 0),
       };
       return res.json(serialized);
     }
@@ -318,14 +333,22 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     // Database product: parse JSON fields
     const p = product as any;
     const parsedAplus = typeof p.aplus === 'string' ? safeJsonParse(p.aplus, null) : p.aplus;
+
+    // Always compute fresh bulletPoints for quality
+    const computedBulletPoints = computeBulletPoints({
+      name: p.name,
+      material: p.material || null,
+      moq: Number(p.moq) || 1,
+      categoryId: p.categoryId || '',
+      aplus: parsedAplus,
+    });
+
     const serialized = {
       ...p,
       images: typeof p.images === 'string' ? safeJsonParse(p.images, []) : p.images,
       keywords: typeof p.keywords === 'string' ? safeJsonParse(p.keywords, []) : p.keywords,
       aplus: parsedAplus,
-      bulletPoints: Array.isArray(p.bulletPoints) && p.bulletPoints.length > 0
-        ? p.bulletPoints
-        : (parsedAplus?.bulletPoints || []),
+      bulletPoints: computedBulletPoints,
       price: Number(p.price),
       originalPrice: p.originalPrice ? Number(p.originalPrice) : null,
       rating: Number(p.rating),
