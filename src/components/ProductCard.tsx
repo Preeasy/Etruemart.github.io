@@ -1,7 +1,7 @@
 import { memo } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { Edit3 } from 'lucide-react';
-import { proxyImageUrl } from '@/lib/image-utils';
 
 interface ProductCardProps {
   product: {
@@ -34,6 +34,9 @@ const ProductCard = ({ product, editUrl }: ProductCardProps) => {
         ? product.category
         : '';
 
+  const imageUrl = product.image;
+  const isRemote = imageUrl && (imageUrl.startsWith('http://') || imageUrl.startsWith('https://'));
+
   return (
     <div className="group bg-white rounded-xl overflow-hidden border border-ink-200 hover:border-accent-300 hover:shadow-medium transition-all duration-300 relative">
       {editUrl && (
@@ -48,18 +51,29 @@ const ProductCard = ({ product, editUrl }: ProductCardProps) => {
       )}
       <Link href={`/products/${product.slug || product.id}`} className="block">
         <div className="relative aspect-square overflow-hidden bg-ink-50">
-          <img
-            src={proxyImageUrl(product.image)}
-            alt={product.name}
-            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-            loading="lazy"
-            onError={(e) => {
-              const el = e.currentTarget as HTMLImageElement;
-              if (el.dataset.fallback) return;
-              el.dataset.fallback = '1';
-              el.src = FALLBACK_SVG;
-            }}
-          />
+          {isRemote ? (
+            <Image
+              src={imageUrl}
+              alt={product.name}
+              fill
+              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+              className="object-cover group-hover:scale-105 transition-transform duration-500"
+              onError={(e) => {
+                const el = e.currentTarget as HTMLImageElement;
+                if (el.dataset.fallback) return;
+                el.dataset.fallback = '1';
+                el.src = FALLBACK_SVG;
+              }}
+            />
+          ) : (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img
+              src={imageUrl || FALLBACK_SVG}
+              alt={product.name}
+              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+              loading="lazy"
+            />
+          )}
           <div className="absolute inset-0 bg-gradient-to-t from-navy-900/0 group-hover:from-navy-900/5 transition-all pointer-events-none" />
           {product.stockStatus === 'IN_STOCK' && (
             <span className="absolute top-2.5 right-2.5 bg-white/95 text-navy-800 text-[9px] font-bold px-2 py-1 rounded-md border border-ink-200 uppercase tracking-wider">
@@ -84,7 +98,7 @@ const ProductCard = ({ product, editUrl }: ProductCardProps) => {
           </div>
 
           {/* Product Name */}
-          <h3 className="mt-1 font-semibold text-navy-800 text-sm line-clamp-2 group-hover:text-accent-700 transition-colors leading-snug min-h-[2.5rem]">
+          <h3 className="mt-1 font-semibold text-navy-800 text-sm line-clamp-2 group-hover:text-accent-600 transition-colors leading-snug min-h-[2.5rem]">
             {product.name}
           </h3>
 
