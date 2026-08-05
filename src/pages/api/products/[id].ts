@@ -2,6 +2,7 @@ import { NextApiRequest, NextApiResponse } from 'next';
 import { getServerSession } from 'next-auth/next';
 import { authOptions } from '@/lib/auth';
 import { prisma } from '@/lib/prisma';
+import { computeBulletPoints } from '@/lib/bullet-points';
 import fs from 'fs';
 import path from 'path';
 
@@ -141,6 +142,15 @@ async function getProductFromSeedData(idStr: string) {
   const directCat = slugToCat.get(catSlug);
   const resolvedCat = rootCat || directCat;
 
+  // Compute bulletPoints from product data
+  const bulletPoints = computeBulletPoints({
+    name: product.name,
+    material: product.material || null,
+    moq: Number(product.moq) || 1,
+    categoryId: catSlug,
+    aplus,
+  });
+
   return {
     id: product.id,
     name: product.name,
@@ -166,6 +176,7 @@ async function getProductFromSeedData(idStr: string) {
     sku: product.sku || null,
     keywords,
     aplus,
+    bulletPoints,
     rating: Number(product.rating) || 0,
     reviewCount: Number(product.reviewCount) || 0,
     salesCount: Number(product.salesCount) || 0,
@@ -235,6 +246,13 @@ async function getProductFromFallback(idStr: string) {
     sku: product.sku || null,
     keywords,
     aplus,
+    bulletPoints: computeBulletPoints({
+      name: product.name,
+      material: product.material || null,
+      moq: Number(product.moq) || 1,
+      categoryId: product.category?.slug || '',
+      aplus,
+    }),
     rating: 0,
     reviewCount: 0,
     salesCount: 0,
