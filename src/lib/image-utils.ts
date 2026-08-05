@@ -1,6 +1,6 @@
 import https from 'https';
 
-const GITHUB_RAW_BASE = 'https://raw.githubusercontent.com/Preeasy/images/main';
+const GITHUB_RAW_BASE = 'https://cdn.jsdelivr.net/gh/Preeasy/Images@main/Images';
 
 let githubFileLookup: Map<string, string> | null = null;
 
@@ -10,7 +10,7 @@ export async function buildGitHubLookup(): Promise<Map<string, string>> {
   return new Promise((resolve, reject) => {
     const options = {
       hostname: 'api.github.com',
-      path: '/repos/Preeasy/images/git/trees/main?recursive=1',
+      path: '/repos/Preeasy/Images/git/trees/main?recursive=1',
       headers: {
         'User-Agent': 'Node.js',
         'Accept': 'application/vnd.github.v3+json',
