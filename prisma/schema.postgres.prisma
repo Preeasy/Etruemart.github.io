@@ -175,6 +175,7 @@ model Order {
 
   user              User            @relation(fields: [userId], references: [id], onDelete: Cascade)
   items             OrderItem[]
+  address           ShippingAddress? @relation(fields: [shippingAddressId], references: [id])
 
   @@map("orders")
   @@index([userId])
