@@ -1,7 +1,7 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import { getServerSession } from 'next-auth/next';
 import { authOptions } from '@/lib/auth';
-import { prisma } from '@/lib/prisma';
+import { getDatabase } from '@/lib/db';
 import fs from 'fs';
 import path from 'path';
 
@@ -65,27 +65,26 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const { level } = req.query;
 
     try {
-      const dbCount = await prisma.category.count();
-      if (dbCount === 0) {
+      const database = getDatabase();
+      const dbCount = database.prepare('SELECT COUNT(*) as count FROM categories').get() as any;
+      
+      if (!dbCount || dbCount.count === 0) {
         return res.json(await getCategoriesFromFallback(level as string | undefined));
       }
 
       if (level === '1') {
-        const categories = await prisma.category.findMany({
-          where: { parentId: null },
-          orderBy: { sortOrder: 'asc' },
-          select: { id: true, name: true, slug: true, description: true, image: true, sortOrder: true },
-        });
+        const categories = database.prepare(
+          `SELECT c.id, c.name, c.slug, c.description, c.image, c.sortOrder,
+            (SELECT COUNT(*) FROM products WHERE categoryId = c.id) as productCount
+           FROM categories c WHERE c.parentId IS NULL
+           ORDER BY productCount DESC, c.sortOrder ASC`
+        ).all();
         return res.json(categories);
       }
 
-      const allCategories = await prisma.category.findMany({
-        orderBy: { sortOrder: 'asc' },
-        select: {
-          id: true, name: true, slug: true, description: true, image: true,
-          parentId: true, sortOrder: true, seoTitle: true, seoDesc: true,
-        },
-      });
+      const allCategories = database.prepare(
+        'SELECT id, name, slug, description, image, parentId, sortOrder, seoTitle, seoDesc FROM categories ORDER BY sortOrder ASC'
+      ).all() as any[];
 
       const categoryMap = new Map<string, any>();
       const roots: any[] = [];
@@ -121,20 +120,18 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       return res.status(400).json({ error: 'name and slug are required' });
     }
 
-    const category = await prisma.category.create({
-      data: {
-        name,
-        slug,
-        description: description || null,
-        image: image || null,
-        parentId: parentId || null,
-        sortOrder: sortOrder || 0,
-        seoTitle: seoTitle || null,
-        seoDesc: seoDesc || null,
-      },
-    });
+    const database = getDatabase();
+    const stmt = database.prepare(
+      'INSERT INTO categories (id, name, slug, description, image, parentId, sortOrder, seoTitle, seoDesc, createdAt, updatedAt) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, datetime(\"now\"), datetime(\"now\"))'
+    );
+    const id = 'cat_' + Date.now() + '_' + Math.random().toString(36).substring(2, 8);
+    stmt.run(id, name, slug, description || null, image || null, parentId || null, sortOrder || 0, seoTitle || null, seoDesc || null);
 
-    return res.status(201).json(category);
+    return res.status(201).json({
+      id, name, slug, description: description || null, image: image || null,
+      parentId: parentId || null, sortOrder: sortOrder || 0,
+      seoTitle: seoTitle || null, seoDesc: seoDesc || null,
+    });
   }
 
   res.status(405).json({ error: 'Method not allowed' });

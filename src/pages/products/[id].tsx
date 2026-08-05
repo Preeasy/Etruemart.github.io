@@ -38,7 +38,7 @@ import ShippingSelector from '@/components/ShippingSelector';
 import ReviewsSection from '@/components/ReviewsSection';
 import { useCart } from '@/components/CartContext';
 import { SITE_URL, SITE_OG_IMAGE } from '@/lib/site';
-import { prisma } from '@/lib/prisma';
+import { getProductBySlug, getProductById, getCategoryById, getRelatedProducts } from '@/lib/db';
 
 interface Product {
   id: number | string;
@@ -789,35 +789,29 @@ export async function getServerSideProps(context: { params: { id: string } }) {
   const { id } = context.params;
 
   try {
-    // Try to find product by slug or id in database
-    const product = await prisma.product.findFirst({
-      where: {
-        OR: [
-          { slug: String(id) },
-          { id: String(id) },
-        ],
-      },
-      include: {
-        category: { select: { id: true, name: true, slug: true } },
-      },
-    });
+    const productId = String(id);
+    
+    // Find product by slug (most common for URLs), then by id
+    let product = getProductBySlug(productId);
+    if (!product) {
+      product = getProductById(productId);
+    }
 
     if (!product) {
       return {
         notFound: true,
       };
     }
+    
+    // Get category
+    const category = product.categoryId ? getCategoryById(product.categoryId) : null;
+    
+    // Attach category to product
+    (product as any).category = category;
 
     // Get related products
     const relatedProducts = product.categoryId
-      ? await prisma.product.findMany({
-          where: {
-            categoryId: product.categoryId,
-            id: { not: product.id },
-          },
-          take: 8,
-          include: { category: { select: { id: true, name: true, slug: true } } },
-        })
+      ? getRelatedProducts(product.categoryId, product.id, 8)
       : [];
 
     // Parse images
@@ -870,25 +864,25 @@ export async function getServerSideProps(context: { params: { id: string } }) {
       name: product.name,
       description: product.description || '',
       price: Number(product.price),
-      priceMax: product.priceMax ? Number(product.priceMax) : undefined,
-      originalPrice: product.originalPrice ? Number(product.originalPrice) : undefined,
+      priceMax: product.priceMax ? Number(product.priceMax) : null,
+      originalPrice: product.originalPrice ? Number(product.originalPrice) : null,
       image: product.image || '/images/product-placeholder.svg',
       images: images.length > 0 ? images : [product.image || '/images/product-placeholder.svg'],
-      category: product.category ? { name: product.category.name, slug: product.category.slug } : undefined,
+      category: product.category ? { name: product.category.name, slug: product.category.slug } : null,
       stock: product.stock || 0,
       rating: Number(product.rating) || 0,
       reviewCount: product.reviewCount || 0,
       salesCount: product.salesCount || 0,
-      material: product.material || undefined,
-      plating: product.plating || undefined,
-      process: product.process || undefined,
-      color: product.color || undefined,
-      size: product.size || undefined,
+      material: product.material || null,
+      plating: product.plating || null,
+      process: product.process || null,
+      color: product.color || null,
+      size: product.size || null,
       packSize: product.packSize || 1,
       moq: product.moq || 1,
-      sku: product.sku || undefined,
-      origin: product.origin || undefined,
-      supplierCity: product.supplierCity || undefined,
+      sku: product.sku || null,
+      origin: product.origin || null,
+      supplierCity: product.supplierCity || null,
       keywords,
       bulletPoints,
       aplus,
@@ -901,11 +895,11 @@ export async function getServerSideProps(context: { params: { id: string } }) {
       name: rp.name,
       description: rp.description || '',
       price: Number(rp.price),
-      priceMax: rp.priceMax ? Number(rp.priceMax) : undefined,
+      priceMax: rp.priceMax ? Number(rp.priceMax) : null,
       image: rp.image || '/images/product-placeholder.svg',
-      category: rp.category ? { name: rp.category.name, slug: rp.category.slug } : undefined,
+      category: null,
       moq: rp.moq || 1,
-      sku: rp.sku || undefined,
+      sku: rp.sku || null,
       rating: Number(rp.rating) || 0,
       reviewCount: rp.reviewCount || 0,
       salesCount: rp.salesCount || 0,

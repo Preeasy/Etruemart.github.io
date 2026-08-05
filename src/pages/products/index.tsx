@@ -78,7 +78,8 @@ const Products = () => {
 
   const [products, setProducts] = useState<Product[]>([]);
   const [totalCount, setTotalCount] = useState<number>(0);
-  const [categoryFilters, setCategoryFilters] = useState<CategoryFilter[]>(defaultCategoryFilters);
+  const [categoryFilters, setCategoryFilters] = useState<CategoryFilter[]>([]);
+  const [categorySlugMap, setCategorySlugMap] = useState<Map<string, string>>(new Map());
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState(
     typeof queryCategory === 'string' ? queryCategory : 'all'
@@ -90,13 +91,33 @@ const Products = () => {
   const [showSidebar, setShowSidebar] = useState(false);
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
 
-  // Load categories from API
   useEffect(() => {
-    fetch('/api/categories')
+    fetch('/api/categories?level=1')
       .then(r => r.ok ? r.json() : null)
       .then(data => {
         if (Array.isArray(data) && data.length > 0) {
           setCategoryFilters(data.map((c: any) => ({ name: c.name, slug: c.slug })));
+        }
+      })
+      .catch(() => {});
+    
+    fetch('/api/categories')
+      .then(r => r.ok ? r.json() : null)
+      .then(data => {
+        if (Array.isArray(data)) {
+          const slugMap = new Map<string, string>();
+          const buildSlugMap = (cats: any[], parentSlug?: string) => {
+            for (const cat of cats) {
+              if (parentSlug) {
+                slugMap.set(cat.slug, parentSlug);
+              }
+              if (cat.children && cat.children.length > 0) {
+                buildSlugMap(cat.children, parentSlug || cat.slug);
+              }
+            }
+          };
+          buildSlugMap(data);
+          setCategorySlugMap(slugMap);
         }
       })
       .catch(() => {});
@@ -138,10 +159,12 @@ const Products = () => {
       product.description.toLowerCase().includes(searchQuery.toLowerCase());
 
     const productCategorySlug = product.category?.slug || '';
+    const mappedSlug = categorySlugMap.get(productCategorySlug) || productCategorySlug;
 
     const matchesCategory =
       selectedCategory === 'all' ||
-      productCategorySlug === selectedCategory;
+      productCategorySlug === selectedCategory ||
+      mappedSlug === selectedCategory;
 
     const matchesMaterial =
       !selectedMaterial ||

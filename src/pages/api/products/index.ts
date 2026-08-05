@@ -1,7 +1,7 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import { getServerSession } from 'next-auth/next';
 import { authOptions } from '@/lib/auth';
-import { prisma } from '@/lib/prisma';
+import { getDatabase } from '@/lib/db';
 import fs from 'fs';
 import path from 'path';
 
@@ -21,209 +21,13 @@ function toNumber(value: any): number {
   return parseFloat(String(value)) || 0;
 }
 
-async function getAllCategoryIds(parentId: string): Promise<string[]> {
+function getAllCategoryIds(database: any, parentId: string): string[] {
   const result: string[] = [parentId];
-  const children = await prisma.category.findMany({ where: { parentId } });
+  const children = database.prepare('SELECT id FROM categories WHERE parentId = ?').all(parentId) as any[];
   for (const child of children) {
-    result.push(...(await getAllCategoryIds(child.id)));
+    result.push(...getAllCategoryIds(database, child.id));
   }
   return result;
-}
-
-async function seedIfEmpty() {
-  const siteDataPath = path.join(process.cwd(), 'site-data.json');
-  const siteData = JSON.parse(fs.readFileSync(siteDataPath, 'utf-8'));
-
-  // 1. Admin account
-  const adminEmail = 'yeatrusourcing@gmail.com';
-  const admin = await prisma.user.upsert({
-    where: { email: adminEmail },
-    update: {},
-    create: {
-      email: adminEmail,
-      passwordHash: '$2a$10$rpC.Td0.EzAAHn9ZvsMDOezPiWZXXwXGvN9yQyB0rhPe4KFeM02vG',
-      name: 'Yeatrusourcing',
-      role: 'ADMIN',
-    },
-  });
-
-  // Seed categories from categories-data.json
-  const catDataPath = path.join(process.cwd(), 'categories-data.json');
-  if (fs.existsSync(catDataPath)) {
-    const catData = JSON.parse(fs.readFileSync(catDataPath, 'utf-8'));
-    const catItems = catData.categories || [];
-    // First pass: create categories without parentId
-    for (const cat of catItems) {
-      if (!cat.parentId) {
-        await prisma.category.upsert({
-          where: { slug: cat.slug },
-          update: {
-            name: cat.name,
-            sortOrder: cat.sortOrder || 0,
-            seoTitle: cat.seoTitle || null,
-            seoDesc: cat.seoDesc || null,
-          },
-          create: {
-            name: cat.name,
-            slug: cat.slug,
-            sortOrder: cat.sortOrder || 0,
-            seoTitle: cat.seoTitle || null,
-            seoDesc: cat.seoDesc || null,
-          },
-        });
-      }
-    }
-    // Second pass: create child categories with parentId
-    for (const cat of catItems) {
-      if (cat.parentId) {
-        const parent = await prisma.category.findUnique({ where: { slug: cat.parentId } });
-        if (parent) {
-          await prisma.category.upsert({
-            where: { slug: cat.slug },
-            update: {
-              name: cat.name,
-              parentId: parent.id,
-              sortOrder: cat.sortOrder || 0,
-              seoTitle: cat.seoTitle || null,
-              seoDesc: cat.seoDesc || null,
-            },
-            create: {
-              name: cat.name,
-              slug: cat.slug,
-              parentId: parent.id,
-              sortOrder: cat.sortOrder || 0,
-              seoTitle: cat.seoTitle || null,
-              seoDesc: cat.seoDesc || null,
-            },
-          });
-        }
-      }
-    }
-  } else {
-    // Fallback: use categories from site-data.json
-    const categories = siteData.categories || [];
-    for (const catName of categories) {
-      const slug = catName.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
-      await prisma.category.upsert({
-        where: { slug },
-        update: {},
-        create: { name: catName, slug },
-      });
-    }
-  }
-
-  // Incremental product sync: upsert products from site-data.json
-  const products = siteData.products || [];
-  const existingProducts = await prisma.product.findMany({ select: { id: true, name: true, slug: true } });
-  const existingNames = new Map(existingProducts.map(p => [p.name, p.id]));
-  const existingSlugs = new Set(existingProducts.map(p => p.slug));
-
-  let createdCount = 0;
-  let updatedCount = 0;
-
-  for (const productData of products) {
-    const variations = productData.variations || [];
-    const variantData: { color: string; size: string; price: number; stock: number }[] = variations.map((v: any) => ({
-      color: v.color || '',
-      size: v.size || '',
-      price: toNumber(v.price || productData.priceMin || 0),
-      stock: 100,
-    }));
-
-    const images: string[] = [productData.image];
-    if (productData.aplus) {
-      for (const section of productData.aplus) {
-        if (section.image) images.push(section.image);
-      }
-    }
-    const uniqueImages = [...new Set(images)];
-
-    // Find category by name from productData.category object
-    const catName = typeof productData.category === 'object' ? productData.category.name : (productData.category || 'Other');
-    const catRecord = await prisma.category.findFirst({ where: { name: catName } });
-    const fallbackCat = await prisma.category.findFirst();
-    const categoryId = catRecord?.id || fallbackCat?.id || '';
-
-    // Generate slug if not provided
-    let slug = productData.slug;
-    if (!slug) {
-      slug = productData.name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/-+$/, '');
-      if (existingSlugs.has(slug)) {
-        slug = slug + '-' + Date.now().toString(36);
-      }
-    }
-    existingSlugs.add(slug);
-
-    // Upsert: update if exists, create if not
-    const existingId = existingNames.get(productData.name);
-    if (existingId) {
-      // Update existing product
-      await prisma.product.update({
-        where: { id: existingId },
-        data: {
-          name: productData.name,
-          slug,
-          description: productData.description || '',
-          price: toNumber(productData.priceMin),
-          originalPrice: toNumber(productData.priceMax && productData.priceMax > productData.priceMin
-            ? (productData.priceMax * 1.5)
-            : (productData.priceMin * 1.3)),
-          image: productData.image,
-          images: JSON.stringify(uniqueImages),
-          categoryId,
-          material: productData.material || null,
-          plating: productData.plating || null,
-          process: productData.process || null,
-          color: productData.color || null,
-          size: productData.size || null,
-          packSize: productData.packSize || 1,
-          moq: productData.moq || 1,
-          keywords: JSON.stringify(productData.keywords || []),
-          stockStatus: productData.stockStatus || 'IN_STOCK',
-        },
-      });
-      updatedCount++;
-    } else {
-      // Create new product
-      await prisma.product.create({
-        data: {
-          name: productData.name,
-          slug,
-          description: productData.description || '',
-          price: toNumber(productData.priceMin),
-          originalPrice: toNumber(productData.priceMax && productData.priceMax > productData.priceMin
-            ? (productData.priceMax * 1.5)
-            : (productData.priceMin * 1.3)),
-          image: productData.image,
-          images: JSON.stringify(uniqueImages),
-          categoryId,
-          stock: 100,
-          isPublished: true,
-          sku: productData.sku || null,
-          material: productData.material || null,
-          plating: productData.plating || null,
-          process: productData.process || null,
-          color: productData.color || null,
-          size: productData.size || null,
-          packSize: productData.packSize || 1,
-          moq: productData.moq || 1,
-          keywords: JSON.stringify(productData.keywords || []),
-          stockStatus: productData.stockStatus || 'IN_STOCK',
-          shippingCost: 0,
-          aplus: productData.aplus ? JSON.stringify(productData.aplus) : null,
-          shippingMethod: 'Standard Shipping',
-          authorId: admin.id,
-          variants: {
-            create: variantData.length > 0 ? variantData.map(v => ({ color: v.color, size: v.size, price: toNumber(v.price), stock: v.stock })) : [{ color: 'Default', size: 'One Size', price: toNumber(productData.priceMin), stock: 100 }],
-          },
-        },
-      });
-      createdCount++;
-    }
-  }
-
-  // NOTE: Do NOT delete products automatically - this caused data loss before
-  // Products are managed manually via admin panel or import endpoints
 }
 
 async function getProductsFromFallback(req: NextApiRequest, res: NextApiResponse) {
@@ -318,90 +122,75 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     }
 
     try {
-      // Check if database has products; if empty, seed first then query DB
-      const dbCount = await prisma.product.count();
+      const database = getDatabase();
+      
+      // Check if database has products
+      const dbCountResult = database.prepare('SELECT COUNT(*) as count FROM products').get() as any;
+      const dbCount = dbCountResult?.count || 0;
+      
       if (dbCount === 0) {
-        try {
-          await seedIfEmpty();
-        } catch (_e) {
-          return getProductsFromFallback(req, res);
-        }
-      } else {
-        // Auto-detect stale data: compare DB image with site-data.json for first product
-        // If mismatched, do a full resync automatically (no token needed)
-        try {
-          const siteDataPath = path.join(process.cwd(), 'site-data.json');
-          const siteData = JSON.parse(fs.readFileSync(siteDataPath, 'utf-8'));
-          const siteProducts = siteData.products || [];
-          const firstSiteProduct = siteProducts[0];
-          if (firstSiteProduct) {
-            const dbProduct = await prisma.product.findFirst({
-              where: { name: firstSiteProduct.name },
-              select: { image: true },
-            });
-            // NOTE: Do NOT auto-delete products when image doesn't match
-            // This caused data loss. Just use DB data as-is.
-          }
-        } catch (_syncErr) {
-          // sync check failed, continue with DB data
-        }
+        return getProductsFromFallback(req, res);
       }
 
-      // NOTE: Force resync disabled - caused data loss
-      // To reset products, use the dedicated import endpoints instead
-      // const initToken = process.env.INIT_TOKEN;
-      // const requestToken = req.headers['x-init-token'] || (req.query.token as string);
-      // if (req.query.resync === 'true' && initToken && requestToken === initToken) {
-      //   await prisma.productVariant.deleteMany({});
-      //   await prisma.product.deleteMany({});
-      //   await seedIfEmpty();
-      // }
-
-      const where: any = {};
+      // Build WHERE clause
+      const whereConditions: string[] = [];
+      const params: any[] = [];
 
       if (all === 'true') {
         // Show all products including drafts for management
       } else if (authorId) {
-        where.authorId = authorId as string;
+        whereConditions.push('authorId = ?');
+        params.push(authorId);
       } else {
-        where.isPublished = true;
+        whereConditions.push('isPublished = ?');
+        params.push(1);
       }
 
       if (categoryId && categoryId !== 'All') {
-        where.categoryId = categoryId as string;
+        whereConditions.push('categoryId = ?');
+        params.push(categoryId);
       }
 
       if (category && category !== 'all') {
-        const cat = await prisma.category.findUnique({ where: { slug: category as string } });
-        if (cat) {
-          const allChildIds = await getAllCategoryIds(cat.id);
-          where.categoryId = { in: allChildIds };
+        const catRow = database.prepare('SELECT id, slug FROM categories WHERE slug = ?').get(category as string) as any;
+        if (catRow) {
+          const allChildIds = getAllCategoryIds(database, catRow.id);
+          if (allChildIds.length > 0) {
+            const placeholders = allChildIds.map(() => '?').join(',');
+            whereConditions.push(`categoryId IN (${placeholders})`);
+            params.push(...allChildIds);
+          }
         }
       }
 
       if (material) {
-        where.material = { contains: material as string, mode: 'insensitive' };
+        whereConditions.push('LOWER(material) LIKE ?');
+        params.push('%' + String(material).toLowerCase() + '%');
       }
 
       if (plating) {
-        where.plating = { contains: plating as string, mode: 'insensitive' };
+        whereConditions.push('LOWER(plating) LIKE ?');
+        params.push('%' + String(plating).toLowerCase() + '%');
       }
 
       if (color) {
-        where.color = { contains: color as string, mode: 'insensitive' };
+        whereConditions.push('LOWER(color) LIKE ?');
+        params.push('%' + String(color).toLowerCase() + '%');
       }
 
-      if (priceMin || priceMax) {
-        where.price = {};
-        if (priceMin) where.price.gte = parseFloat(priceMin as string);
-        if (priceMax) where.price.lte = parseFloat(priceMax as string);
+      if (priceMin) {
+        whereConditions.push('price >= ?');
+        params.push(parseFloat(priceMin as string));
+      }
+      if (priceMax) {
+        whereConditions.push('price <= ?');
+        params.push(parseFloat(priceMax as string));
       }
 
-      const products = await prisma.product.findMany({
-        where,
-        include: { variants: true, category: { select: { id: true, name: true, slug: true } } },
-        orderBy: { createdAt: 'desc' },
-      });
+      const whereClause = whereConditions.length > 0 ? 'WHERE ' + whereConditions.join(' AND ') : '';
+      const sql = `SELECT p.*, c.name as categoryName, c.slug as categorySlug FROM products p LEFT JOIN categories c ON p.categoryId = c.id ${whereClause} ORDER BY p.createdAt DESC`;
+      
+      const products = database.prepare(sql).all(...params) as any[];
 
       const serialized = products.map(p => ({
         id: p.id,
@@ -413,13 +202,13 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         originalPrice: p.originalPrice ? Number(p.originalPrice) : null,
         image: p.image,
         categoryId: p.categoryId,
-        categoryName: p.category?.name || '',
-        categorySlug: p.category?.slug || '',
+        categoryName: p.categoryName || '',
+        categorySlug: p.categorySlug || '',
         stock: p.stock,
         rating: Number(p.rating),
         reviewCount: p.reviewCount,
         salesCount: p.salesCount,
-        isPublished: p.isPublished,
+        isPublished: Boolean(p.isPublished),
         shippingCost: Number(p.shippingCost),
         shippingMethod: p.shippingMethod || 'Standard Shipping',
         sku: p.sku,
@@ -437,7 +226,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       }));
 
       return res.json(serialized);
-    } catch {
+    } catch (e) {
+      console.error('Products API error:', e);
       return getProductsFromFallback(req, res);
     }
   }
@@ -462,36 +252,62 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       stockStatus, moq,
     } = req.body;
 
-    const product = await prisma.product.create({
-      data: {
-        name,
-        slug: name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/-+$/, '') + '-' + Date.now().toString(36),
-        description,
-        price: toNumber(price),
-        originalPrice: originalPrice ? toNumber(originalPrice) : undefined,
-        image,
-        images: images ? JSON.stringify(images) : '[]',
-        categoryId,
-        stock: parseInt(stock),
-        material: material || null,
-        plating: plating || null,
-        process: process || null,
-        color: color || null,
-        size: size || null,
-        packSize: packSize ? parseInt(packSize) : 1,
-        pkgLength: pkgLength ? toNumber(pkgLength) : null,
-        pkgWidth: pkgWidth ? toNumber(pkgWidth) : null,
-        pkgHeight: pkgHeight ? toNumber(pkgHeight) : null,
-        pkgWeight: pkgWeight ? toNumber(pkgWeight) : null,
-        keywords: keywords ? JSON.stringify(keywords) : '[]',
-        stockStatus: stockStatus || 'IN_STOCK',
-        moq: moq ? parseInt(moq) : 1,
-        authorId: session.user.id,
-        variants: variants ? { create: variants.map((v: any) => ({ ...v, price: toNumber(v.price) })) } : undefined,
-      },
-    });
+    const database = getDatabase();
+    
+    // Generate slug
+    let slug = name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/-+$/, '') + '-' + Date.now().toString(36);
+    
+    // Find existing admin user
+    const admin = database.prepare('SELECT id FROM users WHERE role = ? LIMIT 1').get('ADMIN') as any;
+    const authorId = admin?.id || session.user.id;
+    
+    const newId = 'prod_' + Date.now() + '_' + Math.random().toString(36).substring(2, 8);
+    
+    const stmt = database.prepare(
+      `INSERT INTO products (
+        id, name, slug, description, price, originalPrice, image, images,
+        categoryId, stock, isPublished, sku, material, plating, process,
+        color, size, packSize, pkgLength, pkgWidth, pkgHeight, pkgWeight,
+        keywords, stockStatus, moq, shippingCost, shippingMethod,
+        authorId, createdAt, updatedAt
+      ) VALUES (
+        ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, datetime("now"), datetime("now")
+      )`
+    );
+    
+    stmt.run(
+      newId, name, slug, description || '', toNumber(price),
+      originalPrice ? toNumber(originalPrice) : null,
+      image || '', images ? JSON.stringify(images) : '[]',
+      categoryId || null, parseInt(stock || '100'), 1,
+      null, material || null, plating || null, process || null,
+      color || null, size || null, packSize ? parseInt(packSize) : 1,
+      pkgLength ? toNumber(pkgLength) : null,
+      pkgWidth ? toNumber(pkgWidth) : null,
+      pkgHeight ? toNumber(pkgHeight) : null,
+      pkgWeight ? toNumber(pkgWeight) : null,
+      keywords ? JSON.stringify(keywords) : '[]',
+      stockStatus || 'IN_STOCK', moq ? parseInt(moq) : 1,
+      0, 'Standard Shipping', authorId
+    );
 
-    return res.status(201).json(product);
+    // Create variants
+    if (variants && variants.length > 0) {
+      const variantStmt = database.prepare(
+        'INSERT INTO product_variants (id, productId, color, size, price, stock, createdAt, updatedAt) VALUES (?, ?, ?, ?, ?, ?, datetime("now"), datetime("now"))'
+      );
+      for (const v of variants) {
+        const variantId = 'var_' + Date.now() + '_' + Math.random().toString(36).substring(2, 8);
+        variantStmt.run(variantId, newId, v.color || 'Default', v.size || 'One Size', toNumber(v.price), parseInt(v.stock || '100'));
+      }
+    } else {
+      const variantId = 'var_' + Date.now() + '_' + Math.random().toString(36).substring(2, 8);
+      database.prepare(
+        'INSERT INTO product_variants (id, productId, color, size, price, stock, createdAt, updatedAt) VALUES (?, ?, ?, ?, ?, ?, datetime("now"), datetime("now"))'
+      ).run(variantId, newId, 'Default', 'One Size', toNumber(price), 100);
+    }
+
+    return res.status(201).json({ id: newId, slug });
   }
 
   res.status(405).json({ error: 'Method not allowed' });

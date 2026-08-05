@@ -2,7 +2,6 @@ import https from 'https';
 
 const GITHUB_RAW_BASE = 'https://raw.githubusercontent.com/Preeasy/images/main';
 
-// Cache for GitHub file lookup
 let githubFileLookup: Map<string, string> | null = null;
 
 export async function buildGitHubLookup(): Promise<Map<string, string>> {
@@ -16,9 +15,10 @@ export async function buildGitHubLookup(): Promise<Map<string, string>> {
         'User-Agent': 'Node.js',
         'Accept': 'application/vnd.github.v3+json',
       },
+      timeout: 3000,
     };
     
-    https.get(options, (res) => {
+    const req = https.get(options, (res) => {
       let data = '';
       res.on('data', (chunk) => { data += chunk; });
       res.on('end', () => {
@@ -30,13 +30,9 @@ export async function buildGitHubLookup(): Promise<Map<string, string>> {
           for (const f of tree) {
             const filePath = f.path;
             const filename = filePath.split('/').pop() || '';
-            // Store multiple lookup keys:
-            // 1. Full filename (lowercase) with extension
             lookup.set(filename.toLowerCase(), filePath);
-            // 2. Name without extension (lowercase)
             const nameWithoutExt = filename.replace(/\.(jpg|jpeg|png|gif|webp)$/i, '');
             lookup.set(nameWithoutExt.toLowerCase(), filePath);
-            // 3. Uppercase variants (for SKU matching)
             lookup.set(filename.toUpperCase(), filePath);
             lookup.set(nameWithoutExt.toUpperCase(), filePath);
           }
@@ -48,7 +44,13 @@ export async function buildGitHubLookup(): Promise<Map<string, string>> {
           reject(e);
         }
       });
-    }).on('error', reject);
+    });
+    
+    req.on('error', reject);
+    req.on('timeout', () => {
+      req.destroy();
+      reject(new Error('GitHub API timeout'));
+    });
   });
 }
 
@@ -57,16 +59,13 @@ export function findGitHubImage(localPath: string, lookup: Map<string, string>):
     return localPath || '/images/product-placeholder.svg';
   }
   
-  // Extract filename
   const filename = localPath.split('/').pop() || '';
   
-  // Try to find in GitHub lookup
   const filenameLower = filename.toLowerCase();
   const nameWithoutExt = filename.replace(/\.(jpg|jpeg|png|gif|webp)$/i, '').toLowerCase();
   const filenameUpper = filename.toUpperCase();
   const nameWithoutExtUpper = filename.replace(/\.(jpg|jpeg|png|gif|webp)$/i, '').toUpperCase();
   
-  // Try exact filename match (lowercase and uppercase)
   if (lookup.has(filenameLower)) {
     return `${GITHUB_RAW_BASE}/${lookup.get(filenameLower)}`;
   }
@@ -74,7 +73,6 @@ export function findGitHubImage(localPath: string, lookup: Map<string, string>):
     return `${GITHUB_RAW_BASE}/${lookup.get(filenameUpper)}`;
   }
   
-  // Try name without extension (lowercase and uppercase)
   if (lookup.has(nameWithoutExt)) {
     return `${GITHUB_RAW_BASE}/${lookup.get(nameWithoutExt)}`;
   }
@@ -82,9 +80,7 @@ export function findGitHubImage(localPath: string, lookup: Map<string, string>):
     return `${GITHUB_RAW_BASE}/${lookup.get(nameWithoutExtUpper)}`;
   }
   
-  // If item-list image, try with various extension combinations
   if (localPath.includes('/images/item-list/')) {
-    // Convert to uppercase and try .png, .jpg
     const extensions1: string[] = ['.png', '.jpg', '.jpeg'];
     for (const ext of extensions1) {
       const key = (nameWithoutExtUpper + ext).toLowerCase();
@@ -100,9 +96,7 @@ export function findGitHubImage(localPath: string, lookup: Map<string, string>):
     }
   }
   
-  // For products images
   if (localPath.includes('/images/products/')) {
-    // Try common patterns
     const patterns: string[] = [
       nameWithoutExt.replace('github_', ''),
       nameWithoutExt.replace(/^github_/, '').replace(/_/g, ' ').trim(),
@@ -117,7 +111,6 @@ export function findGitHubImage(localPath: string, lookup: Map<string, string>):
       }
     }
     
-    // Try numeric patterns (001.jpg, 002.jpg)
     const numMatch = filename.match(/(\d+)/);
     if (numMatch) {
       const num = numMatch[1];
@@ -132,7 +125,6 @@ export function findGitHubImage(localPath: string, lookup: Map<string, string>):
     }
   }
   
-  // Default: convert path directly (this might fail but better than nothing)
   const cleanPath = localPath.replace(/^\//, '');
   return `${GITHUB_RAW_BASE}/${cleanPath}`;
 }

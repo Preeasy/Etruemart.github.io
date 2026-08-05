@@ -24,7 +24,7 @@ import {
 } from 'lucide-react';
 import Layout from '@/components/Layout';
 import Sidebar from '@/components/Sidebar';
-import siteDataJson from '../../site-data.json';
+import { getProductBySlug, getAllCategories, searchProducts } from '@/lib/db';
 
 interface Product {
   id: number | string;
@@ -393,7 +393,54 @@ const Home = ({ products }: { products: Product[] }) => {
 
 export default Home;
 
-export const getStaticProps = async () => {
-  const products = (siteDataJson as any).products || [];
-  return { props: { products } };
+export const getServerSideProps = async () => {
+  try {
+    const { getDatabase } = await import('@/lib/db');
+    const database = getDatabase();
+    
+    const rawProducts = database.prepare('SELECT * FROM products WHERE isPublished = 1 ORDER BY salesCount DESC LIMIT 50').all() as any[];
+    
+    const products = rawProducts.map((p) => {
+      const image = p.image || '';
+      
+      let images: string[] = [];
+      try {
+        const parsed = typeof p.images === 'string' ? JSON.parse(p.images) : p.images;
+        if (Array.isArray(parsed)) {
+          images = parsed.filter((img: string) => typeof img === 'string' && img.length > 0);
+        }
+      } catch {}
+      if (images.length === 0 && image) images = [image];
+      
+      const category = p.categoryId 
+        ? (() => {
+            const cat = database.prepare('SELECT id, name, slug FROM categories WHERE id = ?').get(p.categoryId) as any;
+            return cat ? { name: cat.name, slug: cat.slug } : { name: 'Other', slug: 'other' };
+          })()
+        : { name: 'Other', slug: 'other' };
+      
+      return {
+        id: p.slug || p.id,
+        slug: p.slug,
+        name: p.name,
+        description: p.description || '',
+        priceMin: Number(p.price),
+        priceMax: p.priceMax ? Number(p.priceMax) : Number(p.price),
+        image,
+        images,
+        category,
+        material: p.material || null,
+        moq: p.moq || 1,
+        sku: p.sku || null,
+        color: p.color || null,
+        keywords: [],
+        bulletPoints: [],
+      };
+    });
+    
+    return { props: { products } };
+  } catch (error) {
+    console.error('Error loading products:', error);
+    return { props: { products: [] } };
+  }
 };

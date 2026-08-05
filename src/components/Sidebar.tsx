@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { useMemo, useEffect, useState } from 'react';
 import Link from 'next/link';
 import {
   ChevronRight,
@@ -23,6 +23,15 @@ import {
   Globe,
   Mail,
   Phone,
+  Laptop,
+  Cpu,
+  ChefHat,
+  Shirt,
+  Wrench,
+  Music,
+  Dumbbell,
+  Baby,
+  Sparkle,
 } from 'lucide-react';
 
 interface Product {
@@ -33,19 +42,51 @@ interface Product {
   category?: { name: string; slug: string };
 }
 
+interface CategoryInfo {
+  name: string;
+  slug: string;
+}
+
 interface SidebarProps {
   products: Product[];
   currentCategory?: string;
+  categories?: CategoryInfo[];
 }
 
-const sidebarCategories = [
-  { name: 'Fashion Jewelry', icon: Gem, slug: 'fashion-jewelry' },
-  { name: 'Garment Accessories', icon: Scissors, slug: 'garment-accessories' },
-  { name: 'Accessories', icon: Sparkles, slug: 'accessories' },
-  { name: 'Bags', icon: ShoppingBag, slug: 'bags' },
-  { name: 'Home Decor & Crafts', icon: HomeIcon, slug: 'home-decor-crafts' },
-  { name: 'Toys', icon: Gamepad2, slug: 'toys' },
-  { name: 'Gift', icon: Gift, slug: 'gift' },
+const iconMap: Record<string, any> = {
+  'fashion-jewelry': Gem,
+  'garment-accessories': Scissors,
+  'accessories': Sparkles,
+  'bags': ShoppingBag,
+  'home-decor-crafts': HomeIcon,
+  'toys': Gamepad2,
+  'gift': Gift,
+  'home-living': HomeIcon,
+  'mother-baby-toys': Baby,
+  'apparel-shoes': Shirt,
+  'electronics': Cpu,
+  'phone-accessories': Laptop,
+  'kitchen-supplies': ChefHat,
+  'beauty-personal-care': Sparkle,
+  'sports-outdoor': Dumbbell,
+  'auto-tools': Wrench,
+  'other': Package,
+  'hardware-home': Wrench,
+  'stationery-office': Tag,
+  'home-appliances': HomeIcon,
+  'musical-instruments': Music,
+  'pet-supplies': Gamepad2,
+  'hair-accessories': Sparkles,
+};
+
+const defaultCategories: CategoryInfo[] = [
+  { name: 'Fashion Jewelry', slug: 'fashion-jewelry' },
+  { name: 'Garment Accessories', slug: 'garment-accessories' },
+  { name: 'Accessories', slug: 'accessories' },
+  { name: 'Bags', slug: 'bags' },
+  { name: 'Home Decor & Crafts', slug: 'home-decor-crafts' },
+  { name: 'Toys', slug: 'toys' },
+  { name: 'Gift', slug: 'gift' },
 ];
 
 const trustItems = [
@@ -55,7 +96,24 @@ const trustItems = [
   { icon: Headphones, label: '24/7 Support', desc: 'Always online' },
 ];
 
-export default function Sidebar({ products, currentCategory }: SidebarProps) {
+export default function Sidebar({ products, currentCategory, categories }: SidebarProps) {
+  const [displayCategories, setDisplayCategories] = useState<CategoryInfo[]>(defaultCategories);
+
+  useEffect(() => {
+    if (categories && categories.length > 0) {
+      setDisplayCategories(categories.slice(0, 14));
+    } else {
+      fetch('/api/categories?level=1')
+        .then(r => r.ok ? r.json() : null)
+        .then(data => {
+          if (Array.isArray(data) && data.length > 0) {
+            setDisplayCategories(data.map((c: any) => ({ name: c.name, slug: c.slug })).slice(0, 14));
+          }
+        })
+        .catch(() => {});
+    }
+  }, [categories]);
+
   const topDeals = useMemo(() => products.slice(0, 4), [products]);
   const newArrivals = useMemo(() => products.slice(4, 8), [products]);
   const bestSellers = useMemo(() => products.slice(8, 12), [products]);
@@ -72,8 +130,9 @@ export default function Sidebar({ products, currentCategory }: SidebarProps) {
             </h2>
           </div>
           <nav className="p-1.5">
-            {sidebarCategories.map((cat) => {
+            {displayCategories.map((cat) => {
               const isActive = currentCategory === cat.slug;
+              const Icon = iconMap[cat.slug] || Sparkles;
               return (
                 <Link
                   key={cat.slug}
@@ -85,7 +144,7 @@ export default function Sidebar({ products, currentCategory }: SidebarProps) {
                   }`}
                 >
                   <div className="w-8 h-8 rounded-lg bg-navy-100 flex items-center justify-center flex-shrink-0 group-hover:bg-accent-100 transition-colors">
-                    <cat.icon className="w-4 h-4 text-navy-600 group-hover:text-accent-600 transition-colors" />
+                    <Icon className="w-4 h-4 text-navy-600 group-hover:text-accent-600 transition-colors" />
                   </div>
                   <span className="flex-1">{cat.name}</span>
                   <ChevronRight className={`w-3.5 h-3.5 ${isActive ? 'text-accent-500' : 'text-ink-300 group-hover:text-navy-800'} transition-colors`} />

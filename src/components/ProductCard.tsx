@@ -54,7 +54,9 @@ const ProductCard = ({ product, editUrl }: ProductCardProps) => {
             loading="lazy"
             onError={(e) => {
               const el = e.currentTarget as HTMLImageElement;
-              if (el.src !== FALLBACK_SVG) el.src = FALLBACK_SVG;
+              if (el.dataset.fallback) return;
+              el.dataset.fallback = '1';
+              el.src = FALLBACK_SVG;
             }}
           />
           <div className="absolute inset-0 bg-gradient-to-t from-navy-900/0 group-hover:from-navy-900/5 transition-all pointer-events-none" />
