@@ -28,7 +28,7 @@ const databaseUrl =
   '';
 
 const isPostgres = databaseUrl.includes('postgres');
-const schemaFile = isPostgres ? 'prisma/schema.prisma' : 'prisma/schema.sqlite.prisma';
+const schemaFile = isPostgres ? 'prisma/schema.postgres.prisma' : 'prisma/schema.sqlite.prisma';
 
 console.log(`[setup-schema] Database URL type: ${isPostgres ? 'PostgreSQL' : 'SQLite'}`);
 console.log(`[setup-schema] Using schema: ${schemaFile}`);
@@ -56,4 +56,26 @@ try {
 } catch (err) {
   console.error('[setup-schema] Database push failed (might be OK):', err.message);
   // Don't exit - the build might still succeed
+}
+
+// If using PostgreSQL and sqlite-export.json exists, import data automatically
+if (isPostgres) {
+  const exportPath = path.join(__dirname, '..', 'prisma', 'sqlite-export.json');
+  if (fs.existsSync(exportPath)) {
+    console.log('[setup-schema] Found sqlite-export.json, importing data...');
+    try {
+      execSync('node scripts/import-to-postgres.cjs', {
+        stdio: 'inherit',
+        cwd: path.join(__dirname, '..'),
+        env: { ...process.env, DATABASE_URL: databaseUrl },
+        timeout: 120000, // 2 minutes timeout
+      });
+      console.log('[setup-schema] Data import completed successfully');
+    } catch (err) {
+      console.error('[setup-schema] Data import failed:', err.message);
+      console.error('[setup-schema] You can manually import data later');
+    }
+  } else {
+    console.log('[setup-schema] No sqlite-export.json found, skipping data import');
+  }
 }

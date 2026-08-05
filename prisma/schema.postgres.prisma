@@ -8,17 +8,17 @@ datasource db {
 }
 
 model User {
-  id                String     @id @default(cuid())
-  email             String     @unique
+  id                String   @id @default(cuid())
+  email             String   @unique
   passwordHash      String
   name              String
-  role              String     @default("USER")
+  role              String   @default("USER")
   avatar            String?
   phone             String?
   address           String?
   allowedCategoryId String?
-  createdAt         DateTime   @default(now())
-  updatedAt         DateTime   @updatedAt
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
 
   allowedCategory   Category?  @relation(fields: [allowedCategoryId], references: [id])
   products          Product[]
@@ -54,11 +54,11 @@ model ShippingAddress {
 model ShippingTemplate {
   id              String   @id @default(cuid())
   name            String
-  regions         String   // JSON array of region codes: ["US","CA","EU","ASIA","GLOBAL"]
-  basePrice       Float    // Base shipping cost
-  weightRate      Float    // Per kg additional cost
-  volumeRate      Float    // Per 5000 cm³ additional cost (volumetric weight divisor)
-  freeThreshold   Float?   // Order total threshold for free shipping (null = no free shipping)
+  regions         String
+  basePrice       Float
+  weightRate      Float
+  volumeRate      Float
+  freeThreshold   Float?
   minDays         Int      @default(7)
   maxDays         Int      @default(21)
   isActive        Boolean  @default(true)
@@ -124,32 +124,32 @@ model Product {
 }
 
 model ProductVariant {
-  id          String      @id @default(cuid())
-  productId   String
-  color       String
-  size        String
-  price       Float
-  stock       Int         @default(0)
+  id        String      @id @default(cuid())
+  productId String
+  color     String
+  size      String
+  price     Float
+  stock     Int         @default(0)
 
-  product     Product     @relation(fields: [productId], references: [id], onDelete: Cascade)
-  cartItems   CartItem[]
-  orderItems  OrderItem[]
+  product   Product     @relation(fields: [productId], references: [id], onDelete: Cascade)
+  cartItems CartItem[]
+  orderItems OrderItem[]
 
   @@map("product_variants")
   @@index([productId])
 }
 
 model CartItem {
-  id          String          @id @default(cuid())
-  userId      String
-  productId   String
-  variantId   String?
-  quantity    Int             @default(1)
-  createdAt   DateTime        @default(now())
+  id        String          @id @default(cuid())
+  userId    String
+  productId String
+  variantId String?
+  quantity  Int             @default(1)
+  createdAt DateTime        @default(now())
 
-  user        User            @relation(fields: [userId], references: [id], onDelete: Cascade)
-  product     Product         @relation(fields: [productId], references: [id], onDelete: Cascade)
-  variant     ProductVariant? @relation(fields: [variantId], references: [id], onDelete: Cascade)
+  user      User            @relation(fields: [userId], references: [id], onDelete: Cascade)
+  product   Product         @relation(fields: [productId], references: [id], onDelete: Cascade)
+  variant   ProductVariant? @relation(fields: [variantId], references: [id], onDelete: Cascade)
 
   @@unique([userId, productId, variantId])
   @@map("cart_items")
@@ -165,17 +165,16 @@ model Order {
   shippingCost      Float           @default(0)
   taxAmount         Float           @default(0)
   shippingAddressId String?
-  shippingAddress   String          // JSON snapshot of address at order time
+  shippingAddress   String
   paymentMethod     String?
   paymentId         String?
-  paymentStatus     String          @default("UNPAID") // UNPAID, PENDING, PAID, FAILED, REFUNDED
+  paymentStatus     String          @default("UNPAID")
   notes             String?
   createdAt         DateTime        @default(now())
   updatedAt         DateTime        @updatedAt
 
   user              User            @relation(fields: [userId], references: [id], onDelete: Cascade)
   items             OrderItem[]
-  address           ShippingAddress? @relation(fields: [shippingAddressId], references: [id])
 
   @@map("orders")
   @@index([userId])
@@ -184,16 +183,16 @@ model Order {
 }
 
 model OrderItem {
-  id          String          @id @default(cuid())
-  orderId     String
-  productId   String
-  variantId   String?
-  quantity    Int
-  price       Float
+  id        String          @id @default(cuid())
+  orderId   String
+  productId String
+  variantId String?
+  quantity  Int
+  price     Float
 
-  order       Order           @relation(fields: [orderId], references: [id], onDelete: Cascade)
-  product     Product         @relation(fields: [productId], references: [id], onDelete: Cascade)
-  variant     ProductVariant? @relation(fields: [variantId], references: [id], onDelete: Cascade)
+  order     Order           @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  product   Product         @relation(fields: [productId], references: [id], onDelete: Cascade)
+  variant   ProductVariant? @relation(fields: [variantId], references: [id], onDelete: Cascade)
 
   @@map("order_items")
   @@index([orderId])
@@ -201,20 +200,20 @@ model OrderItem {
 }
 
 model Review {
-  id          String    @id @default(cuid())
-  userId      String
-  productId   String
-  rating      Int       @default(5)
-  title       String
-  content     String
-  isApproved  Boolean   @default(true)
-  isEdited    Boolean   @default(false)
-  editedBy    String?   // Admin ID who edited
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
+  id         String    @id @default(cuid())
+  userId     String
+  productId  String
+  rating     Int       @default(5)
+  title      String
+  content    String
+  isApproved Boolean   @default(true)
+  isEdited   Boolean   @default(false)
+  editedBy   String?
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
 
-  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
-  product     Product   @relation(fields: [productId], references: [id], onDelete: Cascade)
+  user       User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  product    Product   @relation(fields: [productId], references: [id], onDelete: Cascade)
 
   @@unique([userId, productId])
   @@map("reviews")
