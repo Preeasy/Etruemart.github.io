@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
+import Image from 'next/image';
 import Head from 'next/head';
 import {
   CreditCard,
@@ -488,7 +489,13 @@ const Checkout = () => {
                   return (
                     <div key={item.id} className="flex gap-3">
                       <div className="relative w-14 h-14 flex-shrink-0 rounded-lg overflow-hidden border border-ink-100">
-                        <img src={item.product.image} alt={item.product.name} className="w-full h-full object-cover" loading="lazy" />
+                        <Image
+                          src={item.product.image}
+                          alt={item.product.name}
+                          fill
+                          sizes="56px"
+                          className="object-cover"
+                        />
                         <span className="absolute -top-1 -right-1 min-w-[16px] h-4 px-1 bg-navy-800 text-white text-[10px] font-bold rounded-full flex items-center justify-center">{item.quantity}</span>
                       </div>
                       <div className="flex-1 min-w-0">

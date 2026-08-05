@@ -1,5 +1,6 @@
 import { useMemo, useEffect, useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import {
   ChevronRight,
   Sparkles,
@@ -195,7 +196,13 @@ export default function Sidebar({ products, currentCategory, categories }: Sideb
                 className="flex gap-3 p-2 rounded-lg hover:bg-ink-50 transition-colors group"
               >
                 <div className="relative w-14 h-14 flex-shrink-0 bg-ink-50 rounded-md overflow-hidden border border-ink-100">
-                  <img src={item.image} alt={item.name} className="w-full h-full object-cover" loading="lazy" />
+                  <Image
+                    src={item.image}
+                    alt={item.name}
+                    fill
+                    sizes="56px"
+                    className="object-cover"
+                  />
                   <span className="absolute top-0 left-0 w-5 h-5 bg-accent-500 text-white text-[10px] font-bold rounded-br flex items-center justify-center">
                     {i + 1}
                   </span>
@@ -250,7 +257,13 @@ export default function Sidebar({ products, currentCategory, categories }: Sideb
               {newArrivals.slice(0, 4).map((item) => (
                 <Link key={item.id} href={`/products/${item.id}`} className="group block">
                   <div className="relative aspect-square bg-ink-50 rounded-md overflow-hidden mb-1 border border-ink-100 group-hover:border-navy-400 transition-colors">
-                    <img src={item.image} alt={item.name} className="w-full h-full object-cover" loading="lazy" />
+                    <Image
+                      src={item.image}
+                      alt={item.name}
+                      fill
+                      sizes="(max-width: 768px) 50vw, 100px"
+                      className="object-cover"
+                    />
                   </div>
                   <p className="text-[10px] text-navy-800 font-semibold line-clamp-1 group-hover:text-accent-600 transition-colors">
                     {item.name}
@@ -274,7 +287,13 @@ export default function Sidebar({ products, currentCategory, categories }: Sideb
               {bestSellers.map((item, i) => (
                 <Link key={item.id} href={`/products/${item.id}`} className="flex gap-3 p-2 rounded-lg hover:bg-ink-50 transition-colors group">
                   <div className="relative w-12 h-12 flex-shrink-0 bg-ink-50 rounded-md overflow-hidden border border-ink-100">
-                    <img src={item.image} alt={item.name} className="w-full h-full object-cover" loading="lazy" />
+                    <Image
+                      src={item.image}
+                      alt={item.name}
+                      fill
+                      sizes="48px"
+                      className="object-cover"
+                    />
                   </div>
                   <div className="min-w-0 flex-1">
                     <p className="text-[11px] font-semibold text-navy-800 line-clamp-1 group-hover:text-accent-600 transition-colors">{item.name}</p>
