@@ -396,18 +396,19 @@ export default Home;
 export const getServerSideProps = async () => {
   try {
     const { getDatabase } = await import('@/lib/db');
+    const { proxyImageUrl } = await import('@/lib/image-utils');
     const database = getDatabase();
     
     const rawProducts = database.prepare('SELECT * FROM products WHERE isPublished = 1 ORDER BY salesCount DESC LIMIT 50').all() as any[];
     
     const products = rawProducts.map((p) => {
-      const image = p.image || '';
+      const image = proxyImageUrl(p.image || '');
       
       let images: string[] = [];
       try {
         const parsed = typeof p.images === 'string' ? JSON.parse(p.images) : p.images;
         if (Array.isArray(parsed)) {
-          images = parsed.filter((img: string) => typeof img === 'string' && img.length > 0);
+          images = parsed.filter((img: string) => typeof img === 'string' && img.length > 0).map(proxyImageUrl);
         }
       } catch {}
       if (images.length === 0 && image) images = [image];

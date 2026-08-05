@@ -48,6 +48,7 @@ const defaultCategoryFilters = [
 type CategoryFilter = { name: string; slug: string };
 import Layout from '@/components/Layout';
 import { SITE_URL, SITE_OG_IMAGE } from '@/lib/site';
+import { proxyImageUrl } from '@/lib/image-utils';
 
 interface Product {
   id: number | string;
@@ -136,7 +137,7 @@ const Products = () => {
             category: { name: p.categoryName || '', slug: p.categorySlug || '' },
             priceMin: Number(p.price) || 0,
             priceMax: p.priceMax ? Number(p.priceMax) : undefined,
-            image: p.image,
+            image: proxyImageUrl(p.image),
             moq: p.moq,
             material: p.material || undefined,
             plating: p.plating || undefined,

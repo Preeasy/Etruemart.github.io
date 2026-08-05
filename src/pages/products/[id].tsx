@@ -39,6 +39,7 @@ import ReviewsSection from '@/components/ReviewsSection';
 import { useCart } from '@/components/CartContext';
 import { SITE_URL, SITE_OG_IMAGE } from '@/lib/site';
 import { getProductBySlug, getProductById, getCategoryById, getRelatedProducts } from '@/lib/db';
+import { proxyImageUrl } from '@/lib/image-utils';
 
 interface Product {
   id: number | string;
@@ -161,7 +162,8 @@ export default function ProductDetail({ product: initialProduct, relatedProducts
   const salesCount = Number(product.salesCount || (100 + (seed * 13) % 800));
   const stock = Number(product.stock || 9999);
 
-  const images = product.images?.length >= 2 ? product.images : [product.image];
+  const rawImages = product.images?.length >= 2 ? product.images : [product.image];
+  const images = rawImages.map(proxyImageUrl);
 
   const faqs = [
     { q: 'What is the minimum order quantity?', a: `The MOQ for this product is ${product.moq || 12} pieces. We accept smaller trial orders for new customers to help you test the market.` },

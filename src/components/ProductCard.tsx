@@ -1,6 +1,7 @@
 import { memo } from 'react';
 import Link from 'next/link';
 import { Edit3 } from 'lucide-react';
+import { proxyImageUrl } from '@/lib/image-utils';
 
 interface ProductCardProps {
   product: {
@@ -48,7 +49,7 @@ const ProductCard = ({ product, editUrl }: ProductCardProps) => {
       <Link href={`/products/${product.slug || product.id}`} className="block">
         <div className="relative aspect-square overflow-hidden bg-ink-50">
           <img
-            src={product.image}
+            src={proxyImageUrl(product.image)}
             alt={product.name}
             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
             loading="lazy"

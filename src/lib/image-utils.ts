@@ -2,6 +2,19 @@ import https from 'https';
 
 const GITHUB_RAW_BASE = 'https://cdn.jsdelivr.net/gh/Preeasy/Images@main/Images';
 
+/**
+ * 将外部CDN图片URL转换为本地代理URL，避免浏览器跨域/网络限制
+ * 如果是本地路径则直接返回
+ */
+export function proxyImageUrl(url: string | null | undefined): string {
+  if (!url) return '/images/product-placeholder.svg';
+  if (url.startsWith('/images/') || url.startsWith('data:')) return url;
+  if (url.startsWith('http://') || url.startsWith('https://')) {
+    return `/api/image?url=${encodeURIComponent(url)}`;
+  }
+  return url;
+}
+
 let githubFileLookup: Map<string, string> | null = null;
 
 export async function buildGitHubLookup(): Promise<Map<string, string>> {
