@@ -23,6 +23,15 @@ import {
   Award,
   SlidersHorizontal,
   X,
+  Shirt,
+  Cpu,
+  Laptop,
+  ChefHat,
+  Dumbbell,
+  Wrench,
+  Music,
+  Sparkle,
+  Baby,
 } from 'lucide-react';
 import Layout from '@/components/Layout';
 import Sidebar from '@/components/Sidebar';
@@ -44,44 +53,64 @@ interface Product {
   bulletPoints?: string[];
 }
 
-const SUB_TO_PARENT: Record<string, string> = {
-  'stress-relief-toys': 'toys',
-  'fidget-toys': 'toys',
-  'educational-toys': 'toys',
-  'gift-sets': 'gift',
-  'necklaces': 'fashion-jewelry',
-  'earrings': 'fashion-jewelry',
-  'rings': 'fashion-jewelry',
-  'bracelets-bangles': 'fashion-jewelry',
-  'brooches-pins': 'fashion-jewelry',
-  'jewelry-sets': 'fashion-jewelry',
-  'hair-clips': 'accessories',
-  'headbands': 'accessories',
-  'hair-ties': 'accessories',
-  'hair-pins': 'accessories',
-  'bag-charms': 'accessories',
-  'keychains': 'accessories',
-  'belt-buckles': 'accessories',
-  'beads-charms': 'accessories',
-  'rhinestones': 'accessories',
-  'craft-supplies': 'accessories',
-  'zippers': 'garment-accessories',
-  'buttons': 'garment-accessories',
-  'lace-trim': 'garment-accessories',
-  'embroidery-patches': 'garment-accessories',
-  'garment-decoration': 'garment-accessories',
-  'thread-yarn': 'garment-accessories',
+interface CategoryInfo {
+  id: string | number;
+  name: string;
+  slug: string;
+  productCount: number;
+  icon?: string;
+  badge?: string | null;
+}
+
+const categoryIconMap: Record<string, any> = {
+  'fashion-jewelry': Gem,
+  'garment-accessories': Scissors,
+  'accessories': Sparkles,
+  'bags': ShoppingBag,
+  'home-decor-crafts': HomeIcon,
+  'toys': Gamepad2,
+  'gift': Gift,
+  'home-living': HomeIcon,
+  'mother-baby-toys': Baby,
+  'apparel-shoes': Shirt,
+  'electronics': Cpu,
+  'phone-accessories': Laptop,
+  'kitchen-supplies': ChefHat,
+  'beauty-personal-care': Sparkle,
+  'sports-outdoor': Dumbbell,
+  'auto-tools': Wrench,
+  'other': Package,
+  'hardware-home': Wrench,
+  'stationery-office': Tag,
+  'home-appliances': HomeIcon,
+  'musical-instruments': Music,
+  'pet-supplies': Gamepad2,
 };
 
-const categoryGuides = [
-  { title: 'Fashion Jewelry', desc: 'Necklaces, earrings, rings & bracelets', slug: 'fashion-jewelry', badge: 'Best Seller', icon: Gem },
-  { title: 'Garment Accessories', desc: 'Zippers, buttons, lace & patches', slug: 'garment-accessories', badge: null, icon: Scissors },
-  { title: 'Accessories', desc: 'Hair clips, bag charms, beads & craft supplies', slug: 'accessories', badge: 'New', icon: Sparkles },
-  { title: 'Bags', desc: 'Handbags, backpacks, wallets & totes', slug: 'bags', badge: 'Hot', icon: ShoppingBag },
-  { title: 'Home Decor & Crafts', desc: 'Vases, figurines, tea sets & decor', slug: 'home-decor-crafts', badge: null, icon: HomeIcon },
-  { title: 'Toys', desc: 'Plush, fidget, educational & stress relief toys', slug: 'toys', badge: 'Trending', icon: Gamepad2 },
-  { title: 'Gift', desc: 'Gift boxes, gift sets & party favors', slug: 'gift', badge: null, icon: Gift },
-];
+const categoryBadgeMap: Record<string, string | null> = {
+  'home-living': 'Best Seller',
+  'mother-baby-toys': 'Popular',
+  'apparel-shoes': 'Trending',
+  'electronics': 'Hot',
+  'phone-accessories': 'New',
+  'kitchen-supplies': 'Top Rated',
+  'bags': 'Best Seller',
+  'beauty-personal-care': 'New',
+  'sports-outdoor': 'Trending',
+  'auto-tools': null,
+  'other': null,
+  'hardware-home': null,
+  'stationery-office': null,
+  'home-appliances': null,
+  'musical-instruments': null,
+  'pet-supplies': null,
+  'fashion-jewelry': 'Best Seller',
+  'garment-accessories': null,
+  'accessories': 'New',
+  'home-decor-crafts': null,
+  'toys': 'Trending',
+  'gift': null,
+};
 
 const valueProps = [
   { icon: Truck, label: 'Free Shipping', desc: 'On orders $50+' },
@@ -100,7 +129,7 @@ const TOP_DEAL_SLUGS = [
   'white-plush-teddy-bear-with-green-ribbon-bow',
 ];
 
-const Home = ({ products }: { products: Product[] }) => {
+const Home = ({ products, categories }: { products: Product[]; categories: CategoryInfo[] }) => {
   const [showMobileCats, setShowMobileCats] = useState(false);
   const slugToProduct = new Map(products.map((p) => [p.slug, p]));
   const topDeals = TOP_DEAL_SLUGS.map((slug) => slugToProduct.get(slug)).filter(Boolean) as Product[];
@@ -119,7 +148,7 @@ const Home = ({ products }: { products: Product[] }) => {
       <div className="bg-white min-h-screen">
         <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-10 py-5 lg:py-6">
           <div className="flex gap-5 lg:gap-7">
-            <Sidebar products={products} />
+            <Sidebar products={products} categories={categories} />
 
             <div className="flex-1 min-w-0 space-y-5 lg:space-y-6">
               {/* Hero Banner — light, clean */}
@@ -194,9 +223,8 @@ const Home = ({ products }: { products: Product[] }) => {
                       </button>
                     </div>
                     <div className="p-3 space-y-1.5">
-                      {categoryGuides.map((cat) => {
-                        const Icon = cat.icon;
-                        const count = products.filter(p => p.category.slug === cat.slug).length;
+                      {categories.slice(0, 14).map((cat) => {
+                        const Icon = categoryIconMap[cat.slug] || Package;
                         return (
                           <Link
                             key={cat.slug}
@@ -208,8 +236,8 @@ const Home = ({ products }: { products: Product[] }) => {
                               <Icon className="w-4 h-4 text-navy-600 group-hover:text-accent-600 transition-colors" />
                             </div>
                             <div className="flex-1 min-w-0">
-                              <p className="text-sm font-semibold text-navy-800">{cat.title}</p>
-                              <p className="text-[11px] text-ink-400">{count} items</p>
+                              <p className="text-sm font-semibold text-navy-800">{cat.name}</p>
+                              <p className="text-[11px] text-ink-400">{cat.productCount} items</p>
                             </div>
                             <ChevronRight className="w-4 h-4 text-ink-300" />
                           </Link>
@@ -284,15 +312,16 @@ const Home = ({ products }: { products: Product[] }) => {
                 </section>
               )}
 
-              {/* Shop by Category — clean lines */}
+              {/* Shop by Category — dynamic from seed data */}
               <section className="space-y-3">
                 <div className="flex items-center gap-2 px-0.5">
                   <Tag className="w-4 h-4 text-navy-800" />
                   <h2 className="font-bold text-lg text-navy-800 tracking-tight">Shop by Category</h2>
                 </div>
 
-                {categoryGuides.map((cat) => {
-                  const Icon = cat.icon;
+                {categories.slice(0, 10).map((cat) => {
+                  const Icon = categoryIconMap[cat.slug] || Package;
+                  const badge = categoryBadgeMap[cat.slug] || null;
                   const catProducts = products
                     .filter(p => p.category.slug === cat.slug)
                     .slice(0, 5);
@@ -305,13 +334,13 @@ const Home = ({ products }: { products: Product[] }) => {
                       <div className="px-4 py-2.5 border-b border-ink-100 flex items-center justify-between">
                         <div className="flex items-center gap-2.5">
                           <Icon className="w-4 h-4 text-navy-700" />
-                          <h3 className="font-bold text-sm text-navy-800">{cat.title}</h3>
-                          {cat.badge && (
+                          <h3 className="font-bold text-sm text-navy-800">{cat.name}</h3>
+                          {badge && (
                             <span className="text-[9px] font-bold uppercase tracking-wider text-accent-600">
-                              {cat.badge}
+                              {badge}
                             </span>
                           )}
-                          <span className="text-[10px] text-ink-400">· {products.filter(p => p.category.slug === cat.slug).length} items</span>
+                          <span className="text-[10px] text-ink-400">· {cat.productCount} items</span>
                         </div>
                         <Link
                           href={`/products?category=${cat.slug}`}
@@ -348,9 +377,9 @@ const Home = ({ products }: { products: Product[] }) => {
                           ))}
                         </div>
                       ) : (
-                        <div className="p-8 text-center">
-                          <Package className="w-8 h-8 text-ink-200 mx-auto mb-2" />
-                          <p className="text-xs text-ink-400">No products available</p>
+                        <div className="p-6 text-center">
+                          <Package className="w-6 h-6 text-ink-200 mx-auto mb-1.5" />
+                          <p className="text-xs text-ink-400">{cat.productCount} products available</p>
                         </div>
                       )}
                     </div>
@@ -453,6 +482,40 @@ export const getServerSideProps = async () => {
         return current;
       };
 
+      // Compute descendant slugs for product count
+      const getDescendantSlugs = (catSlug: string): string[] => {
+        const result = [catSlug];
+        const cat = slugToCat.get(catSlug);
+        if (!cat) return result;
+        const children = categories.filter(c => c.parentId === cat.id);
+        for (const child of children) {
+          result.push(...getDescendantSlugs(child.slug));
+        }
+        return result;
+      };
+
+      // Build product count per root category (including descendants)
+      const productCountByRoot = new Map<string, number>();
+      for (const p of rawProducts) {
+        const catSlug = p.categoryId || '';
+        const rootCat = getRootCat(catSlug);
+        if (rootCat) {
+          productCountByRoot.set(rootCat.slug, (productCountByRoot.get(rootCat.slug) || 0) + 1);
+        }
+      }
+
+      // Build the categories list (root categories sorted by product count)
+      const rootCategories = categories
+        .filter((c: any) => !c.parentId)
+        .map((c: any) => ({
+          id: c.id,
+          name: c.name,
+          slug: c.slug,
+          productCount: productCountByRoot.get(c.slug) || 0,
+        }))
+        .filter((c: CategoryInfo) => c.productCount > 0)
+        .sort((a, b) => b.productCount - a.productCount);
+
       const products = sorted.map((p) => {
         const image = proxyImageUrlDirect(p.image || '');
 
@@ -498,7 +561,7 @@ export const getServerSideProps = async () => {
         };
       });
 
-      return { props: { products } };
+      return { props: { products, categories: rootCategories } };
     }
   }
 
@@ -509,7 +572,47 @@ export const getServerSideProps = async () => {
     const database = getDatabase();
     
     const rawProducts = database.prepare('SELECT * FROM products WHERE isPublished = 1 ORDER BY salesCount DESC LIMIT 50').all() as any[];
-    
+    const rawCategories = database.prepare('SELECT * FROM categories WHERE isPublished = 1 ORDER BY sortOrder ASC').all() as any[];
+
+    // Build category lookup with root resolution
+    const slugToCat = new Map();
+    const idToCat = new Map();
+    for (const cat of rawCategories) {
+      slugToCat.set(cat.slug, cat);
+      idToCat.set(cat.id, cat);
+    }
+
+    const getRootCat = (catSlug: string) => {
+      let current = slugToCat.get(catSlug);
+      while (current && current.parentId) {
+        const parent = idToCat.get(current.parentId);
+        if (!parent) break;
+        current = parent;
+      }
+      return current;
+    };
+
+    // Compute product counts per root category
+    const productCountByRoot = new Map<string, number>();
+    for (const p of rawProducts) {
+      const catSlug = p.categoryId || '';
+      const rootCat = getRootCat(catSlug);
+      if (rootCat) {
+        productCountByRoot.set(rootCat.slug, (productCountByRoot.get(rootCat.slug) || 0) + 1);
+      }
+    }
+
+    const rootCategories = rawCategories
+      .filter((c: any) => !c.parentId)
+      .map((c: any) => ({
+        id: c.id,
+        name: c.name,
+        slug: c.slug,
+        productCount: productCountByRoot.get(c.slug) || 0,
+      }))
+      .filter((c: CategoryInfo) => c.productCount > 0)
+      .sort((a, b) => b.productCount - a.productCount);
+
     const products = rawProducts.map((p) => {
       const image = proxyImageUrl(p.image || '');
       
@@ -522,12 +625,9 @@ export const getServerSideProps = async () => {
       } catch {}
       if (images.length === 0 && image) images = [image];
       
-      const category = p.categoryId 
-        ? (() => {
-            const cat = database.prepare('SELECT id, name, slug FROM categories WHERE id = ?').get(p.categoryId) as any;
-            return cat ? { name: cat.name, slug: cat.slug } : { name: 'Other', slug: 'other' };
-          })()
-        : { name: 'Other', slug: 'other' };
+      const catSlug = p.categoryId || '';
+      const rootCat = getRootCat(catSlug);
+      const directCat = slugToCat.get(catSlug);
       
       return {
         id: p.slug || p.id,
@@ -538,7 +638,11 @@ export const getServerSideProps = async () => {
         priceMax: p.priceMax ? Number(p.priceMax) : Number(p.price),
         image,
         images,
-        category,
+        category: rootCat
+          ? { name: rootCat.name, slug: rootCat.slug }
+          : directCat
+            ? { name: directCat.name, slug: directCat.slug }
+            : { name: 'Other', slug: 'other' },
         material: p.material || null,
         moq: p.moq || 1,
         sku: p.sku || null,
@@ -548,9 +652,9 @@ export const getServerSideProps = async () => {
       };
     });
     
-    return { props: { products } };
+    return { props: { products, categories: rootCategories } };
   } catch (error) {
     console.error('Error loading products:', error);
-    return { props: { products: [] } };
+    return { props: { products: [], categories: [] } };
   }
 };
