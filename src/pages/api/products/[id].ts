@@ -53,7 +53,129 @@ async function findProductForEdit(idOrSlug: string) {
   return prisma.product.findUnique({ where: { slug: idOrSlug } });
 }
 
+// Seed data cache
+let seedDataCache: { categories: any[]; products: any[] } | null = null;
+
+function loadSeedData(): { categories: any[]; products: any[] } | null {
+  if (seedDataCache) return seedDataCache;
+
+  const seedPath = path.join(process.cwd(), 'prisma', 'seed-data.json');
+  if (!fs.existsSync(seedPath)) {
+    return null;
+  }
+
+  try {
+    const raw = JSON.parse(fs.readFileSync(seedPath, 'utf-8'));
+    seedDataCache = {
+      categories: raw.categories || [],
+      products: raw.products || [],
+    };
+    return seedDataCache;
+  } catch (e) {
+    console.error('Failed to load seed-data.json:', e);
+    return null;
+  }
+}
+
+async function getProductFromSeedData(idStr: string) {
+  const seedData = loadSeedData();
+  if (!seedData) {
+    return null;
+  }
+
+  const { categories, products } = seedData;
+
+  // Build category lookup
+  const slugToCat = new Map<string, any>();
+  for (const cat of categories) {
+    slugToCat.set(cat.slug, cat);
+  }
+
+  // Try to find by slug first, then by id
+  const product =
+    products.find((p: any) => String(p.slug) === String(idStr)) ||
+    products.find((p: any) => String(p.id) === String(idStr)) ||
+    products.find((p: any) => String(p.sku) === String(idStr));
+
+  if (!product) return null;
+
+  // Parse images
+  let images = product.images;
+  if (typeof images === 'string') {
+    try { images = JSON.parse(images); } catch { images = []; }
+  }
+  if (!Array.isArray(images)) images = [];
+  if (product.image && !images.includes(product.image)) {
+    images = [product.image, ...images];
+  }
+
+  // Parse keywords
+  let keywords = product.keywords;
+  if (typeof keywords === 'string') {
+    try { keywords = JSON.parse(keywords); } catch { keywords = []; }
+  }
+  if (!Array.isArray(keywords)) keywords = [];
+
+  // Parse aplus
+  let aplus = product.aplus;
+  if (typeof aplus === 'string') {
+    try { aplus = JSON.parse(aplus); } catch { aplus = null; }
+  }
+
+  // Get category info
+  const catSlug = product.categoryId || '';
+  const cat = slugToCat.get(catSlug);
+
+  return {
+    id: product.id,
+    name: product.name,
+    slug: product.slug,
+    description: product.description || '',
+    price: Number(product.price) || 0,
+    priceMax: product.priceMax ? Number(product.priceMax) : null,
+    originalPrice: product.originalPrice ? Number(product.originalPrice) : null,
+    image: product.image || '',
+    images,
+    category: {
+      id: cat?.id || '',
+      name: cat?.name || '',
+      slug: cat?.slug || catSlug,
+    },
+    material: product.material || null,
+    plating: product.plating || null,
+    process: product.process || null,
+    color: product.color || null,
+    size: product.size || null,
+    packSize: Number(product.packSize) || 1,
+    moq: Number(product.moq) || 1,
+    sku: product.sku || null,
+    keywords,
+    aplus,
+    rating: Number(product.rating) || 0,
+    reviewCount: Number(product.reviewCount) || 0,
+    salesCount: Number(product.salesCount) || 0,
+    stock: Number(product.stock) || 100,
+    stockStatus: product.stockStatus || 'IN_STOCK',
+    shippingCost: Number(product.shippingCost) || 0,
+    shippingMethod: product.shippingMethod || 'Standard Shipping',
+    authorId: product.authorId || 'seed-system',
+    variants: [{
+      id: 'seed-variant-1',
+      productId: product.id,
+      color: product.color || 'Default',
+      size: product.size || 'One Size',
+      price: Number(product.price) || 0,
+      stock: Number(product.stock) || 100,
+    }],
+    reviews: [],
+  };
+}
+
 async function getProductFromFallback(idStr: string) {
+  // Try seed data first
+  const seedProduct = await getProductFromSeedData(idStr);
+  if (seedProduct) return seedProduct;
+
   const siteDataPath = path.join(process.cwd(), 'site-data.json');
   if (!fs.existsSync(siteDataPath)) {
     return null;
@@ -125,11 +247,19 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   if (req.method === 'GET') {
     let product = null;
 
-    try {
-      product = await findProduct(idStr);
-    } catch {}
+    // On Vercel, skip Prisma (SQLite is read-only with stale data) and use seed data directly
+    const isVercel = process.env.VERCEL === '1';
 
-    // Fallback to site-data.json
+    if (isVercel) {
+      // Use seed data on Vercel for instant access to the latest product data
+      product = await getProductFromSeedData(idStr);
+    } else {
+      try {
+        product = await findProduct(idStr);
+      } catch {}
+    }
+
+    // Fallback to seed data / site-data.json
     if (!product) {
       product = await getProductFromFallback(idStr);
     }

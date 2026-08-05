@@ -5,6 +5,138 @@ import { getDatabase } from '@/lib/db';
 import fs from 'fs';
 import path from 'path';
 
+// Seed data cache - loaded once per process
+let seedDataCache: { categories: any[]; products: any[] } | null = null;
+
+function loadSeedData(): { categories: any[]; products: any[] } | null {
+  if (seedDataCache) return seedDataCache;
+
+  const seedPath = path.join(process.cwd(), 'prisma', 'seed-data.json');
+  if (!fs.existsSync(seedPath)) {
+    return null;
+  }
+
+  try {
+    const raw = JSON.parse(fs.readFileSync(seedPath, 'utf-8'));
+    seedDataCache = {
+      categories: raw.categories || [],
+      products: raw.products || [],
+    };
+    return seedDataCache;
+  } catch (e) {
+    console.error('Failed to load seed-data.json:', e);
+    return null;
+  }
+}
+
+function getCategoriesFromSeedData(level?: string) {
+  const seedData = loadSeedData();
+  if (!seedData) {
+    return [];
+  }
+
+  const { categories, products } = seedData;
+
+  // Count products per category slug
+  const productCountBySlug = new Map<string, number>();
+  for (const p of products) {
+    const catSlug = p.categoryId;
+    if (catSlug) {
+      productCountBySlug.set(catSlug, (productCountBySlug.get(catSlug) || 0) + 1);
+    }
+  }
+
+  if (level === '1') {
+    const rootCats = categories
+      .filter((c: any) => !c.parentId)
+      .sort((a: any, b: any) => (a.sortOrder || 0) - (b.sortOrder || 0))
+      .map((c: any) => ({
+        id: c.id,
+        name: c.name,
+        slug: c.slug,
+        description: c.description || null,
+        image: c.image || null,
+        sortOrder: c.sortOrder || 0,
+        productCount: productCountBySlug.get(c.slug) || 0,
+      }));
+
+    // Sort by product count descending, then sort order
+    rootCats.sort((a, b) => {
+      if (b.productCount !== a.productCount) return b.productCount - a.productCount;
+      return a.sortOrder - b.sortOrder;
+    });
+
+    return rootCats;
+  }
+
+  // Build tree structure
+  const slugToCat = new Map<string, any>();
+  const idToCat = new Map<string, any>();
+
+  for (const cat of categories) {
+    slugToCat.set(cat.slug, cat);
+    idToCat.set(cat.id, cat);
+  }
+
+  // Compute all descendant slugs for each category
+  const getDescendantSlugs = (catSlug: string): string[] => {
+    const result = [catSlug];
+    const cat = slugToCat.get(catSlug);
+    if (!cat) return result;
+
+    const catId = cat.id;
+    const children = categories.filter(c => c.parentId === catId);
+    for (const child of children) {
+      result.push(...getDescendantSlugs(child.slug));
+    }
+    return result;
+  };
+
+  // Compute product count including descendants
+  const getTotalProductCount = (catSlug: string): number => {
+    const descendantSlugs = getDescendantSlugs(catSlug);
+    let total = 0;
+    for (const slug of descendantSlugs) {
+      total += productCountBySlug.get(slug) || 0;
+    }
+    return total;
+  };
+
+  const roots = categories
+    .filter((c: any) => !c.parentId)
+    .sort((a: any, b: any) => (a.sortOrder || 0) - (b.sortOrder || 0))
+    .map((c: any) => ({
+      id: c.id,
+      name: c.name,
+      slug: c.slug,
+      description: c.description || null,
+      image: c.image || null,
+      parentId: null,
+      sortOrder: c.sortOrder || 0,
+      seoTitle: c.seoTitle || null,
+      seoDesc: c.seoDesc || null,
+      productCount: getTotalProductCount(c.slug),
+      children: categories
+        .filter((child: any) => child.parentId === c.id)
+        .sort((a: any, b: any) => (a.sortOrder || 0) - (b.sortOrder || 0))
+        .map((child: any) => ({
+          id: child.id,
+          name: child.name,
+          slug: child.slug,
+          description: child.description || null,
+          image: child.image || null,
+          parentId: c.id,
+          sortOrder: child.sortOrder || 0,
+          seoTitle: child.seoTitle || null,
+          seoDesc: child.seoDesc || null,
+          productCount: productCountBySlug.get(child.slug) || 0,
+          children: [],
+        })),
+    }));
+
+  return roots;
+}
+
 async function getCategoriesFromFallback(level?: string) {
   const catDataPath = path.join(process.cwd(), 'categories-data.json');
   if (!fs.existsSync(catDataPath)) {
@@ -64,12 +196,20 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   if (req.method === 'GET') {
     const { level } = req.query;
 
+    // Detect Vercel environment - always use seed data on Vercel
+    const isVercel = process.env.VERCEL === '1';
+
+    if (isVercel) {
+      // On Vercel, always use seed-data.json (SQLite is read-only)
+      return res.json(await getCategoriesFromSeedData(level as string | undefined));
+    }
+
     try {
       const database = getDatabase();
       const dbCount = database.prepare('SELECT COUNT(*) as count FROM categories').get() as any;
       
       if (!dbCount || dbCount.count === 0) {
-        return res.json(await getCategoriesFromFallback(level as string | undefined));
+        return res.json(await getCategoriesFromSeedData(level as string | undefined));
       }
 
       if (level === '1') {
@@ -104,7 +244,12 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
       return res.json(roots);
     } catch {
-      return res.json(await getCategoriesFromFallback(level as string | undefined));
+      // Try seed data first, then fallback
+      try {
+        return res.json(await getCategoriesFromSeedData(level as string | undefined));
+      } catch {
+        return res.json(await getCategoriesFromFallback(level as string | undefined));
+      }
     }
   }
 

@@ -30,6 +30,182 @@ function getAllCategoryIds(database: any, parentId: string): string[] {
   return result;
 }
 
+// Seed data cache - loaded once per process
+let seedDataCache: { categories: any[]; products: any[] } | null = null;
+
+function loadSeedData(): { categories: any[]; products: any[] } | null {
+  if (seedDataCache) return seedDataCache;
+
+  const seedPath = path.join(process.cwd(), 'prisma', 'seed-data.json');
+  if (!fs.existsSync(seedPath)) {
+    return null;
+  }
+
+  try {
+    const raw = JSON.parse(fs.readFileSync(seedPath, 'utf-8'));
+    seedDataCache = {
+      categories: raw.categories || [],
+      products: raw.products || [],
+    };
+    return seedDataCache;
+  } catch (e) {
+    console.error('Failed to load seed-data.json:', e);
+    return null;
+  }
+}
+
+// Build a map from category slug -> category info (including children slugs)
+function buildCategoryMap(categories: any[]) {
+  const slugToCat = new Map<string, any>();
+  const idToCat = new Map<string, any>();
+
+  for (const cat of categories) {
+    slugToCat.set(cat.slug, cat);
+    idToCat.set(cat.id, cat);
+  }
+
+  // For each category, compute all descendant slugs (for filtering)
+  const getDescendantSlugs = (catSlug: string): string[] => {
+    const result = [catSlug];
+    const cat = slugToCat.get(catSlug);
+    if (!cat) return result;
+
+    // Find children (categories whose parentId is this category's id)
+    const catId = cat.id;
+    const children = categories.filter(c => c.parentId === catId);
+    for (const child of children) {
+      result.push(...getDescendantSlugs(child.slug));
+    }
+    return result;
+  };
+
+  // Also build parent lookup: for each category slug, find the root slug
+  const getRootSlug = (catSlug: string): string => {
+    let current = slugToCat.get(catSlug);
+    while (current && current.parentId) {
+      const parent = idToCat.get(current.parentId);
+      if (!parent) break;
+      current = parent;
+    }
+    return current ? current.slug : catSlug;
+  };
+
+  return { slugToCat, idToCat, getDescendantSlugs, getRootSlug };
+}
+
+function getProductsFromSeedData(req: NextApiRequest, res: NextApiResponse) {
+  const seedData = loadSeedData();
+  if (!seedData) {
+    return res.json([]);
+  }
+
+  const { categories, products } = seedData;
+  const { slugToCat, getDescendantSlugs, getRootSlug } = buildCategoryMap(categories);
+
+  const { category, material, plating, color, priceMin, priceMax, all } = req.query;
+
+  let filtered = products.filter((p: any) => {
+    // Filter by isPublished (unless all=true for admin)
+    if (all !== 'true' && p.isPublished === false) return false;
+
+    // Category filtering
+    if (category && category !== 'all') {
+      const productCatSlug = p.categoryId || '';
+      // Get all slugs under the selected category (including the selected category itself)
+      const validSlugs = getDescendantSlugs(String(category));
+      // Check if the product's category slug matches or is a descendant
+      const rootSlug = getRootSlug(productCatSlug);
+      if (!validSlugs.includes(productCatSlug) && !validSlugs.includes(rootSlug)) {
+        return false;
+      }
+    }
+
+    if (material) {
+      const m = String(material).toLowerCase();
+      if (!(p.material || '').toLowerCase().includes(m)) return false;
+    }
+
+    if (plating) {
+      const pl = String(plating).toLowerCase();
+      if (!(p.plating || '').toLowerCase().includes(pl)) return false;
+    }
+
+    if (color) {
+      const c = String(color).toLowerCase();
+      if (!(p.color || '').toLowerCase().includes(c)) return false;
+    }
+
+    if (priceMin) {
+      const min = parseFloat(priceMin as string);
+      const price = p.price ?? 0;
+      if (price < min) return false;
+    }
+
+    if (priceMax) {
+      const max = parseFloat(priceMax as string);
+      const price = p.priceMax ?? p.price ?? 0;
+      if (price > max) return false;
+    }
+
+    return true;
+  });
+
+  const serialized = filtered.map((p: any) => {
+    const catSlug = p.categoryId || '';
+    const cat = slugToCat.get(catSlug);
+    const rootCat = cat ? cat : slugToCat.get(getRootSlug(catSlug));
+
+    let images = p.images;
+    if (typeof images === 'string') {
+      try { images = JSON.parse(images); } catch { images = []; }
+    }
+    if (!Array.isArray(images)) images = [];
+
+    let keywords = p.keywords;
+    if (typeof keywords === 'string') {
+      try { keywords = JSON.parse(keywords); } catch { keywords = []; }
+    }
+    if (!Array.isArray(keywords)) keywords = [];
+
+    return {
+      id: p.id,
+      name: p.name,
+      slug: p.slug,
+      description: p.description || '',
+      price: Number(p.price) || 0,
+      priceMax: p.priceMax ? Number(p.priceMax) : null,
+      originalPrice: p.originalPrice ? Number(p.originalPrice) : null,
+      image: p.image || '',
+      categoryId: catSlug,
+      categoryName: rootCat?.name || cat?.name || '',
+      categorySlug: rootCat?.slug || cat?.slug || catSlug,
+      stock: p.stock ?? 100,
+      rating: Number(p.rating) || 0,
+      reviewCount: Number(p.reviewCount) || 0,
+      salesCount: Number(p.salesCount) || 0,
+      isPublished: p.isPublished !== false,
+      shippingCost: Number(p.shippingCost) || 0,
+      shippingMethod: p.shippingMethod || 'Standard Shipping',
+      sku: p.sku || null,
+      material: p.material || null,
+      plating: p.plating || null,
+      process: p.process || null,
+      color: p.color || null,
+      size: p.size || null,
+      packSize: Number(p.packSize) || 1,
+      moq: Number(p.moq) || 1,
+      stockStatus: p.stockStatus || 'IN_STOCK',
+      authorId: p.authorId || 'seed-system',
+      createdAt: p.createdAt ? new Date(p.createdAt).toISOString() : new Date().toISOString(),
+      updatedAt: p.updatedAt ? new Date(p.updatedAt).toISOString() : new Date().toISOString(),
+      images,
+      keywords,
+    };
+  });
+
+  return res.json(serialized);
+}
+
 async function getProductsFromFallback(req: NextApiRequest, res: NextApiResponse) {
   const siteDataPath = path.join(process.cwd(), 'site-data.json');
   if (!fs.existsSync(siteDataPath)) {
@@ -121,6 +297,14 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       }
     }
 
+    // Detect Vercel environment - always use seed data on Vercel since SQLite is read-only
+    const isVercel = process.env.VERCEL === '1';
+
+    if (isVercel) {
+      // On Vercel, always use seed-data.json (SQLite is read-only and may have stale data)
+      return getProductsFromSeedData(req, res);
+    }
+
     try {
       const database = getDatabase();
       
@@ -129,7 +313,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       const dbCount = dbCountResult?.count || 0;
       
       if (dbCount === 0) {
-        return getProductsFromFallback(req, res);
+        // No products in SQLite, use seed data
+        return getProductsFromSeedData(req, res);
       }
 
       // Build WHERE clause
@@ -228,7 +413,12 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       return res.json(serialized);
     } catch (e) {
       console.error('Products API error:', e);
-      return getProductsFromFallback(req, res);
+      // Fall back to seed data or site-data.json
+      try {
+        return getProductsFromSeedData(req, res);
+      } catch {
+        return getProductsFromFallback(req, res);
+      }
     }
   }
 
