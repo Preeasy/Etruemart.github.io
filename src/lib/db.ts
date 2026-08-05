@@ -23,6 +23,7 @@ export interface ProductRow {
   image: string;
   images: string;
   categoryId: string | null;
+  category?: { name: string; slug: string } | null;
   stock: number;
   rating: number;
   reviewCount: number;
