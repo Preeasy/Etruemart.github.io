@@ -422,10 +422,10 @@ export default function ProductDetail({ product: initialProduct, relatedProducts
         </div>
       )}
 
-      <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16 max-w-[1600px] mx-auto py-6">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 lg:gap-6">
+      <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16 max-w-[1600px] mx-auto py-4">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-5">
           <div className="lg:col-span-6">
-            <div className="lg:sticky lg:top-20 space-y-3">
+            <div className="lg:sticky lg:top-20 space-y-2">
               {/* Main Image */}
               <div className="relative bg-white rounded-xl border border-ink-200 overflow-hidden group cursor-zoom-in" onClick={() => openLightbox(selectedImage)} role="button" tabIndex={0} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') openLightbox(selectedImage); }} aria-label="Open image fullscreen">
                 <div className="absolute top-3 right-3 z-10 flex gap-1.5">
@@ -454,12 +454,12 @@ export default function ProductDetail({ product: initialProduct, relatedProducts
 
               {/* Thumbnail strip */}
               {images.length > 1 && (
-                <div className="flex gap-2 overflow-x-auto pb-0.5">
+                <div className="flex gap-1.5 overflow-x-auto pb-0.5">
                   {images.map((img, i) => (
                     <button
                       key={i}
                       onClick={() => setSelectedImage(i)}
-                      className={`relative flex-shrink-0 w-16 h-16 md:w-20 md:h-20 rounded-lg overflow-hidden border transition-all ${selectedImage === i ? 'border-accent-500 ring-2 ring-accent-100' : 'border-ink-200 hover:border-navy-400'} bg-white`}
+                      className={`relative flex-shrink-0 w-14 h-14 md:w-16 md:h-16 rounded-lg overflow-hidden border transition-all ${selectedImage === i ? 'border-accent-500 ring-2 ring-accent-100' : 'border-ink-200 hover:border-navy-400'} bg-white`}
                     >
                       {/* eslint-disable-next-line @next/next/no-img-element */}
                       <img
@@ -476,65 +476,65 @@ export default function ProductDetail({ product: initialProduct, relatedProducts
 
           <div className="lg:col-span-6">
             {/* Category + SKU + Stock */}
-            <div className="flex items-center gap-2.5 flex-wrap mb-3">
+            <div className="flex items-center gap-2 flex-wrap mb-2">
               {product.category && (
-                <Link href={`/products?category=${product.category.slug}`} className="inline-flex items-center gap-1.5 text-[11px] font-semibold text-accent-600 hover:text-accent-700">
-                  <Tag className="w-3 h-3" />{product.category.name}
+                <Link href={`/products?category=${product.category.slug}`} className="inline-flex items-center gap-1 text-[10px] font-semibold text-accent-600 hover:text-accent-700">
+                  <Tag className="w-2.5 h-2.5" />{product.category.name}
                 </Link>
               )}
               <span className="text-ink-300">·</span>
-              {product.sku && <span className="text-[11px] text-ink-500 font-mono">SKU: {product.sku}</span>}
+              {product.sku && <span className="text-[10px] text-ink-500 font-mono">SKU: {product.sku}</span>}
               <span className="text-ink-300">·</span>
-              <span className="inline-flex items-center gap-1 text-[11px] text-success-600 font-semibold">
-                <CheckCircle2 className="w-3.5 h-3.5" />In Stock
+              <span className="inline-flex items-center gap-1 text-[10px] text-success-600 font-semibold">
+                <CheckCircle2 className="w-3 h-3" />In Stock
               </span>
             </div>
 
             {/* Title */}
-            <h1 className="text-xl md:text-2xl font-bold text-navy-900 leading-tight mb-3">{product.name}</h1>
+            <h1 className="text-lg md:text-xl font-bold text-navy-900 leading-tight mb-2">{product.name}</h1>
 
             {/* Rating & Sales */}
-            <div className="flex items-center gap-2.5 flex-wrap mb-4">
+            <div className="flex items-center gap-2 flex-wrap mb-2.5">
               <div className="flex items-center gap-1.5">
                 <div className="flex gap-0.5">
-                  {[...Array(5)].map((_, i) => <Star key={i} className={`w-3.5 h-3.5 ${i < Math.floor(rating) ? 'text-accent-500 fill-accent-500' : 'text-ink-200'}`} />)}
+                  {[...Array(5)].map((_, i) => <Star key={i} className={`w-3 h-3 ${i < Math.floor(rating) ? 'text-accent-500 fill-accent-500' : 'text-ink-200'}`} />)}
                 </div>
-                <span className="text-sm font-bold text-navy-800">{rating.toFixed(1)}</span>
-                <Link href="#reviews" className="text-xs text-accent-600 font-semibold hover:underline">({reviewCount} reviews)</Link>
+                <span className="text-xs font-bold text-navy-800">{rating.toFixed(1)}</span>
+                <Link href="#reviews" className="text-[11px] text-accent-600 font-semibold hover:underline">({reviewCount} reviews)</Link>
               </div>
               <span className="text-ink-200">|</span>
-              <div className="flex items-center gap-1 text-xs text-ink-500">
-                <Users className="w-3.5 h-3.5" />
+              <div className="flex items-center gap-1 text-[11px] text-ink-500">
+                <Users className="w-3 h-3" />
                 <span><span className="font-bold text-navy-800">{salesCount.toLocaleString()}</span> sold</span>
               </div>
             </div>
 
             {/* Price — 核心转化区域 */}
-            <div className="flex items-baseline gap-3 flex-wrap pb-4 border-b border-ink-100">
-              <span className="text-3xl md:text-4xl font-extrabold text-navy-900 tracking-tight">${price.toFixed(2)}</span>
+            <div className="flex items-baseline gap-2 flex-wrap pb-2 border-b border-ink-100">
+              <span className="text-2xl md:text-3xl font-extrabold text-navy-900 tracking-tight">${price.toFixed(2)}</span>
               {Number(product.priceMax) > price && (
-                <span className="text-sm text-ink-400">up to ${Number(product.priceMax).toFixed(2)}</span>
+                <span className="text-xs text-ink-400">up to ${Number(product.priceMax).toFixed(2)}</span>
               )}
             </div>
-            <p className="text-xs text-ink-500 mt-2 mb-4">Price varies by quantity. Bulk discounts available. Contact us for custom orders.</p>
+            <p className="text-[11px] text-ink-500 mt-1.5 mb-3">Price varies by quantity. Bulk discounts available. Contact us for custom orders.</p>
 
             {/* Specs — 关键规格一览 */}
-            <div className="py-4 border-b border-ink-100">
+            <div className="py-3 border-b border-ink-100">
               <div className="grid grid-cols-3 gap-2">
-                <div className="bg-ink-50 rounded-xl p-3 text-center border border-ink-100">
-                  <span className="text-[10px] text-ink-400 uppercase tracking-wider font-bold">MOQ</span>
-                  <p className="text-base font-bold text-navy-800 mt-0.5">{product.moq || 12} pcs</p>
+                <div className="bg-ink-50 rounded-lg p-2 text-center border border-ink-100">
+                  <span className="text-[9px] text-ink-400 uppercase tracking-wider font-bold">MOQ</span>
+                  <p className="text-sm font-bold text-navy-800 mt-0.5">{product.moq || 12} pcs</p>
                 </div>
-                <div className="bg-ink-50 rounded-xl p-3 text-center border border-ink-100">
-                  <span className="text-[10px] text-ink-400 uppercase tracking-wider font-bold">Lead Time</span>
-                  <p className="text-base font-bold text-navy-800 mt-0.5">7-15 days</p>
+                <div className="bg-ink-50 rounded-lg p-2 text-center border border-ink-100">
+                  <span className="text-[9px] text-ink-400 uppercase tracking-wider font-bold">Lead Time</span>
+                  <p className="text-sm font-bold text-navy-800 mt-0.5">7-15 days</p>
                 </div>
-                <div className="bg-ink-50 rounded-xl p-3 text-center border border-ink-100">
-                  <span className="text-[10px] text-ink-400 uppercase tracking-wider font-bold">Samples</span>
-                  <p className="text-base font-bold text-navy-800 mt-0.5">Available</p>
+                <div className="bg-ink-50 rounded-lg p-2 text-center border border-ink-100">
+                  <span className="text-[9px] text-ink-400 uppercase tracking-wider font-bold">Samples</span>
+                  <p className="text-sm font-bold text-navy-800 mt-0.5">Available</p>
                 </div>
               </div>
-              <div className="grid grid-cols-2 md:grid-cols-3 gap-y-2.5 gap-x-4 mt-3">
+              <div className="grid grid-cols-2 md:grid-cols-3 gap-y-1.5 gap-x-3 mt-2.5">
                 {product.material && (
                   <div className="flex items-center gap-2">
                     <div className="w-7 h-7 rounded-lg bg-accent-50 flex items-center justify-center flex-shrink-0">
@@ -593,20 +593,18 @@ export default function ProductDetail({ product: initialProduct, relatedProducts
 
             {/* Variants — show if part of a multi-variant group */}
             {effectiveVariantGroup && effectiveVariantGroup.variants.length >= 1 && (
-              <div className="py-4 border-b border-ink-100">
-                <VariantSelector
-                  variants={effectiveVariantGroup.variants}
-                  currentSku={product.sku || ''}
-                  baseName={effectiveVariantGroup.baseName}
-                  parentSku={effectiveVariantGroup.parentSku}
-                />
-              </div>
+              <VariantSelector
+                variants={effectiveVariantGroup.variants}
+                currentSku={product.sku || ''}
+                baseName={effectiveVariantGroup.baseName}
+                parentSku={effectiveVariantGroup.parentSku}
+              />
             )}
 
             {/* Quantity + CTA — 主操作区 */}
-            <div className="py-4 border-b border-ink-100">
-              <h3 className="text-sm font-bold text-navy-800 mb-2.5">Order Quantity</h3>
-              <div className="flex items-center gap-3 mb-4">
+            <div className="py-3 border-b border-ink-100">
+              <h3 className="text-xs font-bold text-navy-800 mb-2">Order Quantity</h3>
+              <div className="flex items-center gap-2.5 mb-3">
                 <div className="flex items-center border border-ink-200 rounded-lg bg-white overflow-hidden">
                   <button onClick={() => setQuantity(Math.max(product.moq || 1, quantity - 12))} aria-label="Decrease quantity" className="px-3 py-2 hover:bg-ink-50 transition-colors text-ink-600"><Minus className="w-4 h-4" /></button>
                   <span className="px-4 font-bold text-navy-800 min-w-[70px] text-center">{quantity}</span>
