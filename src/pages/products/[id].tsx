@@ -43,6 +43,7 @@ import { SITE_URL, SITE_OG_IMAGE } from '@/lib/site';
 import { getProductBySlug, getProductById, getCategoryById, getRelatedProducts } from '@/lib/db';
 import { proxyImageUrl } from '@/lib/image-utils';
 import { computeBulletPoints } from '@/lib/bullet-points';
+import VariantSelector from '@/components/VariantSelector';
 
 interface Product {
   id: number | string;
@@ -95,7 +96,24 @@ function cleanDescription(desc: string): string {
     .trim();
 }
 
-export default function ProductDetail({ product: initialProduct, relatedProducts: initialRelated }: { product: Product; relatedProducts: Product[] }) {
+interface ProductVariant {
+  sku: string;
+  name: string;
+  slug: string;
+  price: number;
+  image: string;
+  stock: number;
+  color?: string;
+  size?: string;
+}
+
+interface VariantGroupProp {
+  parentSku: string;
+  baseName: string;
+  variants: ProductVariant[];
+}
+
+export default function ProductDetail({ product: initialProduct, relatedProducts: initialRelated, variantGroup }: { product: Product; relatedProducts: Product[]; variantGroup?: VariantGroupProp | null }) {
   const router = useRouter();
   const { data: session, status: sessionStatus } = useSession();
   const { addToCart } = useCart();
@@ -110,6 +128,9 @@ export default function ProductDetail({ product: initialProduct, relatedProducts
   const [addingToCart, setAddingToCart] = useState(false);
   const [cartNotice, setCartNotice] = useState<{ type: 'success' | 'error'; message: string } | null>(null);
   const [ownership, setOwnership] = useState<{ isOwner: boolean; canManage: boolean; productId: string | null } | null>(null);
+
+  // Variant group — passed from server or computed
+  const effectiveVariantGroup = variantGroup || null;
 
   const filteredAplusBlocks = (product.aplus?.blocks || []).filter((block: any) => {
     const content = String(block.content || '');
@@ -482,6 +503,18 @@ export default function ProductDetail({ product: initialProduct, relatedProducts
               </div>
             </div>
 
+            {/* Variants — show if part of a multi-variant group */}
+            {effectiveVariantGroup && effectiveVariantGroup.variants.length > 1 && (
+              <div className="py-4 border-b border-ink-100">
+                <VariantSelector
+                  variants={effectiveVariantGroup.variants}
+                  currentSku={product.sku || ''}
+                  baseName={effectiveVariantGroup.baseName}
+                  parentSku={effectiveVariantGroup.parentSku}
+                />
+              </div>
+            )}
+
             {/* Quantity + CTA — 主操作区 */}
             <div className="py-4 border-b border-ink-100">
               <h3 className="text-sm font-bold text-navy-800 mb-2.5">Order Quantity</h3>
@@ -592,11 +625,11 @@ export default function ProductDetail({ product: initialProduct, relatedProducts
                   {product.keywords && product.keywords.length > 0 && (
                     <div>
                       <h3 className="text-base font-bold text-navy-800 mb-3 flex items-center gap-2">
-                        <Tag className="w-4 h-4 text-accent-500" />Search Keywords
+                        <Tag className="w-4 h-4 text-accent-500" />Related Search Terms
                       </h3>
                       <div className="flex flex-wrap gap-2">
-                        {product.keywords.map((kw, i) => (
-                          <span key={i} className="text-xs font-semibold text-ink-600 bg-ink-50 border border-ink-200 rounded-full px-3 py-1.5">
+                        {product.keywords.slice(0, 8).map((kw, i) => (
+                          <span key={i} className="text-xs font-medium text-ink-600 bg-ink-50 border border-ink-200 rounded-full px-3 py-1.5">
                             {kw}
                           </span>
                         ))}
@@ -1049,6 +1082,20 @@ function findProductFromSeed(productId: string) {
     }
   }
 
+  // Compute variant group
+  let variantGroupData: VariantGroupProp | null = null;
+  {
+    const { buildVariantGroups } = require('@/lib/variants');
+    const parent = product.sku ? product.sku.split('-').length >= 4 ? product.sku.split('-').slice(0, 3).join('-') : null : null;
+    if (parent) {
+      const groups = buildVariantGroups(products);
+      const g = groups.get(parent);
+      if (g && g.variants.length >= 2) {
+        variantGroupData = { parentSku: g.parentSku, baseName: g.baseName, variants: g.variants };
+      }
+    }
+  }
+
   return {
     product: {
       id: product.id,
@@ -1095,6 +1142,7 @@ function findProductFromSeed(productId: string) {
       reviewCount: Number(rp.reviewCount) || 0,
       salesCount: Number(rp.salesCount) || 0,
     })),
+    variantGroup: variantGroupData,
   };
 }
 
@@ -1356,10 +1404,28 @@ export async function getServerSideProps(context: { params: { id: string } }) {
       salesCount: rp.salesCount || 0,
     }));
 
+    // Compute variant group from seed data
+    let ssVariantGroup: VariantGroupProp | null = null;
+    {
+      const sd = loadSeedData();
+      if (sd) {
+        const { buildVariantGroups } = require('@/lib/variants');
+        const parent = product.sku ? String(product.sku).split('-').length >= 4 ? String(product.sku).split('-').slice(0, 3).join('-') : null : null;
+        if (parent) {
+          const groups = buildVariantGroups(sd.products);
+          const g = groups.get(parent);
+          if (g && g.variants.length >= 2) {
+            ssVariantGroup = { parentSku: g.parentSku, baseName: g.baseName, variants: g.variants };
+          }
+        }
+      }
+    }
+
     return {
       props: {
         product: serializedProduct,
         relatedProducts: serializedRelated,
+        variantGroup: ssVariantGroup,
       },
     };
   } catch (error) {

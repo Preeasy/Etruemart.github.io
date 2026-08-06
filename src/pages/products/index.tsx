@@ -75,13 +75,13 @@ const platingOptions = ['Gold Plated', 'Silver Plated', 'Rose Gold Plated', 'Rho
 const Products = () => {
   const router = useRouter();
   const { data: session } = useSession();
-  const { category: queryCategory } = router.query;
+  const { category: queryCategory, q: querySearch } = router.query;
 
   const [products, setProducts] = useState<Product[]>([]);
   const [totalCount, setTotalCount] = useState<number>(0);
   const [categoryFilters, setCategoryFilters] = useState<CategoryFilter[]>([]);
   const [categorySlugMap, setCategorySlugMap] = useState<Map<string, string>>(new Map());
-  const [searchQuery, setSearchQuery] = useState('');
+  const [searchQuery, setSearchQuery] = useState(typeof querySearch === 'string' ? querySearch : '');
   const [selectedCategory, setSelectedCategory] = useState(
     typeof queryCategory === 'string' ? queryCategory : 'all'
   );
@@ -155,9 +155,13 @@ const Products = () => {
   }, []);
 
   const filteredProducts = products.filter((product) => {
+    const q = searchQuery.toLowerCase();
     const matchesSearch =
-      product.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      product.description.toLowerCase().includes(searchQuery.toLowerCase());
+      !q ||
+      product.name.toLowerCase().includes(q) ||
+      (product.description && product.description.toLowerCase().includes(q)) ||
+      (product.sku && product.sku.toLowerCase().includes(q)) ||
+      (product.keywords && Array.isArray(product.keywords) && product.keywords.some(k => k.toLowerCase().includes(q)));
 
     const productCategorySlug = product.category?.slug || '';
     const mappedSlug = categorySlugMap.get(productCategorySlug) || productCategorySlug;

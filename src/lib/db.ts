@@ -98,7 +98,7 @@ export function searchProducts(query: string, limit: number = 50): ProductRow[] 
   const database = getDatabase();
   const searchQuery = `%${query}%`;
   const stmt = database.prepare(
-    'SELECT * FROM products WHERE name LIKE ? OR description LIKE ? OR slug LIKE ? LIMIT ?'
+    'SELECT * FROM products WHERE name LIKE ? OR description LIKE ? OR slug LIKE ? OR sku LIKE ? OR keywords LIKE ? LIMIT ?'
   );
-  return stmt.all(searchQuery, searchQuery, searchQuery, limit) as ProductRow[];
+  return stmt.all(searchQuery, searchQuery, searchQuery, searchQuery, searchQuery, limit) as ProductRow[];
 }
