@@ -5,11 +5,12 @@ interface ProductVariant {
   price: number;
   image: string;
   stock: number;
-  color?: string;
-  size?: string;
-  capacity?: string;
-  layer?: string;
-  pack?: string;
+  color?: string | null;
+  size?: string | null;
+  capacity?: string | null;
+  layer?: string | null;
+  pack?: string | null;
+  material?: string | null;
 }
 
 interface VariantGroup {
@@ -46,7 +47,7 @@ function extractSize(name: string): string | null {
   return null;
 }
 
-function parseVariantOptions(p: any): { color?: string; size?: string; capacity?: string; layer?: string; pack?: string } {
+function parseVariantOptions(p: any): { color?: string; size?: string; capacity?: string; layer?: string; pack?: string; material?: string } {
   let opts: any = {};
   if (p.variantOptions) {
     try { opts = typeof p.variantOptions === 'string' ? JSON.parse(p.variantOptions) : p.variantOptions; } catch {}
@@ -57,6 +58,7 @@ function parseVariantOptions(p: any): { color?: string; size?: string; capacity?
     capacity: opts.capacity || undefined,
     layer: opts.layer || undefined,
     pack: opts.pack || undefined,
+    material: opts.material || p.material || undefined,
   };
 }
 
@@ -69,11 +71,12 @@ function toVariant(p: any): ProductVariant {
     price: Number(p.priceMin ?? p.price) || 0,
     image: p.image || '',
     stock: Number(p.stock) || 0,
-    color: opts.color,
-    size: opts.size,
-    capacity: opts.capacity,
-    layer: opts.layer,
-    pack: opts.pack,
+    color: opts.color ?? null,
+    size: opts.size ?? null,
+    capacity: opts.capacity ?? null,
+    layer: opts.layer ?? null,
+    pack: opts.pack ?? null,
+    material: opts.material ?? null,
   };
 }
 
@@ -186,7 +189,12 @@ export function getVariantGroupForProductId(
   sku?: string | null,
   parentId?: string | null
 ): VariantGroup | null {
-  // Try parentId first (new structure)
+  // Try productId directly (when the product IS the parent)
+  if (productId) {
+    const g = groups.get(String(productId));
+    if (g) return g;
+  }
+  // Try parentId first (child product)
   if (parentId) {
     const g = groups.get(String(parentId));
     if (g) return g;

@@ -43,6 +43,7 @@ import { SITE_URL, SITE_OG_IMAGE } from '@/lib/site';
 import { getProductBySlug, getProductById, getCategoryById, getRelatedProducts } from '@/lib/db';
 import { proxyImageUrl as proxyImageUrlDirect } from '@/lib/image-utils';
 import { computeBulletPoints } from '@/lib/bullet-points';
+import { buildVariantGroups, getVariantGroupForProductId } from '@/lib/variants';
 import VariantSelector from '@/components/VariantSelector';
 
 interface Product {
@@ -105,8 +106,12 @@ interface ProductVariant {
   price: number;
   image: string;
   stock: number;
-  color?: string;
-  size?: string;
+  color?: string | null;
+  size?: string | null;
+  capacity?: string | null;
+  layer?: string | null;
+  pack?: string | null;
+  material?: string | null;
 }
 
 interface VariantGroupProp {
@@ -121,6 +126,7 @@ export default function ProductDetail({ product: initialProduct, relatedProducts
   const { addToCart } = useCart();
   const [product, setProduct] = useState<Product>(initialProduct);
   const [relatedProducts, setRelatedProducts] = useState<Product[]>(initialRelated);
+  const [clientVariantGroup, setClientVariantGroup] = useState<VariantGroupProp | null>(variantGroup || null);
   const [selectedImage, setSelectedImage] = useState(0);
   const [isLightboxOpen, setIsLightboxOpen] = useState(false);
   const [lightboxIndex, setLightboxIndex] = useState(0);
@@ -131,8 +137,8 @@ export default function ProductDetail({ product: initialProduct, relatedProducts
   const [cartNotice, setCartNotice] = useState<{ type: 'success' | 'error'; message: string } | null>(null);
   const [ownership, setOwnership] = useState<{ isOwner: boolean; canManage: boolean; productId: string | null } | null>(null);
 
-  // Variant group — passed from server or computed
-  const effectiveVariantGroup = variantGroup || null;
+  // Variant group — passed from server or computed on client
+  const effectiveVariantGroup = clientVariantGroup || variantGroup || null;
 
   const filteredAplusBlocks = (product.aplus?.blocks || []).filter((block: any) => {
     const content = String(block.content || '');
@@ -187,6 +193,31 @@ export default function ProductDetail({ product: initialProduct, relatedProducts
     };
     fetchProduct();
   }, [initialProduct.slug, initialProduct.id]);
+
+  // Compute variant group on client side as fallback
+  useEffect(() => {
+    if (variantGroup && variantGroup.variants.length > 0) {
+      setClientVariantGroup(variantGroup);
+      return;
+    }
+    const fetchVariants = async () => {
+      try {
+        const res = await fetch('/api/products?includeChildren=true');
+        if (res.ok) {
+          const data = await res.json();
+          const products = Array.isArray(data) ? data : [];
+          if (products.length > 0) {
+            const groups = buildVariantGroups(products);
+            const g = getVariantGroupForProductId(groups, String(initialProduct.id), initialProduct.sku, (initialProduct as any).parentId);
+            if (g && g.variants.length >= 1) {
+              setClientVariantGroup({ parentSku: g.parentSku, baseName: g.baseName, variants: g.variants });
+            }
+          }
+        }
+      } catch {}
+    };
+    fetchVariants();
+  }, [initialProduct.id, variantGroup]);
 
   if (!product) {
     return (
@@ -1183,7 +1214,6 @@ function findProductFromSeed(productId: string) {
   // Compute variant group
   let variantGroupData: VariantGroupProp | null = null;
   {
-    const { buildVariantGroups, getVariantGroupForProductId } = require('@/lib/variants');
     const groups = buildVariantGroups(products);
     const g = getVariantGroupForProductId(groups, String(product.id), product.sku, product.parentId);
     if (g && g.variants.length >= 1) {
@@ -1524,7 +1554,6 @@ export async function getServerSideProps(context: { params: { id: string } }) {
     {
       const sd = loadSeedData();
       if (sd) {
-        const { buildVariantGroups, getVariantGroupForProductId } = require('@/lib/variants');
         const groups = buildVariantGroups(sd.products);
         const g = getVariantGroupForProductId(groups, String(product.id), product.sku, (product as any).parentId);
         if (g && g.variants.length >= 1) {

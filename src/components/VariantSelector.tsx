@@ -9,13 +9,13 @@ interface Variant {
   price: number;
   image: string;
   stock: number;
-  color?: string;
+  color?: string | null;
   colorHex?: string;
-  size?: string;
-  capacity?: string;
-  layer?: string;
-  pack?: string;
-  material?: string;
+  size?: string | null;
+  capacity?: string | null;
+  layer?: string | null;
+  pack?: string | null;
+  material?: string | null;
 }
 
 interface Props {
@@ -36,7 +36,7 @@ const COLOR_HEX_MAP: Record<string, string> = {
   'black & white': 'linear-gradient(135deg,#1f2937,#f9fafb)',
 };
 
-function getColorBg(color?: string, hex?: string): string {
+function getColorBg(color?: string | null, hex?: string): string {
   if (hex) return hex;
   if (!color) return '#ccc';
   const lower = color.toLowerCase().trim();
@@ -91,7 +91,7 @@ export default function VariantSelector({ variants, currentSku, baseName, parent
                   isSelected ? 'ring-2 ring-accent-500 ring-offset-1 border-accent-500' : 'border-ink-200'
                 }`}
                 style={{ background: getColorBg(v.color, v.colorHex) }}
-                title={v.color}
+                title={v.color || ''}
               >
                 {isSelected && getColorBg(v.color, v.colorHex) !== 'transparent' && (
                   <Check className={`w-3.5 h-3.5 ${getColorBg(v.color, v.colorHex).toLowerCase().includes('white') || getColorBg(v.color, v.colorHex) === 'transparent' ? 'text-ink-700' : 'text-white'}`} />

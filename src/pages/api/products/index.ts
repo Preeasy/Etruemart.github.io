@@ -107,15 +107,15 @@ function getProductsFromSeedData(req: NextApiRequest, res: NextApiResponse) {
   const { categories, products } = seedData;
   const { slugToCat, idToCat, getDescendantSlugs, getRootSlug } = buildCategoryMap(categories);
 
-  const { category, material, plating, color, priceMin, priceMax, all } = req.query;
+  const { category, material, plating, color, priceMin, priceMax, all, includeChildren } = req.query;
 
   let filtered = products.filter((p: any) => {
     // Filter by isPublished (unless all=true for admin)
     if (all !== 'true' && p.isPublished === false) return false;
 
-    // ========== Variant filtering: hide child products from list ==========
+    // ========== Variant filtering: hide child products from list (unless includeChildren=true) ==========
     // Only show parent products (isParent=true) and standalone products (no parentId)
-    if (all !== 'true' && p.parentId) return false;
+    if (all !== 'true' && includeChildren !== 'true' && p.parentId) return false;
 
     // Category filtering
     if (category && category !== 'all') {
