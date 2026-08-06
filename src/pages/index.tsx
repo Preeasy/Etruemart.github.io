@@ -433,11 +433,11 @@ function loadHomeSeedData() {
 }
 
 function proxyImageUrlDirect(url: string): string {
-  if (!url) return '';
+  if (!url) return '/images/product-placeholder.svg';
   if (url.startsWith('http')) return url;
   if (url.startsWith('/')) return url;
-  if (url.startsWith('Images/')) {
-    return `https://cdn.jsdelivr.net/gh/Preeasy/Images@main/${url}`;
+  if (url.startsWith('Images/') || url.startsWith('images/')) {
+    return `https://cdn.jsdelivr.net/gh/Preeasy/Images@main/${url.replace(/^[Ii]mages\//, '')}`;
   }
   return url;
 }
@@ -449,7 +449,6 @@ export const getServerSideProps = async () => {
     const seedData = loadHomeSeedData();
     if (seedData) {
       const { products: rawProducts, categories } = seedData;
-
       // Sort by salesCount descending (or by id as fallback) and take top 50
       const sorted = [...rawProducts]
         .sort((a, b) => (b.salesCount || 0) - (a.salesCount || 0))
@@ -570,6 +569,9 @@ export const getServerSideProps = async () => {
 
       return { props: { products, categories: rootCategories, categoryProductsMap } };
     }
+
+    // Vercel fallback: seed-data.json not available, return empty gracefully
+    return { props: { products: [], categories: [], categoryProductsMap: {} } };
   }
 
   // Local dev: use SQLite
@@ -579,7 +581,7 @@ export const getServerSideProps = async () => {
     const database = getDatabase();
     
     const rawProducts = database.prepare('SELECT * FROM products WHERE isPublished = 1 ORDER BY salesCount DESC LIMIT 50').all() as any[];
-    const rawCategories = database.prepare('SELECT * FROM categories WHERE isPublished = 1 ORDER BY sortOrder ASC').all() as any[];
+    const rawCategories = database.prepare('SELECT * FROM categories ORDER BY sortOrder ASC').all() as any[];
 
     // Build category lookup with root resolution
     const slugToCat = new Map();

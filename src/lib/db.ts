@@ -90,7 +90,7 @@ export function getRelatedProducts(categoryId: string, excludeId: string, limit:
 
 export function getAllCategories(): CategoryRow[] {
   const database = getDatabase();
-  const stmt = database.prepare('SELECT * FROM categories WHERE isActive = 1 ORDER BY sortOrder ASC');
+  const stmt = database.prepare('SELECT * FROM categories ORDER BY sortOrder ASC');
   return stmt.all() as CategoryRow[];
 }
 
