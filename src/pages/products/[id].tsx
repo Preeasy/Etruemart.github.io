@@ -520,73 +520,48 @@ export default function ProductDetail({ product: initialProduct, relatedProducts
 
             {/* Specs — 关键规格一览 */}
             <div className="py-3 border-b border-ink-100">
-              <div className="grid grid-cols-3 gap-2">
-                <div className="bg-ink-50 rounded-lg p-2 text-center border border-ink-100">
+              <div className="grid grid-cols-3 divide-x divide-ink-100">
+                <div className="text-center px-1">
                   <span className="text-[9px] text-ink-400 uppercase tracking-wider font-bold">MOQ</span>
                   <p className="text-sm font-bold text-navy-800 mt-0.5">{product.moq || 12} pcs</p>
                 </div>
-                <div className="bg-ink-50 rounded-lg p-2 text-center border border-ink-100">
+                <div className="text-center px-1">
                   <span className="text-[9px] text-ink-400 uppercase tracking-wider font-bold">Lead Time</span>
                   <p className="text-sm font-bold text-navy-800 mt-0.5">7-15 days</p>
                 </div>
-                <div className="bg-ink-50 rounded-lg p-2 text-center border border-ink-100">
+                <div className="text-center px-1">
                   <span className="text-[9px] text-ink-400 uppercase tracking-wider font-bold">Samples</span>
                   <p className="text-sm font-bold text-navy-800 mt-0.5">Available</p>
                 </div>
               </div>
-              <div className="grid grid-cols-2 md:grid-cols-3 gap-y-1.5 gap-x-3 mt-2.5">
+              <div className="grid grid-cols-2 md:grid-cols-3 gap-y-1 gap-x-4 mt-2 pt-2 border-t border-ink-100">
                 {product.material && (
-                  <div className="flex items-center gap-2">
-                    <div className="w-7 h-7 rounded-lg bg-accent-50 flex items-center justify-center flex-shrink-0">
-                      <span className="text-[10px] font-bold text-accent-600">M</span>
-                    </div>
-                    <div className="min-w-0">
-                      <span className="text-[10px] text-ink-400 uppercase tracking-wider font-semibold">Material</span>
-                      <p className="text-sm font-semibold text-navy-800 truncate">{product.material}</p>
-                    </div>
+                  <div className="flex items-baseline gap-1.5">
+                    <span className="text-[10px] text-ink-400 uppercase tracking-wider font-bold w-16 flex-shrink-0">Material</span>
+                    <p className="text-xs font-semibold text-navy-800 truncate">{product.material}</p>
                   </div>
                 )}
                 {product.plating && (
-                  <div className="flex items-center gap-2">
-                    <div className="w-7 h-7 rounded-lg bg-accent-50 flex items-center justify-center flex-shrink-0">
-                      <span className="text-[10px] font-bold text-accent-600">P</span>
-                    </div>
-                    <div className="min-w-0">
-                      <span className="text-[10px] text-ink-400 uppercase tracking-wider font-semibold">Finish</span>
-                      <p className="text-sm font-semibold text-navy-800 truncate">{product.plating}</p>
-                    </div>
+                  <div className="flex items-baseline gap-1.5">
+                    <span className="text-[10px] text-ink-400 uppercase tracking-wider font-bold w-16 flex-shrink-0">Finish</span>
+                    <p className="text-xs font-semibold text-navy-800 truncate">{product.plating}</p>
                   </div>
                 )}
                 {product.color && (
-                  <div className="flex items-center gap-2">
-                    <div className="w-7 h-7 rounded-lg bg-accent-50 flex items-center justify-center flex-shrink-0">
-                      <span className="text-[10px] font-bold text-accent-600">C</span>
-                    </div>
-                    <div className="min-w-0">
-                      <span className="text-[10px] text-ink-400 uppercase tracking-wider font-semibold">Color</span>
-                      <p className="text-sm font-semibold text-navy-800 truncate">{product.color}</p>
-                    </div>
+                  <div className="flex items-baseline gap-1.5">
+                    <span className="text-[10px] text-ink-400 uppercase tracking-wider font-bold w-16 flex-shrink-0">Color</span>
+                    <p className="text-xs font-semibold text-navy-800 truncate">{product.color}</p>
                   </div>
                 )}
                 {product.size && (
-                  <div className="flex items-center gap-2">
-                    <div className="w-7 h-7 rounded-lg bg-accent-50 flex items-center justify-center flex-shrink-0">
-                      <span className="text-[10px] font-bold text-accent-600">S</span>
-                    </div>
-                    <div className="min-w-0">
-                      <span className="text-[10px] text-ink-400 uppercase tracking-wider font-semibold">Size</span>
-                      <p className="text-sm font-semibold text-navy-800 truncate">{product.size}</p>
-                    </div>
+                  <div className="flex items-baseline gap-1.5">
+                    <span className="text-[10px] text-ink-400 uppercase tracking-wider font-bold w-16 flex-shrink-0">Size</span>
+                    <p className="text-xs font-semibold text-navy-800 truncate">{product.size}</p>
                   </div>
                 )}
-                <div className="flex items-center gap-2">
-                  <div className="w-7 h-7 rounded-lg bg-accent-50 flex items-center justify-center flex-shrink-0">
-                    <span className="text-[10px] font-bold text-accent-600">PK</span>
-                  </div>
-                  <div className="min-w-0">
-                    <span className="text-[10px] text-ink-400 uppercase tracking-wider font-semibold">Pack</span>
-                    <p className="text-sm font-semibold text-navy-800 truncate">{product.packSize || product.moq || 12} pcs</p>
-                  </div>
+                <div className="flex items-baseline gap-1.5">
+                  <span className="text-[10px] text-ink-400 uppercase tracking-wider font-bold w-16 flex-shrink-0">Pack</span>
+                  <p className="text-xs font-semibold text-navy-800 truncate">{product.packSize || product.moq || 12} pcs</p>
                 </div>
               </div>
             </div>
@@ -628,8 +603,8 @@ export default function ProductDetail({ product: initialProduct, relatedProducts
             </div>
 
             {/* Purchase Protection — 信任徽标 */}
-            <div className="py-4 border-b border-ink-100">
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+            <div className="py-3 border-b border-ink-100">
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
                 {[
                   { icon: Truck, label: 'Free Shipping', desc: 'Orders $50+' },
                   { icon: ShieldCheck, label: 'Secure Payment', desc: 'SSL encrypted' },
@@ -638,10 +613,8 @@ export default function ProductDetail({ product: initialProduct, relatedProducts
                 ].map((item, i) => {
                   const Icon = item.icon;
                   return (
-                    <div key={i} className="flex items-center gap-2">
-                      <div className="w-8 h-8 rounded-md bg-ink-50 flex items-center justify-center flex-shrink-0">
-                        <Icon className="w-4 h-4 text-navy-600" />
-                      </div>
+                    <div key={i} className="flex items-center gap-1.5">
+                      <Icon className="w-4 h-4 text-accent-600 flex-shrink-0" />
                       <div className="min-w-0">
                         <p className="text-[11px] font-bold text-navy-800 leading-tight">{item.label}</p>
                         <p className="text-[10px] text-ink-500 leading-tight">{item.desc}</p>
