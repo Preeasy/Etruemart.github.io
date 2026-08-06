@@ -41,7 +41,7 @@ import ReviewsSection from '@/components/ReviewsSection';
 import { useCart } from '@/components/CartContext';
 import { SITE_URL, SITE_OG_IMAGE } from '@/lib/site';
 import { getProductBySlug, getProductById, getCategoryById, getRelatedProducts } from '@/lib/db';
-import { proxyImageUrl } from '@/lib/image-utils';
+import { proxyImageUrl as proxyImageUrlDirect } from '@/lib/image-utils';
 import { computeBulletPoints } from '@/lib/bullet-points';
 import VariantSelector from '@/components/VariantSelector';
 
@@ -210,7 +210,7 @@ export default function ProductDetail({ product: initialProduct, relatedProducts
   const stock = Number(product.stock || 9999);
 
   const rawImages = product.images?.length >= 2 ? product.images : [product.image];
-  const images = rawImages.map(proxyImageUrl);
+  const images = rawImages.map(proxyImageUrlDirect);
 
   const faqs = [
     { q: 'What is the minimum order quantity?', a: `The MOQ for this product is ${product.moq || 12} pieces. We accept smaller trial orders for new customers to help you test the market.` },
@@ -853,44 +853,6 @@ function loadSeedData(): { categories: any[]; products: any[] } | null {
   } catch (e) {
     return null;
   }
-}
-
-function proxyImageUrlDirect(url: string): string {
-  if (!url) return '/images/product-placeholder.svg';
-  if (url.startsWith('/')) return url;
-
-  if (url.includes('raw.githubusercontent.com/')) {
-    const match = url.match(/raw\.githubusercontent\.com\/(.+)/);
-    if (match) {
-      const path = match[1];
-      if (path.startsWith('Preeasy/images/')) {
-        let rest = path.replace('Preeasy/images/', '');
-        rest = rest.replace(/^main\//, '');
-        try {
-          const decoded = decodeURIComponent(rest);
-          return `https://cdn.jsdelivr.net/gh/Preeasy/images@main/${decoded}`;
-        } catch {
-          return `https://cdn.jsdelivr.net/gh/Preeasy/images@main/${rest}`;
-        }
-      }
-      if (path.startsWith('Preeasy/Images/')) {
-        let rest = path.replace('Preeasy/Images/', '');
-        rest = rest.replace(/^main\//, '');
-        try {
-          const decoded = decodeURIComponent(rest);
-          return `https://cdn.jsdelivr.net/gh/Preeasy/Images@main/${decoded}`;
-        } catch {
-          return `https://cdn.jsdelivr.net/gh/Preeasy/Images@main/${rest}`;
-        }
-      }
-    }
-  }
-
-  if (url.startsWith('http')) return url;
-  if (url.startsWith('Images/') || url.startsWith('images/')) {
-    return `https://cdn.jsdelivr.net/gh/Preeasy/Images@main/${url.replace(/^[Ii]mages\//, '')}`;
-  }
-  return url;
 }
 
 function findProductFromSeed(productId: string) {

@@ -1,95 +1,60 @@
-// Image URL resolver. Works on both server and client.
-// Server code can check the local filesystem. Client uses a number-range heuristic.
+// Image URL resolver. All product images served from GitHub CDN.
+// Format: https://cdn.jsdelivr.net/gh/Preeasy/Images@main/Images/{FILENAME}
 
-declare const require: any;
-const isServer: boolean = typeof window === 'undefined';
-
-let _localFileCache: Set<string> | null = null;
-let _fs: any = null;
-let _path: any = null;
-
-function ensureNodeDeps(): boolean {
-  if (!isServer) return false;
-  if (_fs !== null) return true;
-  try {
-    // eslint-disable-next-line no-eval
-    _fs = eval('require')('fs');
-    // eslint-disable-next-line no-eval
-    _path = eval('require')('path');
-    return true;
-  } catch {
-    _fs = null;
-    _path = null;
-    return false;
-  }
-}
-
-function getLocalFiles(): Set<string> {
-  if (!ensureNodeDeps()) return new Set();
-  if (_localFileCache) return _localFileCache;
-  _localFileCache = new Set();
-  try {
-    const dir = _path.join(process.cwd(), 'public', 'images', 'item-list');
-    if (_fs.existsSync(dir)) {
-      const files: string[] = _fs.readdirSync(dir);
-      for (const f of files) _localFileCache.add(f.toLowerCase());
-    }
-  } catch {
-    // ignore
-  }
-  return _localFileCache;
-}
-
-function extractSkuFilename(url: string): string | null {
-  const skuMatch = url.match(/[?/]((?:ycs|ywc|yw|ywx)-[^/?#]+\.(?:jpg|jpeg|png|JPG|JPEG|PNG))(?:[?#]|$)/i);
+function extractSkuBase(url: string): string | null {
+  const skuMatch = url.match(/[?/]((?:ycs|ywc|yw|ywx)-[^/?#]+?)\.(jpg|jpeg|png|JPG|JPEG|PNG)(?:[?#]|$)/i);
   return skuMatch ? skuMatch[1] : null;
 }
 
+function extractFilename(url: string): string | null {
+  const match = url.match(/[?/]([^/?#]+\.(?:jpg|jpeg|png|JPG|JPEG|PNG))(?:[?#]|$)/i);
+  return match ? match[1] : null;
+}
+
 /**
- * Resolves an image URL to a renderable src.
+ * Primary resolver used by server code (getStaticProps / getServerSideProps / API routes).
  *
- * Server behaviour (preferred):
- *   - Checks if SKU-based image exists in /public/images/item-list/
- *   - If yes => local path   /images/item-list/<sku>.jpg
- *   - If no  => canonical CDN URL https://cdn.jsdelivr.net/gh/Preeasy/Images@main/Images/<FILE>
+ * All SKU-based product images resolve to CDN in the canonical format:
+ *   https://cdn.jsdelivr.net/gh/Preeasy/Images@main/Images/{FILENAME}
  *
- * Client behaviour (fallback heuristic):
- *   - SKU number segment >= 37 -> new product -> CDN
- *   - Smaller numbers         -> old product -> local path
+ * Local paths from seed data are preserved for non-SKU files (placeholders, logo etc.),
+ * but for SKU files we translate to CDN because the local images dir is gitignored.
  */
 export function resolveImageUrlServerSide(url: string | null | undefined): string {
   if (!url) return '/images/product-placeholder.svg';
-  if (url.startsWith('/images/') || url.startsWith('data:')) return url;
-  if (url.startsWith('/')) return url;
+  if (url.startsWith('data:')) return url;
 
-  const skuFilename = extractSkuFilename(url);
-  if (skuFilename) {
-    const lower = skuFilename.toLowerCase();
-    const localFiles = getLocalFiles();
-    if (localFiles.size > 0 && localFiles.has(lower)) {
-      return `/images/item-list/${lower}`;
-    }
-    return `https://cdn.jsdelivr.net/gh/Preeasy/Images@main/Images/${skuFilename}`;
+  // Non-SKU static files (placeholder, logo etc.) keep as-is
+  if (url.startsWith('/') && !url.includes('item-list/')) return url;
+
+  // SKU file referenced as local path (legacy) => map to CDN
+  // Keeps extension intact but caller may choose case.
+  if (url.startsWith('/images/item-list/')) {
+    const fn = url.split('/').pop() || '';
+    // Just transform to the canonical CDN URL with the same filename.
+    // The filename case mismatch is already fixed in seed-data.json directly,
+    // so if any leak through, this still yields a valid CDN URL structure.
+    return `https://cdn.jsdelivr.net/gh/Preeasy/Images@main/Images/${fn}`;
   }
 
-  if (url.includes('raw.githubusercontent.com/Preeasy/')) {
-    const match = url.match(/raw\.githubusercontent\.com\/Preeasy\/[^/]+\/main\/(.+)/);
-    if (match) {
-      const sub = match[1].replace(/^(Images|images|%E5%95%86%E5%93%81%E5%9B%BE%E7%89%87|商品图片)\//, '');
-      return `https://cdn.jsdelivr.net/gh/Preeasy/Images@main/Images/${sub}`;
-    }
+  // SKU filename embedded in an URL (legacy CDN / raw.github URLs)
+  const skuBase = extractSkuBase(url);
+  if (skuBase) {
+    // Build canonical CDN URL with a deterministic extension preference:
+    // prefer the extension from the original URL if we can derive it
+    const extMatch = url.match(/[?/](?:ycs|ywc|yw|ywx)-[^/?#]+\.(jpg|jpeg|png|JPG|JPEG|PNG)(?:[?#]|$)/i);
+    const ext = extMatch ? extMatch[1].toLowerCase() : 'jpg';
+    // Preserve original case for the prefix from URL - we already normalised seed data
+    // but fall back to uppercase convention used in the CDN (YCS-ACC-001.png).
+    const skuUpper = skuBase.toUpperCase();
+    return `https://cdn.jsdelivr.net/gh/Preeasy/Images@main/Images/${skuUpper}.${ext}`;
   }
 
-  if (url.includes('cdn.jsdelivr.net/gh/Preeasy/')) {
-    const fileMatch = url.match(/\/([^/]+\.(?:jpg|jpeg|png|JPG|JPEG|PNG))(?:[?#]|$)/i);
-    if (fileMatch) {
-      const fn = fileMatch[1];
-      if (/^(?:ycs|ywc|yw|ywx)-/i.test(fn)) {
-        const lower = fn.toLowerCase();
-        const localFiles = getLocalFiles();
-        if (localFiles.size > 0 && localFiles.has(lower)) return `/images/item-list/${lower}`;
-        return `https://cdn.jsdelivr.net/gh/Preeasy/Images@main/Images/${fn}`;
-      }
+  // Non-SKU CDN URLs: normalise wrong repo name, wrong subdir, wrong branch, etc.
+  if (url.includes('cdn.jsdelivr.net/gh/Preeasy/') || url.includes('raw.githubusercontent.com/Preeasy/')) {
+    const fn = extractFilename(url);
+    if (fn) {
+      return `https://cdn.jsdelivr.net/gh/Preeasy/Images@main/Images/${fn}`;
     }
     const pathMatch = url.match(/cdn\.jsdelivr\.net\/gh\/Preeasy\/[^/]+\/[^/]+\/(.+)/);
     if (pathMatch) {
@@ -109,25 +74,57 @@ export function resolveImageUrlServerSide(url: string | null | undefined): strin
 
   if (url.startsWith('http://') || url.startsWith('https://')) return url;
 
+  // Bare path like "Images/foo.png" or "商品图片/foo.png" or plain "YCS-CLO-037-001.png"
   const bareMatch = url.match(/^(?:Images|images|%E5%95%86%E5%93%81%E5%9B%BE%E7%89%87|商品图片)\/(.+)$/);
   if (bareMatch) return `https://cdn.jsdelivr.net/gh/Preeasy/Images@main/Images/${bareMatch[1]}`;
-  if (/^[^/]+\.(?:jpg|jpeg|png)$/i.test(url)) return `https://cdn.jsdelivr.net/gh/Preeasy/Images@main/Images/${url}`;
+  if (/^[^/]+\.(?:jpg|jpeg|png)$/i.test(url)) {
+    return `https://cdn.jsdelivr.net/gh/Preeasy/Images@main/Images/${url}`;
+  }
 
   return url;
 }
 
 /**
- * Client-safe resolver (works server-side too, but server should prefer
- * resolveImageUrlServerSide which uses real file existence check).
+ * Client-safe resolver. Identical logic to server version because all product
+ * images now live on CDN.
  */
 export function proxyImageUrl(url: string | null | undefined): string {
   return resolveImageUrlServerSide(url);
 }
 
+/**
+ * Helper for the onerror fallback chain in <ProductCard>:
+ * Given a CDN URL, return the alternate-extension counterpart.
+ *   e.g. .../Images/YCS-SHO-022.png  <->  .../Images/YCS-SHO-022.jpg
+ * Returns null if all alternates have been exhausted.
+ */
+export function getAltExtensionCdnUrl(
+  currentSrc: string,
+  triedExts: Set<string>
+): string | null {
+  const match = currentSrc.match(
+    /(https:\/\/cdn\.jsdelivr\.net\/gh\/Preeasy\/Images@main\/Images\/[^/?#]+\.)(jpg|jpeg|png|JPG|JPEG|PNG)([?#]|$)/i
+  );
+  if (!match) return null;
+  const prefix = match[1];
+  const currentExt = match[2].toLowerCase();
+  const alternates = currentExt === 'png'
+    ? ['jpg', 'jpeg']
+    : currentExt === 'jpg' || currentExt === 'jpeg'
+      ? ['png']
+      : ['jpg', 'png'];
+  for (const alt of alternates) {
+    if (!triedExts.has(alt)) {
+      return `${prefix}${alt}`;
+    }
+  }
+  return null;
+}
+
 export async function buildGitHubLookup(): Promise<Map<string, string>> {
   const lookup = new Map<string, string>();
   try {
-    const response = await fetch('https://api.github.com/repos/Preeasy/images/contents/Images', {
+    const response = await fetch('https://api.github.com/repos/Preeasy/Images/contents/Images', {
       headers: { Accept: 'application/vnd.github.v3+json' },
     });
     if (!response.ok) return lookup;
@@ -135,7 +132,7 @@ export async function buildGitHubLookup(): Promise<Map<string, string>> {
     if (!Array.isArray(data)) return lookup;
     for (const item of data) {
       if (item.name && item.download_url) {
-        const key = item.name.replace(/\.png$/i, '').replace(/\.jpg$/i, '').toLowerCase();
+        const key = item.name.replace(/\.(png|jpg|jpeg)$/i, '').toLowerCase();
         lookup.set(key, `https://cdn.jsdelivr.net/gh/Preeasy/Images@main/Images/${item.name}`);
       }
     }
@@ -148,7 +145,7 @@ export async function buildGitHubLookup(): Promise<Map<string, string>> {
 export function findGitHubImage(name: string, lookup: Map<string, string>): string {
   if (name.startsWith('http://') || name.startsWith('https://')) return name;
   if (name.startsWith('/')) return name;
-  const key = name.replace(/\.png$/i, '').replace(/\.jpg$/i, '').toLowerCase();
+  const key = name.replace(/\.(png|jpg|jpeg)$/i, '').toLowerCase();
   const directMatch = lookup.get(key);
   if (directMatch) return directMatch;
   const pngMatch = lookup.get(`${key}.png`);

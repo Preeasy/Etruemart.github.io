@@ -1,7 +1,7 @@
-import { memo } from 'react';
+import { memo, useCallback, useRef } from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
 import { Edit3 } from 'lucide-react';
+import { getAltExtensionCdnUrl } from '@/lib/image-utils';
 
 interface ProductCardProps {
   product: {
@@ -21,7 +21,9 @@ interface ProductCardProps {
   editUrl?: string;
 }
 
-const FALLBACK_SVG = `data:image/svg+xml;charset=UTF-8,${encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#f3f4f6"/><stop offset="100%" stop-color="#e5e7eb"/></linearGradient></defs><rect fill="url(#g)" width="200" height="200"/><rect x="30" y="50" width="140" height="100" rx="8" fill="white" stroke="#d1d5db" stroke-width="2"/><circle cx="70" cy="80" r="10" fill="#fcd34d"/><path d="M50 140 L80 105 L100 125 L125 95 L160 140 Z" fill="#d1d5db"/></svg>`)}`;
+const FALLBACK_SVG = `data:image/svg+xml;charset=UTF-8,${encodeURIComponent(
+  `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#f3f4f6"/><stop offset="100%" stop-color="#e5e7eb"/></linearGradient></defs><rect fill="url(#g)" width="200" height="200"/><rect x="30" y="50" width="140" height="100" rx="8" fill="white" stroke="#d1d5db" stroke-width="2"/><circle cx="70" cy="80" r="10" fill="#fcd34d"/><path d="M50 140 L80 105 L100 125 L125 95 L160 140 Z" fill="#d1d5db"/></svg>`
+)}`;
 
 const ProductCard = ({ product, editUrl }: ProductCardProps) => {
   const price = Number(product.price || product.priceMin || 0);
@@ -35,8 +37,24 @@ const ProductCard = ({ product, editUrl }: ProductCardProps) => {
         : '';
 
   const imageUrl = product.image;
-  const isRemote = imageUrl && (imageUrl.startsWith('http://') || imageUrl.startsWith('https://'));
-  const isDataUrl = imageUrl && imageUrl.startsWith('data:');
+  const triedRef = useRef<Set<string> | null>(null);
+
+  const handleImageError = useCallback((e: React.SyntheticEvent<HTMLImageElement>) => {
+    const el = e.currentTarget;
+    if (!triedRef.current) triedRef.current = new Set();
+    const tried = triedRef.current;
+    // Track which extension we have attempted already from the current src
+    const extMatch = el.src.match(/\.(jpg|jpeg|png|JPG|JPEG|PNG)(?:[?#]|$)/i);
+    if (extMatch) tried.add(extMatch[1].toLowerCase());
+    // Try alternate extension if available
+    const alt = getAltExtensionCdnUrl(el.src, tried);
+    if (alt) {
+      el.src = alt;
+      return;
+    }
+    // Fallback to placeholder
+    el.src = FALLBACK_SVG;
+  }, []);
 
   return (
     <div className="group bg-white rounded-xl overflow-hidden border border-ink-200 hover:border-accent-300 hover:shadow-card-hover transition-all duration-300 relative hover:-translate-y-0.5">
@@ -52,36 +70,14 @@ const ProductCard = ({ product, editUrl }: ProductCardProps) => {
       )}
       <Link href={`/products/${product.slug || product.id}`} className="block">
         <div className="relative aspect-square overflow-hidden bg-ink-50">
-          {isRemote ? (
-            // eslint-disable-next-line @next/next/no-img-element
-            <img
-              src={imageUrl}
-              alt={product.name}
-              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-              loading="lazy"
-              onError={(e) => {
-                const el = e.currentTarget as HTMLImageElement;
-                if (el.dataset.fallback) return;
-                el.dataset.fallback = '1';
-                el.src = FALLBACK_SVG;
-              }}
-            />
-          ) : isDataUrl ? (
-            // eslint-disable-next-line @next/next/no-img-element
-            <img
-              src={imageUrl}
-              alt={product.name}
-              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-            />
-          ) : (
-            // eslint-disable-next-line @next/next/no-img-element
-            <img
-              src={imageUrl || FALLBACK_SVG}
-              alt={product.name}
-              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-              loading="lazy"
-            />
-          )}
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={imageUrl || FALLBACK_SVG}
+            alt={product.name}
+            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+            loading="lazy"
+            onError={handleImageError}
+          />
           <div className="absolute inset-0 bg-gradient-to-t from-navy-900/0 group-hover:from-navy-900/10 transition-all duration-300 pointer-events-none" />
           {product.stockStatus === 'IN_STOCK' && (
             <span className="absolute top-2.5 right-2.5 bg-white/90 backdrop-blur-sm text-navy-800 text-[9px] font-bold px-2 py-1 rounded-md border border-ink-200/50 uppercase tracking-wider shadow-sm">
