@@ -262,7 +262,17 @@ async function main() {
       const categoryId = slugToCat.get(catInfo.slug)?.id;
 
       // 价格转美元
-      const priceUsd = cnyToUsd(Number(unitPriceCny));
+      let priceUsd = cnyToUsd(Number(unitPriceCny));
+      // Detect carton-level pricing: if UnitPrice seems to be the total for the whole carton
+      // (common when UnitPrice is high but per-piece price would be reasonable after dividing by packSize)
+      if (packSize > 1 && priceUsd > 20) {
+        const perPieceUsd = cnyToUsd(Number(unitPriceCny) / Number(packSize));
+        if (perPieceUsd < 10) {
+          // UnitPrice is carton total, not per-piece — use per-piece price
+          priceUsd = Math.round(perPieceUsd * 100) / 100;
+          console.log(`  [PRICE FIX] ${itemNumber}: carton price detected. UnitPrice(${unitPriceCny}CNY)/Qty(${packSize}) = ${priceUsd} USD/pc`);
+        }
+      }
       const originalPrice = priceUsd > 0 ? Math.round(priceUsd * 1.4 * 100) / 100 : 0;
       const moq = Math.max(1, Math.min(packSize || 1, 100));
 
