@@ -461,36 +461,21 @@ export default function ProductDetail({ product: initialProduct, relatedProducts
               </div>
             </div>
 
-            {/* Key Features — enhanced with category-specific icons */}
+            {/* Key Features */}
             {product.bulletPoints && product.bulletPoints.length > 0 && (
               <div className="py-4 border-b border-ink-100">
                 <h3 className="text-sm font-bold text-navy-800 mb-3 flex items-center gap-2">
                   <Star className="w-4 h-4 text-accent-500" />
                   Key Features
                 </h3>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                  {product.bulletPoints.map((bp, i) => {
-                    const bpLower = bp.toLowerCase();
-                    let BpIcon = CheckCircle2;
-                    let iconColor = 'text-accent-500';
-                    if (bpLower.includes('material') || bpLower.includes('premium') || bpLower.includes('quality')) { BpIcon = Gem; iconColor = 'text-purple-500'; }
-                    else if (bpLower.includes('moq') || bpLower.includes('minimum')) { BpIcon = Package; iconColor = 'text-blue-500'; }
-                    else if (bpLower.includes('shipping') || bpLower.includes('delivery') || bpLower.includes('worldwide')) { BpIcon = Truck; iconColor = 'text-green-500'; }
-                    else if (bpLower.includes('pricing') || bpLower.includes('factory-direct') || bpLower.includes('cost')) { BpIcon = Tag; iconColor = 'text-amber-500'; }
-                    else if (bpLower.includes('packaging') || bpLower.includes('labeling')) { BpIcon = Gift; iconColor = 'text-pink-500'; }
-                    else if (bpLower.includes('plating') || bpLower.includes('finish') || bpLower.includes('shine')) { BpIcon = Sparkles; iconColor = 'text-yellow-500'; }
-                    else if (bpLower.includes('custom')) { BpIcon = Settings; iconColor = 'text-indigo-500'; }
-                    else if (bpLower.includes('certif') || bpLower.includes('quality') || bpLower.includes('verify')) { BpIcon = ShieldCheck; iconColor = 'text-emerald-500'; }
-                    return (
-                      <div key={i} className="flex items-start gap-2.5 p-2.5 rounded-lg border border-ink-100 bg-gradient-to-r from-white to-ink-50/50 hover:border-accent-200 hover:from-accent-50/30 transition-colors">
-                        <div className="w-6 h-6 rounded-md bg-white border border-ink-100 flex items-center justify-center flex-shrink-0">
-                          <BpIcon className={`w-3.5 h-3.5 ${iconColor}`} />
-                        </div>
-                        <span className="text-sm text-ink-700 leading-snug">{bp}</span>
-                      </div>
-                    );
-                  })}
-                </div>
+                <ul className="space-y-2">
+                  {product.bulletPoints.map((bp, i) => (
+                    <li key={i} className="flex items-start gap-2.5">
+                      <CheckCircle2 className="w-4 h-4 text-accent-500 flex-shrink-0 mt-0.5" />
+                      <span className="text-sm text-ink-700 leading-relaxed">{bp}</span>
+                    </li>
+                  ))}
+                </ul>
               </div>
             )}
 
@@ -584,21 +569,21 @@ export default function ProductDetail({ product: initialProduct, relatedProducts
                 <div className="space-y-5">
                   <div>
                     <h2 className="text-lg font-bold text-navy-900 mb-2.5">Product Overview</h2>
-                    <p className="text-sm text-ink-600 leading-relaxed">{product.description}</p>
+                    <div className="text-sm text-ink-600 leading-relaxed prose prose-sm max-w-none [&_p]:mb-2 [&_strong]:text-navy-800 [&_a]:text-accent-600" dangerouslySetInnerHTML={{ __html: product.description || '' }} />
                   </div>
                   {product.bulletPoints && product.bulletPoints.length > 0 && (
                     <div>
                       <h3 className="text-base font-bold text-navy-800 mb-3 flex items-center gap-2">
                         <CheckCircle2 className="w-4 h-4 text-accent-500" />Key Features
                       </h3>
-                      <div className="grid md:grid-cols-2 gap-2">
+                      <ul className="space-y-2">
                         {product.bulletPoints.map((bp, i) => (
-                          <div key={i} className="flex items-start gap-2 p-2.5 rounded-lg border border-ink-100 bg-white">
+                          <li key={i} className="flex items-start gap-2.5">
                             <CheckCircle2 className="w-4 h-4 text-accent-500 flex-shrink-0 mt-0.5" />
-                            <span className="text-sm text-ink-700">{bp}</span>
-                          </div>
+                            <span className="text-sm text-ink-700 leading-relaxed">{bp}</span>
+                          </li>
                         ))}
-                      </div>
+                      </ul>
                     </div>
                   )}
                   {product.keywords && product.keywords.length > 0 && (
@@ -626,11 +611,11 @@ export default function ProductDetail({ product: initialProduct, relatedProducts
                       {product.aplus.blocks && product.aplus.blocks.length > 0 && (
                         <div className="space-y-3">
                           {product.aplus.blocks.map((block: any, i: number) => (
-                            <div key={block.id || i} className="p-3 bg-white rounded-lg border border-ink-100">
+                            <div key={block.id || i} className="p-4 bg-white rounded-lg border border-ink-100">
                               {block.type === 'image' ? (
                                 <img src={block.content} alt={block.caption || ''} className="w-full max-h-64 object-cover rounded-lg" />
                               ) : (
-                                <p className="text-sm text-ink-700">{block.content}</p>
+                                <div className="text-sm text-ink-700 leading-relaxed prose prose-sm max-w-none [&_h2]:text-base [&_h2]:font-bold [&_h2]:text-navy-800 [&_h2]:mb-2 [&_h3]:text-sm [&_h3]:font-bold [&_h3]:text-navy-800 [&_h3]:mb-2 [&_p]:mb-2 [&_li]:mb-1 [&_strong]:text-navy-800" dangerouslySetInnerHTML={{ __html: block.content || '' }} />
                               )}
                               {block.caption && (
                                 <p className="text-xs text-ink-500 mt-2 text-center italic">{block.caption}</p>
