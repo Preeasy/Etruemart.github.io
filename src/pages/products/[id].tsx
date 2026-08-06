@@ -561,7 +561,7 @@ export default function ProductDetail({ product: initialProduct, relatedProducts
             </div>
 
             {/* Variants — show if part of a multi-variant group */}
-            {effectiveVariantGroup && effectiveVariantGroup.variants.length > 1 && (
+            {effectiveVariantGroup && effectiveVariantGroup.variants.length >= 1 && (
               <div className="py-4 border-b border-ink-100">
                 <VariantSelector
                   variants={effectiveVariantGroup.variants}
@@ -1186,7 +1186,7 @@ function findProductFromSeed(productId: string) {
     const { buildVariantGroups, getVariantGroupForProductId } = require('@/lib/variants');
     const groups = buildVariantGroups(products);
     const g = getVariantGroupForProductId(groups, String(product.id), product.sku, product.parentId);
-    if (g && g.variants.length >= 2) {
+    if (g && g.variants.length >= 1) {
       variantGroupData = { parentSku: g.parentSku, baseName: g.baseName, variants: g.variants };
     }
   }
@@ -1527,7 +1527,7 @@ export async function getServerSideProps(context: { params: { id: string } }) {
         const { buildVariantGroups, getVariantGroupForProductId } = require('@/lib/variants');
         const groups = buildVariantGroups(sd.products);
         const g = getVariantGroupForProductId(groups, String(product.id), product.sku, (product as any).parentId);
-        if (g && g.variants.length >= 2) {
+        if (g && g.variants.length >= 1) {
           ssVariantGroup = { parentSku: g.parentSku, baseName: g.baseName, variants: g.variants };
         }
       }

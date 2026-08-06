@@ -1779,15 +1779,15 @@
     {
       "id": "ef54fc31-b91b-4d24-ec57-a9596",
       "sku": "YCS-STO-008",
-      "name": "Houndstooth Storage Bag Foldable Canvas",
+      "name": "Storage Bag Foldable",
       "slug": "houndstooth-storage-bag-foldable-canvas-ef54fc",
-      "description": "<p>Premium Houndstooth Storage Bag Foldable Canvas wholesale from Yiwu. Home & Living for retailers, boutiques, and online sellers.</p>\n<p><strong>中文名:</strong> 千鸟格收纳袋</p>\n<p><strong>Category:</strong> Home & Living / 收纳整理</p>\n<p><strong>Item No:</strong> YCS-STO-008-001</p>\n<p><strong>Price:</strong> $1.49 USD</p>\n<p><strong>MOQ:</strong> 1 pcs</p>\n<p><strong>Lead Time:</strong> 7-15 days</p>\n<p><strong>Shipping:</strong> Calculated at checkout based on destination, weight and volume.</p>\n<p>Factory direct pricing, reliable quality. Bulk orders welcome.</p>",
+      "description": "Premium foldable storage bag with multiple material and capacity options. Perfect for organizing closets, bedrooms, and living spaces. Durable construction with reinforced handles for heavy loads.",
       "price": 0.57,
       "priceMin": 0.57,
-      "priceMax": 1.49,
+      "priceMax": 2.49,
       "originalPrice": 2.4034999999999997,
       "image": "https://cdn.jsdelivr.net/gh/Preeasy/Images@main/Images/YCS-STO-008-001.png",
-      "images": "[\"https://cdn.jsdelivr.net/gh/Preeasy/Images@main/Images/YCS-STO-008-001.png\",\"https://cdn.jsdelivr.net/gh/Preeasy/Images@main/Images/YCS-STO-008-002.png\",\"https://cdn.jsdelivr.net/gh/Preeasy/Images@main/Images/YCS-STO-008-003.png\",\"https://cdn.jsdelivr.net/gh/Preeasy/Images@main/Images/YCS-STO-008-004.png\"]",
+      "images": "[\"https://cdn.jsdelivr.net/gh/Preeasy/Images@main/Images/YCS-STO-008-001.png\",\"https://cdn.jsdelivr.net/gh/Preeasy/Images@main/Images/YCS-STO-008-002.png\",\"https://cdn.jsdelivr.net/gh/Preeasy/Images@main/Images/YCS-STO-008-003.png\",\"https://cdn.jsdelivr.net/gh/Preeasy/Images@main/Images/YCS-STO-008-004.png\",\"https://cdn.jsdelivr.net/gh/Preeasy/Images@main/Images/YCS-STO-034-001.png\",\"https://cdn.jsdelivr.net/gh/Preeasy/Images@main/Images/YCS-STO-034-003.png\",\"https://cdn.jsdelivr.net/gh/Preeasy/Images@main/Images/YCS-STO-034-004.png\"]",
       "category": null,
       "categoryId": "cmsem8no2000413jyuoh2v9tp",
       "stock": 39996,
@@ -1807,7 +1807,7 @@
       "pkgWidth": null,
       "pkgHeight": null,
       "pkgWeight": null,
-      "keywords": "[\"Houndstooth Storage Bag Foldable Canvas\",\"YCS-STO-008\",\"wholesale\",\"yiwu\",\"factory direct\",\"bulk\"]",
+      "keywords": "[\"storage bag\",\"foldable storage\",\"houndstooth canvas\",\"non-woven storage\",\"organizer\",\"closet storage\",\"multi-size\",\"YCS-STO\"]",
       "origin": null,
       "supplierCity": "Yiwu",
       "stockStatus": "IN_STOCK",
@@ -2236,8 +2236,8 @@
       "createdAt": "2026-08-06T08:47:57.711Z",
       "updatedAt": "2026-08-06T08:47:57.711Z",
       "authorId": "cms9v6m5e0000twrnlnvirdpm",
-      "isParent": true,
-      "parentId": null,
+      "isParent": false,
+      "parentId": "ef54fc31-b91b-4d24-ec57-a9596",
       "variantChildren": [
         {
           "id": "cmsem8ows00id13jysp40u657",
@@ -2299,7 +2299,8 @@
           "pack": null,
           "moq": 100
         }
-      ]
+      ],
+      "variantOptions": "{\"material\":\"Non-Woven\",\"color\":null,\"colorHex\":null}"
     },
     {
       "id": "6fb5ea47-9966-ede6-f95d-93703",
@@ -8859,7 +8860,7 @@
       "authorId": "cms9v6m5e0000twrnlnvirdpm",
       "parentId": "aeda35ce-50c5-c350-94cc-ba3c5",
       "isParent": false,
-      "variantOptions": "{\"color\":null,\"colorHex\":null,\"size\":null,\"capacity\":\"330ml\",\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-CUP-001\",\"siblingSkus\":[\"YCS-CUP-001-001\",\"YCS-CUP-001-002\"]}"
+      "variantOptions": "{\"color\":null,\"colorHex\":null,\"size\":null,\"capacity\":\"330Ml\",\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-CUP-001\",\"siblingSkus\":[\"YCS-CUP-001-001\",\"YCS-CUP-001-002\"]}"
     },
     {
       "id": "cmsem8npt000m13jykg8y9icf",
@@ -8899,7 +8900,7 @@
       "authorId": "cms9v6m5e0000twrnlnvirdpm",
       "parentId": "aeda35ce-50c5-c350-94cc-ba3c5",
       "isParent": false,
-      "variantOptions": "{\"color\":null,\"colorHex\":null,\"size\":null,\"capacity\":\"500ml\",\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-CUP-001\",\"siblingSkus\":[\"YCS-CUP-001-001\",\"YCS-CUP-001-002\"]}"
+      "variantOptions": "{\"color\":null,\"colorHex\":null,\"size\":null,\"capacity\":\"500Ml\",\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-CUP-001\",\"siblingSkus\":[\"YCS-CUP-001-001\",\"YCS-CUP-001-002\"]}"
     },
     {
       "id": "cmsem8nq0000p13jy1hszuhpl",
@@ -9099,7 +9100,7 @@
       "authorId": "cms9v6m5e0000twrnlnvirdpm",
       "parentId": "389c3d0b-d966-fec7-a2c5-f7812",
       "isParent": false,
-      "variantOptions": "{\"color\":null,\"colorHex\":null,\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":\"2件装\",\"parentSku\":\"YCS-SOC-001\",\"siblingSkus\":[\"YCS-SOC-001-001\",\"YCS-SOC-001-002\",\"YCS-SOC-001-003\"]}"
+      "variantOptions": "{\"color\":null,\"colorHex\":null,\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":\"2件装\",\"parentSku\":\"YCS-SOC-001\",\"siblingSkus\":[\"YCS-SOC-001-001\",\"YCS-SOC-001-002\",\"YCS-SOC-001-003\"],\"material\":\"Cotton\"}"
     },
     {
       "id": "cmsem8nqu001413jytubaugvc",
@@ -9259,7 +9260,7 @@
       "authorId": "cms9v6m5e0000twrnlnvirdpm",
       "parentId": "389c3d0b-d966-fec7-a2c5-f7812",
       "isParent": false,
-      "variantOptions": "{\"color\":\"Brown\",\"colorHex\":\"#8B4513\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-SOC-001\",\"siblingSkus\":[\"YCS-SOC-001-001\",\"YCS-SOC-001-002\",\"YCS-SOC-001-003\"]}"
+      "variantOptions": "{\"color\":\"Brown\",\"colorHex\":\"#92400e\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-SOC-001\",\"siblingSkus\":[\"YCS-SOC-001-001\",\"YCS-SOC-001-002\",\"YCS-SOC-001-003\"],\"material\":\"Cotton\"}"
     },
     {
       "id": "cmsem8nro001g13jyeovyrgxs",
@@ -9299,7 +9300,7 @@
       "authorId": "cms9v6m5e0000twrnlnvirdpm",
       "parentId": "389c3d0b-d966-fec7-a2c5-f7812",
       "isParent": false,
-      "variantOptions": "{\"color\":\"Multi Color\",\"colorHex\":\"linear-gradient(90deg,#FF007F,#FB8C00,#FDD835,#43A047,#1E88E5,#8E24AA)\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-SOC-001\",\"siblingSkus\":[\"YCS-SOC-001-001\",\"YCS-SOC-001-002\",\"YCS-SOC-001-003\"]}"
+      "variantOptions": "{\"color\":null,\"colorHex\":null,\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-SOC-001\",\"siblingSkus\":[\"YCS-SOC-001-001\",\"YCS-SOC-001-002\",\"YCS-SOC-001-003\"]}"
     },
     {
       "id": "cmsem8nrv001j13jyvhhyzn1w",
@@ -9619,7 +9620,7 @@
       "authorId": "cms9v6m5e0000twrnlnvirdpm",
       "parentId": "d0109288-6812-57d9-a601-8a9af",
       "isParent": false,
-      "variantOptions": "{\"color\":null,\"colorHex\":null,\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-HWR-001\",\"siblingSkus\":[\"YCS-HWR-001-001\",\"YCS-HWR-001-002\"]}"
+      "variantOptions": "{\"color\":null,\"colorHex\":null,\"size\":\"1mm\",\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-HWR-001\",\"siblingSkus\":[\"YCS-HWR-001-001\",\"YCS-HWR-001-002\"]}"
     },
     {
       "id": "cmsem8nt6002713jytgmpbe8x",
@@ -10019,7 +10020,7 @@
       "authorId": "cms9v6m5e0000twrnlnvirdpm",
       "parentId": "58ceae42-9588-fde3-0dcb-24f61",
       "isParent": false,
-      "variantOptions": "{\"color\":null,\"colorHex\":null,\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-MCS-003\",\"siblingSkus\":[\"YCS-MCS-003-001\",\"YCS-MCS-003-002\",\"YCS-MCS-003-003\",\"YCS-MCS-003-004\",\"YCS-MCS-003-005\",\"YCS-MCS-003-006\",\"YCS-MCS-003-007\",\"YCS-MCS-003-008\",\"YCS-MCS-003-009\",\"YCS-MCS-003-010\",\"YCS-MCS-003-011\",\"YCS-MCS-003-012\"]}"
+      "variantOptions": "{\"color\":\"Clear\",\"colorHex\":\"transparent\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-MCS-003\",\"siblingSkus\":[\"YCS-MCS-003-001\",\"YCS-MCS-003-002\",\"YCS-MCS-003-003\",\"YCS-MCS-003-004\",\"YCS-MCS-003-005\",\"YCS-MCS-003-006\",\"YCS-MCS-003-007\",\"YCS-MCS-003-008\",\"YCS-MCS-003-009\",\"YCS-MCS-003-010\",\"YCS-MCS-003-011\",\"YCS-MCS-003-012\"]}"
     },
     {
       "id": "cmsem8nuz003113jy1vmm6xgc",
@@ -10259,7 +10260,7 @@
       "authorId": "cms9v6m5e0000twrnlnvirdpm",
       "parentId": "58ceae42-9588-fde3-0dcb-24f61",
       "isParent": false,
-      "variantOptions": "{\"color\":\"White\",\"colorHex\":\"#F5F5F5\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-MCS-003\",\"siblingSkus\":[\"YCS-MCS-003-001\",\"YCS-MCS-003-002\",\"YCS-MCS-003-003\",\"YCS-MCS-003-004\",\"YCS-MCS-003-005\",\"YCS-MCS-003-006\",\"YCS-MCS-003-007\",\"YCS-MCS-003-008\",\"YCS-MCS-003-009\",\"YCS-MCS-003-010\",\"YCS-MCS-003-011\",\"YCS-MCS-003-012\"]}"
+      "variantOptions": "{\"color\":\"White\",\"colorHex\":\"#f9fafb\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-MCS-003\",\"siblingSkus\":[\"YCS-MCS-003-001\",\"YCS-MCS-003-002\",\"YCS-MCS-003-003\",\"YCS-MCS-003-004\",\"YCS-MCS-003-005\",\"YCS-MCS-003-006\",\"YCS-MCS-003-007\",\"YCS-MCS-003-008\",\"YCS-MCS-003-009\",\"YCS-MCS-003-010\",\"YCS-MCS-003-011\",\"YCS-MCS-003-012\"]}"
     },
     {
       "id": "cmsem8nwk003j13jy85a538gd",
@@ -10299,7 +10300,7 @@
       "authorId": "cms9v6m5e0000twrnlnvirdpm",
       "parentId": "58ceae42-9588-fde3-0dcb-24f61",
       "isParent": false,
-      "variantOptions": "{\"color\":\"Black\",\"colorHex\":\"#212121\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-MCS-003\",\"siblingSkus\":[\"YCS-MCS-003-001\",\"YCS-MCS-003-002\",\"YCS-MCS-003-003\",\"YCS-MCS-003-004\",\"YCS-MCS-003-005\",\"YCS-MCS-003-006\",\"YCS-MCS-003-007\",\"YCS-MCS-003-008\",\"YCS-MCS-003-009\",\"YCS-MCS-003-010\",\"YCS-MCS-003-011\",\"YCS-MCS-003-012\"]}"
+      "variantOptions": "{\"color\":\"Black\",\"colorHex\":\"#1f2937\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-MCS-003\",\"siblingSkus\":[\"YCS-MCS-003-001\",\"YCS-MCS-003-002\",\"YCS-MCS-003-003\",\"YCS-MCS-003-004\",\"YCS-MCS-003-005\",\"YCS-MCS-003-006\",\"YCS-MCS-003-007\",\"YCS-MCS-003-008\",\"YCS-MCS-003-009\",\"YCS-MCS-003-010\",\"YCS-MCS-003-011\",\"YCS-MCS-003-012\"]}"
     },
     {
       "id": "cmsem8nwq003m13jyf3sqd571",
@@ -10339,7 +10340,7 @@
       "authorId": "cms9v6m5e0000twrnlnvirdpm",
       "parentId": "58ceae42-9588-fde3-0dcb-24f61",
       "isParent": false,
-      "variantOptions": "{\"color\":\"Red\",\"colorHex\":\"#E53935\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-MCS-003\",\"siblingSkus\":[\"YCS-MCS-003-001\",\"YCS-MCS-003-002\",\"YCS-MCS-003-003\",\"YCS-MCS-003-004\",\"YCS-MCS-003-005\",\"YCS-MCS-003-006\",\"YCS-MCS-003-007\",\"YCS-MCS-003-008\",\"YCS-MCS-003-009\",\"YCS-MCS-003-010\",\"YCS-MCS-003-011\",\"YCS-MCS-003-012\"]}"
+      "variantOptions": "{\"color\":\"Red\",\"colorHex\":\"#ef4444\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-MCS-003\",\"siblingSkus\":[\"YCS-MCS-003-001\",\"YCS-MCS-003-002\",\"YCS-MCS-003-003\",\"YCS-MCS-003-004\",\"YCS-MCS-003-005\",\"YCS-MCS-003-006\",\"YCS-MCS-003-007\",\"YCS-MCS-003-008\",\"YCS-MCS-003-009\",\"YCS-MCS-003-010\",\"YCS-MCS-003-011\",\"YCS-MCS-003-012\"]}"
     },
     {
       "id": "cmsem8nwv003p13jykthz5sy6",
@@ -10379,7 +10380,7 @@
       "authorId": "cms9v6m5e0000twrnlnvirdpm",
       "parentId": "58ceae42-9588-fde3-0dcb-24f61",
       "isParent": false,
-      "variantOptions": "{\"color\":\"Pink\",\"colorHex\":\"#FF69B4\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-MCS-003\",\"siblingSkus\":[\"YCS-MCS-003-001\",\"YCS-MCS-003-002\",\"YCS-MCS-003-003\",\"YCS-MCS-003-004\",\"YCS-MCS-003-005\",\"YCS-MCS-003-006\",\"YCS-MCS-003-007\",\"YCS-MCS-003-008\",\"YCS-MCS-003-009\",\"YCS-MCS-003-010\",\"YCS-MCS-003-011\",\"YCS-MCS-003-012\"]}"
+      "variantOptions": "{\"color\":\"Pink\",\"colorHex\":\"#ec4899\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-MCS-003\",\"siblingSkus\":[\"YCS-MCS-003-001\",\"YCS-MCS-003-002\",\"YCS-MCS-003-003\",\"YCS-MCS-003-004\",\"YCS-MCS-003-005\",\"YCS-MCS-003-006\",\"YCS-MCS-003-007\",\"YCS-MCS-003-008\",\"YCS-MCS-003-009\",\"YCS-MCS-003-010\",\"YCS-MCS-003-011\",\"YCS-MCS-003-012\"]}"
     },
     {
       "id": "cmsem8nx1003s13jy1v194i61",
@@ -10419,7 +10420,7 @@
       "authorId": "cms9v6m5e0000twrnlnvirdpm",
       "parentId": "58ceae42-9588-fde3-0dcb-24f61",
       "isParent": false,
-      "variantOptions": "{\"color\":\"Gray\",\"colorHex\":\"#9E9E9E\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-MCS-003\",\"siblingSkus\":[\"YCS-MCS-003-001\",\"YCS-MCS-003-002\",\"YCS-MCS-003-003\",\"YCS-MCS-003-004\",\"YCS-MCS-003-005\",\"YCS-MCS-003-006\",\"YCS-MCS-003-007\",\"YCS-MCS-003-008\",\"YCS-MCS-003-009\",\"YCS-MCS-003-010\",\"YCS-MCS-003-011\",\"YCS-MCS-003-012\"]}"
+      "variantOptions": "{\"color\":\"Gray\",\"colorHex\":\"#6b7280\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-MCS-003\",\"siblingSkus\":[\"YCS-MCS-003-001\",\"YCS-MCS-003-002\",\"YCS-MCS-003-003\",\"YCS-MCS-003-004\",\"YCS-MCS-003-005\",\"YCS-MCS-003-006\",\"YCS-MCS-003-007\",\"YCS-MCS-003-008\",\"YCS-MCS-003-009\",\"YCS-MCS-003-010\",\"YCS-MCS-003-011\",\"YCS-MCS-003-012\"]}"
     },
     {
       "id": "cmsem8nx6003v13jydy4jvqtc",
@@ -10459,7 +10460,7 @@
       "authorId": "cms9v6m5e0000twrnlnvirdpm",
       "parentId": "58ceae42-9588-fde3-0dcb-24f61",
       "isParent": false,
-      "variantOptions": "{\"color\":\"Brown\",\"colorHex\":\"#8B4513\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-MCS-003\",\"siblingSkus\":[\"YCS-MCS-003-001\",\"YCS-MCS-003-002\",\"YCS-MCS-003-003\",\"YCS-MCS-003-004\",\"YCS-MCS-003-005\",\"YCS-MCS-003-006\",\"YCS-MCS-003-007\",\"YCS-MCS-003-008\",\"YCS-MCS-003-009\",\"YCS-MCS-003-010\",\"YCS-MCS-003-011\",\"YCS-MCS-003-012\"]}"
+      "variantOptions": "{\"color\":\"Brown\",\"colorHex\":\"#92400e\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-MCS-003\",\"siblingSkus\":[\"YCS-MCS-003-001\",\"YCS-MCS-003-002\",\"YCS-MCS-003-003\",\"YCS-MCS-003-004\",\"YCS-MCS-003-005\",\"YCS-MCS-003-006\",\"YCS-MCS-003-007\",\"YCS-MCS-003-008\",\"YCS-MCS-003-009\",\"YCS-MCS-003-010\",\"YCS-MCS-003-011\",\"YCS-MCS-003-012\"]}"
     },
     {
       "id": "cmsem8nxb003y13jyzcpgnscn",
@@ -10499,7 +10500,7 @@
       "authorId": "cms9v6m5e0000twrnlnvirdpm",
       "parentId": "58ceae42-9588-fde3-0dcb-24f61",
       "isParent": false,
-      "variantOptions": "{\"color\":\"Yellow\",\"colorHex\":\"#FDD835\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-MCS-003\",\"siblingSkus\":[\"YCS-MCS-003-001\",\"YCS-MCS-003-002\",\"YCS-MCS-003-003\",\"YCS-MCS-003-004\",\"YCS-MCS-003-005\",\"YCS-MCS-003-006\",\"YCS-MCS-003-007\",\"YCS-MCS-003-008\",\"YCS-MCS-003-009\",\"YCS-MCS-003-010\",\"YCS-MCS-003-011\",\"YCS-MCS-003-012\"]}"
+      "variantOptions": "{\"color\":\"Yellow\",\"colorHex\":\"#eab308\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-MCS-003\",\"siblingSkus\":[\"YCS-MCS-003-001\",\"YCS-MCS-003-002\",\"YCS-MCS-003-003\",\"YCS-MCS-003-004\",\"YCS-MCS-003-005\",\"YCS-MCS-003-006\",\"YCS-MCS-003-007\",\"YCS-MCS-003-008\",\"YCS-MCS-003-009\",\"YCS-MCS-003-010\",\"YCS-MCS-003-011\",\"YCS-MCS-003-012\"]}"
     },
     {
       "id": "cmsem8nxg004113jybes9ph1z",
@@ -10539,7 +10540,7 @@
       "authorId": "cms9v6m5e0000twrnlnvirdpm",
       "parentId": "58ceae42-9588-fde3-0dcb-24f61",
       "isParent": false,
-      "variantOptions": "{\"color\":\"Gray\",\"colorHex\":\"#9E9E9E\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-MCS-003\",\"siblingSkus\":[\"YCS-MCS-003-001\",\"YCS-MCS-003-002\",\"YCS-MCS-003-003\",\"YCS-MCS-003-004\",\"YCS-MCS-003-005\",\"YCS-MCS-003-006\",\"YCS-MCS-003-007\",\"YCS-MCS-003-008\",\"YCS-MCS-003-009\",\"YCS-MCS-003-010\",\"YCS-MCS-003-011\",\"YCS-MCS-003-012\"]}"
+      "variantOptions": "{\"color\":\"Gray\",\"colorHex\":\"#6b7280\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-MCS-003\",\"siblingSkus\":[\"YCS-MCS-003-001\",\"YCS-MCS-003-002\",\"YCS-MCS-003-003\",\"YCS-MCS-003-004\",\"YCS-MCS-003-005\",\"YCS-MCS-003-006\",\"YCS-MCS-003-007\",\"YCS-MCS-003-008\",\"YCS-MCS-003-009\",\"YCS-MCS-003-010\",\"YCS-MCS-003-011\",\"YCS-MCS-003-012\"]}"
     },
     {
       "id": "cmsem8nxl004413jygzgt3y97",
@@ -10579,7 +10580,7 @@
       "authorId": "cms9v6m5e0000twrnlnvirdpm",
       "parentId": "58ceae42-9588-fde3-0dcb-24f61",
       "isParent": false,
-      "variantOptions": "{\"color\":\"Pink\",\"colorHex\":\"#FF69B4\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-MCS-003\",\"siblingSkus\":[\"YCS-MCS-003-001\",\"YCS-MCS-003-002\",\"YCS-MCS-003-003\",\"YCS-MCS-003-004\",\"YCS-MCS-003-005\",\"YCS-MCS-003-006\",\"YCS-MCS-003-007\",\"YCS-MCS-003-008\",\"YCS-MCS-003-009\",\"YCS-MCS-003-010\",\"YCS-MCS-003-011\",\"YCS-MCS-003-012\"]}"
+      "variantOptions": "{\"color\":\"Pink\",\"colorHex\":\"#ec4899\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-MCS-003\",\"siblingSkus\":[\"YCS-MCS-003-001\",\"YCS-MCS-003-002\",\"YCS-MCS-003-003\",\"YCS-MCS-003-004\",\"YCS-MCS-003-005\",\"YCS-MCS-003-006\",\"YCS-MCS-003-007\",\"YCS-MCS-003-008\",\"YCS-MCS-003-009\",\"YCS-MCS-003-010\",\"YCS-MCS-003-011\",\"YCS-MCS-003-012\"]}"
     },
     {
       "id": "cmsem8nxq004713jywrs74dtk",
@@ -10619,7 +10620,7 @@
       "authorId": "cms9v6m5e0000twrnlnvirdpm",
       "parentId": "58ceae42-9588-fde3-0dcb-24f61",
       "isParent": false,
-      "variantOptions": "{\"color\":\"Green\",\"colorHex\":\"#43A047\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-MCS-003\",\"siblingSkus\":[\"YCS-MCS-003-001\",\"YCS-MCS-003-002\",\"YCS-MCS-003-003\",\"YCS-MCS-003-004\",\"YCS-MCS-003-005\",\"YCS-MCS-003-006\",\"YCS-MCS-003-007\",\"YCS-MCS-003-008\",\"YCS-MCS-003-009\",\"YCS-MCS-003-010\",\"YCS-MCS-003-011\",\"YCS-MCS-003-012\"]}"
+      "variantOptions": "{\"color\":\"Green\",\"colorHex\":\"#22c55e\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-MCS-003\",\"siblingSkus\":[\"YCS-MCS-003-001\",\"YCS-MCS-003-002\",\"YCS-MCS-003-003\",\"YCS-MCS-003-004\",\"YCS-MCS-003-005\",\"YCS-MCS-003-006\",\"YCS-MCS-003-007\",\"YCS-MCS-003-008\",\"YCS-MCS-003-009\",\"YCS-MCS-003-010\",\"YCS-MCS-003-011\",\"YCS-MCS-003-012\"]}"
     },
     {
       "id": "cmsem8nxw004a13jyonv1rthc",
@@ -10659,7 +10660,7 @@
       "authorId": "cms9v6m5e0000twrnlnvirdpm",
       "parentId": "58ceae42-9588-fde3-0dcb-24f61",
       "isParent": false,
-      "variantOptions": "{\"color\":\"Blue\",\"colorHex\":\"#1E88E5\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-MCS-003\",\"siblingSkus\":[\"YCS-MCS-003-001\",\"YCS-MCS-003-002\",\"YCS-MCS-003-003\",\"YCS-MCS-003-004\",\"YCS-MCS-003-005\",\"YCS-MCS-003-006\",\"YCS-MCS-003-007\",\"YCS-MCS-003-008\",\"YCS-MCS-003-009\",\"YCS-MCS-003-010\",\"YCS-MCS-003-011\",\"YCS-MCS-003-012\"]}"
+      "variantOptions": "{\"color\":\"Blue\",\"colorHex\":\"#3b82f6\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-MCS-003\",\"siblingSkus\":[\"YCS-MCS-003-001\",\"YCS-MCS-003-002\",\"YCS-MCS-003-003\",\"YCS-MCS-003-004\",\"YCS-MCS-003-005\",\"YCS-MCS-003-006\",\"YCS-MCS-003-007\",\"YCS-MCS-003-008\",\"YCS-MCS-003-009\",\"YCS-MCS-003-010\",\"YCS-MCS-003-011\",\"YCS-MCS-003-012\"]}"
     },
     {
       "id": "cmsem8ny1004d13jyr5r8pmbu",
@@ -11019,7 +11020,7 @@
       "authorId": "cms9v6m5e0000twrnlnvirdpm",
       "parentId": "6c3235a0-735c-2ba7-4174-9f1bb",
       "isParent": false,
-      "variantOptions": "{\"color\":\"Multi Color\",\"colorHex\":\"linear-gradient(90deg,#FF007F,#FB8C00,#FDD835,#43A047,#1E88E5,#8E24AA)\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-CLN-002\",\"siblingSkus\":[\"YCS-CLN-002-001\",\"YCS-CLN-002-002\",\"YCS-CLN-002-003\",\"YCS-CLN-002-004\"]}"
+      "variantOptions": "{\"color\":null,\"colorHex\":null,\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-CLN-002\",\"siblingSkus\":[\"YCS-CLN-002-001\",\"YCS-CLN-002-002\",\"YCS-CLN-002-003\",\"YCS-CLN-002-004\"]}"
     },
     {
       "id": "cmsem8nzs005413jy6vcs0e30",
@@ -11059,7 +11060,7 @@
       "authorId": "cms9v6m5e0000twrnlnvirdpm",
       "parentId": "6c3235a0-735c-2ba7-4174-9f1bb",
       "isParent": false,
-      "variantOptions": "{\"color\":\"Multi Color\",\"colorHex\":\"linear-gradient(90deg,#FF007F,#FB8C00,#FDD835,#43A047,#1E88E5,#8E24AA)\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-CLN-002\",\"siblingSkus\":[\"YCS-CLN-002-001\",\"YCS-CLN-002-002\",\"YCS-CLN-002-003\",\"YCS-CLN-002-004\"]}"
+      "variantOptions": "{\"color\":null,\"colorHex\":null,\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-CLN-002\",\"siblingSkus\":[\"YCS-CLN-002-001\",\"YCS-CLN-002-002\",\"YCS-CLN-002-003\",\"YCS-CLN-002-004\"]}"
     },
     {
       "id": "cmsem8nzz005713jyo1u9de4d",
@@ -11099,7 +11100,7 @@
       "authorId": "cms9v6m5e0000twrnlnvirdpm",
       "parentId": "6c3235a0-735c-2ba7-4174-9f1bb",
       "isParent": false,
-      "variantOptions": "{\"color\":\"Multi Color\",\"colorHex\":\"linear-gradient(90deg,#FF007F,#FB8C00,#FDD835,#43A047,#1E88E5,#8E24AA)\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-CLN-002\",\"siblingSkus\":[\"YCS-CLN-002-001\",\"YCS-CLN-002-002\",\"YCS-CLN-002-003\",\"YCS-CLN-002-004\"]}"
+      "variantOptions": "{\"color\":null,\"colorHex\":null,\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-CLN-002\",\"siblingSkus\":[\"YCS-CLN-002-001\",\"YCS-CLN-002-002\",\"YCS-CLN-002-003\",\"YCS-CLN-002-004\"]}"
     },
     {
       "id": "cmsem8o05005a13jyijsll91r",
@@ -11139,7 +11140,7 @@
       "authorId": "cms9v6m5e0000twrnlnvirdpm",
       "parentId": "6c3235a0-735c-2ba7-4174-9f1bb",
       "isParent": false,
-      "variantOptions": "{\"color\":\"Multi Color\",\"colorHex\":\"linear-gradient(90deg,#FF007F,#FB8C00,#FDD835,#43A047,#1E88E5,#8E24AA)\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-CLN-002\",\"siblingSkus\":[\"YCS-CLN-002-001\",\"YCS-CLN-002-002\",\"YCS-CLN-002-003\",\"YCS-CLN-002-004\"]}"
+      "variantOptions": "{\"color\":\"Black\",\"colorHex\":\"#1f2937\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-CLN-002\",\"siblingSkus\":[\"YCS-CLN-002-001\",\"YCS-CLN-002-002\",\"YCS-CLN-002-003\",\"YCS-CLN-002-004\"]}"
     },
     {
       "id": "cmsem8o0b005d13jy06n4unkh",
@@ -11619,7 +11620,7 @@
       "authorId": "cms9v6m5e0000twrnlnvirdpm",
       "parentId": "3bf2d6ad-7320-c55a-9e67-7a780",
       "isParent": false,
-      "variantOptions": "{\"color\":null,\"colorHex\":null,\"size\":null,\"capacity\":\"500ml\",\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-BTY-001\",\"siblingSkus\":[\"YCS-BTY-001-001\",\"YCS-BTY-001-002\",\"YCS-BTY-001-003\"]}"
+      "variantOptions": "{\"color\":null,\"colorHex\":null,\"size\":null,\"capacity\":\"500Ml\",\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-BTY-001\",\"siblingSkus\":[\"YCS-BTY-001-001\",\"YCS-BTY-001-002\",\"YCS-BTY-001-003\"]}"
     },
     {
       "id": "cmsem8o2k006d13jy53ns128u",
@@ -11659,7 +11660,7 @@
       "authorId": "cms9v6m5e0000twrnlnvirdpm",
       "parentId": "8aa15a77-810b-ab2f-e3fa-ccc0c",
       "isParent": false,
-      "variantOptions": "{\"color\":\"White\",\"colorHex\":\"#F5F5F5\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-BAC-001\",\"siblingSkus\":[\"YCS-BAC-001-001\",\"YCS-BAC-001-002\"]}"
+      "variantOptions": "{\"color\":\"White\",\"colorHex\":\"#f9fafb\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-BAC-001\",\"siblingSkus\":[\"YCS-BAC-001-001\",\"YCS-BAC-001-002\"]}"
     },
     {
       "id": "cmsem8o2q006g13jytomqi8vc",
@@ -11699,7 +11700,7 @@
       "authorId": "cms9v6m5e0000twrnlnvirdpm",
       "parentId": "8aa15a77-810b-ab2f-e3fa-ccc0c",
       "isParent": false,
-      "variantOptions": "{\"color\":\"Black\",\"colorHex\":\"#212121\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-BAC-001\",\"siblingSkus\":[\"YCS-BAC-001-001\",\"YCS-BAC-001-002\"]}"
+      "variantOptions": "{\"color\":\"Black\",\"colorHex\":\"#1f2937\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-BAC-001\",\"siblingSkus\":[\"YCS-BAC-001-001\",\"YCS-BAC-001-002\"]}"
     },
     {
       "id": "cmsem8o2v006j13jyabixvdzb",
@@ -11779,7 +11780,7 @@
       "authorId": "cms9v6m5e0000twrnlnvirdpm",
       "parentId": "b22479e0-a6ce-d713-6e43-1dcfc",
       "isParent": false,
-      "variantOptions": "{\"color\":null,\"colorHex\":null,\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-STO-002\",\"siblingSkus\":[\"YCS-STO-002-001\",\"YCS-STO-002-002\"]}"
+      "variantOptions": "{\"color\":null,\"colorHex\":null,\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-STO-002\",\"siblingSkus\":[\"YCS-STO-002-001\",\"YCS-STO-002-002\"],\"material\":\"Plastic\"}"
     },
     {
       "id": "cmsem8o36006p13jy41256efn",
@@ -11823,7 +11824,7 @@
     },
     {
       "id": "cmsem8o3c006s13jy41nw6oyu",
-      "name": "Houndstooth Storage Bag Foldable Canvas 75L",
+      "name": "Storage Bag Foldable Houndstooth Canvas 75L",
       "slug": "houndstooth-storage-bag-foldable-canvas-75l",
       "description": "<p>Premium Houndstooth Storage Bag Foldable Canvas 75L wholesale from Yiwu. Home & Living for retailers, boutiques, and online sellers.</p>\n<p><strong>中文名:</strong> 可视窗千鸟格收纳袋,200个中号50L55*35*25,200个大号75L 60*40*30</p>\n<p><strong>Category:</strong> Home & Living / 收纳整理</p>\n<p><strong>Item No:</strong> YCS-STO-004</p>\n<p><strong>Price:</strong> $0.57 USD</p>\n<p><strong>MOQ:</strong> 1 pcs</p>\n<p><strong>Lead Time:</strong> 7-15 days</p>\n<p><strong>Shipping:</strong> Calculated at checkout based on destination, weight and volume.</p>\n<p>Factory direct pricing, reliable quality. Bulk orders welcome.</p>",
       "price": 0.57,
@@ -11858,8 +11859,8 @@
       "aplus": "{\"description\":\"Discover our Houndstooth Storage Bag Foldable Canvas 75L — premium home & living from Yiwu wholesale market. Quality guaranteed, factory-direct pricing.\",\"bulletPoints\":[\"Premium quality home & living for retail and wholesale\",\"Competitive factory-direct pricing from Yiwu\",\"MOQ: 1 pcs | Lead Time: 7-15 days\",\"Multiple options available\",\"High-quality construction\",\"Custom packaging and labeling available on request\",\"Fast worldwide shipping with tracking\"],\"blocks\":[{\"id\":\"overview\",\"type\":\"text\",\"content\":\"<h2>About This Houndstooth Storage Bag Foldable Canvas 75L</h2><p>Houndstooth Storage Bag Foldable Canvas 75L is a premium home & living product sourced directly from Yiwu wholesale market.   Designed for quality and value.</p>\"},{\"id\":\"features\",\"type\":\"text\",\"content\":\"<h3>Key Features</h3><ul><li>Premium quality construction</li><li>Factory-direct wholesale pricing</li><li>Custom packaging & labeling available</li><li>MOQ: 1 pcs</li><li>Lead time: 7-15 days</li><li>Worldwide shipping supported</li></ul>\"},{\"id\":\"specs\",\"type\":\"specs\",\"content\":\"<h3>Specifications</h3><p><strong>Item No:</strong> YCS-STO-004</p><p><strong>MOQ:</strong> 1 pcs</p><p><strong>Shipping:</strong> Calculated at checkout based on destination, weight and volume.</p>\"}]}",
       "authorId": "cms9v6m5e0000twrnlnvirdpm",
       "isParent": false,
-      "parentId": null,
-      "variantOptions": "{}"
+      "parentId": "ef54fc31-b91b-4d24-ec57-a9596",
+      "variantOptions": "{\"material\":\"Houndstooth Canvas\",\"capacity\":\"75L\",\"color\":null,\"colorHex\":null}"
     },
     {
       "id": "cmsem8o3h006v13jy105oh60i",
@@ -13059,7 +13060,7 @@
       "authorId": "cms9v6m5e0000twrnlnvirdpm",
       "parentId": "ef54fc31-b91b-4d24-ec57-a9596",
       "isParent": false,
-      "variantOptions": "{\"color\":null,\"colorHex\":null,\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-STO-008\",\"siblingSkus\":[\"YCS-STO-008-001\",\"YCS-STO-008-002\",\"YCS-STO-008-003\",\"YCS-STO-008-004\"]}"
+      "variantOptions": "{\"color\":null,\"colorHex\":null,\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-STO-008\",\"siblingSkus\":[\"YCS-STO-008-001\",\"YCS-STO-008-002\",\"YCS-STO-008-003\",\"YCS-STO-008-004\"],\"material\":\"Houndstooth Canvas\"}"
     },
     {
       "id": "cmsem8o8x009d13jyap76uqta",
@@ -13619,7 +13620,7 @@
       "authorId": "cms9v6m5e0000twrnlnvirdpm",
       "parentId": "95006a9e-55b7-d8b9-39c8-ff1eb",
       "isParent": false,
-      "variantOptions": "{\"color\":null,\"colorHex\":null,\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-STO-013\",\"siblingSkus\":[\"YCS-STO-013-001\",\"YCS-STO-013-002\"]}"
+      "variantOptions": "{\"color\":null,\"colorHex\":null,\"size\":null,\"capacity\":null,\"layer\":\"4-Tier\",\"pack\":null,\"parentSku\":\"YCS-STO-013\",\"siblingSkus\":[\"YCS-STO-013-001\",\"YCS-STO-013-002\"],\"material\":\"Metal\"}"
     },
     {
       "id": "cmsem8ob800aj13jypu0mlype",
@@ -13659,7 +13660,7 @@
       "authorId": "cms9v6m5e0000twrnlnvirdpm",
       "parentId": "3abdfad5-7c1f-f912-ae3f-341a9",
       "isParent": false,
-      "variantOptions": "{\"color\":null,\"colorHex\":null,\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-CUP-002\",\"siblingSkus\":[\"YCS-CUP-002-001\",\"YCS-CUP-002-002\"]}"
+      "variantOptions": "{\"color\":null,\"colorHex\":null,\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-CUP-002\",\"siblingSkus\":[\"YCS-CUP-002-001\",\"YCS-CUP-002-002\"],\"material\":\"Plastic\"}"
     },
     {
       "id": "cmsem8obe00am13jymq6vj26s",
@@ -14099,7 +14100,7 @@
       "authorId": "cms9v6m5e0000twrnlnvirdpm",
       "parentId": "0f32a19c-ced1-df20-59bc-2ebf9",
       "isParent": false,
-      "variantOptions": "{\"color\":null,\"colorHex\":null,\"size\":null,\"capacity\":null,\"layer\":\"3层\",\"pack\":null,\"parentSku\":\"YCS-STO-014\",\"siblingSkus\":[\"YCS-STO-014-001\",\"YCS-STO-014-002\",\"YCS-STO-014-003\"]}"
+      "variantOptions": "{\"color\":null,\"colorHex\":null,\"size\":null,\"capacity\":\"3-Layer\",\"layer\":\"3层\",\"pack\":null,\"parentSku\":\"YCS-STO-014\",\"siblingSkus\":[\"YCS-STO-014-001\",\"YCS-STO-014-002\",\"YCS-STO-014-003\"],\"material\":\"Metal\"}"
     },
     {
       "id": "cmsem8odh00bj13jy5ysyw8fj",
@@ -14139,7 +14140,7 @@
       "authorId": "cms9v6m5e0000twrnlnvirdpm",
       "parentId": "0f32a19c-ced1-df20-59bc-2ebf9",
       "isParent": false,
-      "variantOptions": "{\"color\":null,\"colorHex\":null,\"size\":null,\"capacity\":null,\"layer\":\"4层\",\"pack\":null,\"parentSku\":\"YCS-STO-014\",\"siblingSkus\":[\"YCS-STO-014-001\",\"YCS-STO-014-002\",\"YCS-STO-014-003\"]}"
+      "variantOptions": "{\"color\":null,\"colorHex\":null,\"size\":null,\"capacity\":\"4-Layer\",\"layer\":\"4层\",\"pack\":null,\"parentSku\":\"YCS-STO-014\",\"siblingSkus\":[\"YCS-STO-014-001\",\"YCS-STO-014-002\",\"YCS-STO-014-003\"],\"material\":\"Metal\"}"
     },
     {
       "id": "cmsem8odo00bm13jy48y31ajx",
@@ -14179,7 +14180,7 @@
       "authorId": "cms9v6m5e0000twrnlnvirdpm",
       "parentId": "0f32a19c-ced1-df20-59bc-2ebf9",
       "isParent": false,
-      "variantOptions": "{\"color\":null,\"colorHex\":null,\"size\":null,\"capacity\":null,\"layer\":\"5层\",\"pack\":null,\"parentSku\":\"YCS-STO-014\",\"siblingSkus\":[\"YCS-STO-014-001\",\"YCS-STO-014-002\",\"YCS-STO-014-003\"]}"
+      "variantOptions": "{\"color\":null,\"colorHex\":null,\"size\":null,\"capacity\":\"5-Layer\",\"layer\":\"5层\",\"pack\":null,\"parentSku\":\"YCS-STO-014\",\"siblingSkus\":[\"YCS-STO-014-001\",\"YCS-STO-014-002\",\"YCS-STO-014-003\"],\"material\":\"Metal\"}"
     },
     {
       "id": "cmsem8odw00bp13jy0d0ngz8h",
@@ -15019,7 +15020,7 @@
       "authorId": "cms9v6m5e0000twrnlnvirdpm",
       "parentId": "470e2d73-1e56-05a1-ee4f-b6f89",
       "isParent": false,
-      "variantOptions": "{\"color\":\"Blue\",\"colorHex\":\"#1E88E5\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-MSS-004\",\"siblingSkus\":[\"YCS-MSS-004-001\",\"YCS-MSS-004-002\"]}"
+      "variantOptions": "{\"color\":\"Blue\",\"colorHex\":\"#3b82f6\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-MSS-004\",\"siblingSkus\":[\"YCS-MSS-004-001\",\"YCS-MSS-004-002\"]}"
     },
     {
       "id": "cmsem8oi100dg13jy5ozuw6mq",
@@ -15259,7 +15260,7 @@
       "authorId": "cms9v6m5e0000twrnlnvirdpm",
       "parentId": "94d0462d-5272-b2c3-452e-9754f",
       "isParent": false,
-      "variantOptions": "{\"color\":\"White\",\"colorHex\":\"#F5F5F5\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-STO-016\",\"siblingSkus\":[\"YCS-STO-016-001\",\"YCS-STO-016-002\"]}"
+      "variantOptions": "{\"color\":\"White\",\"colorHex\":\"#f9fafb\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-STO-016\",\"siblingSkus\":[\"YCS-STO-016-001\",\"YCS-STO-016-002\"],\"material\":\"Plastic\"}"
     },
     {
       "id": "cmsem8oiw00dy13jyqzyjlwmw",
@@ -15939,7 +15940,7 @@
       "authorId": "cms9v6m5e0000twrnlnvirdpm",
       "parentId": "db761b6b-852c-13d5-a16b-50e40",
       "isParent": false,
-      "variantOptions": "{\"color\":\"Black\",\"colorHex\":\"#212121\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-STO-027\",\"siblingSkus\":[\"YCS-STO-027-001\",\"YCS-STO-027-002\",\"YCS-STO-027-003\",\"YCS-STO-027-004\"]}"
+      "variantOptions": "{\"color\":\"Black\",\"colorHex\":\"#1f2937\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-STO-027\",\"siblingSkus\":[\"YCS-STO-027-001\",\"YCS-STO-027-002\",\"YCS-STO-027-003\",\"YCS-STO-027-004\"],\"material\":\"Metal\"}"
     },
     {
       "id": "cmsem8olj00fd13jyjawf0ztl",
@@ -16019,7 +16020,7 @@
       "authorId": "cms9v6m5e0000twrnlnvirdpm",
       "parentId": "9ca52b27-8c27-bc92-81a0-2bca3",
       "isParent": false,
-      "variantOptions": "{\"color\":\"Black\",\"colorHex\":\"#212121\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-STO-029\",\"siblingSkus\":[\"YCS-STO-029-001\",\"YCS-STO-029-002\"]}"
+      "variantOptions": "{\"color\":\"Black\",\"colorHex\":\"#1f2937\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-STO-029\",\"siblingSkus\":[\"YCS-STO-029-001\",\"YCS-STO-029-002\"],\"material\":\"Metal\"}"
     },
     {
       "id": "cmsem8olu00fj13jy1y6qge3q",
@@ -16139,7 +16140,7 @@
       "authorId": "cms9v6m5e0000twrnlnvirdpm",
       "parentId": "860d65e2-4b91-1fb6-4556-bc372",
       "isParent": false,
-      "variantOptions": "{\"color\":\"White\",\"colorHex\":\"#F5F5F5\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-HAB-001\",\"siblingSkus\":[\"YCS-HAB-001-001\",\"YCS-HAB-001-002\",\"YCS-HAB-001-003\",\"YCS-HAB-001-004\"]}"
+      "variantOptions": "{\"color\":\"White\",\"colorHex\":\"#f9fafb\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-HAB-001\",\"siblingSkus\":[\"YCS-HAB-001-001\",\"YCS-HAB-001-002\",\"YCS-HAB-001-003\",\"YCS-HAB-001-004\"],\"material\":\"Leather\"}"
     },
     {
       "id": "cmsem8omf00fs13jyhhn1rgtg",
@@ -16259,7 +16260,7 @@
       "authorId": "cms9v6m5e0000twrnlnvirdpm",
       "parentId": "3bf2d6ad-7320-c55a-9e67-7a780",
       "isParent": false,
-      "variantOptions": "{\"color\":null,\"colorHex\":null,\"size\":null,\"capacity\":\"500ml\",\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-BTY-001\",\"siblingSkus\":[\"YCS-BTY-001-001\",\"YCS-BTY-001-002\",\"YCS-BTY-001-003\"]}"
+      "variantOptions": "{\"color\":null,\"colorHex\":null,\"size\":null,\"capacity\":\"500Ml\",\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-BTY-001\",\"siblingSkus\":[\"YCS-BTY-001-001\",\"YCS-BTY-001-002\",\"YCS-BTY-001-003\"]}"
     },
     {
       "id": "cmsem8ona00g113jyep9x178e",
@@ -16299,7 +16300,7 @@
       "authorId": "cms9v6m5e0000twrnlnvirdpm",
       "parentId": "9853566a-17e0-e612-e8ed-52594",
       "isParent": false,
-      "variantOptions": "{\"color\":\"Gray\",\"colorHex\":\"#9E9E9E\",\"size\":null,\"capacity\":null,\"layer\":\"4层\",\"pack\":null,\"parentSku\":\"YCS-STO-030\",\"siblingSkus\":[\"YCS-STO-030-001\",\"YCS-STO-030-002\"]}"
+      "variantOptions": "{\"color\":\"Gray\",\"colorHex\":\"#6b7280\",\"size\":null,\"capacity\":\"4-Layer\",\"layer\":\"4层\",\"pack\":null,\"parentSku\":\"YCS-STO-030\",\"siblingSkus\":[\"YCS-STO-030-001\",\"YCS-STO-030-002\"],\"material\":\"Metal\"}"
     },
     {
       "id": "cmsem8onk00g413jympcg0k7w",
@@ -16339,7 +16340,7 @@
       "authorId": "cms9v6m5e0000twrnlnvirdpm",
       "parentId": "9853566a-17e0-e612-e8ed-52594",
       "isParent": false,
-      "variantOptions": "{\"color\":\"Gray\",\"colorHex\":\"#9E9E9E\",\"size\":null,\"capacity\":null,\"layer\":\"3层\",\"pack\":null,\"parentSku\":\"YCS-STO-030\",\"siblingSkus\":[\"YCS-STO-030-001\",\"YCS-STO-030-002\"]}"
+      "variantOptions": "{\"color\":\"Gray\",\"colorHex\":\"#6b7280\",\"size\":null,\"capacity\":\"3-Layer\",\"layer\":\"3层\",\"pack\":null,\"parentSku\":\"YCS-STO-030\",\"siblingSkus\":[\"YCS-STO-030-001\",\"YCS-STO-030-002\"],\"material\":\"Metal\"}"
     },
     {
       "id": "cmsem8onq00g713jyyho2sgan",
@@ -17417,9 +17418,9 @@
       "moq": 1,
       "aplus": "{\"description\":\"Discover our Storage Bag Foldable Non-Woven 100L — premium home & living from Yiwu wholesale market. Quality guaranteed, factory-direct pricing.\",\"bulletPoints\":[\"Premium quality home & living for retail and wholesale\",\"Competitive factory-direct pricing from Yiwu\",\"MOQ: 1 pcs | Lead Time: 7-15 days\",\"Multiple options available\",\"High-quality construction\",\"Custom packaging and labeling available on request\",\"Fast worldwide shipping with tracking\"],\"blocks\":[{\"id\":\"overview\",\"type\":\"text\",\"content\":\"<h2>About This Storage Bag Foldable Non-Woven 100L</h2><p>Storage Bag Foldable Non-Woven 100L is a premium home & living product sourced directly from Yiwu wholesale market.   Designed for quality and value.</p>\"},{\"id\":\"features\",\"type\":\"text\",\"content\":\"<h3>Key Features</h3><ul><li>Premium quality construction</li><li>Factory-direct wholesale pricing</li><li>Custom packaging & labeling available</li><li>MOQ: 1 pcs</li><li>Lead time: 7-15 days</li><li>Worldwide shipping supported</li></ul>\"},{\"id\":\"specs\",\"type\":\"specs\",\"content\":\"<h3>Specifications</h3><p><strong>Item No:</strong> YCS-STO-034-001</p><p><strong>MOQ:</strong> 1 pcs</p><p><strong>Shipping:</strong> Calculated at checkout based on destination, weight and volume.</p>\"}]}",
       "authorId": "cms9v6m5e0000twrnlnvirdpm",
-      "parentId": "90b781d5-a026-29e3-10e2-968bd",
+      "parentId": "ef54fc31-b91b-4d24-ec57-a9596",
       "isParent": false,
-      "variantOptions": "{\"color\":null,\"colorHex\":null,\"size\":null,\"capacity\":\"100L\",\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-STO-034\",\"siblingSkus\":[\"YCS-STO-034-001\",\"YCS-STO-034-002\",\"YCS-STO-034-003\",\"YCS-STO-034-004\"]}"
+      "variantOptions": "{\"color\":null,\"colorHex\":null,\"size\":null,\"capacity\":\"100L\",\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-STO-034\",\"siblingSkus\":[\"YCS-STO-034-001\",\"YCS-STO-034-002\",\"YCS-STO-034-003\",\"YCS-STO-034-004\"],\"material\":\"Non-Woven\"}"
     },
     {
       "id": "cmsem8ox400ig13jycax224gt",
@@ -17739,7 +17740,7 @@
       "authorId": "cms9v6m5e0000twrnlnvirdpm",
       "parentId": "ef3f74f3-9046-297a-a048-3458b",
       "isParent": false,
-      "variantOptions": "{\"color\":null,\"colorHex\":null,\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-AUS-013\",\"siblingSkus\":[\"YCS-AUS-013-001\",\"YCS-AUS-013-002\"]}"
+      "variantOptions": "{\"color\":\"Red\",\"colorHex\":\"#ef4444\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-AUS-013\",\"siblingSkus\":[\"YCS-AUS-013-001\",\"YCS-AUS-013-002\"]}"
     },
     {
       "id": "cmsem8ozd00j413jypuqbskme",
@@ -18018,8 +18019,8 @@
       "aplus": "{\"description\":\"Discover our Storage Bag Foldable Non-Woven — premium home & living from Yiwu wholesale market. Quality guaranteed, factory-direct pricing.\",\"bulletPoints\":[\"Premium quality home & living for retail and wholesale\",\"Competitive factory-direct pricing from Yiwu\",\"MOQ: 1 pcs | Lead Time: 7-15 days\",\"Multiple options available\",\"High-quality construction\",\"Custom packaging and labeling available on request\",\"Fast worldwide shipping with tracking\"],\"blocks\":[{\"id\":\"overview\",\"type\":\"text\",\"content\":\"<h2>About This Storage Bag Foldable Non-Woven</h2><p>Storage Bag Foldable Non-Woven is a premium home & living product sourced directly from Yiwu wholesale market.   Designed for quality and value.</p>\"},{\"id\":\"features\",\"type\":\"text\",\"content\":\"<h3>Key Features</h3><ul><li>Premium quality construction</li><li>Factory-direct wholesale pricing</li><li>Custom packaging & labeling available</li><li>MOQ: 1 pcs</li><li>Lead time: 7-15 days</li><li>Worldwide shipping supported</li></ul>\"},{\"id\":\"specs\",\"type\":\"specs\",\"content\":\"<h3>Specifications</h3><p><strong>Item No:</strong> YCS-STO-036</p><p><strong>MOQ:</strong> 1 pcs</p><p><strong>Shipping:</strong> Calculated at checkout based on destination, weight and volume.</p>\"}]}",
       "authorId": "cms9v6m5e0000twrnlnvirdpm",
       "isParent": false,
-      "parentId": null,
-      "variantOptions": "{}"
+      "parentId": "ef54fc31-b91b-4d24-ec57-a9596",
+      "variantOptions": "{\"material\":\"Non-Woven\",\"color\":null,\"colorHex\":null}"
     },
     {
       "id": "cmsem8p1l00jp13jyuww9cprp",
@@ -18379,7 +18380,7 @@
       "authorId": "cms9v6m5e0000twrnlnvirdpm",
       "parentId": "db012593-fc9a-631d-aa80-ab55a",
       "isParent": false,
-      "variantOptions": "{\"color\":null,\"colorHex\":null,\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-SKN-004\",\"siblingSkus\":[\"YCS-SKN-004-001\",\"YCS-SKN-004-002\",\"YCS-SKN-004-003\"]}"
+      "variantOptions": "{\"color\":\"Clear\",\"colorHex\":\"transparent\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-SKN-004\",\"siblingSkus\":[\"YCS-SKN-004-001\",\"YCS-SKN-004-002\",\"YCS-SKN-004-003\"]}"
     },
     {
       "id": "cmsem8p4y00kg13jy06n1ydyx",
@@ -18579,7 +18580,7 @@
       "authorId": "cms9v6m5e0000twrnlnvirdpm",
       "parentId": "e367c7be-570f-dd3e-cf88-59159",
       "isParent": false,
-      "variantOptions": "{\"color\":\"Multi Color\",\"colorHex\":\"linear-gradient(90deg,#FF007F,#FB8C00,#FDD835,#43A047,#1E88E5,#8E24AA)\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-HAB-004\",\"siblingSkus\":[\"YCS-HAB-004-001\",\"YCS-HAB-004-002\"]}"
+      "variantOptions": "{\"color\":null,\"colorHex\":null,\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-HAB-004\",\"siblingSkus\":[\"YCS-HAB-004-001\",\"YCS-HAB-004-002\"],\"material\":\"Leather\"}"
     },
     {
       "id": "cmsem8p6b00kv13jysfshndty",
@@ -18659,7 +18660,7 @@
       "authorId": "cms9v6m5e0000twrnlnvirdpm",
       "parentId": "e367c7be-570f-dd3e-cf88-59159",
       "isParent": false,
-      "variantOptions": "{\"color\":null,\"colorHex\":null,\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-HAB-004\",\"siblingSkus\":[\"YCS-HAB-004-001\",\"YCS-HAB-004-002\"]}"
+      "variantOptions": "{\"color\":null,\"colorHex\":null,\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-HAB-004\",\"siblingSkus\":[\"YCS-HAB-004-001\",\"YCS-HAB-004-002\"],\"material\":\"Leather\"}"
     },
     {
       "id": "cmsem8p7500l113jyoko00dn6",
@@ -18699,7 +18700,7 @@
       "authorId": "cms9v6m5e0000twrnlnvirdpm",
       "parentId": "860d65e2-4b91-1fb6-4556-bc372",
       "isParent": false,
-      "variantOptions": "{\"color\":null,\"colorHex\":null,\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-HAB-001\",\"siblingSkus\":[\"YCS-HAB-001-001\",\"YCS-HAB-001-002\",\"YCS-HAB-001-003\",\"YCS-HAB-001-004\"]}"
+      "variantOptions": "{\"color\":null,\"colorHex\":null,\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-HAB-001\",\"siblingSkus\":[\"YCS-HAB-001-001\",\"YCS-HAB-001-002\",\"YCS-HAB-001-003\",\"YCS-HAB-001-004\"],\"material\":\"Leather\"}"
     },
     {
       "id": "cmsem8p7f00l413jyedrvxroh",
@@ -19019,7 +19020,7 @@
       "authorId": "cms9v6m5e0000twrnlnvirdpm",
       "parentId": "b22479e0-a6ce-d713-6e43-1dcfc",
       "isParent": false,
-      "variantOptions": "{\"color\":null,\"colorHex\":null,\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-STO-002\",\"siblingSkus\":[\"YCS-STO-002-001\",\"YCS-STO-002-002\"]}"
+      "variantOptions": "{\"color\":null,\"colorHex\":null,\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-STO-002\",\"siblingSkus\":[\"YCS-STO-002-001\",\"YCS-STO-002-002\"],\"material\":\"Plastic\"}"
     },
     {
       "id": "cmsem8p9o00ls13jytfdg0k5v",
@@ -19059,7 +19060,7 @@
       "authorId": "cms9v6m5e0000twrnlnvirdpm",
       "parentId": "7fdd03a4-3260-c19a-7d0b-ff34b",
       "isParent": false,
-      "variantOptions": "{\"color\":\"White\",\"colorHex\":\"#F5F5F5\",\"size\":null,\"capacity\":\"500ml\",\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-PCR-008\",\"siblingSkus\":[\"YCS-PCR-008-001\",\"YCS-PCR-008-002\"]}"
+      "variantOptions": "{\"color\":\"White\",\"colorHex\":\"#f9fafb\",\"size\":null,\"capacity\":\"500Ml\",\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-PCR-008\",\"siblingSkus\":[\"YCS-PCR-008-001\",\"YCS-PCR-008-002\"]}"
     },
     {
       "id": "cmsem8p9z00lv13jy73mxfe3j",
@@ -19099,7 +19100,7 @@
       "authorId": "cms9v6m5e0000twrnlnvirdpm",
       "parentId": "7fdd03a4-3260-c19a-7d0b-ff34b",
       "isParent": false,
-      "variantOptions": "{\"color\":\"Black\",\"colorHex\":\"#212121\",\"size\":null,\"capacity\":\"500ml\",\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-PCR-008\",\"siblingSkus\":[\"YCS-PCR-008-001\",\"YCS-PCR-008-002\"]}"
+      "variantOptions": "{\"color\":\"Black\",\"colorHex\":\"#1f2937\",\"size\":null,\"capacity\":\"500Ml\",\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-PCR-008\",\"siblingSkus\":[\"YCS-PCR-008-001\",\"YCS-PCR-008-002\"]}"
     },
     {
       "id": "cmsem8pac00ly13jywqc2f5x5",
@@ -19499,7 +19500,7 @@
       "authorId": "cms9v6m5e0000twrnlnvirdpm",
       "parentId": "db761b6b-852c-13d5-a16b-50e40",
       "isParent": false,
-      "variantOptions": "{\"color\":null,\"colorHex\":null,\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-STO-027\",\"siblingSkus\":[\"YCS-STO-027-001\",\"YCS-STO-027-002\",\"YCS-STO-027-003\",\"YCS-STO-027-004\"]}"
+      "variantOptions": "{\"color\":null,\"colorHex\":null,\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-STO-027\",\"siblingSkus\":[\"YCS-STO-027-001\",\"YCS-STO-027-002\",\"YCS-STO-027-003\",\"YCS-STO-027-004\"],\"material\":\"Metal\"}"
     },
     {
       "id": "cmsem8pex00ms13jyw16lg7wz",
@@ -19539,7 +19540,7 @@
       "authorId": "cms9v6m5e0000twrnlnvirdpm",
       "parentId": "9ca52b27-8c27-bc92-81a0-2bca3",
       "isParent": false,
-      "variantOptions": "{\"color\":null,\"colorHex\":null,\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-STO-029\",\"siblingSkus\":[\"YCS-STO-029-001\",\"YCS-STO-029-002\"]}"
+      "variantOptions": "{\"color\":null,\"colorHex\":null,\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-STO-029\",\"siblingSkus\":[\"YCS-STO-029-001\",\"YCS-STO-029-002\"],\"material\":\"Metal\"}"
     },
     {
       "id": "cmsem8pf400mv13jya6wpdofn",
@@ -19619,7 +19620,7 @@
       "authorId": "cms9v6m5e0000twrnlnvirdpm",
       "parentId": "1a54a8ab-1371-74d3-b22b-f3701",
       "isParent": false,
-      "variantOptions": "{\"color\":\"Pink\",\"colorHex\":\"#FF69B4\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-BBC-006\",\"siblingSkus\":[\"YCS-BBC-006-001\",\"YCS-BBC-006-002\"]}"
+      "variantOptions": "{\"color\":\"Pink\",\"colorHex\":\"#ec4899\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-BBC-006\",\"siblingSkus\":[\"YCS-BBC-006-001\",\"YCS-BBC-006-002\"]}"
     },
     {
       "id": "cmsem8pg200n113jy10drhmre",
@@ -19659,7 +19660,7 @@
       "authorId": "cms9v6m5e0000twrnlnvirdpm",
       "parentId": "1a54a8ab-1371-74d3-b22b-f3701",
       "isParent": false,
-      "variantOptions": "{\"color\":\"Blue\",\"colorHex\":\"#1E88E5\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-BBC-006\",\"siblingSkus\":[\"YCS-BBC-006-001\",\"YCS-BBC-006-002\"]}"
+      "variantOptions": "{\"color\":\"Blue\",\"colorHex\":\"#3b82f6\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-BBC-006\",\"siblingSkus\":[\"YCS-BBC-006-001\",\"YCS-BBC-006-002\"]}"
     },
     {
       "id": "cmsem8pgn00n413jybha16qnx",
@@ -19699,7 +19700,7 @@
       "authorId": "cms9v6m5e0000twrnlnvirdpm",
       "parentId": "ebec8351-508e-3c75-e1fd-6f778",
       "isParent": false,
-      "variantOptions": "{\"color\":\"Pink\",\"colorHex\":\"#FF69B4\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-BBC-007\",\"siblingSkus\":[\"YCS-BBC-007-001\",\"YCS-BBC-007-002\"]}"
+      "variantOptions": "{\"color\":\"Pink\",\"colorHex\":\"#ec4899\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-BBC-007\",\"siblingSkus\":[\"YCS-BBC-007-001\",\"YCS-BBC-007-002\"],\"material\":\"PP\"}"
     },
     {
       "id": "cmsem8ph000n713jyjwi7790k",
@@ -19739,7 +19740,7 @@
       "authorId": "cms9v6m5e0000twrnlnvirdpm",
       "parentId": "ebec8351-508e-3c75-e1fd-6f778",
       "isParent": false,
-      "variantOptions": "{\"color\":\"Blue\",\"colorHex\":\"#1E88E5\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-BBC-007\",\"siblingSkus\":[\"YCS-BBC-007-001\",\"YCS-BBC-007-002\"]}"
+      "variantOptions": "{\"color\":\"Blue\",\"colorHex\":\"#3b82f6\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-BBC-007\",\"siblingSkus\":[\"YCS-BBC-007-001\",\"YCS-BBC-007-002\"],\"material\":\"PP\"}"
     },
     {
       "id": "cmsem8phi00na13jy3qea2jme",
@@ -20739,7 +20740,7 @@
       "authorId": "cms9v6m5e0000twrnlnvirdpm",
       "parentId": "2c98ca53-4eab-184a-6ca3-5dca5",
       "isParent": false,
-      "variantOptions": "{\"color\":\"Black\",\"colorHex\":\"#212121\",\"size\":null,\"capacity\":null,\"layer\":\"5层\",\"pack\":null,\"parentSku\":\"YCS-KST-010\",\"siblingSkus\":[\"YCS-KST-010-001\",\"YCS-KST-010-002\"]}"
+      "variantOptions": "{\"color\":\"Black\",\"colorHex\":\"#1f2937\",\"size\":null,\"capacity\":\"5-Layer\",\"layer\":\"5层\",\"pack\":null,\"parentSku\":\"YCS-KST-010\",\"siblingSkus\":[\"YCS-KST-010-001\",\"YCS-KST-010-002\"],\"material\":\"Metal\"}"
     },
     {
       "id": "cmsem8pqw00pd13jy4ba1elgv",
@@ -20779,7 +20780,7 @@
       "authorId": "cms9v6m5e0000twrnlnvirdpm",
       "parentId": "2c98ca53-4eab-184a-6ca3-5dca5",
       "isParent": false,
-      "variantOptions": "{\"color\":\"Black\",\"colorHex\":\"#212121\",\"size\":null,\"capacity\":null,\"layer\":\"5层\",\"pack\":null,\"parentSku\":\"YCS-KST-010\",\"siblingSkus\":[\"YCS-KST-010-001\",\"YCS-KST-010-002\"]}"
+      "variantOptions": "{\"color\":\"Black\",\"colorHex\":\"#1f2937\",\"size\":null,\"capacity\":\"5-Layer\",\"layer\":\"5层\",\"pack\":null,\"parentSku\":\"YCS-KST-010\",\"siblingSkus\":[\"YCS-KST-010-001\",\"YCS-KST-010-002\"],\"material\":\"Metal\"}"
     },
     {
       "id": "cmsem8pr600pg13jymsqbquag",
@@ -21179,7 +21180,7 @@
       "authorId": "cms9v6m5e0000twrnlnvirdpm",
       "parentId": "538caedb-d4b7-022b-e82f-95cd4",
       "isParent": false,
-      "variantOptions": "{\"color\":null,\"colorHex\":null,\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-CLN-007\",\"siblingSkus\":[\"YCS-CLN-007-001\",\"YCS-CLN-007-002\"]}"
+      "variantOptions": "{\"color\":null,\"colorHex\":null,\"size\":\"112Cm\",\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-CLN-007\",\"siblingSkus\":[\"YCS-CLN-007-001\",\"YCS-CLN-007-002\"]}"
     },
     {
       "id": "cmsem8pty00qa13jyo2geyugg",
@@ -23219,7 +23220,7 @@
       "authorId": "cms9v6m5e0000twrnlnvirdpm",
       "parentId": "860d65e2-4b91-1fb6-4556-bc372",
       "isParent": false,
-      "variantOptions": "{\"color\":null,\"colorHex\":null,\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-HAB-001\",\"siblingSkus\":[\"YCS-HAB-001-001\",\"YCS-HAB-001-002\",\"YCS-HAB-001-003\",\"YCS-HAB-001-004\"]}"
+      "variantOptions": "{\"color\":null,\"colorHex\":null,\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-HAB-001\",\"siblingSkus\":[\"YCS-HAB-001-001\",\"YCS-HAB-001-002\",\"YCS-HAB-001-003\",\"YCS-HAB-001-004\"],\"material\":\"Leather\"}"
     },
     {
       "id": "cmsem8q8t00uj13jyzmy6hhhq",
@@ -23379,7 +23380,7 @@
       "authorId": "cms9v6m5e0000twrnlnvirdpm",
       "parentId": "860d65e2-4b91-1fb6-4556-bc372",
       "isParent": false,
-      "variantOptions": "{\"color\":null,\"colorHex\":null,\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-HAB-001\",\"siblingSkus\":[\"YCS-HAB-001-001\",\"YCS-HAB-001-002\",\"YCS-HAB-001-003\",\"YCS-HAB-001-004\"]}"
+      "variantOptions": "{\"color\":null,\"colorHex\":null,\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-HAB-001\",\"siblingSkus\":[\"YCS-HAB-001-001\",\"YCS-HAB-001-002\",\"YCS-HAB-001-003\",\"YCS-HAB-001-004\"],\"material\":\"Leather\"}"
     },
     {
       "id": "cmsem8q9v00uv13jyheolky58",
@@ -23459,7 +23460,7 @@
       "authorId": "cms9v6m5e0000twrnlnvirdpm",
       "parentId": "ad2fd088-e1f0-1021-ad81-29dcd",
       "isParent": false,
-      "variantOptions": "{\"color\":\"Black\",\"colorHex\":\"#212121\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-DGO-004\",\"siblingSkus\":[\"YCS-DGO-004-001\",\"YCS-DGO-004-002\"]}"
+      "variantOptions": "{\"color\":\"Black\",\"colorHex\":\"#1f2937\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-DGO-004\",\"siblingSkus\":[\"YCS-DGO-004-001\",\"YCS-DGO-004-002\"]}"
     },
     {
       "id": "cmsem8qan00v113jyxyre2osk",
@@ -23539,7 +23540,7 @@
       "authorId": "cms9v6m5e0000twrnlnvirdpm",
       "parentId": "ad2fd088-e1f0-1021-ad81-29dcd",
       "isParent": false,
-      "variantOptions": "{\"color\":\"White\",\"colorHex\":\"#F5F5F5\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-DGO-004\",\"siblingSkus\":[\"YCS-DGO-004-001\",\"YCS-DGO-004-002\"]}"
+      "variantOptions": "{\"color\":\"White\",\"colorHex\":\"#f9fafb\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-DGO-004\",\"siblingSkus\":[\"YCS-DGO-004-001\",\"YCS-DGO-004-002\"]}"
     },
     {
       "id": "cmsem8qba00v713jy0ckbh1hw",
@@ -23819,7 +23820,7 @@
       "authorId": "cms9v6m5e0000twrnlnvirdpm",
       "parentId": "6fb5ea47-9966-ede6-f95d-93703",
       "isParent": false,
-      "variantOptions": "{\"color\":\"Blue\",\"colorHex\":\"#1E88E5\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-TOY-025\",\"siblingSkus\":[\"YCS-TOY-025-001\",\"YCS-TOY-025-002\",\"YCS-TOY-025-003\",\"YCS-TOY-025-004\"]}"
+      "variantOptions": "{\"color\":\"Blue\",\"colorHex\":\"#3b82f6\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-TOY-025\",\"siblingSkus\":[\"YCS-TOY-025-001\",\"YCS-TOY-025-002\",\"YCS-TOY-025-003\",\"YCS-TOY-025-004\"]}"
     },
     {
       "id": "cmsem8qd300vs13jye0nt5trj",
@@ -25299,7 +25300,7 @@
       "authorId": "cms9v6m5e0000twrnlnvirdpm",
       "parentId": "b35bf12e-b124-0a2e-2995-8a340",
       "isParent": false,
-      "variantOptions": "{\"color\":\"Multi Color\",\"colorHex\":\"linear-gradient(90deg,#FF007F,#FB8C00,#FDD835,#43A047,#1E88E5,#8E24AA)\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-CUP-012\",\"siblingSkus\":[\"YCS-CUP-012-001\",\"YCS-CUP-012-002\"]}"
+      "variantOptions": "{\"color\":null,\"colorHex\":null,\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-CUP-012\",\"siblingSkus\":[\"YCS-CUP-012-001\",\"YCS-CUP-012-002\"]}"
     },
     {
       "id": "cmsem8qny00yv13jynqwncidq",
@@ -25339,7 +25340,7 @@
       "authorId": "cms9v6m5e0000twrnlnvirdpm",
       "parentId": "ef54fc31-b91b-4d24-ec57-a9596",
       "isParent": false,
-      "variantOptions": "{\"color\":null,\"colorHex\":null,\"size\":null,\"capacity\":\"100L\",\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-STO-008\",\"siblingSkus\":[\"YCS-STO-008-001\",\"YCS-STO-008-002\",\"YCS-STO-008-003\",\"YCS-STO-008-004\"]}"
+      "variantOptions": "{\"color\":null,\"colorHex\":null,\"size\":null,\"capacity\":\"100L\",\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-STO-008\",\"siblingSkus\":[\"YCS-STO-008-001\",\"YCS-STO-008-002\",\"YCS-STO-008-003\",\"YCS-STO-008-004\"],\"material\":\"Houndstooth Canvas\"}"
     },
     {
       "id": "cmsem8qod00yy13jyspl76xof",
@@ -25379,7 +25380,7 @@
       "authorId": "cms9v6m5e0000twrnlnvirdpm",
       "parentId": "ef54fc31-b91b-4d24-ec57-a9596",
       "isParent": false,
-      "variantOptions": "{\"color\":null,\"colorHex\":null,\"size\":null,\"capacity\":\"140L\",\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-STO-008\",\"siblingSkus\":[\"YCS-STO-008-001\",\"YCS-STO-008-002\",\"YCS-STO-008-003\",\"YCS-STO-008-004\"]}"
+      "variantOptions": "{\"color\":null,\"colorHex\":null,\"size\":null,\"capacity\":\"140L\",\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-STO-008\",\"siblingSkus\":[\"YCS-STO-008-001\",\"YCS-STO-008-002\",\"YCS-STO-008-003\",\"YCS-STO-008-004\"],\"material\":\"Houndstooth Canvas\"}"
     },
     {
       "id": "cmsem8qoj00z113jyu5sa6npp",
@@ -25419,7 +25420,7 @@
       "authorId": "cms9v6m5e0000twrnlnvirdpm",
       "parentId": "ef54fc31-b91b-4d24-ec57-a9596",
       "isParent": false,
-      "variantOptions": "{\"color\":null,\"colorHex\":null,\"size\":null,\"capacity\":\"180L\",\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-STO-008\",\"siblingSkus\":[\"YCS-STO-008-001\",\"YCS-STO-008-002\",\"YCS-STO-008-003\",\"YCS-STO-008-004\"]}"
+      "variantOptions": "{\"color\":null,\"colorHex\":null,\"size\":null,\"capacity\":\"180L\",\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-STO-008\",\"siblingSkus\":[\"YCS-STO-008-001\",\"YCS-STO-008-002\",\"YCS-STO-008-003\",\"YCS-STO-008-004\"],\"material\":\"Houndstooth Canvas\"}"
     },
     {
       "id": "cmsem8qoy00z413jysn0fw8l3",
@@ -25739,7 +25740,7 @@
       "authorId": "cms9v6m5e0000twrnlnvirdpm",
       "parentId": "a31d2e58-0dce-9adc-7378-c86b2",
       "isParent": false,
-      "variantOptions": "{\"color\":null,\"colorHex\":null,\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-BAG-006\",\"siblingSkus\":[\"YCS-BAG-006-001\",\"YCS-BAG-006-002\"]}"
+      "variantOptions": "{\"color\":null,\"colorHex\":null,\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-BAG-006\",\"siblingSkus\":[\"YCS-BAG-006-001\",\"YCS-BAG-006-002\"],\"material\":\"Plastic\"}"
     },
     {
       "id": "cmsem8qrf00zs13jyo8y6qobl",
@@ -26419,7 +26420,7 @@
       "authorId": "cms9v6m5e0000twrnlnvirdpm",
       "parentId": "3bf2d6ad-7320-c55a-9e67-7a780",
       "isParent": false,
-      "variantOptions": "{\"color\":null,\"colorHex\":null,\"size\":null,\"capacity\":\"500ml\",\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-BTY-001\",\"siblingSkus\":[\"YCS-BTY-001-001\",\"YCS-BTY-001-002\",\"YCS-BTY-001-003\"]}"
+      "variantOptions": "{\"color\":null,\"colorHex\":null,\"size\":null,\"capacity\":\"500Ml\",\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-BTY-001\",\"siblingSkus\":[\"YCS-BTY-001-001\",\"YCS-BTY-001-002\",\"YCS-BTY-001-003\"]}"
     },
     {
       "id": "cmsem8qws011713jydq091f9q",
@@ -26579,7 +26580,7 @@
       "authorId": "cms9v6m5e0000twrnlnvirdpm",
       "parentId": "ecef242d-211a-59cf-5b23-7fa7c",
       "isParent": false,
-      "variantOptions": "{\"color\":\"Black\",\"colorHex\":\"#212121\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-BAG-007\",\"siblingSkus\":[\"YCS-BAG-007-001\",\"YCS-BAG-007-002\"]}"
+      "variantOptions": "{\"color\":\"Black\",\"colorHex\":\"#1f2937\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-BAG-007\",\"siblingSkus\":[\"YCS-BAG-007-001\",\"YCS-BAG-007-002\"]}"
     },
     {
       "id": "cmsem8qxu011j13jyjfjslu42",
@@ -26619,7 +26620,7 @@
       "authorId": "cms9v6m5e0000twrnlnvirdpm",
       "parentId": "ecef242d-211a-59cf-5b23-7fa7c",
       "isParent": false,
-      "variantOptions": "{\"color\":\"Brown\",\"colorHex\":\"#8B4513\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-BAG-007\",\"siblingSkus\":[\"YCS-BAG-007-001\",\"YCS-BAG-007-002\"]}"
+      "variantOptions": "{\"color\":\"Brown\",\"colorHex\":\"#92400e\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-BAG-007\",\"siblingSkus\":[\"YCS-BAG-007-001\",\"YCS-BAG-007-002\"]}"
     },
     {
       "id": "cmsem8qyd011m13jyaqciktqn",
@@ -26939,7 +26940,7 @@
       "authorId": "cms9v6m5e0000twrnlnvirdpm",
       "parentId": "a31d2e58-0dce-9adc-7378-c86b2",
       "isParent": false,
-      "variantOptions": "{\"color\":\"Yellow\",\"colorHex\":\"#FDD835\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-BAG-006\",\"siblingSkus\":[\"YCS-BAG-006-001\",\"YCS-BAG-006-002\"]}"
+      "variantOptions": "{\"color\":\"Yellow\",\"colorHex\":\"#eab308\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-BAG-006\",\"siblingSkus\":[\"YCS-BAG-006-001\",\"YCS-BAG-006-002\"],\"material\":\"Plastic\"}"
     },
     {
       "id": "cmsem8r0h012a13jyttojcgub",
@@ -27299,7 +27300,7 @@
       "authorId": "cms9v6m5e0000twrnlnvirdpm",
       "parentId": "711bf69e-af9e-9aa3-b1a3-0a241",
       "isParent": false,
-      "variantOptions": "{\"color\":\"Blue\",\"colorHex\":\"#1E88E5\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-CLO-023\",\"siblingSkus\":[\"YCS-CLO-023-001\",\"YCS-CLO-023-002\",\"YCS-CLO-023-003\",\"YCS-CLO-023-004\"]}"
+      "variantOptions": "{\"color\":\"Blue\",\"colorHex\":\"#3b82f6\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-CLO-023\",\"siblingSkus\":[\"YCS-CLO-023-001\",\"YCS-CLO-023-002\",\"YCS-CLO-023-003\",\"YCS-CLO-023-004\"],\"material\":\"Cotton\"}"
     },
     {
       "id": "cmsem8r35013113jy8av9jmno",
@@ -27339,7 +27340,7 @@
       "authorId": "cms9v6m5e0000twrnlnvirdpm",
       "parentId": "711bf69e-af9e-9aa3-b1a3-0a241",
       "isParent": false,
-      "variantOptions": "{\"color\":\"Blue\",\"colorHex\":\"#1E88E5\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-CLO-023\",\"siblingSkus\":[\"YCS-CLO-023-001\",\"YCS-CLO-023-002\",\"YCS-CLO-023-003\",\"YCS-CLO-023-004\"]}"
+      "variantOptions": "{\"color\":\"Blue\",\"colorHex\":\"#3b82f6\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-CLO-023\",\"siblingSkus\":[\"YCS-CLO-023-001\",\"YCS-CLO-023-002\",\"YCS-CLO-023-003\",\"YCS-CLO-023-004\"],\"material\":\"Cotton\"}"
     },
     {
       "id": "cmsem8r3i013413jyzwwyyla3",
@@ -27379,7 +27380,7 @@
       "authorId": "cms9v6m5e0000twrnlnvirdpm",
       "parentId": "711bf69e-af9e-9aa3-b1a3-0a241",
       "isParent": false,
-      "variantOptions": "{\"color\":\"Blue\",\"colorHex\":\"#1E88E5\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-CLO-023\",\"siblingSkus\":[\"YCS-CLO-023-001\",\"YCS-CLO-023-002\",\"YCS-CLO-023-003\",\"YCS-CLO-023-004\"]}"
+      "variantOptions": "{\"color\":\"Blue\",\"colorHex\":\"#3b82f6\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-CLO-023\",\"siblingSkus\":[\"YCS-CLO-023-001\",\"YCS-CLO-023-002\",\"YCS-CLO-023-003\",\"YCS-CLO-023-004\"],\"material\":\"Cotton\"}"
     },
     {
       "id": "cmsem8r3y013713jy3xkfeyl6",
@@ -27419,7 +27420,7 @@
       "authorId": "cms9v6m5e0000twrnlnvirdpm",
       "parentId": "711bf69e-af9e-9aa3-b1a3-0a241",
       "isParent": false,
-      "variantOptions": "{\"color\":\"Light Blue\",\"colorHex\":\"#87CEEB\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-CLO-023\",\"siblingSkus\":[\"YCS-CLO-023-001\",\"YCS-CLO-023-002\",\"YCS-CLO-023-003\",\"YCS-CLO-023-004\"]}"
+      "variantOptions": "{\"color\":\"Blue\",\"colorHex\":\"#3b82f6\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-CLO-023\",\"siblingSkus\":[\"YCS-CLO-023-001\",\"YCS-CLO-023-002\",\"YCS-CLO-023-003\",\"YCS-CLO-023-004\"],\"material\":\"Cotton\"}"
     },
     {
       "id": "cmsem8r49013a13jyici04p99",
@@ -27859,7 +27860,7 @@
       "authorId": "cms9v6m5e0000twrnlnvirdpm",
       "parentId": "2518755d-8a21-572d-a444-29acb",
       "isParent": false,
-      "variantOptions": "{\"color\":\"Black\",\"colorHex\":\"#212121\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-FIT-010\",\"siblingSkus\":[\"YCS-FIT-010-001\",\"YCS-FIT-010-002\"]}"
+      "variantOptions": "{\"color\":\"Black\",\"colorHex\":\"#1f2937\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-FIT-010\",\"siblingSkus\":[\"YCS-FIT-010-001\",\"YCS-FIT-010-002\"]}"
     },
     {
       "id": "cmsem8r79014713jyriarj44h",
@@ -27899,7 +27900,7 @@
       "authorId": "cms9v6m5e0000twrnlnvirdpm",
       "parentId": "2518755d-8a21-572d-a444-29acb",
       "isParent": false,
-      "variantOptions": "{\"color\":\"Red\",\"colorHex\":\"#E53935\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-FIT-010\",\"siblingSkus\":[\"YCS-FIT-010-001\",\"YCS-FIT-010-002\"]}"
+      "variantOptions": "{\"color\":\"Red\",\"colorHex\":\"#ef4444\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-FIT-010\",\"siblingSkus\":[\"YCS-FIT-010-001\",\"YCS-FIT-010-002\"]}"
     },
     {
       "id": "cmsem8r7l014a13jy2rhgozej",
@@ -28819,7 +28820,7 @@
       "authorId": "cms9v6m5e0000twrnlnvirdpm",
       "parentId": "959bc4c6-1385-e265-9e50-76093",
       "isParent": false,
-      "variantOptions": "{\"color\":\"Purple\",\"colorHex\":\"#8E24AA\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-LED-012\",\"siblingSkus\":[\"YCS-LED-012-001\",\"YCS-LED-012-002\"]}"
+      "variantOptions": "{\"color\":\"Purple\",\"colorHex\":\"#a855f7\",\"size\":\"18Cm\",\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-LED-012\",\"siblingSkus\":[\"YCS-LED-012-001\",\"YCS-LED-012-002\"]}"
     },
     {
       "id": "cmsem8ren016713jyc3zzedzc",
@@ -28859,7 +28860,7 @@
       "authorId": "cms9v6m5e0000twrnlnvirdpm",
       "parentId": "959bc4c6-1385-e265-9e50-76093",
       "isParent": false,
-      "variantOptions": "{\"color\":\"Red\",\"colorHex\":\"#E53935\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-LED-012\",\"siblingSkus\":[\"YCS-LED-012-001\",\"YCS-LED-012-002\"]}"
+      "variantOptions": "{\"color\":\"Red\",\"colorHex\":\"#ef4444\",\"size\":\"18Cm\",\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-LED-012\",\"siblingSkus\":[\"YCS-LED-012-001\",\"YCS-LED-012-002\"]}"
     },
     {
       "id": "cmsem8rf2016a13jyg80fyg38",
@@ -29019,7 +29020,7 @@
       "authorId": "cms9v6m5e0000twrnlnvirdpm",
       "parentId": "94d0462d-5272-b2c3-452e-9754f",
       "isParent": false,
-      "variantOptions": "{\"color\":null,\"colorHex\":null,\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-STO-016\",\"siblingSkus\":[\"YCS-STO-016-001\",\"YCS-STO-016-002\"]}"
+      "variantOptions": "{\"color\":null,\"colorHex\":null,\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-STO-016\",\"siblingSkus\":[\"YCS-STO-016-001\",\"YCS-STO-016-002\"],\"material\":\"Plastic\"}"
     },
     {
       "id": "cmsem8rg7016m13jysue71w5d",
@@ -29139,7 +29140,7 @@
       "authorId": "cms9v6m5e0000twrnlnvirdpm",
       "parentId": "050ecb7a-0b31-fb4a-f0a7-f19f7",
       "isParent": false,
-      "variantOptions": "{\"color\":null,\"colorHex\":null,\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-DRY-001\",\"siblingSkus\":[\"YCS-DRY-001-001\",\"YCS-DRY-001-002\"]}"
+      "variantOptions": "{\"color\":null,\"colorHex\":null,\"size\":\"80Cm\",\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-DRY-001\",\"siblingSkus\":[\"YCS-DRY-001-001\",\"YCS-DRY-001-002\"]}"
     },
     {
       "id": "cmsem8rh4016v13jya0mmiycx",
@@ -29179,7 +29180,7 @@
       "authorId": "cms9v6m5e0000twrnlnvirdpm",
       "parentId": "050ecb7a-0b31-fb4a-f0a7-f19f7",
       "isParent": false,
-      "variantOptions": "{\"color\":null,\"colorHex\":null,\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-DRY-001\",\"siblingSkus\":[\"YCS-DRY-001-001\",\"YCS-DRY-001-002\"]}"
+      "variantOptions": "{\"color\":null,\"colorHex\":null,\"size\":\"100Cm\",\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-DRY-001\",\"siblingSkus\":[\"YCS-DRY-001-001\",\"YCS-DRY-001-002\"]}"
     },
     {
       "id": "cmsem8rh9016y13jyiy5b4kzf",
@@ -29299,7 +29300,7 @@
       "authorId": "cms9v6m5e0000twrnlnvirdpm",
       "parentId": "db012593-fc9a-631d-aa80-ab55a",
       "isParent": false,
-      "variantOptions": "{\"color\":\"White\",\"colorHex\":\"#F5F5F5\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-SKN-004\",\"siblingSkus\":[\"YCS-SKN-004-001\",\"YCS-SKN-004-002\",\"YCS-SKN-004-003\"]}"
+      "variantOptions": "{\"color\":\"White\",\"colorHex\":\"#f9fafb\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-SKN-004\",\"siblingSkus\":[\"YCS-SKN-004-001\",\"YCS-SKN-004-002\",\"YCS-SKN-004-003\"]}"
     },
     {
       "id": "cmsem8ri4017713jy99ie695m",
@@ -29339,7 +29340,7 @@
       "authorId": "cms9v6m5e0000twrnlnvirdpm",
       "parentId": "db012593-fc9a-631d-aa80-ab55a",
       "isParent": false,
-      "variantOptions": "{\"color\":\"Pink\",\"colorHex\":\"#FF69B4\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-SKN-004\",\"siblingSkus\":[\"YCS-SKN-004-001\",\"YCS-SKN-004-002\",\"YCS-SKN-004-003\"]}"
+      "variantOptions": "{\"color\":\"Pink\",\"colorHex\":\"#ec4899\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-SKN-004\",\"siblingSkus\":[\"YCS-SKN-004-001\",\"YCS-SKN-004-002\",\"YCS-SKN-004-003\"]}"
     },
     {
       "id": "cmsem8rih017a13jy8kga7h61",
@@ -29939,7 +29940,7 @@
       "authorId": "cms9v6m5e0000twrnlnvirdpm",
       "parentId": "39e2db30-f1c2-5172-bea4-2d6a8",
       "isParent": false,
-      "variantOptions": "{\"color\":\"White\",\"colorHex\":\"#F5F5F5\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-TOY-061\",\"siblingSkus\":[\"YCS-TOY-061-001\",\"YCS-TOY-061-002\",\"YCS-TOY-061-003\",\"YCS-TOY-061-004\"]}"
+      "variantOptions": "{\"color\":\"White\",\"colorHex\":\"#f9fafb\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-TOY-061\",\"siblingSkus\":[\"YCS-TOY-061-001\",\"YCS-TOY-061-002\",\"YCS-TOY-061-003\",\"YCS-TOY-061-004\"]}"
     },
     {
       "id": "cmsem8rm8018j13jyxqqlgp4n",
@@ -29979,7 +29980,7 @@
       "authorId": "cms9v6m5e0000twrnlnvirdpm",
       "parentId": "39e2db30-f1c2-5172-bea4-2d6a8",
       "isParent": false,
-      "variantOptions": "{\"color\":\"Black\",\"colorHex\":\"#212121\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-TOY-061\",\"siblingSkus\":[\"YCS-TOY-061-001\",\"YCS-TOY-061-002\",\"YCS-TOY-061-003\",\"YCS-TOY-061-004\"]}"
+      "variantOptions": "{\"color\":\"Black\",\"colorHex\":\"#1f2937\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-TOY-061\",\"siblingSkus\":[\"YCS-TOY-061-001\",\"YCS-TOY-061-002\",\"YCS-TOY-061-003\",\"YCS-TOY-061-004\"]}"
     },
     {
       "id": "cmsem8rmm018m13jy9ysorknx",
@@ -30019,7 +30020,7 @@
       "authorId": "cms9v6m5e0000twrnlnvirdpm",
       "parentId": "39e2db30-f1c2-5172-bea4-2d6a8",
       "isParent": false,
-      "variantOptions": "{\"color\":\"Pink\",\"colorHex\":\"#FF69B4\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-TOY-061\",\"siblingSkus\":[\"YCS-TOY-061-001\",\"YCS-TOY-061-002\",\"YCS-TOY-061-003\",\"YCS-TOY-061-004\"]}"
+      "variantOptions": "{\"color\":\"Pink\",\"colorHex\":\"#ec4899\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-TOY-061\",\"siblingSkus\":[\"YCS-TOY-061-001\",\"YCS-TOY-061-002\",\"YCS-TOY-061-003\",\"YCS-TOY-061-004\"]}"
     },
     {
       "id": "cmsem8rmu018p13jyxava7kis",
@@ -30059,7 +30060,7 @@
       "authorId": "cms9v6m5e0000twrnlnvirdpm",
       "parentId": "39e2db30-f1c2-5172-bea4-2d6a8",
       "isParent": false,
-      "variantOptions": "{\"color\":\"Blue\",\"colorHex\":\"#1E88E5\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-TOY-061\",\"siblingSkus\":[\"YCS-TOY-061-001\",\"YCS-TOY-061-002\",\"YCS-TOY-061-003\",\"YCS-TOY-061-004\"]}"
+      "variantOptions": "{\"color\":\"Blue\",\"colorHex\":\"#3b82f6\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-TOY-061\",\"siblingSkus\":[\"YCS-TOY-061-001\",\"YCS-TOY-061-002\",\"YCS-TOY-061-003\",\"YCS-TOY-061-004\"]}"
     },
     {
       "id": "cmsem8rn4018s13jy5n38ccrb",
@@ -30099,7 +30100,7 @@
       "authorId": "cms9v6m5e0000twrnlnvirdpm",
       "parentId": "3aa84d3f-38da-8f01-391f-f42da",
       "isParent": false,
-      "variantOptions": "{\"color\":\"Blue\",\"colorHex\":\"#1E88E5\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-KUT-011\",\"siblingSkus\":[\"YCS-KUT-011-001\",\"YCS-KUT-011-002\"]}"
+      "variantOptions": "{\"color\":\"Blue\",\"colorHex\":\"#3b82f6\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-KUT-011\",\"siblingSkus\":[\"YCS-KUT-011-001\",\"YCS-KUT-011-002\"]}"
     },
     {
       "id": "cmsem8rne018v13jywoj4op8a",
@@ -30139,7 +30140,7 @@
       "authorId": "cms9v6m5e0000twrnlnvirdpm",
       "parentId": "3aa84d3f-38da-8f01-391f-f42da",
       "isParent": false,
-      "variantOptions": "{\"color\":\"Red\",\"colorHex\":\"#E53935\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-KUT-011\",\"siblingSkus\":[\"YCS-KUT-011-001\",\"YCS-KUT-011-002\"]}"
+      "variantOptions": "{\"color\":\"Red\",\"colorHex\":\"#ef4444\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-KUT-011\",\"siblingSkus\":[\"YCS-KUT-011-001\",\"YCS-KUT-011-002\"]}"
     },
     {
       "id": "cmsem8rnj018y13jyyb1f44mf",
@@ -30219,7 +30220,7 @@
       "authorId": "cms9v6m5e0000twrnlnvirdpm",
       "parentId": "3bfa8c47-4de2-da39-02ba-a4530",
       "isParent": false,
-      "variantOptions": "{\"color\":\"Black\",\"colorHex\":\"#212121\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-KST-018\",\"siblingSkus\":[\"YCS-KST-018-001\",\"YCS-KST-018-002\",\"YCS-KST-018-003\"]}"
+      "variantOptions": "{\"color\":\"Black\",\"colorHex\":\"#1f2937\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-KST-018\",\"siblingSkus\":[\"YCS-KST-018-001\",\"YCS-KST-018-002\",\"YCS-KST-018-003\"]}"
     },
     {
       "id": "cmsem8ro8019413jytxd7gklo",
@@ -30259,7 +30260,7 @@
       "authorId": "cms9v6m5e0000twrnlnvirdpm",
       "parentId": "3bfa8c47-4de2-da39-02ba-a4530",
       "isParent": false,
-      "variantOptions": "{\"color\":\"White\",\"colorHex\":\"#F5F5F5\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-KST-018\",\"siblingSkus\":[\"YCS-KST-018-001\",\"YCS-KST-018-002\",\"YCS-KST-018-003\"]}"
+      "variantOptions": "{\"color\":\"White\",\"colorHex\":\"#f9fafb\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-KST-018\",\"siblingSkus\":[\"YCS-KST-018-001\",\"YCS-KST-018-002\",\"YCS-KST-018-003\"]}"
     },
     {
       "id": "cmsem8roe019713jyeqfvg5vp",
@@ -30299,7 +30300,7 @@
       "authorId": "cms9v6m5e0000twrnlnvirdpm",
       "parentId": "475e63d6-d650-07e2-9b28-b3cb3",
       "isParent": false,
-      "variantOptions": "{\"color\":\"Black\",\"colorHex\":\"#212121\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-KST-019\",\"siblingSkus\":[\"YCS-KST-019-001\",\"YCS-KST-019-002\",\"YCS-KST-019-003\"]}"
+      "variantOptions": "{\"color\":\"Black\",\"colorHex\":\"#1f2937\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-KST-019\",\"siblingSkus\":[\"YCS-KST-019-001\",\"YCS-KST-019-002\",\"YCS-KST-019-003\"]}"
     },
     {
       "id": "cmsem8ron019a13jy7vpzw4x5",
@@ -30339,7 +30340,7 @@
       "authorId": "cms9v6m5e0000twrnlnvirdpm",
       "parentId": "475e63d6-d650-07e2-9b28-b3cb3",
       "isParent": false,
-      "variantOptions": "{\"color\":\"White\",\"colorHex\":\"#F5F5F5\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-KST-019\",\"siblingSkus\":[\"YCS-KST-019-001\",\"YCS-KST-019-002\",\"YCS-KST-019-003\"]}"
+      "variantOptions": "{\"color\":\"White\",\"colorHex\":\"#f9fafb\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-KST-019\",\"siblingSkus\":[\"YCS-KST-019-001\",\"YCS-KST-019-002\",\"YCS-KST-019-003\"]}"
     },
     {
       "id": "cmsem8rp2019d13jy1v94eo5u",
@@ -30379,7 +30380,7 @@
       "authorId": "cms9v6m5e0000twrnlnvirdpm",
       "parentId": "51ffc96c-9c1d-02fd-705d-6b309",
       "isParent": false,
-      "variantOptions": "{\"color\":\"Black\",\"colorHex\":\"#212121\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-KST-020\",\"siblingSkus\":[\"YCS-KST-020-001\",\"YCS-KST-020-002\",\"YCS-KST-020-003\"]}"
+      "variantOptions": "{\"color\":\"Black\",\"colorHex\":\"#1f2937\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-KST-020\",\"siblingSkus\":[\"YCS-KST-020-001\",\"YCS-KST-020-002\",\"YCS-KST-020-003\"]}"
     },
     {
       "id": "cmsem8rp9019g13jycp8exggs",
@@ -30419,7 +30420,7 @@
       "authorId": "cms9v6m5e0000twrnlnvirdpm",
       "parentId": "51ffc96c-9c1d-02fd-705d-6b309",
       "isParent": false,
-      "variantOptions": "{\"color\":\"White\",\"colorHex\":\"#F5F5F5\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-KST-020\",\"siblingSkus\":[\"YCS-KST-020-001\",\"YCS-KST-020-002\",\"YCS-KST-020-003\"]}"
+      "variantOptions": "{\"color\":\"White\",\"colorHex\":\"#f9fafb\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-KST-020\",\"siblingSkus\":[\"YCS-KST-020-001\",\"YCS-KST-020-002\",\"YCS-KST-020-003\"]}"
     },
     {
       "id": "cmsem8rpi019j13jyu1n78s1d",
@@ -30459,7 +30460,7 @@
       "authorId": "cms9v6m5e0000twrnlnvirdpm",
       "parentId": "cf7248d5-780f-5552-4744-d619e",
       "isParent": false,
-      "variantOptions": "{\"color\":\"White\",\"colorHex\":\"#F5F5F5\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-KID-005\",\"siblingSkus\":[\"YCS-KID-005-001\",\"YCS-KID-005-002\",\"YCS-KID-005-003\",\"YCS-KID-005-004\"]}"
+      "variantOptions": "{\"color\":\"White\",\"colorHex\":\"#f9fafb\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-KID-005\",\"siblingSkus\":[\"YCS-KID-005-001\",\"YCS-KID-005-002\",\"YCS-KID-005-003\",\"YCS-KID-005-004\"]}"
     },
     {
       "id": "cmsem8rpw019m13jysq1ogneu",
@@ -30499,7 +30500,7 @@
       "authorId": "cms9v6m5e0000twrnlnvirdpm",
       "parentId": "cf7248d5-780f-5552-4744-d619e",
       "isParent": false,
-      "variantOptions": "{\"color\":\"Black\",\"colorHex\":\"#212121\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-KID-005\",\"siblingSkus\":[\"YCS-KID-005-001\",\"YCS-KID-005-002\",\"YCS-KID-005-003\",\"YCS-KID-005-004\"]}"
+      "variantOptions": "{\"color\":\"Black\",\"colorHex\":\"#1f2937\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-KID-005\",\"siblingSkus\":[\"YCS-KID-005-001\",\"YCS-KID-005-002\",\"YCS-KID-005-003\",\"YCS-KID-005-004\"]}"
     },
     {
       "id": "cmsem8rq2019p13jyxs78hn5q",
@@ -30539,7 +30540,7 @@
       "authorId": "cms9v6m5e0000twrnlnvirdpm",
       "parentId": "cf7248d5-780f-5552-4744-d619e",
       "isParent": false,
-      "variantOptions": "{\"color\":\"Gray\",\"colorHex\":\"#9E9E9E\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-KID-005\",\"siblingSkus\":[\"YCS-KID-005-001\",\"YCS-KID-005-002\",\"YCS-KID-005-003\",\"YCS-KID-005-004\"]}"
+      "variantOptions": "{\"color\":\"Gray\",\"colorHex\":\"#6b7280\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-KID-005\",\"siblingSkus\":[\"YCS-KID-005-001\",\"YCS-KID-005-002\",\"YCS-KID-005-003\",\"YCS-KID-005-004\"]}"
     },
     {
       "id": "cmsem8rqf019s13jy1js7r9oo",
@@ -30579,7 +30580,7 @@
       "authorId": "cms9v6m5e0000twrnlnvirdpm",
       "parentId": "1596a33f-c348-120d-c31f-10719",
       "isParent": false,
-      "variantOptions": "{\"color\":\"Black\",\"colorHex\":\"#212121\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-KID-007\",\"siblingSkus\":[\"YCS-KID-007-001\",\"YCS-KID-007-002\",\"YCS-KID-007-003\",\"YCS-KID-007-004\"]}"
+      "variantOptions": "{\"color\":\"Black\",\"colorHex\":\"#1f2937\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-KID-007\",\"siblingSkus\":[\"YCS-KID-007-001\",\"YCS-KID-007-002\",\"YCS-KID-007-003\",\"YCS-KID-007-004\"]}"
     },
     {
       "id": "cmsem8rqq019v13jynjb0u0xu",
@@ -30619,7 +30620,7 @@
       "authorId": "cms9v6m5e0000twrnlnvirdpm",
       "parentId": "1596a33f-c348-120d-c31f-10719",
       "isParent": false,
-      "variantOptions": "{\"color\":\"Blue\",\"colorHex\":\"#1E88E5\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-KID-007\",\"siblingSkus\":[\"YCS-KID-007-001\",\"YCS-KID-007-002\",\"YCS-KID-007-003\",\"YCS-KID-007-004\"]}"
+      "variantOptions": "{\"color\":\"Blue\",\"colorHex\":\"#3b82f6\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-KID-007\",\"siblingSkus\":[\"YCS-KID-007-001\",\"YCS-KID-007-002\",\"YCS-KID-007-003\",\"YCS-KID-007-004\"]}"
     },
     {
       "id": "cmsem8rr1019y13jyrd8tmbqa",
@@ -30659,7 +30660,7 @@
       "authorId": "cms9v6m5e0000twrnlnvirdpm",
       "parentId": "1596a33f-c348-120d-c31f-10719",
       "isParent": false,
-      "variantOptions": "{\"color\":\"Pink\",\"colorHex\":\"#FF69B4\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-KID-007\",\"siblingSkus\":[\"YCS-KID-007-001\",\"YCS-KID-007-002\",\"YCS-KID-007-003\",\"YCS-KID-007-004\"]}"
+      "variantOptions": "{\"color\":\"Pink\",\"colorHex\":\"#ec4899\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-KID-007\",\"siblingSkus\":[\"YCS-KID-007-001\",\"YCS-KID-007-002\",\"YCS-KID-007-003\",\"YCS-KID-007-004\"]}"
     },
     {
       "id": "cmsem8rra01a113jy76wi4e1l",
@@ -30699,7 +30700,7 @@
       "authorId": "cms9v6m5e0000twrnlnvirdpm",
       "parentId": "1596a33f-c348-120d-c31f-10719",
       "isParent": false,
-      "variantOptions": "{\"color\":\"White\",\"colorHex\":\"#F5F5F5\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-KID-007\",\"siblingSkus\":[\"YCS-KID-007-001\",\"YCS-KID-007-002\",\"YCS-KID-007-003\",\"YCS-KID-007-004\"]}"
+      "variantOptions": "{\"color\":\"White\",\"colorHex\":\"#f9fafb\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-KID-007\",\"siblingSkus\":[\"YCS-KID-007-001\",\"YCS-KID-007-002\",\"YCS-KID-007-003\",\"YCS-KID-007-004\"]}"
     },
     {
       "id": "cmsem8rrm01a413jyq5rc5ur5",
@@ -30739,7 +30740,7 @@
       "authorId": "cms9v6m5e0000twrnlnvirdpm",
       "parentId": "3909019d-6185-bedf-0d64-f6f24",
       "isParent": false,
-      "variantOptions": "{\"color\":\"Blue\",\"colorHex\":\"#1E88E5\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-TOY-062\",\"siblingSkus\":[\"YCS-TOY-062-001\",\"YCS-TOY-062-002\"]}"
+      "variantOptions": "{\"color\":\"Blue\",\"colorHex\":\"#3b82f6\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-TOY-062\",\"siblingSkus\":[\"YCS-TOY-062-001\",\"YCS-TOY-062-002\"]}"
     },
     {
       "id": "cmsem8rs001a713jyzr7c8ur5",
@@ -30779,7 +30780,7 @@
       "authorId": "cms9v6m5e0000twrnlnvirdpm",
       "parentId": "3909019d-6185-bedf-0d64-f6f24",
       "isParent": false,
-      "variantOptions": "{\"color\":\"Pink\",\"colorHex\":\"#FF69B4\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-TOY-062\",\"siblingSkus\":[\"YCS-TOY-062-001\",\"YCS-TOY-062-002\"]}"
+      "variantOptions": "{\"color\":\"Pink\",\"colorHex\":\"#ec4899\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-TOY-062\",\"siblingSkus\":[\"YCS-TOY-062-001\",\"YCS-TOY-062-002\"]}"
     },
     {
       "id": "cmsem8rsf01aa13jy8yra109l",
@@ -30819,7 +30820,7 @@
       "authorId": "cms9v6m5e0000twrnlnvirdpm",
       "parentId": "7a322dc2-1d5e-72b1-6e7b-1a4e2",
       "isParent": false,
-      "variantOptions": "{\"color\":\"Beige\",\"colorHex\":\"#F5DEB3\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-SHO-006\",\"siblingSkus\":[\"YCS-SHO-006-001\",\"YCS-SHO-006-002\",\"YCS-SHO-006-003\"]}"
+      "variantOptions": "{\"color\":\"Beige\",\"colorHex\":\"#e7d4b5\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-SHO-006\",\"siblingSkus\":[\"YCS-SHO-006-001\",\"YCS-SHO-006-002\",\"YCS-SHO-006-003\"]}"
     },
     {
       "id": "cmsem8rso01ad13jy8wgoxcn2",
@@ -30859,7 +30860,7 @@
       "authorId": "cms9v6m5e0000twrnlnvirdpm",
       "parentId": "7a322dc2-1d5e-72b1-6e7b-1a4e2",
       "isParent": false,
-      "variantOptions": "{\"color\":\"Pink\",\"colorHex\":\"#FF69B4\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-SHO-006\",\"siblingSkus\":[\"YCS-SHO-006-001\",\"YCS-SHO-006-002\",\"YCS-SHO-006-003\"]}"
+      "variantOptions": "{\"color\":\"Pink\",\"colorHex\":\"#ec4899\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-SHO-006\",\"siblingSkus\":[\"YCS-SHO-006-001\",\"YCS-SHO-006-002\",\"YCS-SHO-006-003\"]}"
     },
     {
       "id": "cmsem8rta01ag13jynpo2zj32",
@@ -30899,7 +30900,7 @@
       "authorId": "cms9v6m5e0000twrnlnvirdpm",
       "parentId": "7a322dc2-1d5e-72b1-6e7b-1a4e2",
       "isParent": false,
-      "variantOptions": "{\"color\":\"Black\",\"colorHex\":\"#212121\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-SHO-006\",\"siblingSkus\":[\"YCS-SHO-006-001\",\"YCS-SHO-006-002\",\"YCS-SHO-006-003\"]}"
+      "variantOptions": "{\"color\":\"Black\",\"colorHex\":\"#1f2937\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-SHO-006\",\"siblingSkus\":[\"YCS-SHO-006-001\",\"YCS-SHO-006-002\",\"YCS-SHO-006-003\"]}"
     },
     {
       "id": "cmsem8rti01aj13jyddr2h803",
@@ -30939,7 +30940,7 @@
       "authorId": "cms9v6m5e0000twrnlnvirdpm",
       "parentId": "8c5ba637-4ac1-f723-cef4-70bb0",
       "isParent": false,
-      "variantOptions": "{\"color\":\"Pink\",\"colorHex\":\"#FF69B4\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-SHO-007\",\"siblingSkus\":[\"YCS-SHO-007-001\",\"YCS-SHO-007-002\",\"YCS-SHO-007-003\",\"YCS-SHO-007-004\"]}"
+      "variantOptions": "{\"color\":\"Pink\",\"colorHex\":\"#ec4899\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-SHO-007\",\"siblingSkus\":[\"YCS-SHO-007-001\",\"YCS-SHO-007-002\",\"YCS-SHO-007-003\",\"YCS-SHO-007-004\"]}"
     },
     {
       "id": "cmsem8rts01am13jy3zmhn806",
@@ -30979,7 +30980,7 @@
       "authorId": "cms9v6m5e0000twrnlnvirdpm",
       "parentId": "8c5ba637-4ac1-f723-cef4-70bb0",
       "isParent": false,
-      "variantOptions": "{\"color\":\"Black\",\"colorHex\":\"#212121\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-SHO-007\",\"siblingSkus\":[\"YCS-SHO-007-001\",\"YCS-SHO-007-002\",\"YCS-SHO-007-003\",\"YCS-SHO-007-004\"]}"
+      "variantOptions": "{\"color\":\"Black\",\"colorHex\":\"#1f2937\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-SHO-007\",\"siblingSkus\":[\"YCS-SHO-007-001\",\"YCS-SHO-007-002\",\"YCS-SHO-007-003\",\"YCS-SHO-007-004\"]}"
     },
     {
       "id": "cmsem8ru601ap13jy2jkcf2og",
@@ -31019,7 +31020,7 @@
       "authorId": "cms9v6m5e0000twrnlnvirdpm",
       "parentId": "8c5ba637-4ac1-f723-cef4-70bb0",
       "isParent": false,
-      "variantOptions": "{\"color\":\"Gray\",\"colorHex\":\"#9E9E9E\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-SHO-007\",\"siblingSkus\":[\"YCS-SHO-007-001\",\"YCS-SHO-007-002\",\"YCS-SHO-007-003\",\"YCS-SHO-007-004\"]}"
+      "variantOptions": "{\"color\":\"Gray\",\"colorHex\":\"#6b7280\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-SHO-007\",\"siblingSkus\":[\"YCS-SHO-007-001\",\"YCS-SHO-007-002\",\"YCS-SHO-007-003\",\"YCS-SHO-007-004\"]}"
     },
     {
       "id": "cmsem8ruh01as13jyicz2jasw",
@@ -31059,7 +31060,7 @@
       "authorId": "cms9v6m5e0000twrnlnvirdpm",
       "parentId": "8c5ba637-4ac1-f723-cef4-70bb0",
       "isParent": false,
-      "variantOptions": "{\"color\":\"Brown\",\"colorHex\":\"#8B4513\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-SHO-007\",\"siblingSkus\":[\"YCS-SHO-007-001\",\"YCS-SHO-007-002\",\"YCS-SHO-007-003\",\"YCS-SHO-007-004\"]}"
+      "variantOptions": "{\"color\":\"Brown\",\"colorHex\":\"#92400e\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-SHO-007\",\"siblingSkus\":[\"YCS-SHO-007-001\",\"YCS-SHO-007-002\",\"YCS-SHO-007-003\",\"YCS-SHO-007-004\"]}"
     },
     {
       "id": "cmsem8rux01av13jy4b3b8ar9",
@@ -31219,7 +31220,7 @@
       "authorId": "cms9v6m5e0000twrnlnvirdpm",
       "parentId": "95006a9e-55b7-d8b9-39c8-ff1eb",
       "isParent": false,
-      "variantOptions": "{\"color\":null,\"colorHex\":null,\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-STO-013\",\"siblingSkus\":[\"YCS-STO-013-001\",\"YCS-STO-013-002\"]}"
+      "variantOptions": "{\"color\":null,\"colorHex\":null,\"size\":null,\"capacity\":null,\"layer\":\"4-Tier\",\"pack\":null,\"parentSku\":\"YCS-STO-013\",\"siblingSkus\":[\"YCS-STO-013-001\",\"YCS-STO-013-002\"],\"material\":\"Metal\"}"
     },
     {
       "id": "cmsem8rvv01b713jyu3z6z14h",
@@ -31699,7 +31700,7 @@
       "authorId": "cms9v6m5e0000twrnlnvirdpm",
       "parentId": "93569687-53c7-624c-dd89-08076",
       "isParent": false,
-      "variantOptions": "{\"color\":null,\"colorHex\":null,\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-AUS-012\",\"siblingSkus\":[\"YCS-AUS-012-001\",\"YCS-AUS-012-002\"]}"
+      "variantOptions": "{\"color\":\"Blue\",\"colorHex\":\"#3b82f6\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-AUS-012\",\"siblingSkus\":[\"YCS-AUS-012-001\",\"YCS-AUS-012-002\"]}"
     },
     {
       "id": "cmsem8rzh01c713jykfu8dyd6",
@@ -31739,7 +31740,7 @@
       "authorId": "cms9v6m5e0000twrnlnvirdpm",
       "parentId": "cdc23b46-302d-0f08-b68d-60593",
       "isParent": false,
-      "variantOptions": "{\"color\":\"Green\",\"colorHex\":\"#43A047\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-LAP-006\",\"siblingSkus\":[\"YCS-LAP-006-001\",\"YCS-LAP-006-002\"]}"
+      "variantOptions": "{\"color\":\"Green\",\"colorHex\":\"#22c55e\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-LAP-006\",\"siblingSkus\":[\"YCS-LAP-006-001\",\"YCS-LAP-006-002\"]}"
     },
     {
       "id": "cmsem8rzw01ca13jy0ckzx3om",
@@ -31779,7 +31780,7 @@
       "authorId": "cms9v6m5e0000twrnlnvirdpm",
       "parentId": "cdc23b46-302d-0f08-b68d-60593",
       "isParent": false,
-      "variantOptions": "{\"color\":\"White\",\"colorHex\":\"#F5F5F5\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-LAP-006\",\"siblingSkus\":[\"YCS-LAP-006-001\",\"YCS-LAP-006-002\"]}"
+      "variantOptions": "{\"color\":\"White\",\"colorHex\":\"#f9fafb\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-LAP-006\",\"siblingSkus\":[\"YCS-LAP-006-001\",\"YCS-LAP-006-002\"]}"
     },
     {
       "id": "cmsem8s0201cd13jyaydz68r9",
@@ -32019,7 +32020,7 @@
       "authorId": "cms9v6m5e0000twrnlnvirdpm",
       "parentId": "6fb5ea47-9966-ede6-f95d-93703",
       "isParent": false,
-      "variantOptions": "{\"color\":\"Blue\",\"colorHex\":\"#1E88E5\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-TOY-025\",\"siblingSkus\":[\"YCS-TOY-025-001\",\"YCS-TOY-025-002\",\"YCS-TOY-025-003\",\"YCS-TOY-025-004\"]}"
+      "variantOptions": "{\"color\":\"Blue\",\"colorHex\":\"#3b82f6\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-TOY-025\",\"siblingSkus\":[\"YCS-TOY-025-001\",\"YCS-TOY-025-002\",\"YCS-TOY-025-003\",\"YCS-TOY-025-004\"]}"
     },
     {
       "id": "cmsem8s1z01cv13jyame72obp",
@@ -32059,7 +32060,7 @@
       "authorId": "cms9v6m5e0000twrnlnvirdpm",
       "parentId": "6fb5ea47-9966-ede6-f95d-93703",
       "isParent": false,
-      "variantOptions": "{\"color\":\"Pink\",\"colorHex\":\"#FF69B4\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-TOY-025\",\"siblingSkus\":[\"YCS-TOY-025-001\",\"YCS-TOY-025-002\",\"YCS-TOY-025-003\",\"YCS-TOY-025-004\"]}"
+      "variantOptions": "{\"color\":\"Pink\",\"colorHex\":\"#ec4899\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-TOY-025\",\"siblingSkus\":[\"YCS-TOY-025-001\",\"YCS-TOY-025-002\",\"YCS-TOY-025-003\",\"YCS-TOY-025-004\"]}"
     },
     {
       "id": "cmsem8s2f01cy13jy3kctkf41",
@@ -32339,7 +32340,7 @@
       "authorId": "cms9v6m5e0000twrnlnvirdpm",
       "parentId": "51a08d1b-3f53-c693-6d4d-23993",
       "isParent": false,
-      "variantOptions": "{\"color\":\"White\",\"colorHex\":\"#F5F5F5\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-SHO-009\",\"siblingSkus\":[\"YCS-SHO-009-001\",\"YCS-SHO-009-002\",\"YCS-SHO-009-003\"]}"
+      "variantOptions": "{\"color\":\"White\",\"colorHex\":\"#f9fafb\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-SHO-009\",\"siblingSkus\":[\"YCS-SHO-009-001\",\"YCS-SHO-009-002\",\"YCS-SHO-009-003\"]}"
     },
     {
       "id": "cmsem8s4d01dj13jylaqsl5pb",
@@ -32379,7 +32380,7 @@
       "authorId": "cms9v6m5e0000twrnlnvirdpm",
       "parentId": "51a08d1b-3f53-c693-6d4d-23993",
       "isParent": false,
-      "variantOptions": "{\"color\":\"Black\",\"colorHex\":\"#212121\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-SHO-009\",\"siblingSkus\":[\"YCS-SHO-009-001\",\"YCS-SHO-009-002\",\"YCS-SHO-009-003\"]}"
+      "variantOptions": "{\"color\":\"Black\",\"colorHex\":\"#1f2937\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-SHO-009\",\"siblingSkus\":[\"YCS-SHO-009-001\",\"YCS-SHO-009-002\",\"YCS-SHO-009-003\"]}"
     },
     {
       "id": "cmsem8s4n01dm13jyrpb7yuyt",
@@ -32419,7 +32420,7 @@
       "authorId": "cms9v6m5e0000twrnlnvirdpm",
       "parentId": "51a08d1b-3f53-c693-6d4d-23993",
       "isParent": false,
-      "variantOptions": "{\"color\":\"Green\",\"colorHex\":\"#43A047\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-SHO-009\",\"siblingSkus\":[\"YCS-SHO-009-001\",\"YCS-SHO-009-002\",\"YCS-SHO-009-003\"]}"
+      "variantOptions": "{\"color\":\"Mint\",\"colorHex\":\"#14b8a6\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-SHO-009\",\"siblingSkus\":[\"YCS-SHO-009-001\",\"YCS-SHO-009-002\",\"YCS-SHO-009-003\"]}"
     },
     {
       "id": "cmsem8s4y01dp13jynbtmf91r",
@@ -32499,7 +32500,7 @@
       "authorId": "cms9v6m5e0000twrnlnvirdpm",
       "parentId": "ef3f74f3-9046-297a-a048-3458b",
       "isParent": false,
-      "variantOptions": "{\"color\":\"White\",\"colorHex\":\"#F5F5F5\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-AUS-013\",\"siblingSkus\":[\"YCS-AUS-013-001\",\"YCS-AUS-013-002\"]}"
+      "variantOptions": "{\"color\":\"White\",\"colorHex\":\"#f9fafb\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-AUS-013\",\"siblingSkus\":[\"YCS-AUS-013-001\",\"YCS-AUS-013-002\"]}"
     },
     {
       "id": "cmsem8s5g01dv13jyh1ej7w9x",
@@ -32697,9 +32698,9 @@
       "moq": 100,
       "aplus": "{\"description\":\"Discover our Storage Bag Foldable Non-Woven 100L — premium home & living from Yiwu wholesale market. Quality guaranteed, factory-direct pricing.\",\"bulletPoints\":[\"Premium quality home & living for retail and wholesale\",\"Competitive factory-direct pricing from Yiwu\",\"MOQ: 100 pcs | Lead Time: 7-15 days\",\"Multiple options available\",\"High-quality construction\",\"Custom packaging and labeling available on request\",\"Fast worldwide shipping with tracking\"],\"blocks\":[{\"id\":\"overview\",\"type\":\"text\",\"content\":\"<h2>About This Storage Bag Foldable Non-Woven 100L</h2><p>Storage Bag Foldable Non-Woven 100L is a premium home & living product sourced directly from Yiwu wholesale market.   Designed for quality and value.</p>\"},{\"id\":\"features\",\"type\":\"text\",\"content\":\"<h3>Key Features</h3><ul><li>Premium quality construction</li><li>Factory-direct wholesale pricing</li><li>Custom packaging & labeling available</li><li>MOQ: 100 pcs</li><li>Lead time: 7-15 days</li><li>Worldwide shipping supported</li></ul>\"},{\"id\":\"specs\",\"type\":\"specs\",\"content\":\"<h3>Specifications</h3><p><strong>Item No:</strong> YCS-STO-034-002</p><p><strong>MOQ:</strong> 100 pcs</p><p><strong>Packaging:</strong> G.W. 14 kg, 100 pcs/ctn</p><p><strong>Shipping:</strong> Calculated at checkout based on destination, weight and volume.</p>\"}]}",
       "authorId": "cms9v6m5e0000twrnlnvirdpm",
-      "parentId": "90b781d5-a026-29e3-10e2-968bd",
+      "parentId": "ef54fc31-b91b-4d24-ec57-a9596",
       "isParent": false,
-      "variantOptions": "{\"color\":null,\"colorHex\":null,\"size\":null,\"capacity\":\"100L\",\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-STO-034\",\"siblingSkus\":[\"YCS-STO-034-001\",\"YCS-STO-034-002\",\"YCS-STO-034-003\",\"YCS-STO-034-004\"]}"
+      "variantOptions": "{\"color\":null,\"colorHex\":null,\"size\":null,\"capacity\":\"100L\",\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-STO-034\",\"siblingSkus\":[\"YCS-STO-034-001\",\"YCS-STO-034-002\",\"YCS-STO-034-003\",\"YCS-STO-034-004\"],\"material\":\"Non-Woven\"}"
     },
     {
       "id": "cmsem8s7401ea13jy037y90ma",
@@ -32737,9 +32738,9 @@
       "moq": 100,
       "aplus": "{\"description\":\"Discover our Storage Bag Foldable Non-Woven 140L — premium home & living from Yiwu wholesale market. Quality guaranteed, factory-direct pricing.\",\"bulletPoints\":[\"Premium quality home & living for retail and wholesale\",\"Competitive factory-direct pricing from Yiwu\",\"MOQ: 100 pcs | Lead Time: 7-15 days\",\"Multiple options available\",\"High-quality construction\",\"Custom packaging and labeling available on request\",\"Fast worldwide shipping with tracking\"],\"blocks\":[{\"id\":\"overview\",\"type\":\"text\",\"content\":\"<h2>About This Storage Bag Foldable Non-Woven 140L</h2><p>Storage Bag Foldable Non-Woven 140L is a premium home & living product sourced directly from Yiwu wholesale market.   Designed for quality and value.</p>\"},{\"id\":\"features\",\"type\":\"text\",\"content\":\"<h3>Key Features</h3><ul><li>Premium quality construction</li><li>Factory-direct wholesale pricing</li><li>Custom packaging & labeling available</li><li>MOQ: 100 pcs</li><li>Lead time: 7-15 days</li><li>Worldwide shipping supported</li></ul>\"},{\"id\":\"specs\",\"type\":\"specs\",\"content\":\"<h3>Specifications</h3><p><strong>Item No:</strong> YCS-STO-034-003</p><p><strong>MOQ:</strong> 100 pcs</p><p><strong>Packaging:</strong> G.W. 17 kg, 100 pcs/ctn</p><p><strong>Shipping:</strong> Calculated at checkout based on destination, weight and volume.</p>\"}]}",
       "authorId": "cms9v6m5e0000twrnlnvirdpm",
-      "parentId": "90b781d5-a026-29e3-10e2-968bd",
+      "parentId": "ef54fc31-b91b-4d24-ec57-a9596",
       "isParent": false,
-      "variantOptions": "{\"color\":null,\"colorHex\":null,\"size\":null,\"capacity\":\"140L\",\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-STO-034\",\"siblingSkus\":[\"YCS-STO-034-001\",\"YCS-STO-034-002\",\"YCS-STO-034-003\",\"YCS-STO-034-004\"]}"
+      "variantOptions": "{\"color\":null,\"colorHex\":null,\"size\":null,\"capacity\":\"140L\",\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-STO-034\",\"siblingSkus\":[\"YCS-STO-034-001\",\"YCS-STO-034-002\",\"YCS-STO-034-003\",\"YCS-STO-034-004\"],\"material\":\"Non-Woven\"}"
     },
     {
       "id": "cmsem8s7e01ed13jylnl1135l",
@@ -32777,9 +32778,9 @@
       "moq": 100,
       "aplus": "{\"description\":\"Discover our Storage Bag Foldable Non-Woven 180L — premium home & living from Yiwu wholesale market. Quality guaranteed, factory-direct pricing.\",\"bulletPoints\":[\"Premium quality home & living for retail and wholesale\",\"Competitive factory-direct pricing from Yiwu\",\"MOQ: 100 pcs | Lead Time: 7-15 days\",\"Multiple options available\",\"High-quality construction\",\"Custom packaging and labeling available on request\",\"Fast worldwide shipping with tracking\"],\"blocks\":[{\"id\":\"overview\",\"type\":\"text\",\"content\":\"<h2>About This Storage Bag Foldable Non-Woven 180L</h2><p>Storage Bag Foldable Non-Woven 180L is a premium home & living product sourced directly from Yiwu wholesale market.   Designed for quality and value.</p>\"},{\"id\":\"features\",\"type\":\"text\",\"content\":\"<h3>Key Features</h3><ul><li>Premium quality construction</li><li>Factory-direct wholesale pricing</li><li>Custom packaging & labeling available</li><li>MOQ: 100 pcs</li><li>Lead time: 7-15 days</li><li>Worldwide shipping supported</li></ul>\"},{\"id\":\"specs\",\"type\":\"specs\",\"content\":\"<h3>Specifications</h3><p><strong>Item No:</strong> YCS-STO-034-004</p><p><strong>MOQ:</strong> 100 pcs</p><p><strong>Packaging:</strong> G.W. 40 kg, 100 pcs/ctn</p><p><strong>Shipping:</strong> Calculated at checkout based on destination, weight and volume.</p>\"}]}",
       "authorId": "cms9v6m5e0000twrnlnvirdpm",
-      "parentId": "90b781d5-a026-29e3-10e2-968bd",
+      "parentId": "ef54fc31-b91b-4d24-ec57-a9596",
       "isParent": false,
-      "variantOptions": "{\"color\":null,\"colorHex\":null,\"size\":null,\"capacity\":\"180L\",\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-STO-034\",\"siblingSkus\":[\"YCS-STO-034-001\",\"YCS-STO-034-002\",\"YCS-STO-034-003\",\"YCS-STO-034-004\"]}"
+      "variantOptions": "{\"color\":null,\"colorHex\":null,\"size\":null,\"capacity\":\"180L\",\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-STO-034\",\"siblingSkus\":[\"YCS-STO-034-001\",\"YCS-STO-034-002\",\"YCS-STO-034-003\",\"YCS-STO-034-004\"],\"material\":\"Non-Woven\"}"
     },
     {
       "id": "cmsem8s7p01eg13jymtwdzl8s",
@@ -32819,7 +32820,7 @@
       "authorId": "cms9v6m5e0000twrnlnvirdpm",
       "parentId": "db761b6b-852c-13d5-a16b-50e40",
       "isParent": false,
-      "variantOptions": "{\"color\":\"White\",\"colorHex\":\"#F5F5F5\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-STO-027\",\"siblingSkus\":[\"YCS-STO-027-001\",\"YCS-STO-027-002\",\"YCS-STO-027-003\",\"YCS-STO-027-004\"]}"
+      "variantOptions": "{\"color\":\"White\",\"colorHex\":\"#f9fafb\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-STO-027\",\"siblingSkus\":[\"YCS-STO-027-001\",\"YCS-STO-027-002\",\"YCS-STO-027-003\",\"YCS-STO-027-004\"],\"material\":\"Metal\"}"
     },
     {
       "id": "cmsem8s8801ej13jy17xew203",
@@ -32859,7 +32860,7 @@
       "authorId": "cms9v6m5e0000twrnlnvirdpm",
       "parentId": "db761b6b-852c-13d5-a16b-50e40",
       "isParent": false,
-      "variantOptions": "{\"color\":\"Gold\",\"colorHex\":\"#D4AF37\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-STO-027\",\"siblingSkus\":[\"YCS-STO-027-001\",\"YCS-STO-027-002\",\"YCS-STO-027-003\",\"YCS-STO-027-004\"]}"
+      "variantOptions": "{\"color\":\"Silver\",\"colorHex\":\"#c0c0c0\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-STO-027\",\"siblingSkus\":[\"YCS-STO-027-001\",\"YCS-STO-027-002\",\"YCS-STO-027-003\",\"YCS-STO-027-004\"],\"material\":\"Metal\"}"
     },
     {
       "id": "cmsem8s8d01em13jyq7his25y",
@@ -33419,7 +33420,7 @@
       "authorId": "cms9v6m5e0000twrnlnvirdpm",
       "parentId": "e0f44766-0c28-4141-6c8a-4fc52",
       "isParent": false,
-      "variantOptions": "{\"color\":\"Black\",\"colorHex\":\"#212121\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-SKN-002\",\"siblingSkus\":[\"YCS-SKN-002-001\",\"YCS-SKN-002-002\"]}"
+      "variantOptions": "{\"color\":\"Black\",\"colorHex\":\"#1f2937\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-SKN-002\",\"siblingSkus\":[\"YCS-SKN-002-001\",\"YCS-SKN-002-002\"]}"
     },
     {
       "id": "cmsem8sck01fs13jye82dzter",
@@ -34019,7 +34020,7 @@
       "authorId": "cms9v6m5e0000twrnlnvirdpm",
       "parentId": "e5b0d869-d5f6-2d62-f203-de38d",
       "isParent": false,
-      "variantOptions": "{\"color\":null,\"colorHex\":null,\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-MOT-017\",\"siblingSkus\":[\"YCS-MOT-017-001\",\"YCS-MOT-017-002\"]}"
+      "variantOptions": "{\"color\":null,\"colorHex\":null,\"size\":\"52Mm\",\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-MOT-017\",\"siblingSkus\":[\"YCS-MOT-017-001\",\"YCS-MOT-017-002\"]}"
     },
     {
       "id": "cmsem8sh901h113jy9k2r53y4",
@@ -34299,7 +34300,7 @@
       "authorId": "cms9v6m5e0000twrnlnvirdpm",
       "parentId": "3ef25720-f353-7674-9692-34efe",
       "isParent": false,
-      "variantOptions": "{\"color\":\"White\",\"colorHex\":\"#F5F5F5\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":\"5件装\",\"parentSku\":\"YCS-FTB-001\",\"siblingSkus\":[\"YCS-FTB-001-001\",\"YCS-FTB-001-002\"]}"
+      "variantOptions": "{\"color\":\"White\",\"colorHex\":\"#f9fafb\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":\"5件装\",\"parentSku\":\"YCS-FTB-001\",\"siblingSkus\":[\"YCS-FTB-001-001\",\"YCS-FTB-001-002\"]}"
     },
     {
       "id": "cmsem8sj301hm13jyuskcawwl",
@@ -34339,7 +34340,7 @@
       "authorId": "cms9v6m5e0000twrnlnvirdpm",
       "parentId": "3ef25720-f353-7674-9692-34efe",
       "isParent": false,
-      "variantOptions": "{\"color\":\"Blue\",\"colorHex\":\"#1E88E5\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":\"5件装\",\"parentSku\":\"YCS-FTB-001\",\"siblingSkus\":[\"YCS-FTB-001-001\",\"YCS-FTB-001-002\"]}"
+      "variantOptions": "{\"color\":\"Blue\",\"colorHex\":\"#3b82f6\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":\"5件装\",\"parentSku\":\"YCS-FTB-001\",\"siblingSkus\":[\"YCS-FTB-001-001\",\"YCS-FTB-001-002\"]}"
     },
     {
       "id": "cmsem8sj801hp13jyi8mnvcwa",
@@ -34619,7 +34620,7 @@
       "authorId": "cms9v6m5e0000twrnlnvirdpm",
       "parentId": "59eb69e0-c204-7439-2072-08919",
       "isParent": false,
-      "variantOptions": "{\"color\":\"Black\",\"colorHex\":\"#212121\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-SWI-005\",\"siblingSkus\":[\"YCS-SWI-005-001\",\"YCS-SWI-005-002\"]}"
+      "variantOptions": "{\"color\":\"Silver\",\"colorHex\":\"#c0c0c0\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-SWI-005\",\"siblingSkus\":[\"YCS-SWI-005-001\",\"YCS-SWI-005-002\"]}"
     },
     {
       "id": "cmsem8slg01ia13jyyd4arz5g",
@@ -34779,7 +34780,7 @@
       "authorId": "cms9v6m5e0000twrnlnvirdpm",
       "parentId": "296c9efd-dc86-b81a-ac8c-c7177",
       "isParent": false,
-      "variantOptions": "{\"color\":\"Blue\",\"colorHex\":\"#1E88E5\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-CLO-030\",\"siblingSkus\":[\"YCS-CLO-030-001\",\"YCS-CLO-030-002\"]}"
+      "variantOptions": "{\"color\":\"Blue\",\"colorHex\":\"#3b82f6\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-CLO-030\",\"siblingSkus\":[\"YCS-CLO-030-001\",\"YCS-CLO-030-002\"],\"material\":\"Cotton\"}"
     },
     {
       "id": "cmsem8smk01im13jyd0ikatyd",
@@ -34859,7 +34860,7 @@
       "authorId": "cms9v6m5e0000twrnlnvirdpm",
       "parentId": "296c9efd-dc86-b81a-ac8c-c7177",
       "isParent": false,
-      "variantOptions": "{\"color\":\"Black\",\"colorHex\":\"#212121\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-CLO-030\",\"siblingSkus\":[\"YCS-CLO-030-001\",\"YCS-CLO-030-002\"]}"
+      "variantOptions": "{\"color\":\"Black\",\"colorHex\":\"#1f2937\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-CLO-030\",\"siblingSkus\":[\"YCS-CLO-030-001\",\"YCS-CLO-030-002\"],\"material\":\"Cotton\"}"
     },
     {
       "id": "cmsem8sn901is13jy0rsjn3jy",
@@ -37619,7 +37620,7 @@
       "authorId": "cms9v6m5e0000twrnlnvirdpm",
       "parentId": "93569687-53c7-624c-dd89-08076",
       "isParent": false,
-      "variantOptions": "{\"color\":\"Blue\",\"colorHex\":\"#1E88E5\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-AUS-012\",\"siblingSkus\":[\"YCS-AUS-012-001\",\"YCS-AUS-012-002\"]}"
+      "variantOptions": "{\"color\":\"Blue\",\"colorHex\":\"#3b82f6\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-AUS-012\",\"siblingSkus\":[\"YCS-AUS-012-001\",\"YCS-AUS-012-002\"]}"
     },
     {
       "id": "cmsem8t7e01oj13jyjo223jbx",
@@ -38859,7 +38860,7 @@
       "authorId": "cms9v6m5e0000twrnlnvirdpm",
       "parentId": "3bfa8c47-4de2-da39-02ba-a4530",
       "isParent": false,
-      "variantOptions": "{\"color\":\"White\",\"colorHex\":\"#F5F5F5\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-KST-018\",\"siblingSkus\":[\"YCS-KST-018-001\",\"YCS-KST-018-002\",\"YCS-KST-018-003\"]}"
+      "variantOptions": "{\"color\":\"White\",\"colorHex\":\"#f9fafb\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-KST-018\",\"siblingSkus\":[\"YCS-KST-018-001\",\"YCS-KST-018-002\",\"YCS-KST-018-003\"]}"
     },
     {
       "id": "cmsem8tgu01r413jycm32xqev",
@@ -38899,7 +38900,7 @@
       "authorId": "cms9v6m5e0000twrnlnvirdpm",
       "parentId": "51ffc96c-9c1d-02fd-705d-6b309",
       "isParent": false,
-      "variantOptions": "{\"color\":\"White\",\"colorHex\":\"#F5F5F5\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-KST-020\",\"siblingSkus\":[\"YCS-KST-020-001\",\"YCS-KST-020-002\",\"YCS-KST-020-003\"]}"
+      "variantOptions": "{\"color\":\"White\",\"colorHex\":\"#f9fafb\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-KST-020\",\"siblingSkus\":[\"YCS-KST-020-001\",\"YCS-KST-020-002\",\"YCS-KST-020-003\"]}"
     },
     {
       "id": "cmsem8th301r713jy4i4pf8ka",
@@ -38939,7 +38940,7 @@
       "authorId": "cms9v6m5e0000twrnlnvirdpm",
       "parentId": "475e63d6-d650-07e2-9b28-b3cb3",
       "isParent": false,
-      "variantOptions": "{\"color\":\"White\",\"colorHex\":\"#F5F5F5\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-KST-019\",\"siblingSkus\":[\"YCS-KST-019-001\",\"YCS-KST-019-002\",\"YCS-KST-019-003\"]}"
+      "variantOptions": "{\"color\":\"White\",\"colorHex\":\"#f9fafb\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-KST-019\",\"siblingSkus\":[\"YCS-KST-019-001\",\"YCS-KST-019-002\",\"YCS-KST-019-003\"]}"
     },
     {
       "id": "cmsem8the01ra13jyinq7uxml",
@@ -39699,7 +39700,7 @@
       "authorId": "cms9v6m5e0000twrnlnvirdpm",
       "parentId": "04a8fa1a-784f-ec2b-a388-d634d",
       "isParent": false,
-      "variantOptions": "{\"color\":null,\"colorHex\":null,\"size\":null,\"capacity\":\"250ml\",\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-KUT-016\",\"siblingSkus\":[\"YCS-KUT-016-001\",\"YCS-KUT-016-002\",\"YCS-KUT-016-003\"]}"
+      "variantOptions": "{\"color\":null,\"colorHex\":null,\"size\":null,\"capacity\":\"250Ml\",\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-KUT-016\",\"siblingSkus\":[\"YCS-KUT-016-001\",\"YCS-KUT-016-002\",\"YCS-KUT-016-003\"]}"
     },
     {
       "id": "cmsem8tnc01sv13jyjynjcbpm",
@@ -39739,7 +39740,7 @@
       "authorId": "cms9v6m5e0000twrnlnvirdpm",
       "parentId": "04a8fa1a-784f-ec2b-a388-d634d",
       "isParent": false,
-      "variantOptions": "{\"color\":null,\"colorHex\":null,\"size\":null,\"capacity\":\"350ml\",\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-KUT-016\",\"siblingSkus\":[\"YCS-KUT-016-001\",\"YCS-KUT-016-002\",\"YCS-KUT-016-003\"]}"
+      "variantOptions": "{\"color\":null,\"colorHex\":null,\"size\":null,\"capacity\":\"350Ml\",\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-KUT-016\",\"siblingSkus\":[\"YCS-KUT-016-001\",\"YCS-KUT-016-002\",\"YCS-KUT-016-003\"]}"
     },
     {
       "id": "cmsem8tno01sy13jyy5eh1eiw",
@@ -39779,7 +39780,7 @@
       "authorId": "cms9v6m5e0000twrnlnvirdpm",
       "parentId": "04a8fa1a-784f-ec2b-a388-d634d",
       "isParent": false,
-      "variantOptions": "{\"color\":null,\"colorHex\":null,\"size\":null,\"capacity\":\"450ml\",\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-KUT-016\",\"siblingSkus\":[\"YCS-KUT-016-001\",\"YCS-KUT-016-002\",\"YCS-KUT-016-003\"]}"
+      "variantOptions": "{\"color\":null,\"colorHex\":null,\"size\":null,\"capacity\":\"450Ml\",\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-KUT-016\",\"siblingSkus\":[\"YCS-KUT-016-001\",\"YCS-KUT-016-002\",\"YCS-KUT-016-003\"]}"
     },
     {
       "id": "8288ac5f1b9f96dd6c8ff713-ac7a",
@@ -40539,7 +40540,7 @@
       "authorId": "cms9v6m5e0000twrnlnvirdpm",
       "parentId": "1be5b5b3-a263-62a0-c828-7f87f",
       "isParent": false,
-      "variantOptions": "{\"color\":\"Black\",\"colorHex\":\"#212121\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-CLO-037\",\"siblingSkus\":[\"YCS-CLO-037-001\",\"YCS-CLO-037-002\",\"YCS-CLO-037-003\"]}"
+      "variantOptions": "{\"color\":\"Black\",\"colorHex\":\"#1f2937\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-CLO-037\",\"siblingSkus\":[\"YCS-CLO-037-001\",\"YCS-CLO-037-002\",\"YCS-CLO-037-003\"],\"material\":\"Cotton\"}"
     },
     {
       "id": "prod-387df651257e2eb285db6e06",
@@ -40579,7 +40580,7 @@
       "authorId": "cms9v6m5e0000twrnlnvirdpm",
       "parentId": "1be5b5b3-a263-62a0-c828-7f87f",
       "isParent": false,
-      "variantOptions": "{\"color\":null,\"colorHex\":null,\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-CLO-037\",\"siblingSkus\":[\"YCS-CLO-037-001\",\"YCS-CLO-037-002\",\"YCS-CLO-037-003\"]}"
+      "variantOptions": "{\"color\":null,\"colorHex\":null,\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-CLO-037\",\"siblingSkus\":[\"YCS-CLO-037-001\",\"YCS-CLO-037-002\",\"YCS-CLO-037-003\"],\"material\":\"Cotton\"}"
     },
     {
       "id": "prod-7cd6cfee859dba120c43a4a9",
@@ -40619,7 +40620,7 @@
       "authorId": "cms9v6m5e0000twrnlnvirdpm",
       "parentId": "1be5b5b3-a263-62a0-c828-7f87f",
       "isParent": false,
-      "variantOptions": "{\"color\":\"White\",\"colorHex\":\"#F5F5F5\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-CLO-037\",\"siblingSkus\":[\"YCS-CLO-037-001\",\"YCS-CLO-037-002\",\"YCS-CLO-037-003\"]}"
+      "variantOptions": "{\"color\":\"White\",\"colorHex\":\"#f9fafb\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-CLO-037\",\"siblingSkus\":[\"YCS-CLO-037-001\",\"YCS-CLO-037-002\",\"YCS-CLO-037-003\"],\"material\":\"Cotton\"}"
     },
     {
       "id": "prod-99e555ec5d9e1832a4580b69",
@@ -40699,7 +40700,7 @@
       "authorId": "cms9v6m5e0000twrnlnvirdpm",
       "parentId": "dd98e2d8-30c1-3e71-dfaa-87c4e",
       "isParent": false,
-      "variantOptions": "{\"color\":\"Black\",\"colorHex\":\"#212121\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-CLO-039\",\"siblingSkus\":[\"YCS-CLO-039-001\",\"YCS-CLO-039-002\"]}"
+      "variantOptions": "{\"color\":\"Black\",\"colorHex\":\"#1f2937\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-CLO-039\",\"siblingSkus\":[\"YCS-CLO-039-001\",\"YCS-CLO-039-002\"],\"material\":\"Cotton\"}"
     },
     {
       "id": "prod-6a1633af1ede72128e9c9d07",
@@ -40739,7 +40740,7 @@
       "authorId": "cms9v6m5e0000twrnlnvirdpm",
       "parentId": "dd98e2d8-30c1-3e71-dfaa-87c4e",
       "isParent": false,
-      "variantOptions": "{\"color\":\"Black\",\"colorHex\":\"#212121\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-CLO-039\",\"siblingSkus\":[\"YCS-CLO-039-001\",\"YCS-CLO-039-002\"]}"
+      "variantOptions": "{\"color\":\"Gray\",\"colorHex\":\"#6b7280\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-CLO-039\",\"siblingSkus\":[\"YCS-CLO-039-001\",\"YCS-CLO-039-002\"],\"material\":\"Cotton\"}"
     },
     {
       "id": "prod-90cdeb1bf91fcc2212273d53",
@@ -40779,7 +40780,7 @@
       "authorId": "cms9v6m5e0000twrnlnvirdpm",
       "parentId": "9f3d0886-a691-6088-7042-37682",
       "isParent": false,
-      "variantOptions": "{\"color\":\"Black\",\"colorHex\":\"#212121\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-CLO-040\",\"siblingSkus\":[\"YCS-CLO-040-001\",\"YCS-CLO-040-002\"]}"
+      "variantOptions": "{\"color\":\"Black\",\"colorHex\":\"#1f2937\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-CLO-040\",\"siblingSkus\":[\"YCS-CLO-040-001\",\"YCS-CLO-040-002\"],\"material\":\"Cotton\"}"
     },
     {
       "id": "prod-d94a9366caa0981aaadc232c",
@@ -40819,7 +40820,7 @@
       "authorId": "cms9v6m5e0000twrnlnvirdpm",
       "parentId": "9f3d0886-a691-6088-7042-37682",
       "isParent": false,
-      "variantOptions": "{\"color\":\"Black\",\"colorHex\":\"#212121\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-CLO-040\",\"siblingSkus\":[\"YCS-CLO-040-001\",\"YCS-CLO-040-002\"]}"
+      "variantOptions": "{\"color\":\"Gray\",\"colorHex\":\"#6b7280\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-CLO-040\",\"siblingSkus\":[\"YCS-CLO-040-001\",\"YCS-CLO-040-002\"],\"material\":\"Cotton\"}"
     },
     {
       "id": "prod-67e710f74b410d24b1564338",
@@ -40899,7 +40900,7 @@
       "authorId": "cms9v6m5e0000twrnlnvirdpm",
       "parentId": "d9ec0fd0-2445-06eb-6eef-5f743",
       "isParent": false,
-      "variantOptions": "{\"color\":\"Black\",\"colorHex\":\"#212121\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-CLO-042\",\"siblingSkus\":[\"YCS-CLO-042-001\",\"YCS-CLO-042-002\",\"YCS-CLO-042-003\"]}"
+      "variantOptions": "{\"color\":\"Black\",\"colorHex\":\"#1f2937\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-CLO-042\",\"siblingSkus\":[\"YCS-CLO-042-001\",\"YCS-CLO-042-002\",\"YCS-CLO-042-003\"],\"material\":\"Cotton\"}"
     },
     {
       "id": "prod-ace678a20e4b78f51150837d",
@@ -40939,7 +40940,7 @@
       "authorId": "cms9v6m5e0000twrnlnvirdpm",
       "parentId": "d9ec0fd0-2445-06eb-6eef-5f743",
       "isParent": false,
-      "variantOptions": "{\"color\":\"Gray\",\"colorHex\":\"#9E9E9E\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-CLO-042\",\"siblingSkus\":[\"YCS-CLO-042-001\",\"YCS-CLO-042-002\",\"YCS-CLO-042-003\"]}"
+      "variantOptions": "{\"color\":\"Gray\",\"colorHex\":\"#6b7280\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-CLO-042\",\"siblingSkus\":[\"YCS-CLO-042-001\",\"YCS-CLO-042-002\",\"YCS-CLO-042-003\"],\"material\":\"Cotton\"}"
     },
     {
       "id": "prod-ed8cf05bdf3fc5859c8d5f62",
@@ -40979,7 +40980,7 @@
       "authorId": "cms9v6m5e0000twrnlnvirdpm",
       "parentId": "d9ec0fd0-2445-06eb-6eef-5f743",
       "isParent": false,
-      "variantOptions": "{\"color\":\"Gray\",\"colorHex\":\"#9E9E9E\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-CLO-042\",\"siblingSkus\":[\"YCS-CLO-042-001\",\"YCS-CLO-042-002\",\"YCS-CLO-042-003\"]}"
+      "variantOptions": "{\"color\":\"Gray\",\"colorHex\":\"#6b7280\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-CLO-042\",\"siblingSkus\":[\"YCS-CLO-042-001\",\"YCS-CLO-042-002\",\"YCS-CLO-042-003\"],\"material\":\"Cotton\"}"
     },
     {
       "id": "prod-8f9fd2e2bbc1b9d312164197",
@@ -41059,7 +41060,7 @@
       "authorId": "cms9v6m5e0000twrnlnvirdpm",
       "parentId": "d5809c24-66b8-a41d-e210-e9464",
       "isParent": false,
-      "variantOptions": "{\"color\":\"Black\",\"colorHex\":\"#212121\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-CLO-044\",\"siblingSkus\":[\"YCS-CLO-044-001\",\"YCS-CLO-044-002\",\"YCS-CLO-044-003\"]}"
+      "variantOptions": "{\"color\":\"Black\",\"colorHex\":\"#1f2937\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-CLO-044\",\"siblingSkus\":[\"YCS-CLO-044-001\",\"YCS-CLO-044-002\",\"YCS-CLO-044-003\"]}"
     },
     {
       "id": "prod-1897992ea265aab4be301ce3",
@@ -41099,7 +41100,7 @@
       "authorId": "cms9v6m5e0000twrnlnvirdpm",
       "parentId": "d5809c24-66b8-a41d-e210-e9464",
       "isParent": false,
-      "variantOptions": "{\"color\":\"Black\",\"colorHex\":\"#212121\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-CLO-044\",\"siblingSkus\":[\"YCS-CLO-044-001\",\"YCS-CLO-044-002\",\"YCS-CLO-044-003\"]}"
+      "variantOptions": "{\"color\":\"Gray\",\"colorHex\":\"#6b7280\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-CLO-044\",\"siblingSkus\":[\"YCS-CLO-044-001\",\"YCS-CLO-044-002\",\"YCS-CLO-044-003\"]}"
     },
     {
       "id": "prod-9e160f5f9f788fbcfb2bf36d",
@@ -41139,7 +41140,7 @@
       "authorId": "cms9v6m5e0000twrnlnvirdpm",
       "parentId": "d5809c24-66b8-a41d-e210-e9464",
       "isParent": false,
-      "variantOptions": "{\"color\":\"Black\",\"colorHex\":\"#212121\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-CLO-044\",\"siblingSkus\":[\"YCS-CLO-044-001\",\"YCS-CLO-044-002\",\"YCS-CLO-044-003\"]}"
+      "variantOptions": "{\"color\":\"Gray\",\"colorHex\":\"#6b7280\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-CLO-044\",\"siblingSkus\":[\"YCS-CLO-044-001\",\"YCS-CLO-044-002\",\"YCS-CLO-044-003\"]}"
     },
     {
       "id": "prod-76b2a9d786c757cd45f44260",
@@ -41179,7 +41180,7 @@
       "authorId": "cms9v6m5e0000twrnlnvirdpm",
       "parentId": "94cbbc66-e182-e5e1-08fd-afc87",
       "isParent": false,
-      "variantOptions": "{\"color\":\"Multi Color\",\"colorHex\":\"linear-gradient(90deg,#FF007F,#FB8C00,#FDD835,#43A047,#1E88E5,#8E24AA)\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-CLO-045\",\"siblingSkus\":[\"YCS-CLO-045-001\",\"YCS-CLO-045-002\",\"YCS-CLO-045-003\",\"YCS-CLO-045-004\"]}"
+      "variantOptions": "{\"color\":\"Blue\",\"colorHex\":\"#3b82f6\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-CLO-045\",\"siblingSkus\":[\"YCS-CLO-045-001\",\"YCS-CLO-045-002\",\"YCS-CLO-045-003\",\"YCS-CLO-045-004\"],\"material\":\"Cotton\"}"
     },
     {
       "id": "prod-b43355b235b05c25970df9eb",
@@ -41219,7 +41220,7 @@
       "authorId": "cms9v6m5e0000twrnlnvirdpm",
       "parentId": "94cbbc66-e182-e5e1-08fd-afc87",
       "isParent": false,
-      "variantOptions": "{\"color\":\"Multi Color\",\"colorHex\":\"linear-gradient(90deg,#FF007F,#FB8C00,#FDD835,#43A047,#1E88E5,#8E24AA)\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-CLO-045\",\"siblingSkus\":[\"YCS-CLO-045-001\",\"YCS-CLO-045-002\",\"YCS-CLO-045-003\",\"YCS-CLO-045-004\"]}"
+      "variantOptions": "{\"color\":\"Blue\",\"colorHex\":\"#3b82f6\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-CLO-045\",\"siblingSkus\":[\"YCS-CLO-045-001\",\"YCS-CLO-045-002\",\"YCS-CLO-045-003\",\"YCS-CLO-045-004\"],\"material\":\"Cotton\"}"
     },
     {
       "id": "prod-268f051542d7e82078db85d7",
@@ -41259,7 +41260,7 @@
       "authorId": "cms9v6m5e0000twrnlnvirdpm",
       "parentId": "94cbbc66-e182-e5e1-08fd-afc87",
       "isParent": false,
-      "variantOptions": "{\"color\":\"Multi Color\",\"colorHex\":\"linear-gradient(90deg,#FF007F,#FB8C00,#FDD835,#43A047,#1E88E5,#8E24AA)\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-CLO-045\",\"siblingSkus\":[\"YCS-CLO-045-001\",\"YCS-CLO-045-002\",\"YCS-CLO-045-003\",\"YCS-CLO-045-004\"]}"
+      "variantOptions": "{\"color\":\"Brown\",\"colorHex\":\"#92400e\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-CLO-045\",\"siblingSkus\":[\"YCS-CLO-045-001\",\"YCS-CLO-045-002\",\"YCS-CLO-045-003\",\"YCS-CLO-045-004\"],\"material\":\"Cotton\"}"
     },
     {
       "id": "prod-3e3447c13d41c7d85caadbdb",
@@ -41299,7 +41300,7 @@
       "authorId": "cms9v6m5e0000twrnlnvirdpm",
       "parentId": "94cbbc66-e182-e5e1-08fd-afc87",
       "isParent": false,
-      "variantOptions": "{\"color\":\"Multi Color\",\"colorHex\":\"linear-gradient(90deg,#FF007F,#FB8C00,#FDD835,#43A047,#1E88E5,#8E24AA)\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-CLO-045\",\"siblingSkus\":[\"YCS-CLO-045-001\",\"YCS-CLO-045-002\",\"YCS-CLO-045-003\",\"YCS-CLO-045-004\"]}"
+      "variantOptions": "{\"color\":\"Black\",\"colorHex\":\"#1f2937\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-CLO-045\",\"siblingSkus\":[\"YCS-CLO-045-001\",\"YCS-CLO-045-002\",\"YCS-CLO-045-003\",\"YCS-CLO-045-004\"],\"material\":\"Cotton\"}"
     },
     {
       "id": "prod-2e1e29d998c2881145d2d8cf",
@@ -41379,7 +41380,7 @@
       "authorId": "cms9v6m5e0000twrnlnvirdpm",
       "parentId": "dbabe4d0-b818-c952-f8ca-ba879",
       "isParent": false,
-      "variantOptions": "{\"color\":\"Black\",\"colorHex\":\"#212121\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-SHO-043\",\"siblingSkus\":[\"YCS-SHO-043-001\",\"YCS-SHO-043-002\",\"YCS-SHO-043-003\"]}"
+      "variantOptions": "{\"color\":\"Black\",\"colorHex\":\"#1f2937\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-SHO-043\",\"siblingSkus\":[\"YCS-SHO-043-001\",\"YCS-SHO-043-002\",\"YCS-SHO-043-003\"]}"
     },
     {
       "id": "prod-e68383899a619b54041a4936",
@@ -41419,7 +41420,7 @@
       "authorId": "cms9v6m5e0000twrnlnvirdpm",
       "parentId": "dbabe4d0-b818-c952-f8ca-ba879",
       "isParent": false,
-      "variantOptions": "{\"color\":\"Green\",\"colorHex\":\"#43A047\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-SHO-043\",\"siblingSkus\":[\"YCS-SHO-043-001\",\"YCS-SHO-043-002\",\"YCS-SHO-043-003\"]}"
+      "variantOptions": "{\"color\":\"Green\",\"colorHex\":\"#22c55e\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-SHO-043\",\"siblingSkus\":[\"YCS-SHO-043-001\",\"YCS-SHO-043-002\",\"YCS-SHO-043-003\"]}"
     },
     {
       "id": "prod-534684fb3e79afa59462eeb8",
@@ -41459,7 +41460,7 @@
       "authorId": "cms9v6m5e0000twrnlnvirdpm",
       "parentId": "dbabe4d0-b818-c952-f8ca-ba879",
       "isParent": false,
-      "variantOptions": "{\"color\":\"Khaki\",\"colorHex\":\"#C3B091\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-SHO-043\",\"siblingSkus\":[\"YCS-SHO-043-001\",\"YCS-SHO-043-002\",\"YCS-SHO-043-003\"]}"
+      "variantOptions": "{\"color\":\"Khaki\",\"colorHex\":\"#b5a678\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-SHO-043\",\"siblingSkus\":[\"YCS-SHO-043-001\",\"YCS-SHO-043-002\",\"YCS-SHO-043-003\"]}"
     },
     {
       "id": "prod-fbf0a3b67d8b3dc5d051d108",
@@ -41499,7 +41500,7 @@
       "authorId": "cms9v6m5e0000twrnlnvirdpm",
       "parentId": "d7cefc21-aac3-a18a-5db8-adeb0",
       "isParent": false,
-      "variantOptions": "{\"color\":\"White\",\"colorHex\":\"#F5F5F5\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-SHO-035\",\"siblingSkus\":[\"YCS-SHO-035-001\",\"YCS-SHO-035-002\",\"YCS-SHO-035-003\",\"YCS-SHO-035-004\"]}"
+      "variantOptions": "{\"color\":\"White\",\"colorHex\":\"#f9fafb\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-SHO-035\",\"siblingSkus\":[\"YCS-SHO-035-001\",\"YCS-SHO-035-002\",\"YCS-SHO-035-003\",\"YCS-SHO-035-004\"]}"
     },
     {
       "id": "prod-8c0208cf81d4ca79e9d3b58d",
@@ -41539,7 +41540,7 @@
       "authorId": "cms9v6m5e0000twrnlnvirdpm",
       "parentId": "d7cefc21-aac3-a18a-5db8-adeb0",
       "isParent": false,
-      "variantOptions": "{\"color\":\"Black\",\"colorHex\":\"#212121\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-SHO-035\",\"siblingSkus\":[\"YCS-SHO-035-001\",\"YCS-SHO-035-002\",\"YCS-SHO-035-003\",\"YCS-SHO-035-004\"]}"
+      "variantOptions": "{\"color\":\"Black\",\"colorHex\":\"#1f2937\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-SHO-035\",\"siblingSkus\":[\"YCS-SHO-035-001\",\"YCS-SHO-035-002\",\"YCS-SHO-035-003\",\"YCS-SHO-035-004\"]}"
     },
     {
       "id": "prod-6f35cf350ac2ee35a9f7d816",
@@ -41579,7 +41580,7 @@
       "authorId": "cms9v6m5e0000twrnlnvirdpm",
       "parentId": "d7cefc21-aac3-a18a-5db8-adeb0",
       "isParent": false,
-      "variantOptions": "{\"color\":\"Black\",\"colorHex\":\"#212121\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-SHO-035\",\"siblingSkus\":[\"YCS-SHO-035-001\",\"YCS-SHO-035-002\",\"YCS-SHO-035-003\",\"YCS-SHO-035-004\"]}"
+      "variantOptions": "{\"color\":\"White\",\"colorHex\":\"#f9fafb\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-SHO-035\",\"siblingSkus\":[\"YCS-SHO-035-001\",\"YCS-SHO-035-002\",\"YCS-SHO-035-003\",\"YCS-SHO-035-004\"]}"
     },
     {
       "id": "prod-bf938e62d375fcbdac2542df",
@@ -41619,7 +41620,7 @@
       "authorId": "cms9v6m5e0000twrnlnvirdpm",
       "parentId": "d7cefc21-aac3-a18a-5db8-adeb0",
       "isParent": false,
-      "variantOptions": "{\"color\":\"White\",\"colorHex\":\"#F5F5F5\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-SHO-035\",\"siblingSkus\":[\"YCS-SHO-035-001\",\"YCS-SHO-035-002\",\"YCS-SHO-035-003\",\"YCS-SHO-035-004\"]}"
+      "variantOptions": "{\"color\":\"White\",\"colorHex\":\"#f9fafb\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-SHO-035\",\"siblingSkus\":[\"YCS-SHO-035-001\",\"YCS-SHO-035-002\",\"YCS-SHO-035-003\",\"YCS-SHO-035-004\"]}"
     },
     {
       "id": "prod-5d33ac327126d6db1bd5339e",
@@ -41659,7 +41660,7 @@
       "authorId": "cms9v6m5e0000twrnlnvirdpm",
       "parentId": "cfc3d7c4-8236-11fd-a25f-1a3e8",
       "isParent": false,
-      "variantOptions": "{\"color\":\"Black\",\"colorHex\":\"#212121\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-SHO-036\",\"siblingSkus\":[\"YCS-SHO-036-001\",\"YCS-SHO-036-002\",\"YCS-SHO-036-003\",\"YCS-SHO-036-004\",\"YCS-SHO-036-005\"]}"
+      "variantOptions": "{\"color\":\"White\",\"colorHex\":\"#f9fafb\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-SHO-036\",\"siblingSkus\":[\"YCS-SHO-036-001\",\"YCS-SHO-036-002\",\"YCS-SHO-036-003\",\"YCS-SHO-036-004\",\"YCS-SHO-036-005\"]}"
     },
     {
       "id": "prod-e9de3fd69201e8b512351e00",
@@ -41699,7 +41700,7 @@
       "authorId": "cms9v6m5e0000twrnlnvirdpm",
       "parentId": "cfc3d7c4-8236-11fd-a25f-1a3e8",
       "isParent": false,
-      "variantOptions": "{\"color\":\"Black\",\"colorHex\":\"#212121\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-SHO-036\",\"siblingSkus\":[\"YCS-SHO-036-001\",\"YCS-SHO-036-002\",\"YCS-SHO-036-003\",\"YCS-SHO-036-004\",\"YCS-SHO-036-005\"]}"
+      "variantOptions": "{\"color\":\"Black\",\"colorHex\":\"#1f2937\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-SHO-036\",\"siblingSkus\":[\"YCS-SHO-036-001\",\"YCS-SHO-036-002\",\"YCS-SHO-036-003\",\"YCS-SHO-036-004\",\"YCS-SHO-036-005\"]}"
     },
     {
       "id": "prod-d13b1e208f42c97b33819b52",
@@ -41739,7 +41740,7 @@
       "authorId": "cms9v6m5e0000twrnlnvirdpm",
       "parentId": "cfc3d7c4-8236-11fd-a25f-1a3e8",
       "isParent": false,
-      "variantOptions": "{\"color\":\"Black\",\"colorHex\":\"#212121\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-SHO-036\",\"siblingSkus\":[\"YCS-SHO-036-001\",\"YCS-SHO-036-002\",\"YCS-SHO-036-003\",\"YCS-SHO-036-004\",\"YCS-SHO-036-005\"]}"
+      "variantOptions": "{\"color\":\"Black\",\"colorHex\":\"#1f2937\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-SHO-036\",\"siblingSkus\":[\"YCS-SHO-036-001\",\"YCS-SHO-036-002\",\"YCS-SHO-036-003\",\"YCS-SHO-036-004\",\"YCS-SHO-036-005\"]}"
     },
     {
       "id": "prod-d98384ec6735051e02b50e5a",
@@ -41779,7 +41780,7 @@
       "authorId": "cms9v6m5e0000twrnlnvirdpm",
       "parentId": "cfc3d7c4-8236-11fd-a25f-1a3e8",
       "isParent": false,
-      "variantOptions": "{\"color\":\"Black\",\"colorHex\":\"#212121\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-SHO-036\",\"siblingSkus\":[\"YCS-SHO-036-001\",\"YCS-SHO-036-002\",\"YCS-SHO-036-003\",\"YCS-SHO-036-004\",\"YCS-SHO-036-005\"]}"
+      "variantOptions": "{\"color\":\"Black\",\"colorHex\":\"#1f2937\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-SHO-036\",\"siblingSkus\":[\"YCS-SHO-036-001\",\"YCS-SHO-036-002\",\"YCS-SHO-036-003\",\"YCS-SHO-036-004\",\"YCS-SHO-036-005\"]}"
     },
     {
       "id": "prod-99e56e402e3697b597cc9a6c",
@@ -41819,7 +41820,7 @@
       "authorId": "cms9v6m5e0000twrnlnvirdpm",
       "parentId": "cfc3d7c4-8236-11fd-a25f-1a3e8",
       "isParent": false,
-      "variantOptions": "{\"color\":\"Black\",\"colorHex\":\"#212121\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-SHO-036\",\"siblingSkus\":[\"YCS-SHO-036-001\",\"YCS-SHO-036-002\",\"YCS-SHO-036-003\",\"YCS-SHO-036-004\",\"YCS-SHO-036-005\"]}"
+      "variantOptions": "{\"color\":\"White\",\"colorHex\":\"#f9fafb\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-SHO-036\",\"siblingSkus\":[\"YCS-SHO-036-001\",\"YCS-SHO-036-002\",\"YCS-SHO-036-003\",\"YCS-SHO-036-004\",\"YCS-SHO-036-005\"]}"
     },
     {
       "id": "prod-cdadd538c318fdfb8a54314e",
@@ -41859,7 +41860,7 @@
       "authorId": "cms9v6m5e0000twrnlnvirdpm",
       "parentId": "6414bc3e-90f2-21bf-8870-a850f",
       "isParent": false,
-      "variantOptions": "{\"color\":\"Orange\",\"colorHex\":\"#FB8C00\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-SHO-037\",\"siblingSkus\":[\"YCS-SHO-037-001\",\"YCS-SHO-037-002\",\"YCS-SHO-037-003\",\"YCS-SHO-037-004\",\"YCS-SHO-037-005\"]}"
+      "variantOptions": "{\"color\":\"Blue\",\"colorHex\":\"#3b82f6\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-SHO-037\",\"siblingSkus\":[\"YCS-SHO-037-001\",\"YCS-SHO-037-002\",\"YCS-SHO-037-003\",\"YCS-SHO-037-004\",\"YCS-SHO-037-005\"]}"
     },
     {
       "id": "prod-f9ede3a3b48b331ca739a1df",
@@ -41899,7 +41900,7 @@
       "authorId": "cms9v6m5e0000twrnlnvirdpm",
       "parentId": "6414bc3e-90f2-21bf-8870-a850f",
       "isParent": false,
-      "variantOptions": "{\"color\":\"Orange\",\"colorHex\":\"#FB8C00\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-SHO-037\",\"siblingSkus\":[\"YCS-SHO-037-001\",\"YCS-SHO-037-002\",\"YCS-SHO-037-003\",\"YCS-SHO-037-004\",\"YCS-SHO-037-005\"]}"
+      "variantOptions": "{\"color\":\"White\",\"colorHex\":\"#f9fafb\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-SHO-037\",\"siblingSkus\":[\"YCS-SHO-037-001\",\"YCS-SHO-037-002\",\"YCS-SHO-037-003\",\"YCS-SHO-037-004\",\"YCS-SHO-037-005\"]}"
     },
     {
       "id": "prod-0206d1456c9af6486e0b5802",
@@ -41939,7 +41940,7 @@
       "authorId": "cms9v6m5e0000twrnlnvirdpm",
       "parentId": "6414bc3e-90f2-21bf-8870-a850f",
       "isParent": false,
-      "variantOptions": "{\"color\":\"Orange\",\"colorHex\":\"#FB8C00\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-SHO-037\",\"siblingSkus\":[\"YCS-SHO-037-001\",\"YCS-SHO-037-002\",\"YCS-SHO-037-003\",\"YCS-SHO-037-004\",\"YCS-SHO-037-005\"]}"
+      "variantOptions": "{\"color\":\"Black\",\"colorHex\":\"#1f2937\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-SHO-037\",\"siblingSkus\":[\"YCS-SHO-037-001\",\"YCS-SHO-037-002\",\"YCS-SHO-037-003\",\"YCS-SHO-037-004\",\"YCS-SHO-037-005\"]}"
     },
     {
       "id": "prod-4dce82490b11a005f4871f87",
@@ -41979,7 +41980,7 @@
       "authorId": "cms9v6m5e0000twrnlnvirdpm",
       "parentId": "6414bc3e-90f2-21bf-8870-a850f",
       "isParent": false,
-      "variantOptions": "{\"color\":\"Orange\",\"colorHex\":\"#FB8C00\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-SHO-037\",\"siblingSkus\":[\"YCS-SHO-037-001\",\"YCS-SHO-037-002\",\"YCS-SHO-037-003\",\"YCS-SHO-037-004\",\"YCS-SHO-037-005\"]}"
+      "variantOptions": "{\"color\":\"Black\",\"colorHex\":\"#1f2937\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-SHO-037\",\"siblingSkus\":[\"YCS-SHO-037-001\",\"YCS-SHO-037-002\",\"YCS-SHO-037-003\",\"YCS-SHO-037-004\",\"YCS-SHO-037-005\"]}"
     },
     {
       "id": "prod-b124ae0615cac41245f05f3e",
@@ -42019,7 +42020,7 @@
       "authorId": "cms9v6m5e0000twrnlnvirdpm",
       "parentId": "6414bc3e-90f2-21bf-8870-a850f",
       "isParent": false,
-      "variantOptions": "{\"color\":\"Orange\",\"colorHex\":\"#FB8C00\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-SHO-037\",\"siblingSkus\":[\"YCS-SHO-037-001\",\"YCS-SHO-037-002\",\"YCS-SHO-037-003\",\"YCS-SHO-037-004\",\"YCS-SHO-037-005\"]}"
+      "variantOptions": "{\"color\":\"Orange\",\"colorHex\":\"#f97316\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-SHO-037\",\"siblingSkus\":[\"YCS-SHO-037-001\",\"YCS-SHO-037-002\",\"YCS-SHO-037-003\",\"YCS-SHO-037-004\",\"YCS-SHO-037-005\"]}"
     },
     {
       "id": "prod-a246231f7515ab4e51980772",
@@ -42059,7 +42060,7 @@
       "authorId": "cms9v6m5e0000twrnlnvirdpm",
       "parentId": "ab1bcd70-392a-afa1-037d-149da",
       "isParent": false,
-      "variantOptions": "{\"color\":\"Blue\",\"colorHex\":\"#1E88E5\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-SHO-038\",\"siblingSkus\":[\"YCS-SHO-038-001\",\"YCS-SHO-038-002\"]}"
+      "variantOptions": "{\"color\":\"Blue\",\"colorHex\":\"#3b82f6\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-SHO-038\",\"siblingSkus\":[\"YCS-SHO-038-001\",\"YCS-SHO-038-002\"],\"material\":\"Canvas\"}"
     },
     {
       "id": "prod-ae9569a43f1f45c567c94bb2",
@@ -42099,7 +42100,7 @@
       "authorId": "cms9v6m5e0000twrnlnvirdpm",
       "parentId": "ab1bcd70-392a-afa1-037d-149da",
       "isParent": false,
-      "variantOptions": "{\"color\":\"Multi Color\",\"colorHex\":\"linear-gradient(90deg,#FF007F,#FB8C00,#FDD835,#43A047,#1E88E5,#8E24AA)\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-SHO-038\",\"siblingSkus\":[\"YCS-SHO-038-001\",\"YCS-SHO-038-002\"]}"
+      "variantOptions": "{\"color\":\"Blue\",\"colorHex\":\"#3b82f6\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-SHO-038\",\"siblingSkus\":[\"YCS-SHO-038-001\",\"YCS-SHO-038-002\"],\"material\":\"Canvas\"}"
     },
     {
       "id": "prod-f972840fea51e03428237ae5",
@@ -42139,7 +42140,7 @@
       "authorId": "cms9v6m5e0000twrnlnvirdpm",
       "parentId": "89244ce4-c520-fb05-a8fa-3fa6f",
       "isParent": false,
-      "variantOptions": "{\"color\":\"Black\",\"colorHex\":\"#212121\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-SHO-039\",\"siblingSkus\":[\"YCS-SHO-039-001\",\"YCS-SHO-039-002\"]}"
+      "variantOptions": "{\"color\":\"White\",\"colorHex\":\"#f9fafb\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-SHO-039\",\"siblingSkus\":[\"YCS-SHO-039-001\",\"YCS-SHO-039-002\"]}"
     },
     {
       "id": "prod-6bf2a2a28c49faa8349a8ef2",
@@ -42179,7 +42180,7 @@
       "authorId": "cms9v6m5e0000twrnlnvirdpm",
       "parentId": "89244ce4-c520-fb05-a8fa-3fa6f",
       "isParent": false,
-      "variantOptions": "{\"color\":\"Black\",\"colorHex\":\"#212121\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-SHO-039\",\"siblingSkus\":[\"YCS-SHO-039-001\",\"YCS-SHO-039-002\"]}"
+      "variantOptions": "{\"color\":\"White\",\"colorHex\":\"#f9fafb\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-SHO-039\",\"siblingSkus\":[\"YCS-SHO-039-001\",\"YCS-SHO-039-002\"]}"
     },
     {
       "id": "prod-b1c2aa45805884e780456d87",
@@ -42219,7 +42220,7 @@
       "authorId": "cms9v6m5e0000twrnlnvirdpm",
       "parentId": "4203528e-75f6-b583-1ae3-3e536",
       "isParent": false,
-      "variantOptions": "{\"color\":\"Red\",\"colorHex\":\"#E53935\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-SHO-040\",\"siblingSkus\":[\"YCS-SHO-040-001\",\"YCS-SHO-040-002\"]}"
+      "variantOptions": "{\"color\":\"Red\",\"colorHex\":\"#ef4444\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-SHO-040\",\"siblingSkus\":[\"YCS-SHO-040-001\",\"YCS-SHO-040-002\"]}"
     },
     {
       "id": "prod-ff12aaeb2cf63972a942260e",
@@ -42259,7 +42260,7 @@
       "authorId": "cms9v6m5e0000twrnlnvirdpm",
       "parentId": "4203528e-75f6-b583-1ae3-3e536",
       "isParent": false,
-      "variantOptions": "{\"color\":\"Red\",\"colorHex\":\"#E53935\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-SHO-040\",\"siblingSkus\":[\"YCS-SHO-040-001\",\"YCS-SHO-040-002\"]}"
+      "variantOptions": "{\"color\":\"Blue\",\"colorHex\":\"#3b82f6\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-SHO-040\",\"siblingSkus\":[\"YCS-SHO-040-001\",\"YCS-SHO-040-002\"]}"
     },
     {
       "id": "prod-7572772ea1894683001f1e1c",
@@ -42299,7 +42300,7 @@
       "authorId": "cms9v6m5e0000twrnlnvirdpm",
       "parentId": "ae9a3c59-1ad0-ed09-4965-bc4fa",
       "isParent": false,
-      "variantOptions": "{\"color\":\"Multi Color\",\"colorHex\":\"linear-gradient(90deg,#FF007F,#FB8C00,#FDD835,#43A047,#1E88E5,#8E24AA)\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-SHO-041\",\"siblingSkus\":[\"YCS-SHO-041-001\",\"YCS-SHO-041-002\",\"YCS-SHO-041-003\",\"YCS-SHO-041-004\"]}"
+      "variantOptions": "{\"color\":\"Black\",\"colorHex\":\"#1f2937\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-SHO-041\",\"siblingSkus\":[\"YCS-SHO-041-001\",\"YCS-SHO-041-002\",\"YCS-SHO-041-003\",\"YCS-SHO-041-004\"]}"
     },
     {
       "id": "prod-bebf50dc53211336e3e4da47",
@@ -42339,7 +42340,7 @@
       "authorId": "cms9v6m5e0000twrnlnvirdpm",
       "parentId": "ae9a3c59-1ad0-ed09-4965-bc4fa",
       "isParent": false,
-      "variantOptions": "{\"color\":\"Multi Color\",\"colorHex\":\"linear-gradient(90deg,#FF007F,#FB8C00,#FDD835,#43A047,#1E88E5,#8E24AA)\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-SHO-041\",\"siblingSkus\":[\"YCS-SHO-041-001\",\"YCS-SHO-041-002\",\"YCS-SHO-041-003\",\"YCS-SHO-041-004\"]}"
+      "variantOptions": "{\"color\":\"Gray\",\"colorHex\":\"#6b7280\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-SHO-041\",\"siblingSkus\":[\"YCS-SHO-041-001\",\"YCS-SHO-041-002\",\"YCS-SHO-041-003\",\"YCS-SHO-041-004\"]}"
     },
     {
       "id": "prod-f4dbdc4fbadc21a0e37c7a15",
@@ -42379,7 +42380,7 @@
       "authorId": "cms9v6m5e0000twrnlnvirdpm",
       "parentId": "ae9a3c59-1ad0-ed09-4965-bc4fa",
       "isParent": false,
-      "variantOptions": "{\"color\":\"Multi Color\",\"colorHex\":\"linear-gradient(90deg,#FF007F,#FB8C00,#FDD835,#43A047,#1E88E5,#8E24AA)\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-SHO-041\",\"siblingSkus\":[\"YCS-SHO-041-001\",\"YCS-SHO-041-002\",\"YCS-SHO-041-003\",\"YCS-SHO-041-004\"]}"
+      "variantOptions": "{\"color\":\"White\",\"colorHex\":\"#f9fafb\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-SHO-041\",\"siblingSkus\":[\"YCS-SHO-041-001\",\"YCS-SHO-041-002\",\"YCS-SHO-041-003\",\"YCS-SHO-041-004\"]}"
     },
     {
       "id": "prod-cee36af82b8df3ff0cf3594f",
@@ -42419,7 +42420,7 @@
       "authorId": "cms9v6m5e0000twrnlnvirdpm",
       "parentId": "ae9a3c59-1ad0-ed09-4965-bc4fa",
       "isParent": false,
-      "variantOptions": "{\"color\":\"Multi Color\",\"colorHex\":\"linear-gradient(90deg,#FF007F,#FB8C00,#FDD835,#43A047,#1E88E5,#8E24AA)\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-SHO-041\",\"siblingSkus\":[\"YCS-SHO-041-001\",\"YCS-SHO-041-002\",\"YCS-SHO-041-003\",\"YCS-SHO-041-004\"]}"
+      "variantOptions": "{\"color\":\"White\",\"colorHex\":\"#f9fafb\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-SHO-041\",\"siblingSkus\":[\"YCS-SHO-041-001\",\"YCS-SHO-041-002\",\"YCS-SHO-041-003\",\"YCS-SHO-041-004\"]}"
     },
     {
       "id": "prod-7e58e5f9726d2f2a4d59d812",
@@ -42459,7 +42460,7 @@
       "authorId": "cms9v6m5e0000twrnlnvirdpm",
       "parentId": "e2e55a4b-3aab-6386-9381-e4784",
       "isParent": false,
-      "variantOptions": "{\"color\":\"Multi Color\",\"colorHex\":\"linear-gradient(90deg,#FF007F,#FB8C00,#FDD835,#43A047,#1E88E5,#8E24AA)\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-SHO-042\",\"siblingSkus\":[\"YCS-SHO-042-001\",\"YCS-SHO-042-002\",\"YCS-SHO-042-003\",\"YCS-SHO-042-004\",\"YCS-SHO-042-005\",\"YCS-SHO-042-006\"]}"
+      "variantOptions": "{\"color\":\"Black\",\"colorHex\":\"#1f2937\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-SHO-042\",\"siblingSkus\":[\"YCS-SHO-042-001\",\"YCS-SHO-042-002\",\"YCS-SHO-042-003\",\"YCS-SHO-042-004\",\"YCS-SHO-042-005\",\"YCS-SHO-042-006\"],\"material\":\"Canvas\"}"
     },
     {
       "id": "prod-9ac510cd6fdfe5938a74e74f",
@@ -42499,7 +42500,7 @@
       "authorId": "cms9v6m5e0000twrnlnvirdpm",
       "parentId": "e2e55a4b-3aab-6386-9381-e4784",
       "isParent": false,
-      "variantOptions": "{\"color\":\"Multi Color\",\"colorHex\":\"linear-gradient(90deg,#FF007F,#FB8C00,#FDD835,#43A047,#1E88E5,#8E24AA)\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-SHO-042\",\"siblingSkus\":[\"YCS-SHO-042-001\",\"YCS-SHO-042-002\",\"YCS-SHO-042-003\",\"YCS-SHO-042-004\",\"YCS-SHO-042-005\",\"YCS-SHO-042-006\"]}"
+      "variantOptions": "{\"color\":\"Red\",\"colorHex\":\"#ef4444\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-SHO-042\",\"siblingSkus\":[\"YCS-SHO-042-001\",\"YCS-SHO-042-002\",\"YCS-SHO-042-003\",\"YCS-SHO-042-004\",\"YCS-SHO-042-005\",\"YCS-SHO-042-006\"],\"material\":\"Canvas\"}"
     },
     {
       "id": "prod-b130d8d942ac59e99a6178d4",
@@ -42539,7 +42540,7 @@
       "authorId": "cms9v6m5e0000twrnlnvirdpm",
       "parentId": "e2e55a4b-3aab-6386-9381-e4784",
       "isParent": false,
-      "variantOptions": "{\"color\":\"Multi Color\",\"colorHex\":\"linear-gradient(90deg,#FF007F,#FB8C00,#FDD835,#43A047,#1E88E5,#8E24AA)\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-SHO-042\",\"siblingSkus\":[\"YCS-SHO-042-001\",\"YCS-SHO-042-002\",\"YCS-SHO-042-003\",\"YCS-SHO-042-004\",\"YCS-SHO-042-005\",\"YCS-SHO-042-006\"]}"
+      "variantOptions": "{\"color\":\"Green\",\"colorHex\":\"#22c55e\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-SHO-042\",\"siblingSkus\":[\"YCS-SHO-042-001\",\"YCS-SHO-042-002\",\"YCS-SHO-042-003\",\"YCS-SHO-042-004\",\"YCS-SHO-042-005\",\"YCS-SHO-042-006\"],\"material\":\"Canvas\"}"
     },
     {
       "id": "prod-f9503b5c8192dcb671ae82b1",
@@ -42579,7 +42580,7 @@
       "authorId": "cms9v6m5e0000twrnlnvirdpm",
       "parentId": "e2e55a4b-3aab-6386-9381-e4784",
       "isParent": false,
-      "variantOptions": "{\"color\":\"Multi Color\",\"colorHex\":\"linear-gradient(90deg,#FF007F,#FB8C00,#FDD835,#43A047,#1E88E5,#8E24AA)\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-SHO-042\",\"siblingSkus\":[\"YCS-SHO-042-001\",\"YCS-SHO-042-002\",\"YCS-SHO-042-003\",\"YCS-SHO-042-004\",\"YCS-SHO-042-005\",\"YCS-SHO-042-006\"]}"
+      "variantOptions": "{\"color\":\"White\",\"colorHex\":\"#f9fafb\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-SHO-042\",\"siblingSkus\":[\"YCS-SHO-042-001\",\"YCS-SHO-042-002\",\"YCS-SHO-042-003\",\"YCS-SHO-042-004\",\"YCS-SHO-042-005\",\"YCS-SHO-042-006\"],\"material\":\"Canvas\"}"
     },
     {
       "id": "prod-6aee45b365b71b23b85fb35d",
@@ -42619,7 +42620,7 @@
       "authorId": "cms9v6m5e0000twrnlnvirdpm",
       "parentId": "e2e55a4b-3aab-6386-9381-e4784",
       "isParent": false,
-      "variantOptions": "{\"color\":\"Multi Color\",\"colorHex\":\"linear-gradient(90deg,#FF007F,#FB8C00,#FDD835,#43A047,#1E88E5,#8E24AA)\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-SHO-042\",\"siblingSkus\":[\"YCS-SHO-042-001\",\"YCS-SHO-042-002\",\"YCS-SHO-042-003\",\"YCS-SHO-042-004\",\"YCS-SHO-042-005\",\"YCS-SHO-042-006\"]}"
+      "variantOptions": "{\"color\":\"White\",\"colorHex\":\"#f9fafb\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-SHO-042\",\"siblingSkus\":[\"YCS-SHO-042-001\",\"YCS-SHO-042-002\",\"YCS-SHO-042-003\",\"YCS-SHO-042-004\",\"YCS-SHO-042-005\",\"YCS-SHO-042-006\"],\"material\":\"Canvas\"}"
     },
     {
       "id": "prod-078c55173c20029aa978f6b0",
@@ -42659,7 +42660,7 @@
       "authorId": "cms9v6m5e0000twrnlnvirdpm",
       "parentId": "e2e55a4b-3aab-6386-9381-e4784",
       "isParent": false,
-      "variantOptions": "{\"color\":\"Multi Color\",\"colorHex\":\"linear-gradient(90deg,#FF007F,#FB8C00,#FDD835,#43A047,#1E88E5,#8E24AA)\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-SHO-042\",\"siblingSkus\":[\"YCS-SHO-042-001\",\"YCS-SHO-042-002\",\"YCS-SHO-042-003\",\"YCS-SHO-042-004\",\"YCS-SHO-042-005\",\"YCS-SHO-042-006\"]}"
+      "variantOptions": "{\"color\":\"White\",\"colorHex\":\"#f9fafb\",\"size\":null,\"capacity\":null,\"layer\":null,\"pack\":null,\"parentSku\":\"YCS-SHO-042\",\"siblingSkus\":[\"YCS-SHO-042-001\",\"YCS-SHO-042-002\",\"YCS-SHO-042-003\",\"YCS-SHO-042-004\",\"YCS-SHO-042-005\",\"YCS-SHO-042-006\"],\"material\":\"Canvas\"}"
     }
   ]
 }
