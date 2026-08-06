@@ -35,6 +35,7 @@ import {
 import Layout from '@/components/Layout';
 import Sidebar from '@/components/Sidebar';
 import { getProductBySlug, getAllCategories, searchProducts } from '@/lib/db';
+import { resolveImageUrlServerSide } from '@/lib/image-utils';
 
 interface Product {
   id: number | string;
@@ -432,45 +433,6 @@ function loadHomeSeedData() {
   }
 }
 
-function proxyImageUrlDirect(url: string): string {
-  if (!url) return '/images/product-placeholder.svg';
-  if (url.startsWith('/')) return url;
-
-  // Convert raw.githubusercontent.com to cdn.jsdelivr.net
-  if (url.includes('raw.githubusercontent.com/')) {
-    const match = url.match(/raw\.githubusercontent\.com\/(.+)/);
-    if (match) {
-      const path = match[1];
-      if (path.startsWith('Preeasy/images/')) {
-        let rest = path.replace('Preeasy/images/', '');
-        rest = rest.replace(/^main\//, '');
-        try {
-          const decoded = decodeURIComponent(rest);
-          return `https://cdn.jsdelivr.net/gh/Preeasy/images@main/${decoded}`;
-        } catch {
-          return `https://cdn.jsdelivr.net/gh/Preeasy/images@main/${rest}`;
-        }
-      }
-      if (path.startsWith('Preeasy/Images/')) {
-        let rest = path.replace('Preeasy/Images/', '');
-        rest = rest.replace(/^main\//, '');
-        try {
-          const decoded = decodeURIComponent(rest);
-          return `https://cdn.jsdelivr.net/gh/Preeasy/Images@main/${decoded}`;
-        } catch {
-          return `https://cdn.jsdelivr.net/gh/Preeasy/Images@main/${rest}`;
-        }
-      }
-    }
-  }
-
-  if (url.startsWith('http')) return url;
-  if (url.startsWith('Images/') || url.startsWith('images/')) {
-    return `https://cdn.jsdelivr.net/gh/Preeasy/Images@main/${url.replace(/^[Ii]mages\//, '')}`;
-  }
-  return url;
-}
-
 export const getServerSideProps = async () => {
   const isVercel = process.env.VERCEL === '1';
 
@@ -537,7 +499,7 @@ export const getServerSideProps = async () => {
         .sort((a, b) => b.productCount - a.productCount);
 
       const formatProduct = (p: any): Product => {
-        const image = proxyImageUrlDirect(p.image || '');
+        const image = resolveImageUrlServerSide(p.image || '');
 
         let images: string[] = [];
         if (p.images) {
@@ -548,7 +510,7 @@ export const getServerSideProps = async () => {
           if (Array.isArray(parsed)) {
             images = parsed
               .filter((img: string) => typeof img === 'string' && img.length > 0)
-              .map(proxyImageUrlDirect);
+              .map(resolveImageUrlServerSide);
           }
         }
         if (images.length === 0 && image) images = [image];
@@ -606,7 +568,6 @@ export const getServerSideProps = async () => {
   // Local dev: use SQLite
   try {
     const { getDatabase } = await import('@/lib/db');
-    const { proxyImageUrl } = await import('@/lib/image-utils');
     const database = getDatabase();
     
     const rawProducts = database.prepare('SELECT * FROM products WHERE isPublished = 1 ORDER BY salesCount DESC LIMIT 50').all() as any[];
@@ -655,13 +616,13 @@ export const getServerSideProps = async () => {
     const allRawProducts = database.prepare('SELECT * FROM products WHERE isPublished = 1 ORDER BY salesCount DESC').all() as any[];
 
     const formatProductLocal = (p: any): Product => {
-      const image = proxyImageUrl(p.image || '');
+      const image = resolveImageUrlServerSide(p.image || '');
       
       let images: string[] = [];
       try {
         const parsed = typeof p.images === 'string' ? JSON.parse(p.images) : p.images;
         if (Array.isArray(parsed)) {
-          images = parsed.filter((img: string) => typeof img === 'string' && img.length > 0).map(proxyImageUrl);
+          images = parsed.filter((img: string) => typeof img === 'string' && img.length > 0).map(resolveImageUrlServerSide);
         }
       } catch {}
       if (images.length === 0 && image) images = [image];

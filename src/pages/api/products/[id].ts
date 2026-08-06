@@ -3,6 +3,7 @@ import { getServerSession } from 'next-auth/next';
 import { authOptions } from '@/lib/auth';
 import { prisma } from '@/lib/prisma';
 import { computeBulletPoints } from '@/lib/bullet-points';
+import { resolveImageUrlServerSide } from '@/lib/image-utils';
 import fs from 'fs';
 import path from 'path';
 
@@ -19,34 +20,7 @@ function isValidCuid(str: string): boolean {
 }
 
 function convertImageUrl(url: string): string {
-  if (!url) return '';
-  if (url.includes('raw.githubusercontent.com/')) {
-    const match = url.match(/raw\.githubusercontent\.com\/(.+)/);
-    if (match) {
-      const path = match[1];
-      if (path.startsWith('Preeasy/images/')) {
-        let rest = path.replace('Preeasy/images/', '');
-        rest = rest.replace(/^main\//, '');
-        try {
-          const decoded = decodeURIComponent(rest);
-          return `https://cdn.jsdelivr.net/gh/Preeasy/images@main/${decoded}`;
-        } catch {
-          return `https://cdn.jsdelivr.net/gh/Preeasy/images@main/${rest}`;
-        }
-      }
-      if (path.startsWith('Preeasy/Images/')) {
-        let rest = path.replace('Preeasy/Images/', '');
-        rest = rest.replace(/^main\//, '');
-        try {
-          const decoded = decodeURIComponent(rest);
-          return `https://cdn.jsdelivr.net/gh/Preeasy/Images@main/${decoded}`;
-        } catch {
-          return `https://cdn.jsdelivr.net/gh/Preeasy/Images@main/${rest}`;
-        }
-      }
-    }
-  }
-  return url;
+  return resolveImageUrlServerSide(url) || '';
 }
 
 async function findProduct(idOrSlug: string) {
