@@ -1,6 +1,31 @@
 export function proxyImageUrl(url: string | null | undefined): string {
   if (!url) return '/images/product-placeholder.svg';
   if (url.startsWith('/images/') || url.startsWith('data:')) return url;
+
+  // Convert raw.githubusercontent.com to cdn.jsdelivr.net for reliability
+  // raw.githubusercontent.com/Preeasy/images/main/... -> cdn.jsdelivr.net/gh/Preeasy/images@main/...
+  if (url.includes('raw.githubusercontent.com/Preeasy/images/')) {
+    const path = url.replace('https://raw.githubusercontent.com/Preeasy/images/', '');
+    // Decode URL-encoded Chinese characters, then re-encode as-is for jsdelivr
+    try {
+      const decoded = decodeURIComponent(path);
+      return `https://cdn.jsdelivr.net/gh/Preeasy/images@main/${decoded}`;
+    } catch {
+      return `https://cdn.jsdelivr.net/gh/Preeasy/images@main/${path}`;
+    }
+  }
+
+  // Convert raw.githubusercontent.com/Preeasy/Images/ (capital I)
+  if (url.includes('raw.githubusercontent.com/Preeasy/Images/')) {
+    const path = url.replace('https://raw.githubusercontent.com/Preeasy/Images/', '');
+    try {
+      const decoded = decodeURIComponent(path);
+      return `https://cdn.jsdelivr.net/gh/Preeasy/Images@main/${decoded}`;
+    } catch {
+      return `https://cdn.jsdelivr.net/gh/Preeasy/Images@main/${path}`;
+    }
+  }
+
   if (url.startsWith('http://') || url.startsWith('https://')) return url;
   return url;
 }

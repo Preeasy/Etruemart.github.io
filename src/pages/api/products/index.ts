@@ -93,6 +93,36 @@ function buildCategoryMap(categories: any[]) {
   return { slugToCat, idToCat, getDescendantSlugs, getRootSlug };
 }
 
+function convertImageUrl(url: string): string {
+  if (!url) return '';
+  if (url.includes('raw.githubusercontent.com/')) {
+    const match = url.match(/raw\.githubusercontent\.com\/(.+)/);
+    if (match) {
+      const path = match[1];
+      if (path.startsWith('Preeasy/images/')) {
+        const rest = path.replace('Preeasy/images/', '');
+        try {
+          const decoded = decodeURIComponent(rest);
+          return `https://cdn.jsdelivr.net/gh/Preeasy/images@main/${decoded}`;
+        } catch {
+          return `https://cdn.jsdelivr.net/gh/Preeasy/images@main/${rest}`;
+        }
+      }
+      if (path.startsWith('Preeasy/Images/')) {
+        const rest = path.replace('Preeasy/Images/', '');
+        try {
+          const decoded = decodeURIComponent(rest);
+          return `https://cdn.jsdelivr.net/gh/Preeasy/Images@main/${decoded}`;
+        } catch {
+          return `https://cdn.jsdelivr.net/gh/Preeasy/Images@main/${rest}`;
+        }
+      }
+      return url;
+    }
+  }
+  return url;
+}
+
 function getProductsFromSeedData(req: NextApiRequest, res: NextApiResponse) {
   const seedData = loadSeedData();
   if (!seedData) {
@@ -175,7 +205,7 @@ function getProductsFromSeedData(req: NextApiRequest, res: NextApiResponse) {
       price: Number(p.price) || 0,
       priceMax: p.priceMax ? Number(p.priceMax) : null,
       originalPrice: p.originalPrice ? Number(p.originalPrice) : null,
-      image: p.image || '',
+      image: convertImageUrl(p.image || ''),
       categoryId: catSlug,
       categoryName: rootCat?.name || cat?.name || '',
       categorySlug: rootCat?.slug || cat?.slug || catSlug,
@@ -258,7 +288,7 @@ async function getProductsFromFallback(req: NextApiRequest, res: NextApiResponse
     price: Number(p.priceMin || p.price || 0),
     priceMax: p.priceMax ? Number(p.priceMax) : null,
     originalPrice: p.originalPrice ? Number(p.originalPrice) : null,
-    image: p.image,
+    image: convertImageUrl(p.image),
     categoryId: '',
     categoryName: typeof p.category === 'object' ? p.category.name : (p.category || ''),
     categorySlug: p.category?.slug || '',
@@ -385,7 +415,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         price: Number(p.price),
         priceMax: p.priceMax ? Number(p.priceMax) : null,
         originalPrice: p.originalPrice ? Number(p.originalPrice) : null,
-        image: p.image,
+        image: convertImageUrl(p.image),
         categoryId: p.categoryId,
         categoryName: p.categoryName || '',
         categorySlug: p.categorySlug || '',

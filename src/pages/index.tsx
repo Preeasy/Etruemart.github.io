@@ -434,8 +434,39 @@ function loadHomeSeedData() {
 
 function proxyImageUrlDirect(url: string): string {
   if (!url) return '/images/product-placeholder.svg';
-  if (url.startsWith('http')) return url;
   if (url.startsWith('/')) return url;
+
+  // Convert raw.githubusercontent.com to cdn.jsdelivr.net
+  if (url.includes('raw.githubusercontent.com/')) {
+    // Extract the repo path after .com/
+    const match = url.match(/raw\.githubusercontent\.com\/(.+)/);
+    if (match) {
+      const path = match[1];
+      // Try to determine the correct jsdelivr repo
+      if (path.startsWith('Preeasy/images/')) {
+        const rest = path.replace('Preeasy/images/', '');
+        try {
+          const decoded = decodeURIComponent(rest);
+          return `https://cdn.jsdelivr.net/gh/Preeasy/images@main/${decoded}`;
+        } catch {
+          return `https://cdn.jsdelivr.net/gh/Preeasy/images@main/${rest}`;
+        }
+      }
+      if (path.startsWith('Preeasy/Images/')) {
+        const rest = path.replace('Preeasy/Images/', '');
+        try {
+          const decoded = decodeURIComponent(rest);
+          return `https://cdn.jsdelivr.net/gh/Preeasy/Images@main/${decoded}`;
+        } catch {
+          return `https://cdn.jsdelivr.net/gh/Preeasy/Images@main/${rest}`;
+        }
+      }
+      // Fallback for other repos
+      return `https://cdn.jsdelivr.net/gh/${path.replace('/main/', '@main/')}`;
+    }
+  }
+
+  if (url.startsWith('http')) return url;
   if (url.startsWith('Images/') || url.startsWith('images/')) {
     return `https://cdn.jsdelivr.net/gh/Preeasy/Images@main/${url.replace(/^[Ii]mages\//, '')}`;
   }

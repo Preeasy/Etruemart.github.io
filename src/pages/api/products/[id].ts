@@ -18,6 +18,35 @@ function isValidCuid(str: string): boolean {
   return /^c[a-z0-9]{20,}$/.test(str);
 }
 
+function convertImageUrl(url: string): string {
+  if (!url) return '';
+  if (url.includes('raw.githubusercontent.com/')) {
+    const match = url.match(/raw\.githubusercontent\.com\/(.+)/);
+    if (match) {
+      const path = match[1];
+      if (path.startsWith('Preeasy/images/')) {
+        const rest = path.replace('Preeasy/images/', '');
+        try {
+          const decoded = decodeURIComponent(rest);
+          return `https://cdn.jsdelivr.net/gh/Preeasy/images@main/${decoded}`;
+        } catch {
+          return `https://cdn.jsdelivr.net/gh/Preeasy/images@main/${rest}`;
+        }
+      }
+      if (path.startsWith('Preeasy/Images/')) {
+        const rest = path.replace('Preeasy/Images/', '');
+        try {
+          const decoded = decodeURIComponent(rest);
+          return `https://cdn.jsdelivr.net/gh/Preeasy/Images@main/${decoded}`;
+        } catch {
+          return `https://cdn.jsdelivr.net/gh/Preeasy/Images@main/${rest}`;
+        }
+      }
+    }
+  }
+  return url;
+}
+
 async function findProduct(idOrSlug: string) {
   if (isValidCuid(idOrSlug)) {
     return prisma.product.findUnique({
@@ -159,8 +188,8 @@ async function getProductFromSeedData(idStr: string) {
     price: Number(product.price) || 0,
     priceMax: product.priceMax ? Number(product.priceMax) : null,
     originalPrice: product.originalPrice ? Number(product.originalPrice) : null,
-    image: product.image || '',
-    images,
+    image: convertImageUrl(product.image || ''),
+    images: (Array.isArray(images) ? images : []).map(convertImageUrl),
     category: {
       id: resolvedCat?.id || '',
       name: resolvedCat?.name || '',
@@ -229,7 +258,7 @@ async function getProductFromFallback(idStr: string) {
     price: Number(product.priceMin || product.price || 0),
     priceMax: product.priceMax ? Number(product.priceMax) : null,
     originalPrice: product.originalPrice ? Number(product.originalPrice) : null,
-    image: product.image,
+    image: convertImageUrl(product.image),
     images,
     category: {
       id: '',

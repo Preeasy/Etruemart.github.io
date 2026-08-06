@@ -92,6 +92,14 @@ const Products = () => {
   const [showSidebar, setShowSidebar] = useState(false);
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
 
+  // Sync URL query params to state when navigating between categories
+  useEffect(() => {
+    const category = typeof router.query.category === 'string' ? router.query.category : 'all';
+    const search = typeof router.query.q === 'string' ? router.query.q : '';
+    setSelectedCategory(category);
+    setSearchQuery(search);
+  }, [router.query.category, router.query.q]);
+
   useEffect(() => {
     fetch('/api/categories?level=1')
       .then(r => r.ok ? r.json() : null)
@@ -124,8 +132,14 @@ const Products = () => {
       .catch(() => {});
   }, []);
 
+  // Fetch products - include category filter and refetch when category/search changes
   useEffect(() => {
-    fetch('/api/products')
+    const params = new URLSearchParams();
+    if (selectedCategory !== 'all') params.set('category', selectedCategory);
+    if (searchQuery) params.set('q', searchQuery);
+    const url = params.toString() ? `/api/products?${params.toString()}` : '/api/products';
+
+    fetch(url)
       .then(r => r.ok ? r.json() : null)
       .then(data => {
         if (Array.isArray(data) && data.length > 0) {
@@ -149,10 +163,13 @@ const Products = () => {
           }));
           setTotalCount(data.length);
           setProducts(dbProducts);
+        } else {
+          setTotalCount(0);
+          setProducts([]);
         }
       })
       .catch(() => {});
-  }, []);
+  }, [selectedCategory, searchQuery]);
 
   const filteredProducts = products.filter((product) => {
     const q = searchQuery.toLowerCase();
