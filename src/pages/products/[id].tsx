@@ -33,9 +33,6 @@ import {
   Edit3,
   Settings,
   CreditCard,
-  Gem,
-  Gift,
-  Sparkles,
 } from 'lucide-react';
 import Layout from '@/components/Layout';
 import ProductCard from '@/components/ProductCard';
@@ -45,6 +42,7 @@ import { useCart } from '@/components/CartContext';
 import { SITE_URL, SITE_OG_IMAGE } from '@/lib/site';
 import { getProductBySlug, getProductById, getCategoryById, getRelatedProducts } from '@/lib/db';
 import { proxyImageUrl } from '@/lib/image-utils';
+import { computeBulletPoints } from '@/lib/bullet-points';
 
 interface Product {
   id: number | string;
@@ -82,6 +80,21 @@ interface Product {
   } | null;
 }
 
+function cleanDescription(desc: string): string {
+  if (!desc) return '';
+  // Remove spec paragraphs that duplicate sidebar/spec-tab content
+  return desc
+    .replace(/<p><strong>Item No:<\/strong>[^<]*<\/p>\s*/g, '')
+    .replace(/<p><strong>Price:<\/strong>[^<]*<\/p>\s*/g, '')
+    .replace(/<p><strong>MOQ:<\/strong>[^<]*<\/p>\s*/g, '')
+    .replace(/<p><strong>Lead Time:<\/strong>[^<]*<\/p>\s*/g, '')
+    .replace(/<p><strong>Shipping:<\/strong>[^<]*<\/p>\s*/g, '')
+    .replace(/<p><strong>Packaging:<\/strong>[^<]*<\/p>\s*/g, '')
+    .replace(/<p><strong>装箱数[\s\S]*?<\/p>\s*/g, '')
+    .replace(/<p><strong>箱规[\s\S]*?<\/p>\s*/g, '')
+    .trim();
+}
+
 export default function ProductDetail({ product: initialProduct, relatedProducts: initialRelated }: { product: Product; relatedProducts: Product[] }) {
   const router = useRouter();
   const { data: session, status: sessionStatus } = useSession();
@@ -97,6 +110,14 @@ export default function ProductDetail({ product: initialProduct, relatedProducts
   const [addingToCart, setAddingToCart] = useState(false);
   const [cartNotice, setCartNotice] = useState<{ type: 'success' | 'error'; message: string } | null>(null);
   const [ownership, setOwnership] = useState<{ isOwner: boolean; canManage: boolean; productId: string | null } | null>(null);
+
+  const filteredAplusBlocks = (product.aplus?.blocks || []).filter((block: any) => {
+    const content = String(block.content || '');
+    const isKeyFeaturesBlock = content.includes('<h3>Key Features</h3>');
+    const isSpecsBlock = block.type === 'specs';
+    return !isKeyFeaturesBlock && !isSpecsBlock;
+  });
+  const hasAplusContent = !!(product.aplus && (product.aplus.description || filteredAplusBlocks.length > 0));
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -461,24 +482,6 @@ export default function ProductDetail({ product: initialProduct, relatedProducts
               </div>
             </div>
 
-            {/* Key Features */}
-            {product.bulletPoints && product.bulletPoints.length > 0 && (
-              <div className="py-4 border-b border-ink-100">
-                <h3 className="text-sm font-bold text-navy-800 mb-3 flex items-center gap-2">
-                  <Star className="w-4 h-4 text-accent-500" />
-                  Key Features
-                </h3>
-                <ul className="space-y-2">
-                  {product.bulletPoints.map((bp, i) => (
-                    <li key={i} className="flex items-start gap-2.5">
-                      <CheckCircle2 className="w-4 h-4 text-accent-500 flex-shrink-0 mt-0.5" />
-                      <span className="text-sm text-ink-700 leading-relaxed">{bp}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            )}
-
             {/* Quantity + CTA — 主操作区 */}
             <div className="py-4 border-b border-ink-100">
               <h3 className="text-sm font-bold text-navy-800 mb-2.5">Order Quantity</h3>
@@ -569,7 +572,7 @@ export default function ProductDetail({ product: initialProduct, relatedProducts
                 <div className="space-y-5">
                   <div>
                     <h2 className="text-lg font-bold text-navy-900 mb-2.5">Product Overview</h2>
-                    <div className="text-sm text-ink-600 leading-relaxed prose prose-sm max-w-none [&_p]:mb-2 [&_strong]:text-navy-800 [&_a]:text-accent-600" dangerouslySetInnerHTML={{ __html: product.description || '' }} />
+                    <div className="text-sm text-ink-600 leading-relaxed prose prose-sm max-w-none [&_p]:mb-2 [&_strong]:text-navy-800 [&_a]:text-accent-600" dangerouslySetInnerHTML={{ __html: cleanDescription(product.description || '') }} />
                   </div>
                   {product.bulletPoints && product.bulletPoints.length > 0 && (
                     <div>
@@ -600,17 +603,17 @@ export default function ProductDetail({ product: initialProduct, relatedProducts
                       </div>
                     </div>
                   )}
-                  {product.aplus && (product.aplus.description || (product.aplus.blocks && product.aplus.blocks.length > 0)) && (
+                  {hasAplusContent && (
                     <div className="mt-6 p-5 bg-gradient-to-br from-accent-500/5 to-navy-500/5 rounded-xl border border-accent-200/20">
                       <h3 className="text-base font-bold text-navy-800 mb-4 flex items-center gap-2">
                         <Layers className="w-4 h-4 text-accent-500" />A+ Premium Content
                       </h3>
-                      {product.aplus.description && (
+                      {product.aplus?.description && (
                         <p className="text-sm text-ink-700 leading-relaxed mb-4">{product.aplus.description}</p>
                       )}
-                      {product.aplus.blocks && product.aplus.blocks.length > 0 && (
+                      {filteredAplusBlocks.length > 0 && (
                         <div className="space-y-3">
-                          {product.aplus.blocks.map((block: any, i: number) => (
+                          {filteredAplusBlocks.map((block: any, i: number) => (
                             <div key={block.id || i} className="p-4 bg-white rounded-lg border border-ink-100">
                               {block.type === 'image' ? (
                                 <img src={block.content} alt={block.caption || ''} className="w-full max-h-64 object-cover rounded-lg" />
