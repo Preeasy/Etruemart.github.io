@@ -56,7 +56,9 @@ interface Product {
   originalPrice?: number | string;
   image: string;
   images: string[];
-  category?: { name: string; slug: string };
+  category?: { name: string; slug: string } | null | undefined;
+  categoryPath?: { name: string; slug: string }[];
+  categoryId?: string;
   stock?: number;
   rating?: number;
   reviewCount?: number;
@@ -318,17 +320,35 @@ export default function ProductDetail({ product: initialProduct, relatedProducts
       {/* Breadcrumb */}
       <div className="bg-white border-b border-ink-100">
         <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16 max-w-[1600px] mx-auto py-3.5">
-          <nav className="flex items-center gap-2 text-sm text-ink-500">
-            <Link href="/" className="hover:text-accent-600 transition-colors font-medium">Home</Link>
-            <ChevronRight className="w-4 h-4 text-ink-300" />
-            <Link href="/products" className="hover:text-accent-600 transition-colors font-medium">Products</Link>
-            {product.category && (
-              <>
+          <nav className="flex items-center gap-2 text-sm text-ink-500 flex-wrap">
+            <Link href="/" className="hover:text-accent-600 transition-colors font-medium shrink-0">Home</Link>
+            <ChevronRight className="w-4 h-4 text-ink-300 shrink-0" />
+            <Link href="/products" className="hover:text-accent-600 transition-colors font-medium shrink-0">Products</Link>
+            {/* Category path (root → sub → product) */}
+            {(product.categoryPath && product.categoryPath.length > 0) ? (
+              product.categoryPath.map((cat, i) => (
+                <span key={i} className="flex items-center gap-2 shrink-0">
+                  <ChevronRight className="w-4 h-4 text-ink-300" />
+                  <Link
+                    href={`/products?category=${cat.slug}`}
+                    className="hover:text-accent-600 transition-colors font-medium"
+                  >
+                    {cat.name}
+                  </Link>
+                </span>
+              ))
+            ) : product.category ? (
+              <span className="flex items-center gap-2 shrink-0">
                 <ChevronRight className="w-4 h-4 text-ink-300" />
-                <Link href={`/products?category=${product.category.slug}`} className="hover:text-accent-600 transition-colors font-medium">{product.category.name}</Link>
-              </>
-            )}
-            <ChevronRight className="w-4 h-4 text-ink-300" />
+                <Link
+                  href={`/products?category=${product.category.slug}`}
+                  className="hover:text-accent-600 transition-colors font-medium"
+                >
+                  {product.category.name}
+                </Link>
+              </span>
+            ) : null}
+            <ChevronRight className="w-4 h-4 text-ink-300 shrink-0" />
             <span className="text-navy-800 font-bold truncate">{product.name}</span>
           </nav>
         </div>
@@ -954,7 +974,20 @@ function findProductFromSeed(productId: string) {
   if (!product) return null;
 
   // Get category - use root category for breadcrumb and navigation
-  const breadcrumbCatId = product.categoryId || '';
+  let breadcrumbCatId = product.categoryId || '';
+
+  // Fallback: if product has no categoryId but is a parent with children,
+  // try to get category from the first child
+  if (!breadcrumbCatId && product.isParent === true) {
+    const child = products.find((p: any) => p.parentId === product.id && p.categoryId);
+    if (child) breadcrumbCatId = child.categoryId;
+  }
+  // Fallback: if product is a child (has parentId), inherit parent's category
+  if (!breadcrumbCatId && product.parentId) {
+    const parent = products.find((p: any) => p.id === product.parentId);
+    if (parent && parent.categoryId) breadcrumbCatId = parent.categoryId;
+  }
+
   const rootCat = getRootCat(breadcrumbCatId);
   const directCat = idToCat.get(breadcrumbCatId) || slugToCat.get(breadcrumbCatId);
   const category = rootCat || directCat || null;
@@ -1158,6 +1191,16 @@ function findProductFromSeed(productId: string) {
     }
   }
 
+  // Compute full category breadcrumb path (for nested categories)
+  const categoryPath: { name: string; slug: string }[] = [];
+  if (category) {
+    categoryPath.push({ name: category.name, slug: category.slug });
+    // If product is in a sub-category, add it too
+    if (directCat && directCat.id !== rootCat?.id) {
+      categoryPath.push({ name: directCat.name, slug: directCat.slug });
+    }
+  }
+
   return {
     product: {
       id: product.id,
@@ -1170,6 +1213,8 @@ function findProductFromSeed(productId: string) {
       image: proxyImageUrlDirect(product.image || ''),
       images: images.length > 0 ? images : [proxyImageUrlDirect(product.image || '')],
       category: category ? { name: category.name, slug: category.slug } : null,
+      categoryPath,
+      categoryId: breadcrumbCatId,
       stock: Number(product.stock) || 0,
       rating: Number(product.rating) || 0,
       reviewCount: Number(product.reviewCount) || 0,
@@ -1419,6 +1464,12 @@ export async function getServerSideProps(context: { params: { id: string } }) {
       }
     }
 
+    // Build category path for breadcrumb
+    const categoryPath: { name: string; slug: string }[] = [];
+    if (category) {
+      categoryPath.push({ name: category.name, slug: category.slug });
+    }
+
     const serializedProduct = {
       id: product.id,
       slug: product.slug,
@@ -1429,7 +1480,9 @@ export async function getServerSideProps(context: { params: { id: string } }) {
       originalPrice: product.originalPrice ? Number(product.originalPrice) : null,
       image: proxyImageUrlDirect(product.image || ''),
       images: images.length > 0 ? images : [proxyImageUrlDirect(product.image || '')],
-      category: product.category ? { name: product.category.name, slug: product.category.slug } : null,
+      category: category ? { name: category.name, slug: category.slug } : null,
+      categoryPath,
+      categoryId: product.categoryId || '',
       stock: Number(product.stock) || 0,
       rating: Number(product.rating) || 0,
       reviewCount: Number(product.reviewCount) || 0,
