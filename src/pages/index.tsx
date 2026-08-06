@@ -37,6 +37,19 @@ import Sidebar from '@/components/Sidebar';
 import { getProductBySlug, getAllCategories, searchProducts } from '@/lib/db';
 import { resolveImageUrlServerSide } from '@/lib/image-utils';
 
+interface ProductVariantPreview {
+  id: string;
+  sku?: string | null;
+  slug?: string;
+  color?: string | null;
+  colorHex?: string | null;
+  size?: string | null;
+  capacity?: string | null;
+  layer?: string | null;
+  pack?: string | null;
+  price?: number;
+  image?: string;
+}
 interface Product {
   id: number | string;
   slug?: string;
@@ -52,6 +65,11 @@ interface Product {
   color?: string | null;
   keywords?: string[];
   bulletPoints?: string[];
+  // ===== 变体扩展 =====
+  isParent?: boolean;
+  parentId?: string | null;
+  variants?: ProductVariantPreview[]; // 父产品：预览所有子款
+  variantOptions?: any; // 子产品：自身所属变体属性
 }
 
 interface CategoryInfo {
@@ -161,11 +179,11 @@ const Home = ({ products, categories, categoryProductsMap }: { products: Product
                     </div>
                   </div>
                   <div className="w-full lg:w-[26rem] flex-shrink-0">
-                    <div className="relative w-full aspect-[4/3] rounded-2xl overflow-hidden border border-white/10 shadow-premium">
+                    <div className="relative w-full aspect-[4/3] rounded-2xl overflow-hidden border border-white/10 shadow-premium bg-white/5">
                       <img
                         src={topDeals[0]?.image || products[0]?.image || ''}
                         alt="Wholesale Products"
-                        className="w-full h-full object-cover"
+                        className="w-full h-full object-contain p-4"
                         onError={(e) => {
                           const el = e.currentTarget as HTMLImageElement;
                           if (!el.dataset.fallback) {
@@ -175,7 +193,7 @@ const Home = ({ products, categories, categoryProductsMap }: { products: Product
                           }
                         }}
                       />
-                      <div className="absolute inset-0 bg-gradient-to-t from-navy-950/40 to-transparent pointer-events-none" />
+                      <div className="absolute inset-0 bg-gradient-to-t from-navy-950/30 to-transparent pointer-events-none" />
                     </div>
                   </div>
                 </div>
@@ -440,8 +458,48 @@ export const getServerSideProps = async () => {
     const seedData = loadHomeSeedData();
     if (seedData) {
       const { products: rawProducts, categories } = seedData;
+      // ========== 变体过滤：只显示父产品 + 单品（排除子产品）==========
+      // 父产品：isParent===true ；单品：!parentId && isParent!==true
+      const filterListOnly = (arr: any[]) => arr.filter((p: any) => {
+        if (p.parentId) return false; // 子产品，不展示
+        return true; // 父产品(isParent=true) + 单品(parentId=null且isParent=false) 都保留
+      });
+      // Build 辅助：所有产品 -> id→product，给父产品提取子款 previews
+      const byId = new Map<string, any>();
+      for (const p of rawProducts) byId.set(String(p.id), p);
+      const parentChildren = new Map<string, any[]>();
+      for (const p of rawProducts) {
+        if (p.parentId) {
+          if (!parentChildren.has(p.parentId)) parentChildren.set(p.parentId, []);
+          parentChildren.get(p.parentId)!.push(p);
+        }
+      }
+      const attachVariantPreview = (p: any): any[] | undefined => {
+        if (!(p.isParent === true)) return undefined;
+        const children = parentChildren.get(String(p.id));
+        if (!children || children.length === 0) return undefined;
+        return children.map((c: any) => {
+          let opts: any = {};
+          if (c.variantOptions) {
+            try { opts = typeof c.variantOptions === 'string' ? JSON.parse(c.variantOptions) : c.variantOptions; } catch {}
+          }
+          return {
+            id: c.id,
+            sku: c.sku,
+            slug: c.slug,
+            color: opts.color || c.color || null,
+            colorHex: opts.colorHex || null,
+            size: opts.size || c.size || null,
+            capacity: opts.capacity || null,
+            layer: opts.layer || null,
+            pack: opts.pack || null,
+            price: Number(c.priceMin ?? c.price ?? p.priceMin ?? 0),
+            image: resolveImageUrlServerSide(c.image || ''),
+          };
+        });
+      };
       // Sort by salesCount descending (or by id as fallback) and take top 50
-      const sorted = [...rawProducts]
+      const sorted = filterListOnly([...rawProducts])
         .sort((a, b) => (b.salesCount || 0) - (a.salesCount || 0))
         .slice(0, 50);
 
@@ -476,9 +534,10 @@ export const getServerSideProps = async () => {
         return result;
       };
 
-      // Build product count per root category (including descendants)
+      // Build product count per root category (including descendants) — only parent+standalone, exclude children
       const productCountByRoot = new Map<string, number>();
       for (const p of rawProducts) {
+        if (p.parentId) continue; // 不统计子产品
         const catId = p.categoryId || '';
         const rootCat = getRootCat(catId);
         if (rootCat) {
@@ -519,6 +578,12 @@ export const getServerSideProps = async () => {
         const rootCat = getRootCat(catId);
         const directCat = idToCat.get(catId) || slugToCat.get(catId);
 
+        // 子产品自己的 variantOptions 解析
+        let selfVariantOptions: any = null;
+        if (p.variantOptions) {
+          try { selfVariantOptions = typeof p.variantOptions === 'string' ? JSON.parse(p.variantOptions) : p.variantOptions; } catch {}
+        }
+
         return {
           id: p.slug || p.id,
           slug: p.slug,
@@ -538,14 +603,18 @@ export const getServerSideProps = async () => {
           color: p.color || null,
           keywords: [],
           bulletPoints: [],
+          isParent: p.isParent === true,
+          parentId: p.parentId || null,
+          variants: attachVariantPreview(p),
+          variantOptions: selfVariantOptions,
         };
       };
 
       // Top 50 products for hero/trending
       const products = sorted.map(formatProduct);
 
-      // Top 5 products per root category (for "Shop by Category" blocks)
-      const sortedAll = [...rawProducts].sort((a, b) => (b.salesCount || 0) - (a.salesCount || 0));
+      // Top 5 products per root category (for "Shop by Category" blocks) — 过滤掉子产品
+      const sortedAll = filterListOnly([...rawProducts]).sort((a, b) => (b.salesCount || 0) - (a.salesCount || 0));
       const categoryProductsMap: Record<string, Product[]> = {};
       for (const rootCat of rootCategories) {
         const catProducts = sortedAll

@@ -113,6 +113,10 @@ function getProductsFromSeedData(req: NextApiRequest, res: NextApiResponse) {
     // Filter by isPublished (unless all=true for admin)
     if (all !== 'true' && p.isPublished === false) return false;
 
+    // ========== Variant filtering: hide child products from list ==========
+    // Only show parent products (isParent=true) and standalone products (no parentId)
+    if (all !== 'true' && p.parentId) return false;
+
     // Category filtering
     if (category && category !== 'all') {
       const productCatSlug = p.categoryId || '';
@@ -155,6 +159,16 @@ function getProductsFromSeedData(req: NextApiRequest, res: NextApiResponse) {
     return true;
   });
 
+  // ========== Build parent→children map for variant previews ==========
+  const parentChildrenMap = new Map<string, any[]>();
+  for (const p of products) {
+    if (p.parentId) {
+      const key = String(p.parentId);
+      if (!parentChildrenMap.has(key)) parentChildrenMap.set(key, []);
+      parentChildrenMap.get(key)!.push(p);
+    }
+  }
+
   const serialized = filtered.map((p: any) => {
     const catId = p.categoryId || '';
       const cat = idToCat.get(catId) || slugToCat.get(catId);
@@ -171,6 +185,32 @@ function getProductsFromSeedData(req: NextApiRequest, res: NextApiResponse) {
       try { keywords = JSON.parse(keywords); } catch { keywords = []; }
     }
     if (!Array.isArray(keywords)) keywords = [];
+
+    // Build variant previews for parent products
+    let variantPreviews: any[] | undefined = undefined;
+    if (p.isParent === true) {
+      const children = parentChildrenMap.get(String(p.id));
+      if (children && children.length > 0) {
+        variantPreviews = children.map((c: any) => {
+          let opts: any = {};
+          if (c.variantOptions) {
+            try { opts = typeof c.variantOptions === 'string' ? JSON.parse(c.variantOptions) : c.variantOptions; } catch {}
+          }
+          return {
+            id: c.id,
+            sku: c.sku,
+            slug: c.slug,
+            color: opts.color || c.color || null,
+            size: opts.size || c.size || null,
+            capacity: opts.capacity || null,
+            layer: opts.layer || null,
+            pack: opts.pack || null,
+            price: Number(c.priceMin ?? c.price ?? 0),
+            image: convertImageUrl(c.image || ''),
+          };
+        });
+      }
+    }
 
     return {
       id: p.id,
@@ -205,6 +245,9 @@ function getProductsFromSeedData(req: NextApiRequest, res: NextApiResponse) {
       updatedAt: p.updatedAt ? new Date(p.updatedAt).toISOString() : new Date().toISOString(),
       images,
       keywords,
+      isParent: p.isParent === true,
+      parentId: p.parentId || null,
+      variants: variantPreviews,
     };
   });
 
@@ -334,6 +377,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       } else {
         whereConditions.push('isPublished = ?');
         params.push(1);
+        // Hide child products (parentId IS NOT NULL) from public list
+        whereConditions.push('(parentId IS NULL OR parentId = "")');
       }
 
       if (categoryId && categoryId !== 'All') {
@@ -413,6 +458,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         authorId: p.authorId,
         createdAt: p.createdAt,
         updatedAt: p.updatedAt,
+        isParent: Boolean(p.isParent),
+        parentId: p.parentId || null,
       }));
 
       return res.json(serialized);

@@ -123,7 +123,7 @@ export default function ProductDetail({ product: initialProduct, relatedProducts
   const [isLightboxOpen, setIsLightboxOpen] = useState(false);
   const [lightboxIndex, setLightboxIndex] = useState(0);
   const [quantity, setQuantity] = useState(initialProduct.moq || 12);
-  const [activeTab, setActiveTab] = useState('description');
+  const [activeTab, setActiveTab] = useState('specs');
   const [isFavorite, setIsFavorite] = useState(false);
   const [addingToCart, setAddingToCart] = useState(false);
   const [cartNotice, setCartNotice] = useState<{ type: 'success' | 'error'; message: string } | null>(null);
@@ -468,38 +468,75 @@ export default function ProductDetail({ product: initialProduct, relatedProducts
             <p className="text-xs text-ink-500 mt-2 mb-4">Price varies by quantity. Bulk discounts available. Contact us for custom orders.</p>
 
             {/* Specs — 关键规格一览 */}
-            <div className="grid grid-cols-2 md:grid-cols-3 gap-y-3 gap-x-4 py-4 border-b border-ink-100">
-              {product.material && (
-                <div>
-                  <span className="text-[10px] text-ink-400 uppercase tracking-[0.08em] font-semibold">Material</span>
-                  <p className="text-sm font-semibold text-navy-800 mt-0.5">{product.material}</p>
+            <div className="py-4 border-b border-ink-100">
+              <div className="grid grid-cols-3 gap-2">
+                <div className="bg-ink-50 rounded-xl p-3 text-center border border-ink-100">
+                  <span className="text-[10px] text-ink-400 uppercase tracking-wider font-bold">MOQ</span>
+                  <p className="text-base font-bold text-navy-800 mt-0.5">{product.moq || 12} pcs</p>
                 </div>
-              )}
-              {product.size && (
-                <div>
-                  <span className="text-[10px] text-ink-400 uppercase tracking-[0.08em] font-semibold">Size</span>
-                  <p className="text-sm font-semibold text-navy-800 mt-0.5">{product.size}</p>
+                <div className="bg-ink-50 rounded-xl p-3 text-center border border-ink-100">
+                  <span className="text-[10px] text-ink-400 uppercase tracking-wider font-bold">Lead Time</span>
+                  <p className="text-base font-bold text-navy-800 mt-0.5">7-15 days</p>
                 </div>
-              )}
-              <div>
-                <span className="text-[10px] text-ink-400 uppercase tracking-[0.08em] font-semibold">MOQ</span>
-                <p className="text-sm font-semibold text-navy-800 mt-0.5">{product.moq || 12} pcs</p>
+                <div className="bg-ink-50 rounded-xl p-3 text-center border border-ink-100">
+                  <span className="text-[10px] text-ink-400 uppercase tracking-wider font-bold">Samples</span>
+                  <p className="text-base font-bold text-navy-800 mt-0.5">Available</p>
+                </div>
               </div>
-              {product.plating && (
-                <div>
-                  <span className="text-[10px] text-ink-400 uppercase tracking-[0.08em] font-semibold">Finish</span>
-                  <p className="text-sm font-semibold text-navy-800 mt-0.5">{product.plating}</p>
+              <div className="grid grid-cols-2 md:grid-cols-3 gap-y-2.5 gap-x-4 mt-3">
+                {product.material && (
+                  <div className="flex items-center gap-2">
+                    <div className="w-7 h-7 rounded-lg bg-accent-50 flex items-center justify-center flex-shrink-0">
+                      <span className="text-[10px] font-bold text-accent-600">M</span>
+                    </div>
+                    <div className="min-w-0">
+                      <span className="text-[10px] text-ink-400 uppercase tracking-wider font-semibold">Material</span>
+                      <p className="text-sm font-semibold text-navy-800 truncate">{product.material}</p>
+                    </div>
+                  </div>
+                )}
+                {product.plating && (
+                  <div className="flex items-center gap-2">
+                    <div className="w-7 h-7 rounded-lg bg-accent-50 flex items-center justify-center flex-shrink-0">
+                      <span className="text-[10px] font-bold text-accent-600">P</span>
+                    </div>
+                    <div className="min-w-0">
+                      <span className="text-[10px] text-ink-400 uppercase tracking-wider font-semibold">Finish</span>
+                      <p className="text-sm font-semibold text-navy-800 truncate">{product.plating}</p>
+                    </div>
+                  </div>
+                )}
+                {product.color && (
+                  <div className="flex items-center gap-2">
+                    <div className="w-7 h-7 rounded-lg bg-accent-50 flex items-center justify-center flex-shrink-0">
+                      <span className="text-[10px] font-bold text-accent-600">C</span>
+                    </div>
+                    <div className="min-w-0">
+                      <span className="text-[10px] text-ink-400 uppercase tracking-wider font-semibold">Color</span>
+                      <p className="text-sm font-semibold text-navy-800 truncate">{product.color}</p>
+                    </div>
+                  </div>
+                )}
+                {product.size && (
+                  <div className="flex items-center gap-2">
+                    <div className="w-7 h-7 rounded-lg bg-accent-50 flex items-center justify-center flex-shrink-0">
+                      <span className="text-[10px] font-bold text-accent-600">S</span>
+                    </div>
+                    <div className="min-w-0">
+                      <span className="text-[10px] text-ink-400 uppercase tracking-wider font-semibold">Size</span>
+                      <p className="text-sm font-semibold text-navy-800 truncate">{product.size}</p>
+                    </div>
+                  </div>
+                )}
+                <div className="flex items-center gap-2">
+                  <div className="w-7 h-7 rounded-lg bg-accent-50 flex items-center justify-center flex-shrink-0">
+                    <span className="text-[10px] font-bold text-accent-600">PK</span>
+                  </div>
+                  <div className="min-w-0">
+                    <span className="text-[10px] text-ink-400 uppercase tracking-wider font-semibold">Pack</span>
+                    <p className="text-sm font-semibold text-navy-800 truncate">{product.packSize || product.moq || 12} pcs</p>
+                  </div>
                 </div>
-              )}
-              {product.color && (
-                <div>
-                  <span className="text-[10px] text-ink-400 uppercase tracking-[0.08em] font-semibold">Color</span>
-                  <p className="text-sm font-semibold text-navy-800 mt-0.5">{product.color}</p>
-                </div>
-              )}
-              <div>
-                <span className="text-[10px] text-ink-400 uppercase tracking-[0.08em] font-semibold">Pack Size</span>
-                <p className="text-sm font-semibold text-navy-800 mt-0.5">{product.packSize || product.moq || 12} pcs</p>
               </div>
             </div>
 
@@ -580,8 +617,8 @@ export default function ProductDetail({ product: initialProduct, relatedProducts
             <div className="border-b border-ink-200 mb-5">
               <div className="flex gap-0.5 overflow-x-auto">
                 {[
-                  { key: 'description', label: 'Description', icon: FileCheck },
                   { key: 'specs', label: 'Specifications', icon: Layers },
+                  { key: 'description', label: 'Description', icon: FileCheck },
                   { key: 'reviews', label: `Reviews (${reviewCount})`, icon: Star },
                   { key: 'faq', label: 'FAQ', icon: MessageCircle },
                 ].map((tab) => {
@@ -602,44 +639,39 @@ export default function ProductDetail({ product: initialProduct, relatedProducts
 
             <div className="py-1">
               {activeTab === 'description' && (
-                <div className="space-y-5">
+                <div className="space-y-6">
                   <div>
-                    <h2 className="text-lg font-bold text-navy-900 mb-2.5">Product Overview</h2>
-                    <div className="text-sm text-ink-600 leading-relaxed prose prose-sm max-w-none [&_p]:mb-2 [&_strong]:text-navy-800 [&_a]:text-accent-600" dangerouslySetInnerHTML={{ __html: cleanDescription(product.description || '') }} />
+                    <h2 className="text-lg font-bold text-navy-900 mb-3 flex items-center gap-2">
+                      <FileCheck className="w-5 h-5 text-accent-500" />
+                      Product Overview
+                    </h2>
+                    <div className="text-sm text-ink-700 leading-relaxed prose prose-sm max-w-none [&_p]:mb-3 [&_strong]:text-navy-800 [&_a]:text-accent-600 [&_h3]:text-base [&_h3]:font-bold [&_h3]:text-navy-800 [&_h3]:mb-2" dangerouslySetInnerHTML={{ __html: cleanDescription(product.description || '') }} />
                   </div>
+
                   {product.bulletPoints && product.bulletPoints.length > 0 && (
-                    <div>
-                      <h3 className="text-base font-bold text-navy-800 mb-3 flex items-center gap-2">
-                        <CheckCircle2 className="w-4 h-4 text-accent-500" />Key Features
+                    <div className="bg-gradient-to-br from-ink-50 to-white rounded-xl p-5 border border-ink-100">
+                      <h3 className="text-base font-bold text-navy-800 mb-4 flex items-center gap-2">
+                        <CheckCircle2 className="w-5 h-5 text-accent-500" />
+                        Key Features
                       </h3>
-                      <ul className="space-y-2">
+                      <ul className="space-y-2.5">
                         {product.bulletPoints.map((bp, i) => (
-                          <li key={i} className="flex items-start gap-2.5">
-                            <CheckCircle2 className="w-4 h-4 text-accent-500 flex-shrink-0 mt-0.5" />
-                            <span className="text-sm text-ink-700 leading-relaxed">{bp}</span>
+                          <li key={i} className="flex items-start gap-3">
+                            <div className="w-5 h-5 rounded-full bg-accent-500/10 flex items-center justify-center flex-shrink-0 mt-0.5">
+                              <CheckCircle2 className="w-3.5 h-3.5 text-accent-600" />
+                            </div>
+                            <span className="text-sm text-ink-700 leading-relaxed font-medium">{bp}</span>
                           </li>
                         ))}
                       </ul>
                     </div>
                   )}
-                  {product.keywords && product.keywords.length > 0 && (
-                    <div>
-                      <h3 className="text-base font-bold text-navy-800 mb-3 flex items-center gap-2">
-                        <Tag className="w-4 h-4 text-accent-500" />Related Search Terms
-                      </h3>
-                      <div className="flex flex-wrap gap-2">
-                        {product.keywords.slice(0, 8).map((kw, i) => (
-                          <span key={i} className="text-xs font-medium text-ink-600 bg-ink-50 border border-ink-200 rounded-full px-3 py-1.5">
-                            {kw}
-                          </span>
-                        ))}
-                      </div>
-                    </div>
-                  )}
+
                   {hasAplusContent && (
-                    <div className="mt-6 p-5 bg-gradient-to-br from-accent-500/5 to-navy-500/5 rounded-xl border border-accent-200/20">
+                    <div className="p-5 bg-gradient-to-br from-accent-500/5 to-navy-500/5 rounded-xl border border-accent-200/20">
                       <h3 className="text-base font-bold text-navy-800 mb-4 flex items-center gap-2">
-                        <Layers className="w-4 h-4 text-accent-500" />A+ Premium Content
+                        <Layers className="w-5 h-5 text-accent-500" />
+                        Premium Product Content
                       </h3>
                       {product.aplus?.description && (
                         <p className="text-sm text-ink-700 leading-relaxed mb-4">{product.aplus.description}</p>
@@ -651,7 +683,7 @@ export default function ProductDetail({ product: initialProduct, relatedProducts
                               {block.type === 'image' ? (
                                 <img src={block.content} alt={block.caption || ''} className="w-full max-h-64 object-cover rounded-lg" />
                               ) : (
-                                <div className="text-sm text-ink-700 leading-relaxed prose prose-sm max-w-none [&_h2]:text-base [&_h2]:font-bold [&_h2]:text-navy-800 [&_h2]:mb-2 [&_h3]:text-sm [&_h3]:font-bold [&_h3]:text-navy-800 [&_h3]:mb-2 [&_p]:mb-2 [&_li]:mb-1 [&_strong]:text-navy-800" dangerouslySetInnerHTML={{ __html: block.content || '' }} />
+                                <div className="text-sm text-ink-700 leading-relaxed prose prose-sm max-w-none" dangerouslySetInnerHTML={{ __html: block.content || '' }} />
                               )}
                               {block.caption && (
                                 <p className="text-xs text-ink-500 mt-2 text-center italic">{block.caption}</p>
@@ -662,13 +694,31 @@ export default function ProductDetail({ product: initialProduct, relatedProducts
                       )}
                     </div>
                   )}
+
+                  {product.keywords && product.keywords.length > 0 && (
+                    <div>
+                      <h3 className="text-sm font-bold text-navy-800 mb-3 flex items-center gap-2">
+                        <Tag className="w-4 h-4 text-accent-500" />
+                        Related Search Terms
+                      </h3>
+                      <div className="flex flex-wrap gap-1.5">
+                        {product.keywords.slice(0, 10).map((kw, i) => (
+                          <span key={i} className="text-xs font-medium text-ink-600 bg-ink-50 border border-ink-200 rounded-full px-3 py-1">
+                            {kw}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+
                   <div>
-                    <h3 className="text-base font-bold text-navy-800 mb-3 flex items-center gap-2">
-                      <Users className="w-4 h-4 text-accent-500" />Perfect For
+                    <h3 className="text-sm font-bold text-navy-800 mb-3 flex items-center gap-2">
+                      <Users className="w-4 h-4 text-accent-500" />
+                      Perfect For
                     </h3>
-                    <div className="grid grid-cols-2 md:grid-cols-4 gap-2.5">
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
                       {['Boutique Stores','Online Retailers','Wholesale Distributors','Gift Shops'].map((u, i) => (
-                        <div key={i} className="border border-ink-100 rounded-lg p-3 text-center bg-white">
+                        <div key={i} className="border border-ink-100 rounded-lg p-3 text-center bg-white hover:border-accent-200 hover:bg-accent-50/30 transition-colors">
                           <p className="text-xs font-bold text-navy-800">{u}</p>
                         </div>
                       ))}
@@ -679,28 +729,43 @@ export default function ProductDetail({ product: initialProduct, relatedProducts
 
               {activeTab === 'specs' && (
                 <div>
-                  <h2 className="text-lg font-bold text-navy-900 mb-4">Product Specifications</h2>
-                  <div className="grid md:grid-cols-2 gap-0 border border-ink-200 rounded-xl overflow-hidden">
+                  <h2 className="text-lg font-bold text-navy-900 mb-4 flex items-center gap-2">
+                    <Layers className="w-5 h-5 text-accent-500" />
+                    Product Specifications
+                  </h2>
+                  <div className="grid md:grid-cols-2 gap-0 border border-ink-200 rounded-xl overflow-hidden bg-white">
                     {[
                       { label: 'Product Name', value: product.name },
                       { label: 'SKU', value: product.sku || 'N/A' },
                       { label: 'Category', value: product.category?.name || 'N/A' },
                       { label: 'Material', value: product.material || 'N/A' },
-                      { label: 'Plating', value: product.plating || 'N/A' },
+                      { label: 'Plating / Finish', value: product.plating || 'N/A' },
                       { label: 'Color', value: product.color || 'Multiple options' },
                       { label: 'Size', value: product.size || 'Standard' },
                       { label: 'MOQ', value: `${product.moq || 12} pieces` },
                       { label: 'Pack Size', value: `${product.packSize || product.moq || 12} pcs/carton` },
                       { label: 'Lead Time', value: '7-15 days' },
                       { label: 'Customization', value: 'OEM/ODM available' },
-                      { label: 'Sample', value: 'Yes' },
-                      { label: 'Shipping', value: 'DHL, FedEx, Sea, Air' },
+                      { label: 'Sample', value: 'Yes — contact us' },
+                      { label: 'Shipping Methods', value: 'DHL, FedEx, Sea, Air' },
+                      { label: 'Payment Terms', value: 'T/T, PayPal, Western Union, L/C' },
                     ].map((spec, i) => (
-                      <div key={i} className="flex justify-between items-center py-2.5 px-4 border-b border-r border-ink-100 last:border-b-0 even:border-r-0 md:even:border-r">
+                      <div key={i} className="flex justify-between items-center py-3 px-4 border-b border-r border-ink-100 last:border-b-0 even:border-r-0 md:even:border-r hover:bg-ink-50/50 transition-colors">
                         <span className="text-sm text-ink-500 font-medium">{spec.label}</span>
                         <span className="text-sm font-semibold text-navy-800 text-right max-w-[60%] truncate">{spec.value}</span>
                       </div>
                     ))}
+                  </div>
+                  <div className="mt-4 p-4 bg-gradient-to-r from-accent-500/5 to-navy-500/5 rounded-xl border border-ink-100">
+                    <div className="flex items-start gap-3">
+                      <div className="w-9 h-9 rounded-lg bg-accent-500/10 flex items-center justify-center flex-shrink-0">
+                        <TrendingUp className="w-4 h-4 text-accent-600" />
+                      </div>
+                      <div>
+                        <h4 className="text-sm font-bold text-navy-800">Need More Details?</h4>
+                        <p className="text-xs text-ink-600 mt-0.5">Contact our sales team for complete specifications, CAD drawings, and customization options.</p>
+                      </div>
+                    </div>
                   </div>
                 </div>
               )}
@@ -1085,14 +1150,11 @@ function findProductFromSeed(productId: string) {
   // Compute variant group
   let variantGroupData: VariantGroupProp | null = null;
   {
-    const { buildVariantGroups } = require('@/lib/variants');
-    const parent = product.sku ? product.sku.split('-').length >= 4 ? product.sku.split('-').slice(0, 3).join('-') : null : null;
-    if (parent) {
-      const groups = buildVariantGroups(products);
-      const g = groups.get(parent);
-      if (g && g.variants.length >= 2) {
-        variantGroupData = { parentSku: g.parentSku, baseName: g.baseName, variants: g.variants };
-      }
+    const { buildVariantGroups, getVariantGroupForProductId } = require('@/lib/variants');
+    const groups = buildVariantGroups(products);
+    const g = getVariantGroupForProductId(groups, String(product.id), product.sku, product.parentId);
+    if (g && g.variants.length >= 2) {
+      variantGroupData = { parentSku: g.parentSku, baseName: g.baseName, variants: g.variants };
     }
   }
 
@@ -1409,14 +1471,11 @@ export async function getServerSideProps(context: { params: { id: string } }) {
     {
       const sd = loadSeedData();
       if (sd) {
-        const { buildVariantGroups } = require('@/lib/variants');
-        const parent = product.sku ? String(product.sku).split('-').length >= 4 ? String(product.sku).split('-').slice(0, 3).join('-') : null : null;
-        if (parent) {
-          const groups = buildVariantGroups(sd.products);
-          const g = groups.get(parent);
-          if (g && g.variants.length >= 2) {
-            ssVariantGroup = { parentSku: g.parentSku, baseName: g.baseName, variants: g.variants };
-          }
+        const { buildVariantGroups, getVariantGroupForProductId } = require('@/lib/variants');
+        const groups = buildVariantGroups(sd.products);
+        const g = getVariantGroupForProductId(groups, String(product.id), product.sku, (product as any).parentId);
+        if (g && g.variants.length >= 2) {
+          ssVariantGroup = { parentSku: g.parentSku, baseName: g.baseName, variants: g.variants };
         }
       }
     }
