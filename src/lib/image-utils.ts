@@ -3,10 +3,11 @@ export function proxyImageUrl(url: string | null | undefined): string {
   if (url.startsWith('/images/') || url.startsWith('data:')) return url;
 
   // Convert raw.githubusercontent.com to cdn.jsdelivr.net for reliability
-  // raw.githubusercontent.com/Preeasy/images/main/... -> cdn.jsdelivr.net/gh/Preeasy/images@main/...
+  // raw.githubusercontent.com/Preeasy/images/main/path -> cdn.jsdelivr.net/gh/Preeasy/images@main/path
   if (url.includes('raw.githubusercontent.com/Preeasy/images/')) {
-    const path = url.replace('https://raw.githubusercontent.com/Preeasy/images/', '');
-    // Decode URL-encoded Chinese characters, then re-encode as-is for jsdelivr
+    let path = url.replace('https://raw.githubusercontent.com/Preeasy/images/', '');
+    // Strip the "main/" branch prefix - jsdelivr uses @main/ instead
+    path = path.replace(/^main\//, '');
     try {
       const decoded = decodeURIComponent(path);
       return `https://cdn.jsdelivr.net/gh/Preeasy/images@main/${decoded}`;
@@ -17,7 +18,8 @@ export function proxyImageUrl(url: string | null | undefined): string {
 
   // Convert raw.githubusercontent.com/Preeasy/Images/ (capital I)
   if (url.includes('raw.githubusercontent.com/Preeasy/Images/')) {
-    const path = url.replace('https://raw.githubusercontent.com/Preeasy/Images/', '');
+    let path = url.replace('https://raw.githubusercontent.com/Preeasy/Images/', '');
+    path = path.replace(/^main\//, '');
     try {
       const decoded = decodeURIComponent(path);
       return `https://cdn.jsdelivr.net/gh/Preeasy/Images@main/${decoded}`;

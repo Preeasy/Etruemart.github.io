@@ -438,13 +438,12 @@ function proxyImageUrlDirect(url: string): string {
 
   // Convert raw.githubusercontent.com to cdn.jsdelivr.net
   if (url.includes('raw.githubusercontent.com/')) {
-    // Extract the repo path after .com/
     const match = url.match(/raw\.githubusercontent\.com\/(.+)/);
     if (match) {
       const path = match[1];
-      // Try to determine the correct jsdelivr repo
       if (path.startsWith('Preeasy/images/')) {
-        const rest = path.replace('Preeasy/images/', '');
+        let rest = path.replace('Preeasy/images/', '');
+        rest = rest.replace(/^main\//, '');
         try {
           const decoded = decodeURIComponent(rest);
           return `https://cdn.jsdelivr.net/gh/Preeasy/images@main/${decoded}`;
@@ -453,7 +452,8 @@ function proxyImageUrlDirect(url: string): string {
         }
       }
       if (path.startsWith('Preeasy/Images/')) {
-        const rest = path.replace('Preeasy/Images/', '');
+        let rest = path.replace('Preeasy/Images/', '');
+        rest = rest.replace(/^main\//, '');
         try {
           const decoded = decodeURIComponent(rest);
           return `https://cdn.jsdelivr.net/gh/Preeasy/Images@main/${decoded}`;
@@ -461,8 +461,6 @@ function proxyImageUrlDirect(url: string): string {
           return `https://cdn.jsdelivr.net/gh/Preeasy/Images@main/${rest}`;
         }
       }
-      // Fallback for other repos
-      return `https://cdn.jsdelivr.net/gh/${path.replace('/main/', '@main/')}`;
     }
   }
 
@@ -494,10 +492,10 @@ export const getServerSideProps = async () => {
       }
 
       // Resolve a category slug to its root category
-      const getRootCat = (catSlug: string) => {
-        let current = slugToCat.get(catSlug);
+      const getRootCat = (catIdOrSlug: string) => {
+        let current = idToCat.get(catIdOrSlug) || slugToCat.get(catIdOrSlug);
         while (current && current.parentId) {
-          const parent = idToCat.get(current.parentId);
+          const parent = idToCat.get(current.parentId) || slugToCat.get(current.parentId);
           if (!parent) break;
           current = parent;
         }
@@ -519,8 +517,8 @@ export const getServerSideProps = async () => {
       // Build product count per root category (including descendants)
       const productCountByRoot = new Map<string, number>();
       for (const p of rawProducts) {
-        const catSlug = p.categoryId || '';
-        const rootCat = getRootCat(catSlug);
+        const catId = p.categoryId || '';
+        const rootCat = getRootCat(catId);
         if (rootCat) {
           productCountByRoot.set(rootCat.slug, (productCountByRoot.get(rootCat.slug) || 0) + 1);
         }
@@ -555,9 +553,9 @@ export const getServerSideProps = async () => {
         }
         if (images.length === 0 && image) images = [image];
 
-        const catSlug = p.categoryId || '';
-        const rootCat = getRootCat(catSlug);
-        const directCat = slugToCat.get(catSlug);
+        const catId = p.categoryId || '';
+        const rootCat = getRootCat(catId);
+        const directCat = idToCat.get(catId) || slugToCat.get(catId);
 
         return {
           id: p.slug || p.id,
@@ -622,10 +620,10 @@ export const getServerSideProps = async () => {
       idToCat.set(cat.id, cat);
     }
 
-    const getRootCat = (catSlug: string) => {
-      let current = slugToCat.get(catSlug);
+    const getRootCat = (catIdOrSlug: string) => {
+      let current = idToCat.get(catIdOrSlug) || slugToCat.get(catIdOrSlug);
       while (current && current.parentId) {
-        const parent = idToCat.get(current.parentId);
+        const parent = idToCat.get(current.parentId) || slugToCat.get(current.parentId);
         if (!parent) break;
         current = parent;
       }
@@ -635,8 +633,8 @@ export const getServerSideProps = async () => {
     // Compute product counts per root category
     const productCountByRoot = new Map<string, number>();
     for (const p of rawProducts) {
-      const catSlug = p.categoryId || '';
-      const rootCat = getRootCat(catSlug);
+      const catId = p.categoryId || '';
+      const rootCat = getRootCat(catId);
       if (rootCat) {
         productCountByRoot.set(rootCat.slug, (productCountByRoot.get(rootCat.slug) || 0) + 1);
       }
@@ -668,9 +666,9 @@ export const getServerSideProps = async () => {
       } catch {}
       if (images.length === 0 && image) images = [image];
       
-      const catSlug = p.categoryId || '';
-      const rootCat = getRootCat(catSlug);
-      const directCat = slugToCat.get(catSlug);
+      const catId = p.categoryId || '';
+      const rootCat = getRootCat(catId);
+      const directCat = idToCat.get(catId) || slugToCat.get(catId);
       
       return {
         id: p.slug || p.id,

@@ -65,9 +65,9 @@ function buildCategoryMap(categories: any[]) {
   }
 
   // For each category, compute all descendant slugs (for filtering)
-  const getDescendantSlugs = (catSlug: string): string[] => {
-    const result = [catSlug];
-    const cat = slugToCat.get(catSlug);
+  const getDescendantSlugs = (catIdOrSlug: string): string[] => {
+    const result = [catIdOrSlug];
+    const cat = idToCat.get(catIdOrSlug) || slugToCat.get(catIdOrSlug);
     if (!cat) return result;
 
     // Find children (categories whose parentId is this category's id)
@@ -79,15 +79,15 @@ function buildCategoryMap(categories: any[]) {
     return result;
   };
 
-  // Also build parent lookup: for each category slug, find the root slug
-  const getRootSlug = (catSlug: string): string => {
-    let current = slugToCat.get(catSlug);
+  // Also build parent lookup: for each category id/slug, find the root slug
+  const getRootSlug = (catIdOrSlug: string): string => {
+    let current = idToCat.get(catIdOrSlug) || slugToCat.get(catIdOrSlug);
     while (current && current.parentId) {
-      const parent = idToCat.get(current.parentId);
+      const parent = idToCat.get(current.parentId) || slugToCat.get(current.parentId);
       if (!parent) break;
       current = parent;
     }
-    return current ? current.slug : catSlug;
+    return current ? current.slug : catIdOrSlug;
   };
 
   return { slugToCat, idToCat, getDescendantSlugs, getRootSlug };
@@ -100,7 +100,8 @@ function convertImageUrl(url: string): string {
     if (match) {
       const path = match[1];
       if (path.startsWith('Preeasy/images/')) {
-        const rest = path.replace('Preeasy/images/', '');
+        let rest = path.replace('Preeasy/images/', '');
+        rest = rest.replace(/^main\//, '');
         try {
           const decoded = decodeURIComponent(rest);
           return `https://cdn.jsdelivr.net/gh/Preeasy/images@main/${decoded}`;
@@ -109,7 +110,8 @@ function convertImageUrl(url: string): string {
         }
       }
       if (path.startsWith('Preeasy/Images/')) {
-        const rest = path.replace('Preeasy/Images/', '');
+        let rest = path.replace('Preeasy/Images/', '');
+        rest = rest.replace(/^main\//, '');
         try {
           const decoded = decodeURIComponent(rest);
           return `https://cdn.jsdelivr.net/gh/Preeasy/Images@main/${decoded}`;
@@ -130,7 +132,7 @@ function getProductsFromSeedData(req: NextApiRequest, res: NextApiResponse) {
   }
 
   const { categories, products } = seedData;
-  const { slugToCat, getDescendantSlugs, getRootSlug } = buildCategoryMap(categories);
+  const { slugToCat, idToCat, getDescendantSlugs, getRootSlug } = buildCategoryMap(categories);
 
   const { category, material, plating, color, priceMin, priceMax, all } = req.query;
 
@@ -181,9 +183,9 @@ function getProductsFromSeedData(req: NextApiRequest, res: NextApiResponse) {
   });
 
   const serialized = filtered.map((p: any) => {
-    const catSlug = p.categoryId || '';
-    const cat = slugToCat.get(catSlug);
-    const rootCat = cat ? cat : slugToCat.get(getRootSlug(catSlug));
+    const catId = p.categoryId || '';
+      const cat = idToCat.get(catId) || slugToCat.get(catId);
+      const rootCat = cat ? cat : idToCat.get(getRootSlug(catId)) || slugToCat.get(getRootSlug(catId));
 
     let images = p.images;
     if (typeof images === 'string') {
@@ -206,9 +208,9 @@ function getProductsFromSeedData(req: NextApiRequest, res: NextApiResponse) {
       priceMax: p.priceMax ? Number(p.priceMax) : null,
       originalPrice: p.originalPrice ? Number(p.originalPrice) : null,
       image: convertImageUrl(p.image || ''),
-      categoryId: catSlug,
+      categoryId: catId,
       categoryName: rootCat?.name || cat?.name || '',
-      categorySlug: rootCat?.slug || cat?.slug || catSlug,
+      categorySlug: rootCat?.slug || cat?.slug || catId,
       stock: p.stock ?? 100,
       rating: Number(p.rating) || 0,
       reviewCount: Number(p.reviewCount) || 0,

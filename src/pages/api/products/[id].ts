@@ -25,7 +25,8 @@ function convertImageUrl(url: string): string {
     if (match) {
       const path = match[1];
       if (path.startsWith('Preeasy/images/')) {
-        const rest = path.replace('Preeasy/images/', '');
+        let rest = path.replace('Preeasy/images/', '');
+        rest = rest.replace(/^main\//, '');
         try {
           const decoded = decodeURIComponent(rest);
           return `https://cdn.jsdelivr.net/gh/Preeasy/images@main/${decoded}`;
@@ -34,7 +35,8 @@ function convertImageUrl(url: string): string {
         }
       }
       if (path.startsWith('Preeasy/Images/')) {
-        const rest = path.replace('Preeasy/Images/', '');
+        let rest = path.replace('Preeasy/Images/', '');
+        rest = rest.replace(/^main\//, '');
         try {
           const decoded = decodeURIComponent(rest);
           return `https://cdn.jsdelivr.net/gh/Preeasy/Images@main/${decoded}`;

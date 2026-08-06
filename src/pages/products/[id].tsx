@@ -855,6 +855,44 @@ function loadSeedData(): { categories: any[]; products: any[] } | null {
   }
 }
 
+function proxyImageUrlDirect(url: string): string {
+  if (!url) return '/images/product-placeholder.svg';
+  if (url.startsWith('/')) return url;
+
+  if (url.includes('raw.githubusercontent.com/')) {
+    const match = url.match(/raw\.githubusercontent\.com\/(.+)/);
+    if (match) {
+      const path = match[1];
+      if (path.startsWith('Preeasy/images/')) {
+        let rest = path.replace('Preeasy/images/', '');
+        rest = rest.replace(/^main\//, '');
+        try {
+          const decoded = decodeURIComponent(rest);
+          return `https://cdn.jsdelivr.net/gh/Preeasy/images@main/${decoded}`;
+        } catch {
+          return `https://cdn.jsdelivr.net/gh/Preeasy/images@main/${rest}`;
+        }
+      }
+      if (path.startsWith('Preeasy/Images/')) {
+        let rest = path.replace('Preeasy/Images/', '');
+        rest = rest.replace(/^main\//, '');
+        try {
+          const decoded = decodeURIComponent(rest);
+          return `https://cdn.jsdelivr.net/gh/Preeasy/Images@main/${decoded}`;
+        } catch {
+          return `https://cdn.jsdelivr.net/gh/Preeasy/Images@main/${rest}`;
+        }
+      }
+    }
+  }
+
+  if (url.startsWith('http')) return url;
+  if (url.startsWith('Images/') || url.startsWith('images/')) {
+    return `https://cdn.jsdelivr.net/gh/Preeasy/Images@main/${url.replace(/^[Ii]mages\//, '')}`;
+  }
+  return url;
+}
+
 function findProductFromSeed(productId: string) {
   const seedData = loadSeedData();
   if (!seedData) return null;
@@ -870,10 +908,10 @@ function findProductFromSeed(productId: string) {
   }
 
   // Resolve a category slug to its root category
-  const getRootCat = (catSlug: string) => {
-    let current = slugToCat.get(catSlug);
+  const getRootCat = (catIdOrSlug: string) => {
+    let current = idToCat.get(catIdOrSlug) || slugToCat.get(catIdOrSlug);
     while (current && current.parentId) {
-      const parent = idToCat.get(current.parentId);
+      const parent = idToCat.get(current.parentId) || slugToCat.get(current.parentId);
       if (!parent) break;
       current = parent;
     }
@@ -889,17 +927,17 @@ function findProductFromSeed(productId: string) {
   if (!product) return null;
 
   // Get category - use root category for breadcrumb and navigation
-  const breadcrumbCatSlug = product.categoryId || '';
-  const rootCat = getRootCat(breadcrumbCatSlug);
-  const directCat = slugToCat.get(breadcrumbCatSlug);
+  const breadcrumbCatId = product.categoryId || '';
+  const rootCat = getRootCat(breadcrumbCatId);
+  const directCat = idToCat.get(breadcrumbCatId) || slugToCat.get(breadcrumbCatId);
   const category = rootCat || directCat || null;
 
   // Find related products - same root category (including sub-categories)
-  const rootSlug = rootCat ? rootCat.slug : breadcrumbCatSlug;
+  const rootSlug = rootCat ? rootCat.slug : breadcrumbCatId;
   // Get all descendant slugs for the root category
-  const getDescendantSlugs = (cs: string): string[] => {
-    const result = [cs];
-    const cat = slugToCat.get(cs);
+  const getDescendantSlugs = (catIdOrSlug: string): string[] => {
+    const result = [catIdOrSlug];
+    const cat = idToCat.get(catIdOrSlug) || slugToCat.get(catIdOrSlug);
     if (!cat) return result;
     const children = categories.filter(c => c.parentId === cat.id);
     for (const child of children) {
@@ -920,11 +958,11 @@ function findProductFromSeed(productId: string) {
       try { parsed = JSON.parse(parsed); } catch { parsed = []; }
     }
     if (Array.isArray(parsed)) {
-      images = parsed.filter((img: string) => typeof img === 'string');
+      images = parsed.filter((img: string) => typeof img === 'string').map(proxyImageUrlDirect);
     }
   }
   if (product.image && !images.includes(product.image)) {
-    images = [product.image, ...images];
+    images = [proxyImageUrlDirect(product.image), ...images];
   }
 
   // Parse keywords
@@ -1105,8 +1143,8 @@ function findProductFromSeed(productId: string) {
       price: Number(product.price) || 0,
       priceMax: product.priceMax ? Number(product.priceMax) : null,
       originalPrice: product.originalPrice ? Number(product.originalPrice) : null,
-      image: product.image || '/images/product-placeholder.svg',
-      images: images.length > 0 ? images : [product.image || '/images/product-placeholder.svg'],
+      image: proxyImageUrlDirect(product.image || ''),
+      images: images.length > 0 ? images : [proxyImageUrlDirect(product.image || '')],
       category: category ? { name: category.name, slug: category.slug } : null,
       stock: Number(product.stock) || 0,
       rating: Number(product.rating) || 0,
@@ -1134,7 +1172,7 @@ function findProductFromSeed(productId: string) {
       description: rp.description || '',
       price: Number(rp.price) || 0,
       priceMax: rp.priceMax ? Number(rp.priceMax) : null,
-      image: rp.image || '/images/product-placeholder.svg',
+      image: proxyImageUrlDirect(rp.image || ''),
       category: category ? { name: category.name, slug: category.slug } : null,
       moq: Number(rp.moq) || 1,
       sku: rp.sku || null,
@@ -1195,7 +1233,7 @@ export async function getServerSideProps(context: { params: { id: string } }) {
         ? JSON.parse(product.images) 
         : product.images;
       if (Array.isArray(parsedImages)) {
-        images = parsedImages.filter((img: string) => typeof img === 'string');
+        images = parsedImages.filter((img: string) => typeof img === 'string').map(proxyImageUrlDirect);
       }
     } catch {
       images = [];
@@ -1362,23 +1400,23 @@ export async function getServerSideProps(context: { params: { id: string } }) {
       slug: product.slug,
       name: product.name,
       description: product.description || '',
-      price: Number(product.price),
+      price: Number(product.price) || 0,
       priceMax: product.priceMax ? Number(product.priceMax) : null,
       originalPrice: product.originalPrice ? Number(product.originalPrice) : null,
-      image: product.image || '/images/product-placeholder.svg',
-      images: images.length > 0 ? images : [product.image || '/images/product-placeholder.svg'],
+      image: proxyImageUrlDirect(product.image || ''),
+      images: images.length > 0 ? images : [proxyImageUrlDirect(product.image || '')],
       category: product.category ? { name: product.category.name, slug: product.category.slug } : null,
-      stock: product.stock || 0,
+      stock: Number(product.stock) || 0,
       rating: Number(product.rating) || 0,
-      reviewCount: product.reviewCount || 0,
-      salesCount: product.salesCount || 0,
+      reviewCount: Number(product.reviewCount) || 0,
+      salesCount: Number(product.salesCount) || 0,
       material: product.material || null,
       plating: product.plating || null,
       process: product.process || null,
       color: product.color || null,
       size: product.size || null,
-      packSize: product.packSize || 1,
-      moq: product.moq || 1,
+      packSize: Number(product.packSize) || 1,
+      moq: Number(product.moq) || 1,
       sku: product.sku || null,
       origin: product.origin || null,
       supplierCity: product.supplierCity || null,
@@ -1393,11 +1431,11 @@ export async function getServerSideProps(context: { params: { id: string } }) {
       slug: rp.slug,
       name: rp.name,
       description: rp.description || '',
-      price: Number(rp.price),
+      price: Number(rp.price) || 0,
       priceMax: rp.priceMax ? Number(rp.priceMax) : null,
-      image: rp.image || '/images/product-placeholder.svg',
+      image: proxyImageUrlDirect(rp.image || ''),
       category: null,
-      moq: rp.moq || 1,
+      moq: Number(rp.moq) || 1,
       sku: rp.sku || null,
       rating: Number(rp.rating) || 0,
       reviewCount: rp.reviewCount || 0,
