@@ -124,7 +124,7 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="sticky top-0 z-50 bg-navy-900 shadow-lg border-b border-navy-800">
+    <nav className="sticky top-0 z-50 bg-navy-900/95 backdrop-blur-md shadow-navy-glow border-b border-navy-800/80">
       <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-10 max-w-[1600px] mx-auto">
         {/* Main bar */}
         <div className="flex items-center justify-between h-16 gap-4">
@@ -132,17 +132,17 @@ const Navbar = () => {
           <Link
             href="/"
             aria-label="eTrue Mark home"
-            className="flex items-center gap-2 group shrink-0"
+            className="flex items-center gap-2.5 group shrink-0"
             onClick={handleLogoClick}
           >
-            <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-accent-500 to-accent-600 flex items-center justify-center shadow-md group-hover:shadow-accent-500/20 transition-shadow">
+            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-accent-400 to-accent-600 flex items-center justify-center shadow-accent-glow group-hover:shadow-accent-glow group-hover:scale-105 transition-all duration-300">
               <Gem className="w-5 h-5 text-white" />
             </div>
             <div className="flex flex-col">
               <span className="text-lg font-display font-bold tracking-wide text-white group-hover:text-accent-300 transition-colors leading-tight">
                 eTrue Mark
               </span>
-              <span className="text-[10px] tracking-[0.2em] text-accent-400 uppercase leading-tight font-medium">
+              <span className="text-[10px] tracking-[0.2em] text-accent-400/90 uppercase leading-tight font-medium">
                 Wholesale Source
               </span>
             </div>
@@ -150,19 +150,22 @@ const Navbar = () => {
 
           {/* Search bar */}
           <div className="hidden md:flex flex-1 max-w-xl">
-            <form onSubmit={handleSearch} className="relative w-full flex">
-              <input
-                type="text"
-                placeholder="Search products, categories..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                aria-label="Search products"
-                className="flex-1 px-4 py-2.5 rounded-l-lg bg-navy-800 border border-navy-700 text-white placeholder-navy-400 focus:outline-none focus:ring-2 focus:ring-accent-400 focus:border-accent-500 text-sm transition-colors"
-              />
+            <form onSubmit={handleSearch} className="relative w-full flex group">
+              <div className="relative flex-1">
+                <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-navy-400 pointer-events-none" />
+                <input
+                  type="text"
+                  placeholder="Search products, SKU, categories..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  aria-label="Search products"
+                  className="w-full pl-10 pr-4 py-2.5 rounded-l-xl bg-navy-800/80 border border-navy-700/60 text-white placeholder-navy-400 focus:outline-none focus:ring-2 focus:ring-accent-400/50 focus:border-accent-500 focus:bg-navy-800 text-sm transition-all"
+                />
+              </div>
               <button
                 type="submit"
                 aria-label="Search"
-                className="bg-accent-500 hover:bg-accent-400 text-white px-5 py-2.5 rounded-r-lg text-sm font-semibold transition-colors flex items-center gap-1"
+                className="bg-accent-500 hover:bg-accent-600 text-white px-5 py-2.5 rounded-r-xl text-sm font-semibold transition-all flex items-center gap-1 shadow-accent-glow"
               >
                 <Search className="w-4 h-4" />
               </button>
@@ -239,7 +242,7 @@ const Navbar = () => {
         </div>
 
         {/* Navigation links row */}
-        <div className="hidden md:block border-t border-navy-800">
+        <div className="hidden md:block border-t border-navy-800/60">
           <div className="h-11 flex items-center gap-0.5">
             <Link
               href="/"
@@ -295,17 +298,17 @@ const Navbar = () => {
 
                   {/* Dropdown menu */}
                   {hasChildren && isOpen && (
-                    <div className="absolute top-full left-0 mt-1 w-64 bg-white rounded-lg shadow-xl border border-navy-100 py-2 z-50">
-                      <div className="px-3 py-1.5 text-xs font-bold text-navy-900 uppercase tracking-wider border-b border-navy-100 mb-1">
+                    <div className="absolute top-full left-0 mt-0.5 w-64 bg-white rounded-xl shadow-premium border border-navy-100 py-2 z-50 animate-slide-up-sm">
+                      <div className="px-3 py-1.5 text-2xs font-bold text-navy-900 uppercase tracking-wider border-b border-navy-100 mb-1">
                         {cat.name} Subcategories
                       </div>
                       {cat.children.map(child => (
                         <Link
                           key={child.slug}
                           href={`/products?category=${child.slug}`}
-                          className="flex items-center gap-2 px-3 py-2 text-sm text-navy-700 hover:bg-navy-50 hover:text-accent-600 rounded-md transition-colors"
+                          className="flex items-center gap-2 px-3 py-2 text-sm text-navy-700 hover:bg-accent-50 hover:text-accent-700 rounded-lg mx-1 transition-colors"
                         >
-                          <ChevronRight className="w-3 h-3 text-navy-400" />
+                          <ChevronRight className="w-3 h-3 text-navy-300" />
                           {child.name}
                         </Link>
                       ))}
@@ -346,22 +349,22 @@ const Navbar = () => {
 
       {/* Mobile menu */}
       {isOpen && (
-        <div className="md:hidden bg-navy-900 border-t border-navy-800 max-h-[85vh] overflow-y-auto">
+        <div className="md:hidden bg-navy-900 border-t border-navy-800/60 max-h-[85vh] overflow-y-auto animate-slide-up-sm">
           <div className="px-4 py-4 space-y-4">
             {/* Search */}
             <form onSubmit={handleSearch} className="flex">
               <input
                 type="text"
-                placeholder="Search products..."
+                placeholder="Search products, SKU..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 aria-label="Search products"
-                className="flex-1 px-4 py-2.5 rounded-l-lg bg-navy-800 border border-navy-700 text-white placeholder-navy-400 focus:outline-none focus:ring-2 focus:ring-accent-400 text-sm"
+                className="flex-1 px-4 py-2.5 rounded-l-xl bg-navy-800/80 border border-navy-700/60 text-white placeholder-navy-400 focus:outline-none focus:ring-2 focus:ring-accent-400/50 text-sm"
               />
               <button
                 type="submit"
                 aria-label="Search"
-                className="bg-accent-500 text-white px-4 py-2.5 rounded-r-lg"
+                className="bg-accent-500 hover:bg-accent-600 text-white px-4 py-2.5 rounded-r-xl transition-colors"
               >
                 <Search className="w-4 h-4" />
               </button>

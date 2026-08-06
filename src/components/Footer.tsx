@@ -42,36 +42,36 @@ const Footer = () => {
 
   return (
     <footer className="bg-navy-900 text-ink-300">
-      <div className="w-full max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-10 py-10">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+      <div className="w-full max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-10 py-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
           {/* Column 1 - Brand & About */}
           <div className="flex flex-col gap-4">
-            <Link href="/" className="flex items-center gap-2 group shrink-0">
-              <div className="w-8 h-8 rounded-md bg-accent-500 flex items-center justify-center">
-                <Gem className="w-4 h-4 text-white" />
+            <Link href="/" className="flex items-center gap-2.5 group shrink-0">
+              <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-accent-400 to-accent-600 flex items-center justify-center shadow-accent-glow group-hover:scale-105 transition-transform duration-300">
+                <Gem className="w-5 h-5 text-white" />
               </div>
               <div className="flex flex-col">
-                <span className="text-sm font-display font-bold tracking-wide text-white group-hover:text-accent-300 transition-colors leading-tight">
+                <span className="text-base font-display font-bold tracking-wide text-white group-hover:text-accent-300 transition-colors leading-tight">
                   eTrue Mark
                 </span>
-                <span className="text-[9px] tracking-[0.25em] text-ink-400 uppercase leading-tight">
+                <span className="text-[9px] tracking-[0.25em] text-accent-400/80 uppercase leading-tight font-medium">
                   Wholesale Source
                 </span>
               </div>
             </Link>
 
-            <p className="text-xs text-ink-300 leading-relaxed">
+            <p className="text-xs text-ink-400 leading-relaxed">
               Your trusted B2B sourcing partner in Yiwu, China. Factory-direct wholesale
               jewelry, accessories &amp; crafts with low MOQ and global shipping.
             </p>
 
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-2.5">
               {socials.map(({ Icon, label, href }) => (
                 <a
                   key={label}
                   href={href}
                   aria-label={label}
-                  className="w-8 h-8 rounded-md border border-navy-700 flex items-center justify-center text-ink-300 hover:text-accent-300 hover:border-accent-300 transition-colors"
+                  className="w-8 h-8 rounded-lg border border-navy-700/70 flex items-center justify-center text-ink-400 hover:text-white hover:bg-accent-500 hover:border-accent-500 transition-all duration-300"
                 >
                   <Icon className="w-4 h-4" />
                 </a>
@@ -81,15 +81,15 @@ const Footer = () => {
 
           {/* Column 2 - Product Categories */}
           <div className="flex flex-col">
-            <h3 className="text-xs font-bold uppercase tracking-wider text-ink-400 mb-3">
+            <h3 className="text-xs font-bold uppercase tracking-wider text-ink-400 mb-3.5">
               Product Categories
             </h3>
-            <nav className="flex flex-col">
+            <nav className="flex flex-col gap-1">
               {productCategories.map((cat) => (
                 <Link
                   key={cat.label}
                   href={cat.href}
-                  className="text-xs text-ink-300 hover:text-accent-300 transition-colors py-1"
+                  className="text-xs text-ink-400 hover:text-accent-300 transition-colors py-0.5"
                 >
                   {cat.label}
                 </Link>
@@ -99,15 +99,15 @@ const Footer = () => {
 
           {/* Column 3 - Company */}
           <div className="flex flex-col">
-            <h3 className="text-xs font-bold uppercase tracking-wider text-ink-400 mb-3">
+            <h3 className="text-xs font-bold uppercase tracking-wider text-ink-400 mb-3.5">
               Company
             </h3>
-            <nav className="flex flex-col">
+            <nav className="flex flex-col gap-1">
               {companyLinks.map(({ label, href }) => (
                 <Link
                   key={label}
                   href={href}
-                  className="text-xs text-ink-300 hover:text-accent-300 transition-colors py-1"
+                  className="text-xs text-ink-400 hover:text-accent-300 transition-colors py-0.5"
                 >
                   {label}
                 </Link>
@@ -118,40 +118,40 @@ const Footer = () => {
           {/* Column 4 - Trust & Certifications */}
           <div className="flex flex-col gap-4">
             <div className="flex flex-col">
-              <h3 className="text-xs font-bold uppercase tracking-wider text-ink-400 mb-3">
+              <h3 className="text-xs font-bold uppercase tracking-wider text-ink-400 mb-3.5">
                 Trade Assurance
               </h3>
               <div className="flex flex-wrap gap-2">
-                <span className="inline-flex items-center gap-1 px-2 py-1 rounded text-[10px] font-medium bg-success-500/20 text-success-500 border border-success-500/30">
+                <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-[10px] font-semibold bg-success-500/15 text-success-400 border border-success-500/20">
                   <BadgeCheck className="w-3 h-3" />
                   Verified Supplier
                 </span>
-                <span className="inline-flex items-center gap-1 px-2 py-1 rounded text-[10px] font-medium bg-accent-500/20 text-accent-400 border border-accent-500/30">
+                <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-[10px] font-semibold bg-accent-500/15 text-accent-400 border border-accent-500/20">
                   <ShieldCheck className="w-3 h-3" />
                   Trade Assurance
                 </span>
-                <span className="inline-flex items-center gap-1 px-2 py-1 rounded text-[10px] font-medium bg-navy-600/30 text-ink-300 border border-navy-500/30">
+                <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-[10px] font-semibold bg-navy-700/40 text-ink-300 border border-navy-600/40">
                   <Lock className="w-3 h-3" />
                   SSL Secured
                 </span>
               </div>
             </div>
 
-            <p className="text-xs text-ink-300">
+            <p className="text-xs text-ink-400">
               We accept: T/T, PayPal, L/C, Western Union
             </p>
 
-            <div className="flex flex-col gap-1">
+            <div className="flex flex-col gap-1.5">
               <a
                 href="mailto:sales@etruemark.com"
-                className="inline-flex items-center gap-2 text-xs text-ink-300 hover:text-accent-300 transition-colors"
+                className="inline-flex items-center gap-2 text-xs text-ink-400 hover:text-accent-300 transition-colors"
               >
                 <Mail className="w-3.5 h-3.5" />
                 sales@etruemark.com
               </a>
               <a
                 href="tel:+8657985000000"
-                className="inline-flex items-center gap-2 text-xs text-ink-300 hover:text-accent-300 transition-colors"
+                className="inline-flex items-center gap-2 text-xs text-ink-400 hover:text-accent-300 transition-colors"
               >
                 <Phone className="w-3.5 h-3.5" />
                 +86 579 8500-0000
@@ -161,11 +161,11 @@ const Footer = () => {
         </div>
 
         {/* Bottom bar */}
-        <div className="border-t border-navy-700 mt-8 pt-6 flex flex-col md:flex-row justify-between items-center gap-3">
-          <p className="text-ink-400 text-xs">
+        <div className="border-t border-navy-800/60 mt-10 pt-6 flex flex-col md:flex-row justify-between items-center gap-3">
+          <p className="text-ink-500 text-xs">
             &copy; {year} eTrue Mark. Yiwu Yeatru Trading Co., Ltd. All rights reserved.
           </p>
-          <div className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-xs text-ink-400">
+          <div className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-xs text-ink-500">
             <Link href="/about" className="hover:text-accent-300 transition-colors">Privacy Policy</Link>
             <Link href="/about" className="hover:text-accent-300 transition-colors">Terms of Service</Link>
             <Link href="/about" className="hover:text-accent-300 transition-colors">Cookie Policy</Link>

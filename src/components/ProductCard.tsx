@@ -39,11 +39,11 @@ const ProductCard = ({ product, editUrl }: ProductCardProps) => {
   const isDataUrl = imageUrl && imageUrl.startsWith('data:');
 
   return (
-    <div className="group bg-white rounded-xl overflow-hidden border border-ink-200 hover:border-accent-300 hover:shadow-medium transition-all duration-300 relative">
+    <div className="group bg-white rounded-xl overflow-hidden border border-ink-200 hover:border-accent-300 hover:shadow-card-hover transition-all duration-300 relative hover:-translate-y-0.5">
       {editUrl && (
         <Link
           href={editUrl}
-          className="absolute top-2 left-2 z-10 inline-flex items-center gap-1 px-2 py-1 bg-accent-500 hover:bg-accent-600 text-white text-[10px] font-bold rounded-md shadow-sm transition-colors"
+          className="absolute top-2.5 left-2.5 z-10 inline-flex items-center gap-1 px-2 py-1 bg-accent-500 hover:bg-accent-600 text-white text-[10px] font-bold rounded-md shadow-sm transition-colors"
           onClick={(e) => e.stopPropagation()}
         >
           <Edit3 className="w-3 h-3" />
@@ -82,9 +82,9 @@ const ProductCard = ({ product, editUrl }: ProductCardProps) => {
               loading="lazy"
             />
           )}
-          <div className="absolute inset-0 bg-gradient-to-t from-navy-900/0 group-hover:from-navy-900/5 transition-all pointer-events-none" />
+          <div className="absolute inset-0 bg-gradient-to-t from-navy-900/0 group-hover:from-navy-900/10 transition-all duration-300 pointer-events-none" />
           {product.stockStatus === 'IN_STOCK' && (
-            <span className="absolute top-2.5 right-2.5 bg-white/95 text-navy-800 text-[9px] font-bold px-2 py-1 rounded-md border border-ink-200 uppercase tracking-wider">
+            <span className="absolute top-2.5 right-2.5 bg-white/90 backdrop-blur-sm text-navy-800 text-[9px] font-bold px-2 py-1 rounded-md border border-ink-200/50 uppercase tracking-wider shadow-sm">
               In Stock
             </span>
           )}
@@ -94,7 +94,7 @@ const ProductCard = ({ product, editUrl }: ProductCardProps) => {
           {/* Row 1: Category + SKU on same line */}
           <div className="flex items-center justify-between gap-2">
             {categoryName && (
-              <span className="text-[10px] font-bold text-accent-700 uppercase tracking-[0.1em] truncate">
+              <span className="text-[10px] font-bold text-accent-600 uppercase tracking-[0.1em] truncate">
                 {categoryName}
               </span>
             )}
@@ -106,14 +106,15 @@ const ProductCard = ({ product, editUrl }: ProductCardProps) => {
           </div>
 
           {/* Product Name */}
-          <h3 className="mt-1 font-semibold text-navy-800 text-sm line-clamp-2 group-hover:text-accent-600 transition-colors leading-snug min-h-[2.5rem]">
+          <h3 className="mt-1 font-semibold text-navy-900 text-sm line-clamp-2 group-hover:text-accent-600 transition-colors leading-snug min-h-[2.5rem]">
             {product.name}
           </h3>
 
           {/* Row 2: Price + MOQ on same line */}
-          <div className="flex items-center justify-between mt-2">
-            <div className="flex items-baseline gap-1.5">
-              <span className="text-base font-bold text-navy-800">${price.toFixed(2)}</span>
+          <div className="flex items-center justify-between mt-2 pt-2 border-t border-ink-100/60">
+            <div className="flex items-baseline gap-1">
+              <span className="text-[10px] text-ink-400 font-medium">$</span>
+              <span className="text-base font-bold text-navy-900">{price.toFixed(2)}</span>
             </div>
             <span className="text-[11px] text-ink-500 flex-shrink-0">
               MOQ: <span className="text-navy-800 font-semibold">{moq}</span>
