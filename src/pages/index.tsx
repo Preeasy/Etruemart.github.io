@@ -127,6 +127,13 @@ const Home = ({ products, categories, categoryProductsMap }: { products: Product
   const slugToProduct = new Map(products.map((p) => [p.slug, p]));
   const topDeals = products.slice(0, 7);
 
+  // Hero collage: pick visually appealing products from aesthetic categories
+  const heroPreferredSlugs = ['fashion-jewelry', 'garment-accessories', 'bags', 'home-decor-crafts', 'beauty-personal-care', 'kitchen-supplies'];
+  const heroProducts = [
+    ...products.filter((p: any) => heroPreferredSlugs.includes(p.category?.slug)).slice(0, 7),
+    ...products.filter((p: any) => !heroPreferredSlugs.includes(p.category?.slug)).slice(0, 7),
+  ].slice(0, 7);
+
   return (
     <Layout>
       <Head>
@@ -185,7 +192,7 @@ const Home = ({ products, categories, categoryProductsMap }: { products: Product
                         {/* Top left - bags */}
                         <div className="row-span-2 rounded-xl overflow-hidden shadow-sm ring-1 ring-black/5 bg-white">
                           <img
-                            src={topDeals.find(p => Number(p.priceMin) > 0)?.image || products.find(p => Number(p.priceMin) > 0)?.image || ''}
+                            src={heroProducts.find(p => Number(p.priceMin) > 0)?.image || products.find(p => Number(p.priceMin) > 0)?.image || ''}
                             alt="Featured Product 1"
                             className="w-full h-full object-cover"
                             onError={(e) => {
@@ -198,7 +205,7 @@ const Home = ({ products, categories, categoryProductsMap }: { products: Product
                         {/* Top right - jewelry */}
                         <div className="rounded-xl overflow-hidden shadow-sm ring-1 ring-black/5 bg-white">
                           <img
-                            src={topDeals.slice(1).find(p => Number(p.priceMin) > 0)?.image || products.slice(1).find(p => Number(p.priceMin) > 0)?.image || ''}
+                            src={heroProducts.slice(1).find(p => Number(p.priceMin) > 0)?.image || products.slice(1).find(p => Number(p.priceMin) > 0)?.image || ''}
                             alt="Featured Product 2"
                             className="w-full h-full object-cover"
                             onError={(e) => {
@@ -211,7 +218,7 @@ const Home = ({ products, categories, categoryProductsMap }: { products: Product
                         {/* Middle right - toys */}
                         <div className="rounded-xl overflow-hidden shadow-sm ring-1 ring-black/5 bg-white">
                           <img
-                            src={topDeals.slice(2).find(p => Number(p.priceMin) > 0)?.image || products.slice(2).find(p => Number(p.priceMin) > 0)?.image || ''}
+                            src={heroProducts.slice(2).find(p => Number(p.priceMin) > 0)?.image || products.slice(2).find(p => Number(p.priceMin) > 0)?.image || ''}
                             alt="Featured Product 3"
                             className="w-full h-full object-cover"
                             onError={(e) => {
@@ -224,7 +231,7 @@ const Home = ({ products, categories, categoryProductsMap }: { products: Product
                         {/* Bottom - wide */}
                         <div className="col-span-2 rounded-xl overflow-hidden shadow-sm ring-1 ring-black/5 bg-white">
                           <img
-                            src={topDeals.slice(3).find(p => Number(p.priceMin) > 0)?.image || products.slice(3).find(p => Number(p.priceMin) > 0)?.image || ''}
+                            src={heroProducts.slice(3).find(p => Number(p.priceMin) > 0)?.image || products.slice(3).find(p => Number(p.priceMin) > 0)?.image || ''}
                             alt="Featured Product 4"
                             className="w-full h-full object-cover"
                             onError={(e) => {
