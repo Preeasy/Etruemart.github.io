@@ -123,6 +123,8 @@ interface VariantGroupProp {
   parentSku: string;
   baseName: string;
   variants: ProductVariant[];
+  minPrice?: number;
+  maxPrice?: number;
 }
 
 export default function ProductDetail({ product: initialProduct, relatedProducts: initialRelated, variantGroup }: { product: Product; relatedProducts: Product[]; variantGroup?: VariantGroupProp | null }) {
@@ -134,6 +136,7 @@ export default function ProductDetail({ product: initialProduct, relatedProducts
   const [clientVariantGroup, setClientVariantGroup] = useState<VariantGroupProp | null>(variantGroup || null);
   const [selectedImage, setSelectedImage] = useState(0);
   const [variantImages, setVariantImages] = useState<string[] | null>(null);
+  const [hasSelectedVariant, setHasSelectedVariant] = useState(false);
   
   const handleVariantSelect = (variant: { image: string; name: string; images?: string[]; sku: string; price: number; stock: number; moq?: number }) => {
     if (variant.image) {
@@ -145,9 +148,10 @@ export default function ProductDetail({ product: initialProduct, relatedProducts
     setProduct(prev => ({
       ...prev,
       sku: variant.sku || prev.sku,
-      price: variant.price || prev.price,
+      price: variant.price ?? prev.price,
       stock: variant.stock ?? prev.stock,
     }));
+    setHasSelectedVariant(true);
     setQuantity(variant.moq || Math.floor(variant.price > 0 ? 1 : (initialProduct.moq || 12)));
   };
   const [isLightboxOpen, setIsLightboxOpen] = useState(false);
@@ -239,6 +243,8 @@ export default function ProductDetail({ product: initialProduct, relatedProducts
               setClientVariantGroup({ 
                 parentSku: g.parentSku, 
                 baseName: g.baseName, 
+                minPrice: g.minPrice,
+                maxPrice: g.maxPrice,
                 variants: g.variants.map(v => ({
                   ...v,
                   image: proxyImageUrlDirect(v.image),
@@ -606,25 +612,49 @@ export default function ProductDetail({ product: initialProduct, relatedProducts
               )}
             </div>
 
-            {/* Spec Table — 参考设计风格：扁平双列表格 */}
-            <div className="border border-ink-200 rounded-lg overflow-hidden mb-5">
-              {[
-                { label: 'Material', value: product.material || '-' },
-                { label: 'Size', value: product.size || '-' },
-                { label: 'MOQ', value: `${product.moq || 12}` },
-                { label: 'Minimum Price ($)', value: `$${price.toFixed(2)}` },
-                { label: 'Maximum Price ($)', value: `$${Number(product.priceMax ?? price).toFixed(2)}` },
-              ].map((row, i, arr) => (
-                <div key={row.label} className={`grid grid-cols-[1fr_1fr] ${i < arr.length - 1 ? 'border-b border-ink-100' : ''}`}>
-                  <div className="px-4 py-2.5 text-[11px] text-ink-500 font-medium">{row.label}</div>
-                  <div className="px-4 py-2.5 text-[12px] font-semibold text-navy-800 border-l border-ink-100">{row.value}</div>
-                </div>
-              ))}
-            </div>
-
-            {/* Large standalone price */}
+            {/* Price display: show interval when variants exist, specific price when selected */}
             <div className="mb-4">
-              <span className="text-3xl font-extrabold text-navy-900 tracking-tight">${price.toFixed(2)}</span>
+              {(() => {
+                const hasVariants = effectiveVariantGroup && effectiveVariantGroup.variants.length > 1;
+                if (hasVariants) {
+                  const group = effectiveVariantGroup!;
+                  const validPrices = group.variants.map(v => v.price).filter(p => p > 0);
+                  const minP = group.minPrice ?? (validPrices.length > 0 ? Math.min(...validPrices) : price);
+                  const maxP = group.maxPrice ?? (validPrices.length > 0 ? Math.max(...validPrices) : price);
+                  
+                  // If user has explicitly clicked a variant, always show exact price + range hint
+                  if (hasSelectedVariant) {
+                    const showPrice = price > 0 ? `$${price.toFixed(2)}` : 'Contact for price';
+                    return (
+                      <div className="flex flex-wrap items-baseline gap-2">
+                        <span className={`text-3xl font-extrabold tracking-tight ${price > 0 ? 'text-navy-900' : 'text-amber-600'}`}>{showPrice}</span>
+                        {minP !== maxP && (
+                          <span className="text-[11px] text-ink-400 font-medium">
+                            (Range: ${minP.toFixed(2)} – ${maxP.toFixed(2)})
+                          </span>
+                        )}
+                      </div>
+                    );
+                  }
+                  // Initial view — show range if min != max
+                  if (minP > 0 && maxP > 0 && minP !== maxP) {
+                    return (
+                      <div className="flex flex-wrap items-baseline gap-1.5">
+                        <span className="text-[12px] text-ink-500 font-medium">From</span>
+                        <span className="text-3xl font-extrabold text-accent-600 tracking-tight">${minP.toFixed(2)}</span>
+                        <span className="text-[12px] text-ink-400 font-medium">to</span>
+                        <span className="text-xl font-bold text-navy-800 tracking-tight">${maxP.toFixed(2)}</span>
+                        <span className="text-[10px] text-ink-400 ml-1">· select variant for exact price</span>
+                      </div>
+                    );
+                  }
+                  // Single price, show it
+                }
+                // Fallback: single price (no variants or single variant)
+                return (
+                  <span className="text-3xl font-extrabold text-navy-900 tracking-tight">${price.toFixed(2)}</span>
+                );
+              })()}
             </div>
 
             {/* Description */}
@@ -1294,6 +1324,8 @@ function findProductFromSeed(productId: string) {
       variantGroupData = { 
         parentSku: g.parentSku, 
         baseName: g.baseName, 
+        minPrice: g.minPrice,
+        maxPrice: g.maxPrice,
         variants: g.variants.map(v => ({
           ...v,
           image: proxyImageUrlDirect(v.image),
@@ -1642,6 +1674,8 @@ export async function getServerSideProps(context: { params: { id: string } }) {
           ssVariantGroup = { 
             parentSku: g.parentSku, 
             baseName: g.baseName, 
+            minPrice: g.minPrice,
+            maxPrice: g.maxPrice,
             variants: g.variants.map(v => ({
               ...v,
               image: proxyImageUrlDirect(v.image),
