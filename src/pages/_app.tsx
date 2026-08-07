@@ -3,6 +3,7 @@ import type { AppProps } from 'next/app';
 import { Component, ReactNode, ErrorInfo } from 'react';
 import Link from 'next/link';
 import { CartProvider } from '@/components/CartContext';
+import WhatsAppFloat from '@/components/WhatsAppFloat';
 import '../styles/globals.css';
 
 interface ErrorBoundaryState {
@@ -61,6 +62,7 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
       <CartProvider>
         <GlobalErrorBoundary>
           <Component {...pageProps} />
+          <WhatsAppFloat />
         </GlobalErrorBoundary>
       </CartProvider>
     </SessionProvider>
