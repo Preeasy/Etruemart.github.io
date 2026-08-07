@@ -102,6 +102,96 @@ function cleanDescription(desc: string): string {
     .trim();
 }
 
+// Truncate HTML description to a character limit while preserving tags
+function truncateDescriptionHtml(html: string, maxLength: number = 200): { __html: string; truncated: boolean } {
+  if (!html) return { __html: '', truncated: false };
+  // First strip to plain text for fallback
+  const stripHtml = (s: string) => s.replace(/<[^>]+>/g, '').replace(/&nbsp;/g, ' ').replace(/&amp;/g, '&').trim();
+  const clean = cleanDescription(html);
+  // Short description: remove Chinese and duplicate meta info (中文名, Category etc)
+  // Keep only the first meaningful paragraph for the preview
+  const processed = clean
+    .replace(/<p><strong>中文名:<\/strong>[\s\S]*?<\/p>\s*/gi, '')
+    .replace(/<p><strong>Category:<\/strong>[\s\S]*?<\/p>\s*/gi, '')
+    .replace(/<p><strong>Item No:<\/strong>[\s\S]*?<\/p>\s*/gi, '')
+    .replace(/<p><strong>Price:<\/strong>[\s\S]*?<\/p>\s*/gi, '')
+    .replace(/<p><strong>MOQ:<\/strong>[\s\S]*?<\/p>\s*/gi, '')
+    .replace(/<p><strong>Lead Time:<\/strong>[\s\S]*?<\/p>\s*/gi, '')
+    .replace(/<p><strong>Shipping:<\/strong>[\s\S]*?<\/p>\s*/gi, '')
+    .replace(/<p><strong>Packaging:<\/strong>[\s\S]*?<\/p>\s*/gi, '')
+    .trim();
+  
+  const plainText = stripHtml(processed);
+  if (plainText.length <= maxLength) {
+    return { __html: processed, truncated: false };
+  }
+  
+  // Truncate by plain text length, but keep HTML structure
+  // Simple approach: slice the clean HTML and strip unclosed tags
+  let remaining = maxLength;
+  let result = '';
+  // Parse character by character, skipping tags
+  let i = 0;
+  const src = processed;
+  const openTags: string[] = [];
+  
+  while (i < src.length && remaining > 0) {
+    if (src[i] === '<') {
+      // Find end of tag
+      const end = src.indexOf('>', i);
+      if (end === -1) break;
+      const tag = src.slice(i, end + 1);
+      result += tag;
+      
+      // Track tag stack (handle self-closing and closing tags)
+      const tagMatch = tag.match(/^<\/?([a-zA-Z][a-zA-Z0-9]*)/);
+      if (tagMatch) {
+        const isClosing = tag[1] === '/';
+        const tagName = tagMatch[1].toLowerCase();
+        const isSelfClosing = tag.slice(-2) === '/>' || /^<(br|hr|img|input|meta|link)$/i.test('<' + tagName);
+        if (!isSelfClosing) {
+          if (isClosing) {
+            const idx = openTags.lastIndexOf(tagName);
+            if (idx !== -1) openTags.splice(idx, 1);
+          } else {
+            openTags.push(tagName);
+          }
+        }
+      }
+      i = end + 1;
+    } else {
+      result += src[i];
+      remaining -= 1;
+      i += 1;
+    }
+  }
+  
+  // Close any remaining open tags
+  for (let j = openTags.length - 1; j >= 0; j--) {
+    result += `</${openTags[j]}>`;
+  }
+  
+  if (plainText.length > maxLength) {
+    // Append ellipsis after removing trailing </p> or whitespace
+    result = result.replace(/(<\/p>|<\/br>|<br\s*\/?>|<\/?span>|<\/?strong>|\s)*$/i, '') + '...';
+    // Re-close open tags that we may have stripped
+    if (openTags.length > 0 && !/<\/p>$/.test(result)) {
+      for (let j = openTags.length - 1; j >= 0; j--) {
+        if (!new RegExp(`<\/${openTags[j]}>$`, 'i').test(result)) {
+          result += `</${openTags[j]}>`;
+        }
+      }
+    }
+  }
+  
+  return { __html: result, truncated: true };
+}
+
+// Fallback plain text description when no valid HTML exists
+function getDescriptionFallback(product: { name: string }): string {
+  return `${product.name}. Wholesale from Yiwu, China. Bulk discounts available.`;
+}
+
 interface ProductVariant {
   sku: string;
   name: string;
@@ -657,10 +747,32 @@ export default function ProductDetail({ product: initialProduct, relatedProducts
               })()}
             </div>
 
-            {/* Description */}
-            <p className="text-xs text-ink-600 leading-relaxed mb-4 line-clamp-3">
-              {product.description?.slice(0, 200) || `${product.name}. Wholesale from Yiwu, China. Bulk discounts available.`}
-            </p>
+            {/* Description Preview */}
+            {(() => {
+              const hasHtml = product.description && (product.description.includes('<') || product.description.includes('&'));
+              if (hasHtml) {
+                const { __html } = truncateDescriptionHtml(product.description!, 200);
+                const hasContent = __html && __html.replace(/<[^>]+>/g, '').replace(/&nbsp;/g, ' ').trim().length > 0;
+                if (!hasContent) {
+                  return (
+                    <p className="text-xs text-ink-600 leading-relaxed mb-4 line-clamp-3">
+                      {getDescriptionFallback(product)}
+                    </p>
+                  );
+                }
+                return (
+                  <div
+                    className="text-xs text-ink-600 leading-relaxed mb-4 line-clamp-3 [&_p]:!m-0 [&_p]:!mb-0 [&_strong]:text-ink-700 [&_strong]:font-semibold"
+                    dangerouslySetInnerHTML={{ __html }}
+                  />
+                );
+              }
+              return (
+                <p className="text-xs text-ink-600 leading-relaxed mb-4 line-clamp-3">
+                  {product.description?.slice(0, 200) || getDescriptionFallback(product)}
+                </p>
+              );
+            })()}
 
             {/* Variants — pill-style chips */}
             {effectiveVariantGroup && effectiveVariantGroup.variants.length >= 1 && (
