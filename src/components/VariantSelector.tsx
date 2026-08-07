@@ -30,12 +30,21 @@ export default function VariantSelector({ variants, currentSku, baseName, parent
   const currentVariant = variants.find(v => v.sku === currentSku) || variants[0];
 
   // Extract unique attribute values for grouped display
-  const uniqueColors = [...new Map(
+  const rawColors = [...new Map(
     variants.filter(v => v.color).map(v => [v.color!.toLowerCase(), v])
   ).values()];
-  const uniqueSizes = [...new Set(variants.map(v => v.size).filter(Boolean))] as string[];
-  const uniqueCapacities = [...new Set(variants.map(v => v.capacity).filter(Boolean))] as string[];
+  const rawSizes = [...new Set(variants.map(v => v.size).filter(Boolean))] as string[];
+  const rawCapacities = [...new Set(variants.map(v => v.capacity).filter(Boolean))] as string[];
   const uniqueLayers = [...new Set(variants.map(v => v.layer).filter(Boolean))] as string[];
+
+  // ===== Frontend de-dupe: if SIZE and CAPACITY have the same values, drop CAPACITY =====
+  const setsEqual = (a: string[], b: string[]) =>
+    a.length === b.length && a.map(x => x.toLowerCase()).every(v => b.map(y => y.toLowerCase()).includes(v));
+  const isSizeCapacityDup = rawSizes.length > 0 && rawCapacities.length > 0 && setsEqual(rawSizes, rawCapacities);
+
+  const uniqueColors = rawColors;
+  const uniqueSizes = rawSizes;
+  const uniqueCapacities = isSizeCapacityDup ? [] : rawCapacities;
 
   // Determine rendering mode:
   // If multiple colors exist → use color-based card grid (yeatru.com style)
