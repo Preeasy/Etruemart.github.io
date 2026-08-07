@@ -52,10 +52,14 @@ function parseVariantOptions(p: any): { color?: string; size?: string; capacity?
   if (p.variantOptions) {
     try { opts = typeof p.variantOptions === 'string' ? JSON.parse(p.variantOptions) : p.variantOptions; } catch {}
   }
+  const rawSize = opts.size || p.size || extractSize(p.name) || undefined;
+  const rawCapacity = opts.capacity || undefined;
+  // De-dupe: if size and capacity are identical values, keep only SIZE
+  const dupCapacity = rawSize && rawCapacity && String(rawSize).toLowerCase() === String(rawCapacity).toLowerCase();
   return {
     color: opts.color || p.color || extractColor(p.name) || undefined,
-    size: opts.size || p.size || extractSize(p.name) || undefined,
-    capacity: opts.capacity || undefined,
+    size: rawSize,
+    capacity: dupCapacity ? undefined : rawCapacity,
     layer: opts.layer || undefined,
     pack: opts.pack || undefined,
     material: opts.material || p.material || undefined,
