@@ -109,7 +109,9 @@ interface ProductVariant {
   price: number;
   image: string;
   stock: number;
+  moq?: number;
   color?: string | null;
+  colorHex?: string | null;
   size?: string | null;
   capacity?: string | null;
   layer?: string | null;
@@ -131,6 +133,23 @@ export default function ProductDetail({ product: initialProduct, relatedProducts
   const [relatedProducts, setRelatedProducts] = useState<Product[]>(initialRelated);
   const [clientVariantGroup, setClientVariantGroup] = useState<VariantGroupProp | null>(variantGroup || null);
   const [selectedImage, setSelectedImage] = useState(0);
+  const [variantImages, setVariantImages] = useState<string[] | null>(null);
+  
+  const handleVariantSelect = (variant: { image: string; name: string; images?: string[]; sku: string; price: number; stock: number; moq?: number }) => {
+    if (variant.image) {
+      const variantImg = proxyImageUrlDirect(variant.image);
+      setVariantImages([variantImg]);
+      setSelectedImage(0);
+    }
+    // Update product state with variant data
+    setProduct(prev => ({
+      ...prev,
+      sku: variant.sku || prev.sku,
+      price: variant.price || prev.price,
+      stock: variant.stock ?? prev.stock,
+    }));
+    setQuantity(variant.moq || Math.floor(variant.price > 0 ? 1 : (initialProduct.moq || 12)));
+  };
   const [isLightboxOpen, setIsLightboxOpen] = useState(false);
   const [lightboxIndex, setLightboxIndex] = useState(0);
   const [quantity, setQuantity] = useState(initialProduct.moq || 12);
@@ -217,7 +236,14 @@ export default function ProductDetail({ product: initialProduct, relatedProducts
             const groups = buildVariantGroups(products);
             const g = getVariantGroupForProductId(groups, String(initialProduct.id), initialProduct.sku, (initialProduct as any).parentId);
             if (g && g.variants.length >= 1) {
-              setClientVariantGroup({ parentSku: g.parentSku, baseName: g.baseName, variants: g.variants });
+              setClientVariantGroup({ 
+                parentSku: g.parentSku, 
+                baseName: g.baseName, 
+                variants: g.variants.map(v => ({
+                  ...v,
+                  image: proxyImageUrlDirect(v.image),
+                }))
+              });
             }
           }
         }
@@ -249,8 +275,12 @@ export default function ProductDetail({ product: initialProduct, relatedProducts
   const salesCount = Number(product.salesCount || (100 + (seed * 13) % 800));
   const stock = Number(product.stock || 9999);
 
-  const rawImages = product.images?.length >= 2 ? product.images : [product.image];
-  const images = rawImages.map(proxyImageUrlDirect);
+  const images = variantImages 
+    ? variantImages 
+    : (() => {
+        const raw = product.images?.length >= 2 ? product.images : [product.image];
+        return raw.map(proxyImageUrlDirect);
+      })();
 
   const faqs = [
     { q: 'What is the minimum order quantity?', a: `The MOQ for this product is ${product.moq || 12} pieces. We accept smaller trial orders for new customers to help you test the market.` },
@@ -518,6 +548,37 @@ export default function ProductDetail({ product: initialProduct, relatedProducts
                 </div>
               )}
 
+              {/* Trust badges */}
+              <div className="mt-3 grid grid-cols-3 gap-2">
+                <div className="flex items-center gap-2 p-2 rounded-lg border border-ink-200 bg-white">
+                  <div className="w-7 h-7 rounded-full bg-success-50 flex items-center justify-center flex-shrink-0">
+                    <ShieldCheck className="w-3.5 h-3.5 text-success-600" />
+                  </div>
+                  <div className="min-w-0">
+                    <p className="text-[10px] font-semibold text-ink-800 leading-tight">Trade Assurance</p>
+                    <p className="text-[9px] text-ink-500 leading-tight">Payment protected</p>
+                  </div>
+                </div>
+                <div className="flex items-center gap-2 p-2 rounded-lg border border-ink-200 bg-white">
+                  <div className="w-7 h-7 rounded-full bg-blue-50 flex items-center justify-center flex-shrink-0">
+                    <Truck className="w-3.5 h-3.5 text-blue-600" />
+                  </div>
+                  <div className="min-w-0">
+                    <p className="text-[10px] font-semibold text-ink-800 leading-tight">Global Shipping</p>
+                    <p className="text-[9px] text-ink-500 leading-tight">180+ countries</p>
+                  </div>
+                </div>
+                <div className="flex items-center gap-2 p-2 rounded-lg border border-ink-200 bg-white">
+                  <div className="w-7 h-7 rounded-full bg-accent-50 flex items-center justify-center flex-shrink-0">
+                    <FileCheck className="w-3.5 h-3.5 text-accent-600" />
+                  </div>
+                  <div className="min-w-0">
+                    <p className="text-[10px] font-semibold text-ink-800 leading-tight">Quality Checked</p>
+                    <p className="text-[9px] text-ink-500 leading-tight">Factory verified</p>
+                  </div>
+                </div>
+              </div>
+
             </div>
           </div>
 
@@ -579,6 +640,7 @@ export default function ProductDetail({ product: initialProduct, relatedProducts
                   currentSku={product.sku || ''}
                   baseName={effectiveVariantGroup.baseName}
                   parentSku={effectiveVariantGroup.parentSku}
+                  onVariantSelect={handleVariantSelect}
                 />
               </div>
             )}
@@ -1229,7 +1291,14 @@ function findProductFromSeed(productId: string) {
     const groups = buildVariantGroups(products);
     const g = getVariantGroupForProductId(groups, String(product.id), product.sku, product.parentId);
     if (g && g.variants.length >= 1) {
-      variantGroupData = { parentSku: g.parentSku, baseName: g.baseName, variants: g.variants };
+      variantGroupData = { 
+        parentSku: g.parentSku, 
+        baseName: g.baseName, 
+        variants: g.variants.map(v => ({
+          ...v,
+          image: proxyImageUrlDirect(v.image),
+        }))
+      };
     }
   }
 
@@ -1570,7 +1639,14 @@ export async function getServerSideProps(context: { params: { id: string } }) {
         const groups = buildVariantGroups(sd.products);
         const g = getVariantGroupForProductId(groups, String(product.id), product.sku, (product as any).parentId);
         if (g && g.variants.length >= 1) {
-          ssVariantGroup = { parentSku: g.parentSku, baseName: g.baseName, variants: g.variants };
+          ssVariantGroup = { 
+            parentSku: g.parentSku, 
+            baseName: g.baseName, 
+            variants: g.variants.map(v => ({
+              ...v,
+              image: proxyImageUrlDirect(v.image),
+            }))
+          };
         }
       }
     }

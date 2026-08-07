@@ -55,6 +55,11 @@ export function resolveImageUrlServerSide(url: string | null | undefined): strin
   if (!url) return '/images/product-placeholder.svg';
   if (url.startsWith('data:')) return url;
 
+  // GitHub CDN path like /gh/Preeasy/Images@main/Images/foo.png → full URL
+  if (url.startsWith('/gh/')) {
+    return `https://cdn.jsdelivr.net${url}`;
+  }
+
   // Non-SKU static files (placeholder, logo etc.) keep as-is
   if (url.startsWith('/') && !url.includes('item-list/')) return url;
 

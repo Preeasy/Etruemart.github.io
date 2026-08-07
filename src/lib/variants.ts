@@ -5,7 +5,9 @@ interface ProductVariant {
   price: number;
   image: string;
   stock: number;
+  moq?: number;
   color?: string | null;
+  colorHex?: string | null;
   size?: string | null;
   capacity?: string | null;
   layer?: string | null;
@@ -26,12 +28,12 @@ interface VariantGroup {
 function extractColor(name: string): string | null {
   const colorKeywords = ['black', 'white', 'red', 'blue', 'pink', 'green', 'purple', 'orange',
     'yellow', 'brown', 'gray', 'grey', 'gold', 'silver', 'beige', 'clear',
-    'mint', 'coral', 'navy', 'rose', 'lavender', 'turquoise', 'burgundy'];
+    'mint', 'coral', 'navy', 'rose', 'lavender', 'turquoise', 'burgundy',
+    'khaki', 'cream', 'ivory', 'tan', 'teal', 'olive'];
   const lower = name.toLowerCase();
   for (const c of colorKeywords) {
-    if (lower.startsWith(c + ' ') || lower.startsWith(c + '-')) return c;
-    if (lower.includes(c + ' ')) return c;
-    if (lower.includes(c + '-')) return c;
+    const pattern = new RegExp('\\b' + c + '\\b', 'i');
+    if (pattern.test(lower)) return c;
   }
   return null;
 }
@@ -47,7 +49,7 @@ function extractSize(name: string): string | null {
   return null;
 }
 
-function parseVariantOptions(p: any): { color?: string; size?: string; capacity?: string; layer?: string; pack?: string; material?: string } {
+function parseVariantOptions(p: any): { color?: string; colorHex?: string | null; size?: string; capacity?: string; layer?: string; pack?: string; material?: string } {
   let opts: any = {};
   if (p.variantOptions) {
     try { opts = typeof p.variantOptions === 'string' ? JSON.parse(p.variantOptions) : p.variantOptions; } catch {}
@@ -58,6 +60,7 @@ function parseVariantOptions(p: any): { color?: string; size?: string; capacity?
   const dupCapacity = rawSize && rawCapacity && String(rawSize).toLowerCase() === String(rawCapacity).toLowerCase();
   return {
     color: opts.color || p.color || extractColor(p.name) || undefined,
+    colorHex: opts.colorHex || null,
     size: rawSize,
     capacity: dupCapacity ? undefined : rawCapacity,
     layer: opts.layer || undefined,
@@ -75,7 +78,9 @@ function toVariant(p: any): ProductVariant {
     price: Number(p.priceMin ?? p.price) || 0,
     image: p.image || '',
     stock: Number(p.stock) || 0,
+    moq: Number(p.moq) || undefined,
     color: opts.color ?? null,
+    colorHex: opts.colorHex || null,
     size: opts.size ?? null,
     capacity: opts.capacity ?? null,
     layer: opts.layer ?? null,
@@ -102,6 +107,15 @@ export function buildVariantGroups(products: any[]): Map<string, VariantGroup> {
         const key = String(p.parentId);
         if (!groups.has(key)) {
           const parentSku = parent.sku || key;
+          // Build color map from parent's variantChildren if available
+          const colorMap = new Map<string, string>();
+          const sizeMap = new Map<string, string>();
+          if (parent.variantChildren && Array.isArray(parent.variantChildren)) {
+            for (const vc of parent.variantChildren) {
+              if (vc.sku && vc.color) colorMap.set(vc.sku, vc.color);
+              if (vc.sku && vc.size) sizeMap.set(vc.sku, vc.size);
+            }
+          }
           groups.set(key, {
             parentSku,
             parentSlug: parent.slug || parentSku.toLowerCase(),
@@ -110,10 +124,29 @@ export function buildVariantGroups(products: any[]): Map<string, VariantGroup> {
             variants: [],
             minPrice: Infinity,
             maxPrice: 0,
-          });
+            _colorMap: colorMap,
+            _sizeMap: sizeMap,
+          } as any);
         }
         const g = groups.get(key)!;
         const v = toVariant(p);
+        // Override with parent's variantChildren data if available
+        const gAny = g as any;
+        if (gAny._colorMap && gAny._colorMap.has(p.sku)) {
+          v.color = gAny._colorMap.get(p.sku)!;
+        }
+        if (gAny._sizeMap && gAny._sizeMap.has(p.sku)) {
+          v.size = gAny._sizeMap.get(p.sku)!;
+        }
+        // Also try parent-level color lookup by SKU suffix
+        if (!v.color && gAny._colorMap) {
+          for (const [sku, color] of gAny._colorMap) {
+            if (p.sku && p.sku.endsWith(sku.split('-').pop())) {
+              v.color = color;
+              break;
+            }
+          }
+        }
         g.variants.push(v);
         if (v.price > 0) {
           g.minPrice = Math.min(g.minPrice, v.price);
@@ -203,8 +236,13 @@ export function getVariantGroupForProductId(
     const g = groups.get(String(parentId));
     if (g) return g;
   }
-  // Fallback to SKU-prefix matching (legacy)
+  // Try matching by parent SKU: if product's SKU matches a group's parentSku
   if (sku) {
+    const skuLower = String(sku).toLowerCase();
+    for (const g of groups.values()) {
+      if (g.parentSku.toLowerCase() === skuLower) return g;
+    }
+    // Also try SKU-prefix matching (legacy)
     const parentSku = getParentSku(sku);
     if (parentSku) {
       const g = groups.get(parentSku);

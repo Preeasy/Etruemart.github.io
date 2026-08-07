@@ -8,8 +8,9 @@ interface Variant {
   price: number;
   image: string;
   stock: number;
+  moq?: number;
   color?: string | null;
-  colorHex?: string;
+  colorHex?: string | null;
   size?: string | null;
   capacity?: string | null;
   layer?: string | null;
@@ -22,6 +23,7 @@ interface Props {
   currentSku: string;
   baseName: string;
   parentSku: string;
+  onVariantSelect?: (variant: Variant) => void;
 }
 
 const colorToHex = (c?: string | null): string => {
@@ -46,7 +48,52 @@ const colorToHex = (c?: string | null): string => {
   return '#d1d5db';
 };
 
-export default function VariantSelector({ variants, currentSku, baseName }: Props) {
+// Extract a short descriptive label from a variant name, stripping the base product name
+function extractVariantLabel(name: string, baseName: string, sku: string): string {
+  if (!name) return sku;
+  
+  // Strategy: remove common words/parts from the variant name that appear in the base name
+  // Split both names into words and remove common words from the variant name
+  const normalize = (s: string) => s.toLowerCase().replace(/[^a-z0-9\s]/gi, ' ').replace(/\s+/g, ' ').trim();
+  const nameWords = normalize(name).split(' ').filter(w => w.length > 1);
+  const baseWords = normalize(baseName || '').split(' ').filter(w => w.length > 1);
+  const baseWordSet = new Set(baseWords);
+  
+  // Remove words that appear in base name
+  const uniqueWords = nameWords.filter(w => !baseWordSet.has(w));
+  
+  // Clean up the remaining words
+  let label = uniqueWords.join(' ').trim();
+  
+  // Remove numbers with "colors" / "color" suffix (like "2 Colors", "3 Colors") - keep just the number
+  label = label.replace(/(\d+)\s*colors?/gi, '$1 Colors').trim();
+  
+  // If label is meaningful, capitalize and return
+  if (label && label.length >= 1 && label !== 'colors') {
+    // Capitalize first letter
+    return label.charAt(0).toUpperCase() + label.slice(1);
+  }
+  
+  // Try simpler approach: just extract the number+colors pattern from the original name
+  const colorMatch = name.match(/(\d+)\s*colors?/i);
+  if (colorMatch) return `${colorMatch[1]} Colors`;
+  
+  // Fallback: use color from variant name if present
+  const colorWords = ['white', 'black', 'red', 'blue', 'pink', 'green', 'purple', 'orange',
+    'yellow', 'brown', 'gray', 'grey', 'gold', 'silver', 'beige', 'khaki', 'cream'];
+  for (const c of colorWords) {
+    const pattern = new RegExp(`\\b${c}\\b`, 'i');
+    if (pattern.test(name)) return c.charAt(0).toUpperCase() + c.slice(1);
+  }
+  
+  // Last fallback: use last part of SKU
+  const skuParts = sku.split('-');
+  if (skuParts.length > 0) return skuParts[skuParts.length - 1];
+  
+  return sku;
+}
+
+export default function VariantSelector({ variants, currentSku, baseName, onVariantSelect }: Props) {
   const [selectedSku, setSelectedSku] = useState(currentSku);
 
   // Dedupe: if SIZE and CAPACITY have the same values, drop CAPACITY
@@ -63,11 +110,21 @@ export default function VariantSelector({ variants, currentSku, baseName }: Prop
     if (v.size) parts.push(v.size);
     else if (v.capacity && !isSizeCapacityDup) parts.push(v.capacity);
     if (v.layer) parts.push(v.layer);
-    if (parts.length === 0 && v.name) {
-      // Extract from name if no structured fields
-      return v.name.replace(baseName, '').trim() || v.sku;
+    
+    if (parts.length > 0) {
+      return parts.join(' + ');
     }
-    return parts.join(' + ') || v.sku;
+    
+    // No structured fields — extract meaningful label from name
+    return extractVariantLabel(v.name, baseName, v.sku);
+  };
+
+  const handleVariantClick = (v: Variant, e: React.MouseEvent) => {
+    e.preventDefault();
+    setSelectedSku(v.sku);
+    if (onVariantSelect) {
+      onVariantSelect(v);
+    }
   };
 
   if (variants.length === 0) return null;
@@ -77,13 +134,13 @@ export default function VariantSelector({ variants, currentSku, baseName }: Prop
       {/* Pill-style variant chips */}
       <div className="flex flex-wrap gap-2">
         {variants.map((v) => {
-          const isSelected = v.sku === currentSku;
+          const isSelected = v.sku === currentSku || v.sku === selectedSku;
           const label = getPillLabel(v);
           return (
             <Link
               key={v.sku}
               href={`/products/${v.slug}`}
-              onClick={() => setSelectedSku(v.sku)}
+              onClick={(e) => handleVariantClick(v, e)}
               className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full border text-xs font-medium transition-all ${
                 isSelected
                   ? 'border-ink-800 bg-ink-900 text-white'
