@@ -32,6 +32,8 @@ import {
   Dumbbell,
   Baby,
   Sparkle,
+  MessageCircle,
+  MapPin,
 } from 'lucide-react';
 
 interface Product {
@@ -342,11 +344,21 @@ export default function Sidebar({ products, currentCategory, categories }: Sideb
           <div className="p-3 space-y-2">
             <div className="flex items-center gap-2 text-xs text-ink-600">
               <Mail className="w-3.5 h-3.5 text-accent-500 flex-shrink-0" />
-              <span className="truncate">Yeatrusourcing@gmail.com</span>
+              <span className="truncate">yeatrusourcing@gmail.com</span>
             </div>
             <div className="flex items-center gap-2 text-xs text-ink-600">
               <Phone className="w-3.5 h-3.5 text-accent-500 flex-shrink-0" />
-              <span>WhatsApp: +86 15988516408</span>
+              <span>+86 15988516408</span>
+            </div>
+            <div className="flex items-center gap-2 text-xs text-ink-600">
+              <MessageCircle className="w-3.5 h-3.5 text-accent-500 flex-shrink-0" />
+              <a href="https://wa.me/8615988516408" target="_blank" rel="noopener noreferrer" className="hover:text-accent-600 transition-colors">
+                WhatsApp: +86 15988516408
+              </a>
+            </div>
+            <div className="flex items-center gap-2 text-xs text-ink-600">
+              <MapPin className="w-3.5 h-3.5 text-accent-500 flex-shrink-0" />
+              <span>Yiwu, Zhejiang, China</span>
             </div>
           </div>
         </div>
