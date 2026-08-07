@@ -110,42 +110,61 @@ export default function VariantSelector({ variants, currentSku, baseName, onVari
     a.length === b.length && a.map(x => x.toLowerCase()).every(v => b.map(y => y.toLowerCase()).includes(v));
   const isSizeCapacityDup = rawSizes.length > 0 && rawCapacities.length > 0 && setsEqual(rawSizes, rawCapacities);
 
-  // Analyze which fields actually vary across variants
+  // Analyze available features across all variants
   const uniqueColors = [...new Set(variants.map(v => v.color).filter(Boolean))];
   const uniqueSizes = [...new Set(variants.map(v => v.size).filter(Boolean))];
   const uniqueCapacities = [...new Set(variants.map(v => v.capacity).filter(Boolean))];
   const uniqueLayers = [...new Set(variants.map(v => v.layer).filter(Boolean))];
-  const colorsVary = uniqueColors.length > 1 || (uniqueColors.length === 1 && uniqueColors[0]);
+  const hasAnyColor = uniqueColors.length >= 1;
+  const hasAnySize = uniqueSizes.length >= 1;
+  const hasAnyCapacity = uniqueCapacities.length >= 1;
+  const hasAnyLayer = uniqueLayers.length >= 1;
   const sizesVary = uniqueSizes.length > 1;
   const capacitiesVary = uniqueCapacities.length > 1;
   const layersVary = uniqueLayers.length > 1;
-  const anyColor = uniqueColors.length >= 1;
 
-  // Build pill labels: show only the differentiating fields, prioritize color
+  // Build pill labels: show ALL available features, prioritize color
   const getPillLabel = (v: Variant) => {
     const parts: string[] = [];
     
-    // Color is the primary differentiator — always show if it exists
+    // Color is the primary feature — always show if it exists
     if (v.color) parts.push(v.color);
     
-    // Only show size/capacity if it actually varies across variants
-    if (v.size && sizesVary) parts.push(v.size);
-    else if (v.capacity && capacitiesVary && !isSizeCapacityDup) parts.push(v.capacity);
+    // Show size if it exists (either varies or is unique to this variant)
+    if (v.size) parts.push(v.size);
     
-    if (v.layer && layersVary) parts.push(v.layer);
+    // Show capacity if it exists and isn't redundant with size
+    if (v.capacity && !isSizeCapacityDup) parts.push(v.capacity);
     
-    // If we have meaningful structured parts, use them
+    // Show layer if it exists
+    if (v.layer) parts.push(v.layer);
+    
+    // If we have structured parts, use them directly
     if (parts.length > 0) {
       return parts.join(' / ');
     }
     
-    // When color exists but nothing else varies, just show the color
-    if (anyColor && v.color) {
-      return v.color;
+    // No structured fields — try extracting from variant name
+    const extracted = extractVariantLabel(v.name, baseName, v.sku);
+    if (extracted && extracted !== 'Option' && !extracted.startsWith('Option ')) {
+      return extracted;
     }
     
-    // No structured fields — extract meaningful label from name or SKU suffix
-    return extractVariantLabel(v.name, baseName, v.sku);
+    // Last resort: create a useful label from what we know
+    // Show capacity if available (even if same across all) for context
+    if (v.capacity) return v.capacity;
+    if (v.size) return v.size;
+    
+    // Extract any number/size from the variant name for identification
+    const numMatch = v.name.match(/(\d+[-\s]?(?:ml|l|mm|cm|inch|in|layer|tiers?|pack|pcs?))/i);
+    if (numMatch) return numMatch[1];
+    
+    // Use SKU suffix number
+    const skuParts = v.sku.split('-');
+    const num = skuParts[skuParts.length - 1];
+    const numInt = parseInt(num, 10);
+    if (!isNaN(numInt)) return `${v.capacity || ''} Variant ${numInt}`.trim() || `Variant ${numInt}`;
+    return num;
   };
 
   const handleVariantClick = (v: Variant, e: React.MouseEvent) => {

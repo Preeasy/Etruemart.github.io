@@ -1121,7 +1121,7 @@ export default function ProductDetail({ product: initialProduct, relatedProducts
                 </div>
                 <div className="p-3 space-y-1.5">
                   {relatedProducts.slice(0, 5).map((item, i) => (
-                    <Link key={item.id} href={`/products/${item.id}`} className="flex gap-3 p-2 rounded-lg hover:bg-ink-50 transition-colors group">
+                    <Link key={item.id} href={`/products/${item.slug || item.id}`} className="flex gap-3 p-2 rounded-lg hover:bg-ink-50 transition-colors group">
                       <div className="relative w-14 h-14 flex-shrink-0 bg-ink-50 rounded-md overflow-hidden border border-ink-100">
                         {/* eslint-disable-next-line @next/next/no-img-element */}
                         <img
@@ -1133,7 +1133,7 @@ export default function ProductDetail({ product: initialProduct, relatedProducts
                       </div>
                       <div className="flex-1 min-w-0">
                         <p className="text-xs font-semibold text-navy-800 line-clamp-2 group-hover:text-accent-600 transition-colors leading-tight">{item.name}</p>
-                        <p className="text-sm font-bold text-accent-600 mt-0.5">${Number(item.priceMin).toFixed(2)}</p>
+                        <p className="text-sm font-bold text-accent-600 mt-0.5">${`$${(Number(item.price) || 0).toFixed(2)}`}</p>
                       </div>
                     </Link>
                   ))}
