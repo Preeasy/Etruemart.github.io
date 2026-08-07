@@ -35,7 +35,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
     }
     setLoading(true);
     try {
-      const res = await fetch('/api/cart', { cache: 'no-store' });
+      const res = await fetch('/api/cart', { cache: 'no-store', credentials: 'include' });
       if (res.ok) {
         const data = await res.json();
         setItems(Array.isArray(data) ? data : []);
@@ -55,6 +55,9 @@ export function CartProvider({ children }: { children: ReactNode }) {
     } else if (status === 'unauthenticated') {
       setItems([]);
     }
+    const onCartUpdated = () => refresh();
+    window.addEventListener('cart:updated', onCartUpdated);
+    return () => window.removeEventListener('cart:updated', onCartUpdated);
   }, [status, refresh]);
 
   const addToCart = useCallback(async (productId: string, quantity = 1, variantId?: string) => {
@@ -62,6 +65,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
       const res = await fetch('/api/cart', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
         body: JSON.stringify({ productId, quantity, variantId }),
       });
       if (res.ok) {
