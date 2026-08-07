@@ -27,54 +27,40 @@ export function resolveImageUrlServerSide(url: string | null | undefined): strin
   // Non-SKU static files (placeholder, logo etc.) keep as-is
   if (url.startsWith('/') && !url.includes('item-list/')) return url;
 
+  // ===============================================
+  // GitHub CDN WHITELIST: keep these URLs as-is.
+  // Includes: Yeatru/Image, Preeasy/Images, and any
+  // other valid cdn.jsdelivr.net/gh/<user>/<repo>/...
+  // Never rewrite or repoint these to a different repo.
+  // ===============================================
+  if (url.startsWith('https://cdn.jsdelivr.net/gh/') ||
+      url.startsWith('https://raw.githubusercontent.com/') ||
+      url.startsWith('https://user-images.githubusercontent.com/')) {
+    return url;
+  }
+
+  // Old Preeasy Image CDN URLs (repo in URL but variant form).
+  // Only apply legacy rewrite rules for these specific domains if
+  // they passed the whitelist above somehow (shouldn't happen).
+
   // SKU file referenced as local path (legacy) => map to CDN
-  // Keeps extension intact but caller may choose case.
   if (url.startsWith('/images/item-list/')) {
     const fn = url.split('/').pop() || '';
-    // Just transform to the canonical CDN URL with the same filename.
-    // The filename case mismatch is already fixed in seed-data.json directly,
-    // so if any leak through, this still yields a valid CDN URL structure.
     return `https://cdn.jsdelivr.net/gh/Preeasy/Images@main/Images/${fn}`;
   }
 
   // SKU filename embedded in an URL (legacy CDN / raw.github URLs)
   const skuBase = extractSkuBase(url);
   if (skuBase) {
-    // Build canonical CDN URL with a deterministic extension preference:
-    // prefer the extension from the original URL if we can derive it
     const extMatch = url.match(/[?/](?:ycs|ywc|yw|ywx)-[^/?#]+\.(jpg|jpeg|png|JPG|JPEG|PNG)(?:[?#]|$)/i);
     const ext = extMatch ? extMatch[1].toLowerCase() : 'jpg';
-    // Preserve original case for the prefix from URL - we already normalised seed data
-    // but fall back to uppercase convention used in the CDN (YCS-ACC-001.png).
     const skuUpper = skuBase.toUpperCase();
     return `https://cdn.jsdelivr.net/gh/Preeasy/Images@main/Images/${skuUpper}.${ext}`;
   }
 
-  // Non-SKU CDN URLs: normalise wrong repo name, wrong subdir, wrong branch, etc.
-  if (url.includes('cdn.jsdelivr.net/gh/Preeasy/') || url.includes('raw.githubusercontent.com/Preeasy/')) {
-    const fn = extractFilename(url);
-    if (fn) {
-      return `https://cdn.jsdelivr.net/gh/Preeasy/Images@main/Images/${fn}`;
-    }
-    const pathMatch = url.match(/cdn\.jsdelivr\.net\/gh\/Preeasy\/[^/]+\/[^/]+\/(.+)/);
-    if (pathMatch) {
-      let subPath = pathMatch[1];
-      subPath = subPath
-        .replace(/^%E5%95%86%E5%93%81%E5%9B%BE%E7%89%87\//, '')
-        .replace(/^商品图片\//, '')
-        .replace(/^[Ii]mages\//, '');
-      return `https://cdn.jsdelivr.net/gh/Preeasy/Images@main/Images/${subPath}`;
-    }
-    return url
-      .replace('Preeasy/images@main/', 'Preeasy/Images@main/')
-      .replace('Preeasy/Images@main/images/', 'Preeasy/Images@main/Images/')
-      .replace('Preeasy/Images@main/%E5%95%86%E5%93%81%E5%9B%BE%E7%89%87/', 'Preeasy/Images@main/Images/')
-      .replace('Preeasy/Images@main/商品图片/', 'Preeasy/Images@main/Images/');
-  }
-
   if (url.startsWith('http://') || url.startsWith('https://')) return url;
 
-  // Bare path like "Images/foo.png" or "商品图片/foo.png" or plain "YCS-CLO-037-001.png"
+  // Bare path like "Images/foo.png" or plain filename
   const bareMatch = url.match(/^(?:Images|images|%E5%95%86%E5%93%81%E5%9B%BE%E7%89%87|商品图片)\/(.+)$/);
   if (bareMatch) return `https://cdn.jsdelivr.net/gh/Preeasy/Images@main/Images/${bareMatch[1]}`;
   if (/^[^/]+\.(?:jpg|jpeg|png)$/i.test(url)) {
