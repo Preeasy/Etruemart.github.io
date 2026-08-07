@@ -26,10 +26,12 @@ import {
 import Layout from '@/components/Layout';
 import ProductCard from '@/components/ProductCard';
 import { SITE_URL, SITE_OG_IMAGE, SITE_PHONE, SITE_EMAIL } from '@/lib/site';
-import siteDataJson from '../../../site-data.json';
+import fs from 'fs';
+import path from 'path';
 
 interface Product {
   id: number | string;
+  slug?: string;
   name: string;
   category: { name: string; slug: string };
   priceMin: number;
@@ -370,6 +372,24 @@ export async function getStaticPaths() {
 }
 
 export const getStaticProps = async (context: { params: { slug: string } }) => {
-  const products = (siteDataJson as any).products || [];
+  // Read site-data.json at build time (avoids bundling the full 2.6MB JSON).
+  // Only extract the minimal fields needed by the store listing.
+  const siteDataPath = path.join(process.cwd(), 'site-data.json');
+  let products: Product[] = [];
+  try {
+    const raw = JSON.parse(fs.readFileSync(siteDataPath, 'utf-8'));
+    products = (raw.products || []).map((p: any) => ({
+      id: p.id,
+      slug: p.slug || String(p.id),
+      name: p.name || '',
+      category: p.category || { name: '', slug: '' },
+      priceMin: Number(p.priceMin || p.price || 0),
+      priceMax: p.priceMax ? Number(p.priceMax) : 0,
+      image: p.image || '',
+      moq: p.moq ? Number(p.moq) : 0,
+      sku: p.sku || '',
+      stockStatus: p.stockStatus || 'IN_STOCK',
+    }));
+  } catch {}
   return { props: { products } };
 };
