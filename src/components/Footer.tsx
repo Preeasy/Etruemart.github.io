@@ -24,7 +24,7 @@ const productCategories = [
 
 const companyLinks = [
   { label: 'About Us', href: '/about' },
-  { label: 'Contact Us', href: 'mailto:sales@etruemark.com' },
+  { label: 'Contact Us', href: 'mailto:yeatrusourcing@gmail.com' },
   { label: 'Quality Assurance', href: '/about' },
   { label: 'Shipping Policy', href: '/about' },
   { label: 'Return Policy', href: '/about' },
@@ -34,7 +34,7 @@ const socials = [
   { Icon: Facebook, label: 'Facebook', href: '#' },
   { Icon: Linkedin, label: 'LinkedIn', href: '#' },
   { Icon: Instagram, label: 'Instagram', href: '#' },
-  { Icon: MessageCircle, label: 'WhatsApp', href: '#' },
+  { Icon: MessageCircle, label: 'WhatsApp', href: 'https://wa.me/8615988516408' },
 ];
 
 const Footer = () => {
@@ -143,18 +143,18 @@ const Footer = () => {
 
             <div className="flex flex-col gap-1.5">
               <a
-                href="mailto:sales@etruemark.com"
+                href="mailto:yeatrusourcing@gmail.com"
                 className="inline-flex items-center gap-2 text-xs text-ink-400 hover:text-accent-300 transition-colors"
               >
                 <Mail className="w-3.5 h-3.5" />
-                sales@etruemark.com
+                yeatrusourcing@gmail.com
               </a>
               <a
-                href="tel:+8657985000000"
+                href="tel:+8615988516408"
                 className="inline-flex items-center gap-2 text-xs text-ink-400 hover:text-accent-300 transition-colors"
               >
                 <Phone className="w-3.5 h-3.5" />
-                +86 579 8500-0000
+                +86 15988516408
               </a>
             </div>
           </div>
