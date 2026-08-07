@@ -52,8 +52,6 @@ const colorToHex = (c?: string | null): string => {
 function extractVariantLabel(name: string, baseName: string, sku: string): string {
   if (!name) return sku;
   
-  // Strategy: remove common words/parts from the variant name that appear in the base name
-  // Split both names into words and remove common words from the variant name
   const normalize = (s: string) => s.toLowerCase().replace(/[^a-z0-9\s]/gi, ' ').replace(/\s+/g, ' ').trim();
   const nameWords = normalize(name).split(' ').filter(w => w.length > 1);
   const baseWords = normalize(baseName || '').split(' ').filter(w => w.length > 1);
@@ -61,34 +59,43 @@ function extractVariantLabel(name: string, baseName: string, sku: string): strin
   
   // Remove words that appear in base name
   const uniqueWords = nameWords.filter(w => !baseWordSet.has(w));
-  
-  // Clean up the remaining words
   let label = uniqueWords.join(' ').trim();
   
-  // Remove numbers with "colors" / "color" suffix (like "2 Colors", "3 Colors") - keep just the number
-  label = label.replace(/(\d+)\s*colors?/gi, '$1 Colors').trim();
+  // STRIP capacity/size patterns (e.g. "500ml", "10cm", "3-layer", "4-tier", "100l")
+  label = label.replace(/\d+\s*(?:ml|l|mm|cm|inch|in|layer|tier|tiers?|pack|pcs?|pieces?|set|count)\b/gi, '').trim();
+  // Also strip standalone numbers with units that were split during normalization
+  label = label.replace(/\b\d+(?:ml|l|mm|cm)\b/gi, '').trim();
   
-  // If label is meaningful, capitalize and return
-  if (label && label.length >= 1 && label !== 'colors') {
-    // Capitalize first letter
+  // Remove "N Colors" patterns and keep just meaningful text
+  label = label.replace(/(\d+)\s*colors?/gi, '').trim();
+  
+  // If label is meaningful after stripping, capitalize and return
+  if (label && label.length >= 2 && label !== 'colors') {
     return label.charAt(0).toUpperCase() + label.slice(1);
   }
   
-  // Try simpler approach: just extract the number+colors pattern from the original name
+  // Try extracting "N Colors" pattern from original name
   const colorMatch = name.match(/(\d+)\s*colors?/i);
   if (colorMatch) return `${colorMatch[1]} Colors`;
   
-  // Fallback: use color from variant name if present
+  // Try extracting color from the FULL variant name (not just unique words)
   const colorWords = ['white', 'black', 'red', 'blue', 'pink', 'green', 'purple', 'orange',
-    'yellow', 'brown', 'gray', 'grey', 'gold', 'silver', 'beige', 'khaki', 'cream'];
+    'yellow', 'brown', 'gray', 'grey', 'gold', 'silver', 'beige', 'khaki', 'cream',
+    'mint', 'navy', 'rose', 'lavender', 'turquoise', 'coral', 'ivory', 'teal', 'olive',
+    'burgundy', 'tan', 'clear', 'transparent'];
   for (const c of colorWords) {
     const pattern = new RegExp(`\\b${c}\\b`, 'i');
     if (pattern.test(name)) return c.charAt(0).toUpperCase() + c.slice(1);
   }
   
-  // Last fallback: use last part of SKU
+  // If nothing meaningful found, use SKU number suffix as "Option N"
   const skuParts = sku.split('-');
-  if (skuParts.length > 0) return skuParts[skuParts.length - 1];
+  if (skuParts.length > 0) {
+    const num = skuParts[skuParts.length - 1];
+    const numInt = parseInt(num, 10);
+    if (!isNaN(numInt)) return `Option ${numInt}`;
+    return num;
+  }
   
   return sku;
 }
