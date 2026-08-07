@@ -42,7 +42,7 @@ import ReviewsSection from '@/components/ReviewsSection';
 import { useCart } from '@/components/CartContext';
 import { SITE_URL, SITE_OG_IMAGE } from '@/lib/site';
 import { getProductBySlug, getProductById, getCategoryById, getRelatedProducts } from '@/lib/db';
-import { proxyImageUrl as proxyImageUrlDirect, getAltExtensionCdnUrl } from '@/lib/image-utils';
+import { proxyImageUrl as proxyImageUrlDirect } from '@/lib/image-utils';
 import { computeBulletPoints } from '@/lib/bullet-points';
 import { buildVariantGroups, getVariantGroupForProductId } from '@/lib/variants';
 import VariantSelector from '@/components/VariantSelector';
@@ -486,17 +486,6 @@ export default function ProductDetail({ product: initialProduct, relatedProducts
                     className="w-full h-full object-contain p-5 md:p-8"
                     onError={(e) => {
                       const el = e.currentTarget as HTMLImageElement;
-                      // Try JPG<->PNG alt-extension fallback first (case-insensitive match)
-                      const tried = new Set<string>((el.dataset.triedExts || '').split(',').filter(Boolean));
-                      const currentExtMatch = el.src.match(/\.(jpg|jpeg|png|JPG|JPEG|PNG)(?:[?#]|$)/i);
-                      if (currentExtMatch) tried.add(currentExtMatch[1].toLowerCase());
-                      const altUrl = getAltExtensionCdnUrl(el.src, tried);
-                      if (altUrl) {
-                        el.dataset.triedExts = [...tried, altUrl.match(/\.(jpg|jpeg|png)$/i)?.[1] || ''].join(',');
-                        el.src = altUrl;
-                        return;
-                      }
-                      // Final fallback: placeholder
                       if (!el.dataset.fallback) {
                         el.dataset.fallback = '1';
                         el.src = `data:image/svg+xml;charset=UTF-8,${encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300"><rect fill="#f3f4f6" width="400" height="300"/><text x="200" y="150" text-anchor="middle" font-family="sans-serif" font-size="14" fill="#9ca3af">${product.name}</text></svg>`)}`;
@@ -942,17 +931,6 @@ export default function ProductDetail({ product: initialProduct, relatedProducts
               src={images[lightboxIndex]}
               alt={`${product.name} - view ${lightboxIndex + 1}`}
               className="w-full h-full object-contain"
-              onError={(e) => {
-                const el = e.currentTarget as HTMLImageElement;
-                const tried = new Set<string>((el.dataset.triedExts || '').split(',').filter(Boolean));
-                const currentExtMatch = el.src.match(/\.(jpg|jpeg|png|JPG|JPEG|PNG)(?:[?#]|$)/i);
-                if (currentExtMatch) tried.add(currentExtMatch[1].toLowerCase());
-                const altUrl = getAltExtensionCdnUrl(el.src, tried);
-                if (altUrl) {
-                  el.dataset.triedExts = [...tried, altUrl.match(/\.(jpg|jpeg|png)$/i)?.[1] || ''].join(',');
-                  el.src = altUrl;
-                }
-              }}
             />
           </div>
           <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-2">
@@ -1086,11 +1064,11 @@ function findProductFromSeed(productId: string) {
     }
   }
 
-  // Parse aplus — supports both old format ({blocks:[]}) and new flat array format ([{type,heading,text,image}])
-  // Image URLs inside aplus blocks are re-mapped to the Preeasy CDN (Yeatru→Preeasy)
-  // so SKU-based identification is preserved.
+  // Parse aplus — supports both old format ({blocks:[]}) and new flat array format.
+  // A+ content renders TEXT ONLY (heading + text); image fields are dropped and
+  // <img> tags inside text are stripped at render time.
   let aplus = null;
-  let aplusBlocks: { type: string; heading?: string; text?: string; image?: string }[] = [];
+  let aplusBlocks: { type: string; heading?: string; text?: string }[] = [];
   if (product.aplus) {
     try {
       const parsed = typeof product.aplus === 'string'
@@ -1101,12 +1079,9 @@ function findProductFromSeed(productId: string) {
         aplusBlocks = parsed
           .filter((b: any) => b && typeof b.type === 'string')
           .map((b: any) => ({
-            ...b,
-            image: b.image ? proxyImageUrlDirect(b.image) : b.image,
-            text: typeof b.text === 'string'
-              ? b.text.replace(/(<img\b[^>]*\bsrc=)["']([^"']+)["']/gi,
-                  (_m: string, prefix: string, src: string) => `${prefix}"${proxyImageUrlDirect(src)}"`)
-              : b.text,
+            type: b.type,
+            heading: b.heading,
+            text: b.text,
           }));
       } else if (parsed && typeof parsed === 'object') {
         // Old format: {description, bulletPoints, blocks:[]}

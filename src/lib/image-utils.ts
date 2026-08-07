@@ -47,14 +47,9 @@ function rewriteYeatruToPreeasy(url: string): string | null {
 /**
  * Primary resolver used by server code (getStaticProps / getServerSideProps / API routes).
  *
- * All SKU-based product images resolve to the Preeasy CDN in the canonical format:
- *   https://cdn.jsdelivr.net/gh/Preeasy/Images@main/Images/{FILENAME}
- *
- * Identification is by Item number (SKU). The filename encodes the SKU directly.
- * JPG/PNG case is handled at render time via getAltExtensionCdnUrl fallback.
- *
- * NOTE: We never serve images from the Yeatru CDN — any Yeatru URL is rewritten
- * to the corresponding Preeasy URL (filename preserved).
+ * Product main images keep their original URLs (Yeatru CDN URLs are preserved
+ * via the GitHub CDN whitelist). A+ content blocks only render text content
+ * (heading + text), so image URLs inside A+ blocks are not processed at all.
  */
 export function resolveImageUrlServerSide(url: string | null | undefined): string {
   if (!url) return '/images/product-placeholder.svg';
@@ -64,19 +59,9 @@ export function resolveImageUrlServerSide(url: string | null | undefined): strin
   if (url.startsWith('/') && !url.includes('item-list/')) return url;
 
   // ===============================================
-  // YEATRU -> PREEASY REMAP
-  // Don't use Yeatru图床 images; rewrite to Preeasy图床.
-  // Filename is preserved so SKU/Item-number identification
-  // still works. JPG/PNG case differences are tolerated at
-  // render time via the alt-extension fallback chain.
-  // ===============================================
-  const remapped = rewriteYeatruToPreeasy(url);
-  if (remapped) return remapped;
-
-  // ===============================================
-  // Preeasy CDN (canonical) & other GitHub CDN URLs:
-  // keep as-is. Includes Preeasy/Images and any other
-  // cdn.jsdelivr.net/gh/<user>/<repo>/... reference.
+  // GitHub CDN WHITELIST: keep these URLs as-is.
+  // Includes: Yeatru/Image, Preeasy/Images, and any
+  // other valid cdn.jsdelivr.net/gh/<user>/<repo>/...
   // ===============================================
   if (url.startsWith('https://cdn.jsdelivr.net/gh/') ||
       url.startsWith('https://raw.githubusercontent.com/') ||
@@ -112,8 +97,7 @@ export function resolveImageUrlServerSide(url: string | null | undefined): strin
 }
 
 /**
- * Client-safe resolver. Identical logic to server version because all product
- * images now live on CDN.
+ * Client-safe resolver. Identical logic to server version.
  */
 export function proxyImageUrl(url: string | null | undefined): string {
   return resolveImageUrlServerSide(url);

@@ -135,9 +135,11 @@ async function getProductFromSeedData(idStr: string) {
   }
   if (!Array.isArray(keywords)) keywords = [];
 
-  // Parse aplus — supports both old format and new flat array format
+  // Parse aplus — supports both old format and new flat array format.
+  // A+ content renders TEXT ONLY (heading + text); image fields are dropped
+  // and <img> tags inside text are stripped at render time.
   let aplus = product.aplus;
-  let aplusBlocks: { type: string; heading?: string; text?: string; image?: string }[] = [];
+  let aplusBlocks: { type: string; heading?: string; text?: string }[] = [];
   if (typeof aplus === 'string') {
     try {
       aplus = JSON.parse(aplus);
@@ -148,14 +150,9 @@ async function getProductFromSeedData(idStr: string) {
     aplusBlocks = aplus
       .filter((b: any) => b && typeof b.type === 'string')
       .map((b: any) => ({
-        ...b,
-        // Re-map image URLs to Preeasy CDN (Yeatru→Preeasy), preserving
-        // the SKU-based filename. Also rewrite <img src="..."> inside text.
-        image: b.image ? convertImageUrl(b.image) : b.image,
-        text: typeof b.text === 'string'
-          ? b.text.replace(/(<img\b[^>]*\bsrc=)["']([^"']+)["']/gi,
-              (_m: string, prefix: string, src: string) => `${prefix}"${convertImageUrl(src)}"`)
-          : b.text,
+        type: b.type,
+        heading: b.heading,
+        text: b.text,
       }));
     aplus = null; // not old format
   }
@@ -245,21 +242,16 @@ async function getProductFromFallback(idStr: string) {
   const images = Array.isArray(product.images) ? product.images : [product.image];
   const keywords = Array.isArray(product.keywords) ? product.keywords : [];
 
-  // Parse aplus — supports both old format ({blocks:[]}) and new flat array
-  // format ([{type, heading, text, image}]). Image URLs are re-mapped to the
-  // Preeasy CDN (Yeatru→Preeasy) so SKU-based identification is preserved.
+  // Parse aplus — A+ renders TEXT ONLY (heading + text); image fields are dropped.
   let aplus: any = product.aplus || null;
-  let aplusBlocks: { type: string; heading?: string; text?: string; image?: string }[] = [];
+  let aplusBlocks: { type: string; heading?: string; text?: string }[] = [];
   if (Array.isArray(aplus)) {
     aplusBlocks = aplus
       .filter((b: any) => b && typeof b.type === 'string')
       .map((b: any) => ({
-        ...b,
-        image: b.image ? convertImageUrl(b.image) : b.image,
-        text: typeof b.text === 'string'
-          ? b.text.replace(/(<img\b[^>]*\bsrc=)["']([^"']+)["']/gi,
-              (_m: string, prefix: string, src: string) => `${prefix}"${convertImageUrl(src)}"`)
-          : b.text,
+        type: b.type,
+        heading: b.heading,
+        text: b.text,
       }));
     aplus = null; // not old format
   }
@@ -350,19 +342,16 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       const p = product as any;
       const parsedAplus = typeof p.aplus === 'string' ? safeJsonParse(p.aplus, null) : p.aplus;
 
-      // Extract new-format aplus blocks and re-map image URLs to Preeasy CDN.
-      let parsedAplusBlocks: { type: string; heading?: string; text?: string; image?: string }[] = [];
+      // Extract new-format aplus blocks (text-only; image fields dropped).
+      let parsedAplusBlocks: { type: string; heading?: string; text?: string }[] = [];
       let normalizedAplus = parsedAplus;
       if (Array.isArray(parsedAplus)) {
         parsedAplusBlocks = parsedAplus
           .filter((b: any) => b && typeof b.type === 'string')
           .map((b: any) => ({
-            ...b,
-            image: b.image ? convertImageUrl(b.image) : b.image,
-            text: typeof b.text === 'string'
-              ? b.text.replace(/(<img\b[^>]*\bsrc=)["']([^"']+)["']/gi,
-                  (_m: string, prefix: string, src: string) => `${prefix}"${convertImageUrl(src)}"`)
-              : b.text,
+            type: b.type,
+            heading: b.heading,
+            text: b.text,
           }));
         normalizedAplus = null;
       }
@@ -399,20 +388,16 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const p = product as any;
     const parsedAplus = typeof p.aplus === 'string' ? safeJsonParse(p.aplus, null) : p.aplus;
 
-    // Extract new-format aplus blocks (flat array of {type, heading, text, image})
-    // and re-map their image URLs to the Preeasy CDN.
-    let parsedAplusBlocks: { type: string; heading?: string; text?: string; image?: string }[] = [];
+    // Extract new-format aplus blocks (text-only; image fields dropped).
+    let parsedAplusBlocks: { type: string; heading?: string; text?: string }[] = [];
     let normalizedAplus = parsedAplus;
     if (Array.isArray(parsedAplus)) {
       parsedAplusBlocks = parsedAplus
         .filter((b: any) => b && typeof b.type === 'string')
         .map((b: any) => ({
-          ...b,
-          image: b.image ? convertImageUrl(b.image) : b.image,
-          text: typeof b.text === 'string'
-            ? b.text.replace(/(<img\b[^>]*\bsrc=)["']([^"']+)["']/gi,
-                (_m: string, prefix: string, src: string) => `${prefix}"${convertImageUrl(src)}"`)
-            : b.text,
+          type: b.type,
+          heading: b.heading,
+          text: b.text,
         }));
       normalizedAplus = null; // not old format
     }
@@ -429,8 +414,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const serialized = {
       ...p,
       images: typeof p.images === 'string'
-        ? safeJsonParse(p.images, []).map(convertImageUrl)
-        : (Array.isArray(p.images) ? p.images.map(convertImageUrl) : []),
+        ? safeJsonParse(p.images, [])
+        : (Array.isArray(p.images) ? p.images : []),
       keywords: typeof p.keywords === 'string' ? safeJsonParse(p.keywords, []) : p.keywords,
       aplus: normalizedAplus,
       aplusBlocks: p.aplusBlocks || parsedAplusBlocks,
