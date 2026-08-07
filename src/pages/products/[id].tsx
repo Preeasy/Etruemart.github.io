@@ -711,10 +711,14 @@ export default function ProductDetail({ product: initialProduct, relatedProducts
 
             {/* Category | SKU */}
             <div className="flex items-center gap-2.5 flex-wrap mb-6">
-              {product.category && (
+              {product.category ? (
                 <Link href={`/products?category=${product.category.slug}`} className="text-xs text-ink-500 hover:text-accent-600 transition-colors">
                   Category: <span className="font-semibold text-navy-800">{product.category.name}</span>
                 </Link>
+              ) : (
+                <span className="text-xs text-ink-500">
+                  Category: <span className="font-semibold text-navy-800">General</span>
+                </span>
               )}
               {product.sku && (
                 <>
@@ -1006,7 +1010,9 @@ export default function ProductDetail({ product: initialProduct, relatedProducts
                     {[
                       { label: 'Product Name', value: product.name },
                       { label: 'SKU', value: product.sku || 'N/A' },
-                      { label: 'Category', value: product.category?.name || 'N/A' },
+                      { label: 'Category', value: (product.categoryPath && product.categoryPath.length > 0)
+                        ? product.categoryPath.map(c => c.name).join(' › ')
+                        : (product.category?.name || 'N/A') },
                       { label: 'Material', value: product.material || 'N/A' },
                       { label: 'Plating / Finish', value: product.plating || 'N/A' },
                       { label: 'Color', value: product.color || 'Multiple options' },
@@ -1816,8 +1822,14 @@ export async function getServerSideProps(context: { params: { id: string } }) {
       return { props: result };
     }
     
-    // Get category
-    const category = product.categoryId ? getCategoryById(product.categoryId) : null;
+    // Get category - resolve to root for display, keep direct for path
+    const directCat = product.categoryId ? getCategoryById(product.categoryId) : null;
+    let rootCat = directCat;
+    if (directCat && directCat.parentId) {
+      const parent = getCategoryById(directCat.parentId);
+      if (parent) rootCat = parent;
+    }
+    const category = rootCat || directCat || null;
     
     // Attach category to product
     (product as any).category = category;
@@ -1996,10 +2008,13 @@ export async function getServerSideProps(context: { params: { id: string } }) {
       }
     }
 
-    // Build category path for breadcrumb
+    // Build category path for breadcrumb (root → sub)
     const categoryPath: { name: string; slug: string }[] = [];
     if (category) {
       categoryPath.push({ name: category.name, slug: category.slug });
+      if (directCat && directCat.id !== rootCat?.id) {
+        categoryPath.push({ name: directCat.name, slug: directCat.slug });
+      }
     }
 
     const serializedProduct = {
