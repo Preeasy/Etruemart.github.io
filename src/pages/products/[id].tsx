@@ -512,135 +512,89 @@ export default function ProductDetail({ product: initialProduct, relatedProducts
                 </div>
               )}
 
-              {/* MOQ / Lead Time / Samples - under main image */}
-              <div className="bg-white rounded-xl border border-ink-200 p-3.5 mt-1">
-                <div className="grid grid-cols-3 gap-2">
-                  <div className="flex flex-col items-center text-center p-3 rounded-lg bg-ink-50 border border-ink-100">
-                    <Package className="w-5 h-5 text-accent-600 mb-1.5" />
-                    <span className="text-[9px] text-ink-400 uppercase tracking-wider font-bold">MOQ</span>
-                    <p className="text-sm font-bold text-navy-800 mt-0.5">{product.moq || 12} pcs</p>
-                  </div>
-                  <div className="flex flex-col items-center text-center p-3 rounded-lg bg-ink-50 border border-ink-100">
-                    <Clock className="w-5 h-5 text-accent-600 mb-1.5" />
-                    <span className="text-[9px] text-ink-400 uppercase tracking-wider font-bold">Lead Time</span>
-                    <p className="text-sm font-bold text-navy-800 mt-0.5">7-15 days</p>
-                  </div>
-                  <div className="flex flex-col items-center text-center p-3 rounded-lg bg-ink-50 border border-ink-100">
-                    <CheckCircle2 className="w-5 h-5 text-accent-600 mb-1.5" />
-                    <span className="text-[9px] text-ink-400 uppercase tracking-wider font-bold">Samples</span>
-                    <p className="text-sm font-bold text-navy-800 mt-0.5">Available</p>
-                  </div>
-                </div>
-              </div>
             </div>
           </div>
 
           <div className="lg:col-span-6">
-            {/* Category + SKU + Stock */}
-            <div className="flex items-center gap-2 flex-wrap mb-2">
-              {product.category && (
-                <Link href={`/products?category=${product.category.slug}`} className="inline-flex items-center gap-1 text-[10px] font-semibold text-accent-600 hover:text-accent-700">
-                  <Tag className="w-2.5 h-2.5" />{product.category.name}
-                </Link>
-              )}
-              <span className="text-ink-300">·</span>
-              {product.sku && <span className="text-[10px] text-ink-500 font-mono">SKU: {product.sku}</span>}
-              <span className="text-ink-300">·</span>
-              <span className="inline-flex items-center gap-1 text-[10px] text-success-600 font-semibold">
-                <CheckCircle2 className="w-3 h-3" />In Stock
-              </span>
-            </div>
+            {/* Get a Quote button */}
+            <button className="mb-3 inline-flex items-center gap-1.5 px-4 py-1.5 rounded-lg border border-ink-300 text-xs font-semibold text-ink-700 hover:bg-ink-50 transition-colors">
+              <MessageCircle className="w-3.5 h-3.5" /> Get a Quote
+            </button>
 
             {/* Title */}
-            <h1 className="text-lg md:text-xl font-bold text-navy-900 leading-tight mb-2">{product.name}</h1>
+            <h1 className="text-xl md:text-2xl font-bold text-navy-900 leading-tight mb-2">{product.name}</h1>
 
-            {/* Rating & Sales */}
-            <div className="flex items-center gap-2 flex-wrap mb-2.5">
-              <div className="flex items-center gap-1.5">
-                <div className="flex gap-0.5">
-                  {[...Array(5)].map((_, i) => <Star key={i} className={`w-3 h-3 ${i < Math.floor(rating) ? 'text-accent-500 fill-accent-500' : 'text-ink-200'}`} />)}
-                </div>
-                <span className="text-xs font-bold text-navy-800">{rating.toFixed(1)}</span>
-                <Link href="#reviews" className="text-[11px] text-accent-600 font-semibold hover:underline">({reviewCount} reviews)</Link>
-              </div>
-              <span className="text-ink-200">|</span>
-              <div className="flex items-center gap-1 text-[11px] text-ink-500">
-                <Users className="w-3 h-3" />
-                <span><span className="font-bold text-navy-800">{salesCount.toLocaleString()}</span> sold</span>
-              </div>
-            </div>
-
-            {/* Price — 核心转化区域 */}
-            <div className="flex items-baseline gap-2 flex-wrap pb-2 border-b border-ink-100">
-              <span className="text-2xl md:text-3xl font-extrabold text-navy-900 tracking-tight">${price.toFixed(2)}</span>
-              {Number(product.priceMax) > price && (
-                <span className="text-xs text-ink-400">up to ${Number(product.priceMax).toFixed(2)}</span>
+            {/* Category | SKU */}
+            <div className="flex items-center gap-2 flex-wrap mb-5">
+              {product.category && (
+                <Link href={`/products?category=${product.category.slug}`} className="text-[11px] text-ink-500 hover:text-accent-600 transition-colors">
+                  Category: <span className="font-semibold text-navy-800">{product.category.name}</span>
+                </Link>
+              )}
+              {product.sku && (
+                <>
+                  <span className="text-ink-300">|</span>
+                  <span className="text-[11px] text-ink-500">SKU: <span className="font-mono font-semibold text-navy-800">{product.sku}</span></span>
+                </>
               )}
             </div>
-            <p className="text-[11px] text-ink-500 mt-1.5 mb-3">Price varies by quantity. Bulk discounts available. Contact us for custom orders.</p>
 
-            {/* Specs — 详细规格一览 */}
-            <div className="py-3 border-b border-ink-100">
-              <div className="grid grid-cols-2 md:grid-cols-3 gap-y-1.5 gap-x-4">
-                {product.material && (
-                  <div className="flex items-baseline gap-1.5">
-                    <span className="text-[10px] text-ink-400 uppercase tracking-wider font-bold w-16 flex-shrink-0">Material</span>
-                    <p className="text-xs font-semibold text-navy-800 truncate">{product.material}</p>
-                  </div>
-                )}
-                {product.plating && (
-                  <div className="flex items-baseline gap-1.5">
-                    <span className="text-[10px] text-ink-400 uppercase tracking-wider font-bold w-16 flex-shrink-0">Finish</span>
-                    <p className="text-xs font-semibold text-navy-800 truncate">{product.plating}</p>
-                  </div>
-                )}
-                {product.color && (
-                  <div className="flex items-baseline gap-1.5">
-                    <span className="text-[10px] text-ink-400 uppercase tracking-wider font-bold w-16 flex-shrink-0">Color</span>
-                    <p className="text-xs font-semibold text-navy-800 truncate">{product.color}</p>
-                  </div>
-                )}
-                {product.size && (
-                  <div className="flex items-baseline gap-1.5">
-                    <span className="text-[10px] text-ink-400 uppercase tracking-wider font-bold w-16 flex-shrink-0">Size</span>
-                    <p className="text-xs font-semibold text-navy-800 truncate">{product.size}</p>
-                  </div>
-                )}
-                <div className="flex items-baseline gap-1.5">
-                  <span className="text-[10px] text-ink-400 uppercase tracking-wider font-bold w-16 flex-shrink-0">Pack</span>
-                  <p className="text-xs font-semibold text-navy-800 truncate">{product.packSize || product.moq || 12} pcs</p>
+            {/* Spec Table — 参考设计风格：扁平双列表格 */}
+            <div className="border border-ink-200 rounded-lg overflow-hidden mb-5">
+              {[
+                { label: 'Material', value: product.material || '-' },
+                { label: 'Size', value: product.size || '-' },
+                { label: 'MOQ', value: `${product.moq || 12}` },
+                { label: 'Minimum Price ($)', value: `$${price.toFixed(2)}` },
+                { label: 'Maximum Price ($)', value: `$${Number(product.priceMax ?? price).toFixed(2)}` },
+              ].map((row, i, arr) => (
+                <div key={row.label} className={`grid grid-cols-[1fr_1fr] ${i < arr.length - 1 ? 'border-b border-ink-100' : ''}`}>
+                  <div className="px-4 py-2.5 text-[11px] text-ink-500 font-medium">{row.label}</div>
+                  <div className="px-4 py-2.5 text-[12px] font-semibold text-navy-800 border-l border-ink-100">{row.value}</div>
                 </div>
-              </div>
+              ))}
             </div>
 
-            {/* Variants — show if part of a multi-variant group */}
+            {/* Large standalone price */}
+            <div className="mb-4">
+              <span className="text-3xl font-extrabold text-navy-900 tracking-tight">${price.toFixed(2)}</span>
+            </div>
+
+            {/* Description */}
+            <p className="text-xs text-ink-600 leading-relaxed mb-4 line-clamp-3">
+              {product.description?.slice(0, 200) || `${product.name}. Wholesale from Yiwu, China. Bulk discounts available.`}
+            </p>
+
+            {/* Variants — pill-style chips */}
             {effectiveVariantGroup && effectiveVariantGroup.variants.length >= 1 && (
-              <VariantSelector
-                variants={effectiveVariantGroup.variants}
-                currentSku={product.sku || ''}
-                baseName={effectiveVariantGroup.baseName}
-                parentSku={effectiveVariantGroup.parentSku}
-              />
+              <div className="mb-5">
+                <VariantSelector
+                  variants={effectiveVariantGroup.variants}
+                  currentSku={product.sku || ''}
+                  baseName={effectiveVariantGroup.baseName}
+                  parentSku={effectiveVariantGroup.parentSku}
+                />
+              </div>
             )}
 
-            {/* Quantity + CTA — 主操作区 */}
-            <div className="py-3 border-b border-ink-100">
-              <h3 className="text-xs font-bold text-navy-800 mb-2">Order Quantity</h3>
+            {/* Quantity + CTA */}
+            <div className="mb-4">
               <div className="flex items-center gap-2.5 mb-3">
+                <span className="text-[11px] text-ink-500 font-medium">Qty:</span>
                 <div className="flex items-center border border-ink-200 rounded-lg bg-white overflow-hidden">
-                  <button onClick={() => setQuantity(Math.max(product.moq || 1, quantity - 12))} aria-label="Decrease quantity" className="px-3 py-2 hover:bg-ink-50 transition-colors text-ink-600"><Minus className="w-4 h-4" /></button>
-                  <span className="px-4 font-bold text-navy-800 min-w-[70px] text-center">{quantity}</span>
-                  <button onClick={() => setQuantity(quantity + 12)} aria-label="Increase quantity" className="px-3 py-2 hover:bg-ink-50 transition-colors text-ink-600"><Plus className="w-4 h-4" /></button>
+                  <button onClick={() => setQuantity(Math.max(product.moq || 1, quantity - 12))} aria-label="Decrease quantity" className="px-3 py-1.5 hover:bg-ink-50 transition-colors text-ink-600"><Minus className="w-3.5 h-3.5" /></button>
+                  <span className="px-4 font-bold text-navy-800 min-w-[60px] text-center text-sm">{quantity}</span>
+                  <button onClick={() => setQuantity(quantity + 12)} aria-label="Increase quantity" className="px-3 py-1.5 hover:bg-ink-50 transition-colors text-ink-600"><Plus className="w-3.5 h-3.5" /></button>
                 </div>
-                <span className="text-xs text-ink-500 font-medium">Step: 12 pcs</span>
+                <span className="text-[10px] text-ink-400">MOQ: {product.moq || 12} · Step: 12</span>
               </div>
               {cartNotice && (
-                <div className={`mt-2.5 px-3 py-2 rounded-lg text-xs font-medium ${cartNotice.type === 'success' ? 'bg-success-50 text-success-700 border border-success-200' : 'bg-red-50 text-red-700 border border-red-200'}`}>
+                <div className={`mb-2.5 px-3 py-2 rounded-lg text-xs font-medium ${cartNotice.type === 'success' ? 'bg-success-50 text-success-700 border border-success-200' : 'bg-red-50 text-red-700 border border-red-200'}`}>
                   {cartNotice.message}
                 </div>
               )}
-              <div className="flex flex-col sm:flex-row gap-2.5">
-                <button onClick={handleAddToCart} disabled={addingToCart} className="flex-1 flex items-center justify-center gap-2 bg-accent-600 hover:bg-accent-700 disabled:opacity-50 disabled:cursor-not-allowed text-white py-2.5 rounded-lg font-bold text-sm transition-colors shadow-sm active:scale-[0.98]">
+              <div className="flex flex-col sm:flex-row gap-2">
+                <button onClick={handleAddToCart} disabled={addingToCart} className="flex-1 flex items-center justify-center gap-2 bg-accent-600 hover:bg-accent-700 disabled:opacity-50 disabled:cursor-not-allowed text-white py-2.5 rounded-lg font-bold text-sm transition-colors shadow-sm">
                   {addingToCart ? <><div className="animate-spin w-4 h-4 border-2 border-white border-t-transparent rounded-full" />Adding...</> : <><ShoppingCart className="w-4 h-4" />Add to Cart</>}
                 </button>
                 <button
@@ -652,10 +606,8 @@ export default function ProductDetail({ product: initialProduct, relatedProducts
                       return;
                     }
                     if (addingToCart) return;
-                    const prevNotice = cartNotice;
                     setAddingToCart(true);
                     setCartNotice(null);
-                    // Try add to cart (best-effort); regardless proceed to checkout since there may be items already
                     try {
                       const payload = {
                         productId: String(product.id),
@@ -668,47 +620,21 @@ export default function ProductDetail({ product: initialProduct, relatedProducts
                         body: JSON.stringify(payload),
                       }).catch(() => {});
                       window.dispatchEvent(new CustomEvent('cart:updated'));
-                    } catch {
-                      /* ignore and still go to checkout */
-                    } finally {
+                    } catch { /* ignore */ } finally {
                       setAddingToCart(false);
-                      if (!prevNotice) setCartNotice(null);
                     }
                     router.push('/checkout');
                   }}
                   disabled={addingToCart}
-                  className="flex-1 flex items-center justify-center gap-2 bg-navy-800 hover:bg-navy-900 disabled:opacity-50 disabled:cursor-not-allowed text-white py-2.5 rounded-lg font-bold text-sm transition-colors shadow-sm active:scale-[0.98]"
+                  className="flex-1 flex items-center justify-center gap-2 bg-navy-800 hover:bg-navy-900 disabled:opacity-50 disabled:cursor-not-allowed text-white py-2.5 rounded-lg font-bold text-sm transition-colors shadow-sm"
                 >
                   <CreditCard className="w-4 h-4" />Buy Now
                 </button>
               </div>
             </div>
 
-            {/* Purchase Protection — 信任徽标 */}
-            <div className="py-3 border-b border-ink-100">
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
-                {[
-                  { icon: Truck, label: 'Free Shipping', desc: 'Orders $50+' },
-                  { icon: ShieldCheck, label: 'Secure Payment', desc: 'SSL encrypted' },
-                  { icon: RotateCcw, label: '30-Day Returns', desc: 'Easy policy' },
-                  { icon: Headphones, label: '24/7 Support', desc: 'Live chat' },
-                ].map((item, i) => {
-                  const Icon = item.icon;
-                  return (
-                    <div key={i} className="flex items-center gap-1.5">
-                      <Icon className="w-4 h-4 text-accent-600 flex-shrink-0" />
-                      <div className="min-w-0">
-                        <p className="text-[11px] font-bold text-navy-800 leading-tight">{item.label}</p>
-                        <p className="text-[10px] text-ink-500 leading-tight">{item.desc}</p>
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
-
             {/* Shipping Info */}
-            <div className="py-4 border-b border-ink-100">
+            <div className="border-t border-ink-100 pt-3">
               <ShippingSelector categorySlug={product.category?.slug} />
             </div>
           </div>
