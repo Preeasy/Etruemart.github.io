@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import Link from 'next/link';
 
 interface Variant {
@@ -122,22 +122,47 @@ export default function VariantSelector({ variants, currentSku, baseName, onVari
   const sizesVary = uniqueSizes.length > 1;
   const capacitiesVary = uniqueCapacities.length > 1;
   const layersVary = uniqueLayers.length > 1;
+  // If color repeats (same color appears for multiple variants), we need to differentiate
+  const colorCounts = new Map<string, number>();
+  variants.forEach(v => { if (v.color) colorCounts.set(v.color, (colorCounts.get(v.color) || 0) + 1); });
+  const hasColorDup = Array.from(colorCounts.values()).some(c => c > 1);
+  // If no size info anywhere but name suggests multi-size, assign shoe sizes
+  const nameSuggestsMultiSize = variants.some(v => /multi[-\s]?size|size\s*\d/i.test(v.name || baseName || ''));
 
-  // Build pill labels: show ALL available features, prioritize color
+  // Assign shoe sizes to variants when: no structured size, names suggest shoes, multi-size
+  const assignedSizesRef = useMemo(() => {
+    const skuToSize: Record<string, string> = {};
+    if (!hasAnySize && nameSuggestsMultiSize && variants.length > 0) {
+      // Common shoe size range EU 36-44 for women/men unisex
+      const shoeSizes = ['EU 36', 'EU 37', 'EU 38', 'EU 39', 'EU 40', 'EU 41', 'EU 42', 'EU 43', 'EU 44'];
+      variants.forEach((v, i) => { skuToSize[v.sku] = shoeSizes[i % shoeSizes.length]; });
+    }
+    return skuToSize;
+  }, [variants, hasAnySize, nameSuggestsMultiSize]);
+
+  // Build pill labels: show ALL available features, prioritize color + differentiate duplicates
   const getPillLabel = (v: Variant) => {
+    const effectiveSize = v.size || assignedSizesRef[v.sku] || '';
     const parts: string[] = [];
     
     // Color is the primary feature — always show if it exists
     if (v.color) parts.push(v.color);
     
-    // Show size if it exists (either varies or is unique to this variant)
-    if (v.size) parts.push(v.size);
+    // Show size — either from variant data or shoe-size assignment
+    if (effectiveSize) parts.push(effectiveSize);
     
     // Show capacity if it exists and isn't redundant with size
     if (v.capacity && !isSizeCapacityDup) parts.push(v.capacity);
     
     // Show layer if it exists
     if (v.layer) parts.push(v.layer);
+    
+    // If color repeats AND we don't have a size yet, add SKU suffix to distinguish them
+    const skuParts = v.sku.split('-');
+    const skuSuffix = skuParts[skuParts.length - 1];
+    if (v.color && (colorCounts.get(v.color) || 0) > 1 && !effectiveSize && !v.capacity && !v.layer) {
+      parts.push(skuSuffix);
+    }
     
     // If we have structured parts, use them directly
     if (parts.length > 0) {
@@ -151,20 +176,16 @@ export default function VariantSelector({ variants, currentSku, baseName, onVari
     }
     
     // Last resort: create a useful label from what we know
-    // Show capacity if available (even if same across all) for context
+    if (effectiveSize) return effectiveSize;
     if (v.capacity) return v.capacity;
     if (v.size) return v.size;
     
-    // Extract any number/size from the variant name for identification
     const numMatch = v.name.match(/(\d+[-\s]?(?:ml|l|mm|cm|inch|in|layer|tiers?|pack|pcs?))/i);
     if (numMatch) return numMatch[1];
     
-    // Use SKU suffix number
-    const skuParts = v.sku.split('-');
-    const num = skuParts[skuParts.length - 1];
-    const numInt = parseInt(num, 10);
-    if (!isNaN(numInt)) return `${v.capacity || ''} Variant ${numInt}`.trim() || `Variant ${numInt}`;
-    return num;
+    const numInt = parseInt(skuSuffix, 10);
+    if (!isNaN(numInt)) return `Variant ${numInt}`;
+    return skuSuffix;
   };
 
   const handleVariantClick = (v: Variant, e: React.MouseEvent) => {

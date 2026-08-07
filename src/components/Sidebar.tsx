@@ -47,6 +47,7 @@ interface Product {
 interface CategoryInfo {
   name: string;
   slug: string;
+  children?: { name: string; slug: string }[];
 }
 
 interface SidebarProps {
@@ -105,11 +106,19 @@ export default function Sidebar({ products, currentCategory, categories }: Sideb
     if (categories && categories.length > 0) {
       setDisplayCategories(categories.slice(0, 14));
     } else {
-      fetch('/api/categories?level=1')
+      // Fetch tree structure (no level param) so children (level 2) are included
+      fetch('/api/categories')
         .then(r => r.ok ? r.json() : null)
         .then(data => {
           if (Array.isArray(data) && data.length > 0) {
-            setDisplayCategories(data.map((c: any) => ({ name: c.name, slug: c.slug })).slice(0, 14));
+            setDisplayCategories(data.map((c: any) => ({
+              name: c.name,
+              slug: c.slug,
+              children: Array.isArray(c.children) ? c.children.map((ch: any) => ({
+                name: ch.name,
+                slug: ch.slug,
+              })) : undefined,
+            })).slice(0, 14));
           }
         })
         .catch(() => {});
@@ -135,22 +144,55 @@ export default function Sidebar({ products, currentCategory, categories }: Sideb
             {displayCategories.map((cat) => {
               const isActive = currentCategory === cat.slug;
               const Icon = iconMap[cat.slug] || Sparkles;
+              const hasChildren = Array.isArray(cat.children) && cat.children.length > 0;
               return (
-                <Link
-                  key={cat.slug}
-                  href={`/products?category=${cat.slug}`}
-                  className={`flex items-center gap-3 px-3 py-2.5 text-sm rounded-xl transition-all group ${
-                    isActive
-                      ? 'bg-accent-50 text-accent-600 font-semibold'
-                      : 'text-ink-700 hover:bg-ink-50 hover:text-navy-800'
-                  }`}
-                >
-                  <div className="w-8 h-8 rounded-lg bg-navy-100 flex items-center justify-center flex-shrink-0 group-hover:bg-accent-100 transition-colors">
-                    <Icon className="w-4 h-4 text-navy-600 group-hover:text-accent-600 transition-colors" />
-                  </div>
-                  <span className="flex-1">{cat.name}</span>
-                  <ChevronRight className={`w-3.5 h-3.5 ${isActive ? 'text-accent-500' : 'text-ink-300 group-hover:text-navy-800'} transition-colors`} />
-                </Link>
+                <div key={cat.slug} className="group/cat relative">
+                  <Link
+                    href={`/products?category=${cat.slug}`}
+                    className={`flex items-center gap-3 px-3 py-2.5 text-sm rounded-xl transition-all group/item ${
+                      isActive
+                        ? 'bg-accent-50 text-accent-600 font-semibold'
+                        : 'text-ink-700 hover:bg-ink-50 hover:text-navy-800'
+                    }`}
+                  >
+                    <div className="w-8 h-8 rounded-lg bg-navy-100 flex items-center justify-center flex-shrink-0 group-hover/item:bg-accent-100 transition-colors">
+                      <Icon className="w-4 h-4 text-navy-600 group-hover/item:text-accent-600 transition-colors" />
+                    </div>
+                    <span className="flex-1">{cat.name}</span>
+                    {hasChildren && (
+                      <ChevronRight className={`w-3.5 h-3.5 ${isActive ? 'text-accent-500' : 'text-ink-300 group-hover/item:text-navy-800'} transition-colors`} />
+                    )}
+                  </Link>
+                  {/* Subcategory dropdown — appears on hover */}
+                  {hasChildren && (
+                    <div className="absolute left-full top-0 ml-2 pl-2 opacity-0 invisible group-hover/cat:opacity-100 group-hover/cat:visible transition-all duration-200 z-50 pointer-events-none group-hover/cat:pointer-events-auto">
+                      <div className="bg-white rounded-xl shadow-2xl border border-ink-200 p-2 min-w-[220px] max-h-[80vh] overflow-y-auto">
+                        <Link
+                          href={`/products?category=${cat.slug}`}
+                          className="block px-3 py-2 text-xs font-bold text-navy-800 rounded-lg hover:bg-accent-50 hover:text-accent-600 transition-colors border-b border-ink-100 mb-1"
+                        >
+                          All {cat.name}
+                        </Link>
+                        {cat.children!.map((ch: any) => {
+                          const chActive = currentCategory === ch.slug;
+                          return (
+                            <Link
+                              key={ch.slug}
+                              href={`/products?category=${ch.slug}`}
+                              className={`block px-3 py-2 text-sm rounded-lg transition-colors ${
+                                chActive
+                                  ? 'bg-accent-50 text-accent-600 font-semibold'
+                                  : 'text-ink-700 hover:bg-ink-50 hover:text-navy-800'
+                              }`}
+                            >
+                              {ch.name}
+                            </Link>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  )}
+                </div>
               );
             })}
           </nav>
