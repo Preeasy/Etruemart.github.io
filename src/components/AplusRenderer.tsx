@@ -1,4 +1,6 @@
+import React from 'react';
 import { Image as ImageIcon } from 'lucide-react';
+import { proxyImageUrl, getAltExtensionCdnUrl } from '@/lib/image-utils';
 
 interface AplusBlock {
   type: string;
@@ -11,7 +13,8 @@ interface AplusRendererProps {
   blocks: AplusBlock[];
 }
 
-// Clean HTML: remove &nbsp;, normalize divs, strip inline styles for consistency
+// Clean HTML: remove &nbsp;, normalize divs, strip inline styles for consistency.
+// Also rewrites any <img src="..."> to use the Preeasy CDN (Yeatru→Preeasy remap).
 function cleanHtml(html: string): string {
   if (!html) return '';
   return html
@@ -21,8 +24,26 @@ function cleanHtml(html: string): string {
     .replace(/<div>/g, '<p>')
     .replace(/<\/div>/g, '</p>')
     .replace(/<p><\/p>/g, '')
+    // Rewrite <img src="..."> URLs through the Preeasy CDN resolver
+    .replace(/(<img\b[^>]*\bsrc=)["']([^"']+)["']/gi, (_m, prefix, src) =>
+      `${prefix}"${proxyImageUrl(src)}"`
+    )
     .trim();
 }
+
+// Shared onError handler: try JPG<->PNG alt-extension fallback (case-insensitive)
+// before giving up. Used by all <img> tags rendered by AplusRenderer.
+const handleImageError = (e: React.SyntheticEvent<HTMLImageElement, Event>) => {
+  const el = e.currentTarget;
+  const tried = new Set<string>((el.dataset.triedExts || '').split(',').filter(Boolean));
+  const currentExtMatch = el.src.match(/\.(jpg|jpeg|png|JPG|JPEG|PNG)(?:[?#]|$)/i);
+  if (currentExtMatch) tried.add(currentExtMatch[1].toLowerCase());
+  const altUrl = getAltExtensionCdnUrl(el.src, tried);
+  if (altUrl) {
+    el.dataset.triedExts = [...tried, altUrl.match(/\.(jpg|jpeg|png)$/i)?.[1] || ''].join(',');
+    el.src = altUrl;
+  }
+};
 
 export default function AplusRenderer({ blocks }: AplusRendererProps) {
   if (!blocks || blocks.length === 0) return null;
@@ -32,7 +53,7 @@ export default function AplusRenderer({ blocks }: AplusRendererProps) {
       {blocks.map((block, i) => {
         const heading = block.heading || '';
         const text = cleanHtml(block.text || '');
-        const image = block.image || '';
+        const image = block.image ? proxyImageUrl(block.image) : '';
         const hasImage = !!image;
 
         // ===== HERO: large image + overlaid heading =====
@@ -45,6 +66,7 @@ export default function AplusRenderer({ blocks }: AplusRendererProps) {
                     src={image}
                     alt={heading}
                     className="w-full h-[300px] md:h-[400px] object-cover"
+                    onError={handleImageError}
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
                   <div className="absolute bottom-0 left-0 right-0 p-6 md:p-8">
@@ -97,6 +119,7 @@ export default function AplusRenderer({ blocks }: AplusRendererProps) {
                     src={image}
                     alt={heading}
                     className="w-full rounded-xl shadow-md object-cover"
+                    onError={handleImageError}
                   />
                 </div>
               ) : (
@@ -118,6 +141,7 @@ export default function AplusRenderer({ blocks }: AplusRendererProps) {
                     src={image}
                     alt={heading}
                     className="w-full rounded-xl shadow-md object-cover"
+                    onError={handleImageError}
                   />
                 </div>
               ) : (

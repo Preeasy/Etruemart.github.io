@@ -1,8 +1,13 @@
 // Image URL resolver. All product images served from GitHub CDN.
 // Format: https://cdn.jsdelivr.net/gh/Preeasy/Images@main/Images/{FILENAME}
+//
+// Image identification is by Item number (SKU). The SKU is encoded directly
+// in the image filename (e.g. SKU `YCS-AUS-012` -> `YCS-AUS-012.png` or
+// `YCS-AUS-012-001.png` for additional images). JPG/PNG case is ignored
+// during fallback resolution (see getAltExtensionCdnUrl).
 
 function extractSkuBase(url: string): string | null {
-  const skuMatch = url.match(/[?/]((?:ycs|ywc|yw|ywx)-[^/?#]+?)\.(jpg|jpeg|png|JPG|JPEG|PNG)(?:[?#]|$)/i);
+  const skuMatch = url.match(/[?/]((?:ycs|ywc|yw|ywx|ys)-[^/?#]+?)\.(jpg|jpeg|png|JPG|JPEG|PNG)(?:[?#]|$)/i);
   return skuMatch ? skuMatch[1] : null;
 }
 
@@ -11,14 +16,45 @@ function extractFilename(url: string): string | null {
   return match ? match[1] : null;
 }
 
+const PREEASY_CDN_BASE = 'https://cdn.jsdelivr.net/gh/Preeasy/Images@main';
+
+/**
+ * Rewrite a Yeatru CDN URL (cdn.jsdelivr.net/gh/Yeatru/Image@main or
+ * raw.githubusercontent.com/Yeatru/Image/main) to the equivalent Preeasy
+ * CDN URL. The filename/path after `/Images/` is preserved so SKU-based
+ * identification continues to work. Returns null if the URL is not a
+ * Yeatru URL.
+ */
+function rewriteYeatruToPreeasy(url: string): string | null {
+  // cdn.jsdelivr.net/gh/Yeatru/Image@main/Images/foo.png
+  let m = url.match(/^https:\/\/cdn\.jsdelivr\.net\/gh\/Yeatru\/Image@main\/(.*)$/i);
+  if (m) {
+    const rest = m[1];
+    // Normalize to Preeasy/Images@main/Images/...
+    const path = rest.startsWith('Images/') ? rest : `Images/${rest.replace(/^\/+/, '')}`;
+    return `${PREEASY_CDN_BASE}/${path}`;
+  }
+  // raw.githubusercontent.com/Yeatru/Image/main/Images/foo.png
+  m = url.match(/^https:\/\/raw\.githubusercontent\.com\/Yeatru\/Image\/main\/(.*)$/i);
+  if (m) {
+    const rest = m[1];
+    const path = rest.startsWith('Images/') ? rest : `Images/${rest.replace(/^\/+/, '')}`;
+    return `${PREEASY_CDN_BASE}/${path}`;
+  }
+  return null;
+}
+
 /**
  * Primary resolver used by server code (getStaticProps / getServerSideProps / API routes).
  *
- * All SKU-based product images resolve to CDN in the canonical format:
+ * All SKU-based product images resolve to the Preeasy CDN in the canonical format:
  *   https://cdn.jsdelivr.net/gh/Preeasy/Images@main/Images/{FILENAME}
  *
- * Local paths from seed data are preserved for non-SKU files (placeholders, logo etc.),
- * but for SKU files we translate to CDN because the local images dir is gitignored.
+ * Identification is by Item number (SKU). The filename encodes the SKU directly.
+ * JPG/PNG case is handled at render time via getAltExtensionCdnUrl fallback.
+ *
+ * NOTE: We never serve images from the Yeatru CDN — any Yeatru URL is rewritten
+ * to the corresponding Preeasy URL (filename preserved).
  */
 export function resolveImageUrlServerSide(url: string | null | undefined): string {
   if (!url) return '/images/product-placeholder.svg';
@@ -28,10 +64,19 @@ export function resolveImageUrlServerSide(url: string | null | undefined): strin
   if (url.startsWith('/') && !url.includes('item-list/')) return url;
 
   // ===============================================
-  // GitHub CDN WHITELIST: keep these URLs as-is.
-  // Includes: Yeatru/Image, Preeasy/Images, and any
-  // other valid cdn.jsdelivr.net/gh/<user>/<repo>/...
-  // Never rewrite or repoint these to a different repo.
+  // YEATRU -> PREEASY REMAP
+  // Don't use Yeatru图床 images; rewrite to Preeasy图床.
+  // Filename is preserved so SKU/Item-number identification
+  // still works. JPG/PNG case differences are tolerated at
+  // render time via the alt-extension fallback chain.
+  // ===============================================
+  const remapped = rewriteYeatruToPreeasy(url);
+  if (remapped) return remapped;
+
+  // ===============================================
+  // Preeasy CDN (canonical) & other GitHub CDN URLs:
+  // keep as-is. Includes Preeasy/Images and any other
+  // cdn.jsdelivr.net/gh/<user>/<repo>/... reference.
   // ===============================================
   if (url.startsWith('https://cdn.jsdelivr.net/gh/') ||
       url.startsWith('https://raw.githubusercontent.com/') ||
@@ -39,32 +84,28 @@ export function resolveImageUrlServerSide(url: string | null | undefined): strin
     return url;
   }
 
-  // Old Preeasy Image CDN URLs (repo in URL but variant form).
-  // Only apply legacy rewrite rules for these specific domains if
-  // they passed the whitelist above somehow (shouldn't happen).
-
   // SKU file referenced as local path (legacy) => map to CDN
   if (url.startsWith('/images/item-list/')) {
     const fn = url.split('/').pop() || '';
-    return `https://cdn.jsdelivr.net/gh/Preeasy/Images@main/Images/${fn}`;
+    return `${PREEASY_CDN_BASE}/Images/${fn}`;
   }
 
   // SKU filename embedded in an URL (legacy CDN / raw.github URLs)
   const skuBase = extractSkuBase(url);
   if (skuBase) {
-    const extMatch = url.match(/[?/](?:ycs|ywc|yw|ywx)-[^/?#]+\.(jpg|jpeg|png|JPG|JPEG|PNG)(?:[?#]|$)/i);
+    const extMatch = url.match(/[?/](?:ycs|ywc|yw|ywx|ys)-[^/?#]+\.(jpg|jpeg|png|JPG|JPEG|PNG)(?:[?#]|$)/i);
     const ext = extMatch ? extMatch[1].toLowerCase() : 'jpg';
     const skuUpper = skuBase.toUpperCase();
-    return `https://cdn.jsdelivr.net/gh/Preeasy/Images@main/Images/${skuUpper}.${ext}`;
+    return `${PREEASY_CDN_BASE}/Images/${skuUpper}.${ext}`;
   }
 
   if (url.startsWith('http://') || url.startsWith('https://')) return url;
 
   // Bare path like "Images/foo.png" or plain filename
   const bareMatch = url.match(/^(?:Images|images|%E5%95%86%E5%93%81%E5%9B%BE%E7%89%87|商品图片)\/(.+)$/);
-  if (bareMatch) return `https://cdn.jsdelivr.net/gh/Preeasy/Images@main/Images/${bareMatch[1]}`;
+  if (bareMatch) return `${PREEASY_CDN_BASE}/Images/${bareMatch[1]}`;
   if (/^[^/]+\.(?:jpg|jpeg|png)$/i.test(url)) {
-    return `https://cdn.jsdelivr.net/gh/Preeasy/Images@main/Images/${url}`;
+    return `${PREEASY_CDN_BASE}/Images/${url}`;
   }
 
   return url;

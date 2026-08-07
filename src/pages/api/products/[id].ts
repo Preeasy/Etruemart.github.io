@@ -145,7 +145,18 @@ async function getProductFromSeedData(idStr: string) {
   }
   // New format: flat array of {type, heading, text, image}
   if (Array.isArray(aplus)) {
-    aplusBlocks = aplus.filter((b: any) => b && typeof b.type === 'string');
+    aplusBlocks = aplus
+      .filter((b: any) => b && typeof b.type === 'string')
+      .map((b: any) => ({
+        ...b,
+        // Re-map image URLs to Preeasy CDN (Yeatru→Preeasy), preserving
+        // the SKU-based filename. Also rewrite <img src="..."> inside text.
+        image: b.image ? convertImageUrl(b.image) : b.image,
+        text: typeof b.text === 'string'
+          ? b.text.replace(/(<img\b[^>]*\bsrc=)["']([^"']+)["']/gi,
+              (_m: string, prefix: string, src: string) => `${prefix}"${convertImageUrl(src)}"`)
+          : b.text,
+      }));
     aplus = null; // not old format
   }
 
@@ -233,7 +244,25 @@ async function getProductFromFallback(idStr: string) {
 
   const images = Array.isArray(product.images) ? product.images : [product.image];
   const keywords = Array.isArray(product.keywords) ? product.keywords : [];
-  const aplus = product.aplus || null;
+
+  // Parse aplus — supports both old format ({blocks:[]}) and new flat array
+  // format ([{type, heading, text, image}]). Image URLs are re-mapped to the
+  // Preeasy CDN (Yeatru→Preeasy) so SKU-based identification is preserved.
+  let aplus: any = product.aplus || null;
+  let aplusBlocks: { type: string; heading?: string; text?: string; image?: string }[] = [];
+  if (Array.isArray(aplus)) {
+    aplusBlocks = aplus
+      .filter((b: any) => b && typeof b.type === 'string')
+      .map((b: any) => ({
+        ...b,
+        image: b.image ? convertImageUrl(b.image) : b.image,
+        text: typeof b.text === 'string'
+          ? b.text.replace(/(<img\b[^>]*\bsrc=)["']([^"']+)["']/gi,
+              (_m: string, prefix: string, src: string) => `${prefix}"${convertImageUrl(src)}"`)
+          : b.text,
+      }));
+    aplus = null; // not old format
+  }
 
   return {
     id: product.slug || product.id,
@@ -244,7 +273,7 @@ async function getProductFromFallback(idStr: string) {
     priceMax: product.priceMax ? Number(product.priceMax) : null,
     originalPrice: product.originalPrice ? Number(product.originalPrice) : null,
     image: convertImageUrl(product.image),
-    images,
+    images: images.map(convertImageUrl),
     category: {
       id: '',
       name: typeof product.category === 'object' ? product.category.name : (product.category || ''),
@@ -260,12 +289,13 @@ async function getProductFromFallback(idStr: string) {
     sku: product.sku || null,
     keywords,
     aplus,
+    aplusBlocks,
     bulletPoints: computeBulletPoints({
       name: product.name,
       material: product.material || null,
       moq: Number(product.moq) || 1,
       categoryId: product.category?.slug || '',
-      aplus,
+      aplus: Array.isArray(product.aplus) ? null : product.aplus,
     }),
     rating: 0,
     reviewCount: 0,
@@ -320,22 +350,43 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       const p = product as any;
       const parsedAplus = typeof p.aplus === 'string' ? safeJsonParse(p.aplus, null) : p.aplus;
 
+      // Extract new-format aplus blocks and re-map image URLs to Preeasy CDN.
+      let parsedAplusBlocks: { type: string; heading?: string; text?: string; image?: string }[] = [];
+      let normalizedAplus = parsedAplus;
+      if (Array.isArray(parsedAplus)) {
+        parsedAplusBlocks = parsedAplus
+          .filter((b: any) => b && typeof b.type === 'string')
+          .map((b: any) => ({
+            ...b,
+            image: b.image ? convertImageUrl(b.image) : b.image,
+            text: typeof b.text === 'string'
+              ? b.text.replace(/(<img\b[^>]*\bsrc=)["']([^"']+)["']/gi,
+                  (_m: string, prefix: string, src: string) => `${prefix}"${convertImageUrl(src)}"`)
+              : b.text,
+          }));
+        normalizedAplus = null;
+      }
+
       // Compute bulletPoints
       const bulletPoints = computeBulletPoints({
         name: p.name,
         material: p.material || null,
         moq: Number(p.moq) || 1,
         categoryId: p.categoryId || '',
-        aplus: parsedAplus,
+        aplus: normalizedAplus,
       });
+
+      const rawImages = typeof p.images === 'string'
+        ? safeJsonParse(p.images, p.image ? [p.image] : [])
+        : (Array.isArray(p.images) ? p.images : [p.image].filter(Boolean));
 
       const serialized = {
         ...p,
-        images: typeof p.images === 'string'
-          ? safeJsonParse(p.images, p.image ? [p.image] : [])
-          : (Array.isArray(p.images) ? p.images : [p.image].filter(Boolean)),
+        image: convertImageUrl(p.image || ''),
+        images: rawImages.map(convertImageUrl),
         keywords: typeof p.keywords === 'string' ? safeJsonParse(p.keywords, []) : (Array.isArray(p.keywords) ? p.keywords : []),
-        aplus: parsedAplus,
+        aplus: normalizedAplus,
+        aplusBlocks: p.aplusBlocks || parsedAplusBlocks,
         bulletPoints,
         price: Number(p.price),
         originalPrice: p.originalPrice ? Number(p.originalPrice) : null,
@@ -348,20 +399,41 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const p = product as any;
     const parsedAplus = typeof p.aplus === 'string' ? safeJsonParse(p.aplus, null) : p.aplus;
 
+    // Extract new-format aplus blocks (flat array of {type, heading, text, image})
+    // and re-map their image URLs to the Preeasy CDN.
+    let parsedAplusBlocks: { type: string; heading?: string; text?: string; image?: string }[] = [];
+    let normalizedAplus = parsedAplus;
+    if (Array.isArray(parsedAplus)) {
+      parsedAplusBlocks = parsedAplus
+        .filter((b: any) => b && typeof b.type === 'string')
+        .map((b: any) => ({
+          ...b,
+          image: b.image ? convertImageUrl(b.image) : b.image,
+          text: typeof b.text === 'string'
+            ? b.text.replace(/(<img\b[^>]*\bsrc=)["']([^"']+)["']/gi,
+                (_m: string, prefix: string, src: string) => `${prefix}"${convertImageUrl(src)}"`)
+            : b.text,
+        }));
+      normalizedAplus = null; // not old format
+    }
+
     // Always compute fresh bulletPoints for quality
     const computedBulletPoints = computeBulletPoints({
       name: p.name,
       material: p.material || null,
       moq: Number(p.moq) || 1,
       categoryId: p.categoryId || '',
-      aplus: parsedAplus,
+      aplus: normalizedAplus,
     });
 
     const serialized = {
       ...p,
-      images: typeof p.images === 'string' ? safeJsonParse(p.images, []) : p.images,
+      images: typeof p.images === 'string'
+        ? safeJsonParse(p.images, []).map(convertImageUrl)
+        : (Array.isArray(p.images) ? p.images.map(convertImageUrl) : []),
       keywords: typeof p.keywords === 'string' ? safeJsonParse(p.keywords, []) : p.keywords,
-      aplus: parsedAplus,
+      aplus: normalizedAplus,
+      aplusBlocks: p.aplusBlocks || parsedAplusBlocks,
       bulletPoints: computedBulletPoints,
       price: Number(p.price),
       originalPrice: p.originalPrice ? Number(p.originalPrice) : null,
