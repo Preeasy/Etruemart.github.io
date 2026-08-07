@@ -89,6 +89,15 @@ interface Product {
     blocks?: { id?: string; type: string; content: string; caption?: string }[];
   } | null;
   aplusBlocks?: { type: string; heading?: string; text?: string; image?: string }[];
+  packagingInfo?: {
+    summary?: string;
+    pcsPerCtn?: number | null;
+    boxLength?: number | null;
+    boxWidth?: number | null;
+    boxHeight?: number | null;
+    grossWeight?: number | null;
+    volumeCBM?: number | null;
+  };
 }
 
 function cleanDescription(desc: string): string {
@@ -330,6 +339,7 @@ export default function ProductDetail({ product: initialProduct, relatedProducts
                 : (prev.bulletPoints?.length ? prev.bulletPoints : (data.aplus?.bulletPoints || [])),
               aplus: data.aplus ?? prev.aplus,
               aplusBlocks: Array.isArray(data.aplusBlocks) && data.aplusBlocks.length > 0 ? data.aplusBlocks : prev.aplusBlocks,
+              packagingInfo: data.packagingInfo ?? prev.packagingInfo,
             }));
             setQuantity(data.moq || initialProduct.moq || 12);
           }
@@ -887,8 +897,42 @@ export default function ProductDetail({ product: initialProduct, relatedProducts
               </div>
             </div>
 
-            {/* Shipping Info */}
-            <div className="border-t border-ink-100 pt-3">
+            {/* Packaging & Shipping Info */}
+            <div className="border-t border-ink-100 pt-3 space-y-3">
+              {product.packagingInfo && (product.packagingInfo.boxLength || product.packagingInfo.grossWeight) && (
+                <div className="bg-ink-50 rounded-lg p-3 border border-ink-100">
+                  <h4 className="text-xs font-bold text-navy-800 mb-2 flex items-center gap-1.5">
+                    <Package className="w-3.5 h-3.5 text-accent-600" />
+                    Packaging Details
+                  </h4>
+                  <div className="grid grid-cols-2 gap-2 text-xs">
+                    {product.packagingInfo.pcsPerCtn && (
+                      <div className="flex justify-between">
+                        <span className="text-ink-500">Pcs/Carton:</span>
+                        <span className="font-semibold text-navy-800">{product.packagingInfo.pcsPerCtn}</span>
+                      </div>
+                    )}
+                    {product.packagingInfo.boxLength && (
+                      <div className="flex justify-between col-span-2">
+                        <span className="text-ink-500">Carton Size:</span>
+                        <span className="font-semibold text-navy-800">{product.packagingInfo.boxLength}×{product.packagingInfo.boxWidth}×{product.packagingInfo.boxHeight} cm</span>
+                      </div>
+                    )}
+                    {product.packagingInfo.grossWeight && (
+                      <div className="flex justify-between">
+                        <span className="text-ink-500">Gross Weight:</span>
+                        <span className="font-semibold text-navy-800">{product.packagingInfo.grossWeight} kg</span>
+                      </div>
+                    )}
+                    {product.packagingInfo.volumeCBM && (
+                      <div className="flex justify-between">
+                        <span className="text-ink-500">Volume:</span>
+                        <span className="font-semibold text-navy-800">{product.packagingInfo.volumeCBM} m³</span>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              )}
               <ShippingSelector categorySlug={product.category?.slug} />
             </div>
           </div>
@@ -1036,7 +1080,10 @@ export default function ProductDetail({ product: initialProduct, relatedProducts
                       { label: 'Color', value: product.color || 'Multiple options' },
                       { label: 'Size', value: product.size || 'Standard' },
                       { label: 'MOQ', value: `${product.moq || 12} pieces` },
-                      { label: 'Pack Size', value: `${product.packSize || product.moq || 12} pcs/carton` },
+                      { label: 'Pack Size', value: product.packagingInfo?.pcsPerCtn ? `${product.packagingInfo.pcsPerCtn} pcs/carton` : `${product.packSize || product.moq || 12} pcs/carton` },
+                      ...(product.packagingInfo?.boxLength ? [{ label: 'Carton Dimensions', value: `${product.packagingInfo.boxLength} × ${product.packagingInfo.boxWidth} × ${product.packagingInfo.boxHeight} cm (L×W×H)` }] : []),
+                      ...(product.packagingInfo?.grossWeight ? [{ label: 'Gross Weight', value: `${product.packagingInfo.grossWeight} kg/carton` }] : []),
+                      ...(product.packagingInfo?.volumeCBM ? [{ label: 'Carton Volume', value: `${product.packagingInfo.volumeCBM} m³` }] : []),
                       { label: 'Lead Time', value: '7-15 days' },
                       { label: 'Customization', value: 'OEM/ODM available' },
                       { label: 'Sample', value: 'Yes — contact us' },
@@ -1789,6 +1836,7 @@ function findProductFromSeed(productId: string) {
       aplus,
       aplusBlocks,
       stockStatus: product.stockStatus || 'IN_STOCK',
+      packagingInfo: product.packagingInfo || null,
     },
     relatedProducts: relatedProducts.map((rp: any) => ({
       id: rp.id,
@@ -2066,6 +2114,7 @@ export async function getServerSideProps(context: { params: { id: string } }) {
       bulletPoints,
       aplus,
       stockStatus: product.stockStatus || 'IN_STOCK',
+      packagingInfo: (product as any).packagingInfo || null,
     };
 
     const serializedRelated = relatedProducts.map((rp: any) => ({

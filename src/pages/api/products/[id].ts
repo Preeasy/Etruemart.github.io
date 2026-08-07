@@ -207,6 +207,7 @@ async function getProductFromSeedData(idStr: string) {
     shippingCost: Number(product.shippingCost) || 0,
     shippingMethod: product.shippingMethod || 'Standard Shipping',
     authorId: product.authorId || 'seed-system',
+    packagingInfo: product.packagingInfo || null,
     variants: [{
       id: 'seed-variant-1',
       productId: product.id,
@@ -376,6 +377,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         keywords: typeof p.keywords === 'string' ? safeJsonParse(p.keywords, []) : (Array.isArray(p.keywords) ? p.keywords : []),
         aplus: normalizedAplus,
         aplusBlocks: p.aplusBlocks || parsedAplusBlocks,
+        packagingInfo: p.packagingInfo || null,
         bulletPoints,
         price: Number(p.price),
         originalPrice: p.originalPrice ? Number(p.originalPrice) : null,
