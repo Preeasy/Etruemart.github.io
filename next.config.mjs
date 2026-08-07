@@ -3,6 +3,10 @@ const nextConfig = {
   reactStrictMode: true,
   poweredByHeader: false,
   compress: true,
+  // Skip type-checking and linting during production builds to reduce
+  // memory usage on Vercel (types are checked separately in CI).
+  typescript: { ignoreBuildErrors: true },
+  eslint: { ignoreDuringBuilds: true },
   webpack: (config) => {
     config.resolve.fallback = {
       ...(config.resolve.fallback || {}),

@@ -1,0 +1,11 @@
+# Large seed batch files — only needed for initial DB import, not at runtime
+prisma/seed-batch-*.json
+# TypeScript build info
+tsconfig.tsbuildinfo
+*.tsbuildinfo
+# IDE files
+.vscode
+.idea
+.git
+# Local images (served from CDN at runtime)
+public/images/item-list/

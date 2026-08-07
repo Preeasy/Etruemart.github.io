@@ -1,5 +1,5 @@
 {
-  "buildCommand": "node scripts/setup-schema.cjs && (node prisma/seed.cjs || true) && next build",
+  "buildCommand": "node scripts/setup-schema.cjs && next build",
   "devCommand": "next dev",
   "installCommand": "npm install",
   "framework": "nextjs"
