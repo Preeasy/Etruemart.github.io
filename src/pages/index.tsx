@@ -65,11 +65,12 @@ interface Product {
   color?: string | null;
   keywords?: string[];
   bulletPoints?: string[];
+  createdAt?: string;
   // ===== 变体扩展 =====
   isParent?: boolean;
   parentId?: string | null;
-  variants?: ProductVariantPreview[]; // 父产品：预览所有子款
-  variantOptions?: any; // 子产品：自身所属变体属性
+  variants?: ProductVariantPreview[];
+  variantOptions?: any;
 }
 
 interface CategoryInfo {
@@ -126,6 +127,11 @@ const Home = ({ products, categories, categoryProductsMap }: { products: Product
   const [showMobileCats, setShowMobileCats] = useState(false);
   const slugToProduct = new Map(products.map((p) => [p.slug, p]));
   const topDeals = products.slice(0, 7);
+
+  // New Arrivals: 6 most recently added products
+  const newArrivals = [...products]
+    .sort((a, b) => new Date(b.createdAt || '0').getTime() - new Date(a.createdAt || '0').getTime())
+    .slice(0, 6);
 
   // Hero collage: pick visually appealing products from aesthetic categories
   const heroPreferredSlugs = ['fashion-jewelry', 'garment-accessories', 'bags', 'home-decor-crafts', 'beauty-personal-care', 'kitchen-supplies'];
@@ -343,6 +349,56 @@ const Home = ({ products, categories, categoryProductsMap }: { products: Product
                     {topDeals.map((p) => (
                       <Link key={p.id} href={`/products/${p.slug || p.id}`} className="group bg-white p-3.5 hover:bg-ink-50 transition-colors">
                         <div className="relative aspect-square bg-white rounded-lg overflow-hidden mb-2.5 border border-ink-100 group-hover:border-navy-900 transition-colors">
+                          <img
+                            src={p.image}
+                            alt={p.name}
+                            loading="lazy"
+                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                            onError={(e) => {
+                              const el = e.currentTarget as HTMLImageElement;
+                              if (!el.dataset.fallback) {
+                                el.dataset.fallback = '1';
+                                const svg = `data:image/svg+xml;charset=UTF-8,${encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#f3f4f6"/><stop offset="100%" stop-color="#e5e7eb"/></linearGradient></defs><rect fill="url(#g)" width="200" height="200"/><rect x="30" y="50" width="140" height="100" rx="8" fill="white" stroke="#d1d5db" stroke-width="2"/><circle cx="70" cy="80" r="10" fill="#fcd34d"/><path d="M50 140 L80 105 L100 125 L125 95 L160 140 Z" fill="#d1d5db"/><text x="100" y="178" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#9ca3af">${p.name.slice(0,18)}</text></svg>`)}`;
+                                el.src = svg;
+                              }
+                            }}
+                          />
+                        </div>
+                        <p className="text-[12px] text-ink-600 line-clamp-2 leading-snug min-h-[2.1em] font-medium group-hover:text-navy-900 transition-colors">
+                          {p.name}
+                        </p>
+                        <div className="flex items-baseline justify-between mt-1.5">
+                          <span className="text-sm font-bold text-navy-900">${p.priceMin.toFixed(2)}</span>
+                          {p.moq && <span className="text-[10px] text-ink-400">MOQ {p.moq}</span>}
+                        </div>
+                      </Link>
+                    ))}
+                  </div>
+                </section>
+              )}
+
+              {/* New Arrivals — latest 6 products */}
+              {newArrivals.length > 0 && (
+                <section className="border border-ink-200 rounded-2xl overflow-hidden bg-gradient-to-br from-accent-50/40 to-white shadow-soft">
+                  <div className="px-5 py-4 border-b border-ink-100 flex items-center justify-between">
+                    <div className="flex items-center gap-2.5">
+                      <div className="w-7 h-7 rounded-lg bg-accent-50 flex items-center justify-center">
+                        <Sparkles className="w-4 h-4 text-accent-500" />
+                      </div>
+                      <div>
+                        <h2 className="font-display font-bold text-base text-navy-900 tracking-tight leading-tight">New Arrivals</h2>
+                        <span className="text-[11px] text-ink-400 leading-tight">Just landed · Fresh picks</span>
+                      </div>
+                    </div>
+                    <Link href="/products" className="inline-flex items-center gap-0.5 text-navy-700 hover:text-accent-600 font-semibold text-xs px-3 py-1.5 rounded-lg hover:bg-accent-50 transition-colors">
+                      View All <ChevronRight className="w-3.5 h-3.5" />
+                    </Link>
+                  </div>
+                  <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-px bg-ink-100">
+                    {newArrivals.map((p) => (
+                      <Link key={p.id} href={`/products/${p.slug || p.id}`} className="group bg-white p-3.5 hover:bg-ink-50 transition-colors">
+                        <div className="relative aspect-square bg-white rounded-lg overflow-hidden mb-2.5 border border-ink-100 group-hover:border-navy-900 transition-colors">
+                          <span className="absolute top-1.5 left-1.5 bg-accent-500 text-white text-[9px] font-bold px-1.5 py-0.5 rounded tracking-wide uppercase z-10">New</span>
                           <img
                             src={p.image}
                             alt={p.name}
