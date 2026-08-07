@@ -263,19 +263,58 @@ export default function ProductDetail({ product: initialProduct, relatedProducts
   const nextLightbox = () => setLightboxIndex((i) => (i + 1) % images.length);
 
   const handleAddToCart = async () => {
-    if (!session) { router.push('/login'); return; }
+    if (!session) {
+      const loginHref = `/login?callbackUrl=${encodeURIComponent(router.asPath || router.pathname)}`;
+      setCartNotice({ type: 'error', message: 'Please login to continue. Redirecting...' });
+      setTimeout(() => router.push(loginHref), 600);
+      return;
+    }
     if (addingToCart) return;
     setAddingToCart(true);
     setCartNotice(null);
     try {
-      const ok = await addToCart(String(product.id), quantity);
-      if (ok) {
-        setCartNotice({ type: 'success', message: 'Added to cart!' });
-      } else {
-        setCartNotice({ type: 'error', message: 'Failed to add to cart' });
+      const payload: { productId: string; quantity: number; variantId?: string } = {
+        productId: String(product.id),
+        quantity: Math.max(1, parseInt(String(quantity)) || 1),
+      };
+      // If viewing a variant SKU that matches the product's own SKU, include variantId from effectiveVariantGroup
+      if (effectiveVariantGroup && product.sku) {
+        const match = effectiveVariantGroup.variants.find(v => v.sku === product.sku);
+        if (match && (match as any).id) payload.variantId = String((match as any).id);
       }
-    } catch {
-      setCartNotice({ type: 'error', message: 'Network error. Please try again.' });
+      const res = await fetch('/api/cart', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+        credentials: 'include',
+      });
+      let ok = res.ok;
+      let msg = '';
+      try {
+        const data = await res.json().catch(() => ({}));
+        if (data && data.error) msg = data.error;
+      } catch {}
+      if (!ok) {
+        if (res.status === 401) {
+          const loginHref = `/login?callbackUrl=${encodeURIComponent(router.asPath || router.pathname)}`;
+          setCartNotice({ type: 'error', message: 'Session expired. Redirecting to login...' });
+          setTimeout(() => router.push(loginHref), 600);
+          setAddingToCart(false);
+          return;
+        }
+        if (res.status === 400) {
+          setCartNotice({ type: 'error', message: msg || 'Invalid product. Please refresh and try again.' });
+        } else {
+          setCartNotice({ type: 'error', message: msg || `Failed (${res.status}). Please try again.` });
+        }
+        setAddingToCart(false);
+        return;
+      }
+      // Manually trigger cart refresh by calling refresh() via context event
+      window.dispatchEvent(new CustomEvent('cart:updated'));
+      setCartNotice({ type: 'success', message: `Added ${payload.quantity} pcs to cart!` });
+    } catch (e: any) {
+      setCartNotice({ type: 'error', message: 'Network error. Please check your connection and try again.' });
     } finally {
       setAddingToCart(false);
     }
@@ -601,10 +640,45 @@ export default function ProductDetail({ product: initialProduct, relatedProducts
                 </div>
               )}
               <div className="flex flex-col sm:flex-row gap-2.5">
-                <button onClick={handleAddToCart} disabled={addingToCart} className="flex-1 flex items-center justify-center gap-2 bg-accent-600 hover:bg-accent-700 disabled:opacity-50 disabled:cursor-not-allowed text-white py-2.5 rounded-lg font-bold text-sm transition-colors">
+                <button onClick={handleAddToCart} disabled={addingToCart} className="flex-1 flex items-center justify-center gap-2 bg-accent-600 hover:bg-accent-700 disabled:opacity-50 disabled:cursor-not-allowed text-white py-2.5 rounded-lg font-bold text-sm transition-colors shadow-sm active:scale-[0.98]">
                   {addingToCart ? <><div className="animate-spin w-4 h-4 border-2 border-white border-t-transparent rounded-full" />Adding...</> : <><ShoppingCart className="w-4 h-4" />Add to Cart</>}
                 </button>
-                <button onClick={async () => { await handleAddToCart(); if (session) router.push('/checkout'); }} disabled={addingToCart} className="flex-1 flex items-center justify-center gap-2 bg-navy-800 hover:bg-navy-900 disabled:opacity-50 disabled:cursor-not-allowed text-white py-2.5 rounded-lg font-bold text-sm transition-colors">
+                <button
+                  onClick={async () => {
+                    if (!session) {
+                      setCartNotice({ type: 'error', message: 'Please login to continue. Redirecting...' });
+                      const loginHref = `/login?callbackUrl=${encodeURIComponent('/checkout')}`;
+                      setTimeout(() => router.push(loginHref), 600);
+                      return;
+                    }
+                    if (addingToCart) return;
+                    const prevNotice = cartNotice;
+                    setAddingToCart(true);
+                    setCartNotice(null);
+                    // Try add to cart (best-effort); regardless proceed to checkout since there may be items already
+                    try {
+                      const payload = {
+                        productId: String(product.id),
+                        quantity: Math.max(1, parseInt(String(quantity)) || 1),
+                      };
+                      await fetch('/api/cart', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        credentials: 'include',
+                        body: JSON.stringify(payload),
+                      }).catch(() => {});
+                      window.dispatchEvent(new CustomEvent('cart:updated'));
+                    } catch {
+                      /* ignore and still go to checkout */
+                    } finally {
+                      setAddingToCart(false);
+                      if (!prevNotice) setCartNotice(null);
+                    }
+                    router.push('/checkout');
+                  }}
+                  disabled={addingToCart}
+                  className="flex-1 flex items-center justify-center gap-2 bg-navy-800 hover:bg-navy-900 disabled:opacity-50 disabled:cursor-not-allowed text-white py-2.5 rounded-lg font-bold text-sm transition-colors shadow-sm active:scale-[0.98]"
+                >
                   <CreditCard className="w-4 h-4" />Buy Now
                 </button>
               </div>
