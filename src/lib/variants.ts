@@ -58,8 +58,21 @@ function parseVariantOptions(p: any): { color?: string; colorHex?: string | null
   const rawCapacity = opts.capacity || undefined;
   // De-dupe: if size and capacity are identical values, keep only SIZE
   const dupCapacity = rawSize && rawCapacity && String(rawSize).toLowerCase() === String(rawCapacity).toLowerCase();
+  
+  // Extract color: priority = variantOptions > product.color > name analysis
+  // Also try to extract from the variant name by removing known size/capacity words
+  let extractedColor = opts.color || p.color || null;
+  if (!extractedColor) {
+    // Try extracting from name after removing size/capacity words
+    const cleanedName = (p.name || '')
+      .replace(/\d+[\s-]?(?:ml|l|mm|cm|inch|in|layer|tiers?|pack|pcs?|pieces?|set|count)/gi, ' ')
+      .replace(/\s+/g, ' ')
+      .trim();
+    extractedColor = extractColor(cleanedName) || extractColor(p.name) || undefined;
+  }
+  
   return {
-    color: opts.color || p.color || extractColor(p.name) || undefined,
+    color: extractedColor || undefined,
     colorHex: opts.colorHex || null,
     size: rawSize,
     capacity: dupCapacity ? undefined : rawCapacity,

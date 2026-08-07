@@ -103,19 +103,41 @@ export default function VariantSelector({ variants, currentSku, baseName, onVari
     a.length === b.length && a.map(x => x.toLowerCase()).every(v => b.map(y => y.toLowerCase()).includes(v));
   const isSizeCapacityDup = rawSizes.length > 0 && rawCapacities.length > 0 && setsEqual(rawSizes, rawCapacities);
 
-  // Build pill labels: color+size combination style
+  // Analyze which fields actually vary across variants
+  const uniqueColors = [...new Set(variants.map(v => v.color).filter(Boolean))];
+  const uniqueSizes = [...new Set(variants.map(v => v.size).filter(Boolean))];
+  const uniqueCapacities = [...new Set(variants.map(v => v.capacity).filter(Boolean))];
+  const uniqueLayers = [...new Set(variants.map(v => v.layer).filter(Boolean))];
+  const colorsVary = uniqueColors.length > 1 || (uniqueColors.length === 1 && uniqueColors[0]);
+  const sizesVary = uniqueSizes.length > 1;
+  const capacitiesVary = uniqueCapacities.length > 1;
+  const layersVary = uniqueLayers.length > 1;
+  const anyColor = uniqueColors.length >= 1;
+
+  // Build pill labels: show only the differentiating fields, prioritize color
   const getPillLabel = (v: Variant) => {
     const parts: string[] = [];
-    if (v.color) parts.push(v.color);
-    if (v.size) parts.push(v.size);
-    else if (v.capacity && !isSizeCapacityDup) parts.push(v.capacity);
-    if (v.layer) parts.push(v.layer);
     
+    // Color is the primary differentiator — always show if it exists
+    if (v.color) parts.push(v.color);
+    
+    // Only show size/capacity if it actually varies across variants
+    if (v.size && sizesVary) parts.push(v.size);
+    else if (v.capacity && capacitiesVary && !isSizeCapacityDup) parts.push(v.capacity);
+    
+    if (v.layer && layersVary) parts.push(v.layer);
+    
+    // If we have meaningful structured parts, use them
     if (parts.length > 0) {
-      return parts.join(' + ');
+      return parts.join(' / ');
     }
     
-    // No structured fields — extract meaningful label from name
+    // When color exists but nothing else varies, just show the color
+    if (anyColor && v.color) {
+      return v.color;
+    }
+    
+    // No structured fields — extract meaningful label from name or SKU suffix
     return extractVariantLabel(v.name, baseName, v.sku);
   };
 

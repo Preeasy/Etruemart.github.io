@@ -99,11 +99,11 @@ async function getProductFromSeedData(idStr: string) {
     idToCat.set(cat.id, cat);
   }
 
-  // Resolve to root category
-  const getRootCat = (catSlug: string) => {
-    let current = slugToCat.get(catSlug);
+  // Resolve to root category (categoryId might be stored as ID or slug depending on source)
+  const getRootCat = (catIdOrSlug: string) => {
+    let current = idToCat.get(catIdOrSlug) || slugToCat.get(catIdOrSlug);
     while (current && current.parentId) {
-      const parent = idToCat.get(current.parentId);
+      const parent = idToCat.get(current.parentId) || slugToCat.get(current.parentId);
       if (!parent) break;
       current = parent;
     }
@@ -160,7 +160,7 @@ async function getProductFromSeedData(idStr: string) {
   // Get category info - use root category
   const catSlug = product.categoryId || '';
   const rootCat = getRootCat(catSlug);
-  const directCat = slugToCat.get(catSlug);
+  const directCat = idToCat.get(catSlug) || slugToCat.get(catSlug);
   const resolvedCat = rootCat || directCat;
 
   // Compute bulletPoints from product data

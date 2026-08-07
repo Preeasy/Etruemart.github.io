@@ -291,39 +291,46 @@ export default function ProductDetail({ product: initialProduct, relatedProducts
         if (res.ok) {
           const data = await res.json();
           if (data) {
-            setProduct({
+            setProduct(prev => ({
+              ...prev,
               id: data.id,
               slug: data.slug || slug,
               name: data.name,
-              description: data.description || '',
-              price: Number(data.price) || 0,
-              priceMin: data.priceMin ? Number(data.priceMin) : undefined,
-              priceMax: data.priceMax ? Number(data.priceMax) : undefined,
-              originalPrice: data.originalPrice ? Number(data.originalPrice) : undefined,
-              image: data.image,
-              images: Array.isArray(data.images) ? data.images : (data.image ? [data.image] : []),
+              description: data.description || prev.description || '',
+              price: Number(data.price) ?? prev.price ?? 0,
+              priceMin: data.priceMin !== undefined ? Number(data.priceMin) : prev.priceMin,
+              priceMax: data.priceMax !== undefined ? Number(data.priceMax) : prev.priceMax,
+              originalPrice: data.originalPrice ? Number(data.originalPrice) : prev.originalPrice,
+              image: data.image || prev.image,
+              images: Array.isArray(data.images) && data.images.length > 0 ? data.images : prev.images,
+              // Preserve SSR category (and categoryPath + categoryId from server) unless API has valid one
               category: (data.category && data.category.name)
                 ? { name: data.category.name, slug: data.category.slug }
-                : undefined,
-              stock: data.stock,
-              rating: data.rating,
-              reviewCount: data.reviewCount,
-              salesCount: data.salesCount,
-              material: data.material,
-              plating: data.plating,
-              process: data.process,
-              color: data.color,
-              size: data.size,
-              packSize: data.packSize,
-              moq: data.moq,
-              sku: data.sku,
-              keywords: Array.isArray(data.keywords) ? data.keywords : [],
+                : (prev.category && prev.category.name ? prev.category : null),
+              // Keep SSR categoryPath unless API has a valid non-empty one
+              categoryPath: (Array.isArray(data.categoryPath) && data.categoryPath.length > 0)
+                ? data.categoryPath
+                : (Array.isArray(prev.categoryPath) && prev.categoryPath.length > 0 ? prev.categoryPath : []),
+              categoryId: prev.categoryId || data.categoryId,
+              stock: data.stock ?? prev.stock,
+              rating: data.rating ?? prev.rating,
+              reviewCount: data.reviewCount ?? prev.reviewCount,
+              salesCount: data.salesCount ?? prev.salesCount,
+              material: data.material ?? prev.material,
+              plating: data.plating ?? prev.plating,
+              process: data.process ?? prev.process,
+              color: data.color ?? prev.color,
+              size: data.size ?? prev.size,
+              packSize: data.packSize ?? prev.packSize,
+              moq: data.moq ?? prev.moq,
+              sku: data.sku ?? prev.sku,
+              keywords: Array.isArray(data.keywords) && data.keywords.length > 0 ? data.keywords : prev.keywords,
               bulletPoints: Array.isArray(data.bulletPoints) && data.bulletPoints.length > 0
                 ? data.bulletPoints
-                : (data.aplus?.bulletPoints || []),
-              aplus: data.aplus || null,
-              aplusBlocks: Array.isArray(data.aplusBlocks) ? data.aplusBlocks : [],
-            });
+                : (prev.bulletPoints?.length ? prev.bulletPoints : (data.aplus?.bulletPoints || [])),
+              aplus: data.aplus ?? prev.aplus,
+              aplusBlocks: Array.isArray(data.aplusBlocks) && data.aplusBlocks.length > 0 ? data.aplusBlocks : prev.aplusBlocks,
+            }));
             setQuantity(data.moq || initialProduct.moq || 12);
           }
         }
@@ -546,8 +553,16 @@ export default function ProductDetail({ product: initialProduct, relatedProducts
             <ChevronRight className="w-4 h-4 text-ink-300 shrink-0" />
             <Link href="/products" className="hover:text-accent-600 transition-colors font-medium shrink-0">Products</Link>
             {/* Category path (root → sub → product) */}
-            {(product.categoryPath && product.categoryPath.length > 0) ? (
-              product.categoryPath.map((cat, i) => (
+            {(() => {
+              // Build the effective category path: prefer categoryPath, fallback to single category
+              let effectivePath: { name: string; slug: string }[] = [];
+              if (Array.isArray(product.categoryPath) && product.categoryPath.length > 0) {
+                effectivePath = product.categoryPath;
+              } else if (product.category && product.category.name) {
+                effectivePath = [product.category];
+              }
+              if (effectivePath.length === 0) return null;
+              return effectivePath.map((cat, i) => (
                 <span key={i} className="flex items-center gap-2 shrink-0">
                   <ChevronRight className="w-4 h-4 text-ink-300" />
                   <Link
@@ -557,18 +572,8 @@ export default function ProductDetail({ product: initialProduct, relatedProducts
                     {cat.name}
                   </Link>
                 </span>
-              ))
-            ) : product.category ? (
-              <span className="flex items-center gap-2 shrink-0">
-                <ChevronRight className="w-4 h-4 text-ink-300" />
-                <Link
-                  href={`/products?category=${product.category.slug}`}
-                  className="hover:text-accent-600 transition-colors font-medium"
-                >
-                  {product.category.name}
-                </Link>
-              </span>
-            ) : null}
+              ));
+            })()}
             <ChevronRight className="w-4 h-4 text-ink-300 shrink-0" />
             <span className="text-navy-800 font-bold truncate">{product.name}</span>
           </nav>
@@ -713,15 +718,26 @@ export default function ProductDetail({ product: initialProduct, relatedProducts
 
             {/* Category | SKU */}
             <div className="flex items-center gap-2.5 flex-wrap mb-6">
-              {(product.category && product.category.name) ? (
-                <Link href={`/products?category=${product.category.slug}`} className="text-xs text-ink-500 hover:text-accent-600 transition-colors">
-                  Category: <span className="font-semibold text-navy-800">{product.category.name}</span>
-                </Link>
-              ) : (
-                <span className="text-xs text-ink-500">
-                  Category: <span className="font-semibold text-navy-800">General</span>
-                </span>
-              )}
+              {(() => {
+                // Resolve category: prefer product.category, fallback to first entry of categoryPath
+                const cat = (product.category && product.category.name)
+                  ? product.category
+                  : (Array.isArray(product.categoryPath) && product.categoryPath.length > 0
+                      ? product.categoryPath[0]
+                      : null);
+                if (cat && cat.name) {
+                  return (
+                    <Link href={`/products?category=${cat.slug}`} className="text-xs text-ink-500 hover:text-accent-600 transition-colors">
+                      Category: <span className="font-semibold text-navy-800">{cat.name}</span>
+                    </Link>
+                  );
+                }
+                return (
+                  <span className="text-xs text-ink-500">
+                    Category: <span className="font-semibold text-navy-800">General</span>
+                  </span>
+                );
+              })()}
               {product.sku && (
                 <>
                   <span className="text-ink-300">|</span>
