@@ -220,6 +220,14 @@ interface ProductVariant {
   layer?: string | null;
   pack?: string | null;
   material?: string | null;
+  packagingInfo?: {
+    pcsPerCtn?: number | null;
+    boxLength?: number | null;
+    boxWidth?: number | null;
+    boxHeight?: number | null;
+    grossWeight?: number | null;
+    volumeCBM?: number | null;
+  } | null;
 }
 
 interface VariantGroupProp {
@@ -241,7 +249,7 @@ export default function ProductDetail({ product: initialProduct, relatedProducts
   const [variantImages, setVariantImages] = useState<string[] | null>(null);
   const [hasSelectedVariant, setHasSelectedVariant] = useState(false);
   
-  const handleVariantSelect = (variant: { image: string; name: string; images?: string[]; sku: string; price: number; stock: number; moq?: number }) => {
+  const handleVariantSelect = (variant: { image: string; name: string; images?: string[]; sku: string; price: number; stock: number; moq?: number; packagingInfo?: any }) => {
     if (variant.image) {
       const variantImg = proxyImageUrlDirect(variant.image);
       setVariantImages([variantImg]);
@@ -253,6 +261,7 @@ export default function ProductDetail({ product: initialProduct, relatedProducts
       sku: variant.sku || prev.sku,
       price: variant.price ?? prev.price,
       stock: variant.stock ?? prev.stock,
+      packagingInfo: variant.packagingInfo ?? prev.packagingInfo,
     }));
     setHasSelectedVariant(true);
     setQuantity(variant.moq || Math.floor(variant.price > 0 ? 1 : (initialProduct.moq || 12)));
@@ -280,6 +289,14 @@ export default function ProductDetail({ product: initialProduct, relatedProducts
 
   // Variant group — passed from server or computed on client
   const effectiveVariantGroup = clientVariantGroup || variantGroup || null;
+
+  // Derive packagingInfo: use product's own, or fall back to first variant's
+  const effectivePackagingInfo = product.packagingInfo || (() => {
+    if (effectiveVariantGroup && effectiveVariantGroup.variants.length > 0) {
+      return effectiveVariantGroup.variants.find(v => v.packagingInfo)?.packagingInfo || null;
+    }
+    return null;
+  })();
 
   const filteredAplusBlocks = (product.aplus?.blocks || []).filter((block: any) => {
     const content = String(block.content || '');
@@ -899,35 +916,35 @@ export default function ProductDetail({ product: initialProduct, relatedProducts
 
             {/* Packaging & Shipping Info */}
             <div className="border-t border-ink-100 pt-3 space-y-3">
-              {product.packagingInfo && (product.packagingInfo.boxLength || product.packagingInfo.grossWeight) && (
+              {effectivePackagingInfo && (effectivePackagingInfo.boxLength || effectivePackagingInfo.grossWeight) && (
                 <div className="bg-ink-50 rounded-lg p-3 border border-ink-100">
                   <h4 className="text-xs font-bold text-navy-800 mb-2 flex items-center gap-1.5">
                     <Package className="w-3.5 h-3.5 text-accent-600" />
                     Packaging Details
                   </h4>
                   <div className="grid grid-cols-2 gap-2 text-xs">
-                    {product.packagingInfo.pcsPerCtn && (
+                    {effectivePackagingInfo.pcsPerCtn && (
                       <div className="flex justify-between">
                         <span className="text-ink-500">Pcs/Carton:</span>
-                        <span className="font-semibold text-navy-800">{product.packagingInfo.pcsPerCtn}</span>
+                        <span className="font-semibold text-navy-800">{effectivePackagingInfo.pcsPerCtn}</span>
                       </div>
                     )}
-                    {product.packagingInfo.boxLength && (
+                    {effectivePackagingInfo.boxLength && (
                       <div className="flex justify-between col-span-2">
                         <span className="text-ink-500">Carton Size:</span>
-                        <span className="font-semibold text-navy-800">{product.packagingInfo.boxLength}×{product.packagingInfo.boxWidth}×{product.packagingInfo.boxHeight} cm</span>
+                        <span className="font-semibold text-navy-800">{effectivePackagingInfo.boxLength}×{effectivePackagingInfo.boxWidth}×{effectivePackagingInfo.boxHeight} cm</span>
                       </div>
                     )}
-                    {product.packagingInfo.grossWeight && (
+                    {effectivePackagingInfo.grossWeight && (
                       <div className="flex justify-between">
                         <span className="text-ink-500">Gross Weight:</span>
-                        <span className="font-semibold text-navy-800">{product.packagingInfo.grossWeight} kg</span>
+                        <span className="font-semibold text-navy-800">{effectivePackagingInfo.grossWeight} kg</span>
                       </div>
                     )}
-                    {product.packagingInfo.volumeCBM && (
+                    {effectivePackagingInfo.volumeCBM && (
                       <div className="flex justify-between">
                         <span className="text-ink-500">Volume:</span>
-                        <span className="font-semibold text-navy-800">{product.packagingInfo.volumeCBM} m³</span>
+                        <span className="font-semibold text-navy-800">{effectivePackagingInfo.volumeCBM} m³</span>
                       </div>
                     )}
                   </div>
@@ -1080,10 +1097,10 @@ export default function ProductDetail({ product: initialProduct, relatedProducts
                       { label: 'Color', value: product.color || 'Multiple options' },
                       { label: 'Size', value: product.size || 'Standard' },
                       { label: 'MOQ', value: `${product.moq || 12} pieces` },
-                      { label: 'Pack Size', value: product.packagingInfo?.pcsPerCtn ? `${product.packagingInfo.pcsPerCtn} pcs/carton` : `${product.packSize || product.moq || 12} pcs/carton` },
-                      ...(product.packagingInfo?.boxLength ? [{ label: 'Carton Dimensions', value: `${product.packagingInfo.boxLength} × ${product.packagingInfo.boxWidth} × ${product.packagingInfo.boxHeight} cm (L×W×H)` }] : []),
-                      ...(product.packagingInfo?.grossWeight ? [{ label: 'Gross Weight', value: `${product.packagingInfo.grossWeight} kg/carton` }] : []),
-                      ...(product.packagingInfo?.volumeCBM ? [{ label: 'Carton Volume', value: `${product.packagingInfo.volumeCBM} m³` }] : []),
+                      { label: 'Pack Size', value: effectivePackagingInfo?.pcsPerCtn ? `${effectivePackagingInfo.pcsPerCtn} pcs/carton` : `${product.packSize || product.moq || 12} pcs/carton` },
+                      ...(effectivePackagingInfo?.boxLength ? [{ label: 'Carton Dimensions', value: `${effectivePackagingInfo.boxLength} × ${effectivePackagingInfo.boxWidth} × ${effectivePackagingInfo.boxHeight} cm (L×W×H)` }] : []),
+                      ...(effectivePackagingInfo?.grossWeight ? [{ label: 'Gross Weight', value: `${effectivePackagingInfo.grossWeight} kg/carton` }] : []),
+                      ...(effectivePackagingInfo?.volumeCBM ? [{ label: 'Carton Volume', value: `${effectivePackagingInfo.volumeCBM} m³` }] : []),
                       { label: 'Lead Time', value: '7-15 days' },
                       { label: 'Customization', value: 'OEM/ODM available' },
                       { label: 'Sample', value: 'Yes — contact us' },
@@ -1180,7 +1197,7 @@ export default function ProductDetail({ product: initialProduct, relatedProducts
                       </div>
                       <div className="flex-1 min-w-0">
                         <p className="text-xs font-semibold text-navy-800 line-clamp-2 group-hover:text-accent-600 transition-colors leading-tight">{item.name}</p>
-                        <p className="text-sm font-bold text-accent-600 mt-0.5">${`$${(Number(item.price) || 0).toFixed(2)}`}</p>
+                        <p className="text-sm font-bold text-accent-600 mt-0.5">{"$" + (Number(item.price) || 0).toFixed(2)}</p>
                       </div>
                     </Link>
                   ))}

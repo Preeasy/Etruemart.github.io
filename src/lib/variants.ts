@@ -13,6 +13,14 @@ interface ProductVariant {
   layer?: string | null;
   pack?: string | null;
   material?: string | null;
+  packagingInfo?: {
+    pcsPerCtn?: number | null;
+    boxLength?: number | null;
+    boxWidth?: number | null;
+    boxHeight?: number | null;
+    grossWeight?: number | null;
+    volumeCBM?: number | null;
+  } | null;
 }
 
 interface VariantGroup {
@@ -99,6 +107,7 @@ function toVariant(p: any): ProductVariant {
     layer: opts.layer ?? null,
     pack: opts.pack ?? null,
     material: opts.material ?? null,
+    packagingInfo: p.packagingInfo || null,
   };
 }
 
