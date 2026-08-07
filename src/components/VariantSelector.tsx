@@ -63,7 +63,7 @@ export default function VariantSelector({ variants, currentSku, baseName, parent
 
   // ===== YEATRU-STYLE: Color variant cards (primary visual) =====
   const renderColorCardGrid = () => (
-    <div className="grid grid-cols-2 sm:grid-cols-3 gap-2.5">
+    <div className="grid grid-cols-4 sm:grid-cols-6 lg:grid-cols-9 gap-1.5">
       {variants.map((v, i) => {
         const isSelected = v.sku === currentSku;
         return (
@@ -71,42 +71,42 @@ export default function VariantSelector({ variants, currentSku, baseName, parent
             key={`${v.sku}-${i}`}
             href={`/products/${v.slug}`}
             onClick={() => handleSkuSelect(v.sku)}
-            className={`group relative block rounded-xl border-2 transition-all overflow-hidden bg-white ${
+            className={`group relative block rounded-lg border-2 transition-all overflow-hidden bg-white ${
               isSelected
-                ? 'border-accent-500 ring-2 ring-accent-100 shadow-md'
+                ? 'border-accent-500 shadow-md'
                 : 'border-ink-200 hover:border-accent-300 hover:shadow-sm'
             }`}
           >
             {/* Selected checkmark badge */}
             {isSelected && (
-              <div className="absolute top-1.5 left-1.5 z-10 w-5 h-5 rounded-full bg-accent-600 text-white flex items-center justify-center shadow-sm">
-                <Check className="w-3.5 h-3.5" />
+              <div className="absolute top-1 left-1 z-10 w-4 h-4 rounded-full bg-accent-600 text-white flex items-center justify-center shadow-sm">
+                <Check className="w-2.5 h-2.5" />
               </div>
             )}
 
-            {/* Variant thumbnail */}
+            {/* Variant thumbnail - compact square */}
             <div className="relative aspect-square bg-ink-50">
               <img
                 src={v.image}
                 alt={v.name}
-                className="w-full h-full object-contain p-2"
+                className="w-full h-full object-contain p-1"
                 onError={(e) => {
                   const el = e.currentTarget as HTMLImageElement;
                   if (!el.dataset.fallback) {
                     el.dataset.fallback = '1';
-                    el.src = fallbackSvg(v.color || v.size || 'Variant');
+                    el.src = fallbackSvg(v.color || v.size || 'V');
                   }
                 }}
               />
             </div>
 
-            {/* Info strip */}
-            <div className="p-2 border-t border-ink-100">
-              <div className="flex items-center justify-between gap-1 mb-1">
+            {/* Compact info strip */}
+            <div className="p-1 border-t border-ink-100">
+              <div className="flex items-center justify-between gap-0.5">
                 {v.color && (
-                  <div className="flex items-center gap-1 min-w-0">
+                  <div className="flex items-center gap-0.5 min-w-0">
                     <span
-                      className="w-3.5 h-3.5 rounded-full border border-ink-300 flex-shrink-0"
+                      className="w-2.5 h-2.5 rounded-full border border-ink-300 flex-shrink-0"
                       style={{
                         backgroundColor: v.colorHex ||
                           (v.color.toLowerCase().includes('white') ? '#fff' :
@@ -121,20 +121,14 @@ export default function VariantSelector({ variants, currentSku, baseName, parent
                            '#d1d5db'),
                       }}
                     />
-                    <span className="text-[11px] font-semibold text-navy-800 truncate">{v.color}</span>
+                    <span className="text-[9px] font-semibold text-navy-800 truncate">{v.color}</span>
                   </div>
                 )}
                 {!v.color && v.size && (
-                  <span className="text-[11px] font-bold text-navy-800 truncate">{v.size}</span>
+                  <span className="text-[9px] font-bold text-navy-800 truncate">{v.size}</span>
                 )}
-                <span className="text-[11px] font-bold text-accent-700 flex-shrink-0">
+                <span className="text-[9px] font-bold text-accent-700 flex-shrink-0">
                   ${v.price.toFixed(2)}
-                </span>
-              </div>
-              <div className="flex items-center justify-between">
-                <span className="text-[9px] font-mono text-ink-400 truncate">{v.sku}</span>
-                <span className={`text-[9px] font-semibold ${v.stock > 0 ? 'text-success-600' : 'text-red-500'}`}>
-                  {v.stock > 0 ? 'In Stock' : 'Out'}
                 </span>
               </div>
             </div>
@@ -193,9 +187,9 @@ export default function VariantSelector({ variants, currentSku, baseName, parent
     <div className="py-3 border-b border-ink-100">
       {/* Header */}
       <div className="flex items-center justify-between mb-3">
-        <div className="flex items-center gap-1.5">
-          <Layers className="w-4 h-4 text-accent-500" />
-          <span className="text-xs font-bold text-navy-800">{variants.length} {variants.length > 1 ? 'Styles' : 'Style'} Available</span>
+        <div className="flex items-center gap-1">
+          <Layers className="w-3.5 h-3.5 text-accent-500" />
+          <span className="text-[11px] font-bold text-navy-800">{variants.length} Styles Available</span>
         </div>
         <span className="text-[10px] text-ink-400 font-mono bg-ink-50 px-2 py-0.5 rounded">
           {parentSku}
@@ -205,13 +199,13 @@ export default function VariantSelector({ variants, currentSku, baseName, parent
       {useCardGrid ? renderColorCardGrid() : renderPillGroups()}
 
       {/* Footer: current selection summary */}
-      <div className="mt-3 flex items-center justify-between gap-2 px-3 py-2 rounded-lg bg-ink-50 border border-ink-100">
-        <div className="flex items-center gap-2 min-w-0">
+      <div className="mt-2 flex items-center justify-between gap-1.5 px-2 py-1.5 rounded-md bg-ink-50 border border-ink-100">
+        <div className="flex items-center gap-1.5 min-w-0">
           {currentVariant?.image && (
             <img
               src={currentVariant.image}
               alt=""
-              className="w-8 h-8 rounded object-contain bg-white border border-ink-200 flex-shrink-0"
+              className="w-6 h-6 rounded object-contain bg-white border border-ink-200 flex-shrink-0"
               onError={(e) => {
                 const el = e.currentTarget as HTMLImageElement;
                 if (!el.dataset.fallback) {
@@ -221,12 +215,12 @@ export default function VariantSelector({ variants, currentSku, baseName, parent
               }}
             />
           )}
-          <span className="text-[11px] text-ink-600 truncate">
+          <span className="text-[10px] text-ink-600 truncate">
             <span className="font-bold text-navy-800">Selected:</span> {currentVariant?.name || baseName}
           </span>
         </div>
         {currentVariant?.price > 0 && (
-          <span className="text-sm font-extrabold text-accent-700 flex-shrink-0">
+          <span className="text-xs font-extrabold text-accent-700 flex-shrink-0">
             ${currentVariant.price.toFixed(2)}
           </span>
         )}
