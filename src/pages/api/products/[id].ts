@@ -182,11 +182,11 @@ async function getProductFromSeedData(idStr: string) {
     originalPrice: product.originalPrice ? Number(product.originalPrice) : null,
     image: convertImageUrl(product.image || ''),
     images: (Array.isArray(images) ? images : []).map(convertImageUrl),
-    category: {
-      id: resolvedCat?.id || '',
-      name: resolvedCat?.name || '',
-      slug: resolvedCat?.slug || catSlug,
-    },
+    category: resolvedCat ? {
+      id: resolvedCat.id || '',
+      name: resolvedCat.name || '',
+      slug: resolvedCat.slug || catSlug,
+    } : null,
     material: product.material || null,
     plating: product.plating || null,
     process: product.process || null,
@@ -266,11 +266,11 @@ async function getProductFromFallback(idStr: string) {
     originalPrice: product.originalPrice ? Number(product.originalPrice) : null,
     image: convertImageUrl(product.image),
     images: images.map(convertImageUrl),
-    category: {
+    category: (typeof product.category === 'object' && product.category?.name) ? {
       id: '',
-      name: typeof product.category === 'object' ? product.category.name : (product.category || ''),
-      slug: product.category?.slug || '',
-    },
+      name: product.category.name,
+      slug: product.category.slug || '',
+    } : null,
     material: product.material || null,
     plating: product.plating || null,
     process: product.process || null,

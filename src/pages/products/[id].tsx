@@ -302,7 +302,9 @@ export default function ProductDetail({ product: initialProduct, relatedProducts
               originalPrice: data.originalPrice ? Number(data.originalPrice) : undefined,
               image: data.image,
               images: Array.isArray(data.images) ? data.images : (data.image ? [data.image] : []),
-              category: data.category ? { name: data.category.name, slug: data.category.slug } : undefined,
+              category: (data.category && data.category.name)
+                ? { name: data.category.name, slug: data.category.slug }
+                : undefined,
               stock: data.stock,
               rating: data.rating,
               reviewCount: data.reviewCount,
@@ -530,7 +532,7 @@ export default function ProductDetail({ product: initialProduct, relatedProducts
             itemListElement: [
               { '@type': 'ListItem', position: 1, name: 'Home', item: SITE_URL },
               { '@type': 'ListItem', position: 2, name: 'Products', item: `${SITE_URL}/products` },
-              ...(product.category ? [{ '@type': 'ListItem', position: 3, name: product.category.name, item: `${SITE_URL}/products?category=${product.category.slug}` }] : []),
+              ...((product.category && product.category.name) ? [{ '@type': 'ListItem', position: 3, name: product.category.name, item: `${SITE_URL}/products?category=${product.category.slug}` }] : []),
               { '@type': 'ListItem', position: product.category ? 4 : 3, name: product.name, item: `${SITE_URL}/products/${product.id}` },
             ],
           })
@@ -711,7 +713,7 @@ export default function ProductDetail({ product: initialProduct, relatedProducts
 
             {/* Category | SKU */}
             <div className="flex items-center gap-2.5 flex-wrap mb-6">
-              {product.category ? (
+              {(product.category && product.category.name) ? (
                 <Link href={`/products?category=${product.category.slug}`} className="text-xs text-ink-500 hover:text-accent-600 transition-colors">
                   Category: <span className="font-semibold text-navy-800">{product.category.name}</span>
                 </Link>
@@ -743,7 +745,7 @@ export default function ProductDetail({ product: initialProduct, relatedProducts
                     const showPrice = price > 0 ? `$${price.toFixed(2)}` : 'Contact for price';
                     return (
                       <div className="flex flex-wrap items-baseline gap-2">
-                        <span className={`text-3xl font-extrabold tracking-tight ${price > 0 ? 'text-navy-900' : 'text-amber-600'}`}>{showPrice}</span>
+                        <span className={`text-2xl md:text-3xl font-extrabold tracking-tight ${price > 0 ? 'text-navy-900' : 'text-amber-600'}`}>{showPrice}</span>
                         {minP !== maxP && (
                           <span className="text-[11px] text-ink-400 font-medium">
                             (Range: ${minP.toFixed(2)} – ${maxP.toFixed(2)})
@@ -756,11 +758,11 @@ export default function ProductDetail({ product: initialProduct, relatedProducts
                   if (minP > 0 && maxP > 0 && minP !== maxP) {
                     return (
                       <div className="flex flex-wrap items-baseline gap-1.5">
-                        <span className="text-[12px] text-ink-500 font-medium">From</span>
-                        <span className="text-3xl font-extrabold text-accent-600 tracking-tight">${minP.toFixed(2)}</span>
-                        <span className="text-[12px] text-ink-400 font-medium">to</span>
-                        <span className="text-xl font-bold text-navy-800 tracking-tight">${maxP.toFixed(2)}</span>
-                        <span className="text-[10px] text-ink-400 ml-1">· select variant for exact price</span>
+                        <span className="text-sm text-ink-500 font-medium">From</span>
+                        <span className="text-2xl md:text-3xl font-extrabold text-navy-900 tracking-tight">${minP.toFixed(2)}</span>
+                        <span className="text-sm text-ink-500 font-medium">to</span>
+                        <span className="text-2xl md:text-3xl font-extrabold text-navy-900 tracking-tight">${maxP.toFixed(2)}</span>
+                        <span className="text-xs text-ink-400 ml-1">· select variant for exact price</span>
                       </div>
                     );
                   }
@@ -1012,7 +1014,7 @@ export default function ProductDetail({ product: initialProduct, relatedProducts
                       { label: 'SKU', value: product.sku || 'N/A' },
                       { label: 'Category', value: (product.categoryPath && product.categoryPath.length > 0)
                         ? product.categoryPath.map(c => c.name).join(' › ')
-                        : (product.category?.name || 'N/A') },
+                        : ((product.category && product.category.name) || 'N/A') },
                       { label: 'Material', value: product.material || 'N/A' },
                       { label: 'Plating / Finish', value: product.plating || 'N/A' },
                       { label: 'Color', value: product.color || 'Multiple options' },
@@ -1081,7 +1083,7 @@ export default function ProductDetail({ product: initialProduct, relatedProducts
                     <TrendingUp className="w-5 h-5 text-accent-500" />
                     <div>
                       <h2 className="text-lg font-bold text-navy-900">Related Products</h2>
-                      <p className="text-xs text-ink-500">More from {product.category?.name || 'this category'}</p>
+                      <p className="text-xs text-ink-500">More from {(product.category && product.category.name) || 'this category'}</p>
                     </div>
                   </div>
                   <Link href={`/products?category=${product.category?.slug}`} className="inline-flex items-center gap-0.5 text-accent-600 hover:text-accent-700 text-sm font-bold">View All <ChevronRight className="w-3.5 h-3.5" /></Link>
@@ -1229,7 +1231,7 @@ PRODUCT DETAILS
 ━━━━━━━━━━━━━━━━━━━━━━
 Product Name: ${product.name}
 SKU: ${product.sku || 'N/A'}
-Category: ${product.category?.name || 'N/A'}
+Category: ${(product.category && product.category.name) || 'N/A'}
 ${variantLabel ? `Selected Variant: ${variantLabel}
 ` : ''}Quantity: ${f.quantity || 'TBD'} pcs
 Unit Price (displayed): ${price > 0 ? '$' + price.toFixed(2) : 'Contact for price'}
