@@ -545,10 +545,11 @@ export const getServerSideProps = async () => {
           };
         });
       };
-      // Sort by salesCount descending (or by id as fallback), drop price=0 invalid, take top 50
+      // Sort by revenue (salesCount × price) descending, drop price=0 invalid, take top 50
+      const revenue = (p: any) => (p.salesCount || 0) * (Number(p.price ?? p.priceMin ?? 0) || 0);
       const sorted = filterListOnly([...rawProducts])
         .filter((p: any) => Number(p.price ?? 0) > 0 || Number(p.priceMin ?? 0) > 0 || Number(p.priceMax ?? 0) > 0)
-        .sort((a, b) => (b.salesCount || 0) - (a.salesCount || 0))
+        .sort((a, b) => revenue(b) - revenue(a))
         .slice(0, 50);
 
       // Build category lookup with root resolution
@@ -664,7 +665,7 @@ export const getServerSideProps = async () => {
       // Top 5 products per root category (for "Shop by Category" blocks) — 过滤掉子产品
       const sortedAll = filterListOnly([...rawProducts])
         .filter((p: any) => Number(p.price ?? 0) > 0 || Number(p.priceMin ?? 0) > 0 || Number(p.priceMax ?? 0) > 0)
-        .sort((a, b) => (b.salesCount || 0) - (a.salesCount || 0));
+        .sort((a, b) => revenue(b) - revenue(a));
       const categoryProductsMap: Record<string, Product[]> = {};
       for (const rootCat of rootCategories) {
         const catProducts = sortedAll
@@ -689,7 +690,7 @@ export const getServerSideProps = async () => {
     const { getDatabase } = await import('@/lib/db');
     const database = getDatabase();
     
-    const rawProducts = database.prepare('SELECT * FROM products WHERE isPublished = 1 ORDER BY salesCount DESC LIMIT 50').all() as any[];
+    const rawProducts = database.prepare('SELECT * FROM products WHERE isPublished = 1 ORDER BY (salesCount * price) DESC LIMIT 50').all() as any[];
     const rawCategories = database.prepare('SELECT * FROM categories ORDER BY sortOrder ASC').all() as any[];
 
     // Build category lookup with root resolution
@@ -732,7 +733,7 @@ export const getServerSideProps = async () => {
       .sort((a, b) => b.productCount - a.productCount);
 
     // For local dev, load all products for category blocks
-    const allRawProducts = database.prepare('SELECT * FROM products WHERE isPublished = 1 ORDER BY salesCount DESC').all() as any[];
+    const allRawProducts = database.prepare('SELECT * FROM products WHERE isPublished = 1 ORDER BY (salesCount * price) DESC').all() as any[];
 
     const formatProductLocal = (p: any): Product => {
       const image = resolveImageUrlServerSide(p.image || '');
