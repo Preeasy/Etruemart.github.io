@@ -1088,7 +1088,7 @@
       "material": null,
       "plating": null,
       "process": null,
-      "color": "Black",
+      "color": null,
       "size": null,
       "packSize": 1080,
       "pkgLength": null,
@@ -1115,12 +1115,13 @@
           "price": 4.38,
           "priceMax": 4.38,
           "image": "https://cdn.jsdelivr.net/gh/Preeasy/Images@main/Images/YCS-SHO-042-001.png",
-          "color": "Multi Color",
+          "color": "Black",
           "size": null,
           "capacity": null,
           "layer": null,
           "pack": null,
-          "moq": 100
+          "moq": 100,
+          "colorHex": "#1f2937"
         },
         {
           "id": "prod-9ac510cd6fdfe5938a74e74f",
@@ -1130,12 +1131,13 @@
           "price": 4.38,
           "priceMax": 4.38,
           "image": "https://cdn.jsdelivr.net/gh/Preeasy/Images@main/Images/YCS-SHO-042-002.png",
-          "color": "Multi Color",
+          "color": "Red",
           "size": null,
           "capacity": null,
           "layer": null,
           "pack": null,
-          "moq": 100
+          "moq": 100,
+          "colorHex": "#ef4444"
         },
         {
           "id": "prod-b130d8d942ac59e99a6178d4",
@@ -1145,12 +1147,13 @@
           "price": 4.38,
           "priceMax": 4.38,
           "image": "https://cdn.jsdelivr.net/gh/Preeasy/Images@main/Images/YCS-SHO-042-003.png",
-          "color": "Multi Color",
+          "color": "Green",
           "size": null,
           "capacity": null,
           "layer": null,
           "pack": null,
-          "moq": 100
+          "moq": 100,
+          "colorHex": "#22c55e"
         },
         {
           "id": "prod-f9503b5c8192dcb671ae82b1",
@@ -1160,12 +1163,13 @@
           "price": 4.38,
           "priceMax": 4.38,
           "image": "https://cdn.jsdelivr.net/gh/Preeasy/Images@main/Images/YCS-SHO-042-004.png",
-          "color": "Multi Color",
+          "color": "White",
           "size": null,
           "capacity": null,
           "layer": null,
           "pack": null,
-          "moq": 100
+          "moq": 100,
+          "colorHex": "#f9fafb"
         },
         {
           "id": "prod-6aee45b365b71b23b85fb35d",
@@ -1175,12 +1179,13 @@
           "price": 4.38,
           "priceMax": 4.38,
           "image": "https://cdn.jsdelivr.net/gh/Preeasy/Images@main/Images/YCS-SHO-042-005.png",
-          "color": "Multi Color",
+          "color": "White",
           "size": null,
           "capacity": null,
           "layer": null,
           "pack": null,
-          "moq": 100
+          "moq": 100,
+          "colorHex": "#f9fafb"
         },
         {
           "id": "prod-078c55173c20029aa978f6b0",
@@ -1190,12 +1195,13 @@
           "price": 4.38,
           "priceMax": 4.38,
           "image": "https://cdn.jsdelivr.net/gh/Preeasy/Images@main/Images/YCS-SHO-042-006.png",
-          "color": "Multi Color",
+          "color": "White",
           "size": null,
           "capacity": null,
           "layer": null,
           "pack": null,
-          "moq": 100
+          "moq": 100,
+          "colorHex": "#f9fafb"
         }
       ]
     },
@@ -1527,7 +1533,7 @@
       "material": null,
       "plating": null,
       "process": null,
-      "color": "White",
+      "color": null,
       "size": null,
       "packSize": 2525,
       "pkgLength": null,
@@ -1554,12 +1560,13 @@
           "price": 4.98,
           "priceMax": 4.98,
           "image": "https://cdn.jsdelivr.net/gh/Preeasy/Images@main/Images/YCS-SHO-036-001.png",
-          "color": "Black",
+          "color": "White",
           "size": null,
           "capacity": null,
           "layer": null,
           "pack": null,
-          "moq": 100
+          "moq": 100,
+          "colorHex": "#f9fafb"
         },
         {
           "id": "prod-e9de3fd69201e8b512351e00",
@@ -1614,12 +1621,13 @@
           "price": 4.98,
           "priceMax": 4.98,
           "image": "https://cdn.jsdelivr.net/gh/Preeasy/Images@main/Images/YCS-SHO-036-005.png",
-          "color": "Black",
+          "color": "White",
           "size": null,
           "capacity": null,
           "layer": null,
           "pack": null,
-          "moq": 100
+          "moq": 100,
+          "colorHex": "#f9fafb"
         }
       ]
     },
@@ -1647,7 +1655,7 @@
       "material": null,
       "plating": null,
       "process": null,
-      "color": "Blue",
+      "color": null,
       "size": null,
       "packSize": 975,
       "pkgLength": null,
@@ -1674,12 +1682,13 @@
           "price": 4.81,
           "priceMax": 4.81,
           "image": "https://cdn.jsdelivr.net/gh/Preeasy/Images@main/Images/YCS-SHO-037-001.png",
-          "color": "Orange",
+          "color": "Blue",
           "size": null,
           "capacity": null,
           "layer": null,
           "pack": null,
-          "moq": 100
+          "moq": 100,
+          "colorHex": "#3b82f6"
         },
         {
           "id": "prod-f9ede3a3b48b331ca739a1df",
@@ -1689,12 +1698,13 @@
           "price": 4.81,
           "priceMax": 4.81,
           "image": "https://cdn.jsdelivr.net/gh/Preeasy/Images@main/Images/YCS-SHO-037-002.png",
-          "color": "Orange",
+          "color": "White",
           "size": null,
           "capacity": null,
           "layer": null,
           "pack": null,
-          "moq": 100
+          "moq": 100,
+          "colorHex": "#f9fafb"
         },
         {
           "id": "prod-0206d1456c9af6486e0b5802",
@@ -1704,12 +1714,13 @@
           "price": 4.81,
           "priceMax": 4.81,
           "image": "https://cdn.jsdelivr.net/gh/Preeasy/Images@main/Images/YCS-SHO-037-003.png",
-          "color": "Orange",
+          "color": "Black",
           "size": null,
           "capacity": null,
           "layer": null,
           "pack": null,
-          "moq": 100
+          "moq": 100,
+          "colorHex": "#1f2937"
         },
         {
           "id": "prod-4dce82490b11a005f4871f87",
@@ -1719,12 +1730,13 @@
           "price": 4.81,
           "priceMax": 4.81,
           "image": "https://cdn.jsdelivr.net/gh/Preeasy/Images@main/Images/YCS-SHO-037-004.png",
-          "color": "Orange",
+          "color": "Black",
           "size": null,
           "capacity": null,
           "layer": null,
           "pack": null,
-          "moq": 100
+          "moq": 100,
+          "colorHex": "#1f2937"
         },
         {
           "id": "prod-b124ae0615cac41245f05f3e",
@@ -1739,7 +1751,8 @@
           "capacity": null,
           "layer": null,
           "pack": null,
-          "moq": 100
+          "moq": 100,
+          "colorHex": "#f97316"
         }
       ]
     },
@@ -1767,7 +1780,7 @@
       "material": null,
       "plating": null,
       "process": null,
-      "color": null,
+      "color": "Black",
       "size": null,
       "packSize": 39,
       "pkgLength": null,
@@ -1863,12 +1876,13 @@
           "price": 0.09,
           "priceMax": 0.09,
           "image": "https://cdn.jsdelivr.net/gh/Preeasy/Images@main/Images/YCS-CLN-002-004.jpg",
-          "color": "Multi Color",
+          "color": "Black",
           "size": null,
           "capacity": null,
           "layer": null,
           "pack": null,
-          "moq": 1
+          "moq": 1,
+          "colorHex": "#1f2937"
         }
       ]
     },
@@ -2203,7 +2217,7 @@
           "price": 0,
           "priceMax": 0,
           "image": "https://cdn.jsdelivr.net/gh/Preeasy/Images@main/Images/YCS-STO-027-003.png",
-          "color": "Gold",
+          "color": "Silver",
           "size": null,
           "capacity": null,
           "layer": null,
@@ -2216,7 +2230,8 @@
             "boxHeight": 33.0,
             "grossWeight": 11.0,
             "volumeCBM": 0.167706
-          }
+          },
+          "colorHex": "#c0c0c0"
         },
         {
           "id": "cmsem8ole00fa13jy8vnis5hm",
@@ -2259,7 +2274,7 @@
       "material": null,
       "plating": null,
       "process": null,
-      "color": null,
+      "color": "White",
       "size": null,
       "packSize": 15,
       "pkgLength": null,
@@ -2760,7 +2775,7 @@
       "material": null,
       "plating": null,
       "process": null,
-      "color": null,
+      "color": "Blue",
       "size": null,
       "packSize": 4,
       "pkgLength": null,
@@ -2787,12 +2802,13 @@
           "price": 44.28,
           "priceMax": 44.28,
           "image": "https://cdn.jsdelivr.net/gh/Preeasy/Images@main/Images/YCS-CLO-023-001.jpg",
-          "color": "Light Blue",
+          "color": "Blue",
           "size": null,
           "capacity": null,
           "layer": null,
           "pack": null,
-          "moq": 1
+          "moq": 1,
+          "colorHex": "#3b82f6"
         },
         {
           "id": "cmsem8r3i013413jyzwwyyla3",
@@ -3317,7 +3333,7 @@
       "material": null,
       "plating": null,
       "process": null,
-      "color": "Blue",
+      "color": null,
       "size": null,
       "packSize": 420,
       "pkgLength": null,
@@ -3344,12 +3360,13 @@
           "price": 4.46,
           "priceMax": 4.46,
           "image": "https://cdn.jsdelivr.net/gh/Preeasy/Images@main/Images/YCS-CLO-045-001.png",
-          "color": "Multi Color",
+          "color": "Blue",
           "size": null,
           "capacity": null,
           "layer": null,
           "pack": null,
-          "moq": 100
+          "moq": 100,
+          "colorHex": "#3b82f6"
         },
         {
           "id": "prod-b43355b235b05c25970df9eb",
@@ -3359,12 +3376,13 @@
           "price": 4.46,
           "priceMax": 4.46,
           "image": "https://cdn.jsdelivr.net/gh/Preeasy/Images@main/Images/YCS-CLO-045-002.png",
-          "color": "Multi Color",
+          "color": "Blue",
           "size": null,
           "capacity": null,
           "layer": null,
           "pack": null,
-          "moq": 100
+          "moq": 100,
+          "colorHex": "#3b82f6"
         },
         {
           "id": "prod-268f051542d7e82078db85d7",
@@ -3374,12 +3392,13 @@
           "price": 4.46,
           "priceMax": 4.46,
           "image": "https://cdn.jsdelivr.net/gh/Preeasy/Images@main/Images/YCS-CLO-045-003.png",
-          "color": "Multi Color",
+          "color": "Brown",
           "size": null,
           "capacity": null,
           "layer": null,
           "pack": null,
-          "moq": 100
+          "moq": 100,
+          "colorHex": "#92400e"
         },
         {
           "id": "prod-3e3447c13d41c7d85caadbdb",
@@ -3389,12 +3408,13 @@
           "price": 4.46,
           "priceMax": 4.46,
           "image": "https://cdn.jsdelivr.net/gh/Preeasy/Images@main/Images/YCS-CLO-045-004.png",
-          "color": "Multi Color",
+          "color": "Black",
           "size": null,
           "capacity": null,
           "layer": null,
           "pack": null,
-          "moq": 100
+          "moq": 100,
+          "colorHex": "#1f2937"
         }
       ]
     },
@@ -3422,7 +3442,7 @@
       "material": null,
       "plating": null,
       "process": null,
-      "color": "White",
+      "color": null,
       "size": null,
       "packSize": 1240,
       "pkgLength": null,
@@ -3479,12 +3499,13 @@
           "price": 2.66,
           "priceMax": 2.66,
           "image": "https://cdn.jsdelivr.net/gh/Preeasy/Images@main/Images/YCS-SHO-035-003.png",
-          "color": "Black",
+          "color": "White",
           "size": null,
           "capacity": null,
           "layer": null,
           "pack": null,
-          "moq": 100
+          "moq": 100,
+          "colorHex": "#f9fafb"
         },
         {
           "id": "prod-bf938e62d375fcbdac2542df",
@@ -3527,7 +3548,7 @@
       "material": null,
       "plating": null,
       "process": null,
-      "color": "Black",
+      "color": null,
       "size": null,
       "packSize": 480,
       "pkgLength": null,
@@ -3554,12 +3575,13 @@
           "price": 3.86,
           "priceMax": 3.86,
           "image": "https://cdn.jsdelivr.net/gh/Preeasy/Images@main/Images/YCS-SHO-041-001.png",
-          "color": "Multi Color",
+          "color": "Black",
           "size": null,
           "capacity": null,
           "layer": null,
           "pack": null,
-          "moq": 100
+          "moq": 100,
+          "colorHex": "#1f2937"
         },
         {
           "id": "prod-bebf50dc53211336e3e4da47",
@@ -3569,12 +3591,13 @@
           "price": 3.86,
           "priceMax": 3.86,
           "image": "https://cdn.jsdelivr.net/gh/Preeasy/Images@main/Images/YCS-SHO-041-002.png",
-          "color": "Multi Color",
+          "color": "Gray",
           "size": null,
           "capacity": null,
           "layer": null,
           "pack": null,
-          "moq": 100
+          "moq": 100,
+          "colorHex": "#6b7280"
         },
         {
           "id": "prod-f4dbdc4fbadc21a0e37c7a15",
@@ -3584,12 +3607,13 @@
           "price": 3.86,
           "priceMax": 3.86,
           "image": "https://cdn.jsdelivr.net/gh/Preeasy/Images@main/Images/YCS-SHO-041-003.png",
-          "color": "Multi Color",
+          "color": "White",
           "size": null,
           "capacity": null,
           "layer": null,
           "pack": null,
-          "moq": 100
+          "moq": 100,
+          "colorHex": "#f9fafb"
         },
         {
           "id": "prod-cee36af82b8df3ff0cf3594f",
@@ -3599,12 +3623,13 @@
           "price": 3.86,
           "priceMax": 3.86,
           "image": "https://cdn.jsdelivr.net/gh/Preeasy/Images@main/Images/YCS-SHO-041-004.png",
-          "color": "Multi Color",
+          "color": "White",
           "size": null,
           "capacity": null,
           "layer": null,
           "pack": null,
-          "moq": 100
+          "moq": 100,
+          "colorHex": "#f9fafb"
         }
       ]
     },
@@ -3632,7 +3657,7 @@
       "material": null,
       "plating": null,
       "process": null,
-      "color": null,
+      "color": "Brown",
       "size": null,
       "packSize": 3,
       "pkgLength": null,
@@ -4670,12 +4695,13 @@
           "price": 0,
           "priceMax": 0,
           "image": "https://cdn.jsdelivr.net/gh/Preeasy/Images@main/Images/YCS-SHO-009-002.png",
-          "color": "Green",
+          "color": "Mint",
           "size": null,
           "capacity": null,
           "layer": null,
           "pack": null,
-          "moq": 1
+          "moq": 1,
+          "colorHex": "#14b8a6"
         },
         {
           "id": "cmsem8s4d01dj13jylaqsl5pb",
@@ -4930,7 +4956,7 @@
       "material": null,
       "plating": null,
       "process": null,
-      "color": "Black",
+      "color": null,
       "size": null,
       "packSize": 540,
       "pkgLength": null,
@@ -5020,7 +5046,7 @@
       "material": null,
       "plating": null,
       "process": null,
-      "color": "Black",
+      "color": null,
       "size": null,
       "packSize": 510,
       "pkgLength": null,
@@ -5110,7 +5136,7 @@
       "material": null,
       "plating": null,
       "process": null,
-      "color": "Black",
+      "color": null,
       "size": null,
       "packSize": 3,
       "pkgLength": null,
@@ -5152,12 +5178,13 @@
           "price": 4.46,
           "priceMax": 4.46,
           "image": "https://cdn.jsdelivr.net/gh/Preeasy/Images@main/Images/YCS-CLO-044-002.jpg",
-          "color": "Black",
+          "color": "Gray",
           "size": null,
           "capacity": null,
           "layer": null,
           "pack": null,
-          "moq": 1
+          "moq": 1,
+          "colorHex": "#6b7280"
         },
         {
           "id": "prod-9e160f5f9f788fbcfb2bf36d",
@@ -5167,12 +5194,13 @@
           "price": 4.46,
           "priceMax": 4.46,
           "image": "https://cdn.jsdelivr.net/gh/Preeasy/Images@main/Images/YCS-CLO-044-003.jpg",
-          "color": "Black",
+          "color": "Gray",
           "size": null,
           "capacity": null,
           "layer": null,
           "pack": null,
-          "moq": 1
+          "moq": 1,
+          "colorHex": "#6b7280"
         }
       ]
     },
@@ -5200,7 +5228,7 @@
       "material": null,
       "plating": null,
       "process": null,
-      "color": "Black",
+      "color": null,
       "size": null,
       "packSize": 3,
       "pkgLength": null,
@@ -6246,7 +6274,7 @@
       "material": null,
       "plating": null,
       "process": null,
-      "color": null,
+      "color": "Black",
       "size": null,
       "packSize": 101,
       "pkgLength": null,
@@ -6329,7 +6357,7 @@
       "material": null,
       "plating": null,
       "process": null,
-      "color": null,
+      "color": "Blue",
       "size": null,
       "packSize": 2,
       "pkgLength": null,
@@ -6495,7 +6523,7 @@
       "material": null,
       "plating": null,
       "process": null,
-      "color": null,
+      "color": "White",
       "size": null,
       "packSize": 2,
       "pkgLength": null,
@@ -6578,7 +6606,7 @@
       "material": null,
       "plating": null,
       "process": null,
-      "color": null,
+      "color": "Black",
       "size": null,
       "packSize": 51,
       "pkgLength": null,
@@ -6661,7 +6689,7 @@
       "material": null,
       "plating": null,
       "process": null,
-      "color": null,
+      "color": "Gray",
       "size": null,
       "packSize": 2,
       "pkgLength": null,
@@ -7317,7 +7345,7 @@
       "material": null,
       "plating": null,
       "process": null,
-      "color": null,
+      "color": "Black",
       "size": null,
       "packSize": 28,
       "pkgLength": null,
@@ -7772,7 +7800,7 @@
       "material": null,
       "plating": null,
       "process": null,
-      "color": null,
+      "color": "Yellow",
       "size": null,
       "packSize": 16,
       "pkgLength": null,
@@ -8377,7 +8405,7 @@
       "material": null,
       "plating": null,
       "process": null,
-      "color": null,
+      "color": "Blue",
       "size": null,
       "packSize": 300,
       "pkgLength": null,
@@ -8907,7 +8935,7 @@
       "material": null,
       "plating": null,
       "process": null,
-      "color": null,
+      "color": "Silver",
       "size": null,
       "packSize": 101,
       "pkgLength": null,
@@ -8957,12 +8985,13 @@
           "price": 7.55,
           "priceMax": 7.55,
           "image": "https://cdn.jsdelivr.net/gh/Preeasy/Images@main/Images/YCS-SWI-005-002.png",
-          "color": "Black",
+          "color": "Silver",
           "size": null,
           "capacity": null,
           "layer": null,
           "pack": null,
-          "moq": 1
+          "moq": 1,
+          "colorHex": "#c0c0c0"
         }
       ]
     },
@@ -9263,7 +9292,7 @@
       "material": null,
       "plating": null,
       "process": null,
-      "color": "Black",
+      "color": null,
       "size": null,
       "packSize": 600,
       "pkgLength": null,
@@ -9305,12 +9334,13 @@
           "price": 3.18,
           "priceMax": 3.18,
           "image": "https://cdn.jsdelivr.net/gh/Preeasy/Images@main/Images/YCS-CLO-039-002.png",
-          "color": "Black",
+          "color": "Gray",
           "size": null,
           "capacity": null,
           "layer": null,
           "pack": null,
-          "moq": 100
+          "moq": 100,
+          "colorHex": "#6b7280"
         }
       ]
     },
@@ -9338,7 +9368,7 @@
       "material": null,
       "plating": null,
       "process": null,
-      "color": "Black",
+      "color": null,
       "size": null,
       "packSize": 440,
       "pkgLength": null,
@@ -9380,12 +9410,13 @@
           "price": 1.89,
           "priceMax": 1.89,
           "image": "https://cdn.jsdelivr.net/gh/Preeasy/Images@main/Images/YCS-CLO-040-002.png",
-          "color": "Black",
+          "color": "Gray",
           "size": null,
           "capacity": null,
           "layer": null,
           "pack": null,
-          "moq": 100
+          "moq": 100,
+          "colorHex": "#6b7280"
         }
       ]
     },
@@ -9455,12 +9486,13 @@
           "price": 3.95,
           "priceMax": 3.95,
           "image": "https://cdn.jsdelivr.net/gh/Preeasy/Images@main/Images/YCS-SHO-038-002.png",
-          "color": "Multi Color",
+          "color": "Blue",
           "size": null,
           "capacity": null,
           "layer": null,
           "pack": null,
-          "moq": 100
+          "moq": 100,
+          "colorHex": "#3b82f6"
         }
       ]
     },
@@ -9515,12 +9547,13 @@
           "price": 3.43,
           "priceMax": 3.43,
           "image": "https://cdn.jsdelivr.net/gh/Preeasy/Images@main/Images/YCS-SHO-039-001.png",
-          "color": "Black",
+          "color": "White",
           "size": null,
           "capacity": null,
           "layer": null,
           "pack": null,
-          "moq": 100
+          "moq": 100,
+          "colorHex": "#f9fafb"
         },
         {
           "id": "prod-6bf2a2a28c49faa8349a8ef2",
@@ -9530,12 +9563,13 @@
           "price": 3.43,
           "priceMax": 3.43,
           "image": "https://cdn.jsdelivr.net/gh/Preeasy/Images@main/Images/YCS-SHO-039-002.png",
-          "color": "Black",
+          "color": "White",
           "size": null,
           "capacity": null,
           "layer": null,
           "pack": null,
-          "moq": 100
+          "moq": 100,
+          "colorHex": "#f9fafb"
         }
       ]
     },
@@ -9563,7 +9597,7 @@
       "material": null,
       "plating": null,
       "process": null,
-      "color": "Red",
+      "color": null,
       "size": null,
       "packSize": 290,
       "pkgLength": null,
@@ -9605,12 +9639,13 @@
           "price": 3.26,
           "priceMax": 3.26,
           "image": "https://cdn.jsdelivr.net/gh/Preeasy/Images@main/Images/YCS-SHO-040-002.png",
-          "color": "Red",
+          "color": "Blue",
           "size": null,
           "capacity": null,
           "layer": null,
           "pack": null,
-          "moq": 100
+          "moq": 100,
+          "colorHex": "#3b82f6"
         }
       ]
     },
