@@ -18,6 +18,31 @@ for (const p of products) {
   productCountByCat[catId] = (productCountByCat[catId] || 0) + 1;
 }
 
+const navShortNames: Record<string, string> = {
+  'beauty-personal-care': 'Beauty & Care',
+  'mother-baby-toys': 'Mother & Baby',
+  'stationery-office': 'Stationery',
+  'garment-accessories': 'Garment',
+  'home-decor-crafts': 'Home Decor',
+  'phone-accessories': 'Phone Acc.',
+  'kitchen-supplies': 'Kitchen',
+  'sports-outdoor': 'Sports',
+  'apparel-shoes': 'Apparel',
+  'hardware-home': 'Hardware',
+  'home-appliances': 'Appliances',
+  'fashion-jewelry': 'Jewelry',
+  'home-living': 'Home & Living',
+  'auto-tools': 'Auto & Tools',
+  'pet-supplies': 'Pet Supplies',
+  'electronics': 'Electronics',
+  'accessories': 'Accessories',
+  'musical-instruments': 'Music',
+  'other': 'Other',
+  'bags': 'Bags',
+  'toys': 'Toys',
+  'gift': 'Gift',
+};
+
 const rootCategories = categories
   .filter(c => !c.parentId)
   .sort((a, b) => {
@@ -35,7 +60,7 @@ const navCategories: CategoryItem[] = rootCategories.map(root => {
   return {
     id: root.id,
     slug: root.slug,
-    name: root.name,
+    name: navShortNames[root.slug] || root.name,
     children,
     productCount: productCountByCat[root.id] || 0,
   };

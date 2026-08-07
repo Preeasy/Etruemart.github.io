@@ -243,7 +243,7 @@ const Navbar = () => {
 
         {/* Navigation links row */}
         <div className="hidden md:block border-t border-navy-800/60">
-          <div className="h-11 flex items-center gap-0.5">
+          <div className="h-11 flex items-center gap-0 whitespace-nowrap">
             <Link
               href="/"
               className={`flex items-center gap-1.5 px-3 py-2 text-sm font-medium rounded-md transition-colors ${
@@ -252,19 +252,19 @@ const Navbar = () => {
                   : 'text-navy-300 hover:text-white hover:bg-navy-800'
               }`}
             >
-              <Home className="w-4 h-4" />
-              Home
+              <Home className="w-3.5 h-3.5 shrink-0" />
+              <span className="whitespace-nowrap">Home</span>
             </Link>
             <Link
               href="/products"
-              className={`flex items-center gap-1.5 px-3 py-2 text-sm font-medium rounded-md transition-colors ${
+              className={`flex items-center gap-1 px-2 py-2 text-xs font-medium rounded-md transition-colors whitespace-nowrap ${
                 isActive('/products')
                   ? 'text-accent-400 bg-navy-800'
                   : 'text-navy-300 hover:text-white hover:bg-navy-800'
               }`}
             >
-              <Package className="w-4 h-4" />
-              All Products
+              <Package className="w-3.5 h-3.5 shrink-0" />
+              <span className="whitespace-nowrap">All Products</span>
             </Link>
 
             {/* Category dropdowns */}
@@ -283,14 +283,14 @@ const Navbar = () => {
                 >
                   <button
                     onClick={() => router.push(`/products?category=${cat.slug}`)}
-                    className={`flex items-center gap-1.5 px-3 py-2 text-sm font-medium rounded-md transition-colors ${
+                    className={`flex items-center gap-1 px-2 py-2 text-xs font-medium rounded-md transition-colors whitespace-nowrap ${
                       isCatActive
                         ? 'text-accent-400 bg-navy-800'
                         : 'text-navy-300 hover:text-white hover:bg-navy-800'
                     }`}
                   >
-                    <CatIcon className="w-4 h-4" />
-                    {cat.name}
+                    <CatIcon className="w-3.5 h-3.5 shrink-0" />
+                    <span className="whitespace-nowrap">{cat.name}</span>
                     {hasChildren && (
                       <ChevronDown className={`w-3.5 h-3.5 transition-transform ${isOpen ? 'rotate-180' : ''}`} />
                     )}
