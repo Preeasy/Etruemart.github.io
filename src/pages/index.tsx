@@ -123,15 +123,17 @@ function getDynamicBadge(slug: string, index: number, count: number): string | n
   return null;
 }
 
-const Home = ({ products, categories, categoryProductsMap }: { products: Product[]; categories: CategoryInfo[]; categoryProductsMap: Record<string, Product[]> }) => {
+const Home = ({ products, newArrivals, categories, categoryProductsMap }: { products: Product[]; newArrivals: Product[]; categories: CategoryInfo[]; categoryProductsMap: Record<string, Product[]> }) => {
   const [showMobileCats, setShowMobileCats] = useState(false);
   const slugToProduct = new Map(products.map((p) => [p.slug, p]));
   const topDeals = products.slice(0, 7);
 
-  // New Arrivals: 6 most recently added products
-  const newArrivals = [...products]
-    .sort((a, b) => new Date(b.createdAt || '0').getTime() - new Date(a.createdAt || '0').getTime())
-    .slice(0, 6);
+  // Fallback: if newArrivals is empty, compute from products
+  const effectiveNewArrivals = newArrivals && newArrivals.length > 0
+    ? newArrivals
+    : [...products]
+        .sort((a, b) => new Date(b.createdAt || '0').getTime() - new Date(a.createdAt || '0').getTime())
+        .slice(0, 6);
 
   // Hero collage: pick visually appealing products from aesthetic categories
   const heroPreferredSlugs = ['fashion-jewelry', 'garment-accessories', 'bags', 'home-decor-crafts', 'beauty-personal-care', 'kitchen-supplies'];
@@ -378,7 +380,7 @@ const Home = ({ products, categories, categoryProductsMap }: { products: Product
               )}
 
               {/* New Arrivals — latest 6 products */}
-              {newArrivals.length > 0 && (
+              {effectiveNewArrivals.length > 0 && (
                 <section className="border border-ink-200 rounded-2xl overflow-hidden bg-gradient-to-br from-accent-50/40 to-white shadow-soft">
                   <div className="px-5 py-4 border-b border-ink-100 flex items-center justify-between">
                     <div className="flex items-center gap-2.5">
@@ -395,7 +397,7 @@ const Home = ({ products, categories, categoryProductsMap }: { products: Product
                     </Link>
                   </div>
                   <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-px bg-ink-100">
-                    {newArrivals.map((p) => (
+                    {effectiveNewArrivals.map((p) => (
                       <Link key={p.id} href={`/products/${p.slug || p.id}`} className="group bg-white p-3.5 hover:bg-ink-50 transition-colors">
                         <div className="relative aspect-square bg-white rounded-lg overflow-hidden mb-2.5 border border-ink-100 group-hover:border-navy-900 transition-colors">
                           <span className="absolute top-1.5 left-1.5 bg-accent-500 text-white text-[9px] font-bold px-1.5 py-0.5 rounded tracking-wide uppercase z-10">New</span>
@@ -713,6 +715,7 @@ export const getServerSideProps = async () => {
           moq: Number(p.moq) || 1,
           sku: p.sku || null,
           color: p.color || null,
+          createdAt: p.createdAt,
           keywords: [],
           bulletPoints: [],
           isParent: p.isParent === true,
@@ -724,6 +727,13 @@ export const getServerSideProps = async () => {
 
       // Top 50 products for hero/trending
       const products = sorted.map(formatProduct);
+
+      // New Arrivals: 6 latest products by createdAt (from ALL products, not just top 50)
+      const newArrivals = filterListOnly([...rawProducts])
+        .filter((p: any) => Number(p.price ?? 0) > 0 || Number(p.priceMin ?? 0) > 0 || Number(p.priceMax ?? 0) > 0)
+        .sort((a, b) => new Date(b.createdAt || '0').getTime() - new Date(a.createdAt || '0').getTime())
+        .slice(0, 6)
+        .map(formatProduct);
 
       // Top 5 products per root category (for "Shop by Category" blocks) — 过滤掉子产品
       const sortedAll = filterListOnly([...rawProducts])
@@ -741,11 +751,11 @@ export const getServerSideProps = async () => {
         categoryProductsMap[rootCat.slug] = catProducts;
       }
 
-      return { props: { products, categories: rootCategories, categoryProductsMap } };
+      return { props: { products, newArrivals, categories: rootCategories, categoryProductsMap } };
     }
 
     // Vercel fallback: seed-data.json not available, return empty gracefully
-    return { props: { products: [], categories: [], categoryProductsMap: {} } };
+    return { props: { products: [], newArrivals: [], categories: [], categoryProductsMap: {} } };
   }
 
   // Local dev: use SQLite
@@ -831,12 +841,20 @@ export const getServerSideProps = async () => {
         moq: p.moq || 1,
         sku: p.sku || null,
         color: p.color || null,
+        createdAt: p.createdAt,
         keywords: [],
         bulletPoints: [],
       };
     };
 
     const products = rawProducts.map(formatProductLocal);
+
+    // New Arrivals: 6 latest products by createdAt (from ALL products, not just 50)
+    const newArrivals = allRawProducts
+      .filter((p: any) => Number(p.price ?? 0) > 0 || Number(p.priceMin ?? 0) > 0 || Number(p.priceMax ?? 0) > 0)
+      .sort((a, b) => new Date(b.createdAt || '0').getTime() - new Date(a.createdAt || '0').getTime())
+      .slice(0, 6)
+      .map(formatProductLocal);
 
     // Top 5 products per root category
     const categoryProductsMap: Record<string, Product[]> = {};
@@ -851,9 +869,9 @@ export const getServerSideProps = async () => {
       categoryProductsMap[rootCat.slug] = catProducts;
     }
     
-    return { props: { products, categories: rootCategories, categoryProductsMap } };
+    return { props: { products, newArrivals, categories: rootCategories, categoryProductsMap } };
   } catch (error) {
     console.error('Error loading products:', error);
-    return { props: { products: [], categories: [], categoryProductsMap: {} } };
+    return { props: { products: [], newArrivals: [], categories: [], categoryProductsMap: {} } };
   }
 };
