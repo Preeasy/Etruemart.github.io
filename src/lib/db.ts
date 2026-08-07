@@ -84,8 +84,33 @@ export function getCategoryById(id: string): CategoryRow | null {
 
 export function getRelatedProducts(categoryId: string, excludeId: string, limit: number = 8): ProductRow[] {
   const database = getDatabase();
-  const stmt = database.prepare('SELECT * FROM products WHERE categoryId = ? AND id != ? LIMIT ?');
-  return stmt.all(categoryId, excludeId, limit) as ProductRow[];
+  // Step 1: get same-category products with price > 0
+  let products: any[] = [];
+  try {
+    const sameCatStmt = database.prepare(
+      'SELECT * FROM products WHERE categoryId = ? AND id != ? AND price > 0 ORDER BY RANDOM() LIMIT ?'
+    );
+    products = sameCatStmt.all(categoryId, excludeId, limit) as any[];
+  } catch (e) {
+    // Fallback
+  }
+  if (products.length >= limit) return products;
+
+  // Step 2: fill remaining with any products with price > 0
+  const need = limit - products.length;
+  const existingIds = new Set([String(excludeId), ...products.map((p: any) => String(p.id))]);
+  try {
+    const restStmt = database.prepare('SELECT * FROM products WHERE price > 0 ORDER BY RANDOM() LIMIT ?');
+    const rest = restStmt.all(need * 3) as any[];
+    for (const p of rest) {
+      if (products.length >= limit) break;
+      if (!existingIds.has(String(p.id))) {
+        products.push(p);
+        existingIds.add(String(p.id));
+      }
+    }
+  } catch (e) { /* ignore */ }
+  return products;
 }
 
 export function getAllCategories(): CategoryRow[] {

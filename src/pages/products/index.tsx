@@ -177,8 +177,10 @@ const Products = () => {
 
     const price = Number(product.priceMin);
     const matchesPrice = price >= priceRange[0] && price <= priceRange[1];
+    // Hide invalid products with zero price
+    const hasValidPrice = price > 0 || (Number(product.priceMax ?? 0) > 0);
 
-    return matchesSearch && matchesCategory && matchesMaterial && matchesPlating && matchesPrice;
+    return hasValidPrice && matchesSearch && matchesCategory && matchesMaterial && matchesPlating && matchesPrice;
   }), [products, searchQuery, selectedCategory, categorySlugMap, selectedMaterial, selectedPlating, priceRange]);
 
   const sortedProducts = useMemo(() => {

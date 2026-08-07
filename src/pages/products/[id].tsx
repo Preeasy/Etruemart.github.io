@@ -34,6 +34,10 @@ import {
   Settings,
   CreditCard,
   Clock,
+  Send,
+  Building2,
+  Phone,
+  Globe,
 } from 'lucide-react';
 import Layout from '@/components/Layout';
 import ProductCard from '@/components/ProductCard';
@@ -252,6 +256,18 @@ export default function ProductDetail({ product: initialProduct, relatedProducts
   const [addingToCart, setAddingToCart] = useState(false);
   const [cartNotice, setCartNotice] = useState<{ type: 'success' | 'error'; message: string } | null>(null);
   const [ownership, setOwnership] = useState<{ isOwner: boolean; canManage: boolean; productId: string | null } | null>(null);
+  const [isQuoteModalOpen, setIsQuoteModalOpen] = useState(false);
+  const [quoteForm, setQuoteForm] = useState({
+    name: '',
+    company: '',
+    email: '',
+    phone: '',
+    country: '',
+    quantity: String(initialProduct.moq || 12),
+    message: '',
+  });
+  const [quoteSubmitting, setQuoteSubmitting] = useState(false);
+  const [quoteNotice, setQuoteNotice] = useState<{ type: 'success' | 'error'; message: string } | null>(null);
 
   // Variant group — passed from server or computed on client
   const effectiveVariantGroup = clientVariantGroup || variantGroup || null;
@@ -680,30 +696,36 @@ export default function ProductDetail({ product: initialProduct, relatedProducts
 
           <div className="lg:col-span-6">
             {/* Get a Quote button */}
-            <button className="mb-3 inline-flex items-center gap-1.5 px-4 py-1.5 rounded-lg border border-ink-300 text-xs font-semibold text-ink-700 hover:bg-ink-50 transition-colors">
-              <MessageCircle className="w-3.5 h-3.5" /> Get a Quote
+            <button
+              onClick={() => {
+                setQuoteForm(f => ({ ...f, quantity: String(quantity || f.quantity) }));
+                setIsQuoteModalOpen(true);
+              }}
+              className="mb-3 inline-flex items-center gap-1.5 px-5 py-2 rounded-xl border border-accent-300 text-[13px] font-bold text-accent-700 hover:bg-accent-50 transition-colors shadow-sm"
+            >
+              <MessageCircle className="w-4 h-4" /> Get a Quote
             </button>
 
             {/* Title */}
-            <h1 className="text-xl md:text-2xl font-bold text-navy-900 leading-tight mb-2">{product.name}</h1>
+            <h1 className="text-2xl md:text-[28px] font-bold text-navy-900 leading-tight mb-2.5">{product.name}</h1>
 
             {/* Category | SKU */}
-            <div className="flex items-center gap-2 flex-wrap mb-5">
+            <div className="flex items-center gap-2.5 flex-wrap mb-6">
               {product.category && (
-                <Link href={`/products?category=${product.category.slug}`} className="text-[11px] text-ink-500 hover:text-accent-600 transition-colors">
+                <Link href={`/products?category=${product.category.slug}`} className="text-xs text-ink-500 hover:text-accent-600 transition-colors">
                   Category: <span className="font-semibold text-navy-800">{product.category.name}</span>
                 </Link>
               )}
               {product.sku && (
                 <>
                   <span className="text-ink-300">|</span>
-                  <span className="text-[11px] text-ink-500">SKU: <span className="font-mono font-semibold text-navy-800">{product.sku}</span></span>
+                  <span className="text-xs text-ink-500">SKU: <span className="font-mono font-semibold text-navy-800">{product.sku}</span></span>
                 </>
               )}
             </div>
 
             {/* Price display: show interval when variants exist, specific price when selected */}
-            <div className="mb-4">
+            <div className="mb-5">
               {(() => {
                 const hasVariants = effectiveVariantGroup && effectiveVariantGroup.variants.length > 1;
                 if (hasVariants) {
@@ -751,25 +773,25 @@ export default function ProductDetail({ product: initialProduct, relatedProducts
             {(() => {
               const hasHtml = product.description && (product.description.includes('<') || product.description.includes('&'));
               if (hasHtml) {
-                const { __html } = truncateDescriptionHtml(product.description!, 200);
+                const { __html } = truncateDescriptionHtml(product.description!, 260);
                 const hasContent = __html && __html.replace(/<[^>]+>/g, '').replace(/&nbsp;/g, ' ').trim().length > 0;
                 if (!hasContent) {
                   return (
-                    <p className="text-xs text-ink-600 leading-relaxed mb-4 line-clamp-3">
+                    <p className="text-sm text-ink-600 leading-relaxed mb-5 line-clamp-4">
                       {getDescriptionFallback(product)}
                     </p>
                   );
                 }
                 return (
                   <div
-                    className="text-xs text-ink-600 leading-relaxed mb-4 line-clamp-3 [&_p]:!m-0 [&_p]:!mb-0 [&_strong]:text-ink-700 [&_strong]:font-semibold"
+                    className="text-sm text-ink-600 leading-relaxed mb-5 line-clamp-4 [&_p]:!m-0 [&_p]:!mb-0 [&_strong]:text-ink-700 [&_strong]:font-semibold"
                     dangerouslySetInnerHTML={{ __html }}
                   />
                 );
               }
               return (
-                <p className="text-xs text-ink-600 leading-relaxed mb-4 line-clamp-3">
-                  {product.description?.slice(0, 200) || getDescriptionFallback(product)}
+                <p className="text-sm text-ink-600 leading-relaxed mb-5 line-clamp-4">
+                  {product.description?.slice(0, 260) || getDescriptionFallback(product)}
                 </p>
               );
             })()}
@@ -1118,6 +1140,243 @@ export default function ProductDetail({ product: initialProduct, relatedProducts
         </div>
       </div>
 
+      {/* Get a Quote Modal */}
+      {isQuoteModalOpen && (
+        <div className="fixed inset-0 z-[60] bg-black/60 backdrop-blur-sm flex items-center justify-center p-4" onClick={() => { setIsQuoteModalOpen(false); setQuoteNotice(null); }}>
+          <div
+            className="bg-white rounded-2xl shadow-2xl w-full max-w-lg max-h-[90vh] overflow-y-auto"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Header */}
+            <div className="flex items-start justify-between gap-4 px-6 py-5 border-b border-ink-100 bg-gradient-to-r from-accent-500/5 to-navy-500/5">
+              <div>
+                <h3 className="text-lg font-bold text-navy-900">Request a Quote</h3>
+                <p className="text-xs text-ink-500 mt-1">Fill in the form and we'll email our best wholesale offer to you.</p>
+              </div>
+              <button
+                onClick={() => { setIsQuoteModalOpen(false); setQuoteNotice(null); }}
+                aria-label="Close quote form"
+                className="p-2 rounded-lg text-ink-500 hover:text-navy-900 hover:bg-ink-100 transition-colors -mt-1 -mr-2"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+
+            {/* Product summary */}
+            <div className="px-6 py-4 border-b border-ink-100 bg-ink-50/50">
+              <div className="flex gap-3 items-center">
+                <div className="w-14 h-14 rounded-lg overflow-hidden border border-ink-100 bg-white flex-shrink-0">
+                  <img src={images[0] || product.image} alt={product.name} className="w-full h-full object-cover" onError={(e) => { (e.currentTarget as HTMLImageElement).style.visibility = 'hidden'; }} />
+                </div>
+                <div className="min-w-0">
+                  <div className="text-sm font-bold text-navy-900 truncate">{product.name}</div>
+                  <div className="text-[11px] text-ink-500 font-mono mt-0.5">SKU: {product.sku || 'N/A'}</div>
+                  {(() => {
+                    const g = effectiveVariantGroup;
+                    if (g && g.variants.length > 1) {
+                      const ps = g.variants.map(v => v.price).filter(p => p > 0);
+                      if (ps.length > 0) {
+                        const mn = Math.min(...ps).toFixed(2);
+                        const mx = Math.max(...ps).toFixed(2);
+                        return <div className="text-[11px] text-accent-700 font-semibold mt-0.5">From ${mn} – ${mx}</div>;
+                      }
+                    }
+                    if (price > 0) return <div className="text-[11px] text-accent-700 font-semibold mt-0.5">${price.toFixed(2)}</div>;
+                    return null;
+                  })()}
+                </div>
+              </div>
+            </div>
+
+            {/* Notice */}
+            {quoteNotice && (
+              <div className={`mx-6 mt-4 px-3.5 py-2.5 rounded-lg text-xs font-semibold ${quoteNotice.type === 'success' ? 'bg-success-50 text-success-700 border border-success-200' : 'bg-red-50 text-red-700 border border-red-200'}`}>
+                {quoteNotice.message}
+              </div>
+            )}
+
+            {/* Form */}
+            <form
+              className="px-6 py-5 space-y-4"
+              onSubmit={async (e) => {
+                e.preventDefault();
+                setQuoteSubmitting(true);
+                setQuoteNotice(null);
+                try {
+                  const f = quoteForm;
+                  const productLink = typeof window !== 'undefined' ? window.location.href : '';
+                  const variantLabel = hasSelectedVariant && effectiveVariantGroup
+                    ? effectiveVariantGroup.variants.find(v => v.price === price)?.name || ''
+                    : '';
+                  // Build a structured subject
+                  const subject = encodeURIComponent(
+                    `[Quote Request] ${f.name || 'Customer'} - ${product.sku || product.name.slice(0, 40)}`
+                  );
+                  // Build email body template
+                  const body = encodeURIComponent(
+`Hi Etruemart Sales Team,
+
+I'm interested in the following product and would like a wholesale quote:
+
+━━━━━━━━━━━━━━━━━━━━━━
+PRODUCT DETAILS
+━━━━━━━━━━━━━━━━━━━━━━
+Product Name: ${product.name}
+SKU: ${product.sku || 'N/A'}
+Category: ${product.category?.name || 'N/A'}
+${variantLabel ? `Selected Variant: ${variantLabel}
+` : ''}Quantity: ${f.quantity || 'TBD'} pcs
+Unit Price (displayed): ${price > 0 ? '$' + price.toFixed(2) : 'Contact for price'}
+Page URL: ${productLink}
+
+━━━━━━━━━━━━━━━━━━━━━━
+BUYER INFORMATION
+━━━━━━━━━━━━━━━━━━━━━━
+Full Name: ${f.name || '—'}
+Company: ${f.company || '—'}
+Email: ${f.email || '—'}
+Phone: ${f.phone || '—'}
+Country / Region: ${f.country || '—'}
+
+━━━━━━━━━━━━━━━━━━━━━━
+MESSAGE
+━━━━━━━━━━━━━━━━━━━━━━
+${f.message || '(no additional message)'}
+
+━━━━━━━━━━━━━━━━━━━━━━
+Please reply with:
+  • Ex-factory unit price at the requested quantity
+  • Any bulk tier pricing
+  • MOQ / MOQ flexibility
+  • Lead time (production + sample if applicable)
+  • Packing details & carton specs
+  • Shipping options to ${f.country || 'our country'}
+  • Payment terms
+
+Thank you,
+${f.name || 'Customer'}
+${f.company ? f.company + '\n' : ''}`
+                  );
+
+                  const mailto = `mailto:info@yeatru.com?subject=${subject}&body=${body}`;
+
+                  // Open the user's email client with the pre-filled message
+                  window.location.href = mailto;
+
+                  // Show success message and close after a short delay
+                  setQuoteNotice({ type: 'success', message: 'Your email client has been opened with the pre-filled quote request. Please review and send to info@yeatru.com. Thank you!' });
+                } catch (err: any) {
+                  setQuoteNotice({ type: 'error', message: 'Unable to open email client. Please send your request directly to info@yeatru.com.' });
+                } finally {
+                  setQuoteSubmitting(false);
+                }
+              }}
+            >
+              <div className="grid grid-cols-2 gap-3">
+                <div>
+                  <label className="block text-[11px] font-semibold text-navy-800 mb-1.5">Full Name <span className="text-red-500">*</span></label>
+                  <input
+                    required
+                    type="text"
+                    value={quoteForm.name}
+                    onChange={(e) => setQuoteForm(f => ({ ...f, name: e.target.value }))}
+                    placeholder="John Smith"
+                    className="w-full px-3 py-2.5 rounded-lg border border-ink-200 bg-white text-sm text-navy-900 placeholder:text-ink-400 focus:border-accent-500 focus:ring-2 focus:ring-accent-500/20 outline-none transition"
+                  />
+                </div>
+                <div>
+                  <label className="block text-[11px] font-semibold text-navy-800 mb-1.5 flex items-center gap-1"><Building2 className="w-3 h-3" />Company</label>
+                  <input
+                    type="text"
+                    value={quoteForm.company}
+                    onChange={(e) => setQuoteForm(f => ({ ...f, company: e.target.value }))}
+                    placeholder="Your company name"
+                    className="w-full px-3 py-2.5 rounded-lg border border-ink-200 bg-white text-sm text-navy-900 placeholder:text-ink-400 focus:border-accent-500 focus:ring-2 focus:ring-accent-500/20 outline-none transition"
+                  />
+                </div>
+              </div>
+
+              <div className="grid grid-cols-2 gap-3">
+                <div>
+                  <label className="block text-[11px] font-semibold text-navy-800 mb-1.5">Email Address <span className="text-red-500">*</span></label>
+                  <input
+                    required
+                    type="email"
+                    value={quoteForm.email}
+                    onChange={(e) => setQuoteForm(f => ({ ...f, email: e.target.value }))}
+                    placeholder="you@example.com"
+                    className="w-full px-3 py-2.5 rounded-lg border border-ink-200 bg-white text-sm text-navy-900 placeholder:text-ink-400 focus:border-accent-500 focus:ring-2 focus:ring-accent-500/20 outline-none transition"
+                  />
+                </div>
+                <div>
+                  <label className="block text-[11px] font-semibold text-navy-800 mb-1.5 flex items-center gap-1"><Phone className="w-3 h-3" />Phone</label>
+                  <input
+                    type="tel"
+                    value={quoteForm.phone}
+                    onChange={(e) => setQuoteForm(f => ({ ...f, phone: e.target.value }))}
+                    placeholder="+1 (optional)"
+                    className="w-full px-3 py-2.5 rounded-lg border border-ink-200 bg-white text-sm text-navy-900 placeholder:text-ink-400 focus:border-accent-500 focus:ring-2 focus:ring-accent-500/20 outline-none transition"
+                  />
+                </div>
+              </div>
+
+              <div className="grid grid-cols-2 gap-3">
+                <div>
+                  <label className="block text-[11px] font-semibold text-navy-800 mb-1.5 flex items-center gap-1"><Globe className="w-3 h-3" />Country</label>
+                  <input
+                    type="text"
+                    value={quoteForm.country}
+                    onChange={(e) => setQuoteForm(f => ({ ...f, country: e.target.value }))}
+                    placeholder="United States"
+                    className="w-full px-3 py-2.5 rounded-lg border border-ink-200 bg-white text-sm text-navy-900 placeholder:text-ink-400 focus:border-accent-500 focus:ring-2 focus:ring-accent-500/20 outline-none transition"
+                  />
+                </div>
+                <div>
+                  <label className="block text-[11px] font-semibold text-navy-800 mb-1.5">Qty (pcs) <span className="text-red-500">*</span></label>
+                  <input
+                    required
+                    type="number"
+                    min="1"
+                    value={quoteForm.quantity}
+                    onChange={(e) => setQuoteForm(f => ({ ...f, quantity: e.target.value }))}
+                    placeholder="12"
+                    className="w-full px-3 py-2.5 rounded-lg border border-ink-200 bg-white text-sm text-navy-900 placeholder:text-ink-400 focus:border-accent-500 focus:ring-2 focus:ring-accent-500/20 outline-none transition"
+                  />
+                </div>
+              </div>
+
+              <div>
+                <label className="block text-[11px] font-semibold text-navy-800 mb-1.5">Message</label>
+                <textarea
+                  value={quoteForm.message}
+                  onChange={(e) => setQuoteForm(f => ({ ...f, message: e.target.value }))}
+                  rows={3}
+                  placeholder="Tell us about your needs: target price, customization, lead time, sample request, etc."
+                  className="w-full px-3 py-2.5 rounded-lg border border-ink-200 bg-white text-sm text-navy-900 placeholder:text-ink-400 focus:border-accent-500 focus:ring-2 focus:ring-accent-500/20 outline-none transition resize-none"
+                />
+              </div>
+
+              <div className="pt-1">
+                <button
+                  type="submit"
+                  disabled={quoteSubmitting}
+                  className="w-full inline-flex items-center justify-center gap-2 bg-accent-600 hover:bg-accent-700 disabled:opacity-50 disabled:cursor-not-allowed text-white py-3 rounded-xl font-bold text-sm transition-colors shadow-sm"
+                >
+                  {quoteSubmitting ? (
+                    <><div className="animate-spin w-4 h-4 border-2 border-white border-t-transparent rounded-full" />Sending...</>
+                  ) : (
+                    <><Send className="w-4 h-4" />Send Quote Request to info@yeatru.com</>
+                  )}
+                </button>
+                <p className="mt-3 text-[10px] text-ink-400 text-center leading-relaxed">
+                  By clicking "Send Quote Request", your email client will open with a pre-filled message addressed to info@yeatru.com. Simply review and press send.
+                </p>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+
       {/* Lightbox */}
       {isLightboxOpen && (
         <div className="fixed inset-0 z-50 bg-black/90 flex items-center justify-center" onClick={() => setIsLightboxOpen(false)}>
@@ -1237,9 +1496,26 @@ function findProductFromSeed(productId: string) {
     return result;
   };
   const validSlugs = new Set(getDescendantSlugs(rootSlug));
-  const relatedProducts = products
-    .filter((p: any) => validSlugs.has(p.categoryId) && p.id !== product.id)
-    .slice(0, 8);
+  const pid = String(product.id);
+  // 1) Same category + price > 0
+  let sameCat: any[] = products.filter((p: any) =>
+    validSlugs.has(p.categoryId) && String(p.id) !== pid &&
+    (Number(p.price ?? 0) > 0 || Number(p.priceMin ?? 0) > 0 || Number(p.priceMax ?? 0) > 0)
+  );
+  // 2) Fill with any products price > 0 if same category isn't enough
+  let relatedProducts = [...sameCat];
+  if (relatedProducts.length < 8) {
+    const existingIds = new Set([pid, ...relatedProducts.map((p: any) => String(p.id))]);
+    const rest = products.filter((p: any) =>
+      !existingIds.has(String(p.id)) &&
+      (Number(p.price ?? 0) > 0 || Number(p.priceMin ?? 0) > 0 || Number(p.priceMax ?? 0) > 0)
+    );
+    for (const p of rest) {
+      if (relatedProducts.length >= 8) break;
+      relatedProducts.push(p);
+    }
+  }
+  relatedProducts = relatedProducts.slice(0, 8);
 
   // Parse images
   let images: string[] = [];

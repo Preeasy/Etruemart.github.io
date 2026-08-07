@@ -156,12 +156,12 @@ const Home = ({ products, categories, categoryProductsMap }: { products: Product
                       <Sparkles className="w-3 h-3" />
                       Direct from Yiwu Factories
                     </div>
-                    <h1 className="hero-headline text-3xl md:text-5xl text-white mb-4 tracking-tight">
-                      Wholesale Jewelry,<br />
-                      <span className="text-gradient-accent">Toys &amp; Accessories</span>
+                    <h1 className="hero-headline text-3xl md:text-[56px] text-white mb-4 tracking-tight leading-[1.05]">
+                      Yiwu Wholesale<br />
+                      <span className="text-gradient-accent">Factory-Direct Prices</span>
                     </h1>
-                    <p className="text-navy-200 text-sm md:text-base mb-7 leading-relaxed max-w-md">
-                      Factory-direct pricing · Low MOQ starting 12 pcs · Global shipping to 180+ countries
+                    <p className="text-navy-200 text-sm md:text-[15px] mb-7 leading-relaxed max-w-lg">
+                      50,000+ verified products sourced directly from Yiwu factories. Low MOQ from 12 pcs · Global shipping to 180+ countries
                     </p>
                     <div className="flex flex-col sm:flex-row gap-3 justify-center lg:justify-start">
                       <Link
@@ -178,22 +178,69 @@ const Home = ({ products, categories, categoryProductsMap }: { products: Product
                       </Link>
                     </div>
                   </div>
-                  <div className="w-full lg:w-[26rem] flex-shrink-0">
-                    <div className="relative w-full aspect-[4/3] rounded-2xl overflow-hidden border border-white/10 shadow-premium bg-white/5">
-                      <img
-                        src={topDeals[0]?.image || products[0]?.image || ''}
-                        alt="Wholesale Products"
-                        className="w-full h-full object-contain p-4"
-                        onError={(e) => {
-                          const el = e.currentTarget as HTMLImageElement;
-                          if (!el.dataset.fallback) {
-                            el.dataset.fallback = '1';
-                            const svg = `data:image/svg+xml;charset=UTF-8,${encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300"><defs><linearGradient id="gh" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#1a2d47"/><stop offset="100%" stop-color="#0f1f32"/></linearGradient></defs><rect fill="url(#gh)" width="400" height="300"/><rect x="30" y="40" width="340" height="220" rx="12" fill="white" stroke="#2d4263" stroke-width="2"/><circle cx="120" cy="100" r="24" fill="#f0834c"/><path d="M60 220 L130 140 L180 180 L240 110 L300 170 L360 100 L390 220 Z" fill="#2d4263"/><text x="200" y="280" text-anchor="middle" font-family="sans-serif" font-size="16" fill="#f5f7fa" font-weight="bold">Wholesale Products from Yiwu</text></svg>`)}`;
-                            el.src = svg;
-                          }
-                        }}
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-navy-950/30 to-transparent pointer-events-none" />
+                  <div className="w-full lg:w-[28rem] flex-shrink-0">
+                    <div className="relative w-full aspect-[4/3] rounded-2xl overflow-hidden border border-white/10 shadow-premium bg-gradient-to-br from-white via-slate-50 to-blue-50">
+                      {/* Clean stylish minimal photo grid collage */}
+                      <div className="absolute inset-0 p-5 grid grid-cols-2 grid-rows-3 gap-3">
+                        {/* Top left - bags */}
+                        <div className="row-span-2 rounded-xl overflow-hidden shadow-sm ring-1 ring-black/5 bg-white">
+                          <img
+                            src={topDeals.find(p => Number(p.priceMin) > 0)?.image || products.find(p => Number(p.priceMin) > 0)?.image || ''}
+                            alt="Featured Product 1"
+                            className="w-full h-full object-cover"
+                            onError={(e) => {
+                              const el = e.currentTarget as HTMLImageElement;
+                              el.style.display = 'none';
+                              el.parentElement!.style.background = 'linear-gradient(135deg,#fef3c7,#fed7aa)';
+                            }}
+                          />
+                        </div>
+                        {/* Top right - jewelry */}
+                        <div className="rounded-xl overflow-hidden shadow-sm ring-1 ring-black/5 bg-white">
+                          <img
+                            src={topDeals.slice(1).find(p => Number(p.priceMin) > 0)?.image || products.slice(1).find(p => Number(p.priceMin) > 0)?.image || ''}
+                            alt="Featured Product 2"
+                            className="w-full h-full object-cover"
+                            onError={(e) => {
+                              const el = e.currentTarget as HTMLImageElement;
+                              el.style.display = 'none';
+                              el.parentElement!.style.background = 'linear-gradient(135deg,#dbeafe,#c7d2fe)';
+                            }}
+                          />
+                        </div>
+                        {/* Middle right - toys */}
+                        <div className="rounded-xl overflow-hidden shadow-sm ring-1 ring-black/5 bg-white">
+                          <img
+                            src={topDeals.slice(2).find(p => Number(p.priceMin) > 0)?.image || products.slice(2).find(p => Number(p.priceMin) > 0)?.image || ''}
+                            alt="Featured Product 3"
+                            className="w-full h-full object-cover"
+                            onError={(e) => {
+                              const el = e.currentTarget as HTMLImageElement;
+                              el.style.display = 'none';
+                              el.parentElement!.style.background = 'linear-gradient(135deg,#dcfce7,#bbf7d0)';
+                            }}
+                          />
+                        </div>
+                        {/* Bottom - wide */}
+                        <div className="col-span-2 rounded-xl overflow-hidden shadow-sm ring-1 ring-black/5 bg-white">
+                          <img
+                            src={topDeals.slice(3).find(p => Number(p.priceMin) > 0)?.image || products.slice(3).find(p => Number(p.priceMin) > 0)?.image || ''}
+                            alt="Featured Product 4"
+                            className="w-full h-full object-cover"
+                            onError={(e) => {
+                              const el = e.currentTarget as HTMLImageElement;
+                              el.style.display = 'none';
+                              el.parentElement!.style.background = 'linear-gradient(135deg,#fce7f3,#fbcfe8)';
+                            }}
+                          />
+                        </div>
+                      </div>
+                      {/* Floating badge */}
+                      <div className="absolute top-3 right-3 z-10 bg-white/95 backdrop-blur rounded-lg px-3 py-1.5 shadow-md ring-1 ring-black/5 flex items-center gap-1.5">
+                        <div className="w-2 h-2 rounded-full bg-success-500 animate-pulse" />
+                        <span className="text-[10px] font-bold text-navy-900">Factory-Direct · Yiwu</span>
+                      </div>
+                      <div className="absolute inset-0 bg-gradient-to-t from-navy-950/20 via-transparent to-transparent pointer-events-none rounded-2xl" />
                     </div>
                   </div>
                 </div>
@@ -498,8 +545,9 @@ export const getServerSideProps = async () => {
           };
         });
       };
-      // Sort by salesCount descending (or by id as fallback) and take top 50
+      // Sort by salesCount descending (or by id as fallback), drop price=0 invalid, take top 50
       const sorted = filterListOnly([...rawProducts])
+        .filter((p: any) => Number(p.price ?? 0) > 0 || Number(p.priceMin ?? 0) > 0 || Number(p.priceMax ?? 0) > 0)
         .sort((a, b) => (b.salesCount || 0) - (a.salesCount || 0))
         .slice(0, 50);
 
@@ -614,7 +662,9 @@ export const getServerSideProps = async () => {
       const products = sorted.map(formatProduct);
 
       // Top 5 products per root category (for "Shop by Category" blocks) — 过滤掉子产品
-      const sortedAll = filterListOnly([...rawProducts]).sort((a, b) => (b.salesCount || 0) - (a.salesCount || 0));
+      const sortedAll = filterListOnly([...rawProducts])
+        .filter((p: any) => Number(p.price ?? 0) > 0 || Number(p.priceMin ?? 0) > 0 || Number(p.priceMax ?? 0) > 0)
+        .sort((a, b) => (b.salesCount || 0) - (a.salesCount || 0));
       const categoryProductsMap: Record<string, Product[]> = {};
       for (const rootCat of rootCategories) {
         const catProducts = sortedAll
