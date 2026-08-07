@@ -75,10 +75,8 @@ export default function Document() {
               description: SITE_DESCRIPTION,
               address: {
                 '@type': 'PostalAddress',
-                streetAddress: 'Yiwu International Trade City, Chouzhou Road',
                 addressLocality: 'Yiwu',
                 addressRegion: 'Zhejiang',
-                postalCode: '322000',
                 addressCountry: 'CN',
               },
               geo: {
@@ -115,10 +113,8 @@ export default function Document() {
               priceRange: '$$',
               address: {
                 '@type': 'PostalAddress',
-                streetAddress: 'Yiwu International Trade City, Chouzhou Road',
                 addressLocality: 'Yiwu',
                 addressRegion: 'Zhejiang',
-                postalCode: '322000',
                 addressCountry: 'CN',
               },
               geo: {
