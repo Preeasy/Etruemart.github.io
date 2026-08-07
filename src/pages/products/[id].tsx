@@ -46,6 +46,7 @@ import { proxyImageUrl as proxyImageUrlDirect } from '@/lib/image-utils';
 import { computeBulletPoints } from '@/lib/bullet-points';
 import { buildVariantGroups, getVariantGroupForProductId } from '@/lib/variants';
 import VariantSelector from '@/components/VariantSelector';
+import AplusRenderer from '@/components/AplusRenderer';
 
 interface Product {
   id: number | string;
@@ -83,6 +84,7 @@ interface Product {
     bulletPoints?: string[];
     blocks?: { id?: string; type: string; content: string; caption?: string }[];
   } | null;
+  aplusBlocks?: { type: string; heading?: string; text?: string; image?: string }[];
 }
 
 function cleanDescription(desc: string): string {
@@ -148,6 +150,9 @@ export default function ProductDetail({ product: initialProduct, relatedProducts
     return !isKeyFeaturesBlock && !isSpecsBlock;
   });
   const hasAplusContent = !!(product.aplus && (product.aplus.description || filteredAplusBlocks.length > 0));
+  // New format: flat array of {type, heading, text, image} blocks
+  const aplusBlocks = product.aplusBlocks || [];
+  const hasNewAplus = aplusBlocks.length > 0;
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -186,6 +191,7 @@ export default function ProductDetail({ product: initialProduct, relatedProducts
                 ? data.bulletPoints
                 : (data.aplus?.bulletPoints || []),
               aplus: data.aplus || null,
+              aplusBlocks: Array.isArray(data.aplusBlocks) ? data.aplusBlocks : [],
             });
             setQuantity(data.moq || initialProduct.moq || 12);
           }
@@ -670,59 +676,66 @@ export default function ProductDetail({ product: initialProduct, relatedProducts
             <div className="py-1">
               {activeTab === 'description' && (
                 <div className="space-y-6">
-                  <div>
-                    <h2 className="text-lg font-bold text-navy-900 mb-3 flex items-center gap-2">
-                      <FileCheck className="w-5 h-5 text-accent-500" />
-                      Product Overview
-                    </h2>
-                    <div className="text-sm text-ink-700 leading-relaxed prose prose-sm max-w-none [&_p]:mb-3 [&_strong]:text-navy-800 [&_a]:text-accent-600 [&_h3]:text-base [&_h3]:font-bold [&_h3]:text-navy-800 [&_h3]:mb-2" dangerouslySetInnerHTML={{ __html: cleanDescription(product.description || '') }} />
-                  </div>
+                  {/* A+ Content (new format) — rich blocks from site-data.json */}
+                  {hasNewAplus ? (
+                    <AplusRenderer blocks={aplusBlocks} />
+                  ) : (
+                    <>
+                      <div>
+                        <h2 className="text-lg font-bold text-navy-900 mb-3 flex items-center gap-2">
+                          <FileCheck className="w-5 h-5 text-accent-500" />
+                          Product Overview
+                        </h2>
+                        <div className="text-sm text-ink-700 leading-relaxed prose prose-sm max-w-none [&_p]:mb-3 [&_strong]:text-navy-800 [&_a]:text-accent-600 [&_h3]:text-base [&_h3]:font-bold [&_h3]:text-navy-800 [&_h3]:mb-2" dangerouslySetInnerHTML={{ __html: cleanDescription(product.description || '') }} />
+                      </div>
 
-                  {product.bulletPoints && product.bulletPoints.length > 0 && (
-                    <div className="bg-gradient-to-br from-ink-50 to-white rounded-xl p-5 border border-ink-100">
-                      <h3 className="text-base font-bold text-navy-800 mb-4 flex items-center gap-2">
-                        <CheckCircle2 className="w-5 h-5 text-accent-500" />
-                        Key Features
-                      </h3>
-                      <ul className="space-y-2.5">
-                        {product.bulletPoints.map((bp, i) => (
-                          <li key={i} className="flex items-start gap-3">
-                            <div className="w-5 h-5 rounded-full bg-accent-500/10 flex items-center justify-center flex-shrink-0 mt-0.5">
-                              <CheckCircle2 className="w-3.5 h-3.5 text-accent-600" />
-                            </div>
-                            <span className="text-sm text-ink-700 leading-relaxed font-medium">{bp}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  )}
-
-                  {hasAplusContent && (
-                    <div className="p-5 bg-gradient-to-br from-accent-500/5 to-navy-500/5 rounded-xl border border-accent-200/20">
-                      <h3 className="text-base font-bold text-navy-800 mb-4 flex items-center gap-2">
-                        <Layers className="w-5 h-5 text-accent-500" />
-                        Premium Product Content
-                      </h3>
-                      {product.aplus?.description && (
-                        <p className="text-sm text-ink-700 leading-relaxed mb-4">{product.aplus.description}</p>
-                      )}
-                      {filteredAplusBlocks.length > 0 && (
-                        <div className="space-y-3">
-                          {filteredAplusBlocks.map((block: any, i: number) => (
-                            <div key={block.id || i} className="p-4 bg-white rounded-lg border border-ink-100">
-                              {block.type === 'image' ? (
-                                <img src={block.content} alt={block.caption || ''} className="w-full max-h-64 object-cover rounded-lg" />
-                              ) : (
-                                <div className="text-sm text-ink-700 leading-relaxed prose prose-sm max-w-none" dangerouslySetInnerHTML={{ __html: block.content || '' }} />
-                              )}
-                              {block.caption && (
-                                <p className="text-xs text-ink-500 mt-2 text-center italic">{block.caption}</p>
-                              )}
-                            </div>
-                          ))}
+                      {product.bulletPoints && product.bulletPoints.length > 0 && (
+                        <div className="bg-gradient-to-br from-ink-50 to-white rounded-xl p-5 border border-ink-100">
+                          <h3 className="text-base font-bold text-navy-800 mb-4 flex items-center gap-2">
+                            <CheckCircle2 className="w-5 h-5 text-accent-500" />
+                            Key Features
+                          </h3>
+                          <ul className="space-y-2.5">
+                            {product.bulletPoints.map((bp, i) => (
+                              <li key={i} className="flex items-start gap-3">
+                                <div className="w-5 h-5 rounded-full bg-accent-500/10 flex items-center justify-center flex-shrink-0 mt-0.5">
+                                  <CheckCircle2 className="w-3.5 h-3.5 text-accent-600" />
+                                </div>
+                                <span className="text-sm text-ink-700 leading-relaxed font-medium">{bp}</span>
+                              </li>
+                            ))}
+                          </ul>
                         </div>
                       )}
-                    </div>
+
+                      {hasAplusContent && (
+                        <div className="p-5 bg-gradient-to-br from-accent-500/5 to-navy-500/5 rounded-xl border border-accent-200/20">
+                          <h3 className="text-base font-bold text-navy-800 mb-4 flex items-center gap-2">
+                            <Layers className="w-5 h-5 text-accent-500" />
+                            Premium Product Content
+                          </h3>
+                          {product.aplus?.description && (
+                            <p className="text-sm text-ink-700 leading-relaxed mb-4">{product.aplus.description}</p>
+                          )}
+                          {filteredAplusBlocks.length > 0 && (
+                            <div className="space-y-3">
+                              {filteredAplusBlocks.map((block: any, i: number) => (
+                                <div key={block.id || i} className="p-4 bg-white rounded-lg border border-ink-100">
+                                  {block.type === 'image' ? (
+                                    <img src={block.content} alt={block.caption || ''} className="w-full max-h-64 object-cover rounded-lg" />
+                                  ) : (
+                                    <div className="text-sm text-ink-700 leading-relaxed prose prose-sm max-w-none" dangerouslySetInnerHTML={{ __html: block.content || '' }} />
+                                  )}
+                                  {block.caption && (
+                                    <p className="text-xs text-ink-500 mt-2 text-center italic">{block.caption}</p>
+                                  )}
+                                </div>
+                              ))}
+                            </div>
+                          )}
+                        </div>
+                      )}
+                    </>
                   )}
 
                   {product.keywords && product.keywords.length > 0 && (
@@ -1047,13 +1060,21 @@ function findProductFromSeed(productId: string) {
     }
   }
 
-  // Parse aplus
+  // Parse aplus — supports both old format ({blocks:[]}) and new flat array format ([{type,heading,text,image}])
   let aplus = null;
+  let aplusBlocks: { type: string; heading?: string; text?: string; image?: string }[] = [];
   if (product.aplus) {
     try {
-      aplus = typeof product.aplus === 'string'
+      const parsed = typeof product.aplus === 'string'
         ? JSON.parse(product.aplus)
         : product.aplus;
+      // New format: flat array of {type, heading, text, image}
+      if (Array.isArray(parsed)) {
+        aplusBlocks = parsed.filter((b: any) => b && typeof b.type === 'string');
+      } else if (parsed && typeof parsed === 'object') {
+        // Old format: {description, bulletPoints, blocks:[]}
+        aplus = parsed;
+      }
     } catch {
       aplus = null;
     }
@@ -1241,6 +1262,7 @@ function findProductFromSeed(productId: string) {
       keywords,
       bulletPoints,
       aplus,
+      aplusBlocks,
       stockStatus: product.stockStatus || 'IN_STOCK',
     },
     relatedProducts: relatedProducts.map((rp: any) => ({

@@ -135,10 +135,18 @@ async function getProductFromSeedData(idStr: string) {
   }
   if (!Array.isArray(keywords)) keywords = [];
 
-  // Parse aplus
+  // Parse aplus — supports both old format and new flat array format
   let aplus = product.aplus;
+  let aplusBlocks: { type: string; heading?: string; text?: string; image?: string }[] = [];
   if (typeof aplus === 'string') {
-    try { aplus = JSON.parse(aplus); } catch { aplus = null; }
+    try {
+      aplus = JSON.parse(aplus);
+    } catch { aplus = null; }
+  }
+  // New format: flat array of {type, heading, text, image}
+  if (Array.isArray(aplus)) {
+    aplusBlocks = aplus.filter((b: any) => b && typeof b.type === 'string');
+    aplus = null; // not old format
   }
 
   // Get category info - use root category
@@ -181,6 +189,7 @@ async function getProductFromSeedData(idStr: string) {
     sku: product.sku || null,
     keywords,
     aplus,
+    aplusBlocks,
     bulletPoints,
     rating: Number(product.rating) || 0,
     reviewCount: Number(product.reviewCount) || 0,
