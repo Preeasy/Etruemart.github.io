@@ -65,33 +65,32 @@ function buildCategoryMap(categories: any[]) {
     idToCat.set(cat.id, cat);
   }
 
-  // For each category, compute all descendant slugs (for filtering)
-  const getDescendantSlugs = (catIdOrSlug: string): string[] => {
-    const result = [catIdOrSlug];
+  // For a given category slug or id, return all CATEGORY IDs that fall under it (itself + all descendants)
+  // This is used for filtering: product.categoryId (an ID) must be in the resulting IDs
+  const getDescendantCategoryIds = (catIdOrSlug: string): string[] => {
     const cat = idToCat.get(catIdOrSlug) || slugToCat.get(catIdOrSlug);
-    if (!cat) return result;
+    if (!cat) return [catIdOrSlug];
 
-    // Find children (categories whose parentId is this category's id)
-    const catId = cat.id;
-    const children = categories.filter(c => c.parentId === catId);
+    const result: string[] = [cat.id];
+    const children = categories.filter(c => c.parentId === cat.id);
     for (const child of children) {
-      result.push(...getDescendantSlugs(child.slug));
+      result.push(...getDescendantCategoryIds(child.id));
     }
     return result;
   };
 
-  // Also build parent lookup: for each category id/slug, find the root slug
-  const getRootSlug = (catIdOrSlug: string): string => {
+  // Also build parent lookup: for each category id, find the root category
+  const getRootCat = (catIdOrSlug: string): any | null => {
     let current = idToCat.get(catIdOrSlug) || slugToCat.get(catIdOrSlug);
     while (current && current.parentId) {
       const parent = idToCat.get(current.parentId) || slugToCat.get(current.parentId);
       if (!parent) break;
       current = parent;
     }
-    return current ? current.slug : catIdOrSlug;
+    return current || null;
   };
 
-  return { slugToCat, idToCat, getDescendantSlugs, getRootSlug };
+  return { slugToCat, idToCat, getDescendantCategoryIds, getRootCat };
 }
 
 function convertImageUrl(url: string): string {
@@ -105,7 +104,7 @@ function getProductsFromSeedData(req: NextApiRequest, res: NextApiResponse) {
   }
 
   const { categories, products } = seedData;
-  const { slugToCat, idToCat, getDescendantSlugs, getRootSlug } = buildCategoryMap(categories);
+  const { slugToCat, idToCat, getDescendantCategoryIds, getRootCat } = buildCategoryMap(categories);
 
   const { category, material, plating, color, priceMin, priceMax, all, includeChildren } = req.query;
 
@@ -119,13 +118,17 @@ function getProductsFromSeedData(req: NextApiRequest, res: NextApiResponse) {
 
     // Category filtering
     if (category && category !== 'all') {
-      const productCatSlug = p.categoryId || '';
-      // Get all slugs under the selected category (including the selected category itself)
-      const validSlugs = getDescendantSlugs(String(category));
-      // Check if the product's category slug matches or is a descendant
-      const rootSlug = getRootSlug(productCatSlug);
-      if (!validSlugs.includes(productCatSlug) && !validSlugs.includes(rootSlug)) {
-        return false;
+      const productCatId = p.categoryId || '';
+      // Get all category IDs under the selected category (including the selected category itself)
+      const validCategoryIds = getDescendantCategoryIds(String(category));
+      // Check if the product's categoryId is in the valid ID set (directly or as descendant)
+      if (!validCategoryIds.includes(productCatId)) {
+        // Also check by root slug match for legacy data
+        const rootCat = getRootCat(productCatId);
+        const selectedRootCat = getRootCat(String(category));
+        if (!(rootCat && selectedRootCat && rootCat.id === selectedRootCat.id)) {
+          return false;
+        }
       }
     }
 
@@ -171,8 +174,8 @@ function getProductsFromSeedData(req: NextApiRequest, res: NextApiResponse) {
 
   const serialized = filtered.map((p: any) => {
     const catId = p.categoryId || '';
-      const cat = idToCat.get(catId) || slugToCat.get(catId);
-      const rootCat = cat ? cat : idToCat.get(getRootSlug(catId)) || slugToCat.get(getRootSlug(catId));
+    const cat = idToCat.get(catId) || slugToCat.get(catId);
+    const rootCat = cat ? getRootCat(catId) : null;
 
     let images = p.images;
     if (typeof images === 'string') {
@@ -222,8 +225,8 @@ function getProductsFromSeedData(req: NextApiRequest, res: NextApiResponse) {
       originalPrice: p.originalPrice ? Number(p.originalPrice) : null,
       image: convertImageUrl(p.image || ''),
       categoryId: catId,
-      categoryName: rootCat?.name || cat?.name || '',
-      categorySlug: rootCat?.slug || cat?.slug || catId,
+      categoryName: cat?.name || rootCat?.name || '',
+      categorySlug: cat?.slug || rootCat?.slug || catId,
       stock: p.stock ?? 100,
       rating: Number(p.rating) || 0,
       reviewCount: Number(p.reviewCount) || 0,
