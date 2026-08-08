@@ -122,7 +122,7 @@ export default function Sidebar({ products, currentCategory, categories }: Sideb
             })).slice(0, 14));
           }
         })
-        .catch(() => {});
+        .catch((e: any) => { if (typeof console !== 'undefined') console.warn('[Sidebar] categories fetch failed:', e?.message || e); });
     }
   }, [categories]);
 
@@ -166,7 +166,7 @@ export default function Sidebar({ products, currentCategory, categories }: Sideb
                   </Link>
                   {/* Subcategory dropdown — appears on hover */}
                   {hasChildren && (
-                    <div className="absolute left-full top-0 ml-2 pl-2 opacity-0 invisible group-hover/cat:opacity-100 group-hover/cat:visible transition-all duration-200 z-50 pointer-events-none group-hover/cat:pointer-events-auto">
+                    <div className="absolute left-full top-0 ml-2 pl-2 opacity-0 invisible group-hover/cat:opacity-100 group-hover/cat:visible focus-within:opacity-100 focus-within:visible transition-all duration-200 z-50 pointer-events-none group-hover/cat:pointer-events-auto focus-within:pointer-events-auto">
                       <div className="bg-white rounded-xl shadow-2xl border border-ink-200 p-2 min-w-[220px] max-h-[80vh] overflow-y-auto">
                         <Link
                           href={`/products?category=${cat.slug}`}

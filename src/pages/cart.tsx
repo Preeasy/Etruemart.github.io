@@ -5,6 +5,7 @@ import Head from 'next/head';
 import { ShoppingCart, Plus, Minus, Trash2, CreditCard, Truck, ChevronRight, ArrowLeft } from 'lucide-react';
 import Layout from '@/components/Layout';
 import { useCart } from '@/components/CartContext';
+import { TAX_RATE, FREE_SHIPPING_THRESHOLD, FREE_SHIPPING_COST } from '@/lib/site';
 
 const Cart = () => {
   const { data: session, status } = useSession();
@@ -36,8 +37,8 @@ const Cart = () => {
   }
 
   // Estimated shipping — real calculation happens at checkout based on address.
-  const estimatedShipping = subtotal >= 50 ? 0 : 5.99;
-  const tax = Math.round(subtotal * 0.08 * 100) / 100;
+  const estimatedShipping = subtotal >= FREE_SHIPPING_THRESHOLD ? 0 : FREE_SHIPPING_COST;
+  const tax = Math.round(subtotal * TAX_RATE * 100) / 100;
   const estimatedTotal = subtotal + estimatedShipping + tax;
 
   return (

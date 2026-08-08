@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
+import { TAX_RATE } from '@/lib/site';
 import Image from 'next/image';
 import Link from 'next/link';
 import Head from 'next/head';
@@ -124,7 +125,7 @@ const Checkout = () => {
       .then((data) => {
         if (!cancelled && !data.error) setShipping(data);
       })
-      .catch(() => {})
+      .catch((e: any) => { if (typeof console !== 'undefined') console.warn('[Checkout] shipping calculate failed:', e?.message || e); })
       .finally(() => {
         if (!cancelled) setShippingLoading(false);
       });
@@ -252,7 +253,7 @@ const Checkout = () => {
     }
   };
 
-  const taxAmount = Math.round(subtotal * 0.08 * 100) / 100;
+  const taxAmount = Math.round(subtotal * TAX_RATE * 100) / 100;
   const shippingCost = shipping?.cost ?? 0;
   const total = Math.round((subtotal + shippingCost + taxAmount) * 100) / 100;
   const selectedAddress = addresses.find((a) => a.id === selectedAddressId);

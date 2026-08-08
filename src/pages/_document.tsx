@@ -29,24 +29,10 @@ export default function Document() {
         <link rel="alternate" hrefLang="en" href={SITE_URL} />
         <link rel="alternate" hrefLang="x-default" href={SITE_URL} />
 
-        {/* Open Graph / Facebook */}
-        <meta property="og:type" content="website" />
-        <meta property="og:url" content={SITE_URL} />
-        <meta property="og:title" content={`${SITE_NAME} | Wholesale Jewelry & Accessories from Yiwu`} />
-        <meta property="og:description" content={SITE_DESCRIPTION} />
-        <meta property="og:image" content={SITE_OG_IMAGE} />
-        <meta property="og:image:width" content="1200" />
-        <meta property="og:image:height" content="630" />
+        {/* Open Graph — global defaults only; page-specific og:title/url/image/type are set in each page's <Head> to avoid duplicates */}
         <meta property="og:site_name" content={SITE_NAME} />
         <meta property="og:locale" content="en_US" />
         <meta property="og:locale:alternate" content="zh_CN" />
-
-        {/* Twitter Card */}
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:url" content={SITE_URL} />
-        <meta name="twitter:title" content={`${SITE_NAME} | Wholesale Jewelry & Accessories`} />
-        <meta name="twitter:description" content={SITE_DESCRIPTION} />
-        <meta name="twitter:image" content={SITE_OG_IMAGE} />
 
         {/* Favicon */}
         <link rel="icon" href="/favicon.ico" />
@@ -57,8 +43,8 @@ export default function Document() {
         <meta name="theme-color" content="#0F2A4A" />
 
         {/* Preconnect for performance */}
-        <link rel="preconnect" href="https://raw.githubusercontent.com" />
-        <link rel="dns-prefetch" href="https://raw.githubusercontent.com" />
+        <link rel="preconnect" href="https://cdn.jsdelivr.net" />
+        <link rel="dns-prefetch" href="https://cdn.jsdelivr.net" />
 
         {/* Organization Structured Data (JSON-LD) */}
         <script
@@ -133,24 +119,6 @@ export default function Document() {
           }}
         />
 
-        {/* WebSite Structured Data */}
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              '@context': 'https://schema.org',
-              '@type': 'WebSite',
-              url: SITE_URL,
-              name: SITE_NAME,
-              description: SITE_DESCRIPTION,
-              potentialAction: {
-                '@type': 'SearchAction',
-                target: `${SITE_URL}/products?q={search_term_string}`,
-                'query-input': 'required name=search_term_string',
-              },
-            }),
-          }}
-        />
       </Head>
       <body>
         <Main />

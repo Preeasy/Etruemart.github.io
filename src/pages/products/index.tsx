@@ -11,7 +11,7 @@ import {
 } from 'lucide-react';
 import ProductCard from '@/components/ProductCard';
 import Layout from '@/components/Layout';
-import { SITE_URL, SITE_OG_IMAGE } from '@/lib/site';
+import { SITE_URL, SITE_OG_IMAGE, MAX_PRICE_FILTER } from '@/lib/site';
 import { proxyImageUrl } from '@/lib/image-utils';
 
 interface VariantPreview {
@@ -30,25 +30,25 @@ interface VariantPreview {
 
 interface Product {
   id: number | string;
-  slug?: string;
+  slug?: string | null;
   name: string;
   description: string;
   category: { name: string; slug: string };
   priceMin: number;
   price?: number;
-  priceMax?: number;
+  priceMax?: number | null;
   image: string;
-  moq?: number;
-  material?: string;
-  plating?: string;
-  packSize?: number;
-  sku?: string;
-  stockStatus?: string;
+  moq?: number | null;
+  material?: string | null;
+  plating?: string | null;
+  packSize?: number | null;
+  sku?: string | null;
+  stockStatus?: string | null;
   keywords?: string[];
   bulletPoints?: string[];
   isParent?: boolean;
   parentId?: string | null;
-  variants?: VariantPreview[];
+  variants?: VariantPreview[] | null;
 }
 
 const materialOptions = ['Alloy', 'Stainless Steel', 'Brass', 'Acrylic', 'Crystal', 'Pearl', 'Resin', 'Fabric', 'Rhinestone'];
@@ -123,24 +123,24 @@ const Products = () => {
         if (Array.isArray(data) && data.length > 0) {
           const dbProducts: Product[] = data.map((p: any) => ({
             id: p.id,
-            slug: p.slug || undefined,
+            slug: p.slug || null,
             name: p.name,
             description: p.description || '',
             category: { name: p.categoryName || '', slug: p.categorySlug || '' },
             priceMin: Number(p.price) || 0,
-            priceMax: p.priceMax ? Number(p.priceMax) : undefined,
+            priceMax: p.priceMax ? Number(p.priceMax) : null,
             image: proxyImageUrl(p.image),
-            moq: p.moq,
-            material: p.material || undefined,
-            plating: p.plating || undefined,
-            packSize: p.packSize,
-            sku: p.sku || undefined,
-            stockStatus: p.stockStatus,
+            moq: p.moq ?? null,
+            material: p.material || null,
+            plating: p.plating || null,
+            packSize: p.packSize ?? null,
+            sku: p.sku || null,
+            stockStatus: p.stockStatus || null,
             keywords: Array.isArray(p.keywords) ? p.keywords : [],
             bulletPoints: Array.isArray(p.bulletPoints) ? p.bulletPoints : [],
             isParent: p.isParent === true,
             parentId: p.parentId || null,
-            variants: Array.isArray(p.variants) ? p.variants : undefined,
+            variants: Array.isArray(p.variants) ? p.variants : null,
           }));
           setTotalCount(data.length);
           setProducts(dbProducts);
@@ -280,7 +280,7 @@ const Products = () => {
                 />
                 <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-ink-400" />
                 {searchQuery && (
-                  <button onClick={() => setSearchQuery('')} className="absolute right-3 top-1/2 -translate-y-1/2 text-ink-400 hover:text-ink-600">
+                  <button onClick={() => setSearchQuery('')} aria-label="Clear search" className="absolute right-3 top-1/2 -translate-y-1/2 text-ink-400 hover:text-ink-600">
                     <X className="w-4 h-4" />
                   </button>
                 )}
@@ -399,7 +399,7 @@ const Products = () => {
                   <input
                     type="number" min={0}
                     value={priceRange[0]}
-                    onChange={(e) => setPriceRange([Number(e.target.value), priceRange[1]])}
+                    onChange={(e) => { const n = e.target.value === '' ? 0 : Number(e.target.value); if (!Number.isNaN(n)) setPriceRange([n, priceRange[1]]); }}
                     className="w-full h-9 bg-ink-50 border border-ink-200 rounded-lg px-3 text-sm text-ink-800 focus:outline-none focus:ring-2 focus:ring-accent-500/20 focus:border-accent-500"
                     placeholder="0"
                   />
@@ -409,7 +409,7 @@ const Products = () => {
                   <input
                     type="number" min={0}
                     value={priceRange[1]}
-                    onChange={(e) => setPriceRange([priceRange[0], Number(e.target.value)])}
+                    onChange={(e) => { const n = e.target.value === '' ? MAX_PRICE_FILTER : Number(e.target.value); if (!Number.isNaN(n)) setPriceRange([priceRange[0], n]); }}
                     className="w-full h-9 bg-ink-50 border border-ink-200 rounded-lg px-3 text-sm text-ink-800 focus:outline-none focus:ring-2 focus:ring-accent-500/20 focus:border-accent-500"
                     placeholder="999"
                   />

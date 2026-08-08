@@ -21,20 +21,20 @@ interface VariantPreview {
 interface ProductCardProps {
   product: {
     id: number | string;
-    slug?: string;
+    slug?: string | null;
     name: string;
     category?: { name: string; slug: string } | string | null | undefined;
     price?: number;
     priceMin?: number;
     priceMax?: number | null;
     image: string;
-    moq?: number;
-    packSize?: number;
+    moq?: number | null;
+    packSize?: number | null;
     sku?: string | null;
-    stockStatus?: string;
+    stockStatus?: string | null;
     isParent?: boolean;
     parentId?: string | null;
-    variants?: VariantPreview[];
+    variants?: VariantPreview[] | null;
   };
   editUrl?: string;
 }

@@ -280,9 +280,12 @@ const Navbar = () => {
                   className="relative"
                   onMouseEnter={() => hasChildren && setOpenDropdown(cat.slug)}
                   onMouseLeave={() => setOpenDropdown(null)}
+                  onFocus={() => hasChildren && setOpenDropdown(cat.slug)}
                 >
                   <button
                     onClick={() => router.push(`/products?category=${cat.slug}`)}
+                    aria-haspopup={hasChildren ? 'true' : undefined}
+                    aria-expanded={hasChildren ? isOpen : undefined}
                     className={`flex items-center gap-1 px-2 py-2 text-xs font-medium rounded-md transition-colors whitespace-nowrap ${
                       isCatActive
                         ? 'text-accent-400 bg-navy-800'

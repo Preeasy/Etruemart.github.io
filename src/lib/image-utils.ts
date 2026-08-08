@@ -152,9 +152,7 @@ export async function buildGitHubLookup(): Promise<Map<string, string>> {
         lookup.set(key, `https://cdn.jsdelivr.net/gh/Preeasy/Images@main/Images/${item.name}`);
       }
     }
-  } catch {
-    // silent fail
-  }
+  } catch (e: any) { if (typeof console !== 'undefined') console.warn('[image-utils] GitHub lookup build failed:', e?.message || e); }
   return lookup;
 }
 

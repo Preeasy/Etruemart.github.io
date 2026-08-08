@@ -35,7 +35,6 @@ import {
 import Image from 'next/image';
 import Layout from '@/components/Layout';
 import Sidebar from '@/components/Sidebar';
-import { getProductBySlug, getAllCategories, searchProducts } from '@/lib/db';
 import { resolveImageUrlServerSide } from '@/lib/image-utils';
 import { SITE_URL, SITE_OG_IMAGE, SITE_NAME, SITE_DESCRIPTION, SITE_COMPANY } from '@/lib/site';
 interface ProductVariantPreview {
@@ -250,7 +249,7 @@ const Home = ({ products, newArrivals, categories, categoryProductsMap }: { prod
                           fill
                           priority
                           sizes="(max-width: 768px) 50vw, 33vw"
-                          className="!object-cover !w-auto !h-auto"
+                          className="object-cover"
                           onError={(e) => {
                             const el = e.currentTarget as unknown as HTMLImageElement;
                             if (!el.dataset.fallback) {
@@ -269,7 +268,7 @@ const Home = ({ products, newArrivals, categories, categoryProductsMap }: { prod
                           alt="Featured Product 2"
                           fill
                           sizes="(max-width: 768px) 50vw, 33vw"
-                          className="!object-cover !w-auto !h-auto"
+                          className="object-cover"
                           onError={(e) => {
                             const el = e.currentTarget as unknown as HTMLImageElement;
                             if (!el.dataset.fallback) {
@@ -288,7 +287,7 @@ const Home = ({ products, newArrivals, categories, categoryProductsMap }: { prod
                           alt="Featured Product 3"
                           fill
                           sizes="(max-width: 768px) 50vw, 33vw"
-                          className="!object-cover !w-auto !h-auto"
+                          className="object-cover"
                           onError={(e) => {
                             const el = e.currentTarget as unknown as HTMLImageElement;
                             if (!el.dataset.fallback) {
@@ -307,7 +306,7 @@ const Home = ({ products, newArrivals, categories, categoryProductsMap }: { prod
                           alt="Featured Product 4"
                           fill
                           sizes="(max-width: 768px) 50vw, 33vw"
-                          className="!object-cover !w-auto !h-auto"
+                          className="object-cover"
                           onError={(e) => {
                             const el = e.currentTarget as unknown as HTMLImageElement;
                             if (!el.dataset.fallback) {
@@ -750,7 +749,7 @@ export const getServerSideProps = async () => {
         if (p.images) {
           let parsed = p.images;
           if (typeof parsed === 'string') {
-            try { parsed = JSON.parse(parsed); } catch { parsed = []; }
+            try { parsed = JSON.parse(parsed); } catch (e: any) { if (typeof console !== 'undefined') console.warn('[index] nested JSON parse failed:', e?.message || e); parsed = []; }
           }
           if (Array.isArray(parsed)) {
             images = parsed

@@ -118,8 +118,9 @@ export function CartProvider({ children }: { children: ReactNode }) {
 
   const count = items.reduce((sum, i) => sum + i.quantity, 0);
   const subtotal = items.reduce((sum, i) => {
-    const price = i.variant ? Number(i.variant.price) : Number(i.product.price);
-    return sum + price * i.quantity;
+    const raw = i.variant ? i.variant.price : i.product?.price;
+    const price = Number(raw);
+    return sum + (Number.isNaN(price) ? 0 : price) * i.quantity;
   }, 0);
 
   return (
