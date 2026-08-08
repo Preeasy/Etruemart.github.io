@@ -3,9 +3,9 @@ export const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://etruemart.v
 export const SITE_NAME = 'eTrue Mark';
 export const SITE_DESCRIPTION =
   'Wholesale jewelry, accessories & crafts direct from Yiwu factories. Low MOQ, factory-direct pricing, global shipping. Trusted B2B sourcing platform.';
-export const SITE_PHONE = '+86 15988516408';
+export const SITE_PHONE = '+86 18767960499';
 export const SITE_EMAIL = 'yeatrusourcing@gmail.com';
-export const SITE_WHATSAPP = '+86 15988516408';
+export const SITE_WHATSAPP = '+86 18767960499';
 export const SITE_COMPANY = 'Yiwu Yeatru Trading Co., Ltd.';
 export const SITE_ADDRESS = 'Yiwu, Zhejiang, China';
 export const SITE_OG_IMAGE = `${SITE_URL}/og-image.jpg`;

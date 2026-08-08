@@ -7,8 +7,8 @@ const WhatsAppIcon = ({ className }: { className?: string }) => (
   </svg>
 );
 
-const WHATSAPP_NUMBER = '8615988516408';
-const WHATSAPP_DISPLAY = '+86 15988516408';
+const WHATSAPP_NUMBER = '8618767960499';
+const WHATSAPP_DISPLAY = '+86 18767960499';
 const WHATSAPP_LINK = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent('Hello, I am interested in your products on eTrue Mark.')}`;
 
 export default function WhatsAppFloat() {

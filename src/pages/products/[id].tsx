@@ -1,4 +1,5 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
+import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { useSession } from 'next-auth/react';
 import Link from 'next/link';
@@ -59,7 +60,7 @@ interface Product {
   description: string;
   price?: number;
   priceMin?: number;
-  priceMax?: number;
+  priceMax?: number | null;
   originalPrice?: number | string;
   image: string;
   images: string[];
@@ -98,6 +99,24 @@ interface Product {
     grossWeight?: number | null;
     volumeCBM?: number | null;
   };
+}
+
+
+// Strip HTML tags and entities for plain-text meta descriptions
+function stripHtmlToPlainText(s: string): string {
+  if (!s) return '';
+  return s
+    .replace(/<style[\s\S]*?<\/style>/gi, '')
+    .replace(/<script[\s\S]*?<\/script>/gi, '')
+    .replace(/<[^>]+>/g, ' ')
+    .replace(/&nbsp;/gi, ' ')
+    .replace(/&amp;/gi, '&')
+    .replace(/&lt;/gi, '<')
+    .replace(/&gt;/gi, '>')
+    .replace(/&quot;/gi, '"')
+    .replace(/&#39;/gi, "'")
+    .replace(/\s+/g, ' ')
+    .trim();
 }
 
 function cleanDescription(desc: string): string {
@@ -309,96 +328,14 @@ export default function ProductDetail({ product: initialProduct, relatedProducts
   const aplusBlocks = product.aplusBlocks || [];
   const hasNewAplus = aplusBlocks.length > 0;
 
-  useEffect(() => {
-    const fetchProduct = async () => {
-      try {
-        const slug = initialProduct.slug || String(initialProduct.id);
-        const res = await fetch(`/api/products/${slug}`, { cache: 'no-store' });
-        if (res.ok) {
-          const data = await res.json();
-          if (data) {
-            setProduct(prev => ({
-              ...prev,
-              id: data.id,
-              slug: data.slug || slug,
-              name: data.name,
-              description: data.description || prev.description || '',
-              price: Number(data.price) ?? prev.price ?? 0,
-              priceMin: data.priceMin !== undefined ? Number(data.priceMin) : prev.priceMin,
-              priceMax: data.priceMax !== undefined ? Number(data.priceMax) : prev.priceMax,
-              originalPrice: data.originalPrice ? Number(data.originalPrice) : prev.originalPrice,
-              image: data.image || prev.image,
-              images: Array.isArray(data.images) && data.images.length > 0 ? data.images : prev.images,
-              // Preserve SSR category (and categoryPath + categoryId from server) unless API has valid one
-              category: (data.category && data.category.name)
-                ? { name: data.category.name, slug: data.category.slug }
-                : (prev.category && prev.category.name ? prev.category : null),
-              // Keep SSR categoryPath unless API has a valid non-empty one
-              categoryPath: (Array.isArray(data.categoryPath) && data.categoryPath.length > 0)
-                ? data.categoryPath
-                : (Array.isArray(prev.categoryPath) && prev.categoryPath.length > 0 ? prev.categoryPath : []),
-              categoryId: prev.categoryId || data.categoryId,
-              stock: data.stock ?? prev.stock,
-              rating: data.rating ?? prev.rating,
-              reviewCount: data.reviewCount ?? prev.reviewCount,
-              salesCount: data.salesCount ?? prev.salesCount,
-              material: data.material ?? prev.material,
-              plating: data.plating ?? prev.plating,
-              process: data.process ?? prev.process,
-              color: data.color ?? prev.color,
-              size: data.size ?? prev.size,
-              packSize: data.packSize ?? prev.packSize,
-              moq: data.moq ?? prev.moq,
-              sku: data.sku ?? prev.sku,
-              keywords: Array.isArray(data.keywords) && data.keywords.length > 0 ? data.keywords : prev.keywords,
-              bulletPoints: Array.isArray(data.bulletPoints) && data.bulletPoints.length > 0
-                ? data.bulletPoints
-                : (prev.bulletPoints?.length ? prev.bulletPoints : (data.aplus?.bulletPoints || [])),
-              aplus: data.aplus ?? prev.aplus,
-              aplusBlocks: Array.isArray(data.aplusBlocks) && data.aplusBlocks.length > 0 ? data.aplusBlocks : prev.aplusBlocks,
-              packagingInfo: data.packagingInfo ?? prev.packagingInfo,
-            }));
-            setQuantity(data.moq || initialProduct.moq || 12);
-          }
-        }
-      } catch {}
-    };
-    fetchProduct();
-  }, [initialProduct.slug, initialProduct.id]);
 
-  // Compute variant group on client side as fallback
-  useEffect(() => {
-    if (variantGroup && variantGroup.variants.length > 0) {
-      setClientVariantGroup(variantGroup);
-      return;
-    }
-    const fetchVariants = async () => {
-      try {
-        const res = await fetch('/api/products?includeChildren=true');
-        if (res.ok) {
-          const data = await res.json();
-          const products = Array.isArray(data) ? data : [];
-          if (products.length > 0) {
-            const groups = buildVariantGroups(products);
-            const g = getVariantGroupForProductId(groups, String(initialProduct.id), initialProduct.sku, (initialProduct as any).parentId);
-            if (g && g.variants.length >= 1) {
-              setClientVariantGroup({ 
-                parentSku: g.parentSku, 
-                baseName: g.baseName, 
-                minPrice: g.minPrice,
-                maxPrice: g.maxPrice,
-                variants: g.variants.map(v => ({
-                  ...v,
-                  image: proxyImageUrlDirect(v.image),
-                }))
-              });
-            }
-          }
-        }
-      } catch {}
-    };
-    fetchVariants();
-  }, [initialProduct.id, variantGroup]);
+  // ✅ Removed duplicate client refetch: trust SSR initialProduct fully (saves ~1 network roundtrip)
+
+
+
+  // ✅ Removed full-product-list fallback (SSR always injects variantGroup now — avoids over-fetch)
+  //  clientVariantGroup initializes from props variantGroup via useState initializer above.
+
 
   if (!product) {
     return (
@@ -415,12 +352,12 @@ export default function ProductDetail({ product: initialProduct, relatedProducts
 
   const price = Number(product.price || product.priceMin || 0);
   // 移除虚假折扣：priceMin/priceMax 是阶梯价区间，非原价/现价，不能用于构造 discount
-  // 基于产品 id 生成稳定的伪随机评分数据，避免 SSR/hydrate 不一致 + JSON-LD 数据抖动
-  const strSeed = typeof product.id === 'string' ? product.id : String(product.id);
-  const seed = strSeed.split('').reduce((acc, ch) => acc + ch.charCodeAt(0), 0) % 1000;
-  const rating = Number(product.rating || (4.5 + (seed % 5) / 10));
-  const reviewCount = Number(product.reviewCount || (20 + (seed * 7) % 80));
-  const salesCount = Number(product.salesCount || (100 + (seed * 13) % 800));
+  // 仅使用真实评分/销量/评论数据（SEO合规：禁止在AggregateRating输出伪造用户评价）
+  const hasRealRating = Number(product.rating) > 0 && Number(product.reviewCount) > 0;
+  const rating = hasRealRating ? Number(product.rating) : 0;
+  const reviewCount = hasRealRating ? Number(product.reviewCount) : 0;
+  const hasRealSales = Number(product.salesCount) > 0;
+  const salesCount = hasRealSales ? Number(product.salesCount) : 0;
   const stock = Number(product.stock || 9999);
 
   const images = variantImages 
@@ -446,14 +383,14 @@ export default function ProductDetail({ product: initialProduct, relatedProducts
   const prevLightbox = () => setLightboxIndex((i) => (i - 1 + images.length) % images.length);
   const nextLightbox = () => setLightboxIndex((i) => (i + 1) % images.length);
 
-  const handleAddToCart = async () => {
+  const handleAddToCart = async (): Promise<boolean> => {
     if (!session) {
       const loginHref = `/login?callbackUrl=${encodeURIComponent(router.asPath || router.pathname)}`;
       setCartNotice({ type: 'error', message: 'Please login to continue. Redirecting...' });
       setTimeout(() => router.push(loginHref), 600);
-      return;
+      return false;
     }
-    if (addingToCart) return;
+    if (addingToCart) return false;
     setAddingToCart(true);
     setCartNotice(null);
     try {
@@ -477,14 +414,14 @@ export default function ProductDetail({ product: initialProduct, relatedProducts
       try {
         const data = await res.json().catch(() => ({}));
         if (data && data.error) msg = data.error;
-      } catch {}
+      } catch (e: any) { if (typeof console !== 'undefined') console.warn('[ProductDetail] silent error caught:', e); }
       if (!ok) {
         if (res.status === 401) {
           const loginHref = `/login?callbackUrl=${encodeURIComponent(router.asPath || router.pathname)}`;
           setCartNotice({ type: 'error', message: 'Session expired. Redirecting to login...' });
           setTimeout(() => router.push(loginHref), 600);
           setAddingToCart(false);
-          return;
+          return false;
         }
         if (res.status === 400) {
           setCartNotice({ type: 'error', message: msg || 'Invalid product. Please refresh and try again.' });
@@ -492,13 +429,15 @@ export default function ProductDetail({ product: initialProduct, relatedProducts
           setCartNotice({ type: 'error', message: msg || `Failed (${res.status}). Please try again.` });
         }
         setAddingToCart(false);
-        return;
+        return false;
       }
       // Manually trigger cart refresh by calling refresh() via context event
       window.dispatchEvent(new CustomEvent('cart:updated'));
       setCartNotice({ type: 'success', message: `Added ${payload.quantity} pcs to cart!` });
+      return true;
     } catch (e: any) {
       setCartNotice({ type: 'error', message: 'Network error. Please check your connection and try again.' });
+      return false;
     } finally {
       setAddingToCart(false);
     }
@@ -513,48 +452,55 @@ export default function ProductDetail({ product: initialProduct, relatedProducts
             const data = await res.json();
             setOwnership(data);
           }
-        } catch {}
+        } catch (e: any) { if (typeof console !== 'undefined') console.warn('[ProductDetail] silent error caught:', e); }
       }
     };
     checkOwnership();
-  }, [session, sessionStatus, product.id]);
+  }, [sessionStatus, session?.user?.id, product.id]); // ✅ Optimized: depend on user.id instead of full session object ref
 
   return (
     <Layout>
       <Head>
         <title>{`${product.name} | Wholesale from Yiwu | eTrue Mark`}</title>
-        <meta name="description" content={`${product.description?.slice(0, 155) || product.name + ' - Wholesale from Yiwu, China'}`} />
-        <link rel="canonical" href={`${SITE_URL}/products/${product.id}`} />
+        <meta name="description" content={stripHtmlToPlainText(product.description || '').slice(0, 155) || (product.name + ' - Wholesale from Yiwu, China')} />
+        <link rel="canonical" href={`${SITE_URL}/products/${product.slug || product.id}`} />
         <meta property="og:title" content={`${product.name} | eTrue Mark`} />
-        <meta property="og:description" content={product.description} />
+        <meta property="og:description" content={stripHtmlToPlainText(product.description || '').slice(0, 200) || (product.name + ' - Wholesale from Yiwu, China')} />
         <meta property="og:type" content="product" />
-        <meta property="og:image" content={SITE_OG_IMAGE} />
-        <meta property="og:url" content={`${SITE_URL}/products/${product.id}`} />
-        <meta property="product:price:amount" content={String(product.priceMin || '')} />
+        <meta property="og:image" content={product.image ? (product.image.startsWith('http') ? product.image : `${SITE_URL}${product.image}`) : SITE_OG_IMAGE} />
+        <meta property="og:url" content={`${SITE_URL}/products/${product.slug || product.id}`} />
+        <meta property="product:price:amount" content={String(product.priceMin || product.price || '')} />
         <meta property="product:price:currency" content="USD" />
         <script type="application/ld+json" dangerouslySetInnerHTML={{
           __html: JSON.stringify({
             '@context': 'https://schema.org',
             '@type': 'Product',
             name: product.name,
-            description: product.description,
-            image: [product.image, SITE_OG_IMAGE],
+            description: stripHtmlToPlainText(product.description || '').slice(0, 5000) || product.name,
+            image: [
+              product.image ? (product.image.startsWith('http') ? product.image : `${SITE_URL}${product.image}`) : SITE_OG_IMAGE,
+              SITE_OG_IMAGE,
+            ].filter(Boolean),
             sku: product.sku,
             brand: { '@type': 'Brand', name: 'eTrue Mark' },
-            ...(product.keywords ? { keywords: product.keywords.join(', ') } : {}),
-            aggregateRating: {
-              '@type': 'AggregateRating',
-              ratingValue: rating,
-              reviewCount: reviewCount,
-              bestRating: 5,
-              worstRating: 1
-            },
+            ...(product.keywords && product.keywords.length > 0 ? { keywords: product.keywords.join(', ') } : {}),
+            // SEO COMPLIANCE: only emit aggregateRating if real reviews exist
+            ...(rating > 0 && reviewCount > 0 ? {
+              aggregateRating: {
+                '@type': 'AggregateRating',
+                ratingValue: rating,
+                reviewCount: reviewCount,
+                bestRating: 5,
+                worstRating: 1,
+              }
+            } : {}),
             offers: {
               '@type': 'AggregateOffer',
               priceCurrency: 'USD',
-              lowPrice: product.priceMin,
-              highPrice: product.priceMax,
-              availability: 'https://schema.org/InStock',
+              ...(product.priceMin !== undefined && product.priceMin !== null && Number(product.priceMin) > 0 ? { lowPrice: Number(product.priceMin) } : {}),
+              ...(product.priceMax !== undefined && product.priceMax !== null && Number(product.priceMax) > 0 ? { highPrice: Number(product.priceMax) } : {}),
+              // Use real stock status, fallback InStock
+              availability: stock <= 0 ? 'https://schema.org/OutOfStock' : 'https://schema.org/InStock',
               seller: { '@type': 'Organization', name: 'Yiwu Yeatru Trading Co., Ltd.' }
             }
           })
@@ -655,16 +601,19 @@ export default function ProductDetail({ product: initialProduct, relatedProducts
                   <button aria-label="Share product" className="w-8 h-8 rounded-full bg-white text-ink-600 hover:text-accent-600 flex items-center justify-center border border-ink-200 transition-all" onClick={(e) => e.stopPropagation()}><Share2 className="w-3.5 h-3.5" /></button>
                 </div>
                 <div className="relative aspect-[4/3] bg-white">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
+                  {/* ✅ Replaced native <img> with next/Image for optimized formats + lazy */}
+                  <Image
                     src={images[selectedImage]}
                     alt={product.name}
-                    className="w-full h-full object-contain p-5 md:p-8"
+                    fill
+                    priority
+                    sizes="(max-width: 1024px) 100vw, 50vw"
+                    className="!object-contain !p-5 md:!p-8 !w-auto !h-auto"
                     onError={(e) => {
-                      const el = e.currentTarget as HTMLImageElement;
+                      const el = e.currentTarget as unknown as HTMLImageElement;
                       if (!el.dataset.fallback) {
                         el.dataset.fallback = '1';
-                        el.src = `data:image/svg+xml;charset=UTF-8,${encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300"><rect fill="#f3f4f6" width="400" height="300"/><text x="200" y="150" text-anchor="middle" font-family="sans-serif" font-size="14" fill="#9ca3af">${product.name}</text></svg>`)}`;
+                        (el as any).src = `data:image/svg+xml;charset=UTF-8,${encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300"><rect fill="#f3f4f6" width="400" height="300"/><text x="200" y="150" text-anchor="middle" font-family="sans-serif" font-size="14" fill="#9ca3af">${product.name}</text></svg>`)}`;
                       }
                     }}
                   />
@@ -683,11 +632,13 @@ export default function ProductDetail({ product: initialProduct, relatedProducts
                       onClick={() => setSelectedImage(i)}
                       className={`relative flex-shrink-0 w-14 h-14 md:w-16 md:h-16 rounded-lg overflow-hidden border transition-all ${selectedImage === i ? 'border-accent-500 ring-2 ring-accent-100' : 'border-ink-200 hover:border-navy-400'} bg-white`}
                     >
-                      {/* eslint-disable-next-line @next/next/no-img-element */}
-                      <img
+                      {/* ✅ next/Image thumbnail with lazy loading */}
+                      <Image
                         src={img}
                         alt={`${product.name} - view ${i + 1}`}
-                        className="w-full h-full object-contain p-1"
+                        fill
+                        sizes="64px"
+                        className="!object-contain !p-1"
                       />
                     </button>
                   ))}
@@ -863,11 +814,11 @@ export default function ProductDetail({ product: initialProduct, relatedProducts
               <div className="flex items-center gap-2.5 mb-3">
                 <span className="text-[11px] text-ink-500 font-medium">Qty:</span>
                 <div className="flex items-center border border-ink-200 rounded-lg bg-white overflow-hidden">
-                  <button onClick={() => setQuantity(Math.max(product.moq || 1, quantity - 12))} aria-label="Decrease quantity" className="px-3 py-1.5 hover:bg-ink-50 transition-colors text-ink-600"><Minus className="w-3.5 h-3.5" /></button>
+                  <button onClick={() => setQuantity(Math.max(product.moq || 1, quantity - (product.packSize || product.moq || 1)))} aria-label="Decrease quantity" className="px-3 py-1.5 hover:bg-ink-50 transition-colors text-ink-600"><Minus className="w-3.5 h-3.5" /></button>
                   <span className="px-4 font-bold text-navy-800 min-w-[60px] text-center text-sm">{quantity}</span>
-                  <button onClick={() => setQuantity(quantity + 12)} aria-label="Increase quantity" className="px-3 py-1.5 hover:bg-ink-50 transition-colors text-ink-600"><Plus className="w-3.5 h-3.5" /></button>
+                  <button onClick={() => setQuantity(quantity + (product.packSize || product.moq || 1))} aria-label="Increase quantity" className="px-3 py-1.5 hover:bg-ink-50 transition-colors text-ink-600"><Plus className="w-3.5 h-3.5" /></button>
                 </div>
-                <span className="text-[10px] text-ink-400">MOQ: {product.moq || 12} · Step: 12</span>
+                <span className="text-[10px] text-ink-400">MOQ: {product.moq || 12} · Step: {product.packSize || product.moq || 1}</span>
               </div>
               {cartNotice && (
                 <div className={`mb-2.5 px-3 py-2 rounded-lg text-xs font-medium ${cartNotice.type === 'success' ? 'bg-success-50 text-success-700 border border-success-200' : 'bg-red-50 text-red-700 border border-red-200'}`}>
@@ -880,31 +831,9 @@ export default function ProductDetail({ product: initialProduct, relatedProducts
                 </button>
                 <button
                   onClick={async () => {
-                    if (!session) {
-                      setCartNotice({ type: 'error', message: 'Please login to continue. Redirecting...' });
-                      const loginHref = `/login?callbackUrl=${encodeURIComponent('/checkout')}`;
-                      setTimeout(() => router.push(loginHref), 600);
-                      return;
-                    }
-                    if (addingToCart) return;
-                    setAddingToCart(true);
-                    setCartNotice(null);
-                    try {
-                      const payload = {
-                        productId: String(product.id),
-                        quantity: Math.max(1, parseInt(String(quantity)) || 1),
-                      };
-                      await fetch('/api/cart', {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        credentials: 'include',
-                        body: JSON.stringify(payload),
-                      }).catch(() => {});
-                      window.dispatchEvent(new CustomEvent('cart:updated'));
-                    } catch { /* ignore */ } finally {
-                      setAddingToCart(false);
-                    }
-                    router.push('/checkout');
+                    // Reuse handleAddToCart (returns boolean) — ONLY push checkout on success
+                    const ok = await handleAddToCart();
+                    if (ok && session) router.push('/checkout');
                   }}
                   disabled={addingToCart}
                   className="flex-1 flex items-center justify-center gap-2 bg-navy-800 hover:bg-navy-900 disabled:opacity-50 disabled:cursor-not-allowed text-white py-2.5 rounded-lg font-bold text-sm transition-colors shadow-sm"
@@ -1031,7 +960,7 @@ export default function ProductDetail({ product: initialProduct, relatedProducts
                               {filteredAplusBlocks.map((block: any, i: number) => (
                                 <div key={block.id || i} className="p-4 bg-white rounded-lg border border-ink-100">
                                   {block.type === 'image' ? (
-                                    <img src={block.content} alt={block.caption || ''} className="w-full max-h-64 object-cover rounded-lg" />
+                                    <div className="relative w-full max-h-64 rounded-lg overflow-hidden"><Image src={block.content} alt={block.caption || ''} fill sizes="(max-width: 1024px) 100vw, 60vw" className="!object-cover !static !w-full !relative !h-auto !max-h-64" /></div>
                                   ) : (
                                     <div className="text-sm text-ink-700 leading-relaxed prose prose-sm max-w-none" dangerouslySetInnerHTML={{ __html: block.content || '' }} />
                                   )}
@@ -1187,11 +1116,13 @@ export default function ProductDetail({ product: initialProduct, relatedProducts
                   {relatedProducts.slice(0, 5).map((item, i) => (
                     <Link key={item.id} href={`/products/${item.slug || item.id}`} className="flex gap-3 p-2 rounded-lg hover:bg-ink-50 transition-colors group">
                       <div className="relative w-14 h-14 flex-shrink-0 bg-ink-50 rounded-md overflow-hidden border border-ink-100">
-                        {/* eslint-disable-next-line @next/next/no-img-element */}
-                        <img
+                        {/* ✅ next/Image hot-products with lazy loading */}
+                        <Image
                           src={item.image}
                           alt={item.name}
-                          className="w-full h-full object-contain p-1"
+                          fill
+                          sizes="56px"
+                          className="!object-contain !p-1"
                         />
                         <span className="absolute top-0 left-0 w-5 h-5 bg-accent-500 text-white text-[10px] font-bold rounded-br flex items-center justify-center">{i + 1}</span>
                       </div>
@@ -1495,6 +1426,109 @@ ${f.company ? f.company + '\n' : ''}`
   );
 }
 
+// Helper: Compute smart product bullet points from specs/name/category (replaces ~220 lines of duplicate inlined logic)
+function computeBulletPointsForProduct(p: any, aplusBlocks: any[] | null | undefined, catSlug: string, specsIn: {material?: string|null; packaging?: string|null; moq?: number|null} = {}): string[] {
+  const allFeatures: string[] = [];
+  const addFeature = (f: string) => { const clean = (f||'').trim(); if (clean && clean.length > 3) allFeatures.push(clean); };
+
+  let specsMaterial = specsIn.material ?? null;
+  let specsPackaging = specsIn.packaging ?? null;
+  let specsMoq = specsIn.moq ?? null;
+
+  if (aplusBlocks && Array.isArray(aplusBlocks)) {
+    for (const block of aplusBlocks) {
+      if (block.type === 'specs' && block.content) {
+        const html = String(block.content);
+        const matMatch = html.match(/<strong>Material:<\/strong>\s*([^<]+)/i);
+        if (matMatch && !specsMaterial) specsMaterial = matMatch[1].trim();
+        const packMatch = html.match(/<strong>Packaging:<\/strong>\s*([^<]+)/i);
+        if (packMatch && !specsPackaging) specsPackaging = packMatch[1].trim();
+        const moqMatch = html.match(/<strong>MOQ:<\/strong>\s*(\d+)/i);
+        if (moqMatch && !specsMoq) specsMoq = parseInt(moqMatch[1]);
+      }
+    }
+  }
+
+  const material = p.material || specsMaterial;
+  if (material) addFeature(`Crafted from ${material}`);
+
+  const name = p.name || '';
+  const setMatch = name.match(/(\d+)[-\s]?(?:piece|pc|pack|pcs|count|set)/i);
+  if (setMatch) addFeature(`Set of ${setMatch[1]} pieces`);
+  const colorMatch = name.match(/^(Black|White|Blue|Red|Pink|Gold|Silver|Green|Purple|Orange|Yellow|Brown|Gray|Grey)\s/i);
+  if (colorMatch) addFeature(`Color: ${colorMatch[1]}`);
+
+  const moq = Number(p.moq) || specsMoq || 1;
+  if (moq <= 10) addFeature(`Low MOQ: ${moq} pcs — start small, scale as needed`);
+  else if (moq <= 50) addFeature(`Flexible MOQ: ${moq} pcs for growing businesses`);
+  else addFeature(`Wholesale MOQ: ${moq} pcs | Volume pricing available`);
+
+  if (specsPackaging) {
+    const weightMatch = specsPackaging.match(/G\.W\.\s*([\d.]+)\s*kg/i);
+    const qtyMatch = specsPackaging.match(/(\d+)\s*pcs?\/ctn/i);
+    if (weightMatch && qtyMatch) addFeature(`${qtyMatch[1]} pcs per carton | G.W. ${weightMatch[1]} kg`);
+    else if (weightMatch) addFeature(`Packaging: G.W. ${weightMatch[1]} kg per carton`);
+  }
+
+  const categoryFeatureMap: Record<string, string[]> = {
+    'fashion-jewelry': ['Hypoallergenic materials', 'Elegant design for any occasion'],
+    'bags': ['Stylish and functional design', 'Multiple compartments for organization'],
+    'electronics': ['Reliable performance with quality components', 'Tested and certified for safety'],
+    'beauty-personal-care': ['Gentle formula suitable for daily use', 'Quality ingredients for effective results'],
+    'home-living': ['Durable construction for everyday use', 'Modern design to complement any decor'],
+    'home-decor-crafts': ['Handcrafted quality with attention to detail', 'Unique piece to enhance your space'],
+    'toys': ['Safe and durable materials for kids', 'Educational and fun for all ages'],
+    'sports-outdoor': ['Built for performance and durability', 'Weather-resistant for outdoor use'],
+    'accessories': ['Versatile accessory for any outfit', 'Premium finish and construction'],
+    'auto-tools': ['Professional-grade quality tools', 'Heat-treated steel for durability'],
+    'garment-accessories': ['Sewing-grade quality materials', 'Perfect for garments and crafts'],
+    'gift': ['Beautifully packaged, ready to gift', 'Premium quality for special occasions'],
+    'pet-supplies': ['Pet-safe, non-toxic materials', 'Durable construction for daily use'],
+    'kitchen-supplies': ['Food-safe, BPA-free materials', 'Heat-resistant and durable'],
+    'hardware-home': ['Heavy-duty steel construction', 'Corrosion-resistant finish'],
+    'apparel-shoes': ['Comfortable fit for all-day wear', 'Breathable and durable materials'],
+    'phone-accessories': ['Precision-engineered for perfect fit', 'Durable build quality'],
+    'stationery-office': ['Premium quality for professional use', 'Eco-friendly materials'],
+    'mother-baby-toys': ['Non-toxic, baby-safe materials', 'Educational and developmental'],
+    'musical-instruments': ['Tuned and ready to play', 'Quality craftsmanship'],
+    'home-appliances': ['Energy-efficient operation', 'Built to last with quality components'],
+    'other': ['Premium quality materials', 'Factory-direct pricing'],
+  };
+  const catFeatures = categoryFeatureMap[catSlug];
+  if (catFeatures && catFeatures.length > 0) {
+    addFeature(catFeatures[0]);
+    if (catFeatures[1]) addFeature(catFeatures[1]);
+  }
+
+  addFeature('Factory-direct pricing from Yiwu, China');
+  addFeature('Global shipping to 180+ countries');
+  addFeature('Custom packaging & private label available');
+  addFeature('Trade assurance with quality guarantee');
+
+  const seen = new Set<string>();
+  const bulletPoints: string[] = [];
+  for (const f of allFeatures) {
+    const key = f.toLowerCase().trim();
+    if (!seen.has(key)) { seen.add(key); bulletPoints.push(f.trim()); }
+    if (bulletPoints.length >= 6) break;
+  }
+  if (bulletPoints.length < 4) {
+    const fallbacks = [
+      'Premium quality materials and construction',
+      'Factory-direct pricing from Yiwu, China',
+      'Global shipping to 180+ countries',
+      'Custom packaging & private label available',
+      'Trade assurance with quality guarantee',
+      'Flexible MOQ for businesses of all sizes',
+    ];
+    for (const fb of fallbacks) {
+      if (bulletPoints.length >= 6) break;
+      if (!seen.has(fb.toLowerCase())) { seen.add(fb.toLowerCase()); bulletPoints.push(fb); }
+    }
+  }
+  return bulletPoints;
+}
+
 // Seed data cache for server-side rendering
 let seedDataCache: { categories: any[]; products: any[] } | null = null;
 
@@ -1616,8 +1650,10 @@ function findProductFromSeed(productId: string) {
       images = parsed.filter((img: string) => typeof img === 'string').map(proxyImageUrlDirect);
     }
   }
-  if (product.image && !images.includes(product.image)) {
-    images = [proxyImageUrlDirect(product.image), ...images];
+  // ✅ Fixed: compare proxyImageUrlDirect(product.image) with already-proxied images array (was mixing raw vs proxied -> always duplicated)
+  const proxiedMain = proxyImageUrlDirect(product.image || '');
+  if (proxiedMain && !images.includes(proxiedMain)) {
+    images = [proxiedMain, ...images];
   }
 
   // Parse keywords
@@ -1660,136 +1696,17 @@ function findProductFromSeed(productId: string) {
     }
   }
 
-  // Smart key features extraction — generates meaningful features from product data
-  let bulletPoints: string[] = [];
-
-  const allFeatures: string[] = [];
-  const addFeature = (f: string) => {
-    const clean = f.trim();
-    if (clean && clean.length > 3) allFeatures.push(clean);
-  };
-
-  // Extract useful data from specs block
-  let specsMaterial: string | null = null;
-  let specsPackaging: string | null = null;
-  let specsMoq: number | null = null;
-
-  if (aplus?.blocks && Array.isArray(aplus.blocks)) {
-    for (const block of aplus.blocks) {
-      if (block.type === 'specs' && block.content) {
-        const html = String(block.content);
-        const matMatch = html.match(/<strong>Material:<\/strong>\s*([^<]+)/i);
-        if (matMatch) specsMaterial = matMatch[1].trim();
-        const packMatch = html.match(/<strong>Packaging:<\/strong>\s*([^<]+)/i);
-        if (packMatch) specsPackaging = packMatch[1].trim();
-        const moqMatch = html.match(/<strong>MOQ:<\/strong>\s*(\d+)/i);
-        if (moqMatch) specsMoq = parseInt(moqMatch[1]);
+  // ✅ Use shared bullet point helper (was ~110 lines of inlined logic)
+  const bulletPoints: string[] = (() => {
+    try {
+      // computeBulletPoints is already imported from @/lib/bullet-points — prefer it over in-house helper
+      if (typeof computeBulletPoints === 'function') {
+        const fromLib = computeBulletPoints(product);
+        if (Array.isArray(fromLib) && fromLib.length >= 3) return fromLib;
       }
-    }
-  }
-
-  // 1. Material feature (from product or specs)
-  const material = product.material || specsMaterial;
-  if (material) {
-    addFeature(`Crafted from ${material}`);
-  }
-
-  // 2. Product name analysis — extract set size, color, key product type
-  const name = product.name || '';
-  const setMatch = name.match(/(\d+)[-\s]?(?:piece|pc|pack|pcs|count|set)/i);
-  if (setMatch) {
-    addFeature(`Set of ${setMatch[1]} pieces`);
-  }
-  const colorMatch = name.match(/^(Black|White|Blue|Red|Pink|Gold|Silver|Green|Purple|Orange|Yellow|Brown|Gray|Grey)\s/i);
-  if (colorMatch) {
-    addFeature(`Color: ${colorMatch[1]}`);
-  }
-
-  // 3. MOQ feature (use product.moq or specs.moq)
-  const moq = Number(product.moq) || specsMoq || 1;
-  if (moq <= 10) addFeature(`Low MOQ: ${moq} pcs — start small, scale as needed`);
-  else if (moq <= 50) addFeature(`Flexible MOQ: ${moq} pcs for growing businesses`);
-  else addFeature(`Wholesale MOQ: ${moq} pcs | Volume pricing available`);
-
-  // 4. Packaging info (from specs)
-  if (specsPackaging) {
-    const weightMatch = specsPackaging.match(/G\.W\.\s*([\d.]+)\s*kg/i);
-    const qtyMatch = specsPackaging.match(/(\d+)\s*pcs?\/ctn/i);
-    if (weightMatch && qtyMatch) {
-      addFeature(`${qtyMatch[1]} pcs per carton | G.W. ${weightMatch[1]} kg`);
-    } else if (weightMatch) {
-      addFeature(`Packaging: G.W. ${weightMatch[1]} kg per carton`);
-    }
-  }
-
-  // 5. Category-specific features
-  const catSlug = product.categoryId || '';
-  const categoryFeatureMap: Record<string, string[]> = {
-    'fashion-jewelry': ['Hypoallergenic materials', 'Elegant design for any occasion'],
-    'bags': ['Stylish and functional design', 'Multiple compartments for organization'],
-    'electronics': ['Reliable performance with quality components', 'Tested and certified for safety'],
-    'beauty-personal-care': ['Gentle formula suitable for daily use', 'Quality ingredients for effective results'],
-    'home-living': ['Durable construction for everyday use', 'Modern design to complement any decor'],
-    'home-decor-crafts': ['Handcrafted quality with attention to detail', 'Unique piece to enhance your space'],
-    'toys': ['Safe and durable materials for kids', 'Educational and fun for all ages'],
-    'sports-outdoor': ['Built for performance and durability', 'Weather-resistant for outdoor use'],
-    'accessories': ['Versatile accessory for any outfit', 'Premium finish and construction'],
-    'auto-tools': ['Professional-grade quality tools', 'Heat-treated steel for durability'],
-    'garment-accessories': ['Sewing-grade quality materials', 'Perfect for garments and crafts'],
-    'gift': ['Beautifully packaged, ready to gift', 'Premium quality for special occasions'],
-    'pet-supplies': ['Pet-safe, non-toxic materials', 'Durable construction for daily use'],
-    'kitchen-supplies': ['Food-safe, BPA-free materials', 'Heat-resistant and durable'],
-    'hardware-home': ['Heavy-duty steel construction', 'Corrosion-resistant finish'],
-    'apparel-shoes': ['Comfortable fit for all-day wear', 'Breathable and durable materials'],
-    'phone-accessories': ['Precision-engineered for perfect fit', 'Durable build quality'],
-    'stationery-office': ['Premium quality for professional use', 'Eco-friendly materials'],
-    'mother-baby-toys': ['Non-toxic, baby-safe materials', 'Educational and developmental'],
-    'musical-instruments': ['Tuned and ready to play', 'Quality craftsmanship'],
-    'home-appliances': ['Energy-efficient operation', 'Built to last with quality components'],
-    'other': ['Premium quality materials', 'Factory-direct pricing'],
-  };
-
-  const catFeatures = categoryFeatureMap[catSlug];
-  if (catFeatures && catFeatures.length > 0) {
-    addFeature(catFeatures[0]);
-    if (catFeatures[1]) addFeature(catFeatures[1]);
-  }
-
-  // 6. Universal value props
-  addFeature('Factory-direct pricing from Yiwu, China');
-  addFeature('Global shipping to 180+ countries');
-  addFeature('Custom packaging & private label available');
-  addFeature('Trade assurance with quality guarantee');
-
-  // Deduplicate and cap at 6
-  const seen = new Set<string>();
-  for (const f of allFeatures) {
-    const key = f.toLowerCase().trim();
-    if (!seen.has(key)) {
-      seen.add(key);
-      bulletPoints.push(f.trim());
-    }
-    if (bulletPoints.length >= 6) break;
-  }
-
-  // Ensure at least 4 features
-  if (bulletPoints.length < 4) {
-    const fallbacks = [
-      'Premium quality materials and construction',
-      'Factory-direct pricing from Yiwu, China',
-      'Global shipping to 180+ countries',
-      'Custom packaging & private label available',
-      'Trade assurance with quality guarantee',
-      'Flexible MOQ for businesses of all sizes',
-    ];
-    for (const fb of fallbacks) {
-      if (bulletPoints.length >= 6) break;
-      if (!seen.has(fb.toLowerCase())) {
-        seen.add(fb.toLowerCase());
-        bulletPoints.push(fb);
-      }
-    }
-  }
+    } catch (e: any) { if (typeof console !== 'undefined') console.warn('[ProductDetail] silent error caught:', e); }
+    return computeBulletPointsForProduct(product, aplus?.blocks, product.categoryId || '', {});
+  })();
 
   // Compute variant group
   let variantGroupData: VariantGroupProp | null = null;
@@ -1960,136 +1877,16 @@ export async function getServerSideProps(context: { params: { id: string } }) {
       }
     }
 
-    // Smart key features extraction — generates meaningful features from product data
-    let bulletPoints: string[] = [];
-
-    const allFeatures: string[] = [];
-    const addFeature = (f: string) => {
-      const clean = f.trim();
-      if (clean && clean.length > 3) allFeatures.push(clean);
-    };
-
-    // Extract useful data from specs block
-    let specsMaterial: string | null = null;
-    let specsPackaging: string | null = null;
-    let specsMoq: number | null = null;
-
-    if (aplus?.blocks && Array.isArray(aplus.blocks)) {
-      for (const block of aplus.blocks) {
-        if (block.type === 'specs' && block.content) {
-          const html = String(block.content);
-          const matMatch = html.match(/<strong>Material:<\/strong>\s*([^<]+)/i);
-          if (matMatch) specsMaterial = matMatch[1].trim();
-          const packMatch = html.match(/<strong>Packaging:<\/strong>\s*([^<]+)/i);
-          if (packMatch) specsPackaging = packMatch[1].trim();
-          const moqMatch = html.match(/<strong>MOQ:<\/strong>\s*(\d+)/i);
-          if (moqMatch) specsMoq = parseInt(moqMatch[1]);
+    // ✅ Use shared bullet point helper (was ~110 lines of inlined logic)
+    const bulletPoints: string[] = (() => {
+      try {
+        if (typeof computeBulletPoints === 'function') {
+          const fromLib = computeBulletPoints(product);
+          if (Array.isArray(fromLib) && fromLib.length >= 3) return fromLib;
         }
-      }
-    }
-
-    // 1. Material feature (from product or specs)
-    const material = product.material || specsMaterial;
-    if (material) {
-      addFeature(`Crafted from ${material}`);
-    }
-
-    // 2. Product name analysis
-    const name = product.name || '';
-    const setMatch = name.match(/(\d+)[-\s]?(?:piece|pc|pack|pcs|count|set)/i);
-    if (setMatch) {
-      addFeature(`Set of ${setMatch[1]} pieces`);
-    }
-    const colorMatch = name.match(/^(Black|White|Blue|Red|Pink|Gold|Silver|Green|Purple|Orange|Yellow|Brown|Gray|Grey)\s/i);
-    if (colorMatch) {
-      addFeature(`Color: ${colorMatch[1]}`);
-    }
-
-    // 3. MOQ feature
-    const moq = Number(product.moq) || specsMoq || 1;
-    if (moq <= 10) addFeature(`Low MOQ: ${moq} pcs — start small, scale as needed`);
-    else if (moq <= 50) addFeature(`Flexible MOQ: ${moq} pcs for growing businesses`);
-    else addFeature(`Wholesale MOQ: ${moq} pcs | Volume pricing available`);
-
-    // 4. Packaging info
-    if (specsPackaging) {
-      const weightMatch = specsPackaging.match(/G\.W\.\s*([\d.]+)\s*kg/i);
-      const qtyMatch = specsPackaging.match(/(\d+)\s*pcs?\/ctn/i);
-      if (weightMatch && qtyMatch) {
-        addFeature(`${qtyMatch[1]} pcs per carton | G.W. ${weightMatch[1]} kg`);
-      } else if (weightMatch) {
-        addFeature(`Packaging: G.W. ${weightMatch[1]} kg per carton`);
-      }
-    }
-
-    // 5. Category-specific features
-    const catSlug = product.categoryId || '';
-    const categoryFeatureMap: Record<string, string[]> = {
-      'fashion-jewelry': ['Hypoallergenic materials', 'Elegant design for any occasion'],
-      'bags': ['Stylish and functional design', 'Multiple compartments for organization'],
-      'electronics': ['Reliable performance with quality components', 'Tested and certified for safety'],
-      'beauty-personal-care': ['Gentle formula suitable for daily use', 'Quality ingredients for effective results'],
-      'home-living': ['Durable construction for everyday use', 'Modern design to complement any decor'],
-      'home-decor-crafts': ['Handcrafted quality with attention to detail', 'Unique piece to enhance your space'],
-      'toys': ['Safe and durable materials for kids', 'Educational and fun for all ages'],
-      'sports-outdoor': ['Built for performance and durability', 'Weather-resistant for outdoor use'],
-      'accessories': ['Versatile accessory for any outfit', 'Premium finish and construction'],
-      'auto-tools': ['Professional-grade quality tools', 'Heat-treated steel for durability'],
-      'garment-accessories': ['Sewing-grade quality materials', 'Perfect for garments and crafts'],
-      'gift': ['Beautifully packaged, ready to gift', 'Premium quality for special occasions'],
-      'pet-supplies': ['Pet-safe, non-toxic materials', 'Durable construction for daily use'],
-      'kitchen-supplies': ['Food-safe, BPA-free materials', 'Heat-resistant and durable'],
-      'hardware-home': ['Heavy-duty steel construction', 'Corrosion-resistant finish'],
-      'apparel-shoes': ['Comfortable fit for all-day wear', 'Breathable and durable materials'],
-      'phone-accessories': ['Precision-engineered for perfect fit', 'Durable build quality'],
-      'stationery-office': ['Premium quality for professional use', 'Eco-friendly materials'],
-      'mother-baby-toys': ['Non-toxic, baby-safe materials', 'Educational and developmental'],
-      'musical-instruments': ['Tuned and ready to play', 'Quality craftsmanship'],
-      'home-appliances': ['Energy-efficient operation', 'Built to last with quality components'],
-      'other': ['Premium quality materials', 'Factory-direct pricing'],
-    };
-
-    const catFeatures = categoryFeatureMap[catSlug];
-    if (catFeatures && catFeatures.length > 0) {
-      addFeature(catFeatures[0]);
-      if (catFeatures[1]) addFeature(catFeatures[1]);
-    }
-
-    // 6. Universal value props
-    addFeature('Factory-direct pricing from Yiwu, China');
-    addFeature('Global shipping to 180+ countries');
-    addFeature('Custom packaging & private label available');
-    addFeature('Trade assurance with quality guarantee');
-
-    // Deduplicate and cap at 6
-    const seen = new Set<string>();
-    for (const f of allFeatures) {
-      const key = f.toLowerCase().trim();
-      if (!seen.has(key)) {
-        seen.add(key);
-        bulletPoints.push(f.trim());
-      }
-      if (bulletPoints.length >= 6) break;
-    }
-
-    // Ensure at least 4 features
-    if (bulletPoints.length < 4) {
-      const fallbacks = [
-        'Premium quality materials and construction',
-        'Factory-direct pricing from Yiwu, China',
-        'Global shipping to 180+ countries',
-        'Custom packaging & private label available',
-        'Trade assurance with quality guarantee',
-        'Flexible MOQ for businesses of all sizes',
-      ];
-      for (const fb of fallbacks) {
-        if (bulletPoints.length >= 6) break;
-        if (!seen.has(fb.toLowerCase())) {
-          seen.add(fb.toLowerCase());
-          bulletPoints.push(fb);
-        }
-      }
-    }
+      } catch (e: any) { if (typeof console !== 'undefined') console.warn('[ProductDetail] silent error caught:', e); }
+      return computeBulletPointsForProduct(product, aplus?.blocks, product.categoryId || '', {});
+    })();
 
     // Build category path for breadcrumb (root → sub)
     const categoryPath: { name: string; slug: string }[] = [];

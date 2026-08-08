@@ -34,7 +34,7 @@ const socials = [
   { Icon: Facebook, label: 'Facebook', href: '#' },
   { Icon: Linkedin, label: 'LinkedIn', href: '#' },
   { Icon: Instagram, label: 'Instagram', href: '#' },
-  { Icon: MessageCircle, label: 'WhatsApp', href: 'https://wa.me/8615988516408' },
+  { Icon: MessageCircle, label: 'WhatsApp', href: 'https://wa.me/8618767960499' },
 ];
 
 const Footer = () => {
@@ -150,11 +150,11 @@ const Footer = () => {
                 yeatrusourcing@gmail.com
               </a>
               <a
-                href="tel:+8615988516408"
+                href="tel:+8618767960499"
                 className="inline-flex items-center gap-2 text-xs text-ink-400 hover:text-accent-300 transition-colors"
               >
                 <Phone className="w-3.5 h-3.5" />
-                +86 15988516408
+                +86 18767960499
               </a>
             </div>
           </div>

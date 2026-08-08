@@ -25,7 +25,7 @@ interface ProductCardProps {
     category?: { name: string; slug: string } | string | null | undefined;
     price?: number;
     priceMin?: number;
-    priceMax?: number;
+    priceMax?: number | null;
     image: string;
     moq?: number;
     packSize?: number;

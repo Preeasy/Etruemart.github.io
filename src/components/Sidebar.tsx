@@ -390,12 +390,12 @@ export default function Sidebar({ products, currentCategory, categories }: Sideb
             </div>
             <div className="flex items-center gap-2 text-xs text-ink-600">
               <Phone className="w-3.5 h-3.5 text-accent-500 flex-shrink-0" />
-              <span>+86 15988516408</span>
+              <span>+86 18767960499</span>
             </div>
             <div className="flex items-center gap-2 text-xs text-ink-600">
               <MessageCircle className="w-3.5 h-3.5 text-accent-500 flex-shrink-0" />
-              <a href="https://wa.me/8615988516408" target="_blank" rel="noopener noreferrer" className="hover:text-accent-600 transition-colors">
-                WhatsApp: +86 15988516408
+              <a href="https://wa.me/8618767960499" target="_blank" rel="noopener noreferrer" className="hover:text-accent-600 transition-colors">
+                WhatsApp: +86 18767960499
               </a>
             </div>
             <div className="flex items-center gap-2 text-xs text-ink-600">
