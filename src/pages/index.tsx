@@ -32,11 +32,12 @@ import {
   Sparkle,
   Baby,
 } from 'lucide-react';
+import Image from 'next/image';
 import Layout from '@/components/Layout';
 import Sidebar from '@/components/Sidebar';
 import { getProductBySlug, getAllCategories, searchProducts } from '@/lib/db';
 import { resolveImageUrlServerSide } from '@/lib/image-utils';
-
+import { SITE_URL, SITE_OG_IMAGE, SITE_NAME, SITE_DESCRIPTION, SITE_COMPANY } from '@/lib/site';
 interface ProductVariantPreview {
   id: string;
   sku?: string | null;
@@ -57,6 +58,7 @@ interface Product {
   description: string;
   category: { name: string; slug: string };
   priceMin: number;
+  price?: number;
   priceMax: number;
   image: string;
   material?: string | null;
@@ -111,7 +113,7 @@ const valueProps = [
   { icon: Truck, label: 'Free Shipping', desc: 'On orders $50+' },
   { icon: ShieldCheck, label: 'Secure Payment', desc: '100% protected' },
   { icon: Award, label: 'Premium Quality', desc: 'Verified factories' },
-  { icon: Star, label: 'Top Rated', desc: '4.8/5 customer rating' },
+  { icon: Star, label: 'Factory Audited', desc: 'Verified Yiwu suppliers' },
 ];
 
 function getDynamicBadge(slug: string, index: number, count: number): string | null {
@@ -123,6 +125,13 @@ function getDynamicBadge(slug: string, index: number, count: number): string | n
   return null;
 }
 
+
+// Inline SVG placeholder used on next/Image errors (keeps layout stable without extra fetch)
+function homePlaceholderSvg(name: string, gradient: [string,string] = ['#f3f4f6','#e5e7eb']) {
+  const [a,b] = gradient;
+  return 'data:image/svg+xml;charset=UTF-8,' + encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="${a}"/><stop offset="100%" stop-color="${b}"/></linearGradient></defs><rect fill="url(#g)" width="200" height="200"/><rect x="30" y="50" width="140" height="100" rx="8" fill="white" stroke="#d1d5db" stroke-width="2"/><circle cx="70" cy="80" r="10" fill="#fcd34d"/><path d="M50 140 L80 105 L100 125 L125 95 L160 140 Z" fill="#d1d5db"/><text x="100" y="178" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#9ca3af">${(name||'').slice(0,18)}</text></svg>`);
+}
+const HERO_FALLBACK = ['#fef3c7','#fed7aa'] as [string,string];
 const Home = ({ products, newArrivals, categories, categoryProductsMap }: { products: Product[]; newArrivals: Product[]; categories: CategoryInfo[]; categoryProductsMap: Record<string, Product[]> }) => {
   const [showMobileCats, setShowMobileCats] = useState(false);
   const slugToProduct = new Map(products.map((p) => [p.slug, p]));
@@ -145,13 +154,48 @@ const Home = ({ products, newArrivals, categories, categoryProductsMap }: { prod
   return (
     <Layout>
       <Head>
-        <title>eTrue Mark | Wholesale Jewelry, Accessories & Crafts from Yiwu, China</title>
-        <meta name="description" content="Source wholesale fashion jewelry, bag accessories, hair accessories, toys, gifts & home decor direct from Yiwu factories. Low MOQ, factory-direct pricing, global shipping to 180+ countries." />
+        <title>{SITE_NAME + " | Wholesale Jewelry, Accessories & Crafts from Yiwu, China"}</title>
+        <meta name="description" content={SITE_DESCRIPTION} />
         <meta name="keywords" content="wholesale jewelry, Yiwu market, B2B sourcing, fashion jewelry wholesale, bag accessories wholesale, low MOQ jewelry, factory direct China" />
-        <link rel="canonical" href="https://etruemart.vercel.app/" />
-        <meta property="og:title" content="eTrue Mark | Wholesale Jewelry & Accessories from Yiwu" />
-        <meta property="og:description" content="Factory-direct wholesale jewelry, accessories & crafts. Low MOQ, global shipping." />
+        <link rel="canonical" href={SITE_URL + "/"} />
+        <meta property="og:title" content={SITE_NAME + " | Wholesale Jewelry & Accessories from Yiwu"} />
+        <meta property="og:description" content={SITE_DESCRIPTION} />
         <meta property="og:type" content="website" />
+        <meta property="og:url" content={SITE_URL + "/"} />
+        <meta property="og:image" content={SITE_OG_IMAGE} />
+        <meta property="og:site_name" content={SITE_NAME} />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={SITE_NAME + " | Wholesale Jewelry & Accessories from Yiwu"} />
+        <meta name="twitter:description" content={SITE_DESCRIPTION} />
+        <meta name="twitter:image" content={SITE_OG_IMAGE} />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'WebSite',
+            name: SITE_NAME,
+            url: SITE_URL + "/",
+            description: SITE_DESCRIPTION,
+            publisher: {
+              '@type': 'Organization',
+              name: SITE_COMPANY,
+              url: SITE_URL,
+              logo: { '@type': 'ImageObject', url: SITE_OG_IMAGE },
+              contactPoint: {
+                '@type': 'ContactPoint',
+                telephone: '+86-18767960499',
+                email: 'yeatrusourcing@gmail.com',
+                contactType: 'customer service',
+                areaServed: 'Worldwide',
+                availableLanguage: ['English','Chinese']
+              }
+            },
+            potentialAction: {
+              '@type': 'SearchAction',
+              target: SITE_URL + "/products?q={search_term_string}",
+              'query-input': 'required name=search_term_string'
+            }
+          })
+        }} />
       </Head>
       <div className="bg-white min-h-screen">
         <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-10 py-5 lg:py-6">
@@ -199,55 +243,80 @@ const Home = ({ products, newArrivals, categories, categoryProductsMap }: { prod
                       <div className="absolute inset-0 p-5 grid grid-cols-2 grid-rows-3 gap-3">
                         {/* Top left - bags */}
                         <div className="row-span-2 rounded-xl overflow-hidden shadow-sm ring-1 ring-black/5 bg-white">
-                          <img
-                            src={heroProducts.find(p => Number(p.priceMin) > 0)?.image || products.find(p => Number(p.priceMin) > 0)?.image || ''}
-                            alt="Featured Product 1"
-                            className="w-full h-full object-cover"
-                            onError={(e) => {
-                              const el = e.currentTarget as HTMLImageElement;
-                              el.style.display = 'none';
-                              el.parentElement!.style.background = 'linear-gradient(135deg,#fef3c7,#fed7aa)';
-                            }}
-                          />
+                      <div className="relative w-full h-full bg-[linear-gradient(135deg,#fef3c7,#fed7aa)]">
+                        <Image
+                          src={heroProducts.find(p => Number(p.priceMin || p.price || 0) > 0)?.image || products.find(p => Number(p.priceMin || p.price || 0) > 0)?.image || 'data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20400%20300%22%3E%3Cdefs%3E%3ClinearGradient%20id%3D%22g%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%23fef3c7%22/%3E%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23fed7aa%22/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect%20fill%3D%22url%28%23g%29%22%20width%3D%22400%22%20height%3D%22300%22/%3E%3Crect%20x%3D%2260%22%20y%3D%2275%22%20width%3D%22280%22%20height%3D%22150%22%20rx%3D%2212%22%20fill%3D%22white%22%20stroke%3D%22%23d1d5db%22%20stroke-width%3D%222%22/%3E%3Ccircle%20cx%3D%22140%22%20cy%3D%22120%22%20r%3D%2220%22%20fill%3D%22%23fcd34d%22/%3E%3Cpath%20d%3D%22M100%20210%20L160%20157%20L200%20187%20L250%20142%20L320%20210%20Z%22%20fill%3D%22%23d1d5db%22/%3E%3Ctext%20x%3D%22200%22%20y%3D%22270%22%20text-anchor%3D%22middle%22%20font-family%3D%22sans-serif%22%20font-size%3D%2216%22%20fill%3D%22%239ca3af%22%3EFeatured%20Product%3C/text%3E%3C/svg%3E'}
+                          alt="Featured Product 1"
+                          fill
+                          priority
+                          sizes="(max-width: 768px) 50vw, 33vw"
+                          className="!object-cover !w-auto !h-auto"
+                          onError={(e) => {
+                            const el = e.currentTarget as unknown as HTMLImageElement;
+                            if (!el.dataset.fallback) {
+                              el.dataset.fallback = "1";
+                              (el as any).src = homePlaceholderSvg('Featured 1', ['#fef3c7','#fed7aa']);
+                            }
+                          }}
+                        />
+                      </div>
                         </div>
                         {/* Top right - jewelry */}
                         <div className="rounded-xl overflow-hidden shadow-sm ring-1 ring-black/5 bg-white">
-                          <img
-                            src={heroProducts.slice(1).find(p => Number(p.priceMin) > 0)?.image || products.slice(1).find(p => Number(p.priceMin) > 0)?.image || ''}
-                            alt="Featured Product 2"
-                            className="w-full h-full object-cover"
-                            onError={(e) => {
-                              const el = e.currentTarget as HTMLImageElement;
-                              el.style.display = 'none';
-                              el.parentElement!.style.background = 'linear-gradient(135deg,#dbeafe,#c7d2fe)';
-                            }}
-                          />
+                      <div className="relative w-full h-full bg-[linear-gradient(135deg,#dbeafe,#c7d2fe)]">
+                        <Image
+                          src={heroProducts.slice(1).find(p => Number(p.priceMin || p.price || 0) > 0)?.image || products.slice(1).find(p => Number(p.priceMin || p.price || 0) > 0)?.image || 'data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20400%20300%22%3E%3Cdefs%3E%3ClinearGradient%20id%3D%22g%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%23dbeafe%22/%3E%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23c7d2fe%22/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect%20fill%3D%22url%28%23g%29%22%20width%3D%22400%22%20height%3D%22300%22/%3E%3Crect%20x%3D%2260%22%20y%3D%2275%22%20width%3D%22280%22%20height%3D%22150%22%20rx%3D%2212%22%20fill%3D%22white%22%20stroke%3D%22%23d1d5db%22%20stroke-width%3D%222%22/%3E%3Ccircle%20cx%3D%22140%22%20cy%3D%22120%22%20r%3D%2220%22%20fill%3D%22%23fcd34d%22/%3E%3Cpath%20d%3D%22M100%20210%20L160%20157%20L200%20187%20L250%20142%20L320%20210%20Z%22%20fill%3D%22%23d1d5db%22/%3E%3Ctext%20x%3D%22200%22%20y%3D%22270%22%20text-anchor%3D%22middle%22%20font-family%3D%22sans-serif%22%20font-size%3D%2216%22%20fill%3D%22%239ca3af%22%3EFeatured%20Product%3C/text%3E%3C/svg%3E'}
+                          alt="Featured Product 2"
+                          fill
+                          sizes="(max-width: 768px) 50vw, 33vw"
+                          className="!object-cover !w-auto !h-auto"
+                          onError={(e) => {
+                            const el = e.currentTarget as unknown as HTMLImageElement;
+                            if (!el.dataset.fallback) {
+                              el.dataset.fallback = "1";
+                              (el as any).src = homePlaceholderSvg('Featured 2', ['#dbeafe','#c7d2fe']);
+                            }
+                          }}
+                        />
+                      </div>
                         </div>
                         {/* Middle right - toys */}
                         <div className="rounded-xl overflow-hidden shadow-sm ring-1 ring-black/5 bg-white">
-                          <img
-                            src={heroProducts.slice(2).find(p => Number(p.priceMin) > 0)?.image || products.slice(2).find(p => Number(p.priceMin) > 0)?.image || ''}
-                            alt="Featured Product 3"
-                            className="w-full h-full object-cover"
-                            onError={(e) => {
-                              const el = e.currentTarget as HTMLImageElement;
-                              el.style.display = 'none';
-                              el.parentElement!.style.background = 'linear-gradient(135deg,#dcfce7,#bbf7d0)';
-                            }}
-                          />
+                      <div className="relative w-full h-full bg-[linear-gradient(135deg,#dcfce7,#bbf7d0)]">
+                        <Image
+                          src={heroProducts.slice(2).find(p => Number(p.priceMin || p.price || 0) > 0)?.image || products.slice(2).find(p => Number(p.priceMin || p.price || 0) > 0)?.image || 'data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20400%20300%22%3E%3Cdefs%3E%3ClinearGradient%20id%3D%22g%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%23dcfce7%22/%3E%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23bbf7d0%22/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect%20fill%3D%22url%28%23g%29%22%20width%3D%22400%22%20height%3D%22300%22/%3E%3Crect%20x%3D%2260%22%20y%3D%2275%22%20width%3D%22280%22%20height%3D%22150%22%20rx%3D%2212%22%20fill%3D%22white%22%20stroke%3D%22%23d1d5db%22%20stroke-width%3D%222%22/%3E%3Ccircle%20cx%3D%22140%22%20cy%3D%22120%22%20r%3D%2220%22%20fill%3D%22%23fcd34d%22/%3E%3Cpath%20d%3D%22M100%20210%20L160%20157%20L200%20187%20L250%20142%20L320%20210%20Z%22%20fill%3D%22%23d1d5db%22/%3E%3Ctext%20x%3D%22200%22%20y%3D%22270%22%20text-anchor%3D%22middle%22%20font-family%3D%22sans-serif%22%20font-size%3D%2216%22%20fill%3D%22%239ca3af%22%3EFeatured%20Product%3C/text%3E%3C/svg%3E'}
+                          alt="Featured Product 3"
+                          fill
+                          sizes="(max-width: 768px) 50vw, 33vw"
+                          className="!object-cover !w-auto !h-auto"
+                          onError={(e) => {
+                            const el = e.currentTarget as unknown as HTMLImageElement;
+                            if (!el.dataset.fallback) {
+                              el.dataset.fallback = "1";
+                              (el as any).src = homePlaceholderSvg('Featured 3', ['#dcfce7','#bbf7d0']);
+                            }
+                          }}
+                        />
+                      </div>
                         </div>
                         {/* Bottom - wide */}
                         <div className="col-span-2 rounded-xl overflow-hidden shadow-sm ring-1 ring-black/5 bg-white">
-                          <img
-                            src={heroProducts.slice(3).find(p => Number(p.priceMin) > 0)?.image || products.slice(3).find(p => Number(p.priceMin) > 0)?.image || ''}
-                            alt="Featured Product 4"
-                            className="w-full h-full object-cover"
-                            onError={(e) => {
-                              const el = e.currentTarget as HTMLImageElement;
-                              el.style.display = 'none';
-                              el.parentElement!.style.background = 'linear-gradient(135deg,#fce7f3,#fbcfe8)';
-                            }}
-                          />
+                      <div className="relative w-full h-full bg-[linear-gradient(135deg,#fce7f3,#fbcfe8)]">
+                        <Image
+                          src={heroProducts.slice(3).find(p => Number(p.priceMin || p.price || 0) > 0)?.image || products.slice(3).find(p => Number(p.priceMin || p.price || 0) > 0)?.image || 'data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20400%20300%22%3E%3Cdefs%3E%3ClinearGradient%20id%3D%22g%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%23fce7f3%22/%3E%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23fbcfe8%22/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect%20fill%3D%22url%28%23g%29%22%20width%3D%22400%22%20height%3D%22300%22/%3E%3Crect%20x%3D%2260%22%20y%3D%2275%22%20width%3D%22280%22%20height%3D%22150%22%20rx%3D%2212%22%20fill%3D%22white%22%20stroke%3D%22%23d1d5db%22%20stroke-width%3D%222%22/%3E%3Ccircle%20cx%3D%22140%22%20cy%3D%22120%22%20r%3D%2220%22%20fill%3D%22%23fcd34d%22/%3E%3Cpath%20d%3D%22M100%20210%20L160%20157%20L200%20187%20L250%20142%20L320%20210%20Z%22%20fill%3D%22%23d1d5db%22/%3E%3Ctext%20x%3D%22200%22%20y%3D%22270%22%20text-anchor%3D%22middle%22%20font-family%3D%22sans-serif%22%20font-size%3D%2216%22%20fill%3D%22%239ca3af%22%3EFeatured%20Product%3C/text%3E%3C/svg%3E'}
+                          alt="Featured Product 4"
+                          fill
+                          sizes="(max-width: 768px) 50vw, 33vw"
+                          className="!object-cover !w-auto !h-auto"
+                          onError={(e) => {
+                            const el = e.currentTarget as unknown as HTMLImageElement;
+                            if (!el.dataset.fallback) {
+                              el.dataset.fallback = "1";
+                              (el as any).src = homePlaceholderSvg('Featured 4', ['#fce7f3','#fbcfe8']);
+                            }
+                          }}
+                        />
+                      </div>
                         </div>
                       </div>
                       {/* Floating badge */}
@@ -351,26 +420,27 @@ const Home = ({ products, newArrivals, categories, categoryProductsMap }: { prod
                     {topDeals.map((p) => (
                       <Link key={p.id} href={`/products/${p.slug || p.id}`} className="group bg-white p-3.5 hover:bg-ink-50 transition-colors">
                         <div className="relative aspect-square bg-white rounded-lg overflow-hidden mb-2.5 border border-ink-100 group-hover:border-navy-900 transition-colors">
-                          <img
-                            src={p.image}
-                            alt={p.name}
-                            loading="lazy"
-                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                            onError={(e) => {
-                              const el = e.currentTarget as HTMLImageElement;
-                              if (!el.dataset.fallback) {
-                                el.dataset.fallback = '1';
-                                const svg = `data:image/svg+xml;charset=UTF-8,${encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#f3f4f6"/><stop offset="100%" stop-color="#e5e7eb"/></linearGradient></defs><rect fill="url(#g)" width="200" height="200"/><rect x="30" y="50" width="140" height="100" rx="8" fill="white" stroke="#d1d5db" stroke-width="2"/><circle cx="70" cy="80" r="10" fill="#fcd34d"/><path d="M50 140 L80 105 L100 125 L125 95 L160 140 Z" fill="#d1d5db"/><text x="100" y="178" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#9ca3af">${p.name.slice(0,18)}</text></svg>`)}`;
-                                el.src = svg;
-                              }
-                            }}
-                          />
+                            <Image
+                              src={p.image}
+                              alt={p.name}
+                              fill
+                              loading="lazy"
+                              sizes="(max-width: 640px) 50vw, (max-width: 1024px) 25vw, 14vw"
+                              className="!object-cover !w-auto !h-auto group-hover:scale-105 transition-transform duration-500"
+                              onError={(e) => {
+                                const el = e.currentTarget as unknown as HTMLImageElement;
+                                if (!el.dataset.fallback) {
+                                  el.dataset.fallback = "1";
+                                  (el as any).src = homePlaceholderSvg(p.name);
+                                }
+                              }}
+                            />
                         </div>
                         <p className="text-[12px] text-ink-600 line-clamp-2 leading-snug min-h-[2.1em] font-medium group-hover:text-navy-900 transition-colors">
                           {p.name}
                         </p>
                         <div className="flex items-baseline justify-between mt-1.5">
-                          <span className="text-sm font-bold text-navy-900">${p.priceMin.toFixed(2)}</span>
+                          <span className="text-sm font-bold text-navy-900">{"$" + (Number(p.priceMin || p.price || 0)).toFixed(2)}</span>
                           {p.moq && <span className="text-[10px] text-ink-400">MOQ {p.moq}</span>}
                         </div>
                       </Link>
@@ -401,26 +471,27 @@ const Home = ({ products, newArrivals, categories, categoryProductsMap }: { prod
                       <Link key={p.id} href={`/products/${p.slug || p.id}`} className="group bg-white p-3.5 hover:bg-ink-50 transition-colors">
                         <div className="relative aspect-square bg-white rounded-lg overflow-hidden mb-2.5 border border-ink-100 group-hover:border-navy-900 transition-colors">
                           <span className="absolute top-1.5 left-1.5 bg-accent-500 text-white text-[9px] font-bold px-1.5 py-0.5 rounded tracking-wide uppercase z-10">New</span>
-                          <img
-                            src={p.image}
-                            alt={p.name}
-                            loading="lazy"
-                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                            onError={(e) => {
-                              const el = e.currentTarget as HTMLImageElement;
-                              if (!el.dataset.fallback) {
-                                el.dataset.fallback = '1';
-                                const svg = `data:image/svg+xml;charset=UTF-8,${encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#f3f4f6"/><stop offset="100%" stop-color="#e5e7eb"/></linearGradient></defs><rect fill="url(#g)" width="200" height="200"/><rect x="30" y="50" width="140" height="100" rx="8" fill="white" stroke="#d1d5db" stroke-width="2"/><circle cx="70" cy="80" r="10" fill="#fcd34d"/><path d="M50 140 L80 105 L100 125 L125 95 L160 140 Z" fill="#d1d5db"/><text x="100" y="178" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#9ca3af">${p.name.slice(0,18)}</text></svg>`)}`;
-                                el.src = svg;
-                              }
-                            }}
-                          />
+                            <Image
+                              src={p.image}
+                              alt={p.name}
+                              fill
+                              loading="lazy"
+                              sizes="(max-width: 640px) 50vw, (max-width: 1024px) 25vw, 14vw"
+                              className="!object-cover !w-auto !h-auto group-hover:scale-105 transition-transform duration-500"
+                              onError={(e) => {
+                                const el = e.currentTarget as unknown as HTMLImageElement;
+                                if (!el.dataset.fallback) {
+                                  el.dataset.fallback = "1";
+                                  (el as any).src = homePlaceholderSvg(p.name);
+                                }
+                              }}
+                            />
                         </div>
                         <p className="text-[12px] text-ink-600 line-clamp-2 leading-snug min-h-[2.1em] font-medium group-hover:text-navy-900 transition-colors">
                           {p.name}
                         </p>
                         <div className="flex items-baseline justify-between mt-1.5">
-                          <span className="text-sm font-bold text-navy-900">${p.priceMin.toFixed(2)}</span>
+                          <span className="text-sm font-bold text-navy-900">{"$" + (Number(p.priceMin || p.price || 0)).toFixed(2)}</span>
                           {p.moq && <span className="text-[10px] text-ink-400">MOQ {p.moq}</span>}
                         </div>
                       </Link>
@@ -476,25 +547,26 @@ const Home = ({ products, newArrivals, categories, categoryProductsMap }: { prod
                           {catProducts.map((p) => (
                             <Link key={p.id} href={`/products/${p.slug || p.id}`} className="group bg-white p-3 hover:bg-ink-50 transition-colors">
                               <div className="relative aspect-square bg-white rounded-lg overflow-hidden mb-2 border border-ink-100 group-hover:border-navy-900 transition-colors">
-                                <img
-                                  src={p.image}
-                                  alt={p.name}
-                                  loading="lazy"
-                                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                                  onError={(e) => {
-                                    const el = e.currentTarget as HTMLImageElement;
-                                    if (!el.dataset.fallback) {
-                                      el.dataset.fallback = '1';
-                                      const svg = `data:image/svg+xml;charset=UTF-8,${encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#f3f4f6"/><stop offset="100%" stop-color="#e5e7eb"/></linearGradient></defs><rect fill="url(#g)" width="200" height="200"/><rect x="30" y="50" width="140" height="100" rx="8" fill="white" stroke="#d1d5db" stroke-width="2"/><circle cx="70" cy="80" r="10" fill="#fcd34d"/><path d="M50 140 L80 105 L100 125 L125 95 L160 140 Z" fill="#d1d5db"/><text x="100" y="178" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#9ca3af">${p.name.slice(0,18)}</text></svg>`)}`;
-                                      el.src = svg;
-                                    }
-                                  }}
-                                />
+                            <Image
+                              src={p.image}
+                              alt={p.name}
+                              fill
+                              loading="lazy"
+                              sizes="(max-width: 640px) 50vw, (max-width: 1024px) 25vw, 14vw"
+                              className="!object-cover !w-auto !h-auto group-hover:scale-105 transition-transform duration-500"
+                              onError={(e) => {
+                                const el = e.currentTarget as unknown as HTMLImageElement;
+                                if (!el.dataset.fallback) {
+                                  el.dataset.fallback = "1";
+                                  (el as any).src = homePlaceholderSvg(p.name);
+                                }
+                              }}
+                            />
                               </div>
                               <p className="text-[12px] text-ink-600 line-clamp-2 leading-snug min-h-[2.1em] group-hover:text-navy-900 transition-colors">
                                 {p.name}
                               </p>
-                              <p className="text-sm font-bold text-navy-900 mt-1">${p.priceMin.toFixed(2)}</p>
+                              <p className="text-sm font-bold text-navy-900 mt-1">{"$" + (Number(p.priceMin || p.price || 0)).toFixed(2)}</p>
                             </Link>
                           ))}
                         </div>
@@ -558,7 +630,7 @@ function loadHomeSeedData() {
     const raw = JSON.parse(fs.readFileSync(seedPath, 'utf-8'));
     homeSeedCache = { categories: raw.categories || [], products: raw.products || [] };
     return homeSeedCache;
-  } catch {
+  } catch (e: any) { if (typeof console !== 'undefined') console.warn('[Home/loadHomeSeedData] failed to read seed-data.json:', e);
     return null;
   }
 }
@@ -593,7 +665,7 @@ export const getServerSideProps = async () => {
         return children.map((c: any) => {
           let opts: any = {};
           if (c.variantOptions) {
-            try { opts = typeof c.variantOptions === 'string' ? JSON.parse(c.variantOptions) : c.variantOptions; } catch {}
+            try { opts = typeof c.variantOptions === 'string' ? JSON.parse(c.variantOptions) : c.variantOptions; } catch (e: any) { if (typeof console !== 'undefined') console.warn('[Home/attachVariantPreview] JSON.parse(c.variantOptions) failed:', e); }
           }
           return {
             id: c.id,
@@ -695,7 +767,7 @@ export const getServerSideProps = async () => {
         // 子产品自己的 variantOptions 解析
         let selfVariantOptions: any = null;
         if (p.variantOptions) {
-          try { selfVariantOptions = typeof p.variantOptions === 'string' ? JSON.parse(p.variantOptions) : p.variantOptions; } catch {}
+          try { selfVariantOptions = typeof p.variantOptions === 'string' ? JSON.parse(p.variantOptions) : p.variantOptions; } catch (e: any) { if (typeof console !== 'undefined') console.warn('[Home/formatProduct] JSON.parse(p.variantOptions) failed:', e); }
         }
 
         return {
@@ -817,7 +889,7 @@ export const getServerSideProps = async () => {
         if (Array.isArray(parsed)) {
           images = parsed.filter((img: string) => typeof img === 'string' && img.length > 0).map(resolveImageUrlServerSide);
         }
-      } catch {}
+      } catch (e: any) { if (typeof console !== 'undefined') console.warn('[Home/formatProductLocal] JSON.parse(p.images) failed:', e); }
       if (images.length === 0 && image) images = [image];
       
       const catId = p.categoryId || '';

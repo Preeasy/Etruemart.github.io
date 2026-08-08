@@ -55,7 +55,7 @@ const Register = () => {
       }
 
       router.push('/login?registered=1');
-    } catch {
+    } catch (e: any) { if (typeof console !== 'undefined') console.warn('[Register] silent catch:', e);
       setError('Network error. Please try again.');
       setLoading(false);
     }

@@ -45,7 +45,7 @@ import ProductCard from '@/components/ProductCard';
 import ShippingSelector from '@/components/ShippingSelector';
 import ReviewsSection from '@/components/ReviewsSection';
 import { useCart } from '@/components/CartContext';
-import { SITE_URL, SITE_OG_IMAGE } from '@/lib/site';
+import { SITE_URL, SITE_OG_IMAGE, SITE_COMPANY } from '@/lib/site';
 import { getProductBySlug, getProductById, getCategoryById, getRelatedProducts } from '@/lib/db';
 import { proxyImageUrl as proxyImageUrlDirect } from '@/lib/image-utils';
 import { computeBulletPoints } from '@/lib/bullet-points';
@@ -501,7 +501,7 @@ export default function ProductDetail({ product: initialProduct, relatedProducts
               ...(product.priceMax !== undefined && product.priceMax !== null && Number(product.priceMax) > 0 ? { highPrice: Number(product.priceMax) } : {}),
               // Use real stock status, fallback InStock
               availability: stock <= 0 ? 'https://schema.org/OutOfStock' : 'https://schema.org/InStock',
-              seller: { '@type': 'Organization', name: 'Yiwu Yeatru Trading Co., Ltd.' }
+              seller: { '@type': 'Organization', name: SITE_COMPANY }
             }
           })
         }} />
@@ -1059,8 +1059,8 @@ export default function ProductDetail({ product: initialProduct, relatedProducts
               {activeTab === 'reviews' && (
                 <ReviewsSection
                   productId={String(product.id)}
-                  fallbackRating={rating}
-                  fallbackReviewCount={reviewCount}
+                  fallbackRating={0}
+                  fallbackReviewCount={0}
                 />
               )}
 
@@ -1184,8 +1184,15 @@ export default function ProductDetail({ product: initialProduct, relatedProducts
             {/* Product summary */}
             <div className="px-6 py-4 border-b border-ink-100 bg-ink-50/50">
               <div className="flex gap-3 items-center">
-                <div className="w-14 h-14 rounded-lg overflow-hidden border border-ink-100 bg-white flex-shrink-0">
-                  <img src={images[0] || product.image} alt={product.name} className="w-full h-full object-cover" onError={(e) => { (e.currentTarget as HTMLImageElement).style.visibility = 'hidden'; }} />
+                <div className="relative w-14 h-14 rounded-lg overflow-hidden border border-ink-100 bg-white flex-shrink-0">
+                  <Image
+                    src={images[0] || product.image || 'data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20400%20300%22%3E%3Crect%20fill%3D%22%23f3f4f6%22%20width%3D%22400%22%20height%3D%22300%22/%3E%3Crect%20x%3D%2260%22%20y%3D%2275%22%20width%3D%22280%22%20height%3D%22150%22%20rx%3D%2212%22%20fill%3D%22white%22%20stroke%3D%22%23d1d5db%22%20stroke-width%3D%222%22/%3E%3Ctext%20x%3D%22200%22%20y%3D%22160%22%20text-anchor%3D%22middle%22%20font-family%3D%22sans-serif%22%20font-size%3D%2216%22%20fill%3D%22%239ca3af%22%3EProduct%20Image%3C/text%3E%3C/svg%3E'}
+                    alt={product.name}
+                    fill
+                    sizes="56px"
+                    className="!object-cover !w-auto !h-auto rounded-lg"
+                    onError={(e) => { (e.currentTarget as unknown as HTMLImageElement).style.visibility = 'hidden'; }}
+                  />
                 </div>
                 <div className="min-w-0">
                   <div className="text-sm font-bold text-navy-900 truncate">{product.name}</div>
@@ -1409,10 +1416,13 @@ ${f.company ? f.company + '\n' : ''}`
             <ChevronRight className="w-6 h-6" />
           </button>
           <div className="w-[85vw] h-[85vh] relative" onClick={(e) => e.stopPropagation()}>
-            <img
-              src={images[lightboxIndex]}
+            <Image
+              src={images[lightboxIndex] || 'data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20400%20300%22%3E%3Crect%20fill%3D%22%23f3f4f6%22%20width%3D%22400%22%20height%3D%22300%22/%3E%3Crect%20x%3D%2260%22%20y%3D%2275%22%20width%3D%22280%22%20height%3D%22150%22%20rx%3D%2212%22%20fill%3D%22white%22%20stroke%3D%22%23d1d5db%22%20stroke-width%3D%222%22/%3E%3Ctext%20x%3D%22200%22%20y%3D%22160%22%20text-anchor%3D%22middle%22%20font-family%3D%22sans-serif%22%20font-size%3D%2216%22%20fill%3D%22%239ca3af%22%3EProduct%20Lightbox%3C/text%3E%3C/svg%3E'}
               alt={`${product.name} - view ${lightboxIndex + 1}`}
-              className="w-full h-full object-contain"
+              fill
+              sizes="85vw"
+              className="!object-contain !w-auto !h-auto"
+              onError={(e) => { (e.currentTarget as unknown as HTMLImageElement).style.visibility = 'hidden'; }}
             />
           </div>
           <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-2">
@@ -1691,7 +1701,7 @@ function findProductFromSeed(productId: string) {
         // Old format: {description, bulletPoints, blocks:[]}
         aplus = parsed;
       }
-    } catch {
+    } catch (e: any) { if (typeof console !== 'undefined') console.warn('[ProductDetail/unknown] silent error:', e);
       aplus = null;
     }
   }
@@ -1848,7 +1858,7 @@ export async function getServerSideProps(context: { params: { id: string } }) {
       if (Array.isArray(parsedImages)) {
         images = parsedImages.filter((img: string) => typeof img === 'string').map(proxyImageUrlDirect);
       }
-    } catch {
+    } catch (e: any) { if (typeof console !== 'undefined') console.warn('[ProductDetail/JSON.parse] silent error:', e);
       images = [];
     }
 
@@ -1861,7 +1871,7 @@ export async function getServerSideProps(context: { params: { id: string } }) {
       if (Array.isArray(parsedKeywords)) {
         keywords = parsedKeywords.filter((kw: string) => typeof kw === 'string');
       }
-    } catch {
+    } catch (e: any) { if (typeof console !== 'undefined') console.warn('[ProductDetail/JSON.parse] silent error:', e);
       keywords = [];
     }
 
@@ -1872,7 +1882,7 @@ export async function getServerSideProps(context: { params: { id: string } }) {
         aplus = typeof product.aplus === 'string'
           ? JSON.parse(product.aplus)
           : product.aplus;
-      } catch {
+      } catch (e: any) { if (typeof console !== 'undefined') console.warn('[ProductDetail/JSON.parse] silent error:', e);
         aplus = null;
       }
     }

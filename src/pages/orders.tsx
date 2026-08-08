@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
@@ -133,11 +134,14 @@ const Orders = () => {
                         <div key={index} className="flex-shrink-0">
                           <Link href={`/products/${item.product.id}`}>
                             <div className="relative w-20 h-20 overflow-hidden rounded-xl">
-                              <img
-                                src={item.product.image}
+                              <Image
+                                src={item.product.image || ""}
                                 alt={item.product.name}
-                                className="w-full h-full object-cover"
+                                fill
                                 loading="lazy"
+                                sizes="80px"
+                                className="!object-cover !w-auto !h-auto rounded-xl"
+                                onError={(e) => { (e.currentTarget as unknown as HTMLImageElement).style.visibility = 'hidden'; }}
                               />
                             </div>
                           </Link>

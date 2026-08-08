@@ -1,4 +1,5 @@
 import { memo, useCallback, useRef } from 'react';
+import Image from 'next/image';
 import Link from 'next/link';
 import { Edit3 } from 'lucide-react';
 import { getAltExtensionCdnUrl } from '@/lib/image-utils';
@@ -128,13 +129,20 @@ const ProductCard = ({ product, editUrl }: ProductCardProps) => {
       )}
       <Link href={`/products/${product.slug || product.id}`} className="block">
         <div className="relative aspect-square overflow-hidden bg-ink-50">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
+          <Image
             src={imageUrl || FALLBACK_SVG}
             alt={product.name}
-            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+            fill
             loading="lazy"
-            onError={handleImageError}
+            sizes="(max-width: 640px) 50vw, (max-width: 1024px) 25vw, 20vw"
+            className="!object-cover !w-auto !h-auto group-hover:scale-105 transition-transform duration-500"
+            onError={(e) => {
+              const el = e.currentTarget as unknown as HTMLImageElement;
+              if (!el.dataset.fallback) {
+                el.dataset.fallback = "1";
+                (el as any).src = 'data:image/svg+xml;charset=UTF-8,' + encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300"><rect fill="#f3f4f6" width="400" height="300"/><text x="200" y="150" text-anchor="middle" font-family="sans-serif" font-size="14" fill="#9ca3af">${(product.name || '').slice(0,20)}</text></svg>`);
+              }
+            }}
           />
           <div className="absolute inset-0 bg-gradient-to-t from-navy-900/0 group-hover:from-navy-900/10 transition-all duration-300 pointer-events-none" />
           {product.stockStatus === 'IN_STOCK' && (

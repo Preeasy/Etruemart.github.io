@@ -1,6 +1,7 @@
 import { useState, useEffect, useMemo } from 'react';
 import { useRouter } from 'next/router';
 import { useSession } from 'next-auth/react';
+import Image from 'next/image';
 import Link from 'next/link';
 import Head from 'next/head';
 import {
@@ -34,6 +35,7 @@ interface Product {
   description: string;
   category: { name: string; slug: string };
   priceMin: number;
+  price?: number;
   priceMax?: number;
   image: string;
   moq?: number;
@@ -484,11 +486,20 @@ const Products = () => {
                     className="flex gap-4 bg-white rounded-xl border border-ink-200 p-4 hover:border-accent-300 hover:shadow-md transition-all group"
                   >
                     <div className="relative w-28 h-28 sm:w-32 sm:h-32 flex-shrink-0 bg-gradient-to-br from-ink-50 to-white rounded-xl overflow-hidden border border-ink-100">
-                      <img
-                        src={product.image}
+                      <Image
+                        src={product.image || ""}
                         alt={product.name}
-                        className="w-full h-full object-contain p-2 group-hover:scale-105 transition-transform duration-500"
+                        fill
                         loading="lazy"
+                        sizes="(max-width: 640px) 50vw, 128px"
+                        className="!object-contain !w-auto !h-auto !p-2 group-hover:scale-105 transition-transform duration-500"
+                        onError={(e) => {
+                          const el = e.currentTarget as unknown as HTMLImageElement;
+                          if (!el.dataset.fallback) {
+                            el.dataset.fallback = "1";
+                            (el as any).src = 'data:image/svg+xml;charset=UTF-8,' + encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><rect fill="#f3f4f6" width="200" height="200"/><text x="100" y="105" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#9ca3af">${product.name.slice(0,18)}</text></svg>`);
+                          }
+                        }}
                       />
                       {product.stockStatus === 'IN_STOCK' && (
                         <span className="absolute top-1.5 right-1.5 bg-success-500 text-white text-[9px] font-bold px-1.5 py-0.5 rounded">
@@ -523,7 +534,7 @@ const Products = () => {
                       <div className="flex items-center justify-between mt-2 pt-2 border-t border-ink-100">
                         <div className="flex items-baseline gap-1.5">
                           <span className="text-lg font-bold text-navy-800">
-                            ${Number(product.priceMin).toFixed(2)}
+                            ${Number(product.priceMin || product.price || 0).toFixed(2)}
                           </span>
                           {product.priceMax && (
                             <span className="text-xs text-ink-400">- ${Number(product.priceMax).toFixed(2)}</span>

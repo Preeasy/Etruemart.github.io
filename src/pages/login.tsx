@@ -48,7 +48,7 @@ const Login = () => {
       } else {
         router.push('/');
       }
-    } catch {
+    } catch (e: any) { if (typeof console !== 'undefined') console.warn('[Login] silent catch:', e);
       setError('Network error. Please try again.');
       setLoading(false);
     }

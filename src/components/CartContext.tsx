@@ -42,7 +42,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
       } else {
         setItems([]);
       }
-    } catch {
+    } catch (e: any) { if (typeof console !== 'undefined') console.warn('[CartContext] silent catch:', e);
       setItems([]);
     } finally {
       setLoading(false);
@@ -73,7 +73,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
         return true;
       }
       return false;
-    } catch {
+    } catch (e: any) { if (typeof console !== 'undefined') console.warn('[CartContext] silent catch:', e);
       return false;
     }
   }, [refresh]);
@@ -98,7 +98,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
         return true;
       }
       return false;
-    } catch {
+    } catch (e: any) { if (typeof console !== 'undefined') console.warn('[CartContext] silent catch:', e);
       return false;
     }
   }, []);
@@ -111,7 +111,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
         return true;
       }
       return false;
-    } catch {
+    } catch (e: any) { if (typeof console !== 'undefined') console.warn('[CartContext] silent catch:', e);
       return false;
     }
   }, []);

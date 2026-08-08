@@ -81,7 +81,7 @@ export default function ReviewsSection({
       } else {
         setError('Failed to load reviews');
       }
-    } catch {
+    } catch (e: any) { if (typeof console !== 'undefined') console.warn('[ReviewsSection] silent catch:', e);
       setError('Network error loading reviews');
     } finally {
       setLoading(false);
@@ -123,7 +123,7 @@ export default function ReviewsSection({
       } else {
         setFormError(data.error || 'Failed to submit review');
       }
-    } catch {
+    } catch (e: any) { if (typeof console !== 'undefined') console.warn('[ReviewsSection] silent catch:', e);
       setFormError('Network error. Please try again.');
     } finally {
       setSubmitting(false);
@@ -168,7 +168,7 @@ export default function ReviewsSection({
       } else {
         setFormError(data.error || 'Failed to save changes');
       }
-    } catch {
+    } catch (e: any) { if (typeof console !== 'undefined') console.warn('[ReviewsSection] silent catch:', e);
       setFormError('Network error. Please try again.');
     } finally {
       setSavingEdit(false);
@@ -185,18 +185,18 @@ export default function ReviewsSection({
         const data = await res.json().catch(() => ({}));
         window.alert(data.error || 'Failed to delete review');
       }
-    } catch {
+    } catch (e: any) { if (typeof console !== 'undefined') console.warn('[ReviewsSection] silent catch:', e);
       window.alert('Network error. Please try again.');
     }
   };
 
-  // Aggregate stats from loaded reviews
+  // Aggregate stats from loaded reviews — NO fake fallbacks (SEO compliant)
   const totalCount = reviews.length;
-  const avgRating =
-    totalCount > 0
-      ? reviews.reduce((sum, r) => sum + r.rating, 0) / totalCount
-      : fallbackRating;
-  const displayCount = totalCount > 0 ? totalCount : fallbackReviewCount;
+  const hasRealReviews = totalCount > 0;
+  const avgRating = hasRealReviews
+    ? reviews.reduce((sum, r) => sum + r.rating, 0) / totalCount
+    : 0;
+  const displayCount = totalCount;
 
   const distribution = [5, 4, 3, 2, 1].map((stars) => {
     const count = reviews.filter((r) => r.rating === stars).length;
@@ -222,7 +222,12 @@ export default function ReviewsSection({
               />
             ))}
           </div>
-          <p className="text-xs text-ink-500 font-medium">Based on {displayCount} reviews</p>
+          {hasRealReviews && (
+            <p className="text-xs text-ink-500 font-medium">Based on {displayCount} reviews</p>
+          )}
+          {!hasRealReviews && (
+            <p className="text-xs text-ink-400 font-medium italic">No customer reviews yet</p>
+          )}
         </div>
         <div className="md:col-span-2 space-y-1.5">
           {distribution.map((row) => (

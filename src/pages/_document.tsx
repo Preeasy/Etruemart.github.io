@@ -13,7 +13,7 @@ export default function Document() {
         <meta name="title" content={`${SITE_NAME} | Wholesale Jewelry & Accessories from Yiwu`} />
         <meta name="description" content={SITE_DESCRIPTION} />
         <meta name="keywords" content="wholesale jewelry, Yiwu market, fashion jewelry wholesale, bag accessories, hair accessories, garment accessories, home decor crafts, toys gift, B2B sourcing China, low MOQ, factory direct" />
-        <meta name="author" content="eTrue Mark / Yiwu Yeatru Trading Co., Ltd." />
+        <meta name="author" content="eTrue Mark / Yiwu Yichu Trading Co., Ltd. / 义乌弋楚贸易有限公司" />
         <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
         <meta name="googlebot" content="index, follow" />
         <meta name="bingbot" content="index, follow" />
@@ -70,6 +70,7 @@ export default function Document() {
               '@type': 'Organization',
               name: SITE_NAME,
               alternateName: SITE_COMPANY,
+              additionalName: '义乌弋楚贸易有限公司',
               url: SITE_URL,
               logo: `${SITE_URL}/logo.png`,
               description: SITE_DESCRIPTION,

@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { SITE_COMPANY } from '@/lib/site';
 import {
   Gem,
   Facebook,
@@ -163,7 +164,7 @@ const Footer = () => {
         {/* Bottom bar */}
         <div className="border-t border-navy-800/60 mt-10 pt-6 flex flex-col md:flex-row justify-between items-center gap-3">
           <p className="text-ink-500 text-xs">
-            &copy; {year} eTrue Mark. Yiwu Yeatru Trading Co., Ltd. All rights reserved.
+            © {year} eTrue Mark. {SITE_COMPANY}. All rights reserved.
           </p>
           <div className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-xs text-ink-500">
             <Link href="/about" className="hover:text-accent-300 transition-colors">Privacy Policy</Link>

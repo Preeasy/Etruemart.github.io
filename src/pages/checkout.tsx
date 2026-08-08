@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
+import Image from 'next/image';
 import Link from 'next/link';
 import Head from 'next/head';
 import {
@@ -93,7 +94,7 @@ const Checkout = () => {
         const def = list.find((a) => a.isDefault) || list[0];
         if (def) setSelectedAddressId(def.id);
       }
-    } catch {} finally {
+    } catch (e: any) { if (typeof console !== 'undefined') console.warn('[Checkout/session] silent error caught:', e); } finally {
       setAddressesLoading(false);
     }
   };
@@ -212,7 +213,7 @@ const Checkout = () => {
         const data = await res.json().catch(() => ({}));
         setError(data.error || 'Failed to save address');
       }
-    } catch {
+    } catch (e: any) { if (typeof console !== 'undefined') console.warn('[Checkout] silent error caught:', e);
       setError('Network error. Please try again.');
     } finally {
       setSavingAddress(false);
@@ -244,7 +245,7 @@ const Checkout = () => {
         const data = await res.json().catch(() => ({}));
         setError(data.error || 'Failed to place order. Please try again.');
       }
-    } catch {
+    } catch (e: any) { if (typeof console !== 'undefined') console.warn('[Checkout] silent error caught:', e);
       setError('Network error. Please try again.');
     } finally {
       setPlacingOrder(false);
@@ -488,13 +489,15 @@ const Checkout = () => {
                   return (
                     <div key={item.id} className="flex gap-3">
                       <div className="relative w-14 h-14 flex-shrink-0 rounded-lg overflow-hidden border border-ink-100">
-                        {/* eslint-disable-next-line @next/next/no-img-element */}
-                        <img
-                          src={item.product.image}
+                        <Image
+                          src={item.product.image || ""}
                           alt={item.product.name}
-                          className="w-full h-full object-cover"
+                          fill
+                          sizes="56px"
+                          className="!object-cover !w-auto !h-auto rounded-lg"
+                          onError={(e) => { (e.currentTarget as unknown as HTMLImageElement).style.visibility = 'hidden'; }}
                         />
-                        <span className="absolute -top-1 -right-1 min-w-[16px] h-4 px-1 bg-navy-800 text-white text-[10px] font-bold rounded-full flex items-center justify-center">{item.quantity}</span>
+                        <span className="absolute -top-1 -right-1 min-w-[16px] h-4 px-1 bg-navy-800 text-white text-[10px] font-bold rounded-full flex items-center justify-center z-10">{item.quantity}</span>
                       </div>
                       <div className="flex-1 min-w-0">
                         <p className="text-xs font-medium text-navy-800 line-clamp-2 leading-tight">{item.product.name}</p>

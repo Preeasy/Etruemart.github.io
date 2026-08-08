@@ -19,3 +19,6 @@ __pycache__/
 .image-cache
 public/images/item-list/
 prisma/github-files.json
+
+# TypeScript build cache
+tsconfig.tsbuildinfo

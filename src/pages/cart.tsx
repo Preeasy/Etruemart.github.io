@@ -1,4 +1,5 @@
 import { useSession } from 'next-auth/react';
+import Image from 'next/image';
 import Link from 'next/link';
 import Head from 'next/head';
 import { ShoppingCart, Plus, Minus, Trash2, CreditCard, Truck, ChevronRight, ArrowLeft } from 'lucide-react';
@@ -72,11 +73,13 @@ const Cart = () => {
                   return (
                     <div key={item.id} className="bg-white rounded-xl border border-ink-200 p-4 sm:p-6 flex gap-4">
                       <Link href={`/products/${item.product.id}`} className="relative w-24 h-24 flex-shrink-0 rounded-xl overflow-hidden border border-ink-100">
-                        <img
-                          src={item.product.image}
+                        <Image
+                          src={item.product.image || ""}
                           alt={item.product.name}
-                          className="w-full h-full object-cover"
-                          loading="lazy"
+                          fill
+                          sizes="96px"
+                          className="!object-cover !w-auto !h-auto rounded-xl"
+                          onError={(e) => { (e.currentTarget as unknown as HTMLImageElement).style.visibility = 'hidden'; }}
                         />
                       </Link>
                       <div className="flex-1 min-w-0">
