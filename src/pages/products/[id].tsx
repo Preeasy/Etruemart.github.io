@@ -608,7 +608,7 @@ export default function ProductDetail({ product: initialProduct, relatedProducts
                     fill
                     priority
                     sizes="(max-width: 1024px) 100vw, 50vw"
-                    className="!object-contain !p-5 md:!p-8 !w-auto !h-auto"
+                    className="object-contain p-5 md:p-8"
                     onError={(e) => {
                       const el = e.currentTarget as unknown as HTMLImageElement;
                       if (!el.dataset.fallback) {
@@ -632,12 +632,17 @@ export default function ProductDetail({ product: initialProduct, relatedProducts
                       onClick={() => setSelectedImage(i)}
                       className={`relative flex-shrink-0 w-14 h-14 md:w-16 md:h-16 rounded-lg overflow-hidden border transition-all ${selectedImage === i ? 'border-accent-500 ring-2 ring-accent-100' : 'border-ink-200 hover:border-navy-400'} bg-white`}
                     >
-                      {/* ✅ next/Image thumbnail with lazy loading */}
+                      {/* ✅ next/Image thumbnail with lazy loading.
+                           The first thumbnail shares its src with the main
+                           LCP image, so it must also carry `priority` —
+                           otherwise Next.js flags that src as an unprioritized
+                           LCP candidate. */}
                       <Image
                         src={img}
                         alt={`${product.name} - view ${i + 1}`}
                         fill
                         sizes="64px"
+                        priority={i === 0}
                         className="!object-contain !p-1"
                       />
                     </button>

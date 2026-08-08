@@ -157,11 +157,20 @@ export default function VariantSelector({ variants, currentSku, baseName, onVari
     // Show layer if it exists
     if (v.layer) parts.push(v.layer);
     
-    // If color repeats AND we don't have a size yet, add SKU suffix to distinguish them
+    // If color repeats AND we don't have other differentiators, try to find a meaningful label
+    // from the variant name (not meaningless SKU numbers)
     const skuParts = v.sku.split('-');
     const skuSuffix = skuParts[skuParts.length - 1];
     if (v.color && (colorCounts.get(v.color) || 0) > 1 && !effectiveSize && !v.capacity && !v.layer) {
-      parts.push(skuSuffix);
+      // Extract a meaningful differentiator from the variant name
+      const nameDiff = extractVariantLabel(v.name, baseName, v.sku);
+      // Only add if it's meaningful (not just a number or "Option N")
+      const isOnlyNumbers = /^\d+$/.test(nameDiff);
+      if (nameDiff && !isOnlyNumbers && !nameDiff.startsWith('Option ') && nameDiff.toLowerCase() !== (v.color || '').toLowerCase()) {
+        parts.push(nameDiff);
+      }
+      // If no meaningful differentiator found, just show the color
+      // (duplicate colors indicate a data issue - not adding SKU suffix as it's meaningless to users)
     }
     
     // If we have structured parts, use them directly

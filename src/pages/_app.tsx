@@ -1,4 +1,10 @@
 import { SessionProvider } from 'next-auth/react';
+import type { Viewport } from 'next';
+
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+};
 import type { AppProps } from 'next/app';
 import { Component, ReactNode, ErrorInfo } from 'react';
 import Link from 'next/link';
