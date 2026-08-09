@@ -492,7 +492,7 @@ const Products = () => {
                         fill
                         loading="lazy"
                         sizes="(max-width: 640px) 50vw, 128px"
-                        className="!object-contain !w-auto !h-auto !p-2 group-hover:scale-105 transition-transform duration-500"
+                        className="object-contain p-2 group-hover:scale-105 transition-transform duration-500"
                         onError={(e) => {
                           const el = e.currentTarget as unknown as HTMLImageElement;
                           if (!el.dataset.fallback) {

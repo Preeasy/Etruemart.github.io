@@ -115,6 +115,19 @@ function convertImageUrl(url: string): string {
   return resolveImageUrlServerSide(url) || '';
 }
 
+// 列表页 description 仅用于 line-clamp-1 一行显示 + 客户端搜索匹配，
+// 截断到 200 字符并剥离 HTML 标签，可减小 ~350KB payload
+function trimDescription(desc: any): string {
+  if (!desc) return '';
+  let s = typeof desc === 'string' ? desc : String(desc);
+  // strip HTML tags & entities
+  s = s.replace(/<style[\s\S]*?<\/style>/gi, '').replace(/<script[\s\S]*?<\/script>/gi, '');
+  s = s.replace(/<[^>]+>/g, ' ');
+  s = s.replace(/&nbsp;/gi, ' ').replace(/&amp;/gi, '&').replace(/&lt;/gi, '<').replace(/&gt;/gi, '>').replace(/&#39;/gi, "'").replace(/&quot;/gi, '"');
+  s = s.replace(/\s+/g, ' ').trim();
+  return s.length > 200 ? s.slice(0, 200) + '...' : s;
+}
+
 function getProductsFromSeedData(req: NextApiRequest, res: NextApiResponse) {
   const seedData = loadSeedData();
   if (!seedData) {
@@ -233,38 +246,29 @@ function getProductsFromSeedData(req: NextApiRequest, res: NextApiResponse) {
       }
     }
 
+    // 列表页仅需字段：裁掉 images/originalPrice/stock/rating/reviewCount/salesCount/
+    // shippingCost/shippingMethod/process/authorId/updatedAt 等重字段，减小 JSON payload
     return {
       id: p.id,
       name: p.name,
       slug: p.slug,
-      description: p.description || '',
+      description: trimDescription(p.description),
       price: Number(p.price) || 0,
       priceMax: p.priceMax ? Number(p.priceMax) : null,
-      originalPrice: p.originalPrice ? Number(p.originalPrice) : null,
       image: convertImageUrl(p.image || ''),
       categoryId: catId,
       categoryName: cat?.name || rootCat?.name || '',
       categorySlug: cat?.slug || rootCat?.slug || catId,
-      stock: p.stock ?? 100,
-      rating: Number(p.rating) || 0,
-      reviewCount: Number(p.reviewCount) || 0,
-      salesCount: Number(p.salesCount) || 0,
       isPublished: p.isPublished !== false,
-      shippingCost: Number(p.shippingCost) || 0,
-      shippingMethod: p.shippingMethod || 'Standard Shipping',
       sku: p.sku || null,
       material: p.material || null,
       plating: p.plating || null,
-      process: p.process || null,
       color: p.color || null,
       size: p.size || null,
       packSize: Number(p.packSize) || 1,
       moq: Number(p.moq) || 1,
       stockStatus: p.stockStatus || 'IN_STOCK',
-      authorId: p.authorId || 'seed-system',
       createdAt: p.createdAt ? new Date(p.createdAt).toISOString() : new Date().toISOString(),
-      updatedAt: p.updatedAt ? new Date(p.updatedAt).toISOString() : new Date().toISOString(),
-      images,
       keywords,
       isParent: p.isParent === true,
       parentId: p.parentId || null,
@@ -323,33 +327,23 @@ async function getProductsFromFallback(req: NextApiRequest, res: NextApiResponse
     id: p.slug || p.id,
     name: p.name,
     slug: p.slug,
-    description: p.description,
+    description: trimDescription(p.description),
     price: Number(p.priceMin || p.price || 0),
     priceMax: p.priceMax ? Number(p.priceMax) : null,
-    originalPrice: p.originalPrice ? Number(p.originalPrice) : null,
     image: convertImageUrl(p.image),
     categoryId: '',
     categoryName: typeof p.category === 'object' ? p.category.name : (p.category || ''),
     categorySlug: p.category?.slug || '',
-    stock: p.stock || 100,
-    rating: 0,
-    reviewCount: 0,
-    salesCount: 0,
     isPublished: p.isPublished !== false,
-    shippingCost: 0,
-    shippingMethod: 'Standard Shipping',
     sku: p.sku,
     material: p.material,
     plating: p.plating,
-    process: p.process,
     color: p.color,
     size: p.size,
     packSize: p.packSize || 1,
     moq: p.moq || 1,
     stockStatus: p.stockStatus || 'IN_STOCK',
-    authorId: 'seed-system',
     createdAt: new Date(),
-    updatedAt: new Date(),
   }));
 
   return res.json(serialized);
@@ -452,33 +446,23 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         id: p.id,
         name: p.name,
         slug: p.slug,
-        description: p.description,
+        description: trimDescription(p.description),
         price: Number(p.price),
         priceMax: p.priceMax ? Number(p.priceMax) : null,
-        originalPrice: p.originalPrice ? Number(p.originalPrice) : null,
         image: convertImageUrl(p.image),
         categoryId: p.categoryId,
         categoryName: p.categoryName || '',
         categorySlug: p.categorySlug || '',
-        stock: p.stock,
-        rating: Number(p.rating),
-        reviewCount: p.reviewCount,
-        salesCount: p.salesCount,
         isPublished: Boolean(p.isPublished),
-        shippingCost: Number(p.shippingCost),
-        shippingMethod: p.shippingMethod || 'Standard Shipping',
         sku: p.sku,
         material: p.material,
         plating: p.plating,
-        process: p.process,
         color: p.color,
         size: p.size,
         packSize: p.packSize,
         moq: p.moq,
         stockStatus: p.stockStatus,
-        authorId: p.authorId,
         createdAt: p.createdAt,
-        updatedAt: p.updatedAt,
         isParent: Boolean(p.isParent),
         parentId: p.parentId || null,
       }));
