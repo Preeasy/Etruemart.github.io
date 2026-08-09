@@ -3,6 +3,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { Edit3 } from 'lucide-react';
 import { getAltExtensionCdnUrl } from '@/lib/image-utils';
+import { getColorHex } from '@/lib/colors';
 
 interface VariantPreview {
   id: string;
@@ -37,47 +38,6 @@ interface ProductCardProps {
     variants?: VariantPreview[] | null;
   };
   editUrl?: string;
-}
-
-// Common color name → hex mapping for swatches
-const COLOR_HEX_MAP: Record<string, string> = {
-  red: '#ef4444', '红': '#ef4444',
-  blue: '#3b82f6', '蓝': '#3b82f6',
-  navy: '#1e3a5f', '藏青': '#1e3a5f',
-  black: '#1f2937', '黑': '#1f2937',
-  white: '#f9fafb', '白': '#f9fafb',
-  green: '#22c55e', '绿': '#22c55e',
-  yellow: '#eab308', '黄': '#eab308',
-  pink: '#ec4899', '粉': '#ec4899',
-  purple: '#a855f7', '紫': '#a855f7',
-  orange: '#f97316', '橙': '#f97316',
-  gold: '#d4af37', '金': '#d4af37',
-  silver: '#c0c0c0', '银': '#c0c0c0',
-  rose: '#f43f5e', '玫瑰金': '#f43f5e',
-  brown: '#92400e', '棕': '#92400e',
-  gray: '#6b7280', '灰': '#6b7280',
-  grey: '#6b7280',
-  beige: '#e7d4b5', '米': '#e7d4b5',
-  cream: '#fef3c7',
-  teal: '#14b8a6',
-  cyan: '#06b6d4',
-  multicolor: 'linear-gradient(135deg,#ef4444,#3b82f6,#22c55e,#eab308)',
-  'mixed': 'linear-gradient(135deg,#ef4444,#3b82f6,#22c55e,#eab308)',
-  '彩色': 'linear-gradient(135deg,#ef4444,#3b82f6,#22c55e,#eab308)',
-};
-
-function getColorHex(color?: string | null): string | null {
-  if (!color) return null;
-  const lower = color.toLowerCase().trim();
-  // Direct match
-  if (COLOR_HEX_MAP[lower]) return COLOR_HEX_MAP[lower];
-  // Partial match (e.g. "Rose Gold" → match "rose")
-  for (const key of Object.keys(COLOR_HEX_MAP)) {
-    if (lower.includes(key)) return COLOR_HEX_MAP[key];
-  }
-  // If it looks like a hex color already
-  if (/^#[0-9a-f]{6}$/i.test(lower)) return lower;
-  return null;
 }
 
 const FALLBACK_SVG = `data:image/svg+xml;charset=UTF-8,${encodeURIComponent(

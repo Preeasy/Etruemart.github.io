@@ -1,5 +1,6 @@
 import { useState, useMemo } from 'react';
 import Link from 'next/link';
+import { colorToHex } from '@/lib/colors';
 
 interface Variant {
   sku: string;
@@ -25,28 +26,6 @@ interface Props {
   parentSku: string;
   onVariantSelect?: (variant: Variant) => void;
 }
-
-const colorToHex = (c?: string | null): string => {
-  if (!c) return '#d1d5db';
-  const lower = c.toLowerCase();
-  if (lower.includes('white')) return '#ffffff';
-  if (lower.includes('black')) return '#1f2937';
-  if (lower.includes('navy') || lower.includes('dark blue')) return '#1e3a5f';
-  if (lower.includes('beige')) return '#e7d4b5';
-  if (lower.includes('khaki')) return '#b5a678';
-  if (lower.includes('cream')) return '#fef3c7';
-  if (lower.includes('brown')) return '#92400e';
-  if (lower.includes('gold')) return '#d4af37';
-  if (lower.includes('silver') || lower.includes('grey') || lower.includes('gray')) return '#c0c0c0';
-  if (lower.includes('red')) return '#ef4444';
-  if (lower.includes('green')) return '#22c55e';
-  if (lower.includes('blue')) return '#3b82f6';
-  if (lower.includes('yellow')) return '#eab308';
-  if (lower.includes('pink')) return '#ec4899';
-  if (lower.includes('orange')) return '#f97316';
-  if (lower.includes('purple')) return '#a855f7';
-  return '#d1d5db';
-};
 
 // Extract a short descriptive label from a variant name, stripping the base product name
 function extractVariantLabel(name: string, baseName: string, sku: string): string {

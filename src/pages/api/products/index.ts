@@ -22,11 +22,29 @@ function toNumber(value: any): number {
   return parseFloat(String(value)) || 0;
 }
 
+// 一次性加载所有分类，在内存中递归收集子分类 ID，避免 N+1 查询
 function getAllCategoryIds(database: any, parentId: string): string[] {
+  const allCats = database.prepare('SELECT id, parentId FROM categories').all() as any[];
+  const childrenMap = new Map<string, string[]>();
+  for (const c of allCats) {
+    const pid = c.parentId;
+    if (pid) {
+      const arr = childrenMap.get(pid) || [];
+      arr.push(c.id);
+      childrenMap.set(pid, arr);
+    }
+  }
   const result: string[] = [parentId];
-  const children = database.prepare('SELECT id FROM categories WHERE parentId = ?').all(parentId) as any[];
-  for (const child of children) {
-    result.push(...getAllCategoryIds(database, child.id));
+  const stack = [parentId];
+  while (stack.length > 0) {
+    const cur = stack.pop()!;
+    const kids = childrenMap.get(cur);
+    if (kids) {
+      for (const k of kids) {
+        result.push(k);
+        stack.push(k);
+      }
+    }
   }
   return result;
 }

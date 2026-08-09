@@ -337,19 +337,6 @@ export default function ProductDetail({ product: initialProduct, relatedProducts
   //  clientVariantGroup initializes from props variantGroup via useState initializer above.
 
 
-  if (!product) {
-    return (
-      <Layout>
-        <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16 max-w-[1600px] mx-auto py-20 text-center">
-          <div className="w-20 h-20 rounded-xl bg-ink-100 flex items-center justify-center mx-auto mb-4">
-            <Package className="w-10 h-10 text-ink-300" />
-          </div>
-          <p className="text-ink-500 text-lg">Product not found</p>
-        </div>
-      </Layout>
-    );
-  }
-
   const price = Number(product.price || product.priceMin || 0);
   // 移除虚假折扣：priceMin/priceMax 是阶梯价区间，非原价/现价，不能用于构造 discount
   // 仅使用真实评分/销量/评论数据（SEO合规：禁止在AggregateRating输出伪造用户评价）
@@ -374,6 +361,20 @@ export default function ProductDetail({ product: initialProduct, relatedProducts
     { q: 'How long does production take?', a: 'Standard lead time is 7-15 days after deposit confirmation. Custom orders may take 15-25 days.' },
     { q: 'Do you offer custom packaging or branding?', a: 'Yes, we provide comprehensive OEM/ODM services including custom packaging, logo printing, and color customization.' },
   ];
+
+  // Esc 关闭灯箱/模态（键盘可达性）
+  useEffect(() => {
+    if (!isLightboxOpen && !isQuoteModalOpen) return;
+    const handler = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        setIsLightboxOpen(false);
+        setIsQuoteModalOpen(false);
+        setQuoteNotice(null);
+      }
+    };
+    window.addEventListener('keydown', handler);
+    return () => window.removeEventListener('keydown', handler);
+  }, [isLightboxOpen, isQuoteModalOpen]);
 
   const openLightbox = (index: number) => {
     setLightboxIndex(index);
@@ -1166,7 +1167,7 @@ export default function ProductDetail({ product: initialProduct, relatedProducts
 
       {/* Get a Quote Modal */}
       {isQuoteModalOpen && (
-        <div className="fixed inset-0 z-[60] bg-black/60 backdrop-blur-sm flex items-center justify-center p-4" onClick={() => { setIsQuoteModalOpen(false); setQuoteNotice(null); }}>
+        <div role="dialog" aria-modal="true" aria-label="Request a quote" className="fixed inset-0 z-[60] bg-black/60 backdrop-blur-sm flex items-center justify-center p-4" onClick={() => { setIsQuoteModalOpen(false); setQuoteNotice(null); }} onKeyDown={(e) => { if (e.key === 'Escape') { setIsQuoteModalOpen(false); setQuoteNotice(null); } }} tabIndex={-1}>
           <div
             className="bg-white rounded-2xl shadow-2xl w-full max-w-lg max-h-[90vh] overflow-y-auto"
             onClick={(e) => e.stopPropagation()}
@@ -1410,7 +1411,7 @@ ${f.company ? f.company + '\n' : ''}`
 
       {/* Lightbox */}
       {isLightboxOpen && (
-        <div className="fixed inset-0 z-50 bg-black/90 flex items-center justify-center" onClick={() => setIsLightboxOpen(false)}>
+        <div role="dialog" aria-modal="true" aria-label="Image viewer" className="fixed inset-0 z-50 bg-black/90 flex items-center justify-center" onClick={() => setIsLightboxOpen(false)} onKeyDown={(e) => { if (e.key === 'Escape') setIsLightboxOpen(false); }} tabIndex={-1}>
           <button onClick={(e) => { e.stopPropagation(); setIsLightboxOpen(false); }} aria-label="Close image viewer" className="absolute top-5 right-5 w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white transition-colors">
             <X className="w-6 h-6" />
           </button>
@@ -1426,7 +1427,7 @@ ${f.company ? f.company + '\n' : ''}`
               alt={`${product.name} - view ${lightboxIndex + 1}`}
               fill
               sizes="85vw"
-              className="!object-contain !w-auto !h-auto"
+              className="object-contain"
               onError={(e) => { (e.currentTarget as unknown as HTMLImageElement).style.visibility = 'hidden'; }}
             />
           </div>
