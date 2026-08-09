@@ -10,8 +10,9 @@ const readShippingData = () => {
   try {
     const raw = fs.readFileSync(SHIPPING_DATA_PATH, 'utf-8');
     return JSON.parse(raw);
-  } catch {
-    return { carriers: [], updatedAt: new Date().toISOString() };
+  } catch (e: any) { if (typeof console !== 'undefined') console.warn('[api/shipping] silent error:', e?.message || e);
+      return { carriers: [], updatedAt: new Date().toISOString() 
+};
   }
 };
 

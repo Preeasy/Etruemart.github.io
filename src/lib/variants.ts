@@ -99,7 +99,7 @@ export function nameSimilarity(a: string, b: string): number {
 function parseVariantOptions(p: any): { color?: string; colorHex?: string | null; size?: string; capacity?: string; layer?: string; pack?: string; material?: string } {
   let opts: any = {};
   if (p.variantOptions) {
-    try { opts = typeof p.variantOptions === 'string' ? JSON.parse(p.variantOptions) : p.variantOptions; } catch {}
+    try { opts = typeof p.variantOptions === 'string' ? JSON.parse(p.variantOptions) : p.variantOptions; } catch (e: any) { if (typeof console !== 'undefined') console.warn('[variants.ts] variantOptions JSON failed:', e?.message || e); }
   }
   const rawSize = opts.size || p.size || extractSize(p.name) || undefined;
   const rawCapacity = opts.capacity || undefined;

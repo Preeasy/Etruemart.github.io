@@ -390,6 +390,6 @@ export const getStaticProps = async (context: { params: { slug: string } }) => {
       sku: p.sku || '',
       stockStatus: p.stockStatus || 'IN_STOCK',
     }));
-  } catch {}
+  } catch (e: any) { if (typeof console !== 'undefined') console.warn('[store/[slug]] SSR fetch failed:', e?.message || e); }
   return { props: { products } };
 };

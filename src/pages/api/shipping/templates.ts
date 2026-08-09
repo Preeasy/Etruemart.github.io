@@ -18,7 +18,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   if (req.method === 'GET') {
     try {
       await seedShippingTemplatesIfEmpty();
-    } catch {}
+    } catch (e: any) { if (typeof console !== 'undefined') console.warn('[api/shipping/templates] seed failed:', e?.message || e); }
     const templates = await prisma.shippingTemplate.findMany({
       orderBy: { createdAt: 'asc' },
     });

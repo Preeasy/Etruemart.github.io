@@ -127,20 +127,21 @@ export default function ShippingAdmin() {
         setShowForm(false);
         setEditingCarrier(null);
       }
-    } catch {
-      alert('Network error. Please try again.');
-    }
-  };
+    } catch (e: any) { if (typeof console !== 'undefined') console.warn('[shipping-admin] silent error:', e?.message || e);
+        alert('Network error. Please try again.');
+      }
+    };
 
-  const deleteCarrier = async (id: string) => {
-    if (!confirm('Delete this carrier?')) return;
-    try {
-      const res = await fetch(`/api/shipping?id=${id}`, { method: 'DELETE' });
+    const deleteCarrier = async (id: string) => {
+      if (!confirm('Delete this carrier?')) return;
+      try {
+        const res = await fetch(`/api/shipping?id=${id}`, { method: 'DELETE' 
+});
       if (res.ok) setCarriers((prev) => prev.filter((c) => c.id !== id));
       else alert('Failed to delete carrier');
-    } catch {
-      alert('Network error. Please try again.');
-    }
+    } catch (e: any) { if (typeof console !== 'undefined') console.warn('[shipping-admin] silent error:', e?.message || e);
+        alert('Network error. Please try again.');
+      }
   };
 
   const addRate = () => {
@@ -282,7 +283,7 @@ export default function ShippingAdmin() {
                           <span className="flex items-center gap-1"><Globe className="w-3 h-3" />{carrier.rates.length} countries</span>
                           <span className="flex items-center gap-1"><Phone className="w-3 h-3" />{carrier.contactPhone}</span>
                           {carrier.website && (
-                            <a href={carrier.website} target="_blank" rel="noreferrer" className="flex items-center gap-1 text-accent-600 hover:underline">
+                            <a href={carrier.website} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1 text-accent-600 hover:underline">
                               <ExternalLink className="w-3 h-3" />Website
                             </a>
                           )}

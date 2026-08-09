@@ -126,9 +126,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             try {
               const parsed = JSON.parse(images);
               images = JSON.stringify(Array.isArray(parsed) ? parsed : [parsed]);
-            } catch {
-              images = images || '[]';
-            }
+            } catch (e: any) { if (typeof console !== 'undefined') console.warn('[api/init-db] silent error:', e?.message || e);
+                images = images || '[]';
+              }
           } else if (Array.isArray(images)) {
             images = JSON.stringify(images);
           } else {
@@ -140,9 +140,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             try {
               const parsed = JSON.parse(keywords);
               keywords = JSON.stringify(Array.isArray(parsed) ? parsed : [parsed]);
-            } catch {
-              keywords = keywords || '[]';
-            }
+            } catch (e: any) { if (typeof console !== 'undefined') console.warn('[api/init-db] silent error:', e?.message || e);
+                keywords = keywords || '[]';
+              }
           } else {
             keywords = '[]';
           }
@@ -309,9 +309,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             },
           });
           success++;
-        } catch {
-          failed++;
-        }
+        } catch (e: any) { if (typeof console !== 'undefined') console.warn('[api/init-db] silent error:', e?.message || e);
+            failed++;
+          }
       }
       results.shipping_templates = { success, failed };
     }

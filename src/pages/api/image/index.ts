@@ -18,7 +18,7 @@ try {
   if (!fs.existsSync(CACHE_DIR)) {
     fs.mkdirSync(CACHE_DIR, { recursive: true });
   }
-} catch {}
+} catch (e: any) { if (typeof console !== 'undefined') console.warn('[api/image] cache dir mkdir failed:', e?.message || e); }
 
 function getCachePath(url: string): string {
   const hash = crypto.createHash('md5').update(url).digest('hex');
@@ -36,8 +36,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   let parsedUrl: URL;
   try {
     parsedUrl = new URL(url);
-  } catch {
-    return res.status(400).json({ error: 'Invalid url' });
+  } catch (e: any) { if (typeof console !== 'undefined') console.warn('[api/image-proxy] silent error:', e?.message || e);
+      return res.status(400).json({ error: 'Invalid url' 
+});
   }
   
   if (!ALLOWED_HOSTS.includes(parsedUrl.hostname)) {
@@ -89,7 +90,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       // Save to cache
       try {
         fs.writeFileSync(cachePath, buffer);
-      } catch {}
+      } catch (e: any) { if (typeof console !== 'undefined') console.warn('[api/image] cache write failed:', e?.message || e); }
       res.send(buffer);
     });
   } catch (error) {

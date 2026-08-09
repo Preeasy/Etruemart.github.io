@@ -159,16 +159,17 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
           let images;
           try {
             images = typeof product.images === 'string' ? JSON.parse(product.images) : product.images;
-          } catch {
-            images = [];
-          }
-          if (Array.isArray(images)) {
-            const newImages = images.map(img => {
-              if (typeof img === 'string' && !img.startsWith('http')) {
-                return findGitHubImage(img, lookup);
-              }
-              return img;
-            });
+          } catch (e: any) { if (typeof console !== 'undefined') console.warn('[api/fix-product-data] silent error:', e?.message || e);
+              images = [];
+            }
+            if (Array.isArray(images)) {
+              const newImages = images.map(img => {
+                if (typeof img === 'string' && !img.startsWith('http')) {
+                  return findGitHubImage(img, lookup);
+                }
+                return img;
+
+});
             if (JSON.stringify(newImages) !== JSON.stringify(images)) {
               updates.images = JSON.stringify(newImages);
               needsUpdate = true;

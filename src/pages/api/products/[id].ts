@@ -10,33 +10,34 @@ import path from 'path';
 function safeJsonParse<T>(str: string, fallback: T): T {
   try {
     return JSON.parse(str) as T;
-  } catch {
-    return fallback;
+  } catch (e: any) { if (typeof console !== 'undefined') console.warn('[api/products-detail] silent error:', e?.message || e);
+      return fallback;
+    }
   }
-}
 
-function isValidCuid(str: string): boolean {
-  return /^c[a-z0-9]{20,}$/.test(str);
-}
+  function isValidCuid(str: string): boolean {
+    return /^c[a-z0-9]{20,}$/.test(str);
+  }
 
-function convertImageUrl(url: string): string {
-  return resolveImageUrlServerSide(url) || '';
-}
+  function convertImageUrl(url: string): string {
+    return resolveImageUrlServerSide(url) || '';
+  }
 
-async function findProduct(idOrSlug: string) {
-  if (isValidCuid(idOrSlug)) {
-    return prisma.product.findUnique({
-      where: { id: idOrSlug },
-      include: {
-        author: { select: { id: true, name: true, avatar: true } },
-        variants: true,
-        category: { select: { id: true, name: true, slug: true } },
-        reviews: {
-          include: { user: { select: { id: true, name: true, avatar: true } } },
-          orderBy: { createdAt: 'desc' },
+  async function findProduct(idOrSlug: string) {
+    if (isValidCuid(idOrSlug)) {
+      return prisma.product.findUnique({
+        where: { id: idOrSlug },
+        include: {
+          author: { select: { id: true, name: true, avatar: true } },
+          variants: true,
+          category: { select: { id: true, name: true, slug: true } },
+          reviews: {
+            include: { user: { select: { id: true, name: true, avatar: true } } },
+            orderBy: { createdAt: 'desc' },
+          },
         },
-      },
-    });
+
+});
   }
   return prisma.product.findUnique({
     where: { slug: idOrSlug },
@@ -311,6 +312,8 @@ async function getProductFromFallback(idStr: string) {
 }
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+  // 单个产品：中等缓存时间 + SWR，兼顾新息与性能
+  res.setHeader('Cache-Control', 'public, s-maxage=300, stale-while-revalidate=3600');
   const { id } = req.query;
   const idStr = id as string;
 
@@ -326,7 +329,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     } else {
       try {
         product = await findProduct(idStr);
-      } catch {}
+      } catch (e: any) { if (typeof console !== 'undefined') console.warn('[api/products/[id]] findProduct failed:', e?.message || e); }
     }
 
     // Fallback to seed data / site-data.json

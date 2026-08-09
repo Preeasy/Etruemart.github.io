@@ -57,9 +57,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
           const parsed = JSON.parse(inlineAddress);
           country = parsed.country || '';
           addressSnapshot = inlineAddress;
-        } catch {
-          country = '';
-          addressSnapshot = JSON.stringify({ address: inlineAddress });
+        } catch (e: any) { if (typeof console !== 'undefined') console.warn('[api/orders] silent error:', e?.message || e);
+            country = '';
+            addressSnapshot = JSON.stringify({ address: inlineAddress 
+});
         }
       } else {
         country = inlineAddress.country || '';

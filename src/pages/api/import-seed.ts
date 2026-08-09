@@ -60,17 +60,18 @@ function convertImagesArray(images: any, sku?: string): string {
   if (typeof images === 'string') {
     try {
       arr = JSON.parse(images);
-    } catch {
-      arr = [];
-    }
-  } else {
-    arr = images;
-  }
-  if (Array.isArray(arr)) {
-    const converted = arr.map(img => {
-      if (typeof img === 'string' && !img.startsWith('http')) {
-        return convertImageUrl(img, sku);
+    } catch (e: any) { if (typeof console !== 'undefined') console.warn('[import-seed] silent error:', e?.message || e);
+        arr = [];
       }
+    } else {
+      arr = images;
+    }
+    if (Array.isArray(arr)) {
+      const converted = arr.map(img => {
+        if (typeof img === 'string' && !img.startsWith('http')) {
+          return convertImageUrl(img, sku);
+
+}
       return img;
     });
     return JSON.stringify(converted);

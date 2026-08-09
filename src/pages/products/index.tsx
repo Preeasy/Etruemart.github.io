@@ -89,7 +89,7 @@ const Products = () => {
           setCategoryFilters(data.map((c: any) => ({ name: c.name, slug: c.slug })));
         }
       })
-      .catch(() => {});
+      .catch((e) => { if (typeof console !== 'undefined') console.warn('[Products] fetch categories level=1 failed:', e); });
 
     fetch('/api/categories')
       .then(r => r.ok ? r.json() : null)
@@ -108,7 +108,7 @@ const Products = () => {
           setCategorySlugMap(slugMap);
         }
       })
-      .catch(() => {});
+      .catch((e) => { if (typeof console !== 'undefined') console.warn('[Products] fetch categories tree failed:', e); });
   }, []);
 
   useEffect(() => {

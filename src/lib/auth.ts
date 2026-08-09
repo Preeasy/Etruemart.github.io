@@ -123,11 +123,11 @@ async function ensureDbInitialized() {
                 },
               },
             });
-          } catch {}
+          } catch (e: any) { if (typeof console !== 'undefined') console.warn('[auth.ts] credential inner block failed:', e?.message || e); }
         }
       }
-    } catch {}
-  } catch {}
+    } catch (e: any) { if (typeof console !== 'undefined') console.warn('[auth.ts] provider auth block failed:', e?.message || e); }
+  } catch (e: any) { if (typeof console !== 'undefined') console.warn('[auth.ts] signInCallback failed:', e?.message || e); }
 }
 
 export const authOptions: AuthOptions = {
@@ -176,7 +176,7 @@ export const authOptions: AuthOptions = {
               };
             }
           }
-        } catch {}
+        } catch (e: any) { if (typeof console !== 'undefined') console.warn('[auth.ts] signInCallback loop catch:', e?.message || e); }
 
         // Track failed attempts
         const current = loginAttempts.get(email) || { count: 0, lockedUntil: 0 };

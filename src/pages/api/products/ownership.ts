@@ -27,7 +27,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
   try {
     product = await prisma.product.findUnique({ where });
-  } catch {}
+  } catch (e: any) { if (typeof console !== 'undefined') console.warn('[api/products/ownership] query failed:', e?.message || e); }
 
   // Fallback to site-data.json
   if (!product) {

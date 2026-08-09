@@ -1530,6 +1530,16 @@ function findProductFromSeed(productId: string) {
     }
     return result;
   };
+  // Helper: resolve root category for any product's categoryId/slug
+  const resolveCatForProduct = (catRef: string): { name: string; slug: string } | null => {
+    let c = idToCat.get(catRef) || slugToCat.get(catRef);
+    while (c && c.parentId) {
+      const p = idToCat.get(c.parentId) || slugToCat.get(c.parentId);
+      if (!p) break;
+      c = p;
+    }
+    return c ? { name: c.name, slug: c.slug } : null;
+  };
   const validSlugs = new Set(getDescendantSlugs(rootSlug));
   const pid = String(product.id);
   // 1) Same category + price > 0
@@ -1689,11 +1699,10 @@ function findProductFromSeed(productId: string) {
       id: rp.id,
       slug: rp.slug,
       name: rp.name,
-      description: rp.description || '',
       price: Number(rp.price) || 0,
       priceMax: rp.priceMax ? Number(rp.priceMax) : null,
       image: proxyImageUrlDirect(rp.image || ''),
-      category: category ? { name: category.name, slug: category.slug } : null,
+      category: resolveCatForProduct(rp.categoryId || ''),
       moq: Number(rp.moq) || 1,
       sku: rp.sku || null,
       rating: Number(rp.rating) || 0,
@@ -1844,15 +1853,27 @@ export async function getServerSideProps(context: { params: { id: string } }) {
       packagingInfo: (product as any).packagingInfo || null,
     };
 
+        // Resolve root category display for each related product
+    const resolveRelatedCat = (rpCatId: string) => {
+      if (!rpCatId) return null;
+      const direct = getCategoryById(rpCatId);
+      if (!direct) return null;
+      let root = direct;
+      while (root && root.parentId) {
+        const p = getCategoryById(root.parentId);
+        if (!p) break;
+        root = p;
+      }
+      return root ? { name: root.name, slug: root.slug } : null;
+    };
     const serializedRelated = relatedProducts.map((rp: any) => ({
       id: rp.id,
       slug: rp.slug,
       name: rp.name,
-      description: rp.description || '',
       price: Number(rp.price) || 0,
       priceMax: rp.priceMax ? Number(rp.priceMax) : null,
       image: proxyImageUrlDirect(rp.image || ''),
-      category: null,
+      category: resolveRelatedCat(rp.categoryId || ''),
       moq: Number(rp.moq) || 1,
       sku: rp.sku || null,
       rating: Number(rp.rating) || 0,

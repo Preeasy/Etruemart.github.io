@@ -11,28 +11,29 @@ function safeJsonParse<T>(str: any, fallback: T): T {
   if (typeof str !== 'string') return str as T;
   try {
     return JSON.parse(str) as T;
-  } catch {
-    return fallback;
-  }
-}
-
-function toNumber(value: any): number {
-  if (value === null || value === undefined) return 0;
-  if (typeof value === 'number') return value;
-  return parseFloat(String(value)) || 0;
-}
-
-// 一次性加载所有分类，在内存中递归收集子分类 ID，避免 N+1 查询
-function getAllCategoryIds(database: any, parentId: string): string[] {
-  const allCats = database.prepare('SELECT id, parentId FROM categories').all() as any[];
-  const childrenMap = new Map<string, string[]>();
-  for (const c of allCats) {
-    const pid = c.parentId;
-    if (pid) {
-      const arr = childrenMap.get(pid) || [];
-      arr.push(c.id);
-      childrenMap.set(pid, arr);
+  } catch (e: any) { if (typeof console !== 'undefined') console.warn('[api/products-list] silent error:', e?.message || e);
+      return fallback;
     }
+  }
+
+  function toNumber(value: any): number {
+    if (value === null || value === undefined) return 0;
+    if (typeof value === 'number') return value;
+    return parseFloat(String(value)) || 0;
+  }
+
+  // 一次性加载所有分类，在内存中递归收集子分类 ID，避免 N+1 查询
+  function getAllCategoryIds(database: any, parentId: string): string[] {
+    const allCats = database.prepare('SELECT id, parentId FROM categories').all() as any[];
+    const childrenMap = new Map<string, string[]>();
+    for (const c of allCats) {
+      const pid = c.parentId;
+      if (pid) {
+        const arr = childrenMap.get(pid) || [];
+        arr.push(c.id);
+        childrenMap.set(pid, arr);
+
+}
   }
   const result: string[] = [parentId];
   const stack = [parentId];
@@ -228,7 +229,7 @@ function getProductsFromSeedData(req: NextApiRequest, res: NextApiResponse) {
         variantPreviews = children.map((c: any) => {
           let opts: any = {};
           if (c.variantOptions) {
-            try { opts = typeof c.variantOptions === 'string' ? JSON.parse(c.variantOptions) : c.variantOptions; } catch {}
+            try { opts = typeof c.variantOptions === 'string' ? JSON.parse(c.variantOptions) : c.variantOptions; } catch (e: any) { if (typeof console !== 'undefined') console.warn('[api/products/index] variantOptions parse failed:', e?.message || e); }
           }
           return {
             id: c.id,
@@ -350,6 +351,8 @@ async function getProductsFromFallback(req: NextApiRequest, res: NextApiResponse
 }
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+  // 产品列表可缓存（不包含用户特定数据）
+  res.setHeader('Cache-Control', 'public, s-maxage=600, stale-while-revalidate=3600');
   if (req.method === 'GET') {
     const { authorId, categoryId, category, material, plating, color, priceMin, priceMax, all } = req.query;
 
@@ -473,9 +476,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       // Fall back to seed data or site-data.json
       try {
         return getProductsFromSeedData(req, res);
-      } catch {
-        return getProductsFromFallback(req, res);
-      }
+      } catch (e: any) { if (typeof console !== 'undefined') console.warn('[api/products-list] silent error:', e?.message || e);
+          return getProductsFromFallback(req, res);
+        }
     }
   }
 

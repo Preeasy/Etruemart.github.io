@@ -79,7 +79,7 @@ export function parseTemplate(t: any): ParsedTemplate {
   try {
     const parsed = typeof t.regions === 'string' ? JSON.parse(t.regions) : t.regions;
     if (Array.isArray(parsed) && parsed.length > 0) regions = parsed;
-  } catch {}
+  } catch (e: any) { if (typeof console !== 'undefined') console.warn('[shipping.ts] regions JSON parse failed:', e?.message || e); }
   return {
     id: t.id,
     name: t.name,

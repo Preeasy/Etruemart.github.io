@@ -54,7 +54,7 @@ interface Product {
   id: number | string;
   slug?: string;
   name: string;
-  description: string;
+  description?: string;
   category: { name: string; slug: string };
   priceMin: number;
   price?: number;
@@ -763,17 +763,12 @@ export const getServerSideProps = async () => {
         const rootCat = getRootCat(catId);
         const directCat = idToCat.get(catId) || slugToCat.get(catId);
 
-        // 子产品自己的 variantOptions 解析
-        let selfVariantOptions: any = null;
-        if (p.variantOptions) {
-          try { selfVariantOptions = typeof p.variantOptions === 'string' ? JSON.parse(p.variantOptions) : p.variantOptions; } catch (e: any) { if (typeof console !== 'undefined') console.warn('[Home/formatProduct] JSON.parse(p.variantOptions) failed:', e); }
-        }
-
+        // 首页 ProductCard 仅需以下字段；裁剪 description/keywords/bulletPoints/
+        // createdAt/variantOptions 等无用字段，SSR props 可降 ~470KB
         return {
           id: p.slug || p.id,
           slug: p.slug,
           name: p.name,
-          description: p.description || '',
           priceMin: Number(p.price) || 0,
           priceMax: p.priceMax ? Number(p.priceMax) : Number(p.price) || 0,
           image,
@@ -786,30 +781,26 @@ export const getServerSideProps = async () => {
           moq: Number(p.moq) || 1,
           sku: p.sku || null,
           color: p.color || null,
-          createdAt: p.createdAt,
-          keywords: [],
-          bulletPoints: [],
           isParent: p.isParent === true,
           parentId: p.parentId || null,
           variants: attachVariantPreview(p),
-          variantOptions: selfVariantOptions,
         };
       };
 
+      // 预处理：只筛选 + 排重一次，供 Top50 / NewArrivals / CategoryBlocks 三处复用
+      const filteredAll = filterListOnly(rawProducts)
+        .filter((p: any) => Number(p.price ?? 0) > 0 || Number(p.priceMin ?? 0) > 0 || Number(p.priceMax ?? 0) > 0);
+      const byRevenue = [...filteredAll].sort((a, b) => revenue(b) - revenue(a));
+      const byCreatedAt = [...filteredAll].sort((a, b) => new Date(b.createdAt || '0').getTime() - new Date(a.createdAt || '0').getTime());
+
       // Top 50 products for hero/trending
-      const products = sorted.map(formatProduct);
+      const products = byRevenue.slice(0, 50).map(formatProduct);
 
       // New Arrivals: 6 latest products by createdAt (from ALL products, not just top 50)
-      const newArrivals = filterListOnly([...rawProducts])
-        .filter((p: any) => Number(p.price ?? 0) > 0 || Number(p.priceMin ?? 0) > 0 || Number(p.priceMax ?? 0) > 0)
-        .sort((a, b) => new Date(b.createdAt || '0').getTime() - new Date(a.createdAt || '0').getTime())
-        .slice(0, 6)
-        .map(formatProduct);
+      const newArrivals = byCreatedAt.slice(0, 6).map(formatProduct);
 
       // Top 5 products per root category (for "Shop by Category" blocks) — 过滤掉子产品
-      const sortedAll = filterListOnly([...rawProducts])
-        .filter((p: any) => Number(p.price ?? 0) > 0 || Number(p.priceMin ?? 0) > 0 || Number(p.priceMax ?? 0) > 0)
-        .sort((a, b) => revenue(b) - revenue(a));
+      const sortedAll = byRevenue;
       const categoryProductsMap: Record<string, Product[]> = {};
       for (const rootCat of rootCategories) {
         const catProducts = sortedAll
@@ -834,7 +825,9 @@ export const getServerSideProps = async () => {
     const { getDatabase } = await import('@/lib/db');
     const database = getDatabase();
     
-    const rawProducts = database.prepare('SELECT * FROM products WHERE isPublished = 1 ORDER BY (salesCount * price) DESC LIMIT 50').all() as any[];
+    // 合并两次查询：一次性取出全部已发布产品（全量用于 newArrivals + categoryBlocks，
+    // 再按成交金额切片取 Top50），避免对 products 表做两次全表扫描
+    const allRawProducts = database.prepare('SELECT * FROM products WHERE isPublished = 1 ORDER BY (salesCount * price) DESC').all() as any[];
     const rawCategories = database.prepare('SELECT * FROM categories ORDER BY sortOrder ASC').all() as any[];
 
     // Build category lookup with root resolution
@@ -857,7 +850,7 @@ export const getServerSideProps = async () => {
 
     // Compute product counts per root category
     const productCountByRoot = new Map<string, number>();
-    for (const p of rawProducts) {
+    for (const p of allRawProducts) {
       const catId = p.categoryId || '';
       const rootCat = getRootCat(catId);
       if (rootCat) {
@@ -876,9 +869,6 @@ export const getServerSideProps = async () => {
       .filter((c: CategoryInfo) => c.productCount > 0)
       .sort((a, b) => b.productCount - a.productCount);
 
-    // For local dev, load all products for category blocks
-    const allRawProducts = database.prepare('SELECT * FROM products WHERE isPublished = 1 ORDER BY (salesCount * price) DESC').all() as any[];
-
     const formatProductLocal = (p: any): Product => {
       const image = resolveImageUrlServerSide(p.image || '');
       
@@ -895,11 +885,12 @@ export const getServerSideProps = async () => {
       const rootCat = getRootCat(catId);
       const directCat = idToCat.get(catId) || slugToCat.get(catId);
       
+      // 与 seed 分支 formatProduct 保持同样字段裁剪：减去 description/keywords/
+      // bulletPoints/createdAt 等首页 ProductCard 不用的字段
       return {
         id: p.slug || p.id,
         slug: p.slug,
         name: p.name,
-        description: p.description || '',
         priceMin: Number(p.price),
         priceMax: p.priceMax ? Number(p.priceMax) : Number(p.price),
         image,
@@ -912,25 +903,23 @@ export const getServerSideProps = async () => {
         moq: p.moq || 1,
         sku: p.sku || null,
         color: p.color || null,
-        createdAt: p.createdAt,
-        keywords: [],
-        bulletPoints: [],
       };
     };
 
-    const products = rawProducts.map(formatProductLocal);
+    // 预先按成交金额/上架时间排序（基于全量数据）
+    const filteredAllLocal = allRawProducts.filter((p: any) => Number(p.price ?? 0) > 0 || Number(p.priceMin ?? 0) > 0 || Number(p.priceMax ?? 0) > 0);
+    const byRevenueLocal = [...filteredAllLocal].sort((a: any, b: any) => ((b.salesCount || 0) * (Number(b.price ?? b.priceMin ?? 0) || 0)) - ((a.salesCount || 0) * (Number(a.price ?? a.priceMin ?? 0) || 0)));
+    const byCreatedAtLocal = [...filteredAllLocal].sort((a: any, b: any) => new Date(b.createdAt || '0').getTime() - new Date(a.createdAt || '0').getTime());
 
-    // New Arrivals: 6 latest products by createdAt (from ALL products, not just 50)
-    const newArrivals = allRawProducts
-      .filter((p: any) => Number(p.price ?? 0) > 0 || Number(p.priceMin ?? 0) > 0 || Number(p.priceMax ?? 0) > 0)
-      .sort((a, b) => new Date(b.createdAt || '0').getTime() - new Date(a.createdAt || '0').getTime())
-      .slice(0, 6)
-      .map(formatProductLocal);
+    const products = byRevenueLocal.slice(0, 50).map(formatProductLocal);
 
-    // Top 5 products per root category
+    // New Arrivals: 6 latest products by createdAt（复用预排序结果）
+    const newArrivals = byCreatedAtLocal.slice(0, 6).map(formatProductLocal);
+
+    // Top 5 products per root category（复用已排好序的 byRevenueLocal，省一次排序）
     const categoryProductsMap: Record<string, Product[]> = {};
     for (const rootCat of rootCategories) {
-      const catProducts = allRawProducts
+      const catProducts = byRevenueLocal
         .filter((p: any) => {
           const rc = getRootCat(p.categoryId || '');
           return rc && rc.slug === rootCat.slug;

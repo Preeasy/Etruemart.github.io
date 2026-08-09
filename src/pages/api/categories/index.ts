@@ -197,6 +197,8 @@ async function getCategoriesFromFallback(level?: string) {
 }
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+  // 分类树更新不频繁，可长缓存
+  res.setHeader('Cache-Control', 'public, s-maxage=3600, stale-while-revalidate=86400');
   if (req.method === 'GET') {
     const { level } = req.query;
 
@@ -247,11 +249,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       }
 
       return res.json(roots);
-    } catch {
+    } catch (e: any) { if (typeof console !== 'undefined') console.warn('[api/categories] silent error:', e?.message || e);
       // Try seed data first, then fallback
       try {
         return res.json(await getCategoriesFromSeedData(level as string | undefined));
-      } catch {
+      } catch (e: any) { if (typeof console !== 'undefined') console.warn('[api/categories] silent error:', e?.message || e);
         return res.json(await getCategoriesFromFallback(level as string | undefined));
       }
     }

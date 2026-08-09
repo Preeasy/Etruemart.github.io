@@ -49,14 +49,15 @@ function loadCategoriesFromJson(): { id: string; slug: string }[] {
       id: c.slug,
       slug: c.slug,
     }));
-  } catch {
-    return [];
+  } catch (e: any) { if (typeof console !== 'undefined') console.warn('[api/excel-import] silent error:', e?.message || e);
+      return [];
+    }
   }
-}
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-  if (req.method !== 'POST') {
-    return res.status(405).json({ error: 'Method not allowed' });
+  export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+    if (req.method !== 'POST') {
+      return res.status(405).json({ error: 'Method not allowed' 
+});
   }
 
   const session = await getServerSession(req, res, authOptions);
