@@ -696,7 +696,7 @@ export default function ProductDetail({ product: initialProduct, relatedProducts
         <link rel="alternate" hrefLang="en" href={canonicalUrl} />
       </Head>
       {/* Breadcrumb */}
-      <div className="bg-white border-b border-ink-100">
+      <div className="bg-ink-50/70 border-b border-ink-100">
         <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16 max-w-[1600px] mx-auto py-3.5">
           <nav className="flex items-center gap-2 text-sm text-ink-500 flex-wrap">
             <Link href="/" className="hover:text-accent-600 transition-colors font-medium shrink-0">Home</Link>
