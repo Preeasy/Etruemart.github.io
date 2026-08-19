@@ -113,6 +113,27 @@
     background: linear-gradient(135deg, theme('colors.navy.900') 0%, theme('colors.navy.800') 60%, theme('colors.navy.950') 100%);
   }
 
+  /* Light retail-style gradients — airy, minimal, conversion-friendly */
+  .bg-hero-light {
+    background:
+      radial-gradient(120% 120% at 0% 0%, theme('colors.accent.50') 0%, transparent 45%),
+      radial-gradient(120% 120% at 100% 100%, #eef4ff 0%, transparent 50%),
+      linear-gradient(135deg, #ffffff 0%, #fbfaf8 100%);
+  }
+  .bg-cta-light {
+    background:
+      radial-gradient(100% 140% at 0% 0%, theme('colors.accent.50') 0%, transparent 55%),
+      linear-gradient(135deg, #ffffff 0%, #f6f8fc 100%);
+  }
+  .bg-footer-light {
+    background: linear-gradient(180deg, #ffffff 0%, #f7f8fa 100%);
+  }
+  /* Soft mesh pattern for light sections */
+  .light-mesh {
+    background-image: radial-gradient(rgba(15, 31, 50, 0.035) 1px, transparent 1px);
+    background-size: 22px 22px;
+  }
+
   /* Editorial hero headline */
   .hero-headline {
     font-weight: 700;

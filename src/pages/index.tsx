@@ -202,23 +202,23 @@ const Home = ({ products, newArrivals, categories, categoryProductsMap }: { prod
             <Sidebar products={products} categories={categories} />
 
             <div className="flex-1 min-w-0 space-y-5 lg:space-y-6">
-              {/* Hero Banner — editorial, premium */}
-              <section className="relative overflow-hidden rounded-2xl bg-hero-gradient">
+              {/* Hero Banner — light, airy, retail */}
+              <section className="relative overflow-hidden rounded-2xl bg-hero-light border border-ink-200">
                 {/* Decorative pattern overlay */}
-                <div className="absolute inset-0 premium-pattern opacity-40" />
+                <div className="absolute inset-0 light-mesh opacity-70" />
                 <div className="absolute top-0 right-0 w-96 h-96 bg-accent-500/10 rounded-full blur-3xl -translate-y-1/3 translate-x-1/3" />
 
                 <div className="relative flex flex-col lg:flex-row items-center justify-between px-6 md:px-12 py-10 md:py-14 gap-8">
                   <div className="text-center lg:text-left max-w-xl">
-                    <div className="inline-flex items-center gap-2 text-accent-300 px-3.5 py-1.5 rounded-full text-[11px] font-bold uppercase tracking-[0.12em] mb-5 bg-accent-500/15 border border-accent-400/20">
+                    <div className="inline-flex items-center gap-2 text-accent-600 px-3.5 py-1.5 rounded-full text-[11px] font-bold uppercase tracking-[0.12em] mb-5 bg-accent-50 border border-accent-200">
                       <Sparkles className="w-3 h-3" />
                       Direct from Yiwu Factories
                     </div>
-                    <h1 className="hero-headline text-3xl md:text-[56px] text-white mb-4 tracking-tight leading-[1.05]">
+                    <h1 className="hero-headline text-3xl md:text-[56px] text-navy-900 mb-4 tracking-tight leading-[1.05]">
                       Yiwu Wholesale<br />
                       <span className="text-gradient-accent">Factory-Direct Prices</span>
                     </h1>
-                    <p className="text-navy-200 text-sm md:text-[15px] mb-7 leading-relaxed max-w-lg">
+                    <p className="text-ink-600 text-sm md:text-[15px] mb-7 leading-relaxed max-w-lg">
                       50,000+ verified products sourced directly from Yiwu factories. Low MOQ from 12 pcs · Global shipping to 180+ countries
                     </p>
                     <div className="flex flex-col sm:flex-row gap-3 justify-center lg:justify-start">
@@ -230,14 +230,14 @@ const Home = ({ products, newArrivals, categories, categoryProductsMap }: { prod
                       </Link>
                       <Link
                         href="/register"
-                        className="inline-flex items-center justify-center gap-2 border border-white/20 hover:border-white/40 hover:bg-white/5 text-white px-7 py-3.5 rounded-xl font-bold text-sm transition-all"
+                        className="inline-flex items-center justify-center gap-2 border border-navy-300 hover:border-accent-400 hover:bg-accent-50 text-navy-800 hover:text-accent-600 px-7 py-3.5 rounded-xl font-bold text-sm transition-all"
                       >
                         Create Account
                       </Link>
                     </div>
                   </div>
                   <div className="w-full lg:w-[28rem] flex-shrink-0">
-                    <div className="relative w-full aspect-[4/3] rounded-2xl overflow-hidden border border-white/10 shadow-premium bg-gradient-to-br from-white via-slate-50 to-blue-50">
+                    <div className="relative w-full aspect-[4/3] rounded-2xl overflow-hidden border border-ink-200 shadow-premium bg-gradient-to-br from-white via-slate-50 to-blue-50">
                       {/* Clean stylish minimal photo grid collage */}
                       <div className="absolute inset-0 p-5 grid grid-cols-2 grid-rows-3 gap-3">
                         {/* Top left - bags */}
@@ -323,7 +323,7 @@ const Home = ({ products, newArrivals, categories, categoryProductsMap }: { prod
                         <div className="w-2 h-2 rounded-full bg-success-500 animate-pulse" />
                         <span className="text-[10px] font-bold text-navy-900">Factory-Direct · Yiwu</span>
                       </div>
-                      <div className="absolute inset-0 bg-gradient-to-t from-navy-950/20 via-transparent to-transparent pointer-events-none rounded-2xl" />
+                      <div className="absolute inset-0 bg-gradient-to-t from-navy-900/10 via-transparent to-transparent pointer-events-none rounded-2xl" />
                     </div>
                   </div>
                 </div>
@@ -580,15 +580,82 @@ const Home = ({ products, newArrivals, categories, categoryProductsMap }: { prod
                 })}
               </section>
 
-              {/* CTA Section — premium gradient */}
-              <section className="relative overflow-hidden rounded-2xl bg-navy-gradient p-6 md:p-8">
-                <div className="absolute inset-0 premium-pattern opacity-30" />
+              {/* Shop by Collection — scenario-based merchandising (eplanshop-style) */}
+              {(() => {
+                const collections = [
+                  { title: 'Gift Ready', desc: 'Curated gift-worthy picks', slug: 'gift', icon: Gift, gradient: 'from-rose-50 to-orange-50' },
+                  { title: 'Home Refresh', desc: 'Refresh every room', slug: 'home-living', icon: HomeIcon, gradient: 'from-emerald-50 to-teal-50' },
+                  { title: 'Trending Jewelry', desc: 'Best-selling bling', slug: 'fashion-jewelry', icon: Gem, gradient: 'from-amber-50 to-yellow-50' },
+                  { title: 'Kids & Baby', desc: 'Safe, fun, sellable', slug: 'mother-baby-toys', icon: Baby, gradient: 'from-sky-50 to-indigo-50' },
+                ].filter(c => (categoryProductsMap[c.slug]?.length || 0) > 0 || categories.some(cat => cat.slug === c.slug));
+
+                if (collections.length === 0) return null;
+
+                return (
+                  <section className="space-y-3">
+                    <div className="flex items-center gap-2.5 px-0.5 pt-1">
+                      <div className="w-8 h-8 rounded-lg bg-accent-500 flex items-center justify-center">
+                        <Sparkles className="w-4 h-4 text-white" />
+                      </div>
+                      <div>
+                        <h2 className="font-display font-bold text-lg text-navy-900 tracking-tight leading-tight">Shop by Collection</h2>
+                        <span className="text-[11px] text-ink-400 leading-tight">Curated picks by scenario &amp; season</span>
+                      </div>
+                    </div>
+                    <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
+                      {collections.map((c) => {
+                        const Icon = c.icon;
+                        const cat = categories.find(x => x.slug === c.slug);
+                        const thumb = categoryProductsMap[c.slug]?.[0];
+                        const count = cat?.productCount || 0;
+                        return (
+                          <Link
+                            key={c.slug}
+                            href={`/products?category=${c.slug}`}
+                            className={`group relative overflow-hidden rounded-2xl border border-ink-200 bg-gradient-to-br ${c.gradient} hover:border-accent-300 hover:shadow-card-hover transition-all duration-300 p-4 flex flex-col justify-between min-h-[150px]`}
+                          >
+                            <div className="flex items-center justify-between">
+                              <div className="w-8 h-8 rounded-lg bg-white/80 flex items-center justify-center shadow-sm">
+                                <Icon className="w-4 h-4 text-accent-600" />
+                              </div>
+                              {count > 0 && (
+                                <span className="text-[10px] font-semibold text-ink-500 bg-white/70 px-2 py-0.5 rounded-full">{count} items</span>
+                              )}
+                            </div>
+                            <div>
+                              <h3 className="font-display font-bold text-sm text-navy-900 leading-tight">{c.title}</h3>
+                              <p className="text-[11px] text-ink-500 mt-0.5 leading-tight">{c.desc}</p>
+                            </div>
+                            {thumb && (
+                              <div className="absolute -bottom-3 -right-3 w-20 h-20 rounded-full overflow-hidden border-2 border-white shadow-md opacity-90 group-hover:scale-110 transition-transform duration-500">
+                                <Image
+                                  src={thumb.image}
+                                  alt={c.title}
+                                  fill
+                                  loading="lazy"
+                                  sizes="80px"
+                                  className="!object-cover !w-auto !h-auto"
+                                  onError={(e) => { (e.currentTarget as unknown as HTMLImageElement).style.visibility = 'hidden'; }}
+                                />
+                              </div>
+                            )}
+                          </Link>
+                        );
+                      })}
+                    </div>
+                  </section>
+                );
+              })()}
+
+              {/* CTA Section — light, conversion-focused */}
+              <section className="relative overflow-hidden rounded-2xl bg-cta-light border border-ink-200 p-6 md:p-8">
+                <div className="absolute inset-0 light-mesh opacity-60" />
                 <div className="relative flex flex-col md:flex-row items-center justify-between gap-5">
                   <div className="text-center md:text-left">
-                    <h2 className="font-display font-bold text-lg md:text-xl text-white mb-1.5 tracking-tight">
+                    <h2 className="font-display font-bold text-lg md:text-xl text-navy-900 mb-1.5 tracking-tight">
                       Ready to Start Sourcing?
                     </h2>
-                    <p className="text-navy-200 text-sm max-w-lg">
+                    <p className="text-ink-600 text-sm max-w-lg">
                       Create a free account to track orders, save addresses, and check out faster.
                     </p>
                   </div>
@@ -601,7 +668,7 @@ const Home = ({ products, newArrivals, categories, categoryProductsMap }: { prod
                     </Link>
                     <Link
                       href="/products"
-                      className="inline-flex items-center gap-2 border border-white/20 hover:border-white/40 hover:bg-white/5 text-white px-6 py-3 rounded-xl font-bold text-sm transition-all"
+                      className="inline-flex items-center gap-2 border border-navy-300 hover:border-accent-400 hover:bg-accent-50 text-navy-800 hover:text-accent-600 px-6 py-3 rounded-xl font-bold text-sm transition-all"
                     >
                       Browse Products
                     </Link>

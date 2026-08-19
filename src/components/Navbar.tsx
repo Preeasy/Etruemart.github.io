@@ -19,13 +19,13 @@ import {
   Home,
   Sparkles,
   Tag,
+  ArrowRight,
 } from 'lucide-react';
 import { useCart } from '@/components/CartContext';
 import navCategories from '@/lib/nav-categories';
 
 const categoryIcons: Record<string, any> = {
   'fashion-jewelry': Gem,
-  'garment-accessories': Scissors,
   'accessories': Sparkles,
   'bags': ShoppingCart,
   'apparel-shoes': Tag,
@@ -59,6 +59,8 @@ function Scissors({ className }: { className?: string }) {
     </svg>
   );
 }
+// register scissors icon for garment-accessories
+categoryIcons['garment-accessories'] = Scissors;
 
 const Navbar = () => {
   const { data: session } = useSession();
@@ -124,7 +126,7 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="sticky top-0 z-50 bg-navy-900/95 backdrop-blur-md shadow-navy-glow border-b border-navy-800/80">
+    <nav className="sticky top-0 z-50 bg-white/95 backdrop-blur-md shadow-soft border-b border-ink-200">
       <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-10 max-w-[1600px] mx-auto">
         {/* Main bar */}
         <div className="flex items-center justify-between h-16 gap-4">
@@ -135,14 +137,14 @@ const Navbar = () => {
             className="flex items-center gap-2.5 group shrink-0"
             onClick={handleLogoClick}
           >
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-accent-400 to-accent-600 flex items-center justify-center shadow-accent-glow group-hover:shadow-accent-glow group-hover:scale-105 transition-all duration-300">
+            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-accent-400 to-accent-600 flex items-center justify-center shadow-accent-glow group-hover:scale-105 transition-all duration-300">
               <Gem className="w-5 h-5 text-white" />
             </div>
             <div className="flex flex-col">
-              <span className="text-lg font-display font-bold tracking-wide text-white group-hover:text-accent-300 transition-colors leading-tight">
+              <span className="text-lg font-display font-bold tracking-wide text-navy-900 group-hover:text-accent-600 transition-colors leading-tight">
                 eTrue Mark
               </span>
-              <span className="text-[10px] tracking-[0.2em] text-accent-400/90 uppercase leading-tight font-medium">
+              <span className="text-[10px] tracking-[0.2em] text-accent-600 uppercase leading-tight font-semibold">
                 Wholesale Source
               </span>
             </div>
@@ -152,14 +154,14 @@ const Navbar = () => {
           <div className="hidden md:flex flex-1 max-w-xl">
             <form onSubmit={handleSearch} className="relative w-full flex group">
               <div className="relative flex-1">
-                <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-navy-400 pointer-events-none" />
+                <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-ink-400 pointer-events-none" />
                 <input
                   type="text"
                   placeholder="Search products, SKU, categories..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   aria-label="Search products"
-                  className="w-full pl-10 pr-4 py-2.5 rounded-l-xl bg-navy-800/80 border border-navy-700/60 text-white placeholder-navy-400 focus:outline-none focus:ring-2 focus:ring-accent-400/50 focus:border-accent-500 focus:bg-navy-800 text-sm transition-all"
+                  className="w-full pl-10 pr-4 py-2.5 rounded-l-xl bg-ink-50 border border-ink-200 text-navy-900 placeholder-ink-400 focus:outline-none focus:ring-2 focus:ring-accent-400/40 focus:border-accent-400 focus:bg-white text-sm transition-all"
                 />
               </div>
               <button
@@ -177,12 +179,12 @@ const Navbar = () => {
             <Link
               href="/cart"
               aria-label="Shopping cart"
-              className="relative flex items-center gap-1.5 px-3 py-2 text-sm text-navy-300 hover:text-accent-400 hover:bg-navy-800 rounded-lg transition-colors font-medium"
+              className="relative flex items-center gap-1.5 px-3 py-2 text-sm text-ink-600 hover:text-accent-600 hover:bg-accent-50 rounded-lg transition-colors font-medium"
             >
               <div className="relative">
                 <ShoppingCart className="w-4 h-4" />
                 {count > 0 && (
-                  <span className="absolute -top-2 -right-2 min-w-[16px] h-4 px-1 bg-accent-500 text-white text-[10px] font-bold rounded-full flex items-center justify-center leading-none ring-2 ring-navy-900">
+                  <span className="absolute -top-2 -right-2 min-w-[16px] h-4 px-1 bg-accent-500 text-white text-[10px] font-bold rounded-full flex items-center justify-center leading-none ring-2 ring-white">
                     {count > 99 ? '99+' : count}
                   </span>
                 )}
@@ -190,14 +192,14 @@ const Navbar = () => {
               <span className="hidden sm:inline">Cart</span>
             </Link>
 
-            <div className="hidden sm:block w-px h-5 bg-navy-700" />
+            <div className="hidden sm:block w-px h-5 bg-ink-200" />
 
             {session ? (
               <>
                 <Link
                   href="/orders"
                   aria-label="My orders"
-                  className="hidden sm:flex items-center gap-1.5 px-3 py-2 text-sm text-navy-300 hover:text-accent-400 hover:bg-navy-800 rounded-lg transition-colors font-medium"
+                  className="hidden sm:flex items-center gap-1.5 px-3 py-2 text-sm text-ink-600 hover:text-accent-600 hover:bg-accent-50 rounded-lg transition-colors font-medium"
                 >
                   <Package className="w-4 h-4" />
                   Orders
@@ -205,7 +207,7 @@ const Navbar = () => {
                 <button
                   onClick={() => signOut()}
                   aria-label="Logout"
-                  className="flex items-center gap-1 px-3 py-2 text-sm text-navy-300 hover:text-accent-400 hover:bg-navy-800 rounded-lg transition-colors font-medium"
+                  className="flex items-center gap-1 px-3 py-2 text-sm text-ink-600 hover:text-accent-600 hover:bg-accent-50 rounded-lg transition-colors font-medium"
                 >
                   <User className="w-4 h-4" />
                   <span className="hidden sm:inline">Logout</span>
@@ -216,14 +218,14 @@ const Navbar = () => {
                 <Link
                   href="/login"
                   aria-label="Sign In"
-                  className="px-3 py-2 text-sm text-navy-300 hover:text-accent-400 hover:bg-navy-800 rounded-lg transition-colors font-medium"
+                  className="px-3 py-2 text-sm text-ink-600 hover:text-accent-600 hover:bg-accent-50 rounded-lg transition-colors font-medium"
                 >
                   Sign In
                 </Link>
                 <Link
                   href="/register"
                   aria-label="Register"
-                  className="px-4 py-2 text-sm bg-accent-500 hover:bg-accent-400 text-white rounded-lg font-semibold transition-colors shadow-sm"
+                  className="px-4 py-2 text-sm bg-accent-500 hover:bg-accent-400 text-white rounded-lg font-semibold transition-colors shadow-accent-glow"
                 >
                   Register
                 </Link>
@@ -233,7 +235,7 @@ const Navbar = () => {
             {/* Mobile menu button */}
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className="md:hidden text-white ml-1 p-2 rounded-lg hover:bg-navy-800 transition-colors"
+              className="md:hidden text-navy-900 ml-1 p-2 rounded-lg hover:bg-ink-100 transition-colors"
               aria-label="Toggle menu"
             >
               {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
@@ -242,14 +244,14 @@ const Navbar = () => {
         </div>
 
         {/* Navigation links row */}
-        <div className="hidden md:block border-t border-navy-800/60">
+        <div className="hidden md:block border-t border-ink-100">
           <div className="h-11 flex items-center gap-0 whitespace-nowrap">
             <Link
               href="/"
               className={`flex items-center gap-1.5 px-3 py-2 text-sm font-medium rounded-md transition-colors ${
                 router.pathname === '/'
-                  ? 'text-accent-400 bg-navy-800'
-                  : 'text-navy-300 hover:text-white hover:bg-navy-800'
+                  ? 'text-accent-600 bg-accent-50'
+                  : 'text-ink-700 hover:text-accent-600 hover:bg-accent-50'
               }`}
             >
               <Home className="w-3.5 h-3.5 shrink-0" />
@@ -259,16 +261,16 @@ const Navbar = () => {
               href="/products"
               className={`flex items-center gap-1 px-2 py-2 text-xs font-medium rounded-md transition-colors whitespace-nowrap ${
                 isActive('/products')
-                  ? 'text-accent-400 bg-navy-800'
-                  : 'text-navy-300 hover:text-white hover:bg-navy-800'
+                  ? 'text-accent-600 bg-accent-50'
+                  : 'text-ink-700 hover:text-accent-600 hover:bg-accent-50'
               }`}
             >
               <Package className="w-3.5 h-3.5 shrink-0" />
               <span className="whitespace-nowrap">All Products</span>
             </Link>
 
-            {/* Category dropdowns */}
-            {navCategories.slice(0, 8).map((cat) => {
+            {/* Category mega menus */}
+            {navCategories.slice(0, 9).map((cat) => {
               const CatIcon = categoryIcons[cat.slug] || Sparkles;
               const hasChildren = cat.children.length > 0;
               const isOpen = openDropdown === cat.slug;
@@ -288,8 +290,8 @@ const Navbar = () => {
                     aria-expanded={hasChildren ? isOpen : undefined}
                     className={`flex items-center gap-1 px-2 py-2 text-xs font-medium rounded-md transition-colors whitespace-nowrap ${
                       isCatActive
-                        ? 'text-accent-400 bg-navy-800'
-                        : 'text-navy-300 hover:text-white hover:bg-navy-800'
+                        ? 'text-accent-600 bg-accent-50'
+                        : 'text-ink-700 hover:text-accent-600 hover:bg-accent-50'
                     }`}
                   >
                     <CatIcon className="w-3.5 h-3.5 shrink-0" />
@@ -299,22 +301,49 @@ const Navbar = () => {
                     )}
                   </button>
 
-                  {/* Dropdown menu */}
+                  {/* Mega menu panel */}
                   {hasChildren && isOpen && (
-                    <div className="absolute top-full left-0 mt-0.5 w-64 bg-white rounded-xl shadow-premium border border-navy-100 py-2 z-50 animate-slide-up-sm">
-                      <div className="px-3 py-1.5 text-2xs font-bold text-navy-900 uppercase tracking-wider border-b border-navy-100 mb-1">
-                        {cat.name} Subcategories
-                      </div>
-                      {cat.children.map(child => (
+                    <div
+                      className="absolute top-full left-0 mt-0.5 w-[460px] bg-white rounded-xl shadow-premium border border-ink-200 p-4 z-50 animate-slide-up-sm"
+                      onMouseEnter={() => setOpenDropdown(cat.slug)}
+                      onMouseLeave={() => setOpenDropdown(null)}
+                    >
+                      <div className="flex items-center justify-between mb-3 pb-2 border-b border-ink-100">
+                        <div className="flex items-center gap-2">
+                          <div className="w-7 h-7 rounded-lg bg-accent-50 flex items-center justify-center">
+                            <CatIcon className="w-4 h-4 text-accent-600" />
+                          </div>
+                          <div>
+                            <p className="text-xs font-bold text-navy-900 leading-tight">{cat.name}</p>
+                            <p className="text-[10px] text-ink-400 leading-tight">{cat.productCount} products</p>
+                          </div>
+                        </div>
                         <Link
-                          key={child.slug}
-                          href={`/products?category=${child.slug}`}
-                          className="flex items-center gap-2 px-3 py-2 text-sm text-navy-700 hover:bg-accent-50 hover:text-accent-700 rounded-lg mx-1 transition-colors"
+                          href={`/products?category=${cat.slug}`}
+                          className="inline-flex items-center gap-0.5 text-[11px] font-semibold text-accent-600 hover:text-accent-700 px-2 py-1 rounded-md hover:bg-accent-50 transition-colors"
                         >
-                          <ChevronRight className="w-3 h-3 text-navy-300" />
-                          {child.name}
+                          View All <ArrowRight className="w-3 h-3" />
                         </Link>
-                      ))}
+                      </div>
+                      <div className="grid grid-cols-2 gap-x-3 gap-y-0.5 max-h-[60vh] overflow-y-auto pr-1">
+                        {cat.children.map(child => {
+                          const chActive = router.query.category === child.slug;
+                          return (
+                            <Link
+                              key={child.slug}
+                              href={`/products?category=${child.slug}`}
+                              className={`flex items-center gap-2 px-2.5 py-2 text-xs rounded-lg transition-colors group/ch ${
+                                chActive
+                                  ? 'bg-accent-50 text-accent-600 font-semibold'
+                                  : 'text-ink-600 hover:bg-ink-50 hover:text-navy-900'
+                              }`}
+                            >
+                              <ChevronRight className="w-3 h-3 text-ink-300 group-hover/ch:text-accent-500 transition-colors" />
+                              <span className="truncate">{child.name}</span>
+                            </Link>
+                          );
+                        })}
+                      </div>
                     </div>
                   )}
                 </div>
@@ -325,14 +354,14 @@ const Navbar = () => {
 
         {/* Hidden admin panel (only visible when toggled by ADMIN user) */}
         {showAdminPanel && session?.user?.role === 'ADMIN' && (
-          <div className="border-t border-accent-500/30 bg-navy-800/80">
+          <div className="border-t border-accent-500/30 bg-accent-50/60">
             <div className="flex items-center gap-4 px-4 py-2">
-              <span className="text-[10px] text-accent-400 uppercase tracking-wider font-semibold">Admin</span>
+              <span className="text-[10px] text-accent-600 uppercase tracking-wider font-semibold">Admin</span>
               {adminLinks.map(link => (
                 <Link
                   key={link.href}
                   href={link.href}
-                  className="flex items-center gap-1.5 px-2 py-1 text-xs text-navy-300 hover:text-accent-400 transition-colors rounded hover:bg-navy-700"
+                  className="flex items-center gap-1.5 px-2 py-1 text-xs text-ink-600 hover:text-accent-600 transition-colors rounded hover:bg-white"
                 >
                   <link.icon className="w-3.5 h-3.5" />
                   {link.label}
@@ -340,7 +369,7 @@ const Navbar = () => {
               ))}
               <button
                 onClick={() => setShowAdminPanel(false)}
-                className="ml-auto text-navy-400 hover:text-white p-1"
+                className="ml-auto text-ink-400 hover:text-navy-900 p-1"
                 aria-label="Close admin panel"
               >
                 <X className="w-4 h-4" />
@@ -352,7 +381,7 @@ const Navbar = () => {
 
       {/* Mobile menu */}
       {isOpen && (
-        <div className="md:hidden bg-navy-900 border-t border-navy-800/60 max-h-[85vh] overflow-y-auto animate-slide-up-sm">
+        <div className="md:hidden bg-white border-t border-ink-200 max-h-[85vh] overflow-y-auto animate-slide-up-sm">
           <div className="px-4 py-4 space-y-4">
             {/* Search */}
             <form onSubmit={handleSearch} className="flex">
@@ -362,7 +391,7 @@ const Navbar = () => {
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 aria-label="Search products"
-                className="flex-1 px-4 py-2.5 rounded-l-xl bg-navy-800/80 border border-navy-700/60 text-white placeholder-navy-400 focus:outline-none focus:ring-2 focus:ring-accent-400/50 text-sm"
+                className="flex-1 px-4 py-2.5 rounded-l-xl bg-ink-50 border border-ink-200 text-navy-900 placeholder-ink-400 focus:outline-none focus:ring-2 focus:ring-accent-400/40 text-sm"
               />
               <button
                 type="submit"
@@ -377,7 +406,7 @@ const Navbar = () => {
             <div className="grid grid-cols-2 gap-2">
               <Link
                 href="/cart"
-                className="flex items-center justify-between py-2.5 px-3 text-sm text-navy-200 hover:bg-navy-800 hover:text-accent-400 rounded-lg transition-colors font-medium border border-navy-800"
+                className="flex items-center justify-between py-2.5 px-3 text-sm text-ink-700 hover:bg-accent-50 hover:text-accent-600 rounded-lg transition-colors font-medium border border-ink-200"
               >
                 <span className="flex items-center gap-2">
                   <ShoppingCart className="w-4 h-4" />
@@ -393,14 +422,14 @@ const Navbar = () => {
                 <>
                   <Link
                     href="/orders"
-                    className="flex items-center gap-2 py-2.5 px-3 text-sm text-navy-200 hover:bg-navy-800 hover:text-accent-400 rounded-lg transition-colors font-medium border border-navy-800"
+                    className="flex items-center gap-2 py-2.5 px-3 text-sm text-ink-700 hover:bg-accent-50 hover:text-accent-600 rounded-lg transition-colors font-medium border border-ink-200"
                   >
                     <Package className="w-4 h-4" />
                     My Orders
                   </Link>
                   <button
                     onClick={() => signOut()}
-                    className="flex items-center gap-2 py-2.5 px-3 text-sm text-navy-200 hover:bg-navy-800 hover:text-accent-400 rounded-lg transition-colors font-medium border border-navy-800 col-span-2"
+                    className="flex items-center gap-2 py-2.5 px-3 text-sm text-ink-700 hover:bg-accent-50 hover:text-accent-600 rounded-lg transition-colors font-medium border border-ink-200 col-span-2"
                   >
                     <User className="w-4 h-4" />
                     Logout
@@ -410,7 +439,7 @@ const Navbar = () => {
                 <div className="col-span-2 flex gap-2">
                   <Link
                     href="/login"
-                    className="flex-1 text-center py-2.5 text-sm text-navy-200 border border-navy-700 rounded-lg font-medium hover:bg-navy-800 transition-colors"
+                    className="flex-1 text-center py-2.5 text-sm text-ink-700 border border-ink-300 rounded-lg font-medium hover:bg-ink-50 transition-colors"
                   >
                     Sign In
                   </Link>
@@ -425,18 +454,18 @@ const Navbar = () => {
             </div>
 
             {/* Category navigation */}
-            <div className="pt-2 border-t border-navy-800">
-              <div className="text-[11px] font-bold text-navy-400 uppercase tracking-wider px-3 mb-2">
+            <div className="pt-2 border-t border-ink-200">
+              <div className="text-[11px] font-bold text-ink-400 uppercase tracking-wider px-3 mb-2">
                 Categories
               </div>
               <Link
                 href="/products"
-                className="flex items-center gap-2 px-3 py-2.5 text-sm text-navy-200 hover:bg-navy-800 hover:text-accent-400 rounded-lg transition-colors font-medium"
+                className="flex items-center gap-2 px-3 py-2.5 text-sm text-ink-700 hover:bg-accent-50 hover:text-accent-600 rounded-lg transition-colors font-medium"
               >
                 <Home className="w-4 h-4" />
                 All Products
               </Link>
-              {navCategories.slice(0, 12).map((cat) => {
+              {navCategories.slice(0, 14).map((cat) => {
                 const CatIcon = categoryIcons[cat.slug] || Sparkles;
                 const isExpanded = mobileExpanded === cat.slug;
                 const hasChildren = cat.children.length > 0;
@@ -448,14 +477,14 @@ const Navbar = () => {
                         href={`/products?category=${cat.slug}`}
                         className={`flex-1 flex items-center gap-2 px-3 py-2.5 text-sm rounded-lg transition-colors font-medium ${
                           router.query.category === cat.slug
-                            ? 'text-accent-400 bg-navy-800'
-                            : 'text-navy-200 hover:bg-navy-800 hover:text-accent-400'
+                            ? 'text-accent-600 bg-accent-50'
+                            : 'text-ink-700 hover:bg-accent-50 hover:text-accent-600'
                         }`}
                       >
                         <CatIcon className="w-4 h-4" />
                         {cat.name}
                         {cat.productCount > 0 && (
-                          <span className="ml-auto text-[10px] text-navy-500 bg-navy-800 px-1.5 py-0.5 rounded-full">
+                          <span className="ml-auto text-[10px] text-ink-400 bg-ink-100 px-1.5 py-0.5 rounded-full">
                             {cat.productCount}
                           </span>
                         )}
@@ -463,7 +492,7 @@ const Navbar = () => {
                       {hasChildren && (
                         <button
                           onClick={() => setMobileExpanded(isExpanded ? null : cat.slug)}
-                          className="p-2 text-navy-400 hover:text-accent-400 transition-colors"
+                          className="p-2 text-ink-400 hover:text-accent-600 transition-colors"
                           aria-label={isExpanded ? 'Collapse' : 'Expand'}
                         >
                           <ChevronDown className={`w-4 h-4 transition-transform ${isExpanded ? 'rotate-180' : ''}`} />
@@ -472,12 +501,12 @@ const Navbar = () => {
                     </div>
                     {/* Subcategories (mobile expandable) */}
                     {hasChildren && isExpanded && (
-                      <div className="ml-4 border-l border-navy-800 pl-2 py-1 space-y-0.5">
+                      <div className="ml-4 border-l border-ink-200 pl-2 py-1 space-y-0.5">
                         {cat.children.map(child => (
                           <Link
                             key={child.slug}
                             href={`/products?category=${child.slug}`}
-                            className="flex items-center gap-2 px-3 py-2 text-xs text-navy-400 hover:text-accent-400 hover:bg-navy-800/50 rounded-md transition-colors"
+                            className="flex items-center gap-2 px-3 py-2 text-xs text-ink-500 hover:text-accent-600 hover:bg-accent-50/50 rounded-md transition-colors"
                           >
                             <ChevronRight className="w-3 h-3" />
                             {child.name}
