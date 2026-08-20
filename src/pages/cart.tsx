@@ -5,7 +5,7 @@ import Head from 'next/head';
 import { ShoppingCart, Plus, Minus, Trash2, CreditCard, Truck, ChevronRight, ArrowLeft } from 'lucide-react';
 import Layout from '@/components/Layout';
 import { useCart } from '@/components/CartContext';
-import { TAX_RATE, FREE_SHIPPING_THRESHOLD, FREE_SHIPPING_COST } from '@/lib/site';
+import { TAX_RATE, MINIMUM_ORDER_AMOUNT, SHIPPING_ESTIMATE } from '@/lib/site';
 
 const Cart = () => {
   const { data: session, status } = useSession();
@@ -37,9 +37,11 @@ const Cart = () => {
   }
 
   // Estimated shipping — real calculation happens at checkout based on address.
-  const estimatedShipping = subtotal >= FREE_SHIPPING_THRESHOLD ? 0 : FREE_SHIPPING_COST;
+  // 全站不免运费：运费始终产生，结账时按地址精确计算
+  const estimatedShipping = SHIPPING_ESTIMATE;
   const tax = Math.round(subtotal * TAX_RATE * 100) / 100;
   const estimatedTotal = subtotal + estimatedShipping + tax;
+  const belowMinimum = subtotal < MINIMUM_ORDER_AMOUNT;
 
   return (
     <Layout>
