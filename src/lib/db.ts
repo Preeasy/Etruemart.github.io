@@ -1,7 +1,25 @@
 import Database from 'better-sqlite3';
 import path from 'path';
+import fs from 'fs';
 
-const DB_PATH = path.join(process.cwd(), 'prisma', 'dev.db');
+// Support both prisma/dev.db and prisma/prisma/dev.db (double-nested layout),
+// plus honoring DATABASE_URL env when set.
+function resolveDbPath(): string {
+  const envUrl = process.env.DATABASE_URL || '';
+  const envMatch = envUrl.match(/^file:(.+)$/);
+  if (envMatch) {
+    const candidate = path.isAbsolute(envMatch[1])
+      ? envMatch[1]
+      : path.resolve(process.cwd(), 'prisma', envMatch[1]);
+    if (fs.existsSync(candidate)) return candidate;
+  }
+  const p1 = path.join(process.cwd(), 'prisma', 'dev.db');
+  const p2 = path.join(process.cwd(), 'prisma', 'prisma', 'dev.db');
+  if (fs.existsSync(p2)) return p2;
+  return p1;
+}
+
+const DB_PATH = resolveDbPath();
 
 let db: Database.Database | null = null;
 
