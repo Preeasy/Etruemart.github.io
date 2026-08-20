@@ -1533,7 +1533,7 @@ export default function ProductDetail({ product: initialProduct, relatedProducts
                     alt={product.name}
                     fill
                     sizes="56px"
-                    className="!object-cover !w-auto !h-auto rounded-lg"
+                    className="object-cover rounded-lg"
                     onError={(e) => { (e.currentTarget as unknown as HTMLImageElement).style.visibility = 'hidden'; }}
                   />
                 </div>

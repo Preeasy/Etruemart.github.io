@@ -109,7 +109,7 @@ const categoryIconMap: Record<string, any> = {
 };
 
 const valueProps = [
-  { icon: Truck, label: 'Free Shipping', desc: 'On orders $50+' },
+  { icon: Truck, label: 'Global Shipping', desc: 'To 180+ countries' },
   { icon: ShieldCheck, label: 'Secure Payment', desc: '100% protected' },
   { icon: Award, label: 'Premium Quality', desc: 'Verified factories' },
   { icon: Star, label: 'Factory Audited', desc: 'Verified Yiwu suppliers' },
@@ -425,7 +425,7 @@ const Home = ({ products, newArrivals, categories, categoryProductsMap }: { prod
                               fill
                               loading="lazy"
                               sizes="(max-width: 640px) 50vw, (max-width: 1024px) 25vw, 14vw"
-                              className="!object-cover !w-auto !h-auto group-hover:scale-105 transition-transform duration-500"
+                              className="object-cover group-hover:scale-105 transition-transform duration-500"
                               onError={(e) => {
                                 const el = e.currentTarget as unknown as HTMLImageElement;
                                 if (!el.dataset.fallback) {
@@ -476,7 +476,7 @@ const Home = ({ products, newArrivals, categories, categoryProductsMap }: { prod
                               fill
                               loading="lazy"
                               sizes="(max-width: 640px) 50vw, (max-width: 1024px) 25vw, 14vw"
-                              className="!object-cover !w-auto !h-auto group-hover:scale-105 transition-transform duration-500"
+                              className="object-cover group-hover:scale-105 transition-transform duration-500"
                               onError={(e) => {
                                 const el = e.currentTarget as unknown as HTMLImageElement;
                                 if (!el.dataset.fallback) {
@@ -552,7 +552,7 @@ const Home = ({ products, newArrivals, categories, categoryProductsMap }: { prod
                               fill
                               loading="lazy"
                               sizes="(max-width: 640px) 50vw, (max-width: 1024px) 25vw, 14vw"
-                              className="!object-cover !w-auto !h-auto group-hover:scale-105 transition-transform duration-500"
+                              className="object-cover group-hover:scale-105 transition-transform duration-500"
                               onError={(e) => {
                                 const el = e.currentTarget as unknown as HTMLImageElement;
                                 if (!el.dataset.fallback) {
@@ -634,7 +634,7 @@ const Home = ({ products, newArrivals, categories, categoryProductsMap }: { prod
                                   fill
                                   loading="lazy"
                                   sizes="80px"
-                                  className="!object-cover !w-auto !h-auto"
+                                  className="object-cover"
                                   onError={(e) => { (e.currentTarget as unknown as HTMLImageElement).style.visibility = 'hidden'; }}
                                 />
                               </div>

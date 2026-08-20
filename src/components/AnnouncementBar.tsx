@@ -3,9 +3,9 @@ import Link from 'next/link';
 import { X, Truck, Tag, Globe } from 'lucide-react';
 
 const messages = [
-  { icon: Truck, text: 'Free shipping on orders over $50' },
-  { icon: Tag, text: 'New customers get 5% off — use code WELCOME5' },
+  { icon: Truck, text: 'Minimum order $100 · Wholesale only' },
   { icon: Globe, text: 'Factory-direct from Yiwu · Ships to 180+ countries' },
+  { icon: Tag, text: 'Low MOQ from 12 pcs · Factory-direct pricing' },
 ];
 
 const STORAGE_KEY = 'etruemart_announcement_dismissed';

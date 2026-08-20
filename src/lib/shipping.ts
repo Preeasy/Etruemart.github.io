@@ -214,7 +214,7 @@ export const DEFAULT_SHIPPING_TEMPLATES = [
     basePrice: 6.99,        // First 0.5kg
     weightRate: 3.5,        // Per additional kg
     volumeRate: 3.5,        // Per 5000cm³ (1kg volumetric) — kept in sync with weightRate
-    freeThreshold: 59,      // Free shipping over $59
+    freeThreshold: null,    // 全站不免运费
     minDays: 7,
     maxDays: 15,
     isActive: true,
@@ -225,7 +225,7 @@ export const DEFAULT_SHIPPING_TEMPLATES = [
     basePrice: 7.99,
     weightRate: 4.0,
     volumeRate: 4.0,
-    freeThreshold: 69,
+    freeThreshold: null,
     minDays: 7,
     maxDays: 18,
     isActive: true,
@@ -236,7 +236,7 @@ export const DEFAULT_SHIPPING_TEMPLATES = [
     basePrice: 7.49,
     weightRate: 4.5,
     volumeRate: 4.5,
-    freeThreshold: 69,
+    freeThreshold: null,
     minDays: 7,
     maxDays: 18,
     isActive: true,
@@ -247,7 +247,7 @@ export const DEFAULT_SHIPPING_TEMPLATES = [
     basePrice: 6.99,
     weightRate: 4.0,
     volumeRate: 4.0,
-    freeThreshold: 59,
+    freeThreshold: null,
     minDays: 7,
     maxDays: 18,
     isActive: true,
@@ -258,7 +258,7 @@ export const DEFAULT_SHIPPING_TEMPLATES = [
     basePrice: 3.99,
     weightRate: 2.5,
     volumeRate: 2.5,
-    freeThreshold: 39,
+    freeThreshold: null,
     minDays: 5,
     maxDays: 12,
     isActive: true,
@@ -269,7 +269,7 @@ export const DEFAULT_SHIPPING_TEMPLATES = [
     basePrice: 9.99,
     weightRate: 6.0,
     volumeRate: 6.0,
-    freeThreshold: 99,
+    freeThreshold: null,
     minDays: 15,
     maxDays: 30,
     isActive: true,

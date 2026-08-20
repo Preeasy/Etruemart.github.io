@@ -2,7 +2,7 @@ import { useSession } from 'next-auth/react';
 import Image from 'next/image';
 import Link from 'next/link';
 import Head from 'next/head';
-import { ShoppingCart, Plus, Minus, Trash2, CreditCard, Truck, ChevronRight, ArrowLeft } from 'lucide-react';
+import { ShoppingCart, Plus, Minus, Trash2, CreditCard, Truck, ChevronRight, ArrowLeft, AlertCircle } from 'lucide-react';
 import Layout from '@/components/Layout';
 import { useCart } from '@/components/CartContext';
 import { TAX_RATE, MINIMUM_ORDER_AMOUNT, SHIPPING_ESTIMATE } from '@/lib/site';
@@ -81,7 +81,7 @@ const Cart = () => {
                           alt={item.product.name}
                           fill
                           sizes="96px"
-                          className="!object-cover !w-auto !h-auto rounded-xl"
+                          className="object-cover rounded-xl"
                           onError={(e) => { (e.currentTarget as unknown as HTMLImageElement).style.visibility = 'hidden'; }}
                         />
                       </Link>
@@ -162,18 +162,27 @@ const Cart = () => {
                   Final shipping cost is calculated at checkout based on your delivery address, order weight and volumetric weight.
                 </p>
 
-                <Link
-                  href="/checkout"
-                  className="w-full flex items-center justify-center gap-2 bg-accent-500 hover:bg-accent-600 text-white py-4 rounded-xl font-semibold text-lg transition-colors"
-                >
-                  <CreditCard className="w-5 h-5" />
-                  Proceed to Checkout
-                </Link>
+                {belowMinimum ? (
+                  <div className="w-full flex flex-col items-center justify-center gap-2 py-4 px-3 bg-amber-50 border border-amber-300 rounded-xl text-center">
+                    <AlertCircle className="w-5 h-5 text-amber-600" />
+                    <span className="text-sm font-semibold text-amber-700">
+                      Minimum order is ${MINIMUM_ORDER_AMOUNT}. Add ${(MINIMUM_ORDER_AMOUNT - subtotal).toFixed(2)} more to checkout.
+                    </span>
+                  </div>
+                ) : (
+                  <Link
+                    href="/checkout"
+                    className="w-full flex items-center justify-center gap-2 bg-accent-500 hover:bg-accent-600 text-white py-4 rounded-xl font-semibold text-lg transition-colors"
+                  >
+                    <CreditCard className="w-5 h-5" />
+                    Proceed to Checkout
+                  </Link>
+                )}
 
                 <div className="mt-6 p-4 bg-ink-50 rounded-lg">
                   <div className="flex items-center gap-3 text-sm text-ink-700">
                     <Truck className="w-5 h-5 text-accent-600 flex-shrink-0" />
-                    <span>Free shipping on orders over $50</span>
+                    <span>Minimum order ${MINIMUM_ORDER_AMOUNT} · Shipping calculated at checkout</span>
                   </div>
                 </div>
               </div>

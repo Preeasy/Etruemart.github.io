@@ -140,7 +140,7 @@ const Orders = () => {
                                 fill
                                 loading="lazy"
                                 sizes="80px"
-                                className="!object-cover !w-auto !h-auto rounded-xl"
+                                className="object-cover rounded-xl"
                                 onError={(e) => { (e.currentTarget as unknown as HTMLImageElement).style.visibility = 'hidden'; }}
                               />
                             </div>

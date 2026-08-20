@@ -77,9 +77,9 @@ export default function Document() {
                 availableLanguage: ['English', 'Chinese'],
               },
               sameAs: [
-                'https://www.facebook.com/etruemark',
-                'https://www.linkedin.com/company/etruemark',
-                'https://www.instagram.com/etruemark',
+                'https://www.facebook.com/etruemart',
+                'https://www.linkedin.com/company/etruemart',
+                'https://www.instagram.com/etruemart',
               ],
             }),
           }}
@@ -115,6 +115,33 @@ export default function Document() {
                 closes: '17:30',
               },
               areaServed: 'Worldwide',
+            }),
+          }}
+        />
+
+        {/* WebSite Structured Data — GEO: tells AI engines this is a searchable site */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              '@context': 'https://schema.org',
+              '@type': 'WebSite',
+              name: SITE_NAME,
+              url: SITE_URL,
+              description: SITE_DESCRIPTION,
+              inLanguage: 'en',
+              publisher: {
+                '@type': 'Organization',
+                name: SITE_COMPANY,
+              },
+              potentialAction: {
+                '@type': 'SearchAction',
+                target: {
+                  '@type': 'EntryPoint',
+                  urlTemplate: `${SITE_URL}/products?q={search_term_string}`,
+                },
+                'query-input': 'required name=search_term_string',
+              },
             }),
           }}
         />

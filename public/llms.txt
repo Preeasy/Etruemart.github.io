@@ -1,0 +1,38 @@
+# eTrue Mart
+
+> eTrue Mart is a B2B wholesale sourcing platform based in Yiwu, China. It connects international buyers with Yiwu factories for fashion jewelry, accessories, bags, apparel, home decor, kitchen supplies, electronics, toys and more. Factory-direct pricing, low MOQ (minimum 12 pcs), global shipping to 180+ countries.
+
+## Business rules
+
+- Minimum order: $100 USD (wholesale only, no retail)
+- Minimum order quantity (MOQ): starts from 12 pcs per product
+- No free shipping — shipping is calculated at checkout based on destination, weight and volumetric weight
+- Payment methods: T/T (bank transfer), PayPal, L/C, Western Union
+- Processing time: 3-5 business days before shipment
+- OEM/ODM services available: custom packaging, private label, logo printing
+
+## Company
+
+- Company: Yiwu Yichu Trading Co., Ltd. (义乌弋楚贸易有限公司)
+- Location: Yiwu, Zhejiang, China (geo: 29.3056, 120.0762)
+- Contact: +86 18767960499 / yeatrusourcing@gmail.com
+- Trust: Verified Supplier, Trade Assurance, SSL Secured
+
+## Key pages
+
+- [Home](https://etruemart.vercel.app/)
+- [All Products Catalog](https://etruemart.vercel.app/products)
+- [Shopping Cart](https://etruemart.vercel.app/cart)
+- [Checkout](https://etruemart.vercel.app/checkout)
+- [Sign In](https://etruemart.vercel.app/login)
+- [Register](https://etruemart.vercel.app/register)
+- [About / Help](https://etruemart.vercel.app/about)
+- [Sitemap](https://etruemart.vercel.app/sitemap.xml)
+
+## Product categories
+
+Fashion Jewelry, Bags, Apparel & Shoes, Phone Accessories, Electronics, Kitchen Supplies, Mother Baby & Toys, Home & Living, Home Appliances, Beauty & Personal Care, Sports & Outdoor, Stationery & Office, Auto & Tools, Hardware & Home, Pet Supplies, Musical Instruments.
+
+## Search
+
+Search products by name, SKU or keyword at: https://etruemart.vercel.app/products?q={query}

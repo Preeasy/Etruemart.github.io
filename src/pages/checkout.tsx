@@ -426,7 +426,7 @@ const Checkout = () => {
                         )}
                         {shipping.isFree && (
                           <p className="text-xs text-success-600 mt-1 font-medium">
-                            Free shipping applied — order qualifies for free delivery
+                            Shipping fee waived for this order
                           </p>
                         )}
                       </div>
@@ -495,7 +495,7 @@ const Checkout = () => {
                           alt={item.product.name}
                           fill
                           sizes="56px"
-                          className="!object-cover !w-auto !h-auto rounded-lg"
+                          className="object-cover rounded-lg"
                           onError={(e) => { (e.currentTarget as unknown as HTMLImageElement).style.visibility = 'hidden'; }}
                         />
                         <span className="absolute -top-1 -right-1 min-w-[16px] h-4 px-1 bg-navy-800 text-white text-[10px] font-bold rounded-full flex items-center justify-center z-10">{item.quantity}</span>

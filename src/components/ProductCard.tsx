@@ -95,7 +95,7 @@ const ProductCard = ({ product, editUrl }: ProductCardProps) => {
             fill
             loading="lazy"
             sizes="(max-width: 640px) 50vw, (max-width: 1024px) 25vw, 20vw"
-            className="!object-cover !w-auto !h-auto group-hover:scale-105 transition-transform duration-500"
+            className="object-cover group-hover:scale-105 transition-transform duration-500"
             onError={(e) => {
               const el = e.currentTarget as unknown as HTMLImageElement;
               if (!el.dataset.fallback) {

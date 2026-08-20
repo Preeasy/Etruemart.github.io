@@ -246,7 +246,7 @@ export default function Sidebar({ products, currentCategory, categories }: Sideb
                     alt={item.name}
                     fill
                     sizes="56px"
-                    className="!object-cover !w-auto !h-auto"
+                    className="object-cover"
                     onError={(e) => { (e.currentTarget as unknown as HTMLImageElement).style.visibility = 'hidden'; }}
                   />
                   <span className="absolute top-0 left-0 w-5 h-5 bg-accent-500 text-white text-[10px] font-bold rounded-br flex items-center justify-center z-10">
@@ -309,7 +309,7 @@ export default function Sidebar({ products, currentCategory, categories }: Sideb
                       alt={item.name}
                       fill
                       sizes="(max-width: 640px) 50vw, 20vw"
-                      className="!object-cover !w-auto !h-auto"
+                      className="object-cover"
                       onError={(e) => { (e.currentTarget as unknown as HTMLImageElement).style.visibility = 'hidden'; }}
                     />
                   </div>
@@ -341,7 +341,7 @@ export default function Sidebar({ products, currentCategory, categories }: Sideb
                       alt={item.name}
                       fill
                       sizes="(max-width: 640px) 50vw, 20vw"
-                      className="!object-cover !w-auto !h-auto"
+                      className="object-cover"
                       onError={(e) => { (e.currentTarget as unknown as HTMLImageElement).style.visibility = 'hidden'; }}
                     />
                   </div>

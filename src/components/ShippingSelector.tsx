@@ -233,7 +233,7 @@ export default function ShippingSelector({ categorySlug, defaultWeight, defaultV
                     <div className="flex items-center gap-2 min-w-0">
                       <div className="w-8 h-8 rounded-lg bg-navy-800 bg-navy-gradient flex items-center justify-center text-white text-[10px] font-bold flex-shrink-0 relative">
                         {match.carrier.logo ? (
-                          <Image src={match.carrier.logo || ""} alt={match.carrier.name} fill sizes="32px" className="!object-contain !w-auto !h-auto !p-0.5" />
+                          <Image src={match.carrier.logo || ""} alt={match.carrier.name} fill sizes="32px" className="object-contain !p-0.5" />
                         ) : (
                           match.carrier.name.slice(0, 2).toUpperCase()
                         )}
