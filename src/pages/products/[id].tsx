@@ -906,8 +906,11 @@ export default function ProductDetail({ product: initialProduct, relatedProducts
               )}
             </div>
 
-            {/* Price display: show interval when variants exist, specific price when selected */}
+            {/* Wholesale price block — 365nails-inspired, honest (no fake retail price) */}
             <div className="mb-5">
+              <div className="flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-[0.15em] text-accent-600 mb-1.5">
+                <Tag className="w-3.5 h-3.5" /> Wholesale unit price
+              </div>
               {(() => {
                 const hasVariants = effectiveVariantGroup && effectiveVariantGroup.variants.length > 1;
                 if (hasVariants) {
@@ -915,13 +918,12 @@ export default function ProductDetail({ product: initialProduct, relatedProducts
                   const validPrices = group.variants.map(v => v.price).filter(p => p > 0);
                   const minP = group.minPrice ?? (validPrices.length > 0 ? Math.min(...validPrices) : price);
                   const maxP = group.maxPrice ?? (validPrices.length > 0 ? Math.max(...validPrices) : price);
-                  
-                  // If user has explicitly clicked a variant, always show exact price + range hint
+
                   if (hasSelectedVariant) {
                     const showPrice = price > 0 ? `$${price.toFixed(2)}` : 'Contact for price';
                     return (
                       <div className="flex flex-wrap items-baseline gap-2">
-                        <span className={`text-2xl md:text-3xl font-extrabold tracking-tight ${price > 0 ? 'text-navy-900' : 'text-amber-600'}`}>{showPrice}</span>
+                        <span className={`text-3xl md:text-4xl font-extrabold tracking-tight ${price > 0 ? 'text-navy-900' : 'text-amber-600'}`}>{showPrice}</span>
                         {minP !== maxP && (
                           <span className="text-[11px] text-ink-400 font-medium">
                             (Range: ${minP.toFixed(2)} – ${maxP.toFixed(2)})
@@ -930,23 +932,53 @@ export default function ProductDetail({ product: initialProduct, relatedProducts
                       </div>
                     );
                   }
-                  // Initial view — show range if min != max
                   if (minP > 0 && maxP > 0 && minP !== maxP) {
                     return (
                       <div className="flex flex-wrap items-baseline gap-1.5">
                         <span className="text-sm text-ink-500 font-medium">From</span>
-                        <span className="text-2xl md:text-3xl font-extrabold text-navy-900 tracking-tight">${minP.toFixed(2)}</span>
+                        <span className="text-3xl md:text-4xl font-extrabold text-navy-900 tracking-tight">${minP.toFixed(2)}</span>
                         <span className="text-sm text-ink-500 font-medium">to</span>
-                        <span className="text-2xl md:text-3xl font-extrabold text-navy-900 tracking-tight">${maxP.toFixed(2)}</span>
+                        <span className="text-3xl md:text-4xl font-extrabold text-navy-900 tracking-tight">${maxP.toFixed(2)}</span>
                         <span className="text-xs text-ink-400 ml-1">· select variant for exact price</span>
                       </div>
                     );
                   }
-                  // Single price, show it
                 }
-                // Fallback: single price (no variants or single variant)
                 return (
-                  <span className="text-3xl font-extrabold text-navy-900 tracking-tight">${price.toFixed(2)}</span>
+                  <span className="text-3xl md:text-4xl font-extrabold text-navy-900 tracking-tight">${price.toFixed(2)}</span>
+                );
+              })()}
+
+              {/* Wholesale purchase decision strip — 365nails-style B2B info band */}
+              {(() => {
+                const unitPrice = Number(product.priceMin || product.price || 0);
+                const moq = product.moq || 12;
+                const startingTotal = unitPrice > 0 ? unitPrice * moq : 0;
+                const inStock = stock > 0;
+                const availabilityLabel = product.availability === 'PreOrder' ? 'Pre-order'
+                  : product.availability === 'BackOrder' ? 'Back-order'
+                  : inStock ? 'In stock' : 'Out of stock';
+                const items = [
+                  { label: 'Wholesale unit price', value: unitPrice > 0 ? `$${unitPrice.toFixed(2)}` : 'Contact', icon: Tag },
+                  { label: 'Product MOQ', value: `${moq} pcs`, icon: Package },
+                  { label: 'Starting total', value: startingTotal > 0 ? `$${startingTotal.toFixed(2)}` : '—', icon: TrendingUp },
+                  { label: 'Availability', value: availabilityLabel, icon: inStock ? CheckCircle2 : Clock, highlight: 'avail' },
+                ];
+                return (
+                  <div className="mt-3 grid grid-cols-2 md:grid-cols-4 gap-px bg-ink-100 rounded-xl overflow-hidden border border-ink-200">
+                    {items.map(it => {
+                      const Icon = it.icon;
+                      const isAvail = it.highlight === 'avail';
+                      return (
+                        <div key={it.label} className="bg-white px-3 py-2.5">
+                          <div className="flex items-center gap-1 text-[10px] text-ink-400 uppercase tracking-wider font-semibold mb-0.5">
+                            <Icon className="w-3 h-3" />{it.label}
+                          </div>
+                          <div className={`text-sm font-bold ${isAvail ? (inStock ? 'text-success-600' : 'text-amber-600') : 'text-navy-900'}`}>{it.value}</div>
+                        </div>
+                      );
+                    })}
+                  </div>
                 );
               })()}
             </div>
@@ -991,6 +1023,48 @@ export default function ProductDetail({ product: initialProduct, relatedProducts
               </div>
             )}
 
+            {/* Variant matrix table — 365nails-style spec grid */}
+            {effectiveVariantGroup && effectiveVariantGroup.variants.length > 1 && (
+              <div className="mb-5">
+                <div className="text-[11px] font-bold uppercase tracking-[0.15em] text-ink-500 mb-2 flex items-center gap-1.5">
+                  <Layers className="w-3.5 h-3.5 text-accent-600" /> Variant specifications
+                </div>
+                <div className="rounded-xl border border-ink-200 overflow-hidden">
+                  <div className="grid grid-cols-[1fr_5rem_6rem] bg-ink-50 text-[10px] uppercase tracking-wider font-bold text-ink-500 px-3 py-2">
+                    <span>Specification</span>
+                    <span className="text-right">Stock</span>
+                    <span className="text-right">Unit price</span>
+                  </div>
+                  <div className="max-h-56 overflow-y-auto divide-y divide-ink-100">
+                    {effectiveVariantGroup.variants.map(v => {
+                      const selected = product.sku === v.sku;
+                      const spec = v.size || v.color || v.capacity || v.material || v.name;
+                      const inStock = v.stock > 0;
+                      return (
+                        <button
+                          key={v.sku}
+                          type="button"
+                          onClick={() => handleVariantSelect({ image: v.image, name: v.name, sku: v.sku, price: v.price, stock: v.stock, moq: v.moq, packagingInfo: v.packagingInfo })}
+                          className={`w-full grid grid-cols-[1fr_5rem_6rem] items-center px-3 py-2.5 text-left transition-colors ${selected ? 'bg-accent-50 ring-1 ring-inset ring-accent-300' : 'bg-white hover:bg-ink-50'}`}
+                        >
+                          <span className="flex items-center gap-2 min-w-0">
+                            {v.image ? (
+                              <img src={proxyImageUrlDirect(v.image)} alt="" className="w-7 h-7 rounded-md object-cover border border-ink-200 shrink-0" loading="lazy" />
+                            ) : (
+                              <span className="w-7 h-7 rounded-md bg-ink-100 shrink-0" />
+                            )}
+                            <span className={`text-xs truncate ${selected ? 'text-accent-700 font-bold' : 'text-navy-800 font-medium'}`}>{spec}</span>
+                          </span>
+                          <span className={`text-right text-xs font-medium ${inStock ? 'text-success-600' : 'text-ink-400'}`}>{inStock ? `${v.stock}` : 'Out'}</span>
+                          <span className="text-right text-xs font-bold text-navy-900">{v.price > 0 ? `$${v.price.toFixed(2)}` : '—'}</span>
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
+              </div>
+            )}
+
             {/* Quantity + CTA */}
             <div className="mb-4">
               <div className="flex items-center gap-2.5 mb-3">
@@ -1027,6 +1101,17 @@ export default function ProductDetail({ product: initialProduct, relatedProducts
 
             {/* Packaging & Shipping Info */}
             <div className="border-t border-ink-100 pt-3 space-y-3">
+              {/* Ready-stock wholesale status strip — 365nails-style */}
+              <div className="flex items-center justify-between gap-2 px-3 py-2 rounded-lg bg-gradient-to-r from-success-50 to-transparent border border-success-200">
+                <span className="inline-flex items-center gap-1.5 text-xs font-bold text-success-700">
+                  <span className={`w-1.5 h-1.5 rounded-full ${stock > 0 ? 'bg-success-500 animate-pulse' : 'bg-amber-500'}`} />
+                  {stock > 0 ? 'Ready-stock wholesale' : 'Made-to-order'}
+                </span>
+                <span className="inline-flex items-center gap-1 text-[11px] text-ink-500 font-medium">
+                  <Clock className="w-3 h-3" />
+                  Processing 3-5 business days
+                </span>
+              </div>
               {effectivePackagingInfo && (effectivePackagingInfo.boxLength || effectivePackagingInfo.grossWeight) && (
                 <div className="bg-ink-50 rounded-lg p-3 border border-ink-100">
                   <h4 className="text-xs font-bold text-navy-800 mb-2 flex items-center gap-1.5">

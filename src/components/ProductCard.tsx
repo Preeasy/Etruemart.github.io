@@ -179,13 +179,21 @@ const ProductCard = ({ product, editUrl }: ProductCardProps) => {
           })()}
 
           {/* Row 2: Price + MOQ on same line */}
-          <div className="flex items-center justify-between mt-2 pt-2 border-t border-ink-100/60">
-            <div className="flex items-baseline gap-1">
-              <span className="text-[10px] text-ink-400 font-medium">$</span>
-              <span className="text-base font-bold text-navy-900">{price.toFixed(2)}</span>
+          <div className="flex items-end justify-between mt-2.5 pt-2.5 border-t border-ink-100/60">
+            <div className="flex flex-col">
+              <span className="text-[9px] font-bold uppercase tracking-[0.12em] text-accent-600 mb-0.5">Wholesale</span>
+              <div className="flex items-baseline gap-0.5">
+                <span className="text-[10px] text-ink-400 font-medium">$</span>
+                <span className="text-lg font-extrabold text-navy-900 leading-none">{price.toFixed(2)}</span>
+                {(() => {
+                  const pmax = Number(product.priceMax || 0);
+                  if (pmax > price) return <span className="text-[10px] text-ink-400 font-medium ml-1">– ${pmax.toFixed(2)}</span>;
+                  return null;
+                })()}
+              </div>
             </div>
-            <span className="text-[11px] text-ink-500 flex-shrink-0">
-              MOQ: <span className="text-navy-800 font-semibold">{moq}</span>
+            <span className="text-[11px] text-ink-500 flex-shrink-0 mb-0.5">
+              MOQ <span className="text-navy-800 font-bold">{moq}</span>
             </span>
           </div>
         </div>
