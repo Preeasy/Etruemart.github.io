@@ -335,6 +335,51 @@ export function buildVariantGroups(products: any[]): Map<string, VariantGroup> {
     if (g.minPrice === Infinity) g.minPrice = 0;
   }
 
+  // ========== Phase 3: Discard groups with poor variant distinguishability
+  // Protects against future dirty data where a group's variants share the same
+  // dimension tuple (or lack dimensions entirely). Such groups produce UI rows
+  // that look identical to the shopper – they should be standalone products.
+  const EMPTY_TUPLE_MAX_RATIO = 0.5; // >50% variants with empty all dims → drop
+  for (const [key, g] of groups.entries()) {
+    if (g.variants.length < 2) continue;
+    const EMPTY = 'c=|s=|cap=|l=|p=|m=';
+    const tuples = g.variants.map(v =>
+      'c=' + String(v.color || '').trim()
+      + '|s=' + String(v.size || '').trim()
+      + '|cap=' + String(v.capacity || '').trim()
+      + '|l=' + String(v.layer || '').trim()
+      + '|p=' + String(v.pack || '').trim()
+      + '|m=' + String(v.material || '').trim()
+    );
+
+    const counts = new Map<string, number>();
+    for (const t of tuples) counts.set(t, (counts.get(t) || 0) + 1);
+    const emptyCount = counts.get(EMPTY) || 0;
+    const emptyRatio = emptyCount / tuples.length;
+    const anyDuplicateNonEmptyTuple = [...counts.entries()]
+      .some(([t, n]) => t !== EMPTY && n >= 2);
+    const allEmpty = emptyCount === tuples.length;
+
+    let drop = false;
+    let dropReason = '';
+    if (allEmpty) {
+      drop = true;
+      dropReason = 'ALL_VARIANTS_HAVE_EMPTY_DIMS';
+    } else if (emptyRatio > EMPTY_TUPLE_MAX_RATIO) {
+      drop = true;
+      dropReason = `EMPTY_DOMINANT(${emptyRatio.toFixed(2)}>${EMPTY_TUPLE_MAX_RATIO})`;
+    } else if (anyDuplicateNonEmptyTuple) {
+      drop = true;
+      dropReason = 'DUPLICATE_NONEMPTY_DIM_TUPLE (same spec offered ≥2x → shopper can\'t distinguish)';
+    }
+    if (drop) {
+      if (typeof console !== 'undefined') {
+        console.warn(`[buildVariantGroups] discarding group ${g.parentSku} (${g.variants.length} variants) – reason: ${dropReason}`);
+      }
+      groups.delete(key);
+    }
+  }
+
   return groups;
 }
 
