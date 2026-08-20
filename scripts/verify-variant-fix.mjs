@@ -239,6 +239,12 @@ for (const s of badSkus) {
   if (!ok) pass=false;
   console.log('  '+s.padEnd(14), ok ? 'OK (no group)' : `FAIL — has group w/ ${g.variants.length} variants: [${g.variants.map(v=>v.sku).join(', ')}]`);
 }
+for (const s of goodRetainedSkus) {
+  const g = groupForParentSku(s);
+  const ok = !!g;
+  if (!ok) pass=false;
+  console.log('  '+s.padEnd(14), ok ? `OK GROUPED (${g.variants.length})` : 'FAIL — should have legitimate group');
+}
 // Check good legit SKU still grouped
 console.log('\n=== Good SKU: YCS-MCS-003 (phone cases: has real color variants) ===');
 const mcs = groupForParentSku('YCS-MCS-003');

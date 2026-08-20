@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
-import { TAX_RATE } from '@/lib/site';
+import { TAX_RATE, MINIMUM_ORDER_AMOUNT } from '@/lib/site';
 import Image from 'next/image';
 import Link from 'next/link';
 import Head from 'next/head';
@@ -19,6 +19,7 @@ import {
   Banknote,
   ArrowLeft,
   X,
+  AlertCircle,
 } from 'lucide-react';
 import Layout from '@/components/Layout';
 import { useCart } from '@/components/CartContext';
@@ -257,6 +258,7 @@ const Checkout = () => {
   const shippingCost = shipping?.cost ?? 0;
   const total = Math.round((subtotal + shippingCost + taxAmount) * 100) / 100;
   const selectedAddress = addresses.find((a) => a.id === selectedAddressId);
+  const belowMinimum = subtotal < MINIMUM_ORDER_AMOUNT;
 
   return (
     <Layout>
@@ -285,6 +287,19 @@ const Checkout = () => {
       </div>
 
       <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16 max-w-[1600px] mx-auto py-8">
+        {belowMinimum && (
+          <div className="mb-6 w-full flex flex-col sm:flex-row items-center justify-center gap-3 py-4 px-4 bg-amber-50 border border-amber-300 rounded-xl">
+            <AlertCircle className="w-5 h-5 text-amber-600 flex-shrink-0" />
+            <div className="text-sm text-amber-800 text-center sm:text-left">
+              <span className="font-semibold">
+                Minimum order is ${MINIMUM_ORDER_AMOUNT}. Add ${(MINIMUM_ORDER_AMOUNT - subtotal).toFixed(2)} more to place your order.
+              </span>
+              <span className="block sm:inline sm:ml-3">
+                <Link href="/cart" className="text-accent-700 underline font-semibold hover:text-accent-800">← Review cart</Link>
+              </span>
+            </div>
+          </div>
+        )}
         <div className="grid lg:grid-cols-3 gap-8">
           {/* Left: address + payment */}
           <div className="lg:col-span-2 space-y-6">
@@ -549,17 +564,29 @@ const Checkout = () => {
                 <div className="mt-4 p-3 bg-red-50 border border-red-200 rounded-lg text-sm text-red-700">{error}</div>
               )}
 
-              <button
-                onClick={handlePlaceOrder}
-                disabled={placingOrder || !selectedAddressId || shippingLoading}
-                className="w-full mt-4 flex items-center justify-center gap-2 bg-accent-500 hover:bg-accent-600 disabled:opacity-50 disabled:cursor-not-allowed text-white py-4 rounded-xl font-bold text-lg transition-colors"
-              >
-                {placingOrder ? (
-                  <><Loader2 className="w-5 h-5 animate-spin" />Placing Order...</>
-                ) : (
-                  <><CreditCard className="w-5 h-5" />Place Order · ${total.toFixed(2)}</>
-                )}
-              </button>
+              {belowMinimum ? (
+                <div className="mt-4 w-full flex flex-col items-center justify-center gap-2 py-4 px-3 bg-amber-50 border border-amber-300 rounded-xl text-center">
+                  <AlertCircle className="w-5 h-5 text-amber-600" />
+                  <span className="text-sm font-semibold text-amber-700">
+                    Subtotal must reach ${MINIMUM_ORDER_AMOUNT} to place an order.
+                  </span>
+                  <Link href="/products" className="mt-1 text-xs text-accent-700 underline font-semibold hover:text-accent-800">
+                    Browse products
+                  </Link>
+                </div>
+              ) : (
+                <button
+                  onClick={handlePlaceOrder}
+                  disabled={placingOrder || !selectedAddressId || shippingLoading}
+                  className="w-full mt-4 flex items-center justify-center gap-2 bg-accent-500 hover:bg-accent-600 disabled:opacity-50 disabled:cursor-not-allowed text-white py-4 rounded-xl font-bold text-lg transition-colors"
+                >
+                  {placingOrder ? (
+                    <><Loader2 className="w-5 h-5 animate-spin" />Placing Order...</>
+                  ) : (
+                    <><CreditCard className="w-5 h-5" />Place Order · ${total.toFixed(2)}</>
+                  )}
+                </button>
+              )}
 
               <p className="mt-3 text-center text-xs text-ink-400 flex items-center justify-center gap-1">
                 <ShieldCheck className="w-3 h-3" /> Your information is secure
