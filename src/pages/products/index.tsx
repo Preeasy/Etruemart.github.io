@@ -211,10 +211,10 @@ const Products = () => {
   return (
     <Layout>
       <Head>
-        <title>Wholesale Products Catalog | eTrue Mark</title>
+        <title>Wholesale Products Catalog | eTrue Mart</title>
         <meta name="description" content="Browse wholesale products: fashion jewelry, bags, hair accessories, toys, garment accessories & home decor. Factory-direct pricing from Yiwu, China." />
         <link rel="canonical" href={`${SITE_URL}/products`} />
-        <meta property="og:title" content="Wholesale Products Catalog | eTrue Mark" />
+        <meta property="og:title" content="Wholesale Products Catalog | eTrue Mart" />
         <meta property="og:description" content="Browse wholesale products direct from Yiwu. Factory pricing, low MOQ, global shipping." />
         <meta property="og:type" content="website" />
         <meta property="og:image" content={SITE_OG_IMAGE} />

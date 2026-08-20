@@ -133,7 +133,7 @@ const Navbar = () => {
           {/* Logo */}
           <Link
             href="/"
-            aria-label="eTrue Mark home"
+            aria-label="eTrue Mart home"
             className="flex items-center gap-2.5 group shrink-0"
             onClick={handleLogoClick}
           >
@@ -142,7 +142,7 @@ const Navbar = () => {
             </div>
             <div className="flex flex-col">
               <span className="text-lg font-display font-bold tracking-wide text-navy-900 group-hover:text-accent-600 transition-colors leading-tight">
-                eTrue Mark
+                eTrue Mart
               </span>
               <span className="text-[10px] tracking-[0.2em] text-accent-600 uppercase leading-tight font-semibold">
                 Wholesale Source

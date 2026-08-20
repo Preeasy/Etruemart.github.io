@@ -355,7 +355,7 @@ const ProductEditPage = () => {
   return (
     <Layout>
       <Head>
-        <title>Edit Product | eTrue Mark Wholesale Platform</title>
+        <title>Edit Product | eTrue Mart Wholesale Platform</title>
       </Head>
 
       <div className="bg-ink-50 border-b border-ink-200/30">

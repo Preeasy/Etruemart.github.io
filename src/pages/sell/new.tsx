@@ -325,7 +325,7 @@ const NewProductPage = () => {
   return (
     <Layout>
       <Head>
-        <title>List New Product | eTrue Mark Wholesale Platform</title>
+        <title>List New Product | eTrue Mart Wholesale Platform</title>
       </Head>
 
       <div className="bg-ink-50 border-b border-ink-200/30">

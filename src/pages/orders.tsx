@@ -84,7 +84,7 @@ const Orders = () => {
   return (
     <Layout>
       <Head>
-        <title>My Orders | eTrue Mark</title>
+        <title>My Orders | eTrue Mart</title>
         <meta name="robots" content="noindex, nofollow" />
       </Head>
       <div className="bg-white border-b">

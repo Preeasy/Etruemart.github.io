@@ -165,7 +165,7 @@ const Checkout = () => {
     return (
       <Layout>
         <Head>
-          <title>Order Placed | eTrue Mark</title>
+          <title>Order Placed | eTrue Mart</title>
           <meta name="robots" content="noindex, nofollow" />
         </Head>
         <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16 max-w-[1600px] mx-auto py-20 text-center">
@@ -261,7 +261,7 @@ const Checkout = () => {
   return (
     <Layout>
       <Head>
-        <title>Checkout | eTrue Mark</title>
+        <title>Checkout | eTrue Mart</title>
         <meta name="robots" content="noindex, nofollow" />
       </Head>
       <div className="bg-white border-b border-ink-100">

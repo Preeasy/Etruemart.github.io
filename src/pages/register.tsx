@@ -64,14 +64,14 @@ const Register = () => {
   return (
     <Layout>
       <Head>
-        <title>Register | eTrue Mark</title>
+        <title>Register | eTrue Mart</title>
       </Head>
       <div className="min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
         <div className="max-w-md w-full">
           <div className="text-center mb-8">
             <Link href="/" className="flex items-center justify-center gap-2 mb-4 group">
               <Package className="w-10 h-10 text-accent-600 group-hover:text-accent-400 transition-colors" />
-              <span className="text-2xl font-bold text-accent-600 group-hover:text-accent-400 transition-colors">eTrue Mark</span>
+              <span className="text-2xl font-bold text-accent-600 group-hover:text-accent-400 transition-colors">eTrue Mart</span>
             </Link>
             <h2 className="text-3xl font-bold text-navy-900">Create your account</h2>
             <p className="mt-2 text-ink-500">Join us and start shopping today!</p>

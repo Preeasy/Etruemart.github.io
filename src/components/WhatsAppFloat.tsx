@@ -9,7 +9,7 @@ const WhatsAppIcon = ({ className }: { className?: string }) => (
 
 const WHATSAPP_NUMBER = '8618767960499';
 const WHATSAPP_DISPLAY = '+86 18767960499';
-const WHATSAPP_LINK = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent('Hello, I am interested in your products on eTrue Mark.')}`;
+const WHATSAPP_LINK = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent('Hello, I am interested in your products on eTrue Mart.')}`;
 
 export default function WhatsAppFloat() {
   const [isOpen, setIsOpen] = useState(false);

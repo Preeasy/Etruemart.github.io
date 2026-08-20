@@ -6,7 +6,7 @@ import Layout from '@/components/Layout';
 const NotFound = () => (
   <Layout>
     <Head>
-      <title>Page Not Found | eTrue Mark</title>
+      <title>Page Not Found | eTrue Mart</title>
       <meta name="robots" content="noindex, follow" />
     </Head>
     <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16 max-w-[1600px] mx-auto py-20 lg:py-28">

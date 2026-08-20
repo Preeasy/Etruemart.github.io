@@ -44,7 +44,7 @@ const Cart = () => {
   return (
     <Layout>
       <Head>
-        <title>Shopping Cart | eTrue Mark</title>
+        <title>Shopping Cart | eTrue Mart</title>
         <meta name="robots" content="noindex, nofollow" />
       </Head>
       <div className="bg-white border-b">

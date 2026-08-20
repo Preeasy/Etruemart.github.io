@@ -91,10 +91,10 @@ export default function StorePage({ products }: { products: Product[] }) {
   return (
     <Layout>
       <Head>
-        <title>{`${storeData.name} | Verified Wholesale Supplier | eTrue Mark`}</title>
+        <title>{`${storeData.name} | Verified Wholesale Supplier | eTrue Mart`}</title>
         <meta name="description" content={`${storeData.description.slice(0, 155)}`} />
         <link rel="canonical" href={`${SITE_URL}/store/${storeData.slug}`} />
-        <meta property="og:title" content={`${storeData.name} | eTrue Mark`} />
+        <meta property="og:title" content={`${storeData.name} | eTrue Mart`} />
         <meta property="og:description" content={storeData.description} />
         <meta property="og:type" content="website" />
         <meta property="og:image" content={SITE_OG_IMAGE} />

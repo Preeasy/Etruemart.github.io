@@ -1,6 +1,6 @@
 // 站点全局配置 —— 单一数据源，避免多处硬编码不一致
 export const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://etruemart.vercel.app';
-export const SITE_NAME = 'eTrue Mark';
+export const SITE_NAME = 'eTrue Mart';
 export const SITE_DESCRIPTION =
   'Wholesale jewelry, accessories & crafts direct from Yiwu factories. Low MOQ, factory-direct pricing, global shipping. Trusted B2B sourcing platform.';
 export const SITE_PHONE = '+86 18767960499';

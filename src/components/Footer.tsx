@@ -53,7 +53,7 @@ const Footer = () => {
               </div>
               <div className="flex flex-col">
                 <span className="text-base font-display font-bold tracking-wide text-navy-900 group-hover:text-accent-600 transition-colors leading-tight">
-                  eTrue Mark
+                  eTrue Mart
                 </span>
                 <span className="text-[9px] tracking-[0.25em] text-accent-600 uppercase leading-tight font-semibold">
                   Wholesale Source
@@ -164,7 +164,7 @@ const Footer = () => {
         {/* Bottom bar */}
         <div className="border-t border-ink-200 mt-10 pt-6 flex flex-col md:flex-row justify-between items-center gap-3">
           <p className="text-ink-400 text-xs">
-            © {year} eTrue Mark. {SITE_COMPANY}. All rights reserved.
+            © {year} eTrue Mart. {SITE_COMPANY}. All rights reserved.
           </p>
           <div className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-xs text-ink-400">
             <Link href="/about" className="hover:text-accent-600 transition-colors">Privacy Policy</Link>
