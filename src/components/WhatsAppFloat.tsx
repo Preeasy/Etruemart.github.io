@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { X } from 'lucide-react';
+import { X, Send, Gem, MessageSquare } from 'lucide-react';
 
 const WhatsAppIcon = ({ className }: { className?: string }) => (
   <svg viewBox="0 0 24 24" fill="currentColor" className={className}>
@@ -8,123 +8,184 @@ const WhatsAppIcon = ({ className }: { className?: string }) => (
 );
 
 const WHATSAPP_NUMBER = '8618767960499';
-const WHATSAPP_DISPLAY = '+86 18767960499';
-const WHATSAPP_LINK = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent('Hello, I am interested in your products on eTrue Mart.')}`;
+const WHATSAPP_DISPLAY = '+86 187 6796 0499';
+const DEFAULT_MSG = 'Hello! I am interested in your wholesale products. Could you send me a price list and MOQ details?';
 
-export default function WhatsAppFloat() {
+const WhatsAppFloat = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [showBubble, setShowBubble] = useState(false);
+  const [msg, setMsg] = useState(DEFAULT_MSG);
 
-  // Show notification bubble after 3 seconds
   useEffect(() => {
-    const timer = setTimeout(() => setShowBubble(true), 3000);
-    return () => clearTimeout(timer);
+    const t = setTimeout(() => setShowBubble(true), 4000);
+    return () => clearTimeout(t);
   }, []);
 
-  // Hide bubble when panel opens
   useEffect(() => {
     if (isOpen) setShowBubble(false);
   }, [isOpen]);
 
+  const waLink = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`;
+
   return (
     <>
-      {/* Chat Panel */}
-      {isOpen && (
-        <div className="fixed bottom-24 right-4 sm:right-6 z-50 w-[320px] max-w-[calc(100vw-2rem)] bg-white rounded-2xl shadow-2xl border border-gray-200 overflow-hidden animate-in fade-in slide-in-from-bottom-3 duration-300">
-          {/* Header */}
-          <div className="bg-[#25D366] px-4 py-3 flex items-center justify-between">
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center">
-                <WhatsAppIcon className="w-6 h-6 text-white" />
+      {/* ---------- Notification bubble ---------- */}
+      {showBubble && !isOpen && (
+        <div
+          onClick={() => { setShowBubble(false); setIsOpen(true); }}
+          className="fixed bottom-28 right-4 sm:right-7 z-40 w-[260px] max-w-[calc(100vw-5rem)] cursor-pointer"
+        >
+          <div className="relative bg-white rounded-2xl shadow-premium border border-sand-200 p-4 rise-in">
+            <div className="flex items-center gap-2 mb-2">
+              <div className="w-7 h-7 rounded-full bg-[#25D366] flex items-center justify-center shadow-md">
+                <WhatsAppIcon className="w-4 h-4 text-white" />
               </div>
               <div>
-                <p className="text-white font-bold text-sm">WhatsApp Chat</p>
-                <p className="text-white/80 text-[11px]">Typically replies in minutes</p>
-              </div>
-            </div>
-            <button
-              onClick={() => setIsOpen(false)}
-              className="w-8 h-8 rounded-full hover:bg-white/20 flex items-center justify-center text-white transition-colors"
-              aria-label="Close chat"
-            >
-              <X className="w-4 h-4" />
-            </button>
-          </div>
-
-          {/* Body */}
-          <div className="p-4 bg-[#ECE5DD] min-h-[180px]">
-            {/* Incoming message bubble */}
-            <div className="flex gap-2 mb-3">
-              <div className="w-8 h-8 rounded-full bg-[#25D366] flex items-center justify-center flex-shrink-0">
-                <WhatsAppIcon className="w-5 h-5 text-white" />
-              </div>
-              <div className="bg-white rounded-lg rounded-tl-none px-3 py-2 max-w-[240px] shadow-sm">
-                <p className="text-xs text-gray-800 leading-relaxed">
-                  Hi there! 👋 Need help with our products? Send us a message on WhatsApp and we'll get back to you quickly.
+                <p className="text-[11px] font-bold text-navy-900 leading-tight">Live Sales Manager</p>
+                <p className="text-[9.5px] text-success-600 font-semibold leading-tight flex items-center gap-1">
+                  <span className="w-1.5 h-1.5 rounded-full bg-success-400 animate-pulse" />
+                  Online now · Replies in minutes
                 </p>
-                <p className="text-[10px] text-gray-400 mt-1 text-right">Just now</p>
               </div>
             </div>
-          </div>
-
-          {/* Footer with CTA */}
-          <div className="p-4 bg-white border-t border-gray-100">
-            <a
-              href={WHATSAPP_LINK}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center justify-center gap-2 w-full bg-[#25D366] hover:bg-[#1FB855] text-white py-3 rounded-lg font-bold text-sm transition-colors shadow-sm"
-            >
-              <WhatsAppIcon className="w-4 h-4" />
-              Start Chat on WhatsApp
-            </a>
-            <p className="text-center text-[10px] text-gray-400 mt-2">{WHATSAPP_DISPLAY}</p>
+            <p className="text-xs text-ink-700 leading-relaxed">
+              👋 Hi there! Looking for <span className="font-bold text-gold-700">wholesale prices</span>?
+              Chat with us directly for an instant quote.
+            </p>
+            <div
+              className="absolute -bottom-2 right-6 w-4 h-4 rotate-45 bg-white border-b border-r border-sand-200"
+              aria-hidden
+            />
           </div>
         </div>
       )}
 
-      {/* Floating Button + Notification Bubble */}
-      <div className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-50 flex items-center gap-3">
-        {/* Notification bubble */}
-        {showBubble && !isOpen && (
-          <div className="relative bg-white rounded-2xl shadow-lg border border-gray-200 px-4 py-2.5 max-w-[200px] animate-in fade-in slide-in-from-right-3 duration-300">
-            <button
-              onClick={() => setShowBubble(false)}
-              className="absolute -top-2 -right-2 w-5 h-5 rounded-full bg-gray-300 hover:bg-gray-400 flex items-center justify-center text-white transition-colors"
-              aria-label="Dismiss"
-            >
-              <X className="w-3 h-3" />
-            </button>
-            <p className="text-xs text-gray-700 font-medium leading-snug">
-              💬 Chat with us on WhatsApp!
-            </p>
-            <p className="text-[10px] text-gray-400 mt-0.5">Quick replies · Free quotes</p>
-            {/* Arrow pointing right */}
-            <div className="absolute right-[-6px] top-1/2 -translate-y-1/2 w-3 h-3 bg-white border-r border-b border-gray-200 rotate-[-45deg]" />
+      {/* ---------- Chat Panel ---------- */}
+      {isOpen && (
+        <div className="fixed bottom-28 right-4 sm:right-7 z-50 w-[340px] sm:w-[380px] max-w-[calc(100vw-2rem)] bg-white rounded-3xl shadow-premium border border-sand-200 overflow-hidden animate-slide-up">
+          {/* Header */}
+          <div className="relative bg-gradient-to-br from-navy-800 via-navy-800 to-[#0a1a2e] text-white px-5 pt-4 pb-5 overflow-hidden">
+            <div className="absolute inset-0 bg-hero-texture opacity-80 pointer-events-none" />
+            <div className="relative flex items-start justify-between">
+              <div className="flex items-center gap-3">
+                <div className="relative">
+                  <div className="w-12 h-12 rounded-2xl bg-white/15 backdrop-blur border border-white/20 flex items-center justify-center shadow-navy-glow">
+                    <Gem className="w-6 h-6 text-gold-300" strokeWidth={2.2} />
+                  </div>
+                  <span className="absolute -bottom-0.5 -right-0.5 w-4 h-4 rounded-full bg-[#25D366] border-2 border-navy-800 flex items-center justify-center">
+                    <WhatsAppIcon className="w-2.5 h-2.5 text-white" />
+                  </span>
+                </div>
+                <div className="leading-tight">
+                  <p className="font-display font-extrabold text-[17px] text-white">
+                    eTrue<span className="text-gold-gradient">Mart</span> Sales
+                  </p>
+                  <p className="text-[11px] text-navy-100/80 mt-1 flex items-center gap-1.5">
+                    <span className="w-1.5 h-1.5 rounded-full bg-success-400 animate-pulse" />
+                    Online · {WHATSAPP_DISPLAY}
+                  </p>
+                </div>
+              </div>
+              <button
+                onClick={() => setIsOpen(false)}
+                className="w-9 h-9 rounded-xl hover:bg-white/10 flex items-center justify-center text-white/80 hover:text-white transition-colors"
+                aria-label="Close chat"
+              >
+                <X className="w-4.5 h-4.5" />
+              </button>
+            </div>
           </div>
-        )}
 
-        {/* Main floating button */}
-        <button
-          onClick={() => setIsOpen(!isOpen)}
-          className="relative w-14 h-14 rounded-full bg-[#25D366] hover:bg-[#1FB855] shadow-lg flex items-center justify-center transition-all hover:scale-105 active:scale-95"
-          aria-label="Open WhatsApp chat"
+          {/* Messages stack */}
+          <div className="px-5 py-4 bg-sand-50/80 space-y-3 max-h-[300px] overflow-y-auto">
+            <div className="flex items-start gap-2.5">
+              <div className="w-7 h-7 rounded-full bg-navy-800 flex items-center justify-center shrink-0">
+                <Gem className="w-3.5 h-3.5 text-gold-300" />
+              </div>
+              <div className="bg-white rounded-2xl rounded-tl-sm border border-sand-200 shadow-paper p-3 max-w-[80%]">
+                <p className="text-[11px] text-gold-700 font-black mb-1">Etruemart Sales</p>
+                <p className="text-xs text-ink-700 leading-relaxed">
+                  Thank you for visiting! 🌟
+                  <br/>
+                  Tell us what you need — <strong className="text-navy-900">product name, SKU or category</strong> and your target quantity, we&apos;ll send the best wholesale price instantly.
+                </p>
+              </div>
+            </div>
+            <div className="flex items-start gap-2.5">
+              <div className="w-7 h-7 rounded-full bg-gold-100 flex items-center justify-center shrink-0 border border-gold-200">
+                <MessageSquare className="w-3.5 h-3.5 text-gold-700" />
+              </div>
+              <div className="bg-gold-50 rounded-2xl rounded-tl-sm border border-gold-200 shadow-paper p-3 max-w-[80%]">
+                <ul className="text-xs text-ink-700 space-y-1 list-none">
+                  <li className="flex gap-1.5"><span className="text-gold-600">✓</span> MOQ starts at 12 pcs</li>
+                  <li className="flex gap-1.5"><span className="text-gold-600">✓</span> Factory-direct pricing</li>
+                  <li className="flex gap-1.5"><span className="text-gold-600">✓</span> OEM &amp; private label OK</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          {/* Composer */}
+          <div className="px-4 pt-3 pb-4 bg-white border-t border-sand-200">
+            <label className="block text-[10px] font-bold tracking-wider uppercase text-ink-500 mb-1.5 px-1">
+              Your inquiry
+            </label>
+            <div className="relative mb-3">
+              <textarea
+                value={msg}
+                onChange={(e) => setMsg(e.target.value)}
+                rows={3}
+                className="textarea text-xs !rounded-2xl !resize-none"
+                placeholder="e.g. I need 500 pcs of YCS-BTY-001 lipstick, please quote FOB Ningbo..."
+              />
+            </div>
+            <a
+              href={waLink}
+              target="_blank"
+              rel="noreferrer noopener"
+              className="btn-cta btn-xl w-full !py-3.5 gap-2 text-sm font-extrabold shadow-gold-glow"
+              style={{ background: 'linear-gradient(180deg,#25D366,#128C7E)', borderColor: '#128C7E' }}
+            >
+              <WhatsAppIcon className="w-5 h-5" />
+              Send Inquiry via WhatsApp
+            </a>
+            <p className="text-[10px] text-center text-ink-400 mt-2.5">
+              Or call <strong className="text-navy-700">{WHATSAPP_DISPLAY}</strong> · 24/7
+            </p>
+          </div>
+        </div>
+      )}
+
+      {/* ---------- Floating FAB ---------- */}
+      <button
+        onClick={() => setIsOpen(!isOpen)}
+        aria-label="Chat on WhatsApp"
+        className={`fixed bottom-6 right-4 sm:right-7 z-50 group transition-all duration-300 ${
+          isOpen ? 'scale-90 opacity-60' : ''
+        }`}
+      >
+        {/* Pulse ring */}
+        <span className="absolute inset-0 rounded-full bg-[#25D366]/40 animate-ping" />
+        <span className="absolute inset-0 rounded-full bg-[#25D366]/20" />
+
+        <div
+          className={`relative w-14 h-14 sm:w-16 sm:h-16 rounded-full
+                      flex items-center justify-center text-white shadow-[0_14px_36px_rgba(37,211,102,0.55)]
+                      transition-all group-hover:scale-110 group-active:scale-95`}
+          style={{ background: 'radial-gradient(circle at 30% 30%, #50E894 0%, #25D366 50%, #128C7E 100%)' }}
         >
-          {/* Pulse ring */}
-          <span className="absolute inset-0 rounded-full bg-[#25D366] animate-ping opacity-30" />
+          <WhatsAppIcon className="w-7 h-7 sm:w-8 sm:h-8" />
 
-          {isOpen ? (
-            <X className="w-6 h-6 text-white relative z-10" />
-          ) : (
-            <WhatsAppIcon className="w-7 h-7 text-white relative z-10" />
+          {/* unread mini badge */}
+          {showBubble && !isOpen && (
+            <span className="absolute -top-1 -right-1 w-6 h-6 rounded-full bg-coral-500 text-white text-[11px] font-black flex items-center justify-center border-2 border-white shadow-coral-glow tabular">
+              1
+            </span>
           )}
-
-          {/* Unread badge dot */}
-          {!isOpen && (
-            <span className="absolute top-1 right-1 w-3.5 h-3.5 bg-red-500 rounded-full border-2 border-white" />
-          )}
-        </button>
-      </div>
+        </div>
+      </button>
     </>
   );
-}
+};
+
+export default WhatsAppFloat;

@@ -7,7 +7,7 @@ import Head from 'next/head';
 import {
   Search, ChevronDown, ChevronRight, Grid3X3, List,
   SlidersHorizontal, Sparkles, X, Package, Filter,
-  RotateCcw,
+  RotateCcw, ArrowRight,
 } from 'lucide-react';
 import ProductCard from '@/components/ProductCard';
 import Layout from '@/components/Layout';
@@ -179,7 +179,6 @@ const Products = () => {
 
     const price = Number(product.priceMin);
     const matchesPrice = price >= priceRange[0] && price <= priceRange[1];
-    // Hide invalid products with zero price
     const hasValidPrice = price > 0 || (Number(product.priceMax ?? 0) > 0);
 
     return hasValidPrice && matchesSearch && matchesCategory && matchesMaterial && matchesPlating && matchesPrice;
@@ -211,14 +210,17 @@ const Products = () => {
   return (
     <Layout>
       <Head>
-        <title>Wholesale Products Catalog | eTrue Mart</title>
-        <meta name="description" content="Browse wholesale products: fashion jewelry, bags, hair accessories, toys, garment accessories & home decor. Factory-direct pricing from Yiwu, China." />
+        <title>Wholesale Products Catalog | eTrueMart — Yiwu Factory-Direct B2B</title>
+        <meta name="description" content="Browse 964+ wholesale products: fashion jewelry, bags, hair accessories, toys, garment accessories &amp; home decor. Factory-direct pricing from Yiwu, China. Low MOQ from 12 pcs." />
         <link rel="canonical" href={`${SITE_URL}/products`} />
-        <meta property="og:title" content="Wholesale Products Catalog | eTrue Mart" />
-        <meta property="og:description" content="Browse wholesale products direct from Yiwu. Factory pricing, low MOQ, global shipping." />
+        <meta property="og:title" content="Wholesale Products Catalog | eTrueMart B2B" />
+        <meta property="og:description" content="Browse wholesale products direct from Yiwu. Factory pricing, low MOQ, global shipping to 180+ countries." />
         <meta property="og:type" content="website" />
         <meta property="og:image" content={SITE_OG_IMAGE} />
         <meta property="og:url" content={`${SITE_URL}/products`} />
+        <meta property="og:site_name" content="eTrueMart" />
+        <meta property="og:locale" content="en_US" />
+        <meta name="twitter:card" content="summary_large_image" />
         <script type="application/ld+json" dangerouslySetInnerHTML={{
           __html: JSON.stringify({
             '@context': 'https://schema.org',
@@ -232,105 +234,130 @@ const Products = () => {
         }} />
       </Head>
 
-      {/* Breadcrumb */}
-      <div className="bg-ink-50/70 border-b border-ink-100">
-        <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 py-2.5">
+      {/* ====== Breadcrumb bar ====== */}
+      <div className="bg-sand-100/60 border-b border-sand-200">
+        <div className="section py-3">
           <nav className="flex items-center gap-1.5 text-xs text-ink-500">
-            <Link href="/" className="hover:text-accent-600 transition-colors font-medium">Home</Link>
+            <Link href="/" className="link-navy font-medium">Home</Link>
             <ChevronRight className="w-3 h-3 text-ink-300" />
-            <span className="text-navy-800 font-semibold">Products</span>
+            <span className="text-navy-800 font-bold">Products</span>
             {selectedCategory !== 'all' && (
               <>
                 <ChevronRight className="w-3 h-3 text-ink-300" />
-                <span className="text-accent-600 font-semibold">{currentCategoryName}</span>
+                <span className="text-gold-700 font-bold">{currentCategoryName}</span>
               </>
             )}
           </nav>
         </div>
       </div>
 
-      <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 py-5">
-        {/* ===== Compact Toolbar — consolidated search + categories + filters + sort ===== */}
-        <div className="bg-white rounded-2xl border border-ink-200 shadow-sm overflow-hidden">
-          {/* Top row: Title + Search + Filter toggle + Sort */}
-          <div className="flex flex-col lg:flex-row gap-3 p-4 lg:p-5">
-            {/* Left: Category title & count */}
-            <div className="flex items-center gap-3 flex-shrink-0">
-              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-accent-500 to-accent-600 flex items-center justify-center text-white shadow-md">
-                <Sparkles className="w-5 h-5" />
+      <div className="section py-6 sm:py-8">
+        {/* ====== Category Intro Banner ====== */}
+        <div className="panel mb-6 !rounded-3xl overflow-hidden">
+          <div className="relative bg-gradient-to-br from-navy-50 via-white to-gold-50 p-5 sm:p-7">
+            <div className="absolute -right-20 -top-20 w-64 h-64 rounded-full bg-gold-200/30 blur-3xl pointer-events-none" />
+            <div className="absolute -left-10 -bottom-10 w-52 h-52 rounded-full bg-navy-200/20 blur-3xl pointer-events-none" />
+            <div className="relative flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-6">
+              <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-gradient-to-br from-navy-800 to-navy-950 text-white flex items-center justify-center shadow-navy-glow shrink-0">
+                <Sparkles className="w-7 h-7 text-gold-300" />
               </div>
-              <div>
-                <h1 className="font-display text-lg lg:text-xl font-bold text-navy-900 leading-tight">{currentCategoryName}</h1>
-                <p className="text-xs text-ink-500">
-                  <span className="font-semibold text-navy-700">{sortedProducts.length}</span> products
-                  {currentCategoryName !== 'All Products' && ' · Factory direct from Yiwu'}
+              <div className="flex-1 min-w-0">
+                <h1 className="font-display font-black text-2xl sm:text-3xl text-navy-900 leading-tight">
+                  {currentCategoryName}
+                  <span className="font-serif italic font-medium text-ink-500 text-lg sm:text-xl ml-2">
+                    Wholesale Collection
+                  </span>
+                </h1>
+                <p className="mt-2 text-sm text-ink-500">
+                  <span className="font-black text-navy-800 tabular">{sortedProducts.length}</span> curated SKUs
+                  {currentCategoryName !== 'All Products' && <> · Sourced direct from verified Yiwu factories</>}
+                  {sortedProducts.length === 0 ? ' — matching your filters.' : ' · Low MOQ · QC before every shipment.'}
                 </p>
               </div>
+              <div className="hidden md:flex items-center gap-2 shrink-0">
+                <Link href="/" className="btn-outline btn-sm">
+                  Back to Home
+                </Link>
+                <a
+                  href="https://wa.me/8618767960499?text=Hello%2C%20I%27d%20like%20a%20quote%20for%20eTrueMart%20wholesale%20products."
+                  target="_blank" rel="noreferrer noopener"
+                  className="btn-primary btn-sm"
+                >
+                  💬 Request Quote
+                </a>
+              </div>
             </div>
+          </div>
+        </div>
 
-            {/* Middle: Search bar */}
+        {/* ====== Compact Toolbar ====== */}
+        <div className="panel mb-5 !rounded-2xl overflow-hidden">
+          {/* Top row: Search + Sort + View + Filter */}
+          <div className="flex flex-col lg:flex-row gap-3 p-4 lg:p-5">
             <div className="flex-1 min-w-0">
               <div className="relative">
+                <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-ink-400" />
                 <input
                   type="text"
-                  placeholder="Search by name, SKU, or keyword..."
+                  placeholder="Search by product name, SKU, or keyword..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-full h-10 pl-10 pr-10 bg-ink-50 border border-ink-200 rounded-xl text-sm text-ink-800 placeholder-ink-400 focus:outline-none focus:ring-2 focus:ring-accent-500/20 focus:border-accent-500 transition-all"
+                  className="input pl-11 pr-10 h-11 text-base"
                 />
-                <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-ink-400" />
                 {searchQuery && (
-                  <button onClick={() => setSearchQuery('')} aria-label="Clear search" className="absolute right-3 top-1/2 -translate-y-1/2 text-ink-400 hover:text-ink-600">
+                  <button onClick={() => setSearchQuery('')} aria-label="Clear search" className="absolute right-3 top-1/2 -translate-y-1/2 text-ink-400 hover:text-navy-700 transition-colors">
                     <X className="w-4 h-4" />
                   </button>
                 )}
               </div>
             </div>
 
-            {/* Right: Sort + View + Filter */}
             <div className="flex items-center gap-2 flex-shrink-0">
+              {/* Sort */}
               <div className="relative">
                 <select
                   value={sortBy}
                   onChange={(e) => setSortBy(e.target.value)}
-                  className="appearance-none h-10 bg-ink-50 border border-ink-200 pl-3 pr-8 rounded-xl text-sm text-ink-700 focus:outline-none focus:ring-2 focus:ring-accent-500/20 focus:border-accent-500 cursor-pointer font-medium"
+                  className="select h-11 pr-10 appearance-none cursor-pointer w-auto"
                 >
                   <option value="newest">Newest</option>
                   <option value="price-low">Price: Low → High</option>
                   <option value="price-high">Price: High → Low</option>
                 </select>
-                <ChevronDown className="absolute right-2 top-1/2 -translate-y-1/2 w-4 h-4 text-ink-500 pointer-events-none" />
+                <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-ink-500 pointer-events-none" />
               </div>
 
-              <div className="hidden sm:flex items-center border border-ink-200 rounded-xl overflow-hidden">
+              {/* View toggle */}
+              <div className="hidden sm:flex items-center border border-sand-200 rounded-xl overflow-hidden bg-white">
                 <button
                   onClick={() => setViewMode('grid')}
                   aria-label="Grid view"
-                  className={`p-2.5 ${viewMode === 'grid' ? 'bg-accent-500 text-white' : 'bg-ink-50 text-ink-500 hover:text-accent-600'}`}
+                  className={`p-2.5 transition-all ${viewMode === 'grid' ? 'bg-navy-800 text-white' : 'text-ink-500 hover:text-navy-700'}`}
                 >
                   <Grid3X3 className="w-4 h-4" />
                 </button>
                 <button
                   onClick={() => setViewMode('list')}
                   aria-label="List view"
-                  className={`p-2.5 ${viewMode === 'list' ? 'bg-accent-500 text-white' : 'bg-ink-50 text-ink-500 hover:text-accent-600'}`}
+                  className={`p-2.5 transition-all ${viewMode === 'list' ? 'bg-navy-800 text-white' : 'text-ink-500 hover:text-navy-700'}`}
                 >
                   <List className="w-4 h-4" />
                 </button>
               </div>
 
+              {/* Filter toggle */}
               <button
                 onClick={() => setShowFilters(!showFilters)}
-                className={`h-10 inline-flex items-center gap-1.5 px-3 rounded-xl text-sm font-semibold transition-all ${
+                className={`h-11 inline-flex items-center gap-1.5 px-4 rounded-xl text-sm font-bold transition-all ${
                   showFilters || hasActiveFilters
-                    ? 'bg-accent-500 text-white'
-                    : 'bg-ink-50 border border-ink-200 text-ink-700 hover:border-accent-500'
+                    ? 'btn-primary !py-0 !px-4'
+                    : 'bg-white border border-sand-200 text-navy-800 hover:border-gold-400 hover:text-gold-700'
                 }`}
               >
                 <SlidersHorizontal className="w-4 h-4" />
                 <span className="hidden sm:inline">Filters</span>
                 {hasActiveFilters && !showFilters && (
-                  <span className="inline-flex items-center justify-center w-4 h-4 bg-white text-accent-600 rounded-full text-[10px] font-bold">
+                  <span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-coral-500 text-white text-[10px] font-black tabular">
                     {[selectedCategory !== 'all', !!selectedMaterial, !!selectedPlating, priceRange[0] > 0, priceRange[1] < 999].filter(Boolean).length}
                   </span>
                 )}
@@ -338,28 +365,30 @@ const Products = () => {
             </div>
           </div>
 
-          {/* Category pills — scrollable horizontal bar */}
-          <div className="border-t border-ink-100 bg-ink-50/50 px-4 lg:px-5 py-2.5 overflow-x-auto">
+          {/* Category pills — horizontal scroll bar */}
+          <div className="border-t border-sand-200 bg-sand-50/50 px-4 lg:px-5 py-3 overflow-x-auto">
             <div className="flex items-center gap-2 min-w-max">
-              <span className="text-[10px] font-bold text-ink-400 uppercase tracking-wider flex-shrink-0 mr-1">Category</span>
+              <span className="label !mb-0 mr-2 !text-[10px] flex-shrink-0">
+                <Filter className="w-3 h-3 inline mr-1" />Category
+              </span>
               <button
                 onClick={() => setSelectedCategory('all')}
-                className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all ${
+                className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all whitespace-nowrap ${
                   selectedCategory === 'all'
-                    ? 'bg-navy-800 text-white shadow-sm'
-                    : 'bg-white border border-ink-200 text-ink-600 hover:border-navy-300 hover:text-navy-800'
+                    ? 'btn-navy !py-1.5 !px-3.5 !rounded-xl !text-xs'
+                    : 'bg-white border border-sand-200 text-ink-600 hover:border-navy-300 hover:text-navy-800'
                 }`}
               >
-                All
+                All ({totalCount || products.length})
               </button>
               {categoryFilters.map((cat) => (
                 <button
                   key={cat.slug}
                   onClick={() => setSelectedCategory(cat.slug)}
-                  className={`px-3 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap transition-all ${
+                  className={`px-3.5 py-1.5 rounded-xl text-xs font-bold whitespace-nowrap transition-all ${
                     selectedCategory === cat.slug
-                      ? 'bg-navy-800 text-white shadow-sm'
-                      : 'bg-white border border-ink-200 text-ink-600 hover:border-navy-300 hover:text-navy-800'
+                      ? 'btn-navy !py-1.5 !px-3.5 !rounded-xl !text-xs'
+                      : 'bg-white border border-sand-200 text-ink-600 hover:border-gold-400 hover:text-gold-700'
                   }`}
                 >
                   {cat.name}
@@ -370,64 +399,64 @@ const Products = () => {
 
           {/* Expanded filter panel */}
           {showFilters && (
-            <div className="border-t border-ink-100 bg-white px-4 lg:px-5 py-4">
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4">
+            <div className="border-t border-sand-200 p-4 lg:p-5">
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 mb-4">
                 <div>
-                  <label className="text-[10px] font-bold text-ink-500 uppercase tracking-wider mb-1.5 block">Material</label>
+                  <label className="label">Material</label>
                   <select
                     value={selectedMaterial}
                     onChange={(e) => setSelectedMaterial(e.target.value)}
-                    className="w-full h-9 bg-ink-50 border border-ink-200 rounded-lg px-3 text-sm text-ink-800 focus:outline-none focus:ring-2 focus:ring-accent-500/20 focus:border-accent-500 appearance-none cursor-pointer"
+                    className="select cursor-pointer appearance-none"
                   >
                     <option value="">All Materials</option>
                     {materialOptions.map((m) => <option key={m} value={m}>{m}</option>)}
                   </select>
                 </div>
                 <div>
-                  <label className="text-[10px] font-bold text-ink-500 uppercase tracking-wider mb-1.5 block">Plating</label>
+                  <label className="label">Plating / Finish</label>
                   <select
                     value={selectedPlating}
                     onChange={(e) => setSelectedPlating(e.target.value)}
-                    className="w-full h-9 bg-ink-50 border border-ink-200 rounded-lg px-3 text-sm text-ink-800 focus:outline-none focus:ring-2 focus:ring-accent-500/20 focus:border-accent-500 appearance-none cursor-pointer"
+                    className="select cursor-pointer appearance-none"
                   >
                     <option value="">All Finishes</option>
                     {platingOptions.map((p) => <option key={p} value={p}>{p}</option>)}
                   </select>
                 </div>
                 <div>
-                  <label className="text-[10px] font-bold text-ink-500 uppercase tracking-wider mb-1.5 block">Min Price ($)</label>
+                  <label className="label">Min Price (USD)</label>
                   <input
                     type="number" min={0}
                     value={priceRange[0]}
                     onChange={(e) => { const n = e.target.value === '' ? 0 : Number(e.target.value); if (!Number.isNaN(n)) setPriceRange([n, priceRange[1]]); }}
-                    className="w-full h-9 bg-ink-50 border border-ink-200 rounded-lg px-3 text-sm text-ink-800 focus:outline-none focus:ring-2 focus:ring-accent-500/20 focus:border-accent-500"
+                    className="input"
                     placeholder="0"
                   />
                 </div>
                 <div>
-                  <label className="text-[10px] font-bold text-ink-500 uppercase tracking-wider mb-1.5 block">Max Price ($)</label>
+                  <label className="label">Max Price (USD)</label>
                   <input
                     type="number" min={0}
                     value={priceRange[1]}
                     onChange={(e) => { const n = e.target.value === '' ? MAX_PRICE_FILTER : Number(e.target.value); if (!Number.isNaN(n)) setPriceRange([priceRange[0], n]); }}
-                    className="w-full h-9 bg-ink-50 border border-ink-200 rounded-lg px-3 text-sm text-ink-800 focus:outline-none focus:ring-2 focus:ring-accent-500/20 focus:border-accent-500"
+                    className="input"
                     placeholder="999"
                   />
                 </div>
               </div>
-              <div className="flex items-center justify-between">
+              <div className="flex items-center justify-between pt-2 border-t border-sand-100">
                 <button
                   onClick={clearAllFilters}
-                  className="inline-flex items-center gap-1.5 text-xs text-ink-500 hover:text-accent-600 font-semibold transition-colors"
+                  className="inline-flex items-center gap-1.5 text-xs text-ink-500 hover:text-coral-600 font-bold transition-colors"
                 >
                   <RotateCcw className="w-3.5 h-3.5" />
                   Reset all filters
                 </button>
                 <button
                   onClick={() => setShowFilters(false)}
-                  className="text-xs font-semibold text-accent-600 hover:text-accent-700"
+                  className="btn-primary btn-sm"
                 >
-                  Done
+                  Apply Filters
                 </button>
               </div>
             </div>
@@ -436,36 +465,42 @@ const Products = () => {
 
         {/* Active filter chips */}
         {hasActiveFilters && !showFilters && (
-          <div className="flex flex-wrap items-center gap-2 mt-3">
+          <div className="flex flex-wrap items-center gap-2 mb-4">
             {selectedCategory !== 'all' && (
-              <span className="inline-flex items-center gap-1 bg-accent-50 text-accent-700 px-2.5 py-1 rounded-full text-xs font-semibold border border-accent-200">
+              <span className="tag-gold">
                 {currentCategoryName}
-                <button onClick={() => setSelectedCategory('all')} className="hover:text-accent-900"><X className="w-3 h-3" /></button>
+                <button onClick={() => setSelectedCategory('all')} className="ml-1 hover:text-gold-900"><X className="w-3 h-3" /></button>
               </span>
             )}
             {selectedMaterial && (
-              <span className="inline-flex items-center gap-1 bg-ink-100 text-ink-700 px-2.5 py-1 rounded-full text-xs font-semibold">
+              <span className="tag-sand">
                 {selectedMaterial}
-                <button onClick={() => setSelectedMaterial('')} className="hover:text-ink-900"><X className="w-3 h-3" /></button>
+                <button onClick={() => setSelectedMaterial('')} className="ml-1 hover:text-ink-900"><X className="w-3 h-3" /></button>
               </span>
             )}
             {selectedPlating && (
-              <span className="inline-flex items-center gap-1 bg-ink-100 text-ink-700 px-2.5 py-1 rounded-full text-xs font-semibold">
+              <span className="tag-sand">
                 {selectedPlating}
-                <button onClick={() => setSelectedPlating('')} className="hover:text-ink-900"><X className="w-3 h-3" /></button>
+                <button onClick={() => setSelectedPlating('')} className="ml-1 hover:text-ink-900"><X className="w-3 h-3" /></button>
               </span>
             )}
-            <button onClick={clearAllFilters} className="text-xs text-ink-500 hover:text-accent-600 font-medium underline underline-offset-2">
+            {(priceRange[0] > 0 || priceRange[1] < 999) && (
+              <span className="tag-navy">
+                ${priceRange[0]} – ${priceRange[1]}
+                <button onClick={() => setPriceRange([0, 999])} className="ml-1 hover:text-navy-900"><X className="w-3 h-3" /></button>
+              </span>
+            )}
+            <button onClick={clearAllFilters} className="text-xs text-ink-500 hover:text-coral-600 font-bold underline underline-offset-2 ml-1">
               Clear all
             </button>
           </div>
         )}
 
-        {/* Products */}
-        <div className="mt-5">
+        {/* ====== Product Results ====== */}
+        <div>
           {sortedProducts.length > 0 ? (
             viewMode === 'grid' ? (
-              <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 lg:gap-5">
+              <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-4 sm:gap-5">
                 {sortedProducts.map((product) => {
                   const isAdmin = session?.user?.role === 'ADMIN';
                   return (
@@ -483,65 +518,72 @@ const Products = () => {
                   <Link
                     key={product.id}
                     href={`/products/${product.slug || product.id}`}
-                    className="flex gap-4 bg-white rounded-xl border border-ink-200 p-4 hover:border-accent-300 hover:shadow-md transition-all group"
+                    className="panel-hover !rounded-2xl flex gap-4 bg-white group"
                   >
-                    <div className="relative w-28 h-28 sm:w-32 sm:h-32 flex-shrink-0 bg-gradient-to-br from-ink-50 to-white rounded-xl overflow-hidden border border-ink-100">
+                    <div className="relative w-28 h-28 sm:w-36 sm:h-36 flex-shrink-0 bg-gradient-to-br from-gold-50 via-white to-sand-100 rounded-2xl overflow-hidden border border-sand-200 m-3">
                       <Image
                         src={product.image || ""}
                         alt={product.name}
                         fill
                         loading="lazy"
-                        sizes="(max-width: 640px) 50vw, 128px"
+                        sizes="(max-width: 640px) 112px, 144px"
                         className="object-contain p-2 group-hover:scale-105 transition-transform duration-500"
                         onError={(e) => {
                           const el = e.currentTarget as unknown as HTMLImageElement;
                           if (!el.dataset.fallback) {
                             el.dataset.fallback = "1";
-                            (el as any).src = 'data:image/svg+xml;charset=UTF-8,' + encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><rect fill="#f3f4f6" width="200" height="200"/><text x="100" y="105" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#9ca3af">${product.name.slice(0,18)}</text></svg>`);
+                            (el as any).src = 'data:image/svg+xml;charset=UTF-8,' + encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#FBF7EC"/><stop offset="100%" stop-color="#F3EDDF"/></linearGradient></defs><rect fill="url(#g)" width="200" height="200"/><text x="100" y="105" text-anchor="middle" font-family="Inter,system-ui,sans-serif" font-size="12" fill="#9F9C93" font-weight="600">${(product.name||'').slice(0,18)}</text></svg>`);
                           }
                         }}
                       />
                       {product.stockStatus === 'IN_STOCK' && (
-                        <span className="absolute top-1.5 right-1.5 bg-success-500 text-white text-[9px] font-bold px-1.5 py-0.5 rounded">
+                        <span className="absolute top-2 left-2 tag-green !text-[10px] !py-0.5 !px-2">
                           In Stock
                         </span>
                       )}
                     </div>
-                    <div className="flex-1 min-w-0">
+                    <div className="flex-1 min-w-0 py-4 pr-4">
                       {product.category && (
-                        <span className="text-[10px] font-bold text-accent-600 uppercase tracking-[0.1em]">
+                        <span className="kicker !text-[9px] !px-2.5 !py-0.5 !rounded-full">
                           {product.category.name}
                         </span>
                       )}
-                      <h3 className="font-semibold text-navy-800 mt-0.5 hover:text-accent-600 transition-colors line-clamp-1 text-sm sm:text-base">
+                      <h3 className="mt-2 font-display font-extrabold text-navy-900 hover:text-gold-700 transition-colors line-clamp-1 text-base sm:text-lg leading-snug">
                         {product.name}
                       </h3>
-                      <p className="text-xs text-ink-500 mt-0.5 line-clamp-1 leading-relaxed">
-                        {product.description}
+                      <p className="text-xs sm:text-sm text-ink-500 mt-1 line-clamp-2 leading-relaxed">
+                        {product.description?.replace(/<[^>]+>/g, ' ') || 'Factory-direct wholesale from Yiwu, Zhejiang. Bulk discounts available for qualified buyers.'}
                       </p>
-                      <div className="flex flex-wrap items-center gap-1.5 mt-2">
+                      <div className="flex flex-wrap items-center gap-1.5 mt-3">
                         {product.material && (
-                          <span className="text-[10px] text-ink-600 bg-ink-100 px-2 py-0.5 rounded-full font-medium">
+                          <span className="tag-sand !text-[10px] !py-0.5 !px-2.5">
                             {product.material}
                           </span>
                         )}
                         {product.sku && (
-                          <span className="text-[10px] text-ink-400 bg-white border border-ink-200 px-2 py-0.5 rounded-full font-mono">
-                            {product.sku}
+                          <span className="tag !text-[10px] !py-0.5 !px-2.5 bg-white border border-sand-200 text-ink-500 font-mono">
+                            SKU · {product.sku}
+                          </span>
+                        )}
+                        {product.moq && (
+                          <span className="tag-navy !text-[10px] !py-0.5 !px-2.5">
+                            MOQ {product.moq} pcs
                           </span>
                         )}
                       </div>
-                      <div className="flex items-center justify-between mt-2 pt-2 border-t border-ink-100">
-                        <div className="flex items-baseline gap-1.5">
-                          <span className="text-lg font-bold text-navy-800">
+                      <div className="flex items-end justify-between mt-3 pt-3 border-t border-sand-100">
+                        <div className="flex items-baseline gap-2">
+                          <span className="price-current text-2xl">
                             ${Number(product.priceMin || product.price || 0).toFixed(2)}
                           </span>
-                          {product.priceMax && (
-                            <span className="text-xs text-ink-400">- ${Number(product.priceMax).toFixed(2)}</span>
+                          {product.priceMax && Number(product.priceMax) - Number(product.priceMin || 0) > 0.01 && (
+                            <span className="text-sm text-ink-400">– ${Number(product.priceMax).toFixed(2)}</span>
                           )}
+                          <span className="text-xs text-ink-400 font-medium">/ unit</span>
                         </div>
-                        <span className="text-xs text-ink-500">
-                          MOQ: <span className="text-navy-800 font-bold">{product.moq || 1} pcs</span>
+                        <span className="inline-flex items-center gap-1 text-xs font-bold text-navy-700 group-hover:text-gold-700 transition-colors">
+                          View Details
+                          <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
                         </span>
                       </div>
                     </div>
@@ -550,22 +592,69 @@ const Products = () => {
               </div>
             )
           ) : (
-            <div className="text-center py-20 bg-white rounded-2xl border border-ink-200">
-              <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-ink-100 to-ink-50 flex items-center justify-center mx-auto mb-5">
-                <Search className="w-10 h-10 text-ink-300" />
+            <div className="panel !rounded-3xl py-16 sm:py-20">
+              <div className="text-center max-w-md mx-auto px-6">
+                <div className="w-24 h-24 rounded-3xl bg-gradient-to-br from-sand-50 to-gold-50 border border-sand-200 flex items-center justify-center mx-auto mb-6 shadow-paper">
+                  <Search className="w-12 h-12 text-gold-400" strokeWidth={1.6} />
+                </div>
+                <span className="kicker mb-4">No matches found</span>
+                <h3 className="mt-4 font-display font-black text-2xl sm:text-3xl text-navy-900">
+                  We couldn&apos;t find those products <span className="text-gold-gradient">— yet.</span>
+                </h3>
+                <p className="mt-4 text-ink-500 leading-relaxed">
+                  Try broadening your filters, or send us your sourcing list —
+                  our Yiwu team can source it direct from 2,000+ factories within 2 hours.
+                </p>
+                <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-3">
+                  <button onClick={clearAllFilters} className="btn-navy">
+                    <RotateCcw className="w-4 h-4" />
+                    Reset All Filters
+                  </button>
+                  <a
+                    href="https://wa.me/8618767960499?text=Hello%2C%20I%20need%20help%20sourcing%20products%20from%20Yiwu."
+                    target="_blank" rel="noreferrer noopener"
+                    className="btn-primary"
+                  >
+                    💬 Ask for Sourcing Help
+                  </a>
+                </div>
               </div>
-              <h3 className="text-lg font-bold text-navy-800 mb-2">No products found</h3>
-              <p className="text-ink-500 mb-6 max-w-md mx-auto text-sm">Try adjusting your filters or search terms to find what you're looking for.</p>
-              <button
-                onClick={clearAllFilters}
-                className="inline-flex items-center gap-2 bg-navy-800 hover:bg-navy-900 text-white px-6 py-2.5 rounded-xl font-bold text-sm transition-colors"
-              >
-                <RotateCcw className="w-4 h-4" />
-                Clear All Filters
-              </button>
             </div>
           )}
         </div>
+
+        {/* ====== CTA strip under listing ====== */}
+        {sortedProducts.length > 0 && (
+          <div className="mt-12 premium-card !rounded-3xl overflow-hidden bg-cta-gradient text-white">
+            <div className="absolute inset-0 bg-hero-texture opacity-60 pointer-events-none" />
+            <div className="relative p-6 sm:p-10 lg:p-12 grid lg:grid-cols-12 gap-6 items-center">
+              <div className="lg:col-span-8">
+                <span className="inline-flex items-center gap-2 text-[11px] font-black tracking-[0.2em] uppercase text-gold-200 bg-white/10 border border-white/15 rounded-full px-3.5 py-1.5">
+                  🏭 Yiwu Direct · Mixed container orders welcome
+                </span>
+                <h2 className="mt-5 font-display font-black text-2xl sm:text-4xl leading-[1.1] tracking-tight text-white">
+                  Ordering {sortedProducts.length} SKUs? <span className="text-gold-gradient">Get an all-in quote.</span>
+                </h2>
+                <p className="mt-3 text-navy-100/85 leading-relaxed max-w-2xl">
+                  Consolidate multiple products into one shipment. Save on freight with our weekly LCL/FCL departures.
+                  Door-to-door delivery to 180+ countries.
+                </p>
+              </div>
+              <div className="lg:col-span-4 flex flex-col sm:flex-row lg:flex-col gap-3 lg:items-end">
+                <a
+                  href="https://wa.me/8618767960499?text=Hello%2C%20I%20want%20a%20bulk%20quote%20for%20${encodeURIComponent(currentCategoryName)}%20from%20eTrueMart."
+                  target="_blank" rel="noreferrer noopener"
+                  className="btn-primary btn-lg shadow-gold-glow flex-1 justify-center"
+                >
+                  📨 Request Bulk Quote
+                </a>
+                <Link href="/register" className="btn btn-lg !text-white border border-white/20 bg-white/10 hover:bg-white/20 backdrop-blur flex-1 justify-center">
+                  📦 Mixed Order Calculator
+                </Link>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </Layout>
   );

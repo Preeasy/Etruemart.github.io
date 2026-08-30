@@ -1,0 +1,2147 @@
+{
+  "YCS-ACC-001": [
+    "YCS-ACC-001"
+  ],
+  "YCS-ACC-002": [
+    "YCS-ACC-002"
+  ],
+  "YCS-ACC-003": [
+    "YCS-ACC-003"
+  ],
+  "YCS-ACC-004": [
+    "YCS-ACC-004"
+  ],
+  "YCS-ACC-005": [
+    "YCS-ACC-005"
+  ],
+  "YCS-ACC-006": [
+    "YCS-ACC-006"
+  ],
+  "YCS-ART-001": [
+    "YCS-ART-001"
+  ],
+  "YCS-ART-002": [
+    "YCS-ART-002"
+  ],
+  "YCS-ART-003": [
+    "YCS-ART-003"
+  ],
+  "YCS-ART-004": [
+    "YCS-ART-004"
+  ],
+  "YCS-ART-005": [
+    "YCS-ART-005"
+  ],
+  "YCS-ART-006": [
+    "YCS-ART-006"
+  ],
+  "YCS-ART-007": [
+    "YCS-ART-007"
+  ],
+  "YCS-ART-008": [
+    "YCS-ART-008"
+  ],
+  "YCS-ART-009": [
+    "YCS-ART-009"
+  ],
+  "YCS-AUS-001": [
+    "YCS-AUS-001"
+  ],
+  "YCS-AUS-002": [
+    "YCS-AUS-002"
+  ],
+  "YCS-AUS-003": [
+    "YCS-AUS-003"
+  ],
+  "YCS-AUS-004": [
+    "YCS-AUS-004"
+  ],
+  "YCS-AUS-005": [
+    "YCS-AUS-005"
+  ],
+  "YCS-AUS-006": [
+    "YCS-AUS-006"
+  ],
+  "YCS-AUS-007": [
+    "YCS-AUS-007"
+  ],
+  "YCS-AUS-008": [
+    "YCS-AUS-008"
+  ],
+  "YCS-AUS-009": [
+    "YCS-AUS-009"
+  ],
+  "YCS-AUS-010": [
+    "YCS-AUS-010"
+  ],
+  "YCS-AUS-011": [
+    "YCS-AUS-011"
+  ],
+  "YCS-AUS-012": [
+    "YCS-AUS-012-001",
+    "YCS-AUS-012-002"
+  ],
+  "YCS-AUS-013": [
+    "YCS-AUS-013-001",
+    "YCS-AUS-013-002"
+  ],
+  "YCS-AUS-014": [
+    "YCS-AUS-014"
+  ],
+  "YCS-AUT-001": [
+    "YCS-AUT-001"
+  ],
+  "YCS-AUT-002": [
+    "YCS-AUT-002"
+  ],
+  "YCS-AUT-003": [
+    "YCS-AUT-003"
+  ],
+  "YCS-AUT-004": [
+    "YCS-AUT-004"
+  ],
+  "YCS-AUT-005": [
+    "YCS-AUT-005"
+  ],
+  "YCS-AUT-006": [
+    "YCS-AUT-006"
+  ],
+  "YCS-AUT-007": [
+    "YCS-AUT-007"
+  ],
+  "YCS-AVD-001": [
+    "YCS-AVD-001"
+  ],
+  "YCS-AVD-002": [
+    "YCS-AVD-002"
+  ],
+  "YCS-AVD-003": [
+    "YCS-AVD-003"
+  ],
+  "YCS-AVD-004": [
+    "YCS-AVD-004"
+  ],
+  "YCS-AVD-005": [
+    "YCS-AVD-005"
+  ],
+  "YCS-AVD-006": [
+    "YCS-AVD-006"
+  ],
+  "YCS-BAC-001": [
+    "YCS-BAC-001-001",
+    "YCS-BAC-001-002"
+  ],
+  "YCS-BAC-002": [
+    "YCS-BAC-002"
+  ],
+  "YCS-BAC-003": [
+    "YCS-BAC-003"
+  ],
+  "YCS-BAC-004": [
+    "YCS-BAC-004"
+  ],
+  "YCS-BAC-005": [
+    "YCS-BAC-005"
+  ],
+  "YCS-BAC-006": [
+    "YCS-BAC-006"
+  ],
+  "YCS-BAC-007": [
+    "YCS-BAC-007"
+  ],
+  "YCS-BAC-008": [
+    "YCS-BAC-008"
+  ],
+  "YCS-BAC-009": [
+    "YCS-BAC-009"
+  ],
+  "YCS-BAG-001": [
+    "YCS-BAG-001-001",
+    "YCS-BAG-001-002",
+    "YCS-BAG-001-003"
+  ],
+  "YCS-BAG-002": [
+    "YCS-BAG-002"
+  ],
+  "YCS-BAG-003": [
+    "YCS-BAG-003"
+  ],
+  "YCS-BAG-005": [
+    "YCS-BAG-005"
+  ],
+  "YCS-BAG-006": [
+    "YCS-BAG-006-001",
+    "YCS-BAG-006-002"
+  ],
+  "YCS-BAG-007": [
+    "YCS-BAG-007-001",
+    "YCS-BAG-007-002"
+  ],
+  "YCS-BAG-009": [
+    "YCS-BAG-009"
+  ],
+  "YCS-BAG-010": [
+    "YCS-BAG-010"
+  ],
+  "YCS-BBC-001": [
+    "YCS-BBC-001-001",
+    "YCS-BBC-001-002"
+  ],
+  "YCS-BBC-002": [
+    "YCS-BBC-002"
+  ],
+  "YCS-BBC-003": [
+    "YCS-BBC-003"
+  ],
+  "YCS-BBC-004": [
+    "YCS-BBC-004"
+  ],
+  "YCS-BBC-005": [
+    "YCS-BBC-005"
+  ],
+  "YCS-BBC-006": [
+    "YCS-BBC-006-001",
+    "YCS-BBC-006-002"
+  ],
+  "YCS-BBC-007": [
+    "YCS-BBC-007-001",
+    "YCS-BBC-007-002"
+  ],
+  "YCS-BBC-008": [
+    "YCS-BBC-008"
+  ],
+  "YCS-BBC-009": [
+    "YCS-BBC-009"
+  ],
+  "YCS-BBC-010": [
+    "YCS-BBC-010"
+  ],
+  "YCS-BBC-011": [
+    "YCS-BBC-011-001",
+    "YCS-BBC-011-002",
+    "YCS-BBC-011-003"
+  ],
+  "YCS-BTY-001": [
+    "YCS-BTY-001-001",
+    "YCS-BTY-001-002",
+    "YCS-BTY-001-003"
+  ],
+  "YCS-BTY-002": [
+    "YCS-BTY-002"
+  ],
+  "YCS-BTY-003": [
+    "YCS-BTY-003"
+  ],
+  "YCS-BTY-004": [
+    "YCS-BTY-004"
+  ],
+  "YCS-BTY-005": [
+    "YCS-BTY-005"
+  ],
+  "YCS-BTY-006": [
+    "YCS-BTY-006"
+  ],
+  "YCS-CLN-001": [
+    "YCS-CLN-001",
+    "YCS-CLN-001",
+    "YCS-CLN-001"
+  ],
+  "YCS-CLN-002": [
+    "YCS-CLN-002-001",
+    "YCS-CLN-002-002",
+    "YCS-CLN-002-003",
+    "YCS-CLN-002-004"
+  ],
+  "YCS-CLN-003": [
+    "YCS-CLN-003"
+  ],
+  "YCS-CLN-004": [
+    "YCS-CLN-004"
+  ],
+  "YCS-CLN-005": [
+    "YCS-CLN-005"
+  ],
+  "YCS-CLN-006": [
+    "YCS-CLN-006"
+  ],
+  "YCS-CLN-007": [
+    "YCS-CLN-007-001",
+    "YCS-CLN-007-002"
+  ],
+  "YCS-CLN-008": [
+    "YCS-CLN-008"
+  ],
+  "YCS-CLN-009": [
+    "YCS-CLN-009"
+  ],
+  "YCS-CLN-010": [
+    "YCS-CLN-010"
+  ],
+  "YCS-CLN-011": [
+    "YCS-CLN-011"
+  ],
+  "YCS-CLN-012": [
+    "YCS-CLN-012"
+  ],
+  "YCS-CLN-013": [
+    "YCS-CLN-013"
+  ],
+  "YCS-CLN-014": [
+    "YCS-CLN-014"
+  ],
+  "YCS-CLN-015": [
+    "YCS-CLN-015"
+  ],
+  "YCS-CLN-016": [
+    "YCS-CLN-016"
+  ],
+  "YCS-CLN-017": [
+    "YCS-CLN-017"
+  ],
+  "YCS-CLN-018": [
+    "YCS-CLN-018"
+  ],
+  "YCS-CLN-019": [
+    "YCS-CLN-019"
+  ],
+  "YCS-CLN-020": [
+    "YCS-CLN-020"
+  ],
+  "YCS-CLO-001": [
+    "YCS-CLO-001"
+  ],
+  "YCS-CLO-002": [
+    "YCS-CLO-002"
+  ],
+  "YCS-CLO-003": [
+    "YCS-CLO-003"
+  ],
+  "YCS-CLO-004": [
+    "YCS-CLO-004"
+  ],
+  "YCS-CLO-005": [
+    "YCS-CLO-005"
+  ],
+  "YCS-CLO-006": [
+    "YCS-CLO-006"
+  ],
+  "YCS-CLO-007": [
+    "YCS-CLO-007"
+  ],
+  "YCS-CLO-008": [
+    "YCS-CLO-008"
+  ],
+  "YCS-CLO-009": [
+    "YCS-CLO-009"
+  ],
+  "YCS-CLO-010": [
+    "YCS-CLO-010"
+  ],
+  "YCS-CLO-011": [
+    "YCS-CLO-011"
+  ],
+  "YCS-CLO-012": [
+    "YCS-CLO-012"
+  ],
+  "YCS-CLO-013": [
+    "YCS-CLO-013"
+  ],
+  "YCS-CLO-014": [
+    "YCS-CLO-014"
+  ],
+  "YCS-CLO-015": [
+    "YCS-CLO-015"
+  ],
+  "YCS-CLO-016": [
+    "YCS-CLO-016"
+  ],
+  "YCS-CLO-017": [
+    "YCS-CLO-017"
+  ],
+  "YCS-CLO-018": [
+    "YCS-CLO-018"
+  ],
+  "YCS-CLO-019": [
+    "YCS-CLO-019"
+  ],
+  "YCS-CLO-020": [
+    "YCS-CLO-020"
+  ],
+  "YCS-CLO-021": [
+    "YCS-CLO-021"
+  ],
+  "YCS-CLO-022": [
+    "YCS-CLO-022"
+  ],
+  "YCS-CLO-023": [
+    "YCS-CLO-023-001",
+    "YCS-CLO-023-002",
+    "YCS-CLO-023-003",
+    "YCS-CLO-023-004"
+  ],
+  "YCS-CLO-024": [
+    "YCS-CLO-024"
+  ],
+  "YCS-CLO-025": [
+    "YCS-CLO-025"
+  ],
+  "YCS-CLO-026": [
+    "YCS-CLO-026"
+  ],
+  "YCS-CLO-027": [
+    "YCS-CLO-027"
+  ],
+  "YCS-CLO-028": [
+    "YCS-CLO-028-001",
+    "YCS-CLO-028-002",
+    "YCS-CLO-028-003"
+  ],
+  "YCS-CLO-029": [
+    "YCS-CLO-029"
+  ],
+  "YCS-CLO-030": [
+    "YCS-CLO-030-001",
+    "YCS-CLO-030-002"
+  ],
+  "YCS-CLO-031": [
+    "YCS-CLO-031"
+  ],
+  "YCS-CLO-032": [
+    "YCS-CLO-032"
+  ],
+  "YCS-CLO-035": [
+    "YCS-CLO-035"
+  ],
+  "YCS-CLO-036": [
+    "YCS-CLO-036"
+  ],
+  "YCS-CLO-037": [
+    "YCS-CLO-037-001",
+    "YCS-CLO-037-002",
+    "YCS-CLO-037-003"
+  ],
+  "YCS-CLO-038": [
+    "YCS-CLO-038"
+  ],
+  "YCS-CLO-039": [
+    "YCS-CLO-039-001",
+    "YCS-CLO-039-002"
+  ],
+  "YCS-CLO-040": [
+    "YCS-CLO-040-001",
+    "YCS-CLO-040-002"
+  ],
+  "YCS-CLO-041": [
+    "YCS-CLO-041"
+  ],
+  "YCS-CLO-042": [
+    "YCS-CLO-042-001",
+    "YCS-CLO-042-002",
+    "YCS-CLO-042-003"
+  ],
+  "YCS-CLO-043": [
+    "YCS-CLO-043"
+  ],
+  "YCS-CLO-044": [
+    "YCS-CLO-044-001",
+    "YCS-CLO-044-002",
+    "YCS-CLO-044-003"
+  ],
+  "YCS-CLO-045": [
+    "YCS-CLO-045-001",
+    "YCS-CLO-045-002",
+    "YCS-CLO-045-003",
+    "YCS-CLO-045-004"
+  ],
+  "YCS-CUP-001": [
+    "YCS-CUP-001-001",
+    "YCS-CUP-001-003",
+    "YCS-CUP-001-002"
+  ],
+  "YCS-CUP-002": [
+    "YCS-CUP-002-001",
+    "YCS-CUP-002-002"
+  ],
+  "YCS-CUP-003": [
+    "YCS-CUP-003"
+  ],
+  "YCS-CUP-004": [
+    "YCS-CUP-004"
+  ],
+  "YCS-CUP-005": [
+    "YCS-CUP-005"
+  ],
+  "YCS-CUP-006": [
+    "YCS-CUP-006"
+  ],
+  "YCS-CUP-007": [
+    "YCS-CUP-007"
+  ],
+  "YCS-CUP-009": [
+    "YCS-CUP-009"
+  ],
+  "YCS-CUP-010": [
+    "YCS-CUP-010"
+  ],
+  "YCS-CUP-011": [
+    "YCS-CUP-011"
+  ],
+  "YCS-CUP-012": [
+    "YCS-CUP-012-001",
+    "YCS-CUP-012-002"
+  ],
+  "YCS-CUP-013": [
+    "YCS-CUP-013"
+  ],
+  "YCS-CUP-014": [
+    "YCS-CUP-014"
+  ],
+  "YCS-CUP-015": [
+    "YCS-CUP-015"
+  ],
+  "YCS-CUP-016": [
+    "YCS-CUP-016"
+  ],
+  "YCS-CUP-017": [
+    "YCS-CUP-017"
+  ],
+  "YCS-CUP-018": [
+    "YCS-CUP-018"
+  ],
+  "YCS-DGO-001": [
+    "YCS-DGO-001"
+  ],
+  "YCS-DGO-002": [
+    "YCS-DGO-002"
+  ],
+  "YCS-DGO-003": [
+    "YCS-DGO-003"
+  ],
+  "YCS-DGO-004": [
+    "YCS-DGO-004-001",
+    "YCS-DGO-004-002"
+  ],
+  "YCS-DGO-005": [
+    "YCS-DGO-005"
+  ],
+  "YCS-DGO-006": [
+    "YCS-DGO-006"
+  ],
+  "YCS-DGO-007": [
+    "YCS-DGO-007"
+  ],
+  "YCS-DGO-008": [
+    "YCS-DGO-008"
+  ],
+  "YCS-DGO-009": [
+    "YCS-DGO-009"
+  ],
+  "YCS-DGO-010": [
+    "YCS-DGO-010"
+  ],
+  "YCS-DGO-011": [
+    "YCS-DGO-011"
+  ],
+  "YCS-DGO-012": [
+    "YCS-DGO-012"
+  ],
+  "YCS-DGO-013": [
+    "YCS-DGO-013"
+  ],
+  "YCS-DGO-014": [
+    "YCS-DGO-014"
+  ],
+  "YCS-DGO-015": [
+    "YCS-DGO-015"
+  ],
+  "YCS-DRY-001": [
+    "YCS-DRY-001-001",
+    "YCS-DRY-001-002"
+  ],
+  "YCS-FAN-001": [
+    "YCS-FAN-001"
+  ],
+  "YCS-FAN-002": [
+    "YCS-FAN-002"
+  ],
+  "YCS-FAN-003": [
+    "YCS-FAN-003"
+  ],
+  "YCS-FAN-004": [
+    "YCS-FAN-004"
+  ],
+  "YCS-FIT-001": [
+    "YCS-FIT-001"
+  ],
+  "YCS-FIT-002": [
+    "YCS-FIT-002"
+  ],
+  "YCS-FIT-003": [
+    "YCS-FIT-003"
+  ],
+  "YCS-FIT-004": [
+    "YCS-FIT-004"
+  ],
+  "YCS-FIT-005": [
+    "YCS-FIT-005"
+  ],
+  "YCS-FIT-006": [
+    "YCS-FIT-006"
+  ],
+  "YCS-FIT-007": [
+    "YCS-FIT-007"
+  ],
+  "YCS-FIT-008": [
+    "YCS-FIT-008"
+  ],
+  "YCS-FIT-009": [
+    "YCS-FIT-009"
+  ],
+  "YCS-FIT-010": [
+    "YCS-FIT-010-001",
+    "YCS-FIT-010-002"
+  ],
+  "YCS-FIT-011": [
+    "YCS-FIT-011"
+  ],
+  "YCS-FIT-012": [
+    "YCS-FIT-012"
+  ],
+  "YCS-FIT-013": [
+    "YCS-FIT-013"
+  ],
+  "YCS-FIT-014": [
+    "YCS-FIT-014"
+  ],
+  "YCS-FTB-001": [
+    "YCS-FTB-001-001",
+    "YCS-FTB-001-002"
+  ],
+  "YCS-FTB-002": [
+    "YCS-FTB-002"
+  ],
+  "YCS-FTB-003": [
+    "YCS-FTB-003"
+  ],
+  "YCS-HAB-001": [
+    "YCS-HAB-001-001",
+    "YCS-HAB-001-002",
+    "YCS-HAB-001-003",
+    "YCS-HAB-001-004"
+  ],
+  "YCS-HAB-002": [
+    "YCS-HAB-002"
+  ],
+  "YCS-HAB-003": [
+    "YCS-HAB-003"
+  ],
+  "YCS-HAB-004": [
+    "YCS-HAB-004-001",
+    "YCS-HAB-004-002"
+  ],
+  "YCS-HAB-005": [
+    "YCS-HAB-005"
+  ],
+  "YCS-HAB-006": [
+    "YCS-HAB-006"
+  ],
+  "YCS-HAB-007": [
+    "YCS-HAB-007"
+  ],
+  "YCS-HAB-008": [
+    "YCS-HAB-008"
+  ],
+  "YCS-HAB-009": [
+    "YCS-HAB-009"
+  ],
+  "YCS-HAB-010": [
+    "YCS-HAB-010"
+  ],
+  "YCS-HAB-011": [
+    "YCS-HAB-011"
+  ],
+  "YCS-HAB-012": [
+    "YCS-HAB-012"
+  ],
+  "YCS-HAB-013": [
+    "YCS-HAB-013"
+  ],
+  "YCS-HAB-014": [
+    "YCS-HAB-014"
+  ],
+  "YCS-HOM-001": [
+    "YCS-HOM-001"
+  ],
+  "YCS-HOM-002": [
+    "YCS-HOM-002"
+  ],
+  "YCS-HOM-003": [
+    "YCS-HOM-003"
+  ],
+  "YCS-HOM-004": [
+    "YCS-HOM-004"
+  ],
+  "YCS-HOM-005": [
+    "YCS-HOM-005"
+  ],
+  "YCS-HOM-006": [
+    "YCS-HOM-006"
+  ],
+  "YCS-HOM-007": [
+    "YCS-HOM-007"
+  ],
+  "YCS-HOM-008": [
+    "YCS-HOM-008"
+  ],
+  "YCS-HOM-009": [
+    "YCS-HOM-009"
+  ],
+  "YCS-HOM-010": [
+    "YCS-HOM-010"
+  ],
+  "YCS-HOM-011": [
+    "YCS-HOM-011-001",
+    "YCS-HOM-011-002"
+  ],
+  "YCS-HOM-012": [
+    "YCS-HOM-012"
+  ],
+  "YCS-HOM-013": [
+    "YCS-HOM-013"
+  ],
+  "YCS-HOM-014": [
+    "YCS-HOM-014"
+  ],
+  "YCS-HOM-015": [
+    "YCS-HOM-015-001",
+    "YCS-HOM-015-002",
+    "YCS-HOM-015-003"
+  ],
+  "YCS-HOM-016": [
+    "YCS-HOM-016"
+  ],
+  "YCS-HOM-017": [
+    "YCS-HOM-017"
+  ],
+  "YCS-HOM-018": [
+    "YCS-HOM-018"
+  ],
+  "YCS-HOM-019": [
+    "YCS-HOM-019"
+  ],
+  "YCS-HOM-020": [
+    "YCS-HOM-020"
+  ],
+  "YCS-HOM-021": [
+    "YCS-HOM-021"
+  ],
+  "YCS-HOM-022": [
+    "YCS-HOM-022"
+  ],
+  "YCS-HOM-023": [
+    "YCS-HOM-023-001",
+    "YCS-HOM-023-002"
+  ],
+  "YCS-HOM-024": [
+    "YCS-HOM-024"
+  ],
+  "YCS-HWR-001": [
+    "YCS-HWR-001-001",
+    "YCS-HWR-001-002"
+  ],
+  "YCS-HWR-003": [
+    "YCS-HWR-003"
+  ],
+  "YCS-HWR-004": [
+    "YCS-HWR-004"
+  ],
+  "YCS-HWR-005": [
+    "YCS-HWR-005"
+  ],
+  "YCS-HWR-006": [
+    "YCS-HWR-006"
+  ],
+  "YCS-HWR-007": [
+    "YCS-HWR-007"
+  ],
+  "YCS-HWR-008": [
+    "YCS-HWR-008"
+  ],
+  "YCS-HWR-009": [
+    "YCS-HWR-009"
+  ],
+  "YCS-HWR-010": [
+    "YCS-HWR-010"
+  ],
+  "YCS-KAP-001": [
+    "YCS-KAP-001"
+  ],
+  "YCS-KAP-002": [
+    "YCS-KAP-002"
+  ],
+  "YCS-KAP-003": [
+    "YCS-KAP-003"
+  ],
+  "YCS-KBM-001": [
+    "YCS-KBM-001"
+  ],
+  "YCS-KBM-002": [
+    "YCS-KBM-002"
+  ],
+  "YCS-KBM-003": [
+    "YCS-KBM-003"
+  ],
+  "YCS-KBM-004": [
+    "YCS-KBM-004"
+  ],
+  "YCS-KID-001": [
+    "YCS-KID-001"
+  ],
+  "YCS-KID-002": [
+    "YCS-KID-002"
+  ],
+  "YCS-KID-003": [
+    "YCS-KID-003"
+  ],
+  "YCS-KID-004": [
+    "YCS-KID-004"
+  ],
+  "YCS-KID-005": [
+    "YCS-KID-005-001",
+    "YCS-KID-005-002",
+    "YCS-KID-005-003",
+    "YCS-KID-005-004"
+  ],
+  "YCS-KID-006": [
+    "YCS-KID-006"
+  ],
+  "YCS-KID-007": [
+    "YCS-KID-007-001",
+    "YCS-KID-007-002",
+    "YCS-KID-007-003",
+    "YCS-KID-007-004"
+  ],
+  "YCS-KID-008": [
+    "YCS-KID-008"
+  ],
+  "YCS-KID-009": [
+    "YCS-KID-009"
+  ],
+  "YCS-KID-010": [
+    "YCS-KID-010"
+  ],
+  "YCS-KID-011": [
+    "YCS-KID-011"
+  ],
+  "YCS-KID-012": [
+    "YCS-KID-012"
+  ],
+  "YCS-KID-013": [
+    "YCS-KID-013"
+  ],
+  "YCS-KID-014": [
+    "YCS-KID-014"
+  ],
+  "YCS-KID-015": [
+    "YCS-KID-015"
+  ],
+  "YCS-KID-016": [
+    "YCS-KID-016"
+  ],
+  "YCS-KID-017": [
+    "YCS-KID-017"
+  ],
+  "YCS-KID-018": [
+    "YCS-KID-018"
+  ],
+  "YCS-KID-019": [
+    "YCS-KID-019"
+  ],
+  "YCS-KST-001": [
+    "YCS-KST-001"
+  ],
+  "YCS-KST-002": [
+    "YCS-KST-002"
+  ],
+  "YCS-KST-003": [
+    "YCS-KST-003-001",
+    "YCS-KST-003-002",
+    "YCS-KST-003-003"
+  ],
+  "YCS-KST-004": [
+    "YCS-KST-004"
+  ],
+  "YCS-KST-005": [
+    "YCS-KST-005"
+  ],
+  "YCS-KST-006": [
+    "YCS-KST-006"
+  ],
+  "YCS-KST-007": [
+    "YCS-KST-007"
+  ],
+  "YCS-KST-008": [
+    "YCS-KST-008"
+  ],
+  "YCS-KST-009": [
+    "YCS-KST-009"
+  ],
+  "YCS-KST-010": [
+    "YCS-KST-010-001",
+    "YCS-KST-010-002"
+  ],
+  "YCS-KST-011": [
+    "YCS-KST-011"
+  ],
+  "YCS-KST-012": [
+    "YCS-KST-012"
+  ],
+  "YCS-KST-013": [
+    "YCS-KST-013"
+  ],
+  "YCS-KST-015": [
+    "YCS-KST-015"
+  ],
+  "YCS-KST-016": [
+    "YCS-KST-016"
+  ],
+  "YCS-KST-017": [
+    "YCS-KST-017"
+  ],
+  "YCS-KST-018": [
+    "YCS-KST-018-001",
+    "YCS-KST-018-002",
+    "YCS-KST-018-003"
+  ],
+  "YCS-KST-019": [
+    "YCS-KST-019-001",
+    "YCS-KST-019-002",
+    "YCS-KST-019-003"
+  ],
+  "YCS-KST-020": [
+    "YCS-KST-020-001",
+    "YCS-KST-020-002",
+    "YCS-KST-020-003"
+  ],
+  "YCS-KST-021": [
+    "YCS-KST-021"
+  ],
+  "YCS-KST-022": [
+    "YCS-KST-022"
+  ],
+  "YCS-KST-023": [
+    "YCS-KST-023"
+  ],
+  "YCS-KST-026": [
+    "YCS-KST-026"
+  ],
+  "YCS-KST-027": [
+    "YCS-KST-027"
+  ],
+  "YCS-KST-028": [
+    "YCS-KST-028"
+  ],
+  "YCS-KUT-001": [
+    "YCS-KUT-001"
+  ],
+  "YCS-KUT-002": [
+    "YCS-KUT-002"
+  ],
+  "YCS-KUT-003": [
+    "YCS-KUT-003"
+  ],
+  "YCS-KUT-004": [
+    "YCS-KUT-004"
+  ],
+  "YCS-KUT-005": [
+    "YCS-KUT-005"
+  ],
+  "YCS-KUT-006": [
+    "YCS-KUT-006"
+  ],
+  "YCS-KUT-007": [
+    "YCS-KUT-007"
+  ],
+  "YCS-KUT-008": [
+    "YCS-KUT-008"
+  ],
+  "YCS-KUT-009": [
+    "YCS-KUT-009"
+  ],
+  "YCS-KUT-010": [
+    "YCS-KUT-010"
+  ],
+  "YCS-KUT-011": [
+    "YCS-KUT-011-001",
+    "YCS-KUT-011-002"
+  ],
+  "YCS-KUT-012": [
+    "YCS-KUT-012"
+  ],
+  "YCS-KUT-013": [
+    "YCS-KUT-013"
+  ],
+  "YCS-KUT-014": [
+    "YCS-KUT-014"
+  ],
+  "YCS-KUT-015": [
+    "YCS-KUT-015"
+  ],
+  "YCS-KUT-016": [
+    "YCS-KUT-016-001",
+    "YCS-KUT-016-002",
+    "YCS-KUT-016-003"
+  ],
+  "YCS-LAP-001": [
+    "YCS-LAP-001"
+  ],
+  "YCS-LAP-002": [
+    "YCS-LAP-002"
+  ],
+  "YCS-LAP-003": [
+    "YCS-LAP-003"
+  ],
+  "YCS-LAP-004": [
+    "YCS-LAP-004"
+  ],
+  "YCS-LAP-005": [
+    "YCS-LAP-005"
+  ],
+  "YCS-LAP-006": [
+    "YCS-LAP-006-001",
+    "YCS-LAP-006-002"
+  ],
+  "YCS-LAP-007": [
+    "YCS-LAP-007"
+  ],
+  "YCS-LAP-008": [
+    "YCS-LAP-008"
+  ],
+  "YCS-LAP-009": [
+    "YCS-LAP-009"
+  ],
+  "YCS-LED-001": [
+    "YCS-LED-001-001",
+    "YCS-LED-001-002"
+  ],
+  "YCS-LED-002": [
+    "YCS-LED-002"
+  ],
+  "YCS-LED-003": [
+    "YCS-LED-003"
+  ],
+  "YCS-LED-004": [
+    "YCS-LED-004"
+  ],
+  "YCS-LED-005": [
+    "YCS-LED-005"
+  ],
+  "YCS-LED-006": [
+    "YCS-LED-006"
+  ],
+  "YCS-LED-007": [
+    "YCS-LED-007"
+  ],
+  "YCS-LED-008": [
+    "YCS-LED-008"
+  ],
+  "YCS-LED-009": [
+    "YCS-LED-009"
+  ],
+  "YCS-LED-010": [
+    "YCS-LED-010"
+  ],
+  "YCS-LED-011": [
+    "YCS-LED-011"
+  ],
+  "YCS-LED-012": [
+    "YCS-LED-012-001",
+    "YCS-LED-012-002"
+  ],
+  "YCS-LED-013": [
+    "YCS-LED-013"
+  ],
+  "YCS-LED-014": [
+    "YCS-LED-014"
+  ],
+  "YCS-LED-015": [
+    "YCS-LED-015"
+  ],
+  "YCS-LED-016": [
+    "YCS-LED-016"
+  ],
+  "YCS-LED-017": [
+    "YCS-LED-017"
+  ],
+  "YCS-LED-018": [
+    "YCS-LED-018"
+  ],
+  "YCS-LOC-001": [
+    "YCS-LOC-001"
+  ],
+  "YCS-LOC-002": [
+    "YCS-LOC-002"
+  ],
+  "YCS-LOC-003": [
+    "YCS-LOC-003"
+  ],
+  "YCS-LOC-004": [
+    "YCS-LOC-004"
+  ],
+  "YCS-LOC-005": [
+    "YCS-LOC-005"
+  ],
+  "YCS-MCH-001": [
+    "YCS-MCH-001"
+  ],
+  "YCS-MCH-002": [
+    "YCS-MCH-002"
+  ],
+  "YCS-MCH-003": [
+    "YCS-MCH-003"
+  ],
+  "YCS-MCH-004": [
+    "YCS-MCH-004"
+  ],
+  "YCS-MCH-005": [
+    "YCS-MCH-005"
+  ],
+  "YCS-MCH-006": [
+    "YCS-MCH-006"
+  ],
+  "YCS-MCH-007": [
+    "YCS-MCH-007"
+  ],
+  "YCS-MCH-008": [
+    "YCS-MCH-008"
+  ],
+  "YCS-MCH-009": [
+    "YCS-MCH-009"
+  ],
+  "YCS-MCH-010": [
+    "YCS-MCH-010"
+  ],
+  "YCS-MCH-011": [
+    "YCS-MCH-011"
+  ],
+  "YCS-MCS-001": [
+    "YCS-MCS-001"
+  ],
+  "YCS-MCS-002": [
+    "YCS-MCS-002"
+  ],
+  "YCS-MCS-003": [
+    "YCS-MCS-003-001",
+    "YCS-MCS-003-002",
+    "YCS-MCS-003-003",
+    "YCS-MCS-003-004",
+    "YCS-MCS-003-005",
+    "YCS-MCS-003-006",
+    "YCS-MCS-003-007",
+    "YCS-MCS-003-008",
+    "YCS-MCS-003-009",
+    "YCS-MCS-003-010",
+    "YCS-MCS-003-011",
+    "YCS-MCS-003-012"
+  ],
+  "YCS-MCS-005": [
+    "YCS-MCS-005"
+  ],
+  "YCS-MHD-001": [
+    "YCS-MHD-001",
+    "YCS-MHD-001"
+  ],
+  "YCS-MHD-002": [
+    "YCS-MHD-002"
+  ],
+  "YCS-MHD-003": [
+    "YCS-MHD-003"
+  ],
+  "YCS-MHD-004": [
+    "YCS-MHD-004"
+  ],
+  "YCS-MHD-005": [
+    "YCS-MHD-005"
+  ],
+  "YCS-MHD-006": [
+    "YCS-MHD-006"
+  ],
+  "YCS-MHD-007": [
+    "YCS-MHD-007"
+  ],
+  "YCS-MHD-008": [
+    "YCS-MHD-008"
+  ],
+  "YCS-MHD-009": [
+    "YCS-MHD-009"
+  ],
+  "YCS-MHD-010": [
+    "YCS-MHD-010"
+  ],
+  "YCS-MHD-011": [
+    "YCS-MHD-011"
+  ],
+  "YCS-MHD-012": [
+    "YCS-MHD-012"
+  ],
+  "YCS-MHD-013": [
+    "YCS-MHD-013"
+  ],
+  "YCS-MHD-014": [
+    "YCS-MHD-014"
+  ],
+  "YCS-MHD-015": [
+    "YCS-MHD-015-001",
+    "YCS-MHD-015-002"
+  ],
+  "YCS-MHD-017": [
+    "YCS-MHD-017"
+  ],
+  "YCS-MHD-018": [
+    "YCS-MHD-018"
+  ],
+  "YCS-MHD-019": [
+    "YCS-MHD-019"
+  ],
+  "YCS-MHD-020": [
+    "YCS-MHD-020"
+  ],
+  "YCS-MHD-021": [
+    "YCS-MHD-021"
+  ],
+  "YCS-MHD-022": [
+    "YCS-MHD-022"
+  ],
+  "YCS-MHD-023": [
+    "YCS-MHD-023"
+  ],
+  "YCS-MOT-001": [
+    "YCS-MOT-001"
+  ],
+  "YCS-MOT-002": [
+    "YCS-MOT-002-001",
+    "YCS-MOT-002-002"
+  ],
+  "YCS-MOT-003": [
+    "YCS-MOT-003"
+  ],
+  "YCS-MOT-004": [
+    "YCS-MOT-004"
+  ],
+  "YCS-MOT-005": [
+    "YCS-MOT-005"
+  ],
+  "YCS-MOT-006": [
+    "YCS-MOT-006"
+  ],
+  "YCS-MOT-007": [
+    "YCS-MOT-007"
+  ],
+  "YCS-MOT-008": [
+    "YCS-MOT-008"
+  ],
+  "YCS-MOT-009": [
+    "YCS-MOT-009"
+  ],
+  "YCS-MOT-010": [
+    "YCS-MOT-010-001",
+    "YCS-MOT-010-002"
+  ],
+  "YCS-MOT-011": [
+    "YCS-MOT-011"
+  ],
+  "YCS-MOT-012": [
+    "YCS-MOT-012"
+  ],
+  "YCS-MOT-013": [
+    "YCS-MOT-013-001",
+    "YCS-MOT-013-002"
+  ],
+  "YCS-MOT-014": [
+    "YCS-MOT-014"
+  ],
+  "YCS-MOT-015": [
+    "YCS-MOT-015"
+  ],
+  "YCS-MOT-017": [
+    "YCS-MOT-017-001",
+    "YCS-MOT-017-002"
+  ],
+  "YCS-MOT-019": [
+    "YCS-MOT-019"
+  ],
+  "YCS-MOT-020": [
+    "YCS-MOT-020"
+  ],
+  "YCS-MSF-001": [
+    "YCS-MSF-001"
+  ],
+  "YCS-MSK-001": [
+    "YCS-MSK-001"
+  ],
+  "YCS-MSK-002": [
+    "YCS-MSK-002"
+  ],
+  "YCS-MSK-003": [
+    "YCS-MSK-003"
+  ],
+  "YCS-MSS-001": [
+    "YCS-MSS-001"
+  ],
+  "YCS-MSS-002": [
+    "YCS-MSS-002",
+    "YCS-MSS-009"
+  ],
+  "YCS-MSS-003": [
+    "YCS-MSS-003"
+  ],
+  "YCS-MSS-004": [
+    "YCS-MSS-004-001",
+    "YCS-MSS-004-002"
+  ],
+  "YCS-MSS-005": [
+    "YCS-MSS-005-001",
+    "YCS-MSS-005-002",
+    "YCS-MSS-005-003",
+    "YCS-MSS-005-004"
+  ],
+  "YCS-MSS-006": [
+    "YCS-MSS-006-001",
+    "YCS-MSS-006-002"
+  ],
+  "YCS-MSS-007": [
+    "YCS-MSS-007"
+  ],
+  "YCS-MSS-011": [
+    "YCS-MSS-011"
+  ],
+  "YCS-MUS-001": [
+    "YCS-MUS-001"
+  ],
+  "YCS-MUS-002": [
+    "YCS-MUS-002"
+  ],
+  "YCS-MUS-003": [
+    "YCS-MUS-003"
+  ],
+  "YCS-OFC-001": [
+    "YCS-OFC-001-001",
+    "YCS-OFC-001-002"
+  ],
+  "YCS-OFC-003": [
+    "YCS-OFC-003"
+  ],
+  "YCS-OFC-004": [
+    "YCS-OFC-004"
+  ],
+  "YCS-OTH-001": [
+    "YCS-OTH-001"
+  ],
+  "YCS-OTH-002": [
+    "YCS-OTH-002"
+  ],
+  "YCS-OTH-003": [
+    "YCS-OTH-003"
+  ],
+  "YCS-OTH-004": [
+    "YCS-OTH-004"
+  ],
+  "YCS-OTH-005": [
+    "YCS-OTH-005"
+  ],
+  "YCS-OTH-006": [
+    "YCS-OTH-006"
+  ],
+  "YCS-OTH-007": [
+    "YCS-OTH-007"
+  ],
+  "YCS-OTH-008": [
+    "YCS-OTH-008"
+  ],
+  "YCS-OTH-009": [
+    "YCS-OTH-009"
+  ],
+  "YCS-OTH-010": [
+    "YCS-OTH-010"
+  ],
+  "YCS-OTH-011": [
+    "YCS-OTH-011"
+  ],
+  "YCS-OTH-012": [
+    "YCS-OTH-012"
+  ],
+  "YCS-OTH-013": [
+    "YCS-OTH-013"
+  ],
+  "YCS-OTH-014": [
+    "YCS-OTH-014"
+  ],
+  "YCS-OTH-015": [
+    "YCS-OTH-015"
+  ],
+  "YCS-OTH-016": [
+    "YCS-OTH-016"
+  ],
+  "YCS-OUT-001": [
+    "YCS-OUT-001"
+  ],
+  "YCS-OUT-002": [
+    "YCS-OUT-002"
+  ],
+  "YCS-OUT-003": [
+    "YCS-OUT-003"
+  ],
+  "YCS-PCR-001": [
+    "YCS-PCR-001"
+  ],
+  "YCS-PCR-002": [
+    "YCS-PCR-002-001",
+    "YCS-PCR-002-002"
+  ],
+  "YCS-PCR-003": [
+    "YCS-PCR-003"
+  ],
+  "YCS-PCR-004": [
+    "YCS-PCR-004"
+  ],
+  "YCS-PCR-005": [
+    "YCS-PCR-005"
+  ],
+  "YCS-PCR-006": [
+    "YCS-PCR-006"
+  ],
+  "YCS-PCR-007": [
+    "YCS-PCR-007"
+  ],
+  "YCS-PCR-008": [
+    "YCS-PCR-008-001",
+    "YCS-PCR-008-002"
+  ],
+  "YCS-PCR-009": [
+    "YCS-PCR-009"
+  ],
+  "YCS-PET-001": [
+    "YCS-PET-001"
+  ],
+  "YCS-PHO-001": [
+    "YCS-PHO-001"
+  ],
+  "YCS-PHO-002": [
+    "YCS-PHO-002"
+  ],
+  "YCS-PHO-003": [
+    "YCS-PHO-003-001",
+    "YCS-PHO-003-002"
+  ],
+  "YCS-PHO-004": [
+    "YCS-PHO-004"
+  ],
+  "YCS-PHO-005": [
+    "YCS-PHO-005"
+  ],
+  "YCS-PHO-006": [
+    "YCS-PHO-006"
+  ],
+  "YCS-PHO-007": [
+    "YCS-PHO-007"
+  ],
+  "YCS-PHO-008": [
+    "YCS-PHO-008"
+  ],
+  "YCS-SHO-001": [
+    "YCS-SHO-001"
+  ],
+  "YCS-SHO-002": [
+    "YCS-SHO-002"
+  ],
+  "YCS-SHO-003": [
+    "YCS-SHO-003"
+  ],
+  "YCS-SHO-004": [
+    "YCS-SHO-004"
+  ],
+  "YCS-SHO-005": [
+    "YCS-SHO-005"
+  ],
+  "YCS-SHO-006": [
+    "YCS-SHO-006-001",
+    "YCS-SHO-006-002",
+    "YCS-SHO-006-003"
+  ],
+  "YCS-SHO-007": [
+    "YCS-SHO-007-001",
+    "YCS-SHO-007-002",
+    "YCS-SHO-007-003",
+    "YCS-SHO-007-004"
+  ],
+  "YCS-SHO-008": [
+    "YCS-SHO-008"
+  ],
+  "YCS-SHO-009": [
+    "YCS-SHO-009-001",
+    "YCS-SHO-009-002",
+    "YCS-SHO-009-003"
+  ],
+  "YCS-SHO-010": [
+    "YCS-SHO-010"
+  ],
+  "YCS-SHO-011": [
+    "YCS-SHO-011"
+  ],
+  "YCS-SHO-012": [
+    "YCS-SHO-012"
+  ],
+  "YCS-SHO-013": [
+    "YCS-SHO-013"
+  ],
+  "YCS-SHO-014": [
+    "YCS-SHO-014"
+  ],
+  "YCS-SHO-015": [
+    "YCS-SHO-015-001",
+    "YCS-SHO-015-002",
+    "YCS-SHO-015-003",
+    "YCS-SHO-015-004",
+    "YCS-SHO-015-005"
+  ],
+  "YCS-SHO-016": [
+    "YCS-SHO-016-001",
+    "YCS-SHO-016-002",
+    "YCS-SHO-016-003",
+    "YCS-SHO-016-004"
+  ],
+  "YCS-SHO-017": [
+    "YCS-SHO-017"
+  ],
+  "YCS-SHO-022": [
+    "YCS-SHO-022"
+  ],
+  "YCS-SHO-023": [
+    "YCS-SHO-023"
+  ],
+  "YCS-SHO-024": [
+    "YCS-SHO-024"
+  ],
+  "YCS-SHO-025": [
+    "YCS-SHO-025"
+  ],
+  "YCS-SHO-026": [
+    "YCS-SHO-026"
+  ],
+  "YCS-SHO-027": [
+    "YCS-SHO-027"
+  ],
+  "YCS-SHO-028": [
+    "YCS-SHO-028"
+  ],
+  "YCS-SHO-029": [
+    "YCS-SHO-029"
+  ],
+  "YCS-SHO-030": [
+    "YCS-SHO-030"
+  ],
+  "YCS-SHO-031": [
+    "YCS-SHO-031"
+  ],
+  "YCS-SHO-032": [
+    "YCS-SHO-032"
+  ],
+  "YCS-SHO-033": [
+    "YCS-SHO-033"
+  ],
+  "YCS-SHO-034": [
+    "YCS-SHO-034"
+  ],
+  "YCS-SHO-035": [
+    "YCS-SHO-035-001",
+    "YCS-SHO-035-002",
+    "YCS-SHO-035-003",
+    "YCS-SHO-035-004"
+  ],
+  "YCS-SHO-036": [
+    "YCS-SHO-036-001",
+    "YCS-SHO-036-002",
+    "YCS-SHO-036-003",
+    "YCS-SHO-036-004",
+    "YCS-SHO-036-005"
+  ],
+  "YCS-SHO-037": [
+    "YCS-SHO-037-001",
+    "YCS-SHO-037-002",
+    "YCS-SHO-037-003",
+    "YCS-SHO-037-004",
+    "YCS-SHO-037-005"
+  ],
+  "YCS-SHO-038": [
+    "YCS-SHO-038-001",
+    "YCS-SHO-038-002"
+  ],
+  "YCS-SHO-039": [
+    "YCS-SHO-039-001",
+    "YCS-SHO-039-002"
+  ],
+  "YCS-SHO-040": [
+    "YCS-SHO-040-001",
+    "YCS-SHO-040-002"
+  ],
+  "YCS-SHO-041": [
+    "YCS-SHO-041-001",
+    "YCS-SHO-041-002",
+    "YCS-SHO-041-003",
+    "YCS-SHO-041-004"
+  ],
+  "YCS-SHO-042": [
+    "YCS-SHO-042-001",
+    "YCS-SHO-042-002",
+    "YCS-SHO-042-003",
+    "YCS-SHO-042-004",
+    "YCS-SHO-042-005",
+    "YCS-SHO-042-006"
+  ],
+  "YCS-SHO-043": [
+    "YCS-SHO-043-001",
+    "YCS-SHO-043-002",
+    "YCS-SHO-043-003"
+  ],
+  "YCS-SKN-001": [
+    "YCS-SKN-001"
+  ],
+  "YCS-SKN-002": [
+    "YCS-SKN-002-001",
+    "YCS-SKN-002-002"
+  ],
+  "YCS-SKN-003": [
+    "YCS-SKN-003"
+  ],
+  "YCS-SKN-004": [
+    "YCS-SKN-004-001",
+    "YCS-SKN-004-002",
+    "YCS-SKN-004-003"
+  ],
+  "YCS-SKN-005": [
+    "YCS-SKN-005"
+  ],
+  "YCS-SKN-006": [
+    "YCS-SKN-006"
+  ],
+  "YCS-SKN-007": [
+    "YCS-SKN-007"
+  ],
+  "YCS-SKN-008": [
+    "YCS-SKN-008"
+  ],
+  "YCS-SKN-009": [
+    "YCS-SKN-009"
+  ],
+  "YCS-SKN-010": [
+    "YCS-SKN-010"
+  ],
+  "YCS-SMA-001": [
+    "YCS-SMA-001"
+  ],
+  "YCS-SMA-002": [
+    "YCS-SMA-002"
+  ],
+  "YCS-SMA-003": [
+    "YCS-SMA-003"
+  ],
+  "YCS-SMA-004": [
+    "YCS-SMA-004"
+  ],
+  "YCS-SMA-005": [
+    "YCS-SMA-005"
+  ],
+  "YCS-SMA-006": [
+    "YCS-SMA-006"
+  ],
+  "YCS-SMA-007": [
+    "YCS-SMA-007"
+  ],
+  "YCS-SMA-008": [
+    "YCS-SMA-008"
+  ],
+  "YCS-SMA-009": [
+    "YCS-SMA-009"
+  ],
+  "YCS-SMA-010": [
+    "YCS-SMA-010"
+  ],
+  "YCS-SMA-011": [
+    "YCS-SMA-011"
+  ],
+  "YCS-SMA-012": [
+    "YCS-SMA-012"
+  ],
+  "YCS-SMA-013": [
+    "YCS-SMA-013"
+  ],
+  "YCS-SOC-001": [
+    "YCS-SOC-001-001",
+    "YCS-SOC-001-002",
+    "YCS-SOC-001-003"
+  ],
+  "YCS-SOC-003": [
+    "YCS-SOC-003"
+  ],
+  "YCS-SOC-004": [
+    "YCS-SOC-004"
+  ],
+  "YCS-STA-001": [
+    "YCS-STA-001"
+  ],
+  "YCS-STA-002": [
+    "YCS-STA-002"
+  ],
+  "YCS-STA-003": [
+    "YCS-STA-003"
+  ],
+  "YCS-STA-004": [
+    "YCS-STA-004-001",
+    "YCS-STA-004-002"
+  ],
+  "YCS-STA-005": [
+    "YCS-STA-005"
+  ],
+  "YCS-STA-006": [
+    "YCS-STA-006"
+  ],
+  "YCS-STA-007": [
+    "YCS-STA-007"
+  ],
+  "YCS-STA-008": [
+    "YCS-STA-008"
+  ],
+  "YCS-STA-009": [
+    "YCS-STA-009"
+  ],
+  "YCS-STA-010": [
+    "YCS-STA-010"
+  ],
+  "YCS-STA-011": [
+    "YCS-STA-011"
+  ],
+  "YCS-STO-001": [
+    "YCS-STO-001"
+  ],
+  "YCS-STO-002": [
+    "YCS-STO-002-001",
+    "YCS-STO-002-002"
+  ],
+  "YCS-STO-003": [
+    "YCS-STO-003"
+  ],
+  "YCS-STO-004": [
+    "YCS-STO-004"
+  ],
+  "YCS-STO-005": [
+    "YCS-STO-005"
+  ],
+  "YCS-STO-006": [
+    "YCS-STO-006"
+  ],
+  "YCS-STO-007": [
+    "YCS-STO-007"
+  ],
+  "YCS-STO-008": [
+    "YCS-STO-008-001",
+    "YCS-STO-008-002",
+    "YCS-STO-008-003",
+    "YCS-STO-008-004"
+  ],
+  "YCS-STO-009": [
+    "YCS-STO-009"
+  ],
+  "YCS-STO-010": [
+    "YCS-STO-010"
+  ],
+  "YCS-STO-011": [
+    "YCS-STO-011"
+  ],
+  "YCS-STO-012": [
+    "YCS-STO-012"
+  ],
+  "YCS-STO-013": [
+    "YCS-STO-013-001",
+    "YCS-STO-013-002"
+  ],
+  "YCS-STO-014": [
+    "YCS-STO-014-001",
+    "YCS-STO-014-002",
+    "YCS-STO-014-003"
+  ],
+  "YCS-STO-015": [
+    "YCS-STO-015"
+  ],
+  "YCS-STO-016": [
+    "YCS-STO-016-001",
+    "YCS-STO-016-002"
+  ],
+  "YCS-STO-017": [
+    "YCS-STO-017"
+  ],
+  "YCS-STO-018": [
+    "YCS-STO-018"
+  ],
+  "YCS-STO-019": [
+    "YCS-STO-019"
+  ],
+  "YCS-STO-020": [
+    "YCS-STO-020"
+  ],
+  "YCS-STO-021": [
+    "YCS-STO-021"
+  ],
+  "YCS-STO-022": [
+    "YCS-STO-022"
+  ],
+  "YCS-STO-023": [
+    "YCS-STO-023"
+  ],
+  "YCS-STO-024": [
+    "YCS-STO-024"
+  ],
+  "YCS-STO-025": [
+    "YCS-STO-025"
+  ],
+  "YCS-STO-026": [
+    "YCS-STO-026"
+  ],
+  "YCS-STO-027": [
+    "YCS-STO-027-001",
+    "YCS-STO-027-002",
+    "YCS-STO-027-003",
+    "YCS-STO-027-004"
+  ],
+  "YCS-STO-028": [
+    "YCS-STO-028"
+  ],
+  "YCS-STO-029": [
+    "YCS-STO-029-001",
+    "YCS-STO-029-002"
+  ],
+  "YCS-STO-030": [
+    "YCS-STO-030-001",
+    "YCS-STO-030-002"
+  ],
+  "YCS-STO-031": [
+    "YCS-STO-031"
+  ],
+  "YCS-STO-032": [
+    "YCS-STO-032"
+  ],
+  "YCS-STO-033": [
+    "YCS-STO-033-001",
+    "YCS-STO-033-002",
+    "YCS-STO-033-003",
+    "YCS-STO-033-004",
+    "YCS-STO-033-005"
+  ],
+  "YCS-STO-034": [
+    "YCS-STO-034-001",
+    "YCS-STO-034-002",
+    "YCS-STO-034-003",
+    "YCS-STO-034-004"
+  ],
+  "YCS-STO-035": [
+    "YCS-STO-035"
+  ],
+  "YCS-STO-036": [
+    "YCS-STO-036"
+  ],
+  "YCS-STO-037": [
+    "YCS-STO-037"
+  ],
+  "YCS-STO-038": [
+    "YCS-STO-038"
+  ],
+  "YCS-STO-039": [
+    "YCS-STO-039"
+  ],
+  "YCS-STO-040": [
+    "YCS-STO-040"
+  ],
+  "YCS-STO-041": [
+    "YCS-STO-041"
+  ],
+  "YCS-STO-042": [
+    "YCS-STO-042"
+  ],
+  "YCS-STO-043": [
+    "YCS-STO-043"
+  ],
+  "YCS-STO-044": [
+    "YCS-STO-044"
+  ],
+  "YCS-STO-045": [
+    "YCS-STO-045"
+  ],
+  "YCS-STO-048": [
+    "YCS-STO-048"
+  ],
+  "YCS-STO-049": [
+    "YCS-STO-049"
+  ],
+  "YCS-STO-051": [
+    "YCS-STO-051"
+  ],
+  "YCS-STO-052": [
+    "YCS-STO-052"
+  ],
+  "YCS-STO-053": [
+    "YCS-STO-053"
+  ],
+  "YCS-STO-054": [
+    "YCS-STO-054"
+  ],
+  "YCS-STO-055": [
+    "YCS-STO-055"
+  ],
+  "YCS-SWI-001": [
+    "YCS-SWI-001"
+  ],
+  "YCS-SWI-002": [
+    "YCS-SWI-002"
+  ],
+  "YCS-SWI-003": [
+    "YCS-SWI-003-001",
+    "YCS-SWI-003-002",
+    "YCS-SWI-003-003"
+  ],
+  "YCS-SWI-005": [
+    "YCS-SWI-005-001",
+    "YCS-SWI-005-002"
+  ],
+  "YCS-SWI-006": [
+    "YCS-SWI-006"
+  ],
+  "YCS-SWI-007": [
+    "YCS-SWI-007"
+  ],
+  "YCS-SWI-010": [
+    "YCS-SWI-010"
+  ],
+  "YCS-TAB-001": [
+    "YCS-TAB-001"
+  ],
+  "YCS-TAB-002": [
+    "YCS-TAB-002"
+  ],
+  "YCS-TOY-001": [
+    "YCS-TOY-001"
+  ],
+  "YCS-TOY-002": [
+    "YCS-TOY-002"
+  ],
+  "YCS-TOY-003": [
+    "YCS-TOY-003"
+  ],
+  "YCS-TOY-004": [
+    "YCS-TOY-004"
+  ],
+  "YCS-TOY-005": [
+    "YCS-TOY-005"
+  ],
+  "YCS-TOY-006": [
+    "YCS-TOY-006"
+  ],
+  "YCS-TOY-007": [
+    "YCS-TOY-007"
+  ],
+  "YCS-TOY-008": [
+    "YCS-TOY-008"
+  ],
+  "YCS-TOY-009": [
+    "YCS-TOY-009"
+  ],
+  "YCS-TOY-010": [
+    "YCS-TOY-010"
+  ],
+  "YCS-TOY-011": [
+    "YCS-TOY-011"
+  ],
+  "YCS-TOY-012": [
+    "YCS-TOY-012"
+  ],
+  "YCS-TOY-013": [
+    "YCS-TOY-013"
+  ],
+  "YCS-TOY-014": [
+    "YCS-TOY-014"
+  ],
+  "YCS-TOY-015": [
+    "YCS-TOY-015"
+  ],
+  "YCS-TOY-016": [
+    "YCS-TOY-016"
+  ],
+  "YCS-TOY-017": [
+    "YCS-TOY-017"
+  ],
+  "YCS-TOY-018": [
+    "YCS-TOY-018"
+  ],
+  "YCS-TOY-019": [
+    "YCS-TOY-019"
+  ],
+  "YCS-TOY-020": [
+    "YCS-TOY-020"
+  ],
+  "YCS-TOY-021": [
+    "YCS-TOY-021"
+  ],
+  "YCS-TOY-022": [
+    "YCS-TOY-022"
+  ],
+  "YCS-TOY-023": [
+    "YCS-TOY-023-001",
+    "YCS-TOY-023-002"
+  ],
+  "YCS-TOY-024": [
+    "YCS-TOY-024"
+  ],
+  "YCS-TOY-025": [
+    "YCS-TOY-025-001",
+    "YCS-TOY-025-002",
+    "YCS-TOY-025-003",
+    "YCS-TOY-025-004"
+  ],
+  "YCS-TOY-026": [
+    "YCS-TOY-026"
+  ],
+  "YCS-TOY-027": [
+    "YCS-TOY-027"
+  ],
+  "YCS-TOY-028": [
+    "YCS-TOY-028"
+  ],
+  "YCS-TOY-029": [
+    "YCS-TOY-029"
+  ],
+  "YCS-TOY-030": [
+    "YCS-TOY-030"
+  ],
+  "YCS-TOY-031": [
+    "YCS-TOY-031"
+  ],
+  "YCS-TOY-032": [
+    "YCS-TOY-032"
+  ],
+  "YCS-TOY-033": [
+    "YCS-TOY-033"
+  ],
+  "YCS-TOY-034": [
+    "YCS-TOY-034"
+  ],
+  "YCS-TOY-035": [
+    "YCS-TOY-035"
+  ],
+  "YCS-TOY-036": [
+    "YCS-TOY-036"
+  ],
+  "YCS-TOY-037": [
+    "YCS-TOY-037"
+  ],
+  "YCS-TOY-038": [
+    "YCS-TOY-038"
+  ],
+  "YCS-TOY-039": [
+    "YCS-TOY-039"
+  ],
+  "YCS-TOY-040": [
+    "YCS-TOY-040"
+  ],
+  "YCS-TOY-041": [
+    "YCS-TOY-041"
+  ],
+  "YCS-TOY-042": [
+    "YCS-TOY-042"
+  ],
+  "YCS-TOY-043": [
+    "YCS-TOY-043"
+  ],
+  "YCS-TOY-044": [
+    "YCS-TOY-044"
+  ],
+  "YCS-TOY-045": [
+    "YCS-TOY-045"
+  ],
+  "YCS-TOY-046": [
+    "YCS-TOY-046"
+  ],
+  "YCS-TOY-047": [
+    "YCS-TOY-047"
+  ],
+  "YCS-TOY-048": [
+    "YCS-TOY-048"
+  ],
+  "YCS-TOY-049": [
+    "YCS-TOY-049"
+  ],
+  "YCS-TOY-051": [
+    "YCS-TOY-051"
+  ],
+  "YCS-TOY-052": [
+    "YCS-TOY-052"
+  ],
+  "YCS-TOY-053": [
+    "YCS-TOY-053"
+  ],
+  "YCS-TOY-054": [
+    "YCS-TOY-054"
+  ],
+  "YCS-TOY-055": [
+    "YCS-TOY-055"
+  ],
+  "YCS-TOY-056": [
+    "YCS-TOY-056"
+  ],
+  "YCS-TOY-057": [
+    "YCS-TOY-057"
+  ],
+  "YCS-TOY-058": [
+    "YCS-TOY-058"
+  ],
+  "YCS-TOY-059": [
+    "YCS-TOY-059"
+  ],
+  "YCS-TOY-060": [
+    "YCS-TOY-060"
+  ],
+  "YCS-TOY-061": [
+    "YCS-TOY-061-001",
+    "YCS-TOY-061-002",
+    "YCS-TOY-061-003",
+    "YCS-TOY-061-004"
+  ],
+  "YCS-TOY-062": [
+    "YCS-TOY-062-001",
+    "YCS-TOY-062-002"
+  ],
+  "YCS-TOY-063": [
+    "YCS-TOY-063"
+  ],
+  "YCS-TOY-065": [
+    "YCS-TOY-065"
+  ],
+  "YCS-TOY-066": [
+    "YCS-TOY-066"
+  ],
+  "YCS-TOY-067": [
+    "YCS-TOY-067"
+  ],
+  "YCS-TOY-068": [
+    "YCS-TOY-068"
+  ],
+  "YCS-TOY-069": [
+    "YCS-TOY-069"
+  ],
+  "YCS-TOY-070": [
+    "YCS-TOY-070"
+  ],
+  "YCS-TOY-071": [
+    "YCS-TOY-071"
+  ],
+  "YCS-TOY-072": [
+    "YCS-TOY-072"
+  ]
+}

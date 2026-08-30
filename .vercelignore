@@ -1,11 +1,69 @@
-# Large seed batch files — only needed for initial DB import, not at runtime
-prisma/seed-batch-*.json
+# ============== 原始项目构建产物 ==============
 # TypeScript build info
 tsconfig.tsbuildinfo
 *.tsbuildinfo
-# IDE files
+# IDE / version control
 .vscode
 .idea
 .git
-# Local images (served from CDN at runtime)
+.next
+.trae-html-share-packages
+
+# ============== 一次性数据导入脚本（运行时不需要，节省 ~1MB） ==============
+scripts/*.py
+scripts/*.sh
+scripts/*.txt
+scripts/*.json
+# 保留 setup-schema.cjs（构建时运行）和 import-to-postgres.cjs（本地用）
+# 以下这些一次性导入脚本可以安全忽略：
+scripts/import-excel.cjs
+scripts/import-excel-products.cjs
+scripts/import-item-list.cjs
+scripts/import-151-152.cjs
+scripts/import-200-products.cjs
+scripts/add-products.cjs
+scripts/merge-bulk-products.cjs
+scripts/split-data.cjs
+scripts/download-images.cjs
+scripts/generate-products.cjs
+scripts/generate-bulk-products.cjs
+scripts/generate-200-products.cjs
+scripts/create-users.cjs
+scripts/white-theme.cjs
+scripts/export-seed-data.cjs
+scripts/export-sqlite-data.cjs
+scripts/import-all.sh
+scripts/import-to-vercel.cjs
+scripts/recognize_images.py
+scripts/fix-variant-groups.mjs
+scripts/verify-variant-fix.mjs
+scripts/update-moq-by-price-tier.mjs
+scripts/update-prices-aa730.mjs
+scripts/increase-prices-5pct.mjs
+scripts/generate-product-images.cjs
+
+# ============== 大量无用图片！运行时完全不使用（共节省 ~92MB） ==============
+all-github-images/
+github-by-category/
+github-images-sample/
+
+# ============== Excel 源数据文件（仅用于最初的数据导入，节省数 MB） ==============
+*.xlsx
+*.xls
+
+# ============== 图片搜索/数据生成阶段的临时 JSON 文件 ==============
+pexels_images.json
+pixabay_images.json
+bulk-products.json
+categories-data.json
+new-products.json
+products-200.json
+product-summary.json
+
+# ============== Prisma 大文件种子（init-db API 用 seed-data/sqlite-export 即可） ==============
+prisma/seed-batch-*.json
+# 注意：prisma/seed-data.json 和 prisma/sqlite-export.json 不能忽略，
+# 因为 /api/init-db 会读取它们来初始化数据库
+
+# ============== 本地图片（如果存在） ==============
 public/images/item-list/

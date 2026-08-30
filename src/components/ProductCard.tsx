@@ -1,9 +1,7 @@
-import { memo, useCallback, useRef } from 'react';
+import { memo, useRef } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { Edit3 } from 'lucide-react';
-import { getAltExtensionCdnUrl } from '@/lib/image-utils';
-import { getColorHex } from '@/lib/colors';
+import { Edit3, Heart, Eye, ShoppingCart, ChevronRight, Package } from 'lucide-react';
 
 interface VariantPreview {
   id: string;
@@ -19,7 +17,7 @@ interface VariantPreview {
   image?: string;
 }
 
-interface ProductCardProps {
+export interface ProductCardProps {
   product: {
     id: number | string;
     slug?: string | null;
@@ -36,170 +34,221 @@ interface ProductCardProps {
     isParent?: boolean;
     parentId?: string | null;
     variants?: VariantPreview[] | null;
+    salesCount?: number | null;
   };
   editUrl?: string;
+  /** show compact layout for horizontal lists */
+  compact?: boolean;
+  /** badge override */
+  badge?: string | null;
+  /** badge variant */
+  badgeTone?: 'gold' | 'coral' | 'green' | 'navy' | 'sand';
 }
 
 const FALLBACK_SVG = `data:image/svg+xml;charset=UTF-8,${encodeURIComponent(
-  `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#f3f4f6"/><stop offset="100%" stop-color="#e5e7eb"/></linearGradient></defs><rect fill="url(#g)" width="200" height="200"/><rect x="30" y="50" width="140" height="100" rx="8" fill="white" stroke="#d1d5db" stroke-width="2"/><circle cx="70" cy="80" r="10" fill="#fcd34d"/><path d="M50 140 L80 105 L100 125 L125 95 L160 140 Z" fill="#d1d5db"/></svg>`
+  `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#FBF7EC"/><stop offset="100%" stop-color="#F3EDDF"/></linearGradient></defs><rect fill="url(#g)" width="400" height="400"/><rect x="70" y="100" width="260" height="200" rx="14" fill="white" stroke="#E8DEC4" stroke-width="3"/><circle cx="140" cy="160" r="20" fill="#DFB860"/><path d="M100 270 L155 210 L200 240 L255 195 L320 270 Z" fill="#D9C89A"/><text x="200" y="340" text-anchor="middle" font-family="Inter,system-ui,sans-serif" font-size="15" fill="#9F9C93" font-weight="600">Product Image</text></svg>`
 )}`;
 
-const ProductCard = ({ product, editUrl }: ProductCardProps) => {
+const fmt = (n: number) => {
+  if (n >= 1000) return '$' + n.toLocaleString('en-US', { maximumFractionDigits: 0 });
+  return '$' + n.toFixed(n < 5 ? 3 : n < 50 ? 2 : 2).replace(/\.?0+$/, '');
+};
+
+function ProductCardInner({ product, editUrl, compact, badge, badgeTone = 'gold' }: ProductCardProps) {
   const price = Number(product.price || product.priceMin || 0);
-  const moq = product.moq || 1;
+  const priceMax = Number(product.priceMax || price || 0);
+  const hasRange = priceMax - price > 0.01;
+  const moq = product.moq || 12;
 
-  const categoryName =
+  const catObj =
     typeof product.category === 'object' && product.category !== null
-      ? product.category.name
-      : typeof product.category === 'string'
-        ? product.category
-        : '';
+      ? product.category
+      : null;
+  const categoryName = catObj?.name || (typeof product.category === 'string' ? product.category : '');
+  const categorySlug = catObj?.slug || '';
 
-  const imageUrl = product.image;
-  const triedRef = useRef<Set<string> | null>(null);
+  const href = product.slug
+    ? `/product/${encodeURIComponent(product.slug)}`
+    : `/product/${encodeURIComponent(String(product.id))}`;
 
-  const handleImageError = useCallback((e: React.SyntheticEvent<HTMLImageElement>) => {
-    const el = e.currentTarget;
-    if (!triedRef.current) triedRef.current = new Set();
-    const tried = triedRef.current;
-    // Track which extension we have attempted already from the current src
-    const extMatch = el.src.match(/\.(jpg|jpeg|png|JPG|JPEG|PNG)(?:[?#]|$)/i);
-    if (extMatch) tried.add(extMatch[1].toLowerCase());
-    // Try alternate extension if available
-    const alt = getAltExtensionCdnUrl(el.src, tried);
-    if (alt) {
-      el.src = alt;
-      return;
-    }
-    // Fallback to placeholder
-    el.src = FALLBACK_SVG;
-  }, []);
+  const triedRef = useRef<Set<string>>(new Set());
+  const safeSrc = product.image || FALLBACK_SVG;
+
+  const toneClasses: Record<string, string> = {
+    gold:  'tag-gold',
+    coral: 'tag-coral',
+    green: 'tag-green',
+    navy:  'tag-navy',
+    sand:  'tag-sand',
+  };
 
   return (
-    <div className="group bg-white rounded-xl overflow-hidden border border-ink-200 hover:border-accent-300 hover:shadow-card-hover transition-all duration-300 relative hover:-translate-y-0.5">
-      {editUrl && (
-        <Link
-          href={editUrl}
-          className="absolute top-2.5 left-2.5 z-10 inline-flex items-center gap-1 px-2 py-1 bg-accent-500 hover:bg-accent-600 text-white text-[10px] font-bold rounded-md shadow-sm transition-colors"
-          onClick={(e) => e.stopPropagation()}
-        >
-          <Edit3 className="w-3 h-3" />
-          编辑
-        </Link>
-      )}
-      <Link href={`/products/${product.slug || product.id}`} className="block">
-        <div className="relative aspect-square overflow-hidden bg-ink-50">
+    <div className={`panel-hover group relative overflow-hidden ${compact ? 'flex gap-3 p-3' : 'p-0'} rounded-2xl`}>
+      {/* ---- Image block ---- */}
+      <Link href={href} className={`block relative overflow-hidden ${compact ? 'shrink-0 w-[110px] h-[110px] sm:w-[130px] sm:h-[130px] rounded-xl' : 'aspect-square w-full'}`}>
+        {/* Image */}
+        <div className="absolute inset-0 bg-gradient-to-br from-gold-50 via-white to-sand-100">
           <Image
-            src={imageUrl || FALLBACK_SVG}
-            alt={product.name}
+            src={safeSrc}
+            alt={product.name || 'Product image'}
             fill
-            loading="lazy"
-            sizes="(max-width: 640px) 50vw, (max-width: 1024px) 25vw, 20vw"
-            className="object-cover group-hover:scale-105 transition-transform duration-500"
+            sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 20vw"
+            className="object-cover transition-all duration-500 group-hover:scale-[1.06] group-hover:rotate-[0.3deg]"
             onError={(e) => {
               const el = e.currentTarget as unknown as HTMLImageElement;
-              if (!el.dataset.fallback) {
-                el.dataset.fallback = "1";
-                (el as any).src = 'data:image/svg+xml;charset=UTF-8,' + encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300"><rect fill="#f3f4f6" width="400" height="300"/><text x="200" y="150" text-anchor="middle" font-family="sans-serif" font-size="14" fill="#9ca3af">${(product.name || '').slice(0,20)}</text></svg>`);
+              const key = el.src || '';
+              if (!triedRef.current.has(key)) {
+                triedRef.current.add(key);
+                (el as any).src = FALLBACK_SVG;
               }
             }}
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-navy-900/0 group-hover:from-navy-900/10 transition-all duration-300 pointer-events-none" />
-          {product.stockStatus === 'IN_STOCK' && (
-            <span className="absolute top-2.5 right-2.5 bg-white/90 backdrop-blur-sm text-navy-800 text-[9px] font-bold px-2 py-1 rounded-md border border-ink-200/50 uppercase tracking-wider shadow-sm">
-              In Stock
-            </span>
-          )}
         </div>
 
-        <div className="p-3.5">
-          {/* Row 1: Category + SKU on same line */}
-          <div className="flex items-center justify-between gap-2">
-            {categoryName && (
-              <span className="text-[10px] font-bold text-accent-600 uppercase tracking-[0.1em] truncate">
-                {categoryName}
-              </span>
-            )}
-            {product.sku && (
-              <span className="text-[10px] text-ink-400 font-mono truncate flex-shrink-0">
-                {product.sku}
+        {/* Subtle hover gradient overlay */}
+        <div className="absolute inset-0 bg-gradient-to-t from-navy-900/20 via-navy-900/0 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
+
+        {/* Badge (top-left) */}
+        {(badge || product.isParent) && (
+          <div className="absolute top-2.5 left-2.5 flex flex-col gap-1.5 pointer-events-none">
+            {badge && <span className={toneClasses[badgeTone]}>{badge}</span>}
+            {product.isParent && product.variants && product.variants.length > 1 && (
+              <span className="tag-navy">
+                <Package className="w-2.5 h-2.5" />
+                {product.variants.length} Variants
               </span>
             )}
           </div>
+        )}
 
-          {/* Product Name */}
-          <h3 className="mt-1 font-semibold text-navy-900 text-sm line-clamp-2 group-hover:text-accent-600 transition-colors leading-snug min-h-[2.5rem]">
-            {product.name}
-          </h3>
-
-          {/* Variant preview — color swatches & size tags */}
-          {product.isParent && product.variants && product.variants.length > 1 && (() => {
-            const variants = product.variants!;
-            // Extract unique colors and sizes
-            const colors = variants.filter(v => v.color).map(v => ({ color: v.color!, hex: v.colorHex || getColorHex(v.color) }));
-            const uniqueColors = colors.filter((c, i, arr) => arr.findIndex(x => x.color === c.color) === i).slice(0, 6);
-            const sizes = variants.filter(v => v.size).map(v => v.size!);
-            const uniqueSizes = [...new Set(sizes)].slice(0, 4);
-            const hasColors = uniqueColors.length > 0;
-            const hasSizes = uniqueSizes.length > 0;
-            const extraCount = variants.length - uniqueColors.length;
-
-            if (!hasColors && !hasSizes) return null;
-
-            return (
-              <div className="mt-1.5 space-y-1">
-                {hasColors && (
-                  <div className="flex items-center gap-1">
-                    {uniqueColors.map((c, i) => (
-                      <span
-                        key={i}
-                        className="w-3.5 h-3.5 rounded-full border border-ink-200 shadow-sm flex-shrink-0"
-                        style={{ background: c.hex || '#ccc' }}
-                        title={c.color}
-                      />
-                    ))}
-                    {extraCount > 0 && (
-                      <span className="text-[9px] text-ink-400 font-medium ml-0.5">+{extraCount}</span>
-                    )}
-                    <span className="text-[9px] text-ink-400 ml-auto font-medium">{variants.length} styles</span>
-                  </div>
-                )}
-                {hasSizes && !hasColors && (
-                  <div className="flex items-center gap-1 flex-wrap">
-                    {uniqueSizes.map((s, i) => (
-                      <span key={i} className="text-[9px] text-ink-600 bg-ink-100 px-1.5 py-0.5 rounded font-medium">
-                        {s}
-                      </span>
-                    ))}
-                    <span className="text-[9px] text-ink-400 ml-auto font-medium">{variants.length} styles</span>
-                  </div>
-                )}
-              </div>
-            );
-          })()}
-
-          {/* Row 2: Price + MOQ on same line */}
-          <div className="flex items-end justify-between mt-2.5 pt-2.5 border-t border-ink-100/60">
-            <div className="flex flex-col">
-              <span className="text-[9px] font-bold uppercase tracking-[0.12em] text-accent-600 mb-0.5">Wholesale</span>
-              <div className="flex items-baseline gap-0.5">
-                <span className="text-[10px] text-ink-400 font-medium">$</span>
-                <span className="text-lg font-extrabold text-navy-900 leading-none">{price.toFixed(2)}</span>
-                {(() => {
-                  const pmax = Number(product.priceMax || 0);
-                  if (pmax > price) return <span className="text-[10px] text-ink-400 font-medium ml-1">– ${pmax.toFixed(2)}</span>;
-                  return null;
-                })()}
-              </div>
-            </div>
-            <span className="text-[11px] text-ink-500 flex-shrink-0 mb-0.5">
-              MOQ <span className="text-navy-800 font-bold">{moq}</span>
-            </span>
-          </div>
+        {/* Hover quick actions (desktop) */}
+        <div className="absolute top-2.5 right-2.5 flex flex-col gap-1.5 opacity-0 group-hover:opacity-100 translate-x-1 group-hover:translate-x-0 transition-all duration-300 pointer-events-none">
+          <button
+            type="button"
+            aria-label="Save product"
+            className="w-9 h-9 rounded-xl bg-white/95 backdrop-blur-sm text-navy-700 hover:text-coral-500 hover:scale-105 shadow-card border border-sand-200 flex items-center justify-center pointer-events-auto"
+          >
+            <Heart className="w-4 h-4" />
+          </button>
+          <Link
+            href={href}
+            aria-label="View product"
+            className="w-9 h-9 rounded-xl bg-white/95 backdrop-blur-sm text-navy-700 hover:text-gold-600 hover:scale-105 shadow-card border border-sand-200 flex items-center justify-center pointer-events-auto"
+          >
+            <Eye className="w-4 h-4" />
+          </Link>
         </div>
+
+        {/* Bottom "Quick Add to Cart" reveal (only non-compact) */}
+        {!compact && (
+          <div className="absolute bottom-0 inset-x-0 px-2.5 pb-2.5 translate-y-full group-hover:translate-y-0 transition-transform duration-300 pointer-events-none">
+            <Link
+              href={href}
+              className="btn-cta w-full !py-2.5 !rounded-xl !text-xs pointer-events-auto shadow-coral-glow justify-center gap-1.5"
+            >
+              <ShoppingCart className="w-3.5 h-3.5" />
+              View Details &amp; Quote
+            </Link>
+          </div>
+        )}
       </Link>
+
+      {/* ---- Info block ---- */}
+      <div className={`flex flex-col ${compact ? 'min-w-0 flex-1 py-0.5' : 'p-3.5 pt-3.5'}`}>
+        {/* Category tag + MOQ row */}
+        <div className="flex items-center justify-between gap-2 mb-1.5">
+          {categoryName ? (
+            <Link
+              href={categorySlug ? `/products?category=${categorySlug}` : '/products'}
+              className="text-[10.5px] font-bold tracking-wide uppercase text-gold-700 hover:text-gold-800 truncate"
+            >
+              {categoryName}
+            </Link>
+          ) : <span className="flex-1" />}
+          <span className="text-[10.5px] font-semibold text-ink-400 whitespace-nowrap tabular">
+            MOQ <span className="text-navy-700">{moq}</span>
+          </span>
+        </div>
+
+        {/* Title */}
+        <Link href={href} className={`group/title line-clamp-2 ${compact ? 'text-sm' : 'text-[14px] sm:text-[15px]'} font-bold text-navy-900 leading-snug hover:text-gold-700 transition-colors mb-2`}>
+          {product.name || 'Untitled Product'}
+        </Link>
+
+        {/* SKU (compact only) */}
+        {compact && product.sku && (
+          <p className="text-[10.5px] font-mono text-ink-400 mb-1.5 truncate">SKU: <span className="text-ink-500">{product.sku}</span></p>
+        )}
+
+        {/* Variant color swatches (if any) */}
+        {!compact && product.variants && product.variants.length > 0 && (
+          <div className="flex items-center gap-1 mb-2.5 min-h-[18px]">
+            {product.variants.slice(0, 6).map((v, i) => (
+              <span
+                key={v.id || i}
+                title={v.color || v.size || `Variant ${i + 1}`}
+                className="w-[15px] h-[15px] rounded-full border-2 border-white shadow-paper ring-1 ring-sand-200"
+                style={{
+                  background: v.colorHex ||
+                    ['#DFB860', '#2A4469', '#E84A1E', '#ABE8BB', '#9FB6D4', '#7A5908'][i % 6],
+                }}
+              />
+            ))}
+            {product.variants.length > 6 && (
+              <span className="text-[10.5px] font-semibold text-ink-400 ml-1">+{product.variants.length - 6}</span>
+            )}
+          </div>
+        )}
+
+        <div className="mt-auto flex items-end justify-between gap-3">
+          {/* Price block */}
+          <div className="min-w-0">
+            <p className="text-[10.5px] font-bold tracking-wider uppercase text-ink-400 mb-0.5">
+              Wholesale {hasRange ? 'from' : 'price'}
+            </p>
+            <div className="flex items-baseline gap-1.5 tabular flex-wrap">
+              {hasRange ? (
+                <>
+                  <span className="price-range text-lg sm:text-xl leading-none">{fmt(price)}</span>
+                  <span className="text-ink-300 text-xs leading-none">—</span>
+                  <span className="price-range text-sm sm:text-base text-navy-700 leading-none">{fmt(priceMax)}</span>
+                </>
+              ) : (
+                <span className="price-current text-lg sm:text-[22px] leading-none tabular">{fmt(price)}</span>
+              )}
+              <span className="text-[10.5px] font-semibold text-ink-400">
+                / {product.packSize ? `${product.packSize}pcs` : 'piece'}
+              </span>
+            </div>
+          </div>
+
+          {/* Arrow CTA */}
+          <Link
+            href={href}
+            aria-label="View product details"
+            className="shrink-0 w-9 h-9 rounded-xl border border-sand-200 bg-white text-navy-700 group-hover:bg-gradient-to-b group-hover:from-gold-400 group-hover:to-gold-600 group-hover:border-gold-500 group-hover:text-white group-hover:shadow-gold-glow flex items-center justify-center transition-all duration-300"
+          >
+            <ChevronRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
+          </Link>
+        </div>
+      </div>
+
+      {/* Admin edit */}
+      {editUrl && (
+        <Link
+          href={editUrl}
+          className="absolute top-2 left-1/2 -translate-x-1/2 w-8 h-8 rounded-lg bg-navy-800/95 text-white hover:bg-gold-500 hover:shadow-gold-glow items-center justify-center hidden md:group-hover:flex transition-all z-10"
+          aria-label="Edit product"
+        >
+          <Edit3 className="w-3.5 h-3.5" />
+        </Link>
+      )}
     </div>
   );
-};
+}
 
-export default memo(ProductCard);
+export default memo(ProductCardInner, (a, b) =>
+  a.product.id === b.product.id &&
+  Number(a.product.price || a.product.priceMin || 0) === Number(b.product.price || b.product.priceMin || 0) &&
+  a.compact === b.compact
+);
