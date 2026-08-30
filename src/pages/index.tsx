@@ -318,23 +318,17 @@ const Home = ({ products, newArrivals, categories, categoryProductsMap }: { prod
                 <div className="premium-card relative aspect-[4/5] overflow-hidden">
                   {/* Gold border */}
                   <div className="absolute inset-0 gold-border-wrap rounded-3xl pointer-events-none" />
-                  <div className="absolute inset-1 rounded-[1.35rem] overflow-hidden bg-gradient-to-br from-gold-50 via-white to-sand-100 p-3">
-                    {featured[0] ? (
-                      <Image
-                        src={featured[0].image}
-                        alt={featured[0].name}
-                        fill
-                        priority
-                        sizes="(max-width: 1024px) 80vw, 420px"
-                        className="object-cover rounded-2xl"
-                        onError={(e) => {
-                          const el = e.currentTarget as HTMLImageElement;
-                          if ((el as any).dataset.fb) return;
-                          (el as any).dataset.fb = '1';
-                          (el as any).src = homePlaceholderSvg(featured[0]?.name || 'Featured', ['#FBF7EC','#F3EDDF']);
-                        }}
-                      />
-                    ) : null}
+                  <div className="absolute inset-1 rounded-[1.35rem] overflow-hidden bg-gradient-to-br from-gold-50 via-white to-sand-100">
+                    <Image
+                      src="/hero-bg-clean.jpg"
+                      alt="Premium Wholesale Collection"
+                      fill
+                      priority
+                      sizes="(max-width: 1024px) 80vw, 420px"
+                      className="object-cover rounded-2xl"
+                    />
+                    {/* Soft overlay to keep text readable */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/25 via-transparent to-transparent rounded-2xl pointer-events-none" />
                   </div>
                   {/* Top-right MOQ badge */}
                   <div className="absolute top-5 right-5 z-10 tag-gold !text-[11px] !px-3 !py-1.5 shadow-card">
