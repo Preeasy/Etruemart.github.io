@@ -38,6 +38,7 @@ import {
 import Image from 'next/image';
 import Layout from '@/components/Layout';
 import Sidebar from '@/components/Sidebar';
+import ProductCard from '@/components/ProductCard';
 import { resolveImageUrlServerSide } from '@/lib/image-utils';
 import { SITE_URL, SITE_OG_IMAGE, SITE_NAME, SITE_DESCRIPTION, SITE_COMPANY } from '@/lib/site';
 interface ProductVariantPreview {
