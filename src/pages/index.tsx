@@ -320,7 +320,7 @@ const Home = ({ products, newArrivals, categories, categoryProductsMap }: { prod
                   <div className="absolute inset-0 gold-border-wrap rounded-3xl pointer-events-none" />
                   <div className="absolute inset-1 rounded-[1.35rem] overflow-hidden bg-gradient-to-br from-gold-50 via-white to-sand-100">
                     <Image
-                      src="/hero-bg-clean.jpg"
+                      src="/hero-bg-luxury.jpg"
                       alt="Premium Wholesale Collection"
                       fill
                       priority
