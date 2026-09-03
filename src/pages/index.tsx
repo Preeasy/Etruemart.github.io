@@ -141,11 +141,11 @@ const HERO_FALLBACK = ['#fef3c7','#fed7aa'] as [string,string];
 function catImgBg(slug: string): string {
   // Consistent palette per category slug
   const palettes: Array<[string, string, string]> = [
-    ['#FAF6EE', '#F2E9D6', '#D4B87E'],
-    ['#F3F5F9', '#E4E9F1', '#6E88B3'],
-    ['#FBF2EE', '#F5DDD2', '#CC7D5C'],
+    ['#F2F6F3', '#DFEBE3', '#94B5A0'],
+    ['#FBF6EC', '#F4E8CC', '#D9B368'],
+    ['#F3F3F1', '#E7E7E4', '#A6A6A0'],
     ['#EEFBF2', '#D5F6DE', '#3EB55F'],
-    ['#F2E9D6', '#E4D2AD', '#B08D57'],
+    ['#F4E8CC', '#E8D29A', '#C68B3B'],
   ];
   let h = 0; for (let i = 0; i < slug.length; i++) h = (h * 31 + slug.charCodeAt(i)) >>> 0;
   const [a, b, accent] = palettes[h % palettes.length];
@@ -632,7 +632,7 @@ const Home = ({ products, newArrivals, categories, categoryProductsMap }: { prod
 
           <div className="relative grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
             {/* connector line (desktop) */}
-            <div className="hidden lg:block absolute top-[52px] left-[12.5%] right-[12.5%] h-0.5" style={{ background: 'linear-gradient(90deg,#D4B87E,#B08D57)' }} />
+            <div className="hidden lg:block absolute top-[52px] left-[12.5%] right-[12.5%] h-0.5" style={{ background: 'linear-gradient(90deg,#D9B368,#C68B3B)' }} />
             {SOURCING_STEPS.map((s) => (
               <div key={s.n} className="relative panel-hover !rounded-3xl p-6 sm:p-7 bg-white">
                 <div className="flex items-center justify-between mb-4">

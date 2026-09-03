@@ -532,7 +532,7 @@ const Products = () => {
                           const el = e.currentTarget as unknown as HTMLImageElement;
                           if (!el.dataset.fallback) {
                             el.dataset.fallback = "1";
-                            (el as any).src = 'data:image/svg+xml;charset=UTF-8,' + encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#FAF6EE"/><stop offset="100%" stop-color="#F2E9D6"/></linearGradient></defs><rect fill="url(#g)" width="200" height="200"/><text x="100" y="105" text-anchor="middle" font-family="Inter,system-ui,sans-serif" font-size="12" fill="#9F9C93" font-weight="600">${(product.name||'').slice(0,18)}</text></svg>`);
+                            (el as any).src = 'data:image/svg+xml;charset=UTF-8,' + encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#F2F6F3"/><stop offset="100%" stop-color="#DFEBE3"/></linearGradient></defs><rect fill="url(#g)" width="200" height="200"/><text x="100" y="105" text-anchor="middle" font-family="Inter,system-ui,sans-serif" font-size="12" fill="#8E9089" font-weight="600">${(product.name||'').slice(0,18)}</text></svg>`);
                           }
                         }}
                       />

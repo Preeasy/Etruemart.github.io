@@ -4,7 +4,7 @@ import type { Viewport } from 'next';
 export const viewport: Viewport = {
   width: 'device-width',
   initialScale: 1,
-  themeColor: '#1E2A52',
+  themeColor: '#1F3A2C',
 };
 import type { AppProps } from 'next/app';
 import { Component, ReactNode, ErrorInfo } from 'react';
