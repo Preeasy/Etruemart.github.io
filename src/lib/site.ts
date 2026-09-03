@@ -7,7 +7,7 @@ export const SITE_PHONE = '+86 18767960499';
 export const SITE_EMAIL = 'yeatrusourcing@gmail.com';
 export const SITE_WHATSAPP = '+86 18767960499';
 export const SITE_COMPANY = 'YIWU ETRUE TRADING CO.,LTD';
-export const SITE_COMPANY_CN = '义乌亿楚贸易有限公司';
+export const SITE_COMPANY_CN = '义乌弋楚贸易有限公司';
 export const SITE_ADDRESS = 'Yiwu, Zhejiang, China';
 export const SITE_OG_IMAGE = `${SITE_URL}/og-image.jpg`;
 
