@@ -106,7 +106,7 @@ const Footer = () => {
       <div className="absolute inset-0 pointer-events-none opacity-[0.07] bg-grid-navy" />
       <div
         className="absolute inset-x-0 -top-px h-px pointer-events-none"
-        style={{ background: 'linear-gradient(90deg, transparent, #DFB860, transparent)' }}
+        style={{ background: 'linear-gradient(90deg, transparent, #D4B87E, transparent)' }}
       />
 
       {/* ===== Main footer ===== */}
@@ -318,7 +318,7 @@ const Footer = () => {
       {/* Newsletter / CTA Floating subtle bottom accent */}
       <div
         className="absolute inset-x-0 bottom-0 h-px pointer-events-none"
-        style={{ background: 'linear-gradient(90deg, transparent, #DFB860, transparent)' }}
+        style={{ background: 'linear-gradient(90deg, transparent, #D4B87E, transparent)' }}
       />
     </footer>
   );

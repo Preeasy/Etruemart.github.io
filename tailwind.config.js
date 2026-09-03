@@ -9,72 +9,72 @@ export default {
   theme: {
     extend: {
       colors: {
-        // ========== NAVY BRAND — Trust, Stability, Enterprise-grade ==========
+        // ========== NAVY → DEEP INDIGO — Trust, Stability, Enterprise-grade (Atelier Commerce) ==========
         navy: {
-          50:  '#F3F6FB',
-          100: '#E5ECF5',
-          200: '#C9D6E8',
-          300: '#9FB6D4',
-          400: '#6D8EBA',
-          500: '#496DA0',
-          600: '#365686',
-          700: '#2A4469',
-          800: '#1A2D4A',
-          900: '#0F1E33',
-          950: '#081324',
+          50:  '#F3F5F9',
+          100: '#E4E9F1',
+          200: '#C7D2E3',
+          300: '#9DB0CE',
+          400: '#6E88B3',
+          500: '#4A6699',
+          600: '#38517C',
+          700: '#2C3F62',
+          800: '#232F4E',
+          900: '#1E2A52',  // brand primary
+          950: '#131C38',
         },
-        // ========== GOLD ACCENT — Premium, Quality, Middle Eastern/African prosperity vibes ==========
+        // ========== GOLD → ANTIQUE BRASS — Muted, aged metal, EU luxury detail ==========
         gold: {
-          50:  '#FBF7EC',
-          100: '#F5EBCF',
-          200: '#EBD59B',
-          300: '#DFB860',
-          400: '#D19F3D',
-          500: '#B8860B',
-          600: '#9A6F08',
-          700: '#7A5908',
-          800: '#5C440B',
-          900: '#47360E',
+          50:  '#FAF6EE',
+          100: '#F2E9D6',
+          200: '#E4D2AD',
+          300: '#D4B87E',
+          400: '#C5A165',
+          500: '#B08D57',  // brass primary
+          600: '#94743F',
+          700: '#765B30',
+          800: '#5C4724',
+          900: '#47361E',
         },
-        // ========== CORAL CTA — Energetic, Action, Commerce ==========
+        // ========== CORAL → TERRACOTTA — Single warm CTA action color ==========
         coral: {
-          50:  '#FFF5F0',
-          100: '#FFE3D4',
-          200: '#FFC1A3',
-          300: '#FF9768',
-          400: '#F46C38',
-          500: '#E84A1E',
-          600: '#C93411',
-          700: '#A22611',
-          800: '#7F2014',
-          900: '#621D14',
+          50:  '#FBF2EE',
+          100: '#F5DDD2',
+          200: '#EBBAA5',
+          300: '#DD9276',
+          400: '#CC7D5C',
+          500: '#C26B4F',  // CTA primary
+          600: '#A5553C',
+          700: '#844430',
+          800: '#663526',
+          900: '#4F2A1E',
         },
-        // ========== SAND / WARM NEUTRAL — Global markets warm palette ==========
+        // ========== SAND → BONE / LINEN — Warm paper neutrals ==========
         sand: {
-          50:  '#FAF7F2',   // default page background
-          100: '#F3EDDF',   // section separator band
-          200: '#E8DEC4',   // card border
-          300: '#D9C89A',
-          400: '#C4AB68',
+          50:  '#F7F4EE',   // Bone Paper — default page background
+          100: '#F1EBDE',   // section separator band
+          200: '#E4DCCB',   // Linen — card border
+          300: '#D3C7A8',
+          400: '#BDA86E',
         },
-        // ========== INK — Text shades ==========
+        // ========== INK — Warm text shades (near-black, never cold) ==========
         ink: {
-          50:  '#FAFAF9',
-          100: '#F5F5F3',
-          200: '#E8E6E1',
-          300: '#D3D0C9',
+          50:  '#FAF8F4',
+          100: '#F2EFE8',
+          200: '#E4E0D7',
+          300: '#CFC9BC',
           400: '#9F9C93',
-          500: '#6B6860',
+          500: '#6B6860',  // Stone — secondary text
           600: '#4A4842',
           700: '#34332F',
-          800: '#1F1E1B',
-          900: '#11100E',
+          800: '#1F1E1B',  // Ink — body text
+          900: '#131210',  // headings / darkest
         },
-        // Legacy aliases (for old pages that still reference them)
+        // Legacy aliases (for old pages that still reference them) → remapped to terracotta
         accent: {
-          50:  '#FFF5F0', 100: '#FFE3D4', 200: '#FFC1A3', 300: '#FF9768',
-          400: '#F46C38', 500: '#E84A1E', 600: '#C93411', 700: '#A22611',
-          800: '#7F2014', 900: '#621D14',
+          50:  '#FBF2EE', 100: '#F5DDD2', 200: '#EBBAA5', 300: '#DD9276',
+          400: '#CC7D5C', 500: '#C26B4F', 600: '#A5553C', 700: '#844430',
+          800: '#663526', 900: '#4F2A1E',
         },
         success: {
           50:  '#EEFBF2',
@@ -115,28 +115,28 @@ export default {
         '4xl': '1.75rem',
       },
       boxShadow: {
-        // B2B refined, not too harsh, not too flat
-        'paper':      '0 1px 2px rgba(15, 30, 51, 0.04), 0 1px 3px rgba(15, 30, 51, 0.03)',
-        'card':       '0 2px 6px rgba(15, 30, 51, 0.04), 0 4px 16px rgba(15, 30, 51, 0.04)',
-        'card-lg':    '0 4px 14px rgba(15, 30, 51, 0.06), 0 16px 40px rgba(15, 30, 51, 0.06)',
-        'card-hover': '0 10px 30px rgba(15, 30, 51, 0.10), 0 3px 10px rgba(15, 30, 51, 0.05)',
-        'premium':    '0 18px 50px rgba(15, 30, 51, 0.12), 0 6px 18px rgba(15, 30, 51, 0.06)',
-        'gold-glow':  '0 8px 24px rgba(184, 134, 11, 0.20), 0 2px 8px rgba(184, 134, 11, 0.08)',
-        'navy-glow':  '0 12px 32px rgba(26, 45, 74, 0.15), 0 4px 12px rgba(26, 45, 74, 0.08)',
-        'coral-glow': '0 10px 28px rgba(232, 74, 30, 0.22), 0 3px 10px rgba(232, 74, 30, 0.08)',
+        // B2B refined, not too harsh, not too flat — indigo/brass based
+        'paper':      '0 1px 2px rgba(30, 42, 82, 0.04), 0 1px 3px rgba(30, 42, 82, 0.03)',
+        'card':       '0 2px 6px rgba(30, 42, 82, 0.04), 0 4px 16px rgba(30, 42, 82, 0.04)',
+        'card-lg':    '0 4px 14px rgba(30, 42, 82, 0.06), 0 16px 40px rgba(30, 42, 82, 0.06)',
+        'card-hover': '0 10px 30px rgba(30, 42, 82, 0.10), 0 3px 10px rgba(30, 42, 82, 0.05)',
+        'premium':    '0 18px 50px rgba(30, 42, 82, 0.12), 0 6px 18px rgba(30, 42, 82, 0.06)',
+        'gold-glow':  '0 8px 24px rgba(176, 141, 87, 0.20), 0 2px 8px rgba(176, 141, 87, 0.08)',
+        'navy-glow':  '0 12px 32px rgba(30, 42, 82, 0.15), 0 4px 12px rgba(30, 42, 82, 0.08)',
+        'coral-glow': '0 10px 28px rgba(194, 107, 79, 0.22), 0 3px 10px rgba(194, 107, 79, 0.08)',
       },
       backgroundImage: {
-        // Luxury editorial gradients
+        // Luxury editorial gradients — Deep Indigo + Antique Brass
         'hero-gradient':
-          'radial-gradient(1200px 500px at 0% 0%, rgba(184,134,11,0.10) 0%, transparent 60%), linear-gradient(135deg, #0F1E33 0%, #1A2D4A 50%, #2A4469 100%)',
+          'radial-gradient(1200px 500px at 0% 0%, rgba(176,141,87,0.10) 0%, transparent 60%), linear-gradient(135deg, #131C38 0%, #1E2A52 50%, #2C3F62 100%)',
         'hero-texture':
-          'radial-gradient(900px 380px at 90% 10%, rgba(255,255,255,0.06) 0%, transparent 60%), radial-gradient(600px 260px at 10% 100%, rgba(184,134,11,0.16) 0%, transparent 60%)',
+          'radial-gradient(900px 380px at 90% 10%, rgba(255,255,255,0.06) 0%, transparent 60%), radial-gradient(600px 260px at 10% 100%, rgba(176,141,87,0.16) 0%, transparent 60%)',
         'cta-gradient':
-          'linear-gradient(135deg, #1A2D4A 0%, #2A4469 45%, #B8860B 200%)',
+          'linear-gradient(135deg, #1E2A52 0%, #2C3F62 45%, #B08D57 200%)',
         'gold-border':
-          'linear-gradient(135deg, #DFB860 0%, #B8860B 100%)',
+          'linear-gradient(135deg, #D4B87E 0%, #B08D57 100%)',
         'trust-stripe':
-          'linear-gradient(90deg, #F3EDDF 0%, #FAF7F2 30%, #F3EDDF 70%, #E8DEC4 100%)',
+          'linear-gradient(90deg, #F1EBDE 0%, #F7F4EE 30%, #F1EBDE 70%, #E4DCCB 100%)',
       },
       animation: {
         'fade-in':    'fadeIn 0.4s ease-out both',

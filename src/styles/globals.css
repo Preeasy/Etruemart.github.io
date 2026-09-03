@@ -47,15 +47,15 @@
     background-color: rgba(220, 170, 60, 0.25);
     color: theme('colors.navy.900');
   }
-  /* Custom scrollbar — warm gold tint */
+  /* Custom scrollbar — warm brass tint */
   ::-webkit-scrollbar { width: 10px; height: 10px; }
-  ::-webkit-scrollbar-track { background: #FAF7F2; }
+  ::-webkit-scrollbar-track { background: #F7F4EE; }
   ::-webkit-scrollbar-thumb {
-    background: #D9C89A;
+    background: #D3C7A8;
     border-radius: 8px;
-    border: 2px solid #FAF7F2;
+    border: 2px solid #F7F4EE;
   }
-  ::-webkit-scrollbar-thumb:hover { background: #C4AB68; }
+  ::-webkit-scrollbar-thumb:hover { background: #BDA86E; }
 }
 
 /* -----------------------------------------------------------------------
@@ -170,7 +170,7 @@
 
   /* Gold gradient text (for editorial accents) */
   .text-gold-gradient {
-    background: linear-gradient(135deg, #DFB860 0%, #B8860B 55%, #7A5908 100%);
+    background: linear-gradient(135deg, #D4B87E 0%, #B08D57 55%, #765B30 100%);
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
@@ -186,7 +186,7 @@
     position: absolute; inset: 0;
     border-radius: inherit;
     padding: 1.5px;
-    background: linear-gradient(135deg, #DFB860 0%, #B8860B 100%);
+    background: linear-gradient(135deg, #D4B87E 0%, #B08D57 100%);
     -webkit-mask:
       linear-gradient(#fff 0 0) content-box,
       linear-gradient(#fff 0 0);
@@ -198,26 +198,26 @@
   /* Background patterns — subtle, corporate */
   .bg-grid-navy {
     background-image:
-      linear-gradient(rgba(26, 45, 74, 0.045) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(26, 45, 74, 0.045) 1px, transparent 1px);
+      linear-gradient(rgba(30, 42, 82, 0.045) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(30, 42, 82, 0.045) 1px, transparent 1px);
     background-size: 40px 40px;
   }
   .bg-dots-gold {
-    background-image: radial-gradient(rgba(184, 134, 11, 0.18) 1px, transparent 1px);
+    background-image: radial-gradient(rgba(176, 141, 87, 0.18) 1px, transparent 1px);
     background-size: 18px 18px;
   }
   .bg-diagonal {
     background-image: repeating-linear-gradient(
       135deg,
-      rgba(26, 45, 74, 0.03) 0,
-      rgba(26, 45, 74, 0.03) 1px,
+      rgba(30, 42, 82, 0.03) 0,
+      rgba(30, 42, 82, 0.03) 1px,
       transparent 1px,
       transparent 12px
     );
   }
 
   .shimmer-bg {
-    background: linear-gradient(90deg, #f5f3ec 0%, #faf7f2 40%, #f0e6cf 60%, #faf7f2 100%);
+    background: linear-gradient(90deg, #f5f3ec 0%, #f7f4ee 40%, #f0e6cf 60%, #f7f4ee 100%);
     background-size: 200% 100%;
   }
 

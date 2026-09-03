@@ -46,7 +46,7 @@ export interface ProductCardProps {
 }
 
 const FALLBACK_SVG = `data:image/svg+xml;charset=UTF-8,${encodeURIComponent(
-  `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#FBF7EC"/><stop offset="100%" stop-color="#F3EDDF"/></linearGradient></defs><rect fill="url(#g)" width="400" height="400"/><rect x="70" y="100" width="260" height="200" rx="14" fill="white" stroke="#E8DEC4" stroke-width="3"/><circle cx="140" cy="160" r="20" fill="#DFB860"/><path d="M100 270 L155 210 L200 240 L255 195 L320 270 Z" fill="#D9C89A"/><text x="200" y="340" text-anchor="middle" font-family="Inter,system-ui,sans-serif" font-size="15" fill="#9F9C93" font-weight="600">Product Image</text></svg>`
+  `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#FAF6EE"/><stop offset="100%" stop-color="#F2E9D6"/></linearGradient></defs><rect fill="url(#g)" width="400" height="400"/><rect x="70" y="100" width="260" height="200" rx="14" fill="white" stroke="#E4DCCB" stroke-width="3"/><circle cx="140" cy="160" r="20" fill="#D4B87E"/><path d="M100 270 L155 210 L200 240 L255 195 L320 270 Z" fill="#D3C7A8"/><text x="200" y="340" text-anchor="middle" font-family="Inter,system-ui,sans-serif" font-size="15" fill="#9F9C93" font-weight="600">Product Image</text></svg>`
 )}`;
 
 const fmt = (n: number) => {
@@ -190,7 +190,7 @@ function ProductCardInner({ product, editUrl, compact, badge, badgeTone = 'gold'
                 className="w-[15px] h-[15px] rounded-full border-2 border-white shadow-paper ring-1 ring-sand-200"
                 style={{
                   background: v.colorHex ||
-                    ['#DFB860', '#2A4469', '#E84A1E', '#ABE8BB', '#9FB6D4', '#7A5908'][i % 6],
+                    ['#D4B87E', '#2C3F62', '#C26B4F', '#ABE8BB', '#9DB0CE', '#765B30'][i % 6],
                 }}
               />
             ))}
